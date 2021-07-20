@@ -41,6 +41,8 @@ if VJExists == true then
 */	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_cofr/slower.mdl")
+	util.PrecacheModel("models/vj_cofr/crawler.mdl")
+	util.PrecacheModel("models/vj_cofr/croucher.mdl")
 	util.PrecacheModel("models/vj_cofr/slower3.mdl")
 	util.PrecacheModel("models/vj_cofr/slowerno.mdl")
 	util.PrecacheModel("models/vj_cofr/slower10.mdl")
