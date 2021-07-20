@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/slower3/body_tex2"
+                "$halflambert" 1
+}

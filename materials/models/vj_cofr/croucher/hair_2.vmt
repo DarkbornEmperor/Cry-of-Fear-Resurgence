@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/croucher/hair_2"
+	"$translucent" 1
+	"$alphatest" 1
+}
