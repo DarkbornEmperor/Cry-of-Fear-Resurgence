@@ -15,7 +15,7 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 
 	local vCat = "CoF Resurgence" 
-	
+	--VJ.AddCategoryInfo("CoF Resurgence", {Icon = "vj_cncr/icons/cofr.png"})
 	VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",vCat)	
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",vCat)
 	VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",vCat)
