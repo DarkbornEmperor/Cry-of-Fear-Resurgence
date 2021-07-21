@@ -1,5 +1,5 @@
 # Cry of Fear Resurgence
- Overhaul recreation & expansion of NPCs from Cry of Fear.
+ Overhaul recreation & expansion of NPCs from Cry of Fear & Afraid of Monsters.
  
  Note: You need VJ Base and Half-Life Resurgence for everything to work:
  
