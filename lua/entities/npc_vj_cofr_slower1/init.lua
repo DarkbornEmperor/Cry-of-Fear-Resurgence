@@ -14,7 +14,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 20 --math.Rand(20,20)
+ENT.MeleeAttackDamage = 20 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.SlowPlayerOnMeleeAttack = true
@@ -148,38 +148,20 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 		self:SetBodygroup(0,3)
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
 		
-		local bloodeffect = ents.Create("info_particle_system")
-		bloodeffect:SetKeyValue("effect_name","blood_zombie_split_spray")
-		bloodeffect:SetPos(self:GetAttachment(self:LookupAttachment("head")).Pos)
-		bloodeffect:SetAngles(self:GetAttachment(self:LookupAttachment("head")).Ang)
-		bloodeffect:SetParent(self)
-		bloodeffect:Fire("SetParentAttachment","head")
-		bloodeffect:Spawn()
-		bloodeffect:Activate()
-		bloodeffect:Fire("Start","",0)
-		bloodeffect:Fire("Kill","",2)	
-		
 	elseif self.Slower_Skin == 1 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 && self.HasGibDeathParticles == true then
 		--self:EmitSound(Sound("vj_cofr/slower/head_gore.wav",45))
 	    self:SetBodygroup(0,4)		
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-
-		local bloodeffect = ents.Create("info_particle_system")
-		bloodeffect:SetKeyValue("effect_name","blood_zombie_split_spray")
-		bloodeffect:SetPos(self:GetAttachment(self:LookupAttachment("head")).Pos)
-		bloodeffect:SetAngles(self:GetAttachment(self:LookupAttachment("head")).Ang)
-		bloodeffect:SetParent(self)
-		bloodeffect:Fire("SetParentAttachment","head")
-		bloodeffect:Spawn()
-		bloodeffect:Activate()
-		bloodeffect:Fire("Start","",0)
-		bloodeffect:Fire("Kill","",2)	
+		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
 		
 	elseif self.Slower_Skin == 2 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 && self.HasGibDeathParticles == true then
 		--self:EmitSound(Sound("vj_cofr/slower/head_gore.wav",45))
 	    self:SetBodygroup(0,5)		
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-				
+		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
+end
+		return true,{DeathAnim=true}
+end
+
+*/
 		local bloodeffect = ents.Create("info_particle_system")
 		bloodeffect:SetKeyValue("effect_name","blood_zombie_split_spray")
 		bloodeffect:SetPos(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -189,11 +171,8 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 		bloodeffect:Spawn()
 		bloodeffect:Activate()
 		bloodeffect:Fire("Start","",0)
-		bloodeffect:Fire("Kill","",2)		
-				
-end
-		return true,{DeathAnim=true}
-end
+		bloodeffect:Fire("Kill","",2)
+/*		
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

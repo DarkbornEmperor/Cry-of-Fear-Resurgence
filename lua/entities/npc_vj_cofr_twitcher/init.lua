@@ -35,7 +35,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 20 --math.Rand(20,20)
+ENT.MeleeAttackDamage = 20 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.SlowPlayerOnMeleeAttack = true
@@ -60,7 +60,6 @@ ENT.HitGroupFlinching_Values = {
 }
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8 
-ENT.GibOnDeathDamagesTable = {"All"}
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person

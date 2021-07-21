@@ -15,7 +15,8 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 
 	local vCat = "CoF Resurgence" 
-	--VJ.AddCategoryInfo("CoF Resurgence", {Icon = "vj_cncr/icons/cofr.png"})
+	VJ.AddCategoryInfo("CoF Resurgence", {Icon = "vj_cofr/icons/cofr.png"})
+	-- Cry of Fear --
 	VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",vCat)	
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",vCat)
 	VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",vCat)
@@ -24,13 +25,17 @@ if VJExists == true then
 	VJ.AddNPC("Crawler","npc_vj_cofr_crawler",vCat)
 	VJ.AddNPC("Croucher","npc_vj_cofr_croucher",vCat)
 	VJ.AddNPC("Baby","npc_vj_cofr_baby",vCat) 
-	--VJ.AddNPC("Children","npc_vj_cofr_children",vCat)
+	VJ.AddNPC("Children","npc_vj_cofr_children",vCat)
     VJ.AddNPC("Faster","npc_vj_cofr_faster",vCat)
     VJ.AddNPC("Drowned","npc_vj_cofr_drowned",vCat)
+	VJ.AddNPC("Crazyrunner","npc_vj_cofr_crazyrunner",vCat)
+	VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)
+	
+	-- Afraid of Monsters --
     VJ.AddNPC("Twitcher","npc_vj_cofr_twitcher",vCat)
-    VJ.AddNPC("Handcrab","npc_vj_cofr_handcrab",vCat)	
+    VJ.AddNPC("Handcrab","npc_vj_cofr_handcrab",vCat)
+	
 /*		
-    VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)
     VJ.AddNPC("Psycho","npc_vj_cofr_psycho",vCat)
     VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat) 
     VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
@@ -48,8 +53,35 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_cofr/slower3.mdl")
 	util.PrecacheModel("models/vj_cofr/slowerno.mdl")
 	util.PrecacheModel("models/vj_cofr/slower10.mdl")
-	util.PrecacheModel("models/vj_cofr/slower102.mdl")
-	
+	util.PrecacheModel("models/vj_cofr/slower102.mdl")	
+	util.PrecacheModel("models/vj_cofr/baby.mdl")
+	util.PrecacheModel("models/vj_cofr/faster.mdl")
+	util.PrecacheModel("models/vj_cofr/faster2.mdl")
+	util.PrecacheModel("models/vj_cofr/drowned.mdl")
+	util.PrecacheModel("models/vj_cofr/headcrab.mdl")
+	util.PrecacheModel("models/vj_cofr/sewmo.mdl")
+	util.PrecacheModel("models/vj_cofr/crazyrunner.mdl")
+	util.PrecacheModel("models/vj_cofr/children.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie2.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie3.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie4.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie5.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie2_1.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie2_2.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie2_3.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie2_4.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie2_5.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie3_1.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie3_2.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie3_3.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie3_4.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie3_5.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie4_1.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie4_2.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie4_3.mdl")	
+	util.PrecacheModel("models/vj_cofr/zombie4_4.mdl")
+	util.PrecacheModel("models/vj_cofr/zombie4_5.mdl")		
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
