@@ -23,12 +23,14 @@ if VJExists == true then
 	VJ.AddNPC("Slower 10-2","npc_vj_cofr_slower102",vCat)
 	VJ.AddNPC("Crawler","npc_vj_cofr_crawler",vCat)
 	VJ.AddNPC("Croucher","npc_vj_cofr_croucher",vCat)
-/*		
 	VJ.AddNPC("Baby","npc_vj_cofr_baby",vCat) 
-	VJ.AddNPC("Children","npc_vj_cofr_children",vCat)
-    VJ.AddNPC("Faster","npc_vj_cofr_faster",vCat)	
-    VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)
+	--VJ.AddNPC("Children","npc_vj_cofr_children",vCat)
+    VJ.AddNPC("Faster","npc_vj_cofr_faster",vCat)
     VJ.AddNPC("Drowned","npc_vj_cofr_drowned",vCat)
+    VJ.AddNPC("Twitcher","npc_vj_cofr_twitcher",vCat)
+    VJ.AddNPC("Handcrab","npc_vj_cofr_handcrab",vCat)	
+/*		
+    VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)
     VJ.AddNPC("Psycho","npc_vj_cofr_psycho",vCat)
     VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat) 
     VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)

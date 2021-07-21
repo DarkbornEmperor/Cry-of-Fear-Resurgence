@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/slower.mdl"} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 

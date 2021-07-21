@@ -1,5 +1,4 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/slower3/skoside"
-                "$halflambert" 1
 }
