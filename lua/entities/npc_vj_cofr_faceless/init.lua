@@ -61,7 +61,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/slower/hammer_miss1.wav",
 "vj_cofr/slower/hammer_miss2.wav"
 }
--- Custom
 ENT.Slower_Skin = 0
 ENT.Slower_Type = 0 
  	-- 0 = Slower 1
@@ -71,7 +70,6 @@ ENT.Slower_Type = 0
 	-- 4 = Slower No
 	-- 5 = Slower 10
 	-- 6 = Slower 10-2
-	-- 7 = Upper
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
 local Slower_Body = math.random(1,3)
@@ -114,9 +112,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_cofr/slower10.mdl" then
 		self.Slower_Type = 5
 	elseif self:GetModel() == "models/vj_cofr/slower102.mdl" then
-		self.Slower_Type = 6
-	elseif self:GetModel() == "models/vj_cofr/upper.mdl" then
-		self.Slower_Type = 7		
+		self.Slower_Type = 6			
 end
      self:Slower_CustomOnInitialize()
 end
@@ -160,7 +156,6 @@ end
 		return true,{DeathAnim=true}
 end
 
-
 		--local bloodeffect = ents.Create("info_particle_system")
 		--bloodeffect:SetKeyValue("effect_name","blood_zombie_split_spray")
 		--bloodeffect:SetPos(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -170,8 +165,7 @@ end
 		--bloodeffect:Spawn()
 		--bloodeffect:Activate()
 		--bloodeffect:Fire("Start","",0)
-		--bloodeffect:Fire("Kill","",2)
-		
+		--bloodeffect:Fire("Kill","",2)	
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
