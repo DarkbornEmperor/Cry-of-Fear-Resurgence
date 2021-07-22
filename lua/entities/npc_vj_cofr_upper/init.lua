@@ -5,22 +5,39 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/slower3.mdl"} 
+ENT.Model = {"models/vj_cofr/upper.mdl"} 
+	-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_MeleeAttack = {
+"vj_cofr/faceless/fist_strike1.wav",
+"vj_cofr/faceless/fist_strike2.wav",
+"vj_cofr/faceless/fist_strike3.wav"
+}	
+ENT.SoundTbl_MeleeAttackMiss = {
+"vj_cofr/faceless/fist_miss1.wav",
+"vj_cofr/faceless/fist_miss2.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/slower3/slower_alert10.wav",
-	"vj_cofr/slower3/slower_alert20.wav",
-	"vj_cofr/slower3/slower_alert30.wav"
+	"vj_cofr/upper/sickscream.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/slower3/slower_attack1.wav",
-	"vj_cofr/slower3/slower_attack2.wav"
+	"vj_cofr/slower/slower_attack1.wav",
+	"vj_cofr/slower/slower_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/slower3/slower_pain1.wav",
-	"vj_cofr/slower3/slower_pain2.wav"
+	"vj_cofr/slower/slower_pain1.wav",
+	"vj_cofr/slower/slower_pain2.wav"
 }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	 if hitgroup == HITGROUP_HEAD then
+		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+	else
+		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
+   end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)

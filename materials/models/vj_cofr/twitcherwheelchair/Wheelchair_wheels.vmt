@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/twitcherwheelchair/Wheelchair_wheels"
+	"$alphatest" 1
+}
