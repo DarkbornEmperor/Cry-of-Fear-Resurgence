@@ -33,7 +33,11 @@ if VJExists == true then
 	VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)
 	VJ.AddNPC("Citalopram","npc_vj_cofr_citalopram",vCat)
 	VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat) 
-	VJ.AddNPC("Krypandenej","npc_vj_cofr_krypandenej",vCat)		
+	VJ.AddNPC("Krypandenej","npc_vj_cofr_krypandenej",vCat)
+    VJ.AddNPC("Suicider","npc_vj_cofr_suicider",vCat)
+	VJ.AddNPC("Taller","npc_vj_cofr_taller",vCat)
+    VJ.AddNPC("Psycho","npc_vj_cofr_psycho",vCat)	
+	VJ.AddNPC("Stranger","npc_vj_cofr_stranger",vCat)
 	
 	-- Afraid of Monsters --
     VJ.AddNPC("Twitcher","npc_vj_cofr_twitcher",vCat)
@@ -49,12 +53,8 @@ if VJExists == true then
 	VJ.AddNPC("Mouth Monster","npc_vj_cofr_mouth",vCat)
 	VJ.AddNPC("Abomination","npc_vj_cofr_abomination",vCat)
 	VJ.AddNPC("Twitcher Spitter","npc_vj_cofr_twitcherspit",vCat)
-    VJ.AddNPC("Psycho","npc_vj_cofr_psycho",vCat)
     VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
     VJ.AddNPC("Spitter","npc_vj_cofr_spitter",vCat)
-    VJ.AddNPC("Stranger","npc_vj_cofr_stranger",vCat)
-    VJ.AddNPC("Suicider","npc_vj_cofr_suicider",vCat)
-	VJ.AddNPC("Taller","npc_vj_cofr_taller",vCat)
     VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat) 	
 */	
 

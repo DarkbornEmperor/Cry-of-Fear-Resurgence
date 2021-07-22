@@ -28,9 +28,14 @@ ENT.Model = {
 "models/vj_cofr/zombie_da.mdl"
 } 
 ENT.CanFlinch = 0
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()	
+function ENT:CustomOnInitialize()
+     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))	
      self:Twitcher_CustomOnInitialize()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

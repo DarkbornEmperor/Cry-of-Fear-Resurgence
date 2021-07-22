@@ -135,43 +135,51 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT,ACT_DIEVIOLENT}
+		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-   end
 end
+	local headsplat = math.random(1,3)
+	if headsplat == 1 then
+		self.AnimTbl_Death = {ACT_DIEVIOLENT}
+		timer.Simple(1,function()
+			if IsValid(self) then
+				self:RunGibOnDeathCode(dmginfo,hitgroup,{CustomDmgTbl={"All"}})
+			end
+		end)
+	end
+end   
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-	if self.Slower_Skin == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 && self.HasGibDeathParticles == true then
-	    --self:EmitSound(Sound("vj_cofr/slower/head_gore.wav",45))
-		self:SetBodygroup(0,3)
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+    if self.DeathAnimationCodeRan == false then return false end
+
+	if self.Slower_Skin == 0 then self:SetBodygroup(0,3) end
+	if self.Slower_Skin == 1 then self:SetBodygroup(0,4) end
+	if self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
+
+	if self.HasGibDeathParticles == true then
+		local bloodeffect = EffectData()
+		bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
+		bloodeffect:SetScale(30)
+		util.Effect("VJ_Blood1",bloodeffect)
 		
-	elseif self.Slower_Skin == 1 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 && self.HasGibDeathParticles == true then
-		--self:EmitSound(Sound("vj_cofr/slower/head_gore.wav",45))
-	    self:SetBodygroup(0,4)		
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
-		
-	elseif self.Slower_Skin == 2 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 && self.HasGibDeathParticles == true then
-		--self:EmitSound(Sound("vj_cofr/slower/head_gore.wav",45))
-	    self:SetBodygroup(0,5)		
+		local bloodspray = EffectData()
+		bloodspray:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+		bloodspray:SetScale(4)
+		bloodspray:SetFlags(3)
+		bloodspray:SetColor(0)
+		util.Effect("bloodspray",bloodspray)
+		util.Effect("bloodspray",bloodspray)
+end
+		VJ_EmitSound(self,"vj_cofr/common/bodysplat.wav",85)	
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
-end
 		return true,{DeathAnim=true}
+end	
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup) 
+return false 
 end
-
-
-		--local bloodeffect = ents.Create("info_particle_system")
-		--bloodeffect:SetKeyValue("effect_name","blood_zombie_split_spray")
-		--bloodeffect:SetPos(self:GetAttachment(self:LookupAttachment("head")).Pos)
-		--bloodeffect:SetAngles(self:GetAttachment(self:LookupAttachment("head")).Ang)
-		--bloodeffect:SetParent(self)
-		--bloodeffect:Fire("SetParentAttachment","head")
-		--bloodeffect:Spawn()
-		--bloodeffect:Activate()
-		--bloodeffect:Fire("Start","",0)
-		--bloodeffect:Fire("Kill","",2)
-		
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

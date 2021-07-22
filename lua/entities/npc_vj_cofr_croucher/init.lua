@@ -25,7 +25,6 @@ elseif Slower_Body == 3 then
     self.Slower_Skin = 2
     self:SetBodygroup(0,2)	
 end	
-    self:SetCollisionBounds(Vector(13, 13, 30), Vector(-13, -13, 0))
     self.SoundTbl_Alert = {
 	"vj_cofr/slower/slower_alert10.wav",
 	"vj_cofr/slower/slower_alert20.wav",
@@ -39,6 +38,7 @@ end
 	"vj_cofr/slower/slower_pain1.wav",
 	"vj_cofr/slower/slower_pain2.wav"
 }
+    self:SetCollisionBounds(Vector(13, 13, 30), Vector(-13, -13, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
@@ -49,7 +49,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
