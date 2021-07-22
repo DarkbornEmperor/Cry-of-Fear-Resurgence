@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "vj_cofr/sprites/face"
+	"$additive" 1
+}

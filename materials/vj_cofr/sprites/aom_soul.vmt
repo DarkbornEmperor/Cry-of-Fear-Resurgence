@@ -1,0 +1,15 @@
+"VertexlitGeneric"
+{
+"$baseTexture" "vj_cofr/sprites/aom_soul"
+"$surfaceprop" "Default"
+"$additive" 1
+"Proxies"
+{
+"AnimatedTexture"
+{
+"animatedTextureVar" "$basetexture"
+"animatedTextureFrameNumVar" "$frame"
+"animatedTextureFrameRate" "1"
+}
+}
+}
