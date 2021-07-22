@@ -56,6 +56,19 @@ if VJExists == true then
 	VJ.AddNPC("Taller","npc_vj_cofr_taller",vCat)
     VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat) 	
 */	
+
+    -- Particles --
+    game.AddParticles( "particles/vj_cofr_soul.pcf" )
+    game.AddParticles( "particles/vj_cofr_soulsplat.pcf" )
+    game.AddParticles( "particles/vj_cofr_face.pcf" )
+    game.AddParticles( "particles/vj_cofr_spit.pcf" )
+	game.AddParticles( "particles/vj_cofr_spitgib.pcf" )
+    PrecacheParticleSystem("face")
+    PrecacheParticleSystem("aomsoul")
+    PrecacheParticleSystem("aomsoulsplat")
+    PrecacheParticleSystem("mommaspit")
+	PrecacheParticleSystem("MommaSpitGib")
+	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_cofr/slower.mdl")
 	util.PrecacheModel("models/vj_cofr/crawler.mdl")
