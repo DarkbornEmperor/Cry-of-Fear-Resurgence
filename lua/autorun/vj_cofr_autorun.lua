@@ -37,6 +37,7 @@ if VJExists == true then
 	
 	-- Afraid of Monsters --
     VJ.AddNPC("Twitcher","npc_vj_cofr_twitcher",vCat)
+	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofr_twitcherda",vCat)
     VJ.AddNPC("Handcrab","npc_vj_cofr_handcrab",vCat)
 	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofr_wheelchair",vCat)	
 	
