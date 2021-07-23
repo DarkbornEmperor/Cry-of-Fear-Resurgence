@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/hangman/tex2"
+	"$alphatest" 1
+}

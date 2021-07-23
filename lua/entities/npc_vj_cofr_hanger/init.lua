@@ -1,0 +1,71 @@
+AddCSLuaFile("shared.lua")
+include('shared.lua')
+/*-----------------------------------------------
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/
+ENT.Model = {"models/vj_cofr/cof/hanger.mdl"} 
+ENT.StartHealth = 50
+ENT.HullType = HULL_HUMAN
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.MovementType = VJ_MOVETYPE_STATIONARY 
+ENT.CanTurnWhileStationary = false
+ENT.Bleeds = false
+ENT.CallForHelp = false
+ENT.HasMeleeAttack = true
+ENT.DisableMeleeAttackAnimation = false
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDamage = 25 
+ENT.MeleeAttackDistance = 30 
+ENT.MeleeAttackDamageDistance = 60
+ENT.SlowPlayerOnMeleeAttack = true
+ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
+ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
+ENT.SlowPlayerOnMeleeAttackTime = 0.5
+ENT.GeneralSoundPitch1 = 100
+ENT.GeneralSoundPitch2 = 100
+ENT.HasDeathAnimation = true 
+ENT.AnimTbl_Death = {ACT_MELEE_ATTACK1}
+ENT.DeathAnimationTime = 8 
+	-- ====== Controller Data ====== --
+ENT.VJC_Data = {
+	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+	ThirdP_Offset = Vector(30, 25, -40), -- The offset for the controller when the camera is in third person
+	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+}	
+-- Custom
+ENT.Hanger_Death = false
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Hanger_CustomOnInitialize()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+     self:DrawShadow(false)
+     self:AddFlags(FL_NOTARGET)
+     self:Hanger_CustomOnInitialize()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "attack" then
+		self:MeleeAttackCode()
+    end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_BeforeChecks()
+	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
+	VJ_EmitSound(self, "vj_cofr/hanger/hangerscream"..math.random(1,3)..".wav", 85, 100)
+	timer.Simple(0.5,function()
+	if IsValid(self) then	
+	self:SetGroundEntity(NULL)
+	self.Hanger_Death = true
+	self:TakeDamage(999999999999999,self,self)
+end	
+end)
+end
+/*-----------------------------------------------
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/

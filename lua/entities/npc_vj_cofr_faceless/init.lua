@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/faceless.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/faceless.mdl"} 
 ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
@@ -86,15 +86,15 @@ function ENT:Faceless_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self:GetModel() == "models/vj_cofr/faceless.mdl" then // Already the default
+	if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" then // Already the default
 		self.Faceless_Type = 0
-	elseif self:GetModel() == "models/vj_cofr/faceless2.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/faceless2.mdl" then
 		self.Faceless_Type = 1
-	elseif self:GetModel() == "models/vj_cofr/faceless3.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/faceless3.mdl" then
 		self.Faceless_Type = 2			
-	elseif self:GetModel() == "models/vj_cofr/faceless_twister.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister.mdl" then
 		self.Faceless_Type = 3
-	elseif self:GetModel() == "models/vj_cofr/faceless_twisterv.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/faceless_twisterv.mdl" then
 		self.Faceless_Type = 4			
 end
      self:Faceless_CustomOnInitialize()

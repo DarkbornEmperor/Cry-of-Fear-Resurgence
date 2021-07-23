@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/suicider.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/suicider.mdl"} 
 ENT.StartHealth = 70
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
@@ -28,7 +28,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
+ENT.AnimTbl_Death = {ACT_DIE_HEADSHOT} 
 ENT.DeathAnimationTime = 8 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -50,7 +50,15 @@ ENT.Suicider_DeathSuicide = false
 ENT.Suicider_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Suicider_CustomOnInitialize()
-
+    self.SoundTbl_Alert = {
+	"vj_cofr/slower/slower_alert10.wav",
+	"vj_cofr/slower/slower_alert20.wav",
+	"vj_cofr/slower/slower_alert30.wav"
+}
+    self.SoundTbl_Pain = {
+	"vj_cofr/slower/slower_pain1.wav",
+	"vj_cofr/slower/slower_pain2.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -122,6 +130,11 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self:IsMoving() then 
+	   self.AnimTbl_Death = {ACT_DIESIMPLE}	
+	else
+       self.AnimTbl_Death = {ACT_DIE_HEADSHOT}		
+end
 	if self.Suicider_DeathSuicide == true then
 		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
 		timer.Simple(0.5,function()
@@ -131,7 +144,6 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 				VJ_EmitSound(self,"vj_cofr/suicider/suicider_glock_fire.wav",100)
 				VJ_EmitSound(self,"vj_cofr/common/bodysplat.wav",85)
 				ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
-				--self:PlayGibOnDeathSounds(dmginfo,hitgroup)
 				if self.HasGibDeathParticles == true then
 					local bloodeffect = EffectData()
 					bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -149,6 +161,10 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 			end
 		end)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup) 
+return false 
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

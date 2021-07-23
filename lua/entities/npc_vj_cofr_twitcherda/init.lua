@@ -6,26 +6,26 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl",
-"models/vj_cofr/zombie_da.mdl"
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl",
+"models/vj_cofr/aom/zombie_da.mdl"
 } 
 ENT.CanFlinch = 0
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}

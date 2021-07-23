@@ -6,26 +6,26 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {
-"models/vj_cofr/zombie.mdl",
-"models/vj_cofr/zombie2.mdl",
-"models/vj_cofr/zombie3.mdl",
-"models/vj_cofr/zombie4.mdl",
-"models/vj_cofr/zombie5.mdl",
-"models/vj_cofr/zombie2_1.mdl",
-"models/vj_cofr/zombie2_2.mdl",
-"models/vj_cofr/zombie2_3.mdl",
-"models/vj_cofr/zombie2_4.mdl",
-"models/vj_cofr/zombie2_5.mdl",
-"models/vj_cofr/zombie3_1.mdl",
-"models/vj_cofr/zombie3_2.mdl",
-"models/vj_cofr/zombie3_3.mdl",
-"models/vj_cofr/zombie3_4.mdl",
-"models/vj_cofr/zombie3_5.mdl",
-"models/vj_cofr/zombie4_1.mdl",
-"models/vj_cofr/zombie4_2.mdl",
-"models/vj_cofr/zombie4_3.mdl",
-"models/vj_cofr/zombie4_4.mdl",
-"models/vj_cofr/zombie4_5.mdl"
+"models/vj_cofr/aom/zombie.mdl",
+"models/vj_cofr/aom/zombie2.mdl",
+"models/vj_cofr/aom/zombie3.mdl",
+"models/vj_cofr/aom/zombie4.mdl",
+"models/vj_cofr/aom/zombie5.mdl",
+"models/vj_cofr/aom/zombie2_1.mdl",
+"models/vj_cofr/aom/zombie2_2.mdl",
+"models/vj_cofr/aom/zombie2_3.mdl",
+"models/vj_cofr/aom/zombie2_4.mdl",
+"models/vj_cofr/aom/zombie2_5.mdl",
+"models/vj_cofr/aom/zombie3_1.mdl",
+"models/vj_cofr/aom/zombie3_2.mdl",
+"models/vj_cofr/aom/zombie3_3.mdl",
+"models/vj_cofr/aom/zombie3_4.mdl",
+"models/vj_cofr/aom/zombie3_5.mdl",
+"models/vj_cofr/aom/zombie4_1.mdl",
+"models/vj_cofr/aom/zombie4_2.mdl",
+"models/vj_cofr/aom/zombie4_3.mdl",
+"models/vj_cofr/aom/zombie4_4.mdl",
+"models/vj_cofr/aom/zombie4_5.mdl"
 } 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
@@ -116,23 +116,23 @@ elseif Twitcher_Sounds == 2 then
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self:GetModel() == "models/vj_cofr/zombie.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie2_1.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie3_1.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie4_1.mdl" then 
+	if self:GetModel() == "models/vj_cofr/aom/zombie.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie2_1.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl" then 
        self:SetBodygroup(0,math.random(0,3))
 	   
-elseif self:GetModel() == "models/vj_cofr/zombie2.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie2_2.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie3_2.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie4_2.mdl" then 
+elseif self:GetModel() == "models/vj_cofr/aom/zombie2.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl" then 
        self:SetBodygroup(0,math.random(0,2))
 		   
-elseif self:GetModel() == "models/vj_cofr/zombie3.mdl" 
-	or self:GetModel() == "models/vj_cofr/zombie2_5.mdl"
-	or self:GetModel() == "models/vj_cofr/zombie3_5.mdl"
-	or self:GetModel() == "models/vj_cofr/zombie4_5.mdl"
-	or self:GetModel() == "models/vj_cofr/zombie5_5.mdl" then 
+elseif self:GetModel() == "models/vj_cofr/aom/zombie3.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombie2_5.mdl"
+	or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl"
+	or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl"
+	or self:GetModel() == "models/vj_cofr/aom/zombie5_5.mdl" then 
        self:SetBodygroup(0,math.random(0,1))
 end		
      self:Twitcher_CustomOnInitialize()

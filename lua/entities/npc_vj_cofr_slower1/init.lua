@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/slower.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/slower.mdl"} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
@@ -101,21 +101,21 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self:GetModel() == "models/vj_cofr/slower.mdl" then // Already the default
+	if self:GetModel() == "models/vj_cofr/cof/slower.mdl" then // Already the default
 		self.Slower_Type = 0
-	elseif self:GetModel() == "models/vj_cofr/crawler.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" then
 		self.Slower_Type = 1
-	elseif self:GetModel() == "models/vj_cofr/croucher.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" then
 		self.Slower_Type = 2			
-	elseif self:GetModel() == "models/vj_cofr/slower3.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" then
 		self.Slower_Type = 3
-	elseif self:GetModel() == "models/vj_cofr/slowerno.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" then
 		self.Slower_Type = 4
-	elseif self:GetModel() == "models/vj_cofr/slower10.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/slower10.mdl" then
 		self.Slower_Type = 5
-	elseif self:GetModel() == "models/vj_cofr/slower102.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" then
 		self.Slower_Type = 6
-	elseif self:GetModel() == "models/vj_cofr/upper.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
 		self.Slower_Type = 7		
 end
      self:Slower_CustomOnInitialize()

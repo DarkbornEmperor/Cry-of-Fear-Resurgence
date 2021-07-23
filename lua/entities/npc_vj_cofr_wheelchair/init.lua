@@ -5,22 +5,23 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/wheelchair_monster.mdl"} 
+ENT.Model = {"models/vj_cofr/aom/wheelchair_monster.mdl"} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
-ENT.HasMeleeAttack = true 
-ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 20 
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
+ENT.HasMeleeAttack = false 
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
+ENT.RangeDistance = 80
+ENT.RangeToMeleeDistance = 1
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.RangeUseAttachmentForPos = true 
+ENT.AnimTbl_RangeAttack = {ACT_MELEE_ATTACK1}
+ENT.RangeUseAttachmentForPosID = "mouth"
+ENT.NextRangeAttackTime = 1
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -45,7 +46,7 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/wheelchair/wheel03.wav",
 "vj_cofr/wheelchair/wheel04.wav"
 }
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_RangeAttack = {
 "vj_cofr/wheelchair/wcm_squirt.wav"
 }	
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 end
 	if key == "attack" then
-		self:MeleeAttackCode()
+		self:RangeAttackCode()
 		--ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
     end		
 end

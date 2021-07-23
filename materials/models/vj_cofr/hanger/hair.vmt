@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/hanger/hair"
+	//"$alphatest" 1
+                "$additive" 1 
+}
