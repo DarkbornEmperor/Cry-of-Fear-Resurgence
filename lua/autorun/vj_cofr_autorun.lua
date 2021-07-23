@@ -28,11 +28,16 @@ if VJExists == true then
 	VJ.AddNPC("Baby","npc_vj_cofr_baby",vCat) 
 	VJ.AddNPC("Children","npc_vj_cofr_children",vCat)
     VJ.AddNPC("Faster","npc_vj_cofr_faster",vCat)
+	VJ.AddNPC("Faster (Male)","npc_vj_cofr_fastermale",vCat)
     VJ.AddNPC("Drowned","npc_vj_cofr_drowned",vCat)
 	VJ.AddNPC("Crazyrunner","npc_vj_cofr_crazyrunner",vCat)
 	VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)
 	VJ.AddNPC("Citalopram","npc_vj_cofr_citalopram",vCat)
-	VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat) 
+	VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat)
+    VJ.AddNPC("Faceless (Crawler)","npc_vj_cofr_faceless2",vCat)
+    VJ.AddNPC("Faceless (Faced)","npc_vj_cofr_faced",vCat)
+    VJ.AddNPC("Faceless (Twister)","npc_vj_cofr_twister",vCat)
+    VJ.AddNPC("Faceless (Twister Valve)","npc_vj_cofr_twisterv",vCat)	
 	VJ.AddNPC("Krypandenej","npc_vj_cofr_krypandenej",vCat)
     VJ.AddNPC("Suicider","npc_vj_cofr_suicider",vCat)
 	VJ.AddNPC("Taller","npc_vj_cofr_taller",vCat)
@@ -42,7 +47,11 @@ if VJExists == true then
 	VJ.AddNPC("Hanger","npc_vj_cofr_hanger",vCat)
 	VJ.AddNPC("Flygare","npc_vj_cofr_flygare",vCat)
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
+	VJ.AddNPC("Dreamer (Runner)","npc_vj_cofr_dreamerrunner",vCat)
 	VJ.AddNPC("Hangman","npc_vj_cofr_hangman",vCat)
+	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
+    VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
+    VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat) 
 	
 	-- Afraid of Monsters --
     VJ.AddNPC("Twitcher","npc_vj_cofr_twitcher",vCat)
@@ -57,8 +66,7 @@ if VJExists == true then
     VJ.AddNPC("One-Eyed Dog","npc_vj_cofr_dog",vCat)
 	VJ.AddNPC("Mouth Monster","npc_vj_cofr_mouth",vCat)
 	VJ.AddNPC("Abomination","npc_vj_cofr_abomination",vCat)
-	VJ.AddNPC("Twitcher Spitter","npc_vj_cofr_twitcherspit",vCat)
-    VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat) 	
+	VJ.AddNPC("Twitcher Spitter","npc_vj_cofr_twitcherspit",vCat)	
 */	
 
     -- Particles --
@@ -106,7 +114,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/hangman.mdl")
     util.PrecacheModel("models/vj_cofr/cof/flygare.mdl")
     util.PrecacheModel("models/vj_cofr/cof/dreamer.mdl")	
-
+    util.PrecacheModel("models/vj_cofr/cof/dreamerrunner.mdl")
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")

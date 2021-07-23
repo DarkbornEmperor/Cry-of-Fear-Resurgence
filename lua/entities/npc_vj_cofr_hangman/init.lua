@@ -14,6 +14,7 @@ ENT.CallForHelp = false
 ENT.HasMeleeAttack = true 
 ENT.AnimTbl_MeleeAttack = {ACT_IDLE}
 ENT.TimeUntilMeleeAttackDamage = 0.001
+ENT.NextAnyAttackTime_Melee = 0.5
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60

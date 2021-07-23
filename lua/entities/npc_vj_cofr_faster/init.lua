@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/faster.mdl","models/vj_cofr/cof/faster2.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/faster.mdl"} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
@@ -55,17 +55,13 @@ ENT.Faster_Type = 0
 	-- 1 = Male
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_CustomOnInitialize()
---if self.Faster_Type == 1 then
-/*
-   self.IdleSoundPitch = VJ_Set(50, 50)
-   self.CombatIdleSoundPitch = VJ_Set(50, 50)
-   self.AlertSoundPitch = VJ_Set(50, 50)
-   self.CallForHelpSoundPitch = VJ_Set(50, 50)
-   self.BeforeMeleeAttackSoundPitch = VJ_Set(50, 50)
-   self.PainSoundPitch = VJ_Set(50, 50)
-   self.DeathSoundPitch = VJ_Set(50, 50)
-*/
---end
+if self.Faster_Type == 1 then
+   self.AlertSoundPitch = VJ_Set(70, 70)
+   self.BeforeMeleeAttackSoundPitch = VJ_Set(70, 70)
+   self.PainSoundPitch = VJ_Set(70, 70)
+   self.DeathSoundPitch = VJ_Set(70, 70)
+
+end
     self.SoundTbl_Alert = {
 	"vj_cofr/faster/faster_alert1.wav",
 	"vj_cofr/faster/faster_alert2.wav"

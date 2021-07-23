@@ -53,11 +53,6 @@ function ENT:CrazyRunner_CustomOnInitialize()
 	"vj_cofr/rcrazy/rc_alert2.wav",
 	"vj_cofr/rcrazy/rc_alert3.wav"
 }
-    self.SoundTbl_CombatIdle = {
-	"vj_cofr/rcrazy/rc_alert1.wav",
-	"vj_cofr/rcrazy/rc_alert2.wav",
-	"vj_cofr/rcrazy/rc_alert3.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

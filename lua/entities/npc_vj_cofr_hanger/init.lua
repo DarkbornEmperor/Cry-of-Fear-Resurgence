@@ -59,6 +59,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	timer.Simple(0.5,function()
 	if IsValid(self) then	
 	self:SetGroundEntity(NULL)
+	self:DrawShadow(true)
 	self.Hanger_Death = true
 	self:TakeDamage(999999999999999,self,self)
 end	
