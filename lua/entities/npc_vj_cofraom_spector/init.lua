@@ -12,7 +12,8 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"}
 ENT.Bleeds = false
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
+ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 10 
@@ -23,7 +24,7 @@ ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
 ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.HasRangeAttack = true 
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_soul" 
+ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spector_soul" 
 ENT.RangeDistance = 1100 
 ENT.RangeToMeleeDistance = 200 
 ENT.TimeUntilRangeAttackProjectileRelease = false 
@@ -51,7 +52,7 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = false 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 	-- ====== Controller Data ====== --
@@ -82,7 +83,7 @@ ENT.Spector_Face = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spector_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	--"vj_cofr/agrunt/ag_alert1.wav",
+	"vj_cofr/agrunt/ag_alert1.mp3",
 	"vj_cofr/agrunt/ag_alert2.wav",
 	"vj_cofr/agrunt/ag_alert3.wav",
 	"vj_cofr/agrunt/ag_alert4.wav",
@@ -147,18 +148,18 @@ function ENT:CustomOnThink_AIEnabled()
 	    self.IdleEffect:SetPos(self:GetPos())
 	    self.IdleEffect:Spawn()
 	    self.IdleEffect:SetParent(self)
-	    self:DeleteOnRemove(self.IdleEffect)	
-elseif !IsValid(self:GetEnemy()) && self.RangeAttacking == false && self.Spector_Face == true then
-        self.Spector_Face = false 
-        SafeRemoveEntityDelayed(self.IdleEffect, 3)		
+	    self:DeleteOnRemove(self.IdleEffect)
+elseif !IsValid(self:GetEnemy()) && self.RangeAttacking == false && self.Spector_Face == true then	
+        self.Spector_Face = false	
+        timer.Simple(1,function() if IsValid(self) && IsValid(self.IdleEffect) then self.IdleEffect:Remove() end end)			
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		projectile.Track_Enemy = self:GetEnemy()		
-	end
+		projectile.Track_Enemy = self:GetEnemy()							
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
@@ -169,12 +170,8 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
-	elseif hitgroup == HITGROUP_STOMACH then
-		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
-	end
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+	ParticleEffect("face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

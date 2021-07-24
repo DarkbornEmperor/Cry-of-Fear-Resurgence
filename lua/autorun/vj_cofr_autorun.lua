@@ -61,15 +61,13 @@ if VJExists == true then
     VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)
 	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofraom_wheelchair",vCat)
     VJ.AddNPC("Spitter Twitcher","npc_vj_cofraom_twitcherspit",vCat)
-    VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_spector",vCat)	
+    VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_spector",vCat)
+    VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)	
+	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)
+    VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)	
 	
 /*
-    VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
-    VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_bleedspector",vCat)
     VJ.AddNPC("Addiction","npc_vj_cofraom_addiction",vCat)
-    VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)
-	VJ.AddNPC("Mouth Monster","npc_vj_cofraom_mouth",vCat)
-	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)	
 */	
 
     -- Particles --
