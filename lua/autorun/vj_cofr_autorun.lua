@@ -16,7 +16,7 @@ if VJExists == true then
 
 	-- Cry of Fear --
 	local vCat = "CoF Resurgence" 
-	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/cof/icons/cofr.png"})
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofr.png"})
 	VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",vCat)	
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",vCat)
 	VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",vCat)
@@ -64,10 +64,19 @@ if VJExists == true then
     VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_spector",vCat)
     VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)	
 	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)
-    VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)	
+    VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
+    VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)	
 	
 /*
-    VJ.AddNPC("Addiction","npc_vj_cofraom_addiction",vCat)
+    VJ.AddNPC("Sawer","npc_vj_cofr_sawer",vCat)
+	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
+	VJ.AddNPC("Sawcrazy","npc_vj_cofr_sawcrazy",vCat)
+	VJ.AddNPC("Mace","npc_vj_cofr_mace",vCat)
+	VJ.AddNPC("Carcass","npc_vj_cofr_carcass",vCat)
+	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
+	VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",vCat)
+	VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)
+	VJ.AddNPC("Craig","npc_vj_cofr_craig",vCat)
 */	
 
     -- Particles --
