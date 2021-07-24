@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/bleedingspector/w_hivehand"
+                "$additive" 1 
 }

@@ -19,6 +19,15 @@ ENT.SlowPlayerOnMeleeAttack = true
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
 ENT.SlowPlayerOnMeleeAttackTime = 0.5 
+ENT.HasRangeAttack = true
+ENT.AnimTbl_RangeAttack = {ACT_SIGNAL1}
+ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_drowned_range"
+ENT.RangeDistance = 600 
+ENT.RangeToMeleeDistance = 250
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.RangeUseAttachmentForPos = true 
+ENT.RangeUseAttachmentForPosID = "baby"
+ENT.NextRangeAttackTime = 3
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -67,10 +76,17 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack" then
 		self:MeleeAttackCode()
-end	
+end
+	if key == "attack_range" then
+		self:RangeAttackCode()
+end		
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(projectile)
+	return self:CalculateProjectile("Curve", self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
@@ -96,13 +112,6 @@ function ENT:MultipleMeleeAttacks()
       self.MeleeAttackDamageDistance = 60
       self.HasMeleeAttackSounds = true 
       self.HasMeleeAttackMissSounds = true		  
-elseif self:GetBodygroup(0) == 0 then
-      self.AnimTbl_MeleeAttack = {ACT_SIGNAL1}
-      self.MeleeAttackDamage = 14 
-      self.MeleeAttackDistance = 60 
-      self.MeleeAttackDamageDistance = 100
-      self.HasMeleeAttackSounds = false 
-      self.HasMeleeAttackMissSounds = false	  
 	end  
 end
 /*-----------------------------------------------

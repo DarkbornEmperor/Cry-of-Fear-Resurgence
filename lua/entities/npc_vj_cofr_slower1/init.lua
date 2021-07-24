@@ -26,7 +26,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH,ACT_BIG_FLINCH} 
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasHitGroupFlinching = true 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = {
@@ -131,6 +131,14 @@ end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+	if dmginfo:GetDamage() > 30 then
+		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+	else
+		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)

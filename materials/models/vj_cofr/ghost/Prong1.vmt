@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/ghost/Prong1"
+                "$additive" 1 
 }

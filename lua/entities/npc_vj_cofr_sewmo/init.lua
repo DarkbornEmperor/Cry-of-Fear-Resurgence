@@ -25,7 +25,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH,ACT_BIG_FLINCH} 
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasHitGroupFlinching = true 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = {
@@ -111,6 +111,14 @@ function ENT:MultipleMeleeAttacks()
 		self.MeleeAttackDamage = 20 
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/sewmo/claw_miss1.wav","vj_cofr/sewmo/claw_miss2.wav","vj_cofr/sewmo/claw_miss3.wav"}
 		self.SoundTbl_MeleeAttack = {"vj_cofr/sewmo/claw_strike1.wav","vj_cofr/sewmo/claw_strike2.wav","vj_cofr/sewmo/claw_strike3.wav"}
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+	if dmginfo:GetDamage() > 30 then
+		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+	else
+		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

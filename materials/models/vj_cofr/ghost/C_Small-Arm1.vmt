@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/ghost/C_Small-Arm1"
+                "$additive" 1 
 }

@@ -14,9 +14,9 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 
-	local vCat = "CoF Resurgence" 
-	VJ.AddCategoryInfo("CoF Resurgence", {Icon = "vj_cofr/cof/icons/cofr.png"})
 	-- Cry of Fear --
+	local vCat = "CoF Resurgence" 
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/cof/icons/cofr.png"})
 	VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",vCat)	
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",vCat)
 	VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",vCat)
@@ -52,21 +52,24 @@ if VJExists == true then
 	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
     VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat) 
-	
+
 	-- Afraid of Monsters --
-    VJ.AddNPC("Twitcher","npc_vj_cofr_twitcher",vCat)
-	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofr_twitcherda",vCat)
-    VJ.AddNPC("Handcrab","npc_vj_cofr_handcrab",vCat)
-	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofr_wheelchair",vCat)	
+	vCat = "CoF Resurgence: AoM"
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})	
+    VJ.AddNPC("Twitcher","npc_vj_cofraom_twitcher",vCat)
+	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcherda",vCat)
+    VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)
+	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofraom_wheelchair",vCat)
+    VJ.AddNPC("Spitter Twitcher","npc_vj_cofraom_twitcherspit",vCat)
+    VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_spector",vCat)	
 	
 /*
-    VJ.AddNPC("Ghost","npc_vj_cofr_ghost",vCat)
-    VJ.AddNPC("Bleeding Spector","npc_vj_cofr_bleedspector",vCat)
-    VJ.AddNPC("Addiction","npc_vj_cofr_addiction",vCat)
-    VJ.AddNPC("One-Eyed Dog","npc_vj_cofr_dog",vCat)
-	VJ.AddNPC("Mouth Monster","npc_vj_cofr_mouth",vCat)
-	VJ.AddNPC("Abomination","npc_vj_cofr_abomination",vCat)
-	VJ.AddNPC("Twitcher Spitter","npc_vj_cofr_twitcherspit",vCat)	
+    VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
+    VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_bleedspector",vCat)
+    VJ.AddNPC("Addiction","npc_vj_cofraom_addiction",vCat)
+    VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)
+	VJ.AddNPC("Mouth Monster","npc_vj_cofraom_mouth",vCat)
+	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)	
 */	
 
     -- Particles --
@@ -120,7 +123,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")
     util.PrecacheModel("models/vj_cofr/aom/agrunt.mdl")
     util.PrecacheModel("models/vj_cofr/aom/mouth_monster.mdl")
-    util.PrecacheModel("models/vj_cofr/aom/david_monster.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/david_monster.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/wheelchair_monster.mdl") 	
 	util.PrecacheModel("models/vj_cofr/aom/zombie.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie2.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie3.mdl")

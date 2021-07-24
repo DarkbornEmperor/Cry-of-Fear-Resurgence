@@ -6,14 +6,15 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/hanger.mdl"} 
-ENT.StartHealth = 50
+ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
-ENT.Bleeds = false
 ENT.CallForHelp = false
 ENT.HasMeleeAttack = true
+ENT.NextMeleeAttackTime = 100
+ENT.NextAnyAttackTime_Melee = 100
 ENT.DisableMeleeAttackAnimation = false
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
@@ -25,9 +26,6 @@ ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50
 ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.HasDeathAnimation = true 
-ENT.AnimTbl_Death = {ACT_MELEE_ATTACK1}
-ENT.DeathAnimationTime = 8 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -39,6 +37,11 @@ ENT.VJC_Data = {
 ENT.Hanger_Death = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hanger_CustomOnInitialize()
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/hanger/hangerscream1.wav",
+	"vj_cofr/hanger/hangerscream2.wav",
+	"vj_cofr/hanger/hangerscream3.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -53,17 +56,17 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeChecks()
-	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
-	VJ_EmitSound(self, "vj_cofr/hanger/hangerscream"..math.random(1,3)..".wav", 85, 100)
-	timer.Simple(0.5,function()
+function ENT:CustomOnThink_AIEnabled()
+	if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	self:DrawShadow(true)
+	timer.Simple(1.5,function()
 	if IsValid(self) then	
 	self:SetGroundEntity(NULL)
-	self:DrawShadow(true)
 	self.Hanger_Death = true
-	self:TakeDamage(999999999999999,self,self)
+	self:Remove()
 end	
 end)
+end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

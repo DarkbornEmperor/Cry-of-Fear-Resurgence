@@ -7,16 +7,14 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/dreamer.mdl"} 
 ENT.GodMode = true
-ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
-ENT.Bleeds = false
 ENT.CallForHelp = false
 ENT.HasMeleeAttack = true 
 ENT.AnimTbl_MeleeAttack = {ACT_SIGNAL1}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25 
+ENT.MeleeAttackDamage = 10 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.SlowPlayerOnMeleeAttack = true
@@ -54,11 +52,17 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	if !IsValid(self:GetEnemy()) then
+	self:SetMaterial("HUD/killicons/default")
+	self:SetNoDraw(true)
+	self:DrawShadow(false)
+end	
 	if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	self:SetMaterial()
+	self:SetNoDraw(false)
+	self:DrawShadow(true)	
     timer.Simple(1,function() if IsValid(self) then	
 	self:SetGroundEntity(NULL)
-	self:SetMaterial()
-	self:DrawShadow(true)
 	self.Dreamer_Jumpscare = true
 	self:Remove()
 end	

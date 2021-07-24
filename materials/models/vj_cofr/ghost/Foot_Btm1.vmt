@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/ghost/Foot_Btm1"
+                "$additive" 1 
 }
