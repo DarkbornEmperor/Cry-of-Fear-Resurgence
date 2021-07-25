@@ -23,12 +23,10 @@ ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
 ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
+ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_twitcher_spit"
 ENT.RangeDistance = 784 
 ENT.RangeToMeleeDistance = 250
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = false 
-ENT.RangeUseAttachmentForPosID = "mouth"
 ENT.NextRangeAttackTime = 1
 ENT.NoChaseAfterCertainRange = true 
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" 
@@ -105,7 +103,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common_aom/bodydrop"..math.random(3,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

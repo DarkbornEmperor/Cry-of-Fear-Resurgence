@@ -5,42 +5,29 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/drowned.mdl"} 
-ENT.StartHealth = 80
+ENT.Model = {"models/vj_cofr/cof/sawcrazy.mdl"} 
+ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
-ENT.ConstantlyFaceEnemy = true 
-ENT.ConstantlyFaceEnemy_IfAttacking = true 
-ENT.ConstantlyFaceEnemy_Postures = "Standing" 
-ENT.ConstantlyFaceEnemyDistance = 600 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 14 
-ENT.MeleeAttackDistance = 15 
-ENT.MeleeAttackDamageDistance = 35
+ENT.MeleeAttackDamage = 200 
+ENT.MeleeAttackDistance = 30 
+ENT.MeleeAttackDamageDistance = 60
 ENT.SlowPlayerOnMeleeAttack = true
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
-ENT.SlowPlayerOnMeleeAttackTime = 0.5 
-ENT.HasRangeAttack = true
-ENT.AnimTbl_RangeAttack = {ACT_SIGNAL1}
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_drowned_range"
-ENT.RangeDistance = 500 
-ENT.RangeToMeleeDistance = 100
-ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true 
-ENT.RangeUseAttachmentForPosID = "baby"
-ENT.NextRangeAttackTime = 3
+ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -50,65 +37,48 @@ ENT.VJC_Data = {
 }
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_FootStep = {
+"vj_cofr/common/npc_step1.wav"
+}
 ENT.SoundTbl_MeleeAttack = {
-"vj_cofr/crazylady/knife_hitbody1.wav",
-"vj_cofr/crazylady/knife_hitbody2.wav"
+"vj_cofr/sawrunner/chainsaw_attack_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/crazylady/knife_swing.wav"
+"vj_cofr/sawrunner/chainsaw_attack_miss.wav"
 }
--- Custom
-ENT.Drowned_Baby = false
-ENT.Drowned_DamageDistance = 2500
-ENT.Drowned_NextEnemyDamage = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Drowned_CustomOnInitialize()
-    self.SoundTbl_Alert = {
-	"vj_cofr/crazylady/lady_alert10.wav",
-	"vj_cofr/crazylady/lady_alert20.wav",
-	"vj_cofr/crazylady/lady_alert30.wav"
+function ENT:Sawcrazy_CustomOnInitialize()
+    self.SoundTbl_Breath = {
+	"vj_cofr/sawcrazy/dblsawloop.wav"
 }
-    self.SoundTbl_Pain = {
-	"vj_cofr/crazylady/lady_pain1.wav",
-	"vj_cofr/crazylady/lady_pain2.wav"
+    self.SoundTbl_Alert = {
+	"vj_cofr/sawcrazy/random2.wav"
+}
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/sawcrazy/random1.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/sawcrazy/death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
-     self:Drowned_CustomOnInitialize()
+     --ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupBone("chainsaw"))
+     self:SetCollisionBounds(Vector(15, 15, 90), Vector(-15, -15, 0))
+     self:Sawcrazy_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "step" then
+		self:FootStepSoundCode()
+end
 	if key == "attack" then
 		self:MeleeAttackCode()
-end
-	if key == "attack_range" then
-		self:RangeAttackCode()
-end		
+end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Curve", self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 80 then
-		self.Drowned_Baby = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,1,false)
-		timer.Simple(0.3,function() if IsValid(self) then
-			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/crazylady/baby_burst.wav") end end end)
-			timer.Simple(0.1,function() if IsValid(self) then
-			    ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
-				self:SetBodygroup(0,1) 
-				self:DoChaseAnimation()
-			end
-		end)
-	end
-end
+end 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

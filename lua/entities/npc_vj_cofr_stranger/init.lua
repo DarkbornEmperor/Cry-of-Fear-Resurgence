@@ -16,9 +16,9 @@ ENT.HasMeleeAttack = false
 ENT.ConstantlyFaceEnemy = true 
 ENT.ConstantlyFaceEnemy_IfAttacking = true 
 ENT.ConstantlyFaceEnemy_Postures = "Standing" 
-ENT.ConstantlyFaceEnemyDistance = 2500 
+ENT.ConstantlyFaceEnemyDistance = 500 
 ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = 2500 
+ENT.NoChaseAfterCertainRange_FarDistance = 500 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
@@ -41,7 +41,7 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/common/npc_step1.wav"
 }
 -- Custom
-ENT.Stranger_DamageDistance = 2500
+ENT.Stranger_DamageDistance = 500
 ENT.Stranger_NextEnemyDamage = 0
 
 util.AddNetworkString("vj_cofr_stranger_damage")
