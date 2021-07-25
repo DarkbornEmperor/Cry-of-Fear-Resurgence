@@ -39,6 +39,7 @@ ENT.HitGroupFlinching_Values = {
 }
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8 
+ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -53,9 +54,12 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_MeleeAttack = {
 "vj_cofr/sawrunner/chainsaw_attack_hit.wav"
-}	
+}
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/sawrunner/chainsaw_attack_miss.wav"
+}
+ENT.SoundTbl_SoundTrack = {
+"vj_cofr/sawrunner/sawyourskull.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_CustomOnInitialize()

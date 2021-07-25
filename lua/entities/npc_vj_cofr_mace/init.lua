@@ -11,7 +11,8 @@ ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
+ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 100 
@@ -39,6 +40,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
+ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -56,6 +58,9 @@ ENT.SoundTbl_MeleeAttack = {
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/sewer/mace_swing.wav"
+}
+ENT.SoundTbl_SoundTrack = {
+"vj_cofr/sewer/getout.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Mace_CustomOnInitialize()

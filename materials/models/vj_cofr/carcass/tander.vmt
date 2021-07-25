@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/carcass/tander"
+	"$alphatest" 1
+}

@@ -11,7 +11,8 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
+ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
@@ -29,7 +30,8 @@ ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathAnimationTime = 8
+ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -44,9 +46,12 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_MeleeAttack = {
 "vj_cofr/sawrunner/chainsaw_attack_hit.wav"
-}	
+}		
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/sawrunner/chainsaw_attack_miss.wav"
+}
+ENT.SoundTbl_SoundTrack = {
+"vj_cofr/sawer/sawer.mp3"
 }
 -- Custom
 ENT.Sawer_IsHurt = false
