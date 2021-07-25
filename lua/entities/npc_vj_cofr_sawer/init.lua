@@ -5,8 +5,8 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/sawrunner.mdl"} 
-ENT.StartHealth = 2000
+ENT.Model = {"models/vj_cofr/cof/sawer.mdl"} 
+ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
@@ -15,8 +15,8 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackDamageDistance = 80
 ENT.SlowPlayerOnMeleeAttack = true
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
@@ -27,17 +27,8 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasHitGroupFlinching = true 
-ENT.HitGroupFlinching_DefaultWhenNotHit = true
-ENT.HitGroupFlinching_Values = {
-{HitGroup = {HITGROUP_HEAD}, Animation = {ACT_BIG_FLINCH}}, 
-{HitGroup = {HITGROUP_CHEST}, Animation = {ACT_SMALL_FLINCH}}, 
-{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
-{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},
-{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
-{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
-}
 ENT.HasDeathAnimation = true 
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -57,30 +48,41 @@ ENT.SoundTbl_MeleeAttack = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/sawrunner/chainsaw_attack_miss.wav"
 }
+-- Custom
+ENT.Sawer_IsHurt = false
+ENT.Sawer_NotHurt = true
+ENT.Eye_Close = true
+ENT.Eye_Open = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Sawrunner_CustomOnInitialize()
+function ENT:Sawer_CustomOnInitialize()
     self.SoundTbl_Breath = {
 	"vj_cofr/sawer/chainsaw_loop.wav"
 }
     self.SoundTbl_Alert = {
-	"vj_cofr/sawrunner/sawrunner_alert10.wav",
-	"vj_cofr/sawrunner/sawrunner_alert20.wav",
-	"vj_cofr/sawrunner/sawrunner_alert30.wav"
+	"vj_cofr/sawer/sawer_alert10.wav",
+	"vj_cofr/sawer/sawer_alert20.wav",
+	"vj_cofr/sawer/sawer_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/sawrunner/sawrunner_attack1.wav",
-	"vj_cofr/sawrunner/sawrunner_attack2.wav"
+	"vj_cofr/sawer/sawer_attack1.wav",
+	"vj_cofr/sawer/sawer_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/sawrunner/sawrunner_pain1.wav",
-	"vj_cofr/sawrunner/sawrunner_pain2.wav"
+	"vj_cofr/sawer/sawer_pain1.wav",
+	"vj_cofr/sawer/sawer_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-     --ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupBone("chainsaw"))
-     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
-     self:Sawrunner_CustomOnInitialize()
+function ENT:CustomOnInitialize(hitgroup)
+    if hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG or hitgroup == 8 then
+		self:AddFlags(FL_NOTARGET)		
+elseif hitgroup == 9 then
+        self:RemoveFlags(FL_NOTARGET)		
+end
+     --VJ_EmitSound(self, "vj_cofr/sawer/chainsaw_start.wav", 85, 100)
+	 --ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("chainsaw"))
+     self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
+     self:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -93,23 +95,57 @@ end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
+end 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+    if hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG or hitgroup == 8 then
+	    dmginfo:ScaleDamage(0.00)	
+elseif hitgroup == 9 then
+	    dmginfo:ScaleDamage(0.001)		
+end
+     local attacker = dmginfo:GetAttacker()
+     if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
+        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,5.9,false)
+		VJ_EmitSound(self, "vj_cofr/sawer/eye_open.wav", 85, 100)
+		self:SetSkin(1)
+		dmginfo:ScaleDamage(0.005)
+		self.Eye_Close = false
+		self.Eye_Open = true
+		self.Sawer_IsHurt = true
+		self.Sawer_NotHurt = false
+        self.MovementType = VJ_MOVETYPE_STATIONARY
+        self.DisableChasingEnemy = true
+        self.DisableWandering = true
+        self.CanTurnWhileStationary = false
+        self.CanFlinch = 0
+        self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))		
+
+      timer.Simple(5,function()
+      if IsValid(self) then
+	     self:SetSkin(0)
+	  	 self.Eye_Close = true
+		 self.Eye_Open = false
+		 
+      timer.Simple(0.5,function()
+      if IsValid(self) then
+		 self.Sawer_IsHurt = false
+		 self.Sawer_NotHurt = true 
+         self.MovementType = VJ_MOVETYPE_GROUND
+         self.DisableChasingEnemy = false
+         self.DisableWandering = false
+         self.CanFlinch = 1	
+		 self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
+end		 
+end)		 
+end
+end)
+end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
-	else
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-	end
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:SetSkin(0)
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
-	else
-		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-    end
-end   
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
