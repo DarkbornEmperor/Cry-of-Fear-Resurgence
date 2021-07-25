@@ -54,7 +54,8 @@ if VJExists == true then
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)
     VJ.AddNPC("CrazyRuMpel","npc_vj_cofr_crazyrumpel",vCat)
     VJ.AddNPC("Sawer","npc_vj_cofr_sawer",vCat)	
-	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)	
+	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
+	VJ.AddNPC("Mace","npc_vj_cofr_mace",vCat)	
 
 	-- Afraid of Monsters --
 	vCat = "CoF Resurgence: AoM"
@@ -72,7 +73,6 @@ if VJExists == true then
 	
 /*
 	VJ.AddNPC("Sawcrazy","npc_vj_cofr_sawcrazy",vCat)
-	VJ.AddNPC("Mace","npc_vj_cofr_mace",vCat)
 	VJ.AddNPC("Carcass","npc_vj_cofr_carcass",vCat)
 	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
 	VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",vCat)
