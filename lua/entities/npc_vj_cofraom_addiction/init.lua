@@ -29,6 +29,7 @@ ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 ENT.HasSoundTrack = true
 ENT.Immune_Fire = true
+ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -108,13 +109,13 @@ function ENT:MultipleMeleeAttacks()
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamageType = DMG_SHOCK
 		self.HasMeleeAttackMissSounds = false
-		self.SoundTbl_MeleeAttack = {"vj_cofr/davidbad/thunder_hit.wav"}
+		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/davidbad/thunder_hit.wav"}
 	elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamageType = DMG_SLASH
 		self.MeleeAttackDamage = 25 
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/davidbad/Axe_swing.wav"}
-		self.SoundTbl_MeleeAttack = {"vj_cofr/davidbad/Axe_hitbody.wav"}
+		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/davidbad/Axe_hitbody.wav"}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

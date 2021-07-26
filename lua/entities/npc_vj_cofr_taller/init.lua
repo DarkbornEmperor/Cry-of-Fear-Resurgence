@@ -36,6 +36,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
+ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -85,14 +86,18 @@ local attack = math.random(1,2)
 		self.MeleeAttackDamage = 60
 		self.HasMeleeAttackKnockBack = true
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/taller/taller_swing.wav"}
-		self.SoundTbl_MeleeAttack = {"vj_cofr/taller/taller_player_punch.wav"}
+		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/taller/taller_player_punch.wav"}
 	elseif attack == 2 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 200 
 		self.SlowPlayerOnMeleeAttack = true
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/taller/taller_wall_punch.wav"}
-		self.SoundTbl_MeleeAttack = {"vj_cofr/taller/taller_stamp.wav"}
+		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/taller/taller_stamp.wav"}
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	    dmginfo:ScaleDamage(0.25)		
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

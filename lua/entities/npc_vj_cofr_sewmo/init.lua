@@ -38,7 +38,7 @@ ENT.HitGroupFlinching_Values = {
 }
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8 
-ENT.GibOnDeathDamagesTable = {"All"}
+ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -105,12 +105,12 @@ function ENT:MultipleMeleeAttacks()
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 16
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/sewmo/tunga_miss.wav"}
-		self.SoundTbl_MeleeAttack = {"vj_cofr/sewmo/tunga_strike1.wav","vj_cofr/sewmo/tunga_strike2.wav"}
+		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/sewmo/tunga_strike1.wav","vj_cofr/sewmo/tunga_strike2.wav"}
 	elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 20 
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/sewmo/claw_miss1.wav","vj_cofr/sewmo/claw_miss2.wav","vj_cofr/sewmo/claw_miss3.wav"}
-		self.SoundTbl_MeleeAttack = {"vj_cofr/sewmo/claw_strike1.wav","vj_cofr/sewmo/claw_strike2.wav","vj_cofr/sewmo/claw_strike3.wav"}
+		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/sewmo/claw_strike1.wav","vj_cofr/sewmo/claw_strike2.wav","vj_cofr/sewmo/claw_strike3.wav"}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

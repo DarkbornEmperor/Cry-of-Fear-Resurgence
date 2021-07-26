@@ -39,6 +39,7 @@ ENT.HitGroupFlinching_Values = {
 }
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8 
+ENT.HasExtraMeleeAttackSounds = true
 ENT.GibOnDeathDamagesTable = {"All"}
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -52,7 +53,7 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/common/npc_step1.wav"
 }
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/slower/hammer_strike1.wav",
 "vj_cofr/slower/hammer_strike2.wav",
 "vj_cofr/slower/hammer_strike3.wav"

@@ -29,7 +29,6 @@ ENT.SoundTbl_FootStep = {
 }
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
-    self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     self.SoundTbl_Alert = {
 	"vj_cofr/slower/slower_alert10.wav",
 	"vj_cofr/slower/slower_alert20.wav",
@@ -43,6 +42,7 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/slower/slower_pain1.wav",
 	"vj_cofr/slower/slower_pain2.wav"
 }
+    self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)

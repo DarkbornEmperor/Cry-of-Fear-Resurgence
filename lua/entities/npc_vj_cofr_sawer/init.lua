@@ -32,6 +32,7 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8
 ENT.HasSoundTrack = true
+ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -44,7 +45,7 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/common/npc_step1.wav"
 }
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/sawrunner/chainsaw_attack_hit.wav"
 }		
 ENT.SoundTbl_MeleeAttackMiss = {

@@ -29,7 +29,8 @@ ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathAnimationTime = 8
+ENT.HasExtraMeleeAttackSounds = true 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -42,14 +43,11 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/common/npc_step1.wav"
 }
-ENT.SoundTbl_MeleeAttack = {
-"vj_cofr/faster/faster_hit1.wav",
-"vj_cofr/faster/faster_hit2.wav",
-"vj_cofr/faster/faster_hit3.wav",
-"vj_cofr/faster/faster_hit4.wav"
+ENT.SoundTbl_MeleeAttackExtra = {
+"vj_cofr/davidbad/Axe_hitbody.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/faster/faster_miss.wav"
+"vj_cofr/davidbad/Axe_swing.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Psycho_CustomOnInitialize()

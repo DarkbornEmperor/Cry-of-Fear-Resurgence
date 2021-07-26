@@ -55,6 +55,7 @@ ENT.HitGroupFlinching_Values = {
 ENT.HasDeathAnimation = false 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
+ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -64,7 +65,7 @@ ENT.VJC_Data = {
 }	
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/zombie/claw_strike1.wav",
 "vj_cofr/zombie/claw_strike2.wav",
 "vj_cofr/zombie/claw_strike3.wav"

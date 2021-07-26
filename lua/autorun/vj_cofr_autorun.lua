@@ -90,6 +90,16 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
     VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
 
+	-- Custom --
+	vCat = "CoF Resurgence: Custom"
+	--VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
+    VJ.AddNPC("Slower 1","npc_vj_cofrc_slower1",vCat)
+	VJ.AddNPC("Slower 3","npc_vj_cofrc_slower3",vCat)
+	VJ.AddNPC("Slower No","npc_vj_cofrc_slowerno",vCat)
+    VJ.AddNPC("Croucher","npc_vj_cofrc_croucher",vCat)	
+    VJ.AddNPC("Crawler","npc_vj_cofrc_crawler",vCat)
+	VJ.AddNPC("Crawler 2","npc_vj_cofrc_crawler2",vCat)
+	
     -- Particles --
     game.AddParticles( "particles/vj_cofr_soul.pcf" )
     game.AddParticles( "particles/vj_cofr_soulsplat.pcf" )
@@ -178,7 +188,12 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_2.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_3.mdl")	
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_4.mdl")
-	util.PrecacheModel("models/vj_cofr/aom/zombie4_5.mdl")		
+	util.PrecacheModel("models/vj_cofr/aom/zombie4_5.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/slower1.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/slower3.mdl") 	
+    util.PrecacheModel("models/vj_cofr/custom/croucher.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/crawler.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/crawler2.mdl")  	
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

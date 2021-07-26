@@ -15,7 +15,7 @@ ENT.VJC_Data = {
 }
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/faceless/fist_strike1.wav",
 "vj_cofr/faceless/fist_strike2.wav",
 "vj_cofr/faceless/fist_strike3.wav"

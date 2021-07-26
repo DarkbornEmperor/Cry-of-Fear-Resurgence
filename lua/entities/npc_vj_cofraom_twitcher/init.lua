@@ -59,7 +59,8 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
 ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8 
+ENT.DeathAnimationTime = 8
+ENT.HasExtraMeleeAttackSounds = true 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -72,7 +73,7 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/common/npc_step1.wav"
 }
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/zombie/claw_strike1.wav",
 "vj_cofr/zombie/claw_strike2.wav",
 "vj_cofr/zombie/claw_strike3.wav"
