@@ -11,7 +11,8 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
+ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 40 
@@ -24,8 +25,8 @@ ENT.SlowPlayerOnMeleeAttackTime = 5
 ENT.HasMeleeAttackKnockBack = false 
 ENT.MeleeAttackKnockBack_Forward1 = 150 
 ENT.MeleeAttackKnockBack_Forward2 = 150 
-ENT.MeleeAttackKnockBack_Up1 = 350 
-ENT.MeleeAttackKnockBack_Up2 = 360 
+ENT.MeleeAttackKnockBack_Up1 = 250 
+ENT.MeleeAttackKnockBack_Up2 = 250 
 ENT.HasWorldShakeOnMove = true 
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
@@ -84,13 +85,15 @@ local attack = math.random(1,2)
 	if attack == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 60
+		self.SlowPlayerOnMeleeAttack = true
 		self.HasMeleeAttackKnockBack = true
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/taller/taller_swing.wav"}
 		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/taller/taller_player_punch.wav"}
 	elseif attack == 2 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 200 
-		self.SlowPlayerOnMeleeAttack = true
+		self.SlowPlayerOnMeleeAttack = false
+		self.HasMeleeAttackKnockBack = false
 		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/taller/taller_wall_punch.wav"}
 		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/taller/taller_stamp.wav"}
 	end

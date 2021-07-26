@@ -62,7 +62,8 @@ if VJExists == true then
 	VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",vCat)	
     VJ.AddNPC("Book Simon (Manhunt)","npc_vj_cofr_simonbookm",vCat)
 	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
-    VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsicksui",vCat)	
+	VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsicksui",vCat)	
+    --VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)	
 
     -- CoF Random & Spawners --
 	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
@@ -92,13 +93,16 @@ if VJExists == true then
 
 	-- Custom --
 	vCat = "CoF Resurgence: Custom"
-	--VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrcustom.png"})
     VJ.AddNPC("Slower 1","npc_vj_cofrc_slower1",vCat)
 	VJ.AddNPC("Slower 3","npc_vj_cofrc_slower3",vCat)
 	VJ.AddNPC("Slower No","npc_vj_cofrc_slowerno",vCat)
+	VJ.AddNPC("Slower 10","npc_vj_cofrc_slower10",vCat)
     VJ.AddNPC("Croucher","npc_vj_cofrc_croucher",vCat)	
     VJ.AddNPC("Crawler","npc_vj_cofrc_crawler",vCat)
 	VJ.AddNPC("Crawler 2","npc_vj_cofrc_crawler2",vCat)
+	VJ.AddNPC("Krypandenej","npc_vj_cofrc_krypandenej",vCat)
+    VJ.AddNPC("Faceless (Claw)","npc_vj_cofrc_facelessclaw",vCat)	
 	
     -- Particles --
     game.AddParticles( "particles/vj_cofr_soul.pcf" )
@@ -115,6 +119,10 @@ if VJExists == true then
 	PrecacheParticleSystem("MommaSpitGib")
     PrecacheParticleSystem("flaresparks")
 	PrecacheParticleSystem("flaretrail")	
+
+    -- Decals --
+    game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
+    game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
 	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_cofr/cof/slower.mdl")
@@ -193,7 +201,9 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/slower3.mdl") 	
     util.PrecacheModel("models/vj_cofr/custom/croucher.mdl")
     util.PrecacheModel("models/vj_cofr/custom/crawler.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/crawler2.mdl")  	
+    util.PrecacheModel("models/vj_cofr/custom/crawler2.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/krypandenej.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/faceless_claw.mdl")    	
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

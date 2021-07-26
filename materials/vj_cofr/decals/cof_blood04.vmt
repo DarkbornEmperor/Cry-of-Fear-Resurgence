@@ -1,0 +1,9 @@
+"LightmappedGeneric"
+{
+	// Original shader: DecalBaseTimesLightmapAlphaBlend
+	"$translucent" 1
+	"$basetexture" "vj_cofr/decals/cof_blood04"
+	"$decal" 1
+	"$Size"		"25 25"
+	"$decalscale" 	0.05
+}

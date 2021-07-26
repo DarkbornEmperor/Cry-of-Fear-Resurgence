@@ -6,26 +6,6 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/crawler.mdl"}
-ENT.StartHealth = 80
-ENT.HasHitGroupFlinching = false
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.VJC_Data = {
-	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(45, 20, -15), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
-}
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {
-"vj_cofr/slower/k_crawl1.wav",
-"vj_cofr/slower/k_crawl2.wav",
-"vj_cofr/slower/k_crawl3.wav",
-"vj_cofr/slower/k_crawl4.wav",
-"vj_cofr/slower/k_crawl5.wav",
-"vj_cofr/slower/k_crawl6.wav",
-"vj_cofr/slower/k_crawl7.wav"
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
 local Slower_Body = math.random(1,6)

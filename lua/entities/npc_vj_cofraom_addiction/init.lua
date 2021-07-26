@@ -11,7 +11,7 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 30 
@@ -87,15 +87,15 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Addiction_Axe == false && self.Dead == false && (self.StartHealth -500 > self:Health()) then
+	if self.Addiction_Axe == false && (self.StartHealth -500 > self:Health()) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,3.7941175539395,false)
 end		
-    if self.Addiction_OnFire == false && !self:IsOnFire() && self.Dead == false && (self.StartHealth -1000 > self:Health()) then
+    if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -1000 > self:Health()) then
 		self.Addiction_OnFire = true
-		self:Ignite(999999)
+		self:Ignite(15)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),DMG_BURN,150)) do
-	    timer.Create("Addiction_Fire"..self:EntIndex(), 1.5, 0, function()
+	    timer.Create("Addiction_Fire"..self:EntIndex(), 1.5, 5, function()
 	    if IsValid(self) then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
 end
@@ -142,6 +142,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	if self:IsOnFire() then
+	   self.Addiction_OnFire = false
 	   self:Extinguish()
 	end
 end

@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_cofr_slower1" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
+ENT.Base 			= "npc_vj_cofr_crawler" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Crawler 2"
 ENT.Author 			= "Darkborn"
