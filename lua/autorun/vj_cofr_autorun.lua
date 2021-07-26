@@ -52,13 +52,24 @@ if VJExists == true then
 	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
     VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)
-    VJ.AddNPC("CrazyRuMpel","npc_vj_cofr_crazyrumpel",vCat)
+    VJ.AddNPC("CrazyruMpel","npc_vj_cofr_crazyrumpel",vCat)
     VJ.AddNPC("Sawer","npc_vj_cofr_sawer",vCat)	
 	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
 	VJ.AddNPC("Mace","npc_vj_cofr_mace",vCat)
 	VJ.AddNPC("Carcass","npc_vj_cofr_carcass",vCat)
-	VJ.AddNPC("Sawcrazy","npc_vj_cofr_sawcrazy",vCat)	
+	VJ.AddNPC("Sawcrazy","npc_vj_cofr_sawcrazy",vCat)
+    VJ.AddNPC("Craig","npc_vj_cofr_craig",vCat)
+	VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",vCat)	
+    VJ.AddNPC("Book Simon (Manhunt)","npc_vj_cofr_simonbookm",vCat)
+	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
+    VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsicksui",vCat)	
 
+    -- CoF Random & Spawners --
+	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
+    VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",vCat)
+	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",vCat)
+    VJ.AddNPC("Monster Map Spawner","sent_vj_cofr_mapspawner",vCat)	
+	
 	-- Afraid of Monsters --
 	vCat = "CoF Resurgence: AoM"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})	
@@ -71,14 +82,13 @@ if VJExists == true then
     VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)	
 	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)
     VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
-    VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)	
-	
-/*
-	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
-	VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",vCat)
-	VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)
-	VJ.AddNPC("Craig","npc_vj_cofr_craig",vCat)
-*/	
+    VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)		
+
+    -- AoM Random & Spawners --
+	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
+    VJ.AddNPC("Random Monster Spawner","sent_vj_cofraom_mon_sp",vCat)
+	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
+    VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
 
     -- Particles --
     game.AddParticles( "particles/vj_cofr_soul.pcf" )
@@ -86,11 +96,15 @@ if VJExists == true then
     game.AddParticles( "particles/vj_cofr_face.pcf" )
     game.AddParticles( "particles/vj_cofr_spit.pcf" )
 	game.AddParticles( "particles/vj_cofr_spitgib.pcf" )
+    game.AddParticles( "particles/vj_cofr_flaresparks.pcf" )
+	game.AddParticles( "particles/vj_cofr_flaretrail.pcf" )	
     PrecacheParticleSystem("face")
     PrecacheParticleSystem("aomsoul")
     PrecacheParticleSystem("aomsoulsplat")
     PrecacheParticleSystem("mommaspit")
 	PrecacheParticleSystem("MommaSpitGib")
+    PrecacheParticleSystem("flaresparks")
+	PrecacheParticleSystem("flaretrail")	
 	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_cofr/cof/slower.mdl")
@@ -126,6 +140,18 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/flygare.mdl")
     util.PrecacheModel("models/vj_cofr/cof/dreamer.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/dreamerrunner.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/crazyrumpel.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/sawer.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/sawrunner.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/mace.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/sawcrazy.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/carcass.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/craig.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/booksimon.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/booksimon_m.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/doctor.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/sicksimon_sui.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")
