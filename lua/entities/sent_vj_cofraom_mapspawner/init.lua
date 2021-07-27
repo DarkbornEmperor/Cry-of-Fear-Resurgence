@@ -84,7 +84,7 @@ self.COFR = {
     "npc_vj_cofraom_handcrabhd",
     "npc_vj_cofraom_twitcherspithd",
     "npc_vj_cofraom_doghd",
-    "npc_vj_cofraom_abominationhd"
+    "npc_vj_cofraom_abominationhd",
 	"npc_vj_cofraom_addictionhd"
 }
 self.COFR2 = {	
@@ -101,7 +101,7 @@ self.COFR2 = {
     "npc_vj_cofraom_handcrabhd",
     "npc_vj_cofraom_twitcherspithd",
     "npc_vj_cofraom_doghd",
-    "npc_vj_cofraom_abominationhd"
+    "npc_vj_cofraom_abominationhd",
 	"npc_vj_cofraom_addictionhd"
 }
 self.COFR3 = {	
@@ -118,7 +118,7 @@ self.COFR3 = {
     "npc_vj_cofraom_handcrabhd",
     "npc_vj_cofraom_twitcherspithd",
     "npc_vj_cofraom_doghd",
-    "npc_vj_cofraom_abominationhd"
+    "npc_vj_cofraom_abominationhd",
 	"npc_vj_cofraom_addictionhd"
 }	
 
