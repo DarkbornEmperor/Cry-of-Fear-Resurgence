@@ -1,11 +1,11 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/slower.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/slower1.mdl"} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
@@ -102,7 +102,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self:GetModel() == "models/vj_cofr/cof/slower.mdl" then // Already the default
+	if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" then // Already the default
 		self.Slower_Type = 0
 	elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" then
 		self.Slower_Type = 1
@@ -190,7 +190,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 return false 
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

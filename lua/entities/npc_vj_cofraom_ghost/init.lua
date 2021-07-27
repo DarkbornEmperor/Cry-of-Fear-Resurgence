@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -78,8 +78,47 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack_range" then
+	if key == "attack_range" && self.RangeAttacking == true && self.Ghost_HomingAttack == false then
 		self:RangeAttackCode()
+		if IsValid(self.Glow1) then self.Glow1:Remove() end
+		if IsValid(self.Glow2) then self.Glow2:Remove() end
+		self.Glow1 = ents.Create("env_sprite")
+		self.Glow1:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+		self.Glow1:SetKeyValue("scale","1")
+		//self.Glow1:SetKeyValue("rendercolor","255 128 0")
+		self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+		//self.Glow1:SetKeyValue("HDRColorScale","1.0")
+		self.Glow1:SetKeyValue("renderfx","14")
+		self.Glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+		self.Glow1:SetKeyValue("renderamt","255") -- Transparency
+		self.Glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+		self.Glow1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		self.Glow1:SetKeyValue("spawnflags","0")
+		self.Glow1:SetParent(self)
+		self.Glow1:Fire("SetParentAttachment","rhand")
+		self.Glow1:Spawn()
+		self.Glow1:Activate()
+		self:DeleteOnRemove(self.Glow1)
+		timer.Simple(2,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)
+		
+		self.Glow2 = ents.Create("env_sprite")
+		self.Glow2:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+		self.Glow2:SetKeyValue("scale","1")
+		//self.Glow2:SetKeyValue("rendercolor","255 128 0")
+		self.Glow2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+		//self.Glow2:SetKeyValue("HDRColorScale","1.0")
+		self.Glow2:SetKeyValue("renderfx","14")
+		self.Glow2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+		self.Glow2:SetKeyValue("renderamt","255") -- Transparency
+		self.Glow2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+		self.Glow2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		self.Glow2:SetKeyValue("spawnflags","0")
+		self.Glow2:SetParent(self)
+		self.Glow2:Fire("SetParentAttachment","lhand")
+		self.Glow2:Spawn()
+		self.Glow2:Activate()
+		self:DeleteOnRemove(self.Glow2)
+		timer.Simple(2,function() if IsValid(self) && IsValid(self.Glow2) then self.Glow2:Remove() end end)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +150,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	ParticleEffect("face",self:GetAttachment(self:LookupAttachment(0)).Pos,self:GetAngles())
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

@@ -1,6 +1,6 @@
 /*--------------------------------------------------
 	=============== Autorun File ===============
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -52,7 +52,6 @@ if VJExists == true then
 	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
     VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)
-    VJ.AddNPC("CrazyruMpel","npc_vj_cofr_crazyrumpel",vCat)
     VJ.AddNPC("Sawer","npc_vj_cofr_sawer",vCat)	
 	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
 	VJ.AddNPC("Mace","npc_vj_cofr_mace",vCat)
@@ -103,6 +102,10 @@ if VJExists == true then
 	VJ.AddNPC("Crawler 2","npc_vj_cofrc_crawler2",vCat)
 	VJ.AddNPC("Krypandenej","npc_vj_cofrc_krypandenej",vCat)
     VJ.AddNPC("Faceless (Claw)","npc_vj_cofrc_facelessclaw",vCat)	
+    VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)	
+	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)	
+    VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
+    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)	
 	
     -- Particles --
     game.AddParticles( "particles/vj_cofr_soul.pcf" )
@@ -125,7 +128,7 @@ if VJExists == true then
     game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
 	
 	-- Precache Models --
-	util.PrecacheModel("models/vj_cofr/cof/slower.mdl")
+	util.PrecacheModel("models/vj_cofr/cof/slower1.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/crawler.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/croucher.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/slower3.mdl")
@@ -198,12 +201,17 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_4.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_5.mdl")
     util.PrecacheModel("models/vj_cofr/custom/slower1.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/slower3.mdl") 	
+    util.PrecacheModel("models/vj_cofr/custom/slower3.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/slowerno.mdl") 
+    util.PrecacheModel("models/vj_cofr/custom/slower10.mdl")  	
     util.PrecacheModel("models/vj_cofr/custom/croucher.mdl")
     util.PrecacheModel("models/vj_cofr/custom/crawler.mdl")
     util.PrecacheModel("models/vj_cofr/custom/crawler2.mdl")
     util.PrecacheModel("models/vj_cofr/custom/krypandenej.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/faceless_claw.mdl")    	
+    util.PrecacheModel("models/vj_cofr/custom/faceless_claw.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/faster_clown.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/duorunner.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/psychopumpkin.mdl") 	
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

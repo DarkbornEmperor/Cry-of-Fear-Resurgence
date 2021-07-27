@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -194,19 +194,23 @@ function ENT:CustomRangeAttackCode()
 	local bullet = {}
 		bullet.Num = 4
 		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun")).Pos
-		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-25) -self:GetPos()
-		bullet.Spread = Vector(85,15,0)
+		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
+		bullet.Spread = Vector(20,20,20)
 		bullet.Tracer = 6
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 15
+		bullet.Damage = 10
 		bullet.AmmoType = "SMG1"
 	self:FireBullets(bullet)
 	self.BookSimon_FiredAtLeastOnce = true
 	self:BookSimon_DoFireEffects()
+	timer.Simple(0.5,function() if IsValid(self) then
+	VJ_EmitSound(self, "vj_cofr/booksimon/pump_seq.wav", 85, 100)
+end	
+end)	
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
