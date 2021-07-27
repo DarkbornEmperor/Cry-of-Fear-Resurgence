@@ -57,30 +57,30 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/flygare/flygare_slice.wav"
+"vj_cofr/cof/flygare/flygare_slice.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/flygare/flygare_slash.wav"
+"vj_cofr/cof/flygare/flygare_slash.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Flygare_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/flygare/flygare_alert1.wav",
-	"vj_cofr/flygare/flygare_alert2.wav"
+	"vj_cofr/cof/flygare/flygare_alert1.wav",
+	"vj_cofr/cof/flygare/flygare_alert2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/flygare/flygare_attack1.wav",
-    "vj_cofr/flygare/flygare_attack2.wav"
+    "vj_cofr/cof/flygare/flygare_attack1.wav",
+    "vj_cofr/cof/flygare/flygare_attack2.wav"
 }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/flygare/flygare_attack1.wav",
-    "vj_cofr/flygare/flygare_attack2.wav"
+    "vj_cofr/cof/flygare/flygare_attack1.wav",
+    "vj_cofr/cof/flygare/flygare_attack2.wav"
 }	
     self.SoundTbl_Pain = {
-	"vj_cofr/flygare/flygare_pain.wav"
+	"vj_cofr/cof/flygare/flygare_pain.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/flygare/flygare_death.wav"
+	"vj_cofr/cof/flygare/flygare_death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ end
 		self:RangeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/flygare/flygare_fallhit.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

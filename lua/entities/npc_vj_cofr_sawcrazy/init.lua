@@ -39,27 +39,27 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/sawrunner/chainsaw_attack_hit.wav"
+"vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/sawrunner/chainsaw_attack_miss.wav"
+"vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_CustomOnInitialize()
     self.SoundTbl_Breath = {
-	"vj_cofr/sawcrazy/dblsawloop.wav"
+	"vj_cofr/cof/sawcrazy/dblsawloop.wav"
 }
     self.SoundTbl_Alert = {
-	"vj_cofr/sawcrazy/random2.wav"
+	"vj_cofr/cof/sawcrazy/random2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/sawcrazy/random1.wav"
+	"vj_cofr/cof/sawcrazy/random1.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/sawcrazy/death.wav"
+	"vj_cofr/cof/sawcrazy/death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------

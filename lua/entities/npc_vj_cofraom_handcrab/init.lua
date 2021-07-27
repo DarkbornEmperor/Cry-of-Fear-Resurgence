@@ -50,27 +50,27 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_LeapAttackDamage  = {
-"vj_cofr/headcrab/hc_headbite.wav"
+"vj_cofr/aom/headcrab/hc_headbite.wav"
 }	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Handcrab_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/headcrab/hc_alert1.wav",
-	"vj_cofr/headcrab/hc_alert2.wav"
+	"vj_cofr/aom/headcrab/hc_alert1.wav",
+	"vj_cofr/aom/headcrab/hc_alert2.wav"
 }
     self.SoundTbl_LeapAttackJump  = {
-	"vj_cofr/headcrab/hc_attack1.wav",
-	"vj_cofr/headcrab/hc_attack2.wav",
-	"vj_cofr/headcrab/hc_attack3.wav"
+	"vj_cofr/aom/headcrab/hc_attack1.wav",
+	"vj_cofr/aom/headcrab/hc_attack2.wav",
+	"vj_cofr/aom/headcrab/hc_attack3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/headcrab/hc_pain1.wav",
-	"vj_cofr/headcrab/hc_pain1.wav",
-	"vj_cofr/headcrab/hc_pain1.wav"
+	"vj_cofr/aom/headcrab/hc_pain1.wav",
+	"vj_cofr/aom/headcrab/hc_pain1.wav",
+	"vj_cofr/aom/headcrab/hc_pain1.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/headcrab/hc_die1.wav",
-	"vj_cofr/headcrab/hc_die2.wav"
+	"vj_cofr/aom/headcrab/hc_die1.wav",
+	"vj_cofr/aom/headcrab/hc_die2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

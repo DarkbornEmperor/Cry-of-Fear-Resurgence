@@ -38,34 +38,30 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
-ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/baby/b_attack1.wav",
-"vj_cofr/baby/b_attack2.wav"
-}	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Dog_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/houndeye/he_alert1.wav",
-	"vj_cofr/houndeye/he_alert2.wav"
+	"vj_cofr/aom/houndeye/he_alert1.wav",
+	"vj_cofr/aom/houndeye/he_alert2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/houndeye/he_attack1.wav",
-	"vj_cofr/houndeye/he_attack2.wav",
-	"vj_cofr/houndeye/he_attack3.wav"
+	"vj_cofr/aom/houndeye/he_attack1.wav",
+	"vj_cofr/aom/houndeye/he_attack2.wav",
+	"vj_cofr/aom/houndeye/he_attack3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/houndeye/he_pain1.wav",
-	"vj_cofr/houndeye/he_pain2.wav",
-	"vj_cofr/houndeye/he_pain3.wav",
-	"vj_cofr/houndeye/he_pain4.wav",
-	"vj_cofr/houndeye/he_pain5.wav"
+	"vj_cofr/aom/houndeye/he_pain1.wav",
+	"vj_cofr/aom/houndeye/he_pain2.wav",
+	"vj_cofr/aom/houndeye/he_pain3.wav",
+	"vj_cofr/aom/houndeye/he_pain4.wav",
+	"vj_cofr/aom/houndeye/he_pain5.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/houndeye/he_die1.wav",
-	"vj_cofr/houndeye/he_die2.wav",
-	"vj_cofr/houndeye/he_die3.wav"
+	"vj_cofr/aom/houndeye/he_die1.wav",
+	"vj_cofr/aom/houndeye/he_die2.wav",
+	"vj_cofr/aom/houndeye/he_die3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +78,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +91,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/bluelight1", framerate=20, flags=0})
 	
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
-		VJ_EmitSound(self, {"vj_cofr/houndeye/he_blast1.wav","vj_cofr/houndeye/he_blast2.wav","vj_cofr/houndeye/he_blast3.wav"}, 100, math.random(80,100))
+		VJ_EmitSound(self, {"vj_cofr/aom/houndeye/he_blast1.wav","vj_cofr/aom/houndeye/he_blast2.wav","vj_cofr/aom/houndeye/he_blast3.wav"}, 100, math.random(80,100))
 end
 	util.VJ_SphereDamage(self, self, self:GetPos(), 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end

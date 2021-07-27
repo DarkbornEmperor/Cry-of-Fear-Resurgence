@@ -52,21 +52,21 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/sewer/mace_hitflesh.wav"
+"vj_cofr/cof/sewer/mace_hitflesh.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/sewer/mace_swing.wav"
+"vj_cofr/cof/sewer/mace_swing.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/sewer/getout.mp3"
+"vj_cofr/cof/sewer/getout.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Mace_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/sewer/mace_scream.wav"
+	"vj_cofr/cof/sewer/mace_scream.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

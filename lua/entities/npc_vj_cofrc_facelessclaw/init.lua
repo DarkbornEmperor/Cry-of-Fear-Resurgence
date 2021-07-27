@@ -12,8 +12,8 @@ ENT.Model = {"models/vj_cofr/custom/faceless_claw.mdl"}
 "vj_cofr/custom/faceless/fist_strike3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/faceless/fist_miss1.wav",
-"vj_cofr/faceless/fist_miss2.wav"
+"vj_cofr/cof/faceless/fist_miss1.wav",
+"vj_cofr/cof/faceless/fist_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faceless_CustomOnInitialize()

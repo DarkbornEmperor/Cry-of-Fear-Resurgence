@@ -38,9 +38,9 @@ ENT.Hanger_Death = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hanger_CustomOnInitialize()
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/hanger/hangerscream1.wav",
-	"vj_cofr/hanger/hangerscream2.wav",
-	"vj_cofr/hanger/hangerscream3.wav"
+	"vj_cofr/cof/hanger/hangerscream1.wav",
+	"vj_cofr/cof/hanger/hangerscream2.wav",
+	"vj_cofr/cof/hanger/hangerscream3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

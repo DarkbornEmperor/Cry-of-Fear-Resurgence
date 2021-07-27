@@ -30,7 +30,7 @@ ENT.RadiusDamageRadius = 45
 ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
-ENT.SoundTbl_OnCollide = {"vj_cofr/flygare/flygare_acid_hit.wav"}
+ENT.SoundTbl_OnCollide = {"vj_cofr/cof/flygare/flygare_acid_hit.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()

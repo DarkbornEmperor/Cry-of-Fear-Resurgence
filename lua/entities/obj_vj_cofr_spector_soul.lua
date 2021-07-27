@@ -31,8 +31,8 @@ ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits somethi
 ENT.DirectDamage = 6 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
-ENT.SoundTbl_Idle = {"vj_cofr/hornet/ag_buzz1.wav","vj_cofr/hornet/ag_buzz2.wav","vj_cofr/hornet/ag_buzz3.wav"}
-ENT.SoundTbl_OnCollide = {"vj_cofr/hornet/ag_hornethit1.wav","vj_cofr/hornet/ag_hornethit2.wav","vj_cofr/hornet/ag_hornethit3.wav"}
+ENT.SoundTbl_Idle = {"vj_cofr/aom/hornet/ag_buzz1.wav","vj_cofr/aom/hornet/ag_buzz2.wav","vj_cofr/aom/hornet/ag_buzz3.wav"}
+ENT.SoundTbl_OnCollide = {"vj_cofr/aom/hornet/ag_hornethit1.wav","vj_cofr/aom/hornet/ag_hornethit2.wav","vj_cofr/aom/hornet/ag_hornethit3.wav"}
 
 ENT.IdleSoundPitch = VJ_Set(100, 100)
 

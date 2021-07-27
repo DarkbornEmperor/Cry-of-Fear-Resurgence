@@ -35,7 +35,7 @@ ENT.Dreamer_Jumpscare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Dreamer_CustomOnInitialize()
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/dreamer/dreamer_attack.wav"
+	"vj_cofr/cof/dreamer/dreamer_attack.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,12 +53,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if !IsValid(self:GetEnemy()) then
-	self:SetMaterial("HUD/killicons/default")
 	self:SetNoDraw(true)
 	self:DrawShadow(false)
 end	
 	if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
-	self:SetMaterial()
 	self:SetNoDraw(false)
 	self:DrawShadow(true)	
     timer.Simple(1,function() if IsValid(self) then	

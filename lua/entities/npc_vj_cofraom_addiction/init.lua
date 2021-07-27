@@ -40,11 +40,11 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/davidbad/sickness.mp3",
-"vj_cofr/davidbad/4motherkill.wav"
+"vj_cofr/aom/davidbad/sickness.mp3",
+"vj_cofr/aom/davidbad/4motherkill.wav"
 }
 -- Custom
 ENT.Addiction_Axe = false
@@ -52,20 +52,21 @@ ENT.Addiction_OnFire = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Addiction_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/davidbad/db_alert10.wav",
-	"vj_cofr/davidbad/db_alert20.wav",
-	"vj_cofr/davidbad/db_alert30.wav"
+	"vj_cofr/aom/davidbad/db_alert10.wav",
+	"vj_cofr/aom/davidbad/db_alert20.wav",
+	"vj_cofr/aom/davidbad/db_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/davidbad/david_attack.wav"
+	"vj_cofr/aom/davidbad/david_attack.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/davidbad/db_pain1.wav",
-	"vj_cofr/davidbad/db_pain2.wav"
+	"vj_cofr/aom/davidbad/db_pain1.wav",
+	"vj_cofr/aom/davidbad/db_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()	
+function ENT:CustomOnInitialize()
+     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))		
      self:Addiction_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,16 +78,16 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "axe_grab" then
-		VJ_EmitSound(self, "vj_cofr/davidbad/david_axegrab.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/aom/davidbad/david_axegrab.wav", 85, 100)
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
 		self:SetBodygroup(0,1)
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if self.Addiction_Axe == false && (self.StartHealth -500 > self:Health()) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,3.7941175539395,false)
@@ -109,13 +110,19 @@ function ENT:MultipleMeleeAttacks()
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamageType = DMG_SHOCK
 		self.HasMeleeAttackMissSounds = false
-		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/davidbad/thunder_hit.wav"}
+		self.SoundTbl_MeleeAttackExtra = {
+		"vj_cofr/aom/davidbad/thunder_hit.wav"
+}
 	elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamageType = DMG_SLASH
 		self.MeleeAttackDamage = 25 
-		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/davidbad/Axe_swing.wav"}
-		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/davidbad/Axe_hitbody.wav"}
+		self.SoundTbl_MeleeAttackMiss = {
+		"vj_cofr/aom/davidbad/Axe_swing.wav"
+}
+		self.SoundTbl_MeleeAttackExtra = {
+		"vj_cofr/aom/davidbad/Axe_hitbody.wav"
+}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,7 +136,7 @@ if self:GetBodygroup(0) == 0 then
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/bluelight1", framerate=20, flags=0})
 	
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
-		VJ_EmitSound(self, {"vj_cofr/davidbad/thunder_attack1.wav","vj_cofr/davidbad/thunder_attack2.wav","vj_cofr/davidbad/thunder_attack3.wav"}, 100, math.random(80,100))
+		VJ_EmitSound(self, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, math.random(80,100))
 end
 	util.VJ_SphereDamage(self, self, self:GetPos(), 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end	

@@ -51,34 +51,34 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/sawrunner/chainsaw_attack_hit.wav"
+"vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/sawrunner/chainsaw_attack_miss.wav"
+"vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/sawrunner/sawyourskull.mp3"
+"vj_cofr/cof/sawrunner/sawyourskull.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_CustomOnInitialize()
     self.SoundTbl_Breath = {
-	"vj_cofr/sawer/chainsaw_loop.wav"
+	"vj_cofr/cof/sawer/chainsaw_loop.wav"
 }
     self.SoundTbl_Alert = {
-	"vj_cofr/sawrunner/sawrunner_alert10.wav",
-	"vj_cofr/sawrunner/sawrunner_alert20.wav",
-	"vj_cofr/sawrunner/sawrunner_alert30.wav"
+	"vj_cofr/cof/sawrunner/sawrunner_alert10.wav",
+	"vj_cofr/cof/sawrunner/sawrunner_alert20.wav",
+	"vj_cofr/cof/sawrunner/sawrunner_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/sawrunner/sawrunner_attack1.wav",
-	"vj_cofr/sawrunner/sawrunner_attack2.wav"
+	"vj_cofr/cof/sawrunner/sawrunner_attack1.wav",
+	"vj_cofr/cof/sawrunner/sawrunner_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/sawrunner/sawrunner_pain1.wav",
-	"vj_cofr/sawrunner/sawrunner_pain2.wav"
+	"vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
+	"vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -38,28 +38,28 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/baby/b_attack1.wav",
-"vj_cofr/baby/b_attack2.wav"
+"vj_cofr/cof/baby/b_attack1.wav",
+"vj_cofr/cof/baby/b_attack2.wav"
 }	
 -- Custom
 ENT.Baby_DeathFromMeleeAttack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Baby_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/baby/b_alert1.wav",
-	"vj_cofr/baby/b_alert2.wav",
-	"vj_cofr/baby/b_alert3.wav"
+	"vj_cofr/cof/baby/b_alert1.wav",
+	"vj_cofr/cof/baby/b_alert2.wav",
+	"vj_cofr/cof/baby/b_alert3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/baby/b_pain1.wav",
-	"vj_cofr/baby/b_pain2.wav"
+	"vj_cofr/cof/baby/b_pain1.wav",
+	"vj_cofr/cof/baby/b_pain2.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/baby/b_death1.wav",
-	"vj_cofr/baby/b_death2.wav"
+	"vj_cofr/cof/baby/b_death1.wav",
+	"vj_cofr/cof/baby/b_death2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ end
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

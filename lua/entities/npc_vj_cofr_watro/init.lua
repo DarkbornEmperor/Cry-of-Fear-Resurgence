@@ -40,10 +40,10 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/watro/watro_hit.wav"
+"vj_cofr/cof/watro/watro_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/watro/watro_swing.wav"
+"vj_cofr/cof/watro/watro_swing.wav"
 }		
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Watro_CustomOnInitialize()

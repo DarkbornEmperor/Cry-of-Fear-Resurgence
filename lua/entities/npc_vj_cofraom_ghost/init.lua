@@ -47,27 +47,27 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/controller/con_attack1.wav",
-"vj_cofr/controller/con_attack2.wav",
-"vj_cofr/controller/con_attack3.wav"
+"vj_cofr/aom/controller/con_attack1.wav",
+"vj_cofr/aom/controller/con_attack2.wav",
+"vj_cofr/aom/controller/con_attack3.wav"
 }	
 -- Custom
 ENT.Ghost_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/controller/con_alert1.wav",
-	"vj_cofr/controller/con_alert2.wav",
-	"vj_cofr/controller/con_alert3.wav"
+	"vj_cofr/aom/controller/con_alert1.wav",
+	"vj_cofr/aom/controller/con_alert2.wav",
+	"vj_cofr/aom/controller/con_alert3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/controller/con_pain1.wav",
-	"vj_cofr/controller/con_pain2.wav",
-	"vj_cofr/controller/con_pain3.wav"
+	"vj_cofr/aom/controller/con_pain1.wav",
+	"vj_cofr/aom/controller/con_pain2.wav",
+	"vj_cofr/aom/controller/con_pain3.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/controller/con_die1.wav",
-	"vj_cofr/controller/con_die2.wav"
+	"vj_cofr/aom/controller/con_die1.wav",
+	"vj_cofr/aom/controller/con_die2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

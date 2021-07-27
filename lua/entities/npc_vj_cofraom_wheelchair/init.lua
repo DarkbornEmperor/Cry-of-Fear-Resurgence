@@ -41,13 +41,13 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/wheelchair/wheel01.wav",
-"vj_cofr/wheelchair/wheel02.wav",
-"vj_cofr/wheelchair/wheel03.wav",
-"vj_cofr/wheelchair/wheel04.wav"
+"vj_cofr/aom/wheelchair/wheel01.wav",
+"vj_cofr/aom/wheelchair/wheel02.wav",
+"vj_cofr/aom/wheelchair/wheel03.wav",
+"vj_cofr/aom/wheelchair/wheel04.wav"
 }
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/wheelchair/wcm_squirt.wav"
+"vj_cofr/aom/wheelchair/wcm_squirt.wav"
 }	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

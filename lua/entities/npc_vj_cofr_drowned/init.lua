@@ -52,11 +52,11 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/crazylady/knife_hitbody1.wav",
-"vj_cofr/crazylady/knife_hitbody2.wav"
+"vj_cofr/cof/crazylady/knife_hitbody1.wav",
+"vj_cofr/cof/crazylady/knife_hitbody2.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/crazylady/knife_swing.wav"
+"vj_cofr/cof/crazylady/knife_swing.wav"
 }
 -- Custom
 ENT.Drowned_Baby = false
@@ -65,13 +65,13 @@ ENT.Drowned_NextEnemyDamage = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/crazylady/lady_alert10.wav",
-	"vj_cofr/crazylady/lady_alert20.wav",
-	"vj_cofr/crazylady/lady_alert30.wav"
+	"vj_cofr/cof/crazylady/lady_alert10.wav",
+	"vj_cofr/cof/crazylady/lady_alert20.wav",
+	"vj_cofr/cof/crazylady/lady_alert30.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/crazylady/lady_pain1.wav",
-	"vj_cofr/crazylady/lady_pain2.wav"
+	"vj_cofr/cof/crazylady/lady_pain1.wav",
+	"vj_cofr/cof/crazylady/lady_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ end
 		self:RangeAttackCode()
 end		
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

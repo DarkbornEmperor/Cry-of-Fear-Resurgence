@@ -38,7 +38,7 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 -- Custom
 ENT.Stranger_DamageDistance = 500
@@ -48,10 +48,10 @@ util.AddNetworkString("vj_cofr_stranger_damage")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_CustomOnInitialize()
     self.SoundTbl_Breath = {
-	"vj_cofr/stranger/st_voiceloop.wav"
+	"vj_cofr/cof/stranger/st_voiceloop.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/stranger/st_death.wav"
+	"vj_cofr/cof/stranger/st_death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

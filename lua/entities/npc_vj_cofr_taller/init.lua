@@ -48,18 +48,18 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/taller/taller_step.wav"
+"vj_cofr/cof/taller/taller_step.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Taller_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/taller/taller_alert.wav"
+	"vj_cofr/cof/taller/taller_alert.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/taller/taller_pain.wav"
+	"vj_cofr/cof/taller/taller_pain.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/taller/taller_die.wav"
+	"vj_cofr/cof/taller/taller_die.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -87,15 +87,23 @@ local attack = math.random(1,2)
 		self.MeleeAttackDamage = 60
 		self.SlowPlayerOnMeleeAttack = true
 		self.HasMeleeAttackKnockBack = true
-		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/taller/taller_swing.wav"}
-		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/taller/taller_player_punch.wav"}
+		self.SoundTbl_MeleeAttackMiss = {
+		"vj_cofr/cof/taller/taller_swing.wav"
+}
+		self.SoundTbl_MeleeAttackExtra = {
+		"vj_cofr/cof/taller/taller_player_punch.wav"
+}
 	elseif attack == 2 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 200 
 		self.SlowPlayerOnMeleeAttack = false
 		self.HasMeleeAttackKnockBack = false
-		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/taller/taller_wall_punch.wav"}
-		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/taller/taller_stamp.wav"}
+		self.SoundTbl_MeleeAttackMiss = {
+		"vj_cofr/cof/taller/taller_wall_punch.wav"
+}
+		self.SoundTbl_MeleeAttackExtra = {
+		"vj_cofr/cof/taller/taller_stamp.wav"
+}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

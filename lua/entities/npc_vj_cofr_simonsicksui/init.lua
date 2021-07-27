@@ -45,15 +45,15 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/sicksimon/wheelchair_move1.wav",
-"vj_cofr/sicksimon/wheelchair_move2.wav",
-"vj_cofr/sicksimon/wheelchair_move3.wav"
+"vj_cofr/cof/sicksimon/wheelchair_move1.wav",
+"vj_cofr/cof/sicksimon/wheelchair_move2.wav",
+"vj_cofr/cof/sicksimon/wheelchair_move3.wav"
 }
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/sicksimon/shoot.wav"
+"vj_cofr/cof/sicksimon/shoot.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/booksimon/ending5.mp3"
+"vj_cofr/cof/booksimon/ending5.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SickSimon_CustomOnInitialize()
@@ -68,8 +68,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 end	
 	if key == "suicide" then
-		VJ_EmitSound(self, "vj_cofr/sicksimon/shoot.wav", 85, 100)
-		VJ_EmitSound(self,"vj_cofr/common/bodysplat.wav",85)
+		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 85, 100)
+		VJ_EmitSound(self,"vj_cofr/cof/common/bodysplat.wav",85)
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 		self:SickSimon_DoFireEffects()
 		self:SetBodygroup(0,1)

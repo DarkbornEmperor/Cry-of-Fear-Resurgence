@@ -43,13 +43,13 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/craig/chainsawed.wav"
+"vj_cofr/cof/craig/chainsawed.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/sawrunner/chainsaw_attack_miss.wav"
+"vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 }
 ENT.SoundTbl_SoundTrack = {
 
@@ -57,21 +57,21 @@ ENT.SoundTbl_SoundTrack = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Craig_CustomOnInitialize()
     self.SoundTbl_Breath = {
-	"vj_cofr/sawer/chainsaw_loop.wav"
+	"vj_cofr/cof/sawer/chainsaw_loop.wav"
 }
     self.SoundTbl_Alert = {
-	"vj_cofr/craig/alert1.wav",
-	"vj_cofr/craig/alert2.wav"
+	"vj_cofr/cof/craig/alert1.wav",
+	"vj_cofr/cof/craig/alert2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/craig/attack1.wav",
-	"vj_cofr/craig/attack2.wav"
+	"vj_cofr/cof/craig/attack1.wav",
+	"vj_cofr/cof/craig/attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/craig/pain1.wav"
+	"vj_cofr/cof/craig/pain1.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/craig/death.wav"
+	"vj_cofr/cof/craig/death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

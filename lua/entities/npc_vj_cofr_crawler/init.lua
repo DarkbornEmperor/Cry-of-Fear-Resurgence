@@ -19,28 +19,28 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/slower/k_crawl1.wav",
-"vj_cofr/slower/k_crawl2.wav",
-"vj_cofr/slower/k_crawl3.wav",
-"vj_cofr/slower/k_crawl4.wav",
-"vj_cofr/slower/k_crawl5.wav",
-"vj_cofr/slower/k_crawl6.wav",
-"vj_cofr/slower/k_crawl7.wav"
+"vj_cofr/cof/slower/k_crawl1.wav",
+"vj_cofr/cof/slower/k_crawl2.wav",
+"vj_cofr/cof/slower/k_crawl3.wav",
+"vj_cofr/cof/slower/k_crawl4.wav",
+"vj_cofr/cof/slower/k_crawl5.wav",
+"vj_cofr/cof/slower/k_crawl6.wav",
+"vj_cofr/cof/slower/k_crawl7.wav"
 }
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/slower/slower_alert10.wav",
-	"vj_cofr/slower/slower_alert20.wav",
-	"vj_cofr/slower/slower_alert30.wav"
+	"vj_cofr/cof/slower/slower_alert10.wav",
+	"vj_cofr/cof/slower/slower_alert20.wav",
+	"vj_cofr/cof/slower/slower_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/slower/slower_attack1.wav",
-	"vj_cofr/slower/slower_attack2.wav"
+	"vj_cofr/cof/slower/slower_attack1.wav",
+	"vj_cofr/cof/slower/slower_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/slower/slower_pain1.wav",
-	"vj_cofr/slower/slower_pain2.wav"
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
 }
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
 end

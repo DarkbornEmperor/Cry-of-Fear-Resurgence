@@ -56,26 +56,26 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/zombie/claw_strike1.wav",
-"vj_cofr/zombie/claw_strike2.wav",
-"vj_cofr/zombie/claw_strike3.wav"
+"vj_cofr/aom/zombie/claw_strike1.wav",
+"vj_cofr/aom/zombie/claw_strike2.wav",
+"vj_cofr/aom/zombie/claw_strike3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/zombie/claw_miss1.wav",
-"vj_cofr/zombie/claw_miss2.wav"
+"vj_cofr/aom/zombie/claw_miss1.wav",
+"vj_cofr/aom/zombie/claw_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Abomination_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aslave/slv_alert2.wav",
-	"vj_cofr/aslave/slv_alert4.wav"
+	"vj_cofr/aom/aslave/slv_alert2.wav",
+	"vj_cofr/aom/aslave/slv_alert4.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aslave/slv_die1.wav",
-	"vj_cofr/aslave/slv_die2.wav"
+	"vj_cofr/aom/aslave/slv_die1.wav",
+	"vj_cofr/aom/aslave/slv_die2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common_aom/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

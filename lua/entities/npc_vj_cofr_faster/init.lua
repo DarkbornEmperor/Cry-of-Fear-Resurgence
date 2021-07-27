@@ -39,16 +39,16 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/faster/faster_step.wav"
+"vj_cofr/cof/faster/faster_step.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/faster/faster_hit1.wav",
-"vj_cofr/faster/faster_hit2.wav",
-"vj_cofr/faster/faster_hit3.wav",
-"vj_cofr/faster/faster_hit4.wav"
+"vj_cofr/cof/faster/faster_hit1.wav",
+"vj_cofr/cof/faster/faster_hit2.wav",
+"vj_cofr/cof/faster/faster_hit3.wav",
+"vj_cofr/cof/faster/faster_hit4.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/faster/faster_miss.wav"
+"vj_cofr/cof/faster/faster_miss.wav"
 }
 -- Custom
 ENT.Faster_Type = 0
@@ -64,18 +64,18 @@ if self.Faster_Type == 1 then
 
 end
     self.SoundTbl_Alert = {
-	"vj_cofr/faster/faster_alert1.wav",
-	"vj_cofr/faster/faster_alert2.wav"
+	"vj_cofr/cof/faster/faster_alert1.wav",
+	"vj_cofr/cof/faster/faster_alert2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/faster/faster_pain.wav"
+	"vj_cofr/cof/faster/faster_pain.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/slower/slower_pain1.wav",
-	"vj_cofr/slower/slower_pain2.wav"
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/faster/faster_death.wav"
+	"vj_cofr/cof/faster/faster_death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,14 +96,14 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "suicide" then
-		VJ_EmitSound(self, "vj_cofr/faster/faster_suicide.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 85, 100)
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 end	
 	if key == "death_metal" then
-		VJ_EmitSound(self, "vj_cofr/faster/faster_metalfall.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 85, 100)
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if self.Faster_Type == 1 && (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD then	
 	if (dmginfo:IsBulletDamage()) && self.HasSounds == true && self.HasImpactSounds == true then 
 	    dmginfo:ScaleDamage(0.00)
-		VJ_EmitSound(self,"vj_cofr/faster/faster_headhit"..math.random(1,4)..".wav",70) end
+		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav",70) end
 		local attacker = dmginfo:GetAttacker()
 			self.DamageSpark1 = ents.Create("env_spark")
 			self.DamageSpark1:SetKeyValue("Magnitude","1")

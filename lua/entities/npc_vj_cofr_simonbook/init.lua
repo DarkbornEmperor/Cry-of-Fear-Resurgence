@@ -55,21 +55,21 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/booksimon/shoot.wav"
+"vj_cofr/cof/booksimon/shoot.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/booksimon/sledgehammer_hitbody.wav"
+"vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/booksimon/sledgehammer_swing.wav"
+"vj_cofr/cof/booksimon/sledgehammer_swing.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/booksimon/ending5.mp3",
-"vj_cofr/booksimon/fucked.mp3",
-"vj_cofr/booksimon/fucked2.mp3"
+"vj_cofr/cof/booksimon/ending5.mp3",
+"vj_cofr/cof/booksimon/fucked.mp3",
+"vj_cofr/cof/booksimon/fucked2.mp3"
 }
 -- Custom
 ENT.BookSimon_Shotgun = true
@@ -116,7 +116,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -144,9 +144,9 @@ function ENT:SetSledgehammerFlare()
     self.AnimTbl_Walk = {ACT_SPRINT}
 	self.AnimTbl_Run = {ACT_SPRINT}
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-	VJ_EmitSound(self, "vj_cofr/booksimon/flare_ignite.wav", 85, 100)
+	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 85, 100)
 	self.SoundTbl_Breath = {
-    "vj_cofr/booksimon/flare_burn.wav"
+    "vj_cofr/cof/booksimon/flare_burn.wav"
 }
 	self:SetBodygroup(0,4)
 	self:SetBodygroup(2,1)
@@ -205,7 +205,7 @@ function ENT:CustomRangeAttackCode()
 	self.BookSimon_FiredAtLeastOnce = true
 	self:BookSimon_DoFireEffects()
 	timer.Simple(0.5,function() if IsValid(self) then
-	VJ_EmitSound(self, "vj_cofr/booksimon/pump_seq.wav", 85, 100)
+	VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 85, 100)
 end	
 end)	
 end

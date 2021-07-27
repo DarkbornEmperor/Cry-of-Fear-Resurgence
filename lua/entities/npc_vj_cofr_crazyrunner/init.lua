@@ -38,21 +38,21 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/crazylady/knife_hitbody1.wav",
-"vj_cofr/crazylady/knife_hitbody2.wav"
+"vj_cofr/cof/crazylady/knife_hitbody1.wav",
+"vj_cofr/cof/crazylady/knife_hitbody2.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/crazylady/knife_swing.wav"
+"vj_cofr/cof/crazylady/knife_swing.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/rcrazy/rc_alert1.wav",
-	"vj_cofr/rcrazy/rc_alert2.wav",
-	"vj_cofr/rcrazy/rc_alert3.wav"
+	"vj_cofr/cof/rcrazy/rc_alert1.wav",
+	"vj_cofr/cof/rcrazy/rc_alert2.wav",
+	"vj_cofr/cof/rcrazy/rc_alert3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -30,8 +30,8 @@ ENT.RadiusDamageRadius = 45
 ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
-ENT.SoundTbl_Idle = {"vj_cofr/bullchicken/bc_acid1.wav","vj_cofr/bullchicken/bc_acid2.wav"}
-ENT.SoundTbl_OnCollide = {"vj_cofr/bullchicken/bc_spithit1.wav","vj_cofr/bullchicken/bc_spithit2.wav","vj_cofr/bullchicken/bc_spithit3.wav"}
+ENT.SoundTbl_Idle = {"vj_cofr/aom/bullchicken/bc_acid1.wav","vj_cofr/aom/bullchicken/bc_acid2.wav"}
+ENT.SoundTbl_OnCollide = {"vj_cofr/aom/bullchicken/bc_spithit1.wav","vj_cofr/aom/bullchicken/bc_spithit2.wav","vj_cofr/aom/bullchicken/bc_spithit3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()

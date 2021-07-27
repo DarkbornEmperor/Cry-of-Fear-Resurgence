@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/cof/sawcrazy/hair"
+	"$alphatest" 1
+}

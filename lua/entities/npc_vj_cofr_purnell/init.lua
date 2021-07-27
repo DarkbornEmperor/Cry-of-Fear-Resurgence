@@ -45,10 +45,10 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/doc_ai/despair.mp3"
+"vj_cofr/cof/doc_ai/despair.mp3"
 }
 -- Custom
 ENT.Doctor_Revolver = true
@@ -63,32 +63,32 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/doc_ai/be_careful_dont_make_me_angry.wav",
-	"vj_cofr/doc_ai/dont_make_me_angry.wav"
+	"vj_cofr/cof/doc_ai/be_careful_dont_make_me_angry.wav",
+	"vj_cofr/cof/doc_ai/dont_make_me_angry.wav"
 }
     self.SoundTbl_CombatIdle = {
-	"vj_cofr/doc_ai/simon_stop.wav",
-	"vj_cofr/doc_ai/stop.wav",
-	"vj_cofr/doc_ai/stop_doing_that.wav",
-	"vj_cofr/doc_ai/what_u_doin.wav"
+	"vj_cofr/cof/doc_ai/simon_stop.wav",
+	"vj_cofr/cof/doc_ai/stop.wav",
+	"vj_cofr/cof/doc_ai/stop_doing_that.wav",
+	"vj_cofr/cof/doc_ai/what_u_doin.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/doc_ai/ouch1.wav",
-	"vj_cofr/doc_ai/ouch2.wav",
-	"vj_cofr/doc_ai/ouch3.wav",
-	"vj_cofr/doc_ai/ouch4.wav",
-	"vj_cofr/doc_ai/ouch5.wav",
-	"vj_cofr/doc_ai/ouch6.wav",
-	"vj_cofr/doc_ai/ouch7.wav"
+	"vj_cofr/cof/doc_ai/ouch1.wav",
+	"vj_cofr/cof/doc_ai/ouch2.wav",
+	"vj_cofr/cof/doc_ai/ouch3.wav",
+	"vj_cofr/cof/doc_ai/ouch4.wav",
+	"vj_cofr/cof/doc_ai/ouch5.wav",
+	"vj_cofr/cof/doc_ai/ouch6.wav",
+	"vj_cofr/cof/doc_ai/ouch7.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/doc_ai/ouch1.wav",
-	"vj_cofr/doc_ai/ouch2.wav",
-	"vj_cofr/doc_ai/ouch3.wav",
-	"vj_cofr/doc_ai/ouch4.wav",
-	"vj_cofr/doc_ai/ouch5.wav",
-	"vj_cofr/doc_ai/ouch6.wav",
-	"vj_cofr/doc_ai/ouch7.wav"
+	"vj_cofr/cof/doc_ai/ouch1.wav",
+	"vj_cofr/cof/doc_ai/ouch2.wav",
+	"vj_cofr/cof/doc_ai/ouch3.wav",
+	"vj_cofr/cof/doc_ai/ouch4.wav",
+	"vj_cofr/cof/doc_ai/ouch5.wav",
+	"vj_cofr/cof/doc_ai/ouch6.wav",
+	"vj_cofr/cof/doc_ai/ouch7.wav"
 }
 	 if self.Doctor_Pistol then
 	    self.Doctor_Revolver = false
@@ -110,20 +110,20 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 end
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetRevolver()
     self.SoundTbl_RangeAttack = {
-    "vj_cofr/doc_ai/revolver_fire.wav"
+    "vj_cofr/cof/doc_ai/revolver_fire.wav"
 }
 	self:SetBodygroup(0,1)
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetPistol()
     self.SoundTbl_RangeAttack = {
-    "vj_cofr/doc_ai/p345_fire.wav"
+    "vj_cofr/cof/doc_ai/p345_fire.wav"
 }
 	self:SetBodygroup(0,0)
 end

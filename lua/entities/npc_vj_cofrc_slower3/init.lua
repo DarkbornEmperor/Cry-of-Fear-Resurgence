@@ -20,17 +20,17 @@ elseif Slower_Body == 3 then
     self:SetBodygroup(0,2)		
 end	
     self.SoundTbl_Alert = {
-	"vj_cofr/custom/slower3/slower_alert10.wav",
-	"vj_cofr/custom/slower3/slower_alert20.wav",
-	"vj_cofr/custom/slower3/slower_alert30.wav"
+	"vj_cofr/cof/custom/slower3/slower_alert10.wav",
+	"vj_cofr/cof/custom/slower3/slower_alert20.wav",
+	"vj_cofr/cof/custom/slower3/slower_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/custom/slower3/slower_attack1.wav",
-	"vj_cofr/custom/slower3/slower_attack2.wav"
+	"vj_cofr/cof/custom/slower3/slower_attack1.wav",
+	"vj_cofr/cof/custom/slower3/slower_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/custom/slower3/slower_pain1.wav",
-	"vj_cofr/custom/slower3/slower_pain2.wav"
+	"vj_cofr/cof/custom/slower3/slower_pain1.wav",
+	"vj_cofr/cof/custom/slower3/slower_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,21 +38,21 @@ function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 2 then
 		self.MeleeAttackDamage = 25
         self.SoundTbl_MeleeAttackExtra = {
-        "vj_cofr/davidbad/Axe_hitbody.wav"
+        "vj_cofr/aom/davidbad/Axe_hitbody.wav"
 }	
         self.SoundTbl_MeleeAttackMiss = {
-        "vj_cofr/davidbad/Axe_swing.wav"
+        "vj_cofr/aom/davidbad/Axe_swing.wav"
 }
 	elseif self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 1 then
 		self.MeleeAttackDamage = 20 
         self.SoundTbl_MeleeAttackExtra = {
-        "vj_cofr/slower/hammer_strike1.wav",
-        "vj_cofr/slower/hammer_strike2.wav",
-        "vj_cofr/slower/hammer_strike3.wav"
+        "vj_cofr/cof/slower/hammer_strike1.wav",
+        "vj_cofr/cof/slower/hammer_strike2.wav",
+        "vj_cofr/cof/slower/hammer_strike3.wav"
 }	
         self.SoundTbl_MeleeAttackMiss = {
-        "vj_cofr/slower/hammer_miss1.wav",
-        "vj_cofr/slower/hammer_miss2.wav"
+        "vj_cofr/cof/slower/hammer_miss1.wav",
+        "vj_cofr/cof/slower/hammer_miss2.wav"
 }	
 	end
 end

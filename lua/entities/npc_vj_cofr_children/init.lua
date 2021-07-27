@@ -50,28 +50,28 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/children/plasticstep1.wav"
+"vj_cofr/cof/children/plasticstep1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/children/child_slice.wav"
+"vj_cofr/cof/children/child_slice.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/children/child_slash.wav"
+"vj_cofr/cof/children/child_slash.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Children_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/children/child_alert10.wav",
-	"vj_cofr/children/child_alert20.wav",
-	"vj_cofr/children/child_alert30.wav"
+	"vj_cofr/cof/children/child_alert10.wav",
+	"vj_cofr/cof/children/child_alert20.wav",
+	"vj_cofr/cof/children/child_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/children/child_attack1.wav",
-	"vj_cofr/children/child_attack2.wav"
+	"vj_cofr/cof/children/child_attack1.wav",
+	"vj_cofr/cof/children/child_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/children/child_pain1.wav",
-	"vj_cofr/children/child_pain2.wav"
+	"vj_cofr/cof/children/child_pain1.wav",
+	"vj_cofr/cof/children/child_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

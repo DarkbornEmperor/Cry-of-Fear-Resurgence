@@ -40,18 +40,18 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/booksimon/sledgehammer_hitbody.wav"
+"vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/booksimon/sledgehammer_swing.wav"
+"vj_cofr/cof/booksimon/sledgehammer_swing.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/booksimon/ending5.mp3",
-"vj_cofr/booksimon/fucked.mp3",
-"vj_cofr/booksimon/fucked2.mp3"
+"vj_cofr/cof/booksimon/ending5.mp3",
+"vj_cofr/cof/booksimon/fucked.mp3",
+"vj_cofr/cof/booksimon/fucked2.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()
@@ -70,7 +70,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end 
 /*-----------------------------------------------

@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/aom/bleedingspector/ag_head"
+                "$additive" 1 
+}

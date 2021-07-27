@@ -49,24 +49,24 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 -- Custom
 ENT.Sewmo_WireBroken = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sewmo_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/sewmo/sewmo_alert10.wav",
-	"vj_cofr/sewmo/sewmo_alert20.wav",
-	"vj_cofr/sewmo/sewmo_alert30.wav"
+	"vj_cofr/cof/sewmo/sewmo_alert10.wav",
+	"vj_cofr/cof/sewmo/sewmo_alert20.wav",
+	"vj_cofr/cof/sewmo/sewmo_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/sewmo/sewmo_attack1.wav",
-	"vj_cofr/sewmo/sewmo_attack2.wav"
+	"vj_cofr/cof/sewmo/sewmo_attack1.wav",
+	"vj_cofr/cof/sewmo/sewmo_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/sewmo/sewmo_pain1.wav",
-	"vj_cofr/sewmo/sewmo_pain2.wav"
+	"vj_cofr/cof/sewmo/sewmo_pain1.wav",
+	"vj_cofr/cof/sewmo/sewmo_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Sewmo_WireBroken = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,1,false)
 		timer.Simple(0.3,function() if IsValid(self) then
-			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/sewmo/break_free.wav") end end end)
+			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav") end end end)
 			timer.Simple(1,function() if IsValid(self) then
 				self:SetBodygroup(0,1) 
 				self:DoChaseAnimation()
@@ -104,13 +104,26 @@ function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 16
-		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/sewmo/tunga_miss.wav"}
-		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/sewmo/tunga_strike1.wav","vj_cofr/sewmo/tunga_strike2.wav"}
+		self.SoundTbl_MeleeAttackMiss = {
+		"vj_cofr/cof/sewmo/tunga_miss.wav"
+}
+		self.SoundTbl_MeleeAttackExtra = {
+		"vj_cofr/cof/sewmo/tunga_strike1.wav",
+		"vj_cofr/cof/sewmo/tunga_strike2.wav"
+}
 	elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 20 
-		self.SoundTbl_MeleeAttackMiss = {"vj_cofr/sewmo/claw_miss1.wav","vj_cofr/sewmo/claw_miss2.wav","vj_cofr/sewmo/claw_miss3.wav"}
-		self.SoundTbl_MeleeAttackExtra = {"vj_cofr/sewmo/claw_strike1.wav","vj_cofr/sewmo/claw_strike2.wav","vj_cofr/sewmo/claw_strike3.wav"}
+		self.SoundTbl_MeleeAttackMiss = {
+		"vj_cofr/cof/sewmo/claw_miss1.wav",
+		"vj_cofr/cof/sewmo/claw_miss2.wav",
+		"vj_cofr/cof/sewmo/claw_miss3.wav"
+}
+		self.SoundTbl_MeleeAttackExtra = {
+		"vj_cofr/cof/sewmo/claw_strike1.wav",
+		"vj_cofr/cof/sewmo/claw_strike2.wav",
+		"vj_cofr/cof/sewmo/claw_strike3.wav"
+}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -49,26 +49,26 @@ ENT.VJC_Data = {
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/roofboss/sorrow.mp3"
+"vj_cofr/cof/roofboss/sorrow.mp3"
 }
 -- Custom
 ENT.Carcass_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Carcass_CustomOnInitialize()
     self.SoundTbl_Breath = {
-	"vj_cofr/roofboss/rb_mouthidle1.wav",
-	"vj_cofr/roofboss/rb_mouthidle2.wav"
+	"vj_cofr/cof/roofboss/rb_mouthidle1.wav",
+	"vj_cofr/cof/roofboss/rb_mouthidle2.wav"
 }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/roofboss/rb_attack1.wav",
-    "vj_cofr/roofboss/rb_attack2.wav"
+    "vj_cofr/cof/roofboss/rb_attack1.wav",
+    "vj_cofr/cof/roofboss/rb_attack2.wav"
 }	
     self.SoundTbl_Pain = {
-	"vj_cofr/roofboss/rb_hurt1.wav",
-	"vj_cofr/roofboss/rb_hurt2.wav"
+	"vj_cofr/cof/roofboss/rb_hurt1.wav",
+	"vj_cofr/cof/roofboss/rb_hurt2.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/roofboss/rb_death.wav"
+	"vj_cofr/cof/roofboss/rb_death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,10 +82,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:RangeAttackCode()
 end	
 	if key == "stomach_open" then
-		VJ_EmitSound(self, "vj_cofr/roofboss/rb_stomopen.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 85, 100)
 end	
 	if key == "stomach_close" then
-		VJ_EmitSound(self, "vj_cofr/roofboss/rb_stomclose.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomclose.wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -16,7 +16,13 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_ghost"
+	"npc_vj_cofraom_ghost",
+    "npc_vj_cofraom_twitcherhd",
+    "npc_vj_cofraom_handcrabhd",
+    "npc_vj_cofraom_twitcherspithd",
+    "npc_vj_cofraom_doghd",
+    "npc_vj_cofraom_abominationhd",
+	"npc_vj_cofraom_ghosthd"
 }},
 	{EntityName = "NPC2",SpawnPosition = {vForward=0,vRight=50,vUp=0},Entities = {
 	"npc_vj_cofraom_twitcher",
@@ -27,7 +33,13 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_ghost"
+	"npc_vj_cofraom_ghost",
+    "npc_vj_cofraom_twitcherhd",
+    "npc_vj_cofraom_handcrabhd",
+    "npc_vj_cofraom_twitcherspithd",
+    "npc_vj_cofraom_doghd",
+    "npc_vj_cofraom_abominationhd",
+	"npc_vj_cofraom_ghosthd"
 }},
 	{EntityName = "NPC3",SpawnPosition = {vForward=100,vRight=50,vUp=0},Entities = {
 	"npc_vj_cofraom_twitcher",
@@ -38,7 +50,13 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_ghost"
+	"npc_vj_cofraom_ghost",
+    "npc_vj_cofraom_twitcherhd",
+    "npc_vj_cofraom_handcrabhd",
+    "npc_vj_cofraom_twitcherspithd",
+    "npc_vj_cofraom_doghd",
+    "npc_vj_cofraom_abominationhd",
+	"npc_vj_cofraom_ghosthd"
 }},
 	{EntityName = "NPC4",SpawnPosition = {vForward=100,vRight=-50,vUp=0},Entities = {
 	"npc_vj_cofraom_twitcher",
@@ -49,7 +67,13 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_ghost"	
+	"npc_vj_cofraom_ghost",
+    "npc_vj_cofraom_twitcherhd",
+    "npc_vj_cofraom_handcrabhd",
+    "npc_vj_cofraom_twitcherspithd",
+    "npc_vj_cofraom_doghd",
+    "npc_vj_cofraom_abominationhd",
+	"npc_vj_cofraom_ghosthd"
 }},
 	{EntityName = "NPC5",SpawnPosition = {vForward=0,vRight=-50,vUp=0},Entities = {
 	"npc_vj_cofraom_twitcher",
@@ -60,7 +84,13 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_ghost"
+	"npc_vj_cofraom_ghost",
+    "npc_vj_cofraom_twitcherhd",
+    "npc_vj_cofraom_handcrabhd",
+    "npc_vj_cofraom_twitcherspithd",
+    "npc_vj_cofraom_doghd",
+    "npc_vj_cofraom_abominationhd",
+	"npc_vj_cofraom_ghosthd"
 }},
 }
 /*-----------------------------------------------

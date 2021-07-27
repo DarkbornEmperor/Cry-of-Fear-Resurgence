@@ -75,14 +75,21 @@ if VJExists == true then
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})	
     VJ.AddNPC("Twitcher","npc_vj_cofraom_twitcher",vCat)
 	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcherda",vCat)
+	VJ.AddNPC("Twitcher (HD)","npc_vj_cofraom_twitcherhd",vCat)
     VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)
+	VJ.AddNPC("Handcrab (HD)","npc_vj_cofraom_handcrabhd",vCat)
 	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofraom_wheelchair",vCat)
     VJ.AddNPC("Spitter Twitcher","npc_vj_cofraom_twitcherspit",vCat)
+	VJ.AddNPC("Spitter Twitcher (HD)","npc_vj_cofraom_twitcherspithd",vCat)
     VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_spector",vCat)
-    VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)	
+    VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)
+    VJ.AddNPC("One-Eyed Dog (HD)","npc_vj_cofraom_doghd",vCat)		
 	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)
+	VJ.AddNPC("Abomination (HD)","npc_vj_cofraom_abominationhd",vCat)
     VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
-    VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)		
+	VJ.AddNPC("Launcher Ghost (HD)","npc_vj_cofraom_ghosthd",vCat)
+    VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
+    VJ.AddNPC("The Addiction (HD)","npc_vj_cofraom_addictionhd",vCat)	
 
     -- AoM Random & Spawners --
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
@@ -105,7 +112,10 @@ if VJExists == true then
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)	
 	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)	
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
-    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)	
+    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
+    VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)
+    VJ.AddNPC("Suicider","npc_vj_cofrc_suicider",vCat)
+    VJ.AddNPC("Suicider 3","npc_vj_cofrc_suicider3",vCat)		
 	
     -- Particles --
     game.AddParticles( "particles/vj_cofr_soul.pcf" )
@@ -211,7 +221,10 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/faceless_claw.mdl")
     util.PrecacheModel("models/vj_cofr/custom/faster_clown.mdl")
     util.PrecacheModel("models/vj_cofr/custom/duorunner.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/psychopumpkin.mdl") 	
+    util.PrecacheModel("models/vj_cofr/custom/psychopumpkin.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/slowerno_boss.mdl") 
+    util.PrecacheModel("models/vj_cofr/custom/suicider.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/suicider3.mdl") 	
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

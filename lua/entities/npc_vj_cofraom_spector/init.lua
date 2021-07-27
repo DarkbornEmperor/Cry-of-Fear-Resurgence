@@ -66,48 +66,48 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/zombie/claw_strike1.wav",
-"vj_cofr/zombie/claw_strike2.wav",
-"vj_cofr/zombie/claw_strike3.wav"
+"vj_cofr/aom/zombie/claw_strike1.wav",
+"vj_cofr/aom/zombie/claw_strike2.wav",
+"vj_cofr/aom/zombie/claw_strike3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/zombie/claw_miss1.wav",
-"vj_cofr/zombie/claw_miss2.wav"
+"vj_cofr/aom/zombie/claw_miss1.wav",
+"vj_cofr/aom/zombie/claw_miss2.wav"
 }
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/agrunt/ag_fire1.wav",
-"vj_cofr/agrunt/ag_fire2.wav",
-"vj_cofr/agrunt/ag_fire3.wav"
+"vj_cofr/aom/agrunt/ag_fire1.wav",
+"vj_cofr/aom/agrunt/ag_fire2.wav",
+"vj_cofr/aom/agrunt/ag_fire3.wav"
 }	
 -- Custom
 ENT.Spector_Face = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spector_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/agrunt/ag_alert1.mp3",
-	"vj_cofr/agrunt/ag_alert2.wav",
-	"vj_cofr/agrunt/ag_alert3.wav",
-	"vj_cofr/agrunt/ag_alert4.wav",
-	"vj_cofr/agrunt/ag_alert5.wav"
+	"vj_cofr/aom/agrunt/ag_alert1.mp3",
+	"vj_cofr/aom/agrunt/ag_alert2.wav",
+	"vj_cofr/aom/agrunt/ag_alert3.wav",
+	"vj_cofr/aom/agrunt/ag_alert4.wav",
+	"vj_cofr/aom/agrunt/ag_alert5.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/agrunt/ag_attack1.wav",
-	"vj_cofr/agrunt/ag_attack2.wav",
-	"vj_cofr/agrunt/ag_attack3.wav"
+	"vj_cofr/aom/agrunt/ag_attack1.wav",
+	"vj_cofr/aom/agrunt/ag_attack2.wav",
+	"vj_cofr/aom/agrunt/ag_attack3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/agrunt/ag_pain1.wav",
-	"vj_cofr/agrunt/ag_pain2.wav",
-	"vj_cofr/agrunt/ag_pain3.wav",
-	"vj_cofr/agrunt/ag_pain4.wav",
-	"vj_cofr/agrunt/ag_pain5.wav"
+	"vj_cofr/aom/agrunt/ag_pain1.wav",
+	"vj_cofr/aom/agrunt/ag_pain2.wav",
+	"vj_cofr/aom/agrunt/ag_pain3.wav",
+	"vj_cofr/aom/agrunt/ag_pain4.wav",
+	"vj_cofr/aom/agrunt/ag_pain5.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/agrunt/ag_die1.wav",
-	"vj_cofr/agrunt/ag_die2.wav",
-	"vj_cofr/agrunt/ag_die3.wav",
-	"vj_cofr/agrunt/ag_die4.wav",
-	"vj_cofr/agrunt/ag_die5.wav"
+	"vj_cofr/aom/agrunt/ag_die1.wav",
+	"vj_cofr/aom/agrunt/ag_die2.wav",
+	"vj_cofr/aom/agrunt/ag_die3.wav",
+	"vj_cofr/aom/agrunt/ag_die4.wav",
+	"vj_cofr/aom/agrunt/ag_die5.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +121,6 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack_range" then
 		self:RangeAttackCode()
-		--ParticleEffect("face",self:GetAttachment(self:LookupAttachment("hand")).Pos,self:GetAngles())
 end
 	if key == "attack" then
 		self:MeleeAttackCode()

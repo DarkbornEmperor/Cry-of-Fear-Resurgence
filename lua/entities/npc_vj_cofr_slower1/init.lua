@@ -51,16 +51,16 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/slower/hammer_strike1.wav",
-"vj_cofr/slower/hammer_strike2.wav",
-"vj_cofr/slower/hammer_strike3.wav"
+"vj_cofr/cof/slower/hammer_strike1.wav",
+"vj_cofr/cof/slower/hammer_strike2.wav",
+"vj_cofr/cof/slower/hammer_strike3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/slower/hammer_miss1.wav",
-"vj_cofr/slower/hammer_miss2.wav"
+"vj_cofr/cof/slower/hammer_miss1.wav",
+"vj_cofr/cof/slower/hammer_miss2.wav"
 }
 -- Custom
 ENT.Slower_Skin = 0
@@ -87,17 +87,17 @@ elseif Slower_Body == 3 then
     self:SetBodygroup(0,2)	
 end	
     self.SoundTbl_Alert = {
-	"vj_cofr/slower/slower_alert10.wav",
-	"vj_cofr/slower/slower_alert20.wav",
-	"vj_cofr/slower/slower_alert30.wav"
+	"vj_cofr/cof/slower/slower_alert10.wav",
+	"vj_cofr/cof/slower/slower_alert20.wav",
+	"vj_cofr/cof/slower/slower_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/slower/slower_attack1.wav",
-	"vj_cofr/slower/slower_attack2.wav"
+	"vj_cofr/cof/slower/slower_attack1.wav",
+	"vj_cofr/cof/slower/slower_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/slower/slower_pain1.wav",
-	"vj_cofr/slower/slower_pain2.wav"
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -181,7 +181,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("bloodspray",bloodspray)
 		util.Effect("bloodspray",bloodspray)
 end
-		VJ_EmitSound(self,"vj_cofr/common/bodysplat.wav",85)	
+		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)	
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
 		return true,{DeathAnim=true}
 end	

@@ -9,10 +9,10 @@ ENT.Model = {"models/vj_cofr/cof/dreamerrunner.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_CustomOnInitialize()
     self.SoundTbl_Alert = {
-    "vj_cofr/dreamer/dreamer_attack.wav"
+    "vj_cofr/cof/dreamer/dreamer_attack.wav"
 }
     self.SoundTbl_Pain = {
-    "vj_cofr/dreamer/dreamer_pain.wav"
+    "vj_cofr/cof/dreamer/dreamer_pain.wav"
 }
 end
 /*-----------------------------------------------

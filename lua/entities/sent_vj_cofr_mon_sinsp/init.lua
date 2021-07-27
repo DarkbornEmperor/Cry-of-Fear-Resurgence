@@ -35,7 +35,20 @@ ENT.EntitiesToSpawn = {
     "npc_vj_cofr_stranger",
     "npc_vj_cofr_flygare",
     "npc_vj_cofr_dreamerrunner",
-    "npc_vj_cofr_crazyrumpel"	
+    "npc_vj_cofrc_crazyrumpel",
+    "npc_vj_cofrc_slower1",
+    "npc_vj_cofrc_slower3",
+    "npc_vj_cofrc_slowerno",	
+    "npc_vj_cofrc_slower10",
+    "npc_vj_cofrc_croucher",
+    "npc_vj_cofrc_crawler",	
+    "npc_vj_cofrc_crawler2",
+    "npc_vj_cofrc_krypandenej",
+    "npc_vj_cofrc_facelessclaw",	
+    "npc_vj_cofrc_fasterclown",
+    "npc_vj_cofrc_psychopumpkin",
+    "npc_vj_cofrc_suicider",
+    "npc_vj_cofrc_suicider3"		
 }},
 }
 /*-----------------------------------------------

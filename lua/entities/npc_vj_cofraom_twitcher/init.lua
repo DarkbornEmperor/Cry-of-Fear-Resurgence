@@ -5,28 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {
-"models/vj_cofr/aom/zombie.mdl",
-"models/vj_cofr/aom/zombie2.mdl",
-"models/vj_cofr/aom/zombie3.mdl",
-"models/vj_cofr/aom/zombie4.mdl",
-"models/vj_cofr/aom/zombie5.mdl",
-"models/vj_cofr/aom/zombie2_1.mdl",
-"models/vj_cofr/aom/zombie2_2.mdl",
-"models/vj_cofr/aom/zombie2_3.mdl",
-"models/vj_cofr/aom/zombie2_4.mdl",
-"models/vj_cofr/aom/zombie2_5.mdl",
-"models/vj_cofr/aom/zombie3_1.mdl",
-"models/vj_cofr/aom/zombie3_2.mdl",
-"models/vj_cofr/aom/zombie3_3.mdl",
-"models/vj_cofr/aom/zombie3_4.mdl",
-"models/vj_cofr/aom/zombie3_5.mdl",
-"models/vj_cofr/aom/zombie4_1.mdl",
-"models/vj_cofr/aom/zombie4_2.mdl",
-"models/vj_cofr/aom/zombie4_3.mdl",
-"models/vj_cofr/aom/zombie4_4.mdl",
-"models/vj_cofr/aom/zombie4_5.mdl"
-} 
+ENT.Model = {} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
@@ -71,47 +50,85 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/common/npc_step1.wav"
+"vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/zombie/claw_strike1.wav",
-"vj_cofr/zombie/claw_strike2.wav",
-"vj_cofr/zombie/claw_strike3.wav"
+"vj_cofr/aom/zombie/claw_strike1.wav",
+"vj_cofr/aom/zombie/claw_strike2.wav",
+"vj_cofr/aom/zombie/claw_strike3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/zombie/claw_miss1.wav",
-"vj_cofr/zombie/claw_miss2.wav"
+"vj_cofr/aom/zombie/claw_miss1.wav",
+"vj_cofr/aom/zombie/claw_miss2.wav"
 }
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()
+	if self:GetClass() == "npc_vj_cofraom_twitcher" then
+		self.Model = {
+        "models/vj_cofr/aom/zombie.mdl",
+        "models/vj_cofr/aom/zombie2.mdl",
+        "models/vj_cofr/aom/zombie3.mdl",
+        "models/vj_cofr/aom/zombie4.mdl",
+        "models/vj_cofr/aom/zombie5.mdl",
+        "models/vj_cofr/aom/zombie2_1.mdl",
+        "models/vj_cofr/aom/zombie2_2.mdl",
+        "models/vj_cofr/aom/zombie2_3.mdl",
+        "models/vj_cofr/aom/zombie2_4.mdl",
+        "models/vj_cofr/aom/zombie2_5.mdl",
+        "models/vj_cofr/aom/zombie3_1.mdl",
+        "models/vj_cofr/aom/zombie3_2.mdl",
+        "models/vj_cofr/aom/zombie3_3.mdl",
+        "models/vj_cofr/aom/zombie3_4.mdl",
+        "models/vj_cofr/aom/zombie3_5.mdl",
+        "models/vj_cofr/aom/zombie4_1.mdl",
+        "models/vj_cofr/aom/zombie4_2.mdl",
+        "models/vj_cofr/aom/zombie4_3.mdl",
+        "models/vj_cofr/aom/zombie4_4.mdl",
+        "models/vj_cofr/aom/zombie4_5.mdl"		
+}
+ elseif self:GetClass() == "npc_vj_cofraom_twitcherda" then
+		self.Model = {
+		"models/vj_cofr/aom/zombie_da.mdl"		
+} 
+ elseif self:GetClass() == "npc_vj_cofraom_twitcherhd" then
+		self.Model = {
+		"models/vj_cofr/aom/zombiehd.mdl",
+        "models/vj_cofr/aom/zombiehd2.mdl",
+		"models/vj_cofr/aom/zombiehd3.mdl",
+        "models/vj_cofr/aom/zombiehd4.mdl"		
+}   
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_CustomOnInitialize()
 local Twitcher_Sounds = math.random(1,2)
 if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
-	"vj_cofr/zombie/zo_alert10.wav",
-	"vj_cofr/zombie/zo_alert20.wav",
-	"vj_cofr/zombie/zo_alert30.wav"
+	"vj_cofr/aom/zombie/zo_alert10.wav",
+	"vj_cofr/aom/zombie/zo_alert20.wav",
+	"vj_cofr/aom/zombie/zo_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/zombie/zo_attack1.wav",
-	"vj_cofr/zombie/zo_attack2.wav"
+	"vj_cofr/aom/zombie/zo_attack1.wav",
+	"vj_cofr/aom/zombie/zo_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/zombie/zo_pain1.wav",
-	"vj_cofr/zombie/zo_pain2.wav"
+	"vj_cofr/aom/zombie/zo_pain1.wav",
+	"vj_cofr/aom/zombie/zo_pain2.wav"
 }
 elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Alert = {
-	"vj_cofr/zombie2/zo_alert10.wav",
-	"vj_cofr/zombie2/zo_alert20.wav",
-	"vj_cofr/zombie2/zo_alert30.wav"
+	"vj_cofr/aom/zombie2/zo_alert10.wav",
+	"vj_cofr/aom/zombie2/zo_alert20.wav",
+	"vj_cofr/aom/zombie2/zo_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/zombie2/zo_attack1.wav",
-	"vj_cofr/zombie2/zo_attack2.wav"
+	"vj_cofr/aom/zombie2/zo_attack1.wav",
+	"vj_cofr/aom/zombie2/zo_attack2.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/zombie2/zo_pain1.wav",
-	"vj_cofr/zombie2/zo_pain2.wav"
+	"vj_cofr/aom/zombie2/zo_pain1.wav",
+	"vj_cofr/aom/zombie2/zo_pain2.wav"
 }
     end
 end
@@ -147,7 +164,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/common/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
