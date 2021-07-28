@@ -53,6 +53,7 @@ ENT.SoundTbl_FootStep = {
 }
 -- Custom
 ENT.Sewmo_WireBroken = false
+ENT.Sewmo_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sewmo_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -86,8 +87,8 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if self.Sewmo_WireBroken == false && self.Dead == false && (self.StartHealth *.30 > self:Health()) then
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if self.Sewmo_WireBroken == false && self.Dead == false && (self.StartHealth *.50 > self:Health()) then
 		self.Sewmo_WireBroken = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,1,false)
 		timer.Simple(0.3,function() if IsValid(self) then

@@ -69,7 +69,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end	
 	if key == "suicide" then
 		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 85, 100)
-		VJ_EmitSound(self,"vj_cofr/cof/common/bodysplat.wav",85)
+		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 		self:SickSimon_DoFireEffects()
 		self:SetBodygroup(0,1)
