@@ -62,7 +62,7 @@ if VJExists == true then
     VJ.AddNPC("Book Simon (Manhunt)","npc_vj_cofr_simonbookm",vCat)
 	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
 	VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsicksui",vCat)	
-    --VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)	
+    VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)	
 
     -- CoF Random & Spawners --
 	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	

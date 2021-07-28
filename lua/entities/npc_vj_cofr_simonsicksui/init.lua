@@ -54,7 +54,7 @@ ENT.SoundTbl_RangeAttack = {
 "vj_cofr/cof/sicksimon/shoot.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/booksimon/ending5.mp3"
+"vj_cofr/cof/sicksimon/trainhurry.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SickSimon_CustomOnInitialize()

@@ -61,8 +61,14 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/zombie/claw_miss1.wav",
 "vj_cofr/aom/zombie/claw_miss2.wav"
 }
+-- Cuatom
+ENT.Twitcher_Invisible = false
+ENT.Twitcher_Transparent = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:Twitcher_CustomOnPreInitialize()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()	   
 	if self:GetClass() == "npc_vj_cofraom_twitcher" then
 		self.Model = {
         "models/vj_cofr/aom/zombie.mdl",
@@ -97,11 +103,22 @@ function ENT:CustomOnPreInitialize()
 		"models/vj_cofr/aom/zombiehd3.mdl",
         "models/vj_cofr/aom/zombiehd4.mdl"		
 }   
-    end
+end
+     if math.random(1,10) == 1 then
+	    self.Twitcher_Invisible = true 
+	    --self:SetNoDraw(true)
+		self:SetMaterial("hud/killicons/default")
+	    self:DrawShadow(false)
+
+ elseif math.random(1,10) == 1 then
+        self.Twitcher_Transparent = true
+	    self:SetMaterial("Models/effects/vol_light001")
+end
+	    self:Twitcher_CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_CustomOnInitialize()
-local Twitcher_Sounds = math.random(1,2)
+local Twitcher_Sounds = math.random(1,3)
 if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/zombie/zo_alert10.wav",
@@ -129,6 +146,17 @@ elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Pain = {
 	"vj_cofr/aom/zombie2/zo_pain1.wav",
 	"vj_cofr/aom/zombie2/zo_pain2.wav"
+}
+elseif Twitcher_Sounds == 3 then
+    self.SoundTbl_Alert = {
+	"vj_cofr/aom/zombie/skuggfa.wav"
+}
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/aom/zombie/skuggfa.wav"
+}
+    self.SoundTbl_Pain = {
+	"vj_cofr/aom/zombie/zo_pain1.wav",
+	"vj_cofr/aom/zombie/zo_pain2.wav"
 }
     end
 end
