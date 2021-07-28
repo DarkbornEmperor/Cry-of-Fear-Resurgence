@@ -193,11 +193,12 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_3.mdl")	
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_4.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie4_5.mdl")	
+	util.PrecacheModel("models/vj_cofr/aom/zombie4_5.mdl")
     util.PrecacheModel("models/vj_cofr/custom/faster_clown.mdl")
     util.PrecacheModel("models/vj_cofr/custom/duorunner.mdl")
     util.PrecacheModel("models/vj_cofr/custom/psychopumpkin.mdl")
     util.PrecacheModel("models/vj_cofr/custom/slowerno_boss.mdl") 
-    util.PrecacheModel("models/vj_cofr/cof/custom/crazyrumpel.mdl")		
+    util.PrecacheModel("models/vj_cofr/custom/crazyrumpel.mdl")		
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
