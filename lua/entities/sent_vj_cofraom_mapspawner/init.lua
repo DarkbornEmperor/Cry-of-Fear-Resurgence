@@ -79,13 +79,7 @@ self.COFR = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_addiction",
-    "npc_vj_cofraom_twitcherhd",
-    "npc_vj_cofraom_handcrabhd",
-    "npc_vj_cofraom_twitcherspithd",
-    "npc_vj_cofraom_doghd",
-    "npc_vj_cofraom_abominationhd",
-	"npc_vj_cofraom_addictionhd"
+	"npc_vj_cofraom_addiction"
 }
 self.COFR2 = {	
 	"npc_vj_cofraom_twitcher",
@@ -96,13 +90,7 @@ self.COFR2 = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_addiction",
-    "npc_vj_cofraom_twitcherhd",
-    "npc_vj_cofraom_handcrabhd",
-    "npc_vj_cofraom_twitcherspithd",
-    "npc_vj_cofraom_doghd",
-    "npc_vj_cofraom_abominationhd",
-	"npc_vj_cofraom_addictionhd"
+	"npc_vj_cofraom_addiction"
 }
 self.COFR3 = {	
 	"npc_vj_cofraom_twitcher",
@@ -113,13 +101,7 @@ self.COFR3 = {
 	"npc_vj_cofraom_spector",
 	"npc_vj_cofraom_dog",
 	"npc_vj_cofraom_abomination",
-	"npc_vj_cofraom_addiction",
-    "npc_vj_cofraom_twitcherhd",
-    "npc_vj_cofraom_handcrabhd",
-    "npc_vj_cofraom_twitcherspithd",
-    "npc_vj_cofraom_doghd",
-    "npc_vj_cofraom_abominationhd",
-	"npc_vj_cofraom_addictionhd"
+	"npc_vj_cofraom_addiction"
 }	
 
 for k,v in pairs(ents.GetAll()) do  
