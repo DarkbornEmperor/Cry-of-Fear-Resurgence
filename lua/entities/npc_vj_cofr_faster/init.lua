@@ -127,6 +127,10 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 			self:DeleteOnRemove(self.DamageSpark1)
 	end		
 end	
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

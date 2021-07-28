@@ -107,6 +107,10 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
    end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

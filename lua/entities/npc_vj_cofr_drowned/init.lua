@@ -101,7 +101,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Drowned_Baby = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,1,false)
 		timer.Simple(0.3,function() if IsValid(self) then
-			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/crazylady/baby_burst.wav") end end end)
+			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav") end end end)
 			timer.Simple(0.1,function() if IsValid(self) then
 			    ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
 				self:SetBodygroup(0,1) 
@@ -109,6 +109,10 @@ function ENT:CustomOnThink_AIEnabled()
 			end
 		end)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

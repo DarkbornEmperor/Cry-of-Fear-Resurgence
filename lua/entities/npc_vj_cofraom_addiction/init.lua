@@ -151,7 +151,8 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	if self:IsOnFire() then
 	   self.Addiction_OnFire = false
 	   self:Extinguish()
-	end
+end
+       self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

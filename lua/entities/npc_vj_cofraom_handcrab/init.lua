@@ -78,6 +78,10 @@ function ENT:CustomOnInitialize()
      self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
      self:Handcrab_CustomOnInitialize()
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
