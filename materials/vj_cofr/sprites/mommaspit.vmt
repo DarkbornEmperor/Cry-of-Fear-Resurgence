@@ -1,15 +1,15 @@
 "VertexlitGeneric"
 {
-"$baseTexture" "vj_cofr/sprites/mommaspit"
-"$surfaceprop" "Default"
-"$additive" 1
-"Proxies"
-{
-"AnimatedTexture"
-{
-"animatedTextureVar" "$basetexture"
-"animatedTextureFrameNumVar" "$frame"
-"animatedTextureFrameRate" "1"
-}
-}
+                "$basetexture" "vj_cofr/sprites/mommaspit"
+                "$surfaceprop" "Flesh"
+                "$additive" 1
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$basetexture"
+			"animatedtextureframenumvar" "$frame"
+			"animatedtextureframerate" 10
+		}
+	}
 }

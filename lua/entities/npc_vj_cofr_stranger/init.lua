@@ -27,7 +27,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 1.45 
+ENT.DeathAnimationTime = 0.85 --1.45
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -40,6 +40,7 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
+ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Stranger_DamageDistance = 500
 ENT.Stranger_NextEnemyDamage = 0
@@ -75,7 +76,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttack()
 	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then self.NoChaseAfterCertainRange = false return end
-	//print(self:GetPos():Distance(self:GetEnemy():GetPos()))
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Stranger_NextEnemyDamage then
 		self:StopMoving()

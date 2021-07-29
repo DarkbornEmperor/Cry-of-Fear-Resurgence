@@ -11,7 +11,7 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
@@ -28,7 +28,7 @@ ENT.RangeDistance = 1100
 ENT.RangeToMeleeDistance = 200 
 ENT.TimeUntilRangeAttackProjectileRelease = false 
 ENT.NextRangeAttackTime = 0 
-ENT.RangeAttackPos_Up = 60 
+ENT.RangeAttackPos_Up = 65 
 ENT.RangeAttackPos_Forward = 10 
 ENT.RangeAttackPos_Right = 0 
 ENT.NoChaseAfterCertainRange = true 
@@ -78,8 +78,6 @@ ENT.SoundTbl_RangeAttack = {
 "vj_cofr/aom/agrunt/ag_fire2.wav",
 "vj_cofr/aom/agrunt/ag_fire3.wav"
 }	
--- Custom
-ENT.Spector_Face = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spector_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -118,39 +116,30 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack_range" then
+	if key == "attack_range" && self.RangeAttacking == true then
 		self:RangeAttackCode()
+		if IsValid(self.Face) then self.Face:Remove() end
+		self.Face = ents.Create("env_sprite")
+		self.Face:SetKeyValue("model","vj_cofr/sprites/face.vmt")
+		self.Face:SetKeyValue("scale","1")
+		//self.Face:SetKeyValue("rendercolor","255 128 0")
+		self.Face:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+		//self.Face:SetKeyValue("HDRColorScale","1.0")
+		self.Face:SetKeyValue("renderfx","14")
+		self.Face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+		self.Face:SetKeyValue("renderamt","255") -- Transparency
+		self.Face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+		self.Face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		self.Face:SetKeyValue("spawnflags","0")
+		self.Face:SetParent(self)
+		self.Face:Fire("SetParentAttachment","face")
+		self.Face:Spawn()
+		self.Face:Activate()
+		self:DeleteOnRemove(self.Face)
+		timer.Simple(0.05,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
 end
 	if key == "attack" then
 		self:MeleeAttackCode()
-    end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-    if IsValid(self:GetEnemy()) && self.RangeAttacking == true && self.Spector_Face == false then
-	    self.Spector_Face = true
-	    self.IdleEffect = ents.Create("env_sprite")
-	    self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/face.vmt")
-	    self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
-	    self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
-	    self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-	    self.IdleEffect:SetKeyValue("renderfx","0")
-	    self.IdleEffect:SetKeyValue("rendermode","2")
-	    self.IdleEffect:SetKeyValue("renderamt","255")
-	    self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-	    self.IdleEffect:SetKeyValue("mindxlevel","0")
-	    self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	    self.IdleEffect:SetKeyValue("framerate","40.0")
-	    self.IdleEffect:SetKeyValue("spawnflags","0")
-	    self.IdleEffect:SetKeyValue("scale",tostring(self.Scale))
-		self.IdleEffect:Fire("SetParentAttachment","face",0)
-	    self.IdleEffect:SetPos(self:GetPos())
-	    self.IdleEffect:Spawn()
-	    self.IdleEffect:SetParent(self)
-	    self:DeleteOnRemove(self.IdleEffect)
-elseif !IsValid(self:GetEnemy()) && self.RangeAttacking == false && self.Spector_Face == true then	
-        self.Spector_Face = false	
-        timer.Simple(0.001,function() if IsValid(self) && IsValid(self.IdleEffect) then self.IdleEffect:Remove() end end)			
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -171,8 +160,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-	ParticleEffect("face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
-	timer.Simple(0.001,function() if IsValid(self) && IsValid(self.IdleEffect) then self.IdleEffect:Remove() end end)
+	ParticleEffect("vj_cofr_face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

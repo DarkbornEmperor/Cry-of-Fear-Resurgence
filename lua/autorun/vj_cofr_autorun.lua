@@ -92,7 +92,7 @@ if VJExists == true then
 
 	-- Custom --
 	vCat = "CoF Resurgence: Custom"
-	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrcustom.png"})	
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrc.png"})	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)	
 	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)	
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
@@ -100,20 +100,20 @@ if VJExists == true then
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)	
 	
     -- Particles --
-    game.AddParticles( "particles/vj_cofr_soul.pcf" )
-    game.AddParticles( "particles/vj_cofr_soulsplat.pcf" )
-    game.AddParticles( "particles/vj_cofr_face.pcf" )
-    game.AddParticles( "particles/vj_cofr_spit.pcf" )
-	game.AddParticles( "particles/vj_cofr_spitgib.pcf" )
-    game.AddParticles( "particles/vj_cofr_flaresparks.pcf" )
-	game.AddParticles( "particles/vj_cofr_flaretrail.pcf" )	
-    PrecacheParticleSystem("face")
-    PrecacheParticleSystem("aomsoul")
-    PrecacheParticleSystem("aomsoulsplat")
-    PrecacheParticleSystem("mommaspit")
-	PrecacheParticleSystem("MommaSpitGib")
-    PrecacheParticleSystem("flaresparks")
-	PrecacheParticleSystem("flaretrail")	
+    game.AddParticles("particles/vj_cofr_soul.pcf")
+    game.AddParticles("particles/vj_cofr_soul_splat.pcf")
+    game.AddParticles("particles/vj_cofr_face.pcf")
+    game.AddParticles("particles/vj_cofr_spit.pcf")
+	game.AddParticles("particles/vj_cofr_spit_gib.pcf")
+    game.AddParticles("particles/vj_cofr_flare_sparks.pcf")
+	game.AddParticles("particles/vj_cofr_flare_trail.pcf")	
+    PrecacheParticleSystem("vj_cofr_soul")
+    PrecacheParticleSystem("vj_cofr_soul_splat")
+    PrecacheParticleSystem("vj_cofr_face")
+    PrecacheParticleSystem("vj_cofr_spit")
+	PrecacheParticleSystem("vj_cofr_spit_gib")
+    PrecacheParticleSystem("vj_cofr_flare_sparks")
+	PrecacheParticleSystem("vj_cofr_flare_trail")	
 
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})

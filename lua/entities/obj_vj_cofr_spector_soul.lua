@@ -105,6 +105,7 @@ end
 function ENT:CustomOnDoDamage(data, phys, hitEnt)
 	if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
 		self:SetDeathVariablesTrue(data, phys)
+		ParticleEffect("vj_cofr_soul_splat", data.HitPos, Angle(0,0,0), nil)
 		self:Remove()
 	end
 end

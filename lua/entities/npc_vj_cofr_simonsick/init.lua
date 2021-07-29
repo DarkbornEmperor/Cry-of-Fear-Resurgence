@@ -20,7 +20,9 @@ ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 1 
 ENT.TimeUntilRangeAttackProjectileRelease = false 
 ENT.NextRangeAttackTime = 8
-ENT.NextRangeAttackTime_DoRand = 8 
+ENT.NextRangeAttackTime_DoRand = 8
+ENT.RangeAttackPos_Up = 20 
+ENT.RangeAttackPos_Forward = 20  
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true 
@@ -37,7 +39,7 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/booksimon/sicksimon.mp3"
+"vj_cofr/cof/sicksimon/sicksimon.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SickSimon_CustomOnInitialize()

@@ -109,7 +109,7 @@ end
 
  elseif math.random(1,10) == 1 then
         self.Twitcher_Transparent = true
-	    self:SetMaterial("Models/effects/vol_light001")
+	    self:SetMaterial("vj_cofr/transparent")
 		self:DrawShadow(false)
     end
 end
@@ -157,7 +157,7 @@ elseif Twitcher_Sounds == 3 then
 	"vj_cofr/aom/zombie/skuggfa.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/aom/zombie/skuggfa.wav"
+	--"vj_cofr/aom/zombie/skuggfa.wav"
 }
     self.SoundTbl_Pain = {
 	"vj_cofr/aom/zombie/zo_pain1.wav",

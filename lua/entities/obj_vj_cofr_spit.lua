@@ -68,5 +68,5 @@ function ENT:DeathEffects(data,phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	effectdata:SetScale( 1 )
-	ParticleEffect("MommaSpitGib", data.HitPos, Angle(0,0,0), nil)
+	ParticleEffect("vj_cofr_spit_gib", data.HitPos, Angle(0,0,0), nil)
 end
