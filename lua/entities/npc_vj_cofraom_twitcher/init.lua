@@ -65,9 +65,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.Twitcher_Invisible = false
 ENT.Twitcher_Transparent = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Twitcher_CustomOnPreInitialize()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()	   
 	if self:GetClass() == "npc_vj_cofraom_twitcher" then
 		self.Model = {
@@ -113,11 +110,19 @@ end
  elseif math.random(1,10) == 1 then
         self.Twitcher_Transparent = true
 	    self:SetMaterial("Models/effects/vol_light001")
-end
-	    self:Twitcher_CustomOnPreInitialize()
+		self:DrawShadow(false)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_CustomOnInitialize()
+if self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" then
+    self:SetBodygroup(0,math.random(0,9))
+else
+    self:SetBodygroup(0,math.random(0,10))
+end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TwitcherSounds()
 local Twitcher_Sounds = math.random(1,3)
 if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
@@ -182,6 +187,7 @@ elseif self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
        self:SetBodygroup(0,math.random(0,1))
 end		
      self:Twitcher_CustomOnInitialize()
+	 self:TwitcherSounds()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
