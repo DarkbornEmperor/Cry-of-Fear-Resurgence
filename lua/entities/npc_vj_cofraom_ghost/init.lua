@@ -14,7 +14,9 @@ ENT.Aerial_FlyingSpeed_Alerted = 300
 ENT.Aerial_AnimTbl_Calm = {"forward"} 
 ENT.Aerial_AnimTbl_Alerted = {"forward"} 
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
-ENT.Bleeds = false
+ENT.BloodColor = "Red" 
+ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = false 
 ENT.HasRangeAttack = true 
@@ -34,7 +36,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH}
-ENT.HasDeathAnimation = false 
+ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 	-- ====== Controller Data ====== --
@@ -147,11 +149,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-	ParticleEffect("face",self:GetAttachment(self:LookupAttachment(0)).Pos,self:GetAngles())
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+	self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+	--ParticleEffect("face",self:GetAttachment(self:LookupAttachment(0)).Pos,self:GetAngles())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

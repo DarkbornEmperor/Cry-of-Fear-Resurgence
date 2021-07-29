@@ -12,7 +12,7 @@ ENT.HasHitGroupFlinching = false
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
-    self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
+    self:SetCollisionBounds(Vector(10, 10, 80), Vector(-10, -10, 0))
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/slower/slower_alert10.wav",
 	"vj_cofr/cof/slower/slower_alert20.wav",

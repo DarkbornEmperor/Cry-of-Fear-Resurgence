@@ -11,7 +11,7 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
@@ -29,8 +29,8 @@ ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.DeathAnimationTime = 8
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -47,12 +47,12 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/craig/chainsawed.wav"
-}
+}		
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-
+"vj_cofr/cof/craig/cof_gayviolin_s3.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Craig_CustomOnInitialize()
@@ -91,14 +91,14 @@ end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
-end
+end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	    dmginfo:ScaleDamage(0.25)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

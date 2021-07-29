@@ -112,7 +112,7 @@ end
      local attacker = dmginfo:GetAttacker()
      if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
         self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,5.9,false)
-		VJ_EmitSound(self, "vj_cofr/sawer/eye_open.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 85, 100)
 		self:SetSkin(1)
 		dmginfo:ScaleDamage(0.005)
 		self.Eye_Close = false

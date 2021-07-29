@@ -58,6 +58,11 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	local ene = self:GetEnemy()
 		return self:CalculateProjectile("Curve", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 1500)
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

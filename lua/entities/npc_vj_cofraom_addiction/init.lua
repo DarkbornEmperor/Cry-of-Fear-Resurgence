@@ -87,16 +87,16 @@ end
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if self.Addiction_Axe == false && (self.StartHealth -500 > self:Health()) then
+function ENT:CustomOnThink_AIEnabled()
+	if self.Addiction_Axe == false && self.Dead == false && (self.StartHealth -800 > self:Health()) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,3.7941175539395,false)
 end		
-    if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -1000 > self:Health()) then
+    if self.Addiction_OnFire == false && self.Dead == false && !self:IsOnFire() && (self.StartHealth -1800 > self:Health()) then
 		self.Addiction_OnFire = true
 		self:Ignite(15)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),DMG_BURN,150)) do
-	    timer.Create("Addiction_Fire"..self:EntIndex(), 1.5, 5, function()
+	    timer.Create("Addiction_Fire"..self:EntIndex(), 1, 15, function()
 	    if IsValid(self) then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
 end

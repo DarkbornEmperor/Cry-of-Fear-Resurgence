@@ -9,7 +9,6 @@ ENT.Model = {"models/vj_cofr/aom/agrunt.mdl"}
 ENT.StartHealth = 350
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
-ENT.Bleeds = false
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"}
@@ -29,9 +28,9 @@ ENT.RangeDistance = 1100
 ENT.RangeToMeleeDistance = 200 
 ENT.TimeUntilRangeAttackProjectileRelease = false 
 ENT.NextRangeAttackTime = 0 
-ENT.RangeAttackPos_Up = 50 
+ENT.RangeAttackPos_Up = 60 
 ENT.RangeAttackPos_Forward = 10 
-ENT.RangeAttackPos_Right = 15 
+ENT.RangeAttackPos_Right = 0 
 ENT.NoChaseAfterCertainRange = true 
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" 
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" 
@@ -52,7 +51,7 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
-ENT.HasDeathAnimation = false 
+ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 ENT.HasExtraMeleeAttackSounds = true
@@ -151,7 +150,7 @@ function ENT:CustomOnThink_AIEnabled()
 	    self:DeleteOnRemove(self.IdleEffect)
 elseif !IsValid(self:GetEnemy()) && self.RangeAttacking == false && self.Spector_Face == true then	
         self.Spector_Face = false	
-        timer.Simple(1,function() if IsValid(self) && IsValid(self.IdleEffect) then self.IdleEffect:Remove() end end)			
+        timer.Simple(0.001,function() if IsValid(self) && IsValid(self.IdleEffect) then self.IdleEffect:Remove() end end)			
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -171,7 +170,9 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 	ParticleEffect("face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
+	timer.Simple(0.001,function() if IsValid(self) && IsValid(self.IdleEffect) then self.IdleEffect:Remove() end end)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
