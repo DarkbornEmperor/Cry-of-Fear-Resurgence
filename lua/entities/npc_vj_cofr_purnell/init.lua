@@ -30,7 +30,6 @@ ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.RangeAttackSoundLevel = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8
@@ -51,6 +50,7 @@ ENT.SoundTbl_FootStep = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/doc_ai/despair.mp3"
 }
+ENT.RangeAttackSoundLevel = 100
 -- Custom
 ENT.Doctor_Revolver = true
 ENT.Doctor_Pistol = false
@@ -184,9 +184,9 @@ function ENT:CustomRangeAttackCode()
 		bullet.Force = 4
 		bullet.Damage = 20
 		bullet.AmmoType = "SMG1"
-	self:FireBullets(bullet)
-	self.Doctor_FiredAtLeastOnce = true
-	self:Doctor_DoFireEffects()
+	    self:FireBullets(bullet)
+	    self.Doctor_FiredAtLeastOnce = true
+	    self:Doctor_DoFireEffects()
 end
     if self.Doctor_Pistol then
 	local bullet = {}
@@ -199,9 +199,9 @@ end
 		bullet.Force = 4
 		bullet.Damage = 30
 		bullet.AmmoType = "SMG1"
-	self:FireBullets(bullet)
-	self.Doctor_FiredAtLeastOnce = true
-	self:Doctor_DoFireEffects()
+	    self:FireBullets(bullet)
+	    self.Doctor_FiredAtLeastOnce = true
+	    self:Doctor_DoFireEffects()
 end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------

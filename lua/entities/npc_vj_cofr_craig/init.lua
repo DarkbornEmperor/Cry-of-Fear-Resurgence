@@ -54,6 +54,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/craig/cof_gayviolin_s3.mp3"
 }
+ENT.BreathSoundLevel = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Craig_CustomOnInitialize()
     self.SoundTbl_Breath = {

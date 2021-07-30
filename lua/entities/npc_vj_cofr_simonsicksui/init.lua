@@ -30,7 +30,6 @@ ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.RangeAttackSoundLevel = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8
@@ -56,6 +55,7 @@ ENT.SoundTbl_RangeAttack = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sicksimon/trainhurry.mp3"
 }
+ENT.RangeAttackSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SickSimon_CustomOnInitialize()
 end
@@ -109,9 +109,9 @@ function ENT:CustomRangeAttackCode()
 		bullet.Force = 4
 		bullet.Damage = 15
 		bullet.AmmoType = "SMG1"
-	self:FireBullets(bullet)
-	self.SickSimon_FiredAtLeastOnce = true
-	self:SickSimon_DoFireEffects()
+	    self:FireBullets(bullet)
+	    self.SickSimon_FiredAtLeastOnce = true
+	    self:SickSimon_DoFireEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

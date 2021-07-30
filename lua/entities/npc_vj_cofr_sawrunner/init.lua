@@ -62,6 +62,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sawrunner/sawyourskull.mp3"
 }
+ENT.BreathSoundLevel = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_CustomOnInitialize()
     self.SoundTbl_Breath = {

@@ -47,6 +47,7 @@ ENT.SoundTbl_MeleeAttackExtra = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 }
+ENT.BreathSoundLevel = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_CustomOnInitialize()
     self.SoundTbl_Breath = {

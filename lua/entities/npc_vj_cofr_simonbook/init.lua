@@ -39,7 +39,6 @@ ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.RangeAttackSoundLevel = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 8
@@ -72,6 +71,7 @@ ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/booksimon/fucked.mp3",
 "vj_cofr/cof/booksimon/fucked2.mp3"
 }
+ENT.RangeAttackSoundLevel = 100
 -- Custom
 ENT.BookSimon_Shotgun = true
 ENT.BookSimon_Sledgehammer = false
@@ -202,13 +202,13 @@ function ENT:CustomRangeAttackCode()
 		bullet.Force = 4
 		bullet.Damage = 10
 		bullet.AmmoType = "SMG1"
-	self:FireBullets(bullet)
-	self.BookSimon_FiredAtLeastOnce = true
-	self:BookSimon_DoFireEffects()
-	timer.Simple(0.5,function() if IsValid(self) then
-	VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 85, 100)
-end	
-end)	
+	    self:FireBullets(bullet)
+	    self.BookSimon_FiredAtLeastOnce = true
+	    self:BookSimon_DoFireEffects()
+	    timer.Simple(0.5,function() if IsValid(self) then
+	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 85, 100)
+     end	
+  end)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

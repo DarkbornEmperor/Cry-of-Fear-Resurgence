@@ -54,6 +54,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sawer/sawer.mp3"
 }
+ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_IsHurt = false
 ENT.Sawer_NotHurt = true
@@ -126,7 +127,7 @@ end
         self.CanFlinch = 0
         self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))		
 
-      timer.Simple(5,function()
+      timer.Simple(6,function()
       if IsValid(self) then
 	     self:SetSkin(0)
 	  	 self.Eye_Close = true

@@ -81,7 +81,7 @@ function ENT:CustomAttack()
 		self:StopMoving()
 		self:GetEnemy():TakeDamage(10,self,self)
 		if self:GetEnemy():IsPlayer() then self:Stranger_StartDmg() end
-	self.Stranger_NextEnemyDamage = CurTime() + 0.5
+	    self.Stranger_NextEnemyDamage = CurTime() + 0.5
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

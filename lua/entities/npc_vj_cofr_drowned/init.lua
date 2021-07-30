@@ -19,21 +19,19 @@ ENT.ConstantlyFaceEnemyDistance = 600
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 14 
-ENT.MeleeAttackDistance = 15 
-ENT.MeleeAttackDamageDistance = 35
+ENT.MeleeAttackDistance = 20 
+ENT.MeleeAttackDamageDistance = 40
 ENT.SlowPlayerOnMeleeAttack = true
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
 ENT.SlowPlayerOnMeleeAttackTime = 0.5 
-ENT.HasRangeAttack = true
-ENT.AnimTbl_RangeAttack = {ACT_SIGNAL1}
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_drowned_range"
+ENT.HasRangeAttack = true 
+ENT.DisableDefaultRangeAttackCode = true 
+ENT.AnimTbl_RangeAttack = {ACT_SIGNAL1} 
 ENT.RangeDistance = 500 
-ENT.RangeToMeleeDistance = 100
+ENT.RangeToMeleeDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true 
-ENT.RangeUseAttachmentForPosID = "baby"
-ENT.NextRangeAttackTime = 3
+ENT.NextRangeAttackTime = 10
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -58,10 +56,15 @@ ENT.SoundTbl_MeleeAttackExtra = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/crazylady/knife_swing.wav"
 }
+ENT.SoundTbl_RangeAttack = {
+"vj_cofr/cof/crazylady/suicide_attempt.wav"
+}
 -- Custom
 ENT.Drowned_Baby = false
-ENT.Drowned_DamageDistance = 2500
+ENT.Drowned_DamageDistance = 500
 ENT.Drowned_NextEnemyDamage = 0
+
+util.AddNetworkString("vj_cofr_drowned_damage")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -92,12 +95,30 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Curve", self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+function ENT:Drowned_Damage()
+	net.Start("vj_cofr_drowned_damage")
+	net.WriteEntity(self)
+	net.WriteEntity(self:GetEnemy())
+	net.Broadcast()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode()
+	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
+	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
+	if CurTime() > self.Drowned_NextEnemyDamage then
+	timer.Simple(5,function() if IsValid(self) && self:Visible(self:GetEnemy()) && self.Dead == false then
+		self:StopMoving()
+		self:GetEnemy():TakeDamage(200,self,self)
+		if self:GetEnemy():IsPlayer() then self:Drowned_Damage() end
+	    self.Drowned_NextEnemyDamage = CurTime() + 10
+     end		
+   end)		
+ end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 80 then
+    if self.Dead == true or self:BusyWithActivity() then return end
+	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
 		self.Drowned_Baby = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,1,false)
 		timer.Simple(0.3,function() if IsValid(self) then

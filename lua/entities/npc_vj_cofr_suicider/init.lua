@@ -23,14 +23,18 @@ ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.5
 ENT.NextRangeAttackTime = 0.5
 ENT.NextAnyAttackTime_Range = 0.1 
+ENT.NoChaseAfterCertainRange = true
+ENT.NoChaseAfterCertainRange_FarDistance = 250 
+ENT.NoChaseAfterCertainRange_CloseDistance = 150 
+ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.RangeAttackSoundLevel = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIE_HEADSHOT} 
 ENT.DeathAnimationTime = 8 
+ENT.GibOnDeathDamagesTable = {"All"}
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -46,6 +50,7 @@ ENT.SoundTbl_FootStep = {
 ENT.SoundTbl_RangeAttack = {
 "vj_cofr/cof/suicider/suicider_glock_fire.wav"
 }
+ENT.RangeAttackSoundLevel = 100
 -- Custom
 ENT.Suicider_DeathSuicide = false
 ENT.Suicider_FiredAtLeastOnce = false
@@ -108,11 +113,6 @@ function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return end
 	if !IsValid(self:GetEnemy()) then return end
 	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())
-	/*if GetConVarNumber("vj_npc_nochasingenemy") == 0 then 
-	if EnemyDistance >= self.RangeDistance && EnemyDistance <= 100 then
-		self.DisableChasingEnemy = true else self.DisableChasingEnemy = false
-		end
-	end*/
 	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce == true then
 		self.Suicider_DeathSuicide = true
 		self.Bleeds = false
@@ -132,10 +132,35 @@ function ENT:CustomRangeAttackCode()
 		bullet.Force = 5
 		bullet.Damage = 20
 		bullet.AmmoType = "SMG1"
-	self:FireBullets(bullet)
-	self.Suicider_FiredAtLeastOnce = true
-	self:Suicider_DoFireEffects()
+	    self:FireBullets(bullet)
+	    self.Suicider_FiredAtLeastOnce = true
+	    self:Suicider_DoFireEffects()
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	if self.Suicider_DeathSuicide == false && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+		self:SetBodygroup(0,1)
+	
+	if self.HasGibDeathParticles == true then
+		local bloodeffect = EffectData()
+		bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
+		bloodeffect:SetScale(30)
+		util.Effect("VJ_Blood1",bloodeffect)
+		
+		local bloodspray = EffectData()
+		bloodspray:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+		bloodspray:SetScale(4)
+		bloodspray:SetFlags(3)
+		bloodspray:SetColor(0)
+		util.Effect("bloodspray",bloodspray)
+		util.Effect("bloodspray",bloodspray)
+end
+		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)	
+		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
+		return true,{DeathAnim=true}
+	end	
+end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if self:IsMoving() then 
