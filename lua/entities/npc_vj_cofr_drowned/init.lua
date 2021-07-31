@@ -16,11 +16,11 @@ ENT.ConstantlyFaceEnemy = true
 ENT.ConstantlyFaceEnemy_IfAttacking = true 
 ENT.ConstantlyFaceEnemy_Postures = "Standing" 
 ENT.ConstantlyFaceEnemyDistance = 600 
-ENT.HasMeleeAttack = true 
+ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 14 
 ENT.MeleeAttackDistance = 20 
-ENT.MeleeAttackDamageDistance = 40
+ENT.MeleeAttackDamageDistance = 35
 ENT.SlowPlayerOnMeleeAttack = true
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
@@ -106,8 +106,7 @@ function ENT:CustomRangeAttackCode()
 	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
-	timer.Simple(5,function() if IsValid(self) && self:Visible(self:GetEnemy()) && self.Dead == false then
-		self:StopMoving()
+	timer.Simple(5,function() if IsValid(self) && self:GetEnemy() && self.Dead == false then
 		self:GetEnemy():TakeDamage(200,self,self)
 		if self:GetEnemy():IsPlayer() then self:Drowned_Damage() end
 	    self.Drowned_NextEnemyDamage = CurTime() + 10
@@ -120,6 +119,7 @@ function ENT:CustomOnThink_AIEnabled()
     if self.Dead == true or self:BusyWithActivity() then return end
 	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
 		self.Drowned_Baby = true
+		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,1,false)
 		timer.Simple(0.3,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav") end end end)

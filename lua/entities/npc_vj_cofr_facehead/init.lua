@@ -45,7 +45,7 @@ end
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
      self:SetPos(self:GetPos() + self:GetUp()*30)
-	 self:SetCollisionBounds(Vector(30, 30, 100), Vector(-30, -30, -35))
+	 self:SetCollisionBounds(Vector(30, 30, 55), Vector(-30, -30, -35))
      self:Face_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

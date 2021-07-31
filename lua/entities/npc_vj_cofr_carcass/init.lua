@@ -51,6 +51,7 @@ ENT.VJC_Data = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/roofboss/sorrow.mp3"
 }
+ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Carcass_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,7 +74,7 @@ function ENT:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 55), Vector(-15, -15, -50))
+     self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, -30))
      self:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -71,6 +71,7 @@ ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/booksimon/fucked.mp3",
 "vj_cofr/cof/booksimon/fucked2.mp3"
 }
+ENT.BreathSoundLevel = 75
 ENT.RangeAttackSoundLevel = 100
 -- Custom
 ENT.BookSimon_Shotgun = true
