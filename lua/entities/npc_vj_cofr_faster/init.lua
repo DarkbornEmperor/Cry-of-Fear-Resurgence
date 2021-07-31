@@ -64,11 +64,10 @@ end
 	"vj_cofr/cof/faster/faster_alert2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/cof/faster/faster_pain.wav"
+	"vj_cofr/cof/faster/faster_attack.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/cof/slower/slower_pain1.wav",
-	"vj_cofr/cof/slower/slower_pain2.wav"
+	"vj_cofr/cof/faster/faster_pain.wav"
 }
     self.SoundTbl_Death = {
 	"vj_cofr/cof/faster/faster_death.wav"

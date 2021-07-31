@@ -99,6 +99,11 @@ if VJExists == true then
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
     VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)	
+    VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)	
+    VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
+    VJ.AddNPC("Faster (Female)","npc_vj_cofrc_fasterfemale",vCat)	
+    VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
+
 	
     -- Particles --
     game.AddParticles("particles/vj_cofr_soul.pcf")
@@ -199,7 +204,12 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/duorunner.mdl")
     util.PrecacheModel("models/vj_cofr/custom/psychopumpkin.mdl")
     util.PrecacheModel("models/vj_cofr/custom/slowerno_boss.mdl") 
-    util.PrecacheModel("models/vj_cofr/custom/crazyrumpel.mdl")		
+    util.PrecacheModel("models/vj_cofr/custom/crazyrumpel.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/faster_female.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/baby_swimmer.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/baby_swimmer2.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/mace_swimmer.mdl") 
+    util.PrecacheModel("models/vj_cofr/custom/slower3_dream.mdl")		
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
