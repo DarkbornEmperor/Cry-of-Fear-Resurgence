@@ -18,10 +18,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 40 
 ENT.MeleeAttackDamageDistance = 80
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -110,9 +106,8 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 elseif hitgroup == 9 then
 	    dmginfo:ScaleDamage(0.001)		
 end
-     local attacker = dmginfo:GetAttacker()
      if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
-        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,5.9,false)
+        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,true)
 		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 85, 100)
 		self:SetSkin(1)
 		dmginfo:ScaleDamage(0.005)
@@ -142,8 +137,8 @@ end
          self.DisableWandering = false
          self.CanFlinch = 1	
 		 self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
-end		 
-end)		 
+      end		 
+   end)		 
 end
 end)
 end

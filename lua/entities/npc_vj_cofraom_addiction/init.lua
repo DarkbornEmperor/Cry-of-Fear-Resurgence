@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/david_monster.mdl"} 
-ENT.StartHealth = 3000
+ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
@@ -16,10 +16,6 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -80,27 +76,36 @@ end
 	if key == "axe_grab" then
 		VJ_EmitSound(self, "vj_cofr/aom/davidbad/david_axegrab.wav", 85, 100)
 		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
-		self:SetBodygroup(0,1)
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+      dmginfo:ScaleDamage(0.15)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Addiction_Axe == false && self.Dead == false && (self.StartHealth -800 > self:Health()) then
+	if self.Dead == true then return false end
+
+	if self.Addiction_Axe == false && (self.StartHealth -200 > self:Health()) then
 		self.Addiction_Axe = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,3.7941175539395,false)
-end		
-    if self.Addiction_OnFire == false && self.Dead == false && !self:IsOnFire() && (self.StartHealth -1800 > self:Health()) then
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+		timer.Simple(3,function() if IsValid(self) then
+        self:SetBodygroup(0,1)
+     end		
+  end)		
+end			
+    if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -300 > self:Health()) then
 		self.Addiction_OnFire = true
 		self:Ignite(15)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),DMG_BURN,150)) do
 	    timer.Create("Addiction_Fire"..self:EntIndex(), 1, 15, function()
 	    if IsValid(self) then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
-end
-end)
+     end
+  end)
 end
 end		
 end

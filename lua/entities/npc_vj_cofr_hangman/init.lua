@@ -18,10 +18,6 @@ ENT.NextAnyAttackTime_Melee = 0.5
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --

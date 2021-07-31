@@ -28,7 +28,7 @@ ENT.Model = {"models/props_junk/sawblade001a.mdl"}
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 20 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
-ENT.SoundTbl_OnCollide = {"physics/metal/metal_sheet_impact_hard8.wav"}
+ENT.SoundTbl_OnCollide = {"vj_cofr/aom/davidbad/Axe_hitbody.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()

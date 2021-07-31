@@ -82,6 +82,7 @@ if VJExists == true then
     VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)		
 	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)
     VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
+	--VJ.AddNPC("Mouth Monster","npc_vj_cofraom_mouth",vCat)
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
 
     -- AoM Random & Spawners --
