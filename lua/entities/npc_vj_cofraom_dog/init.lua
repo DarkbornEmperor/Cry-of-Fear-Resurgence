@@ -14,7 +14,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 164 
+ENT.MeleeAttackDistance = 100 
 ENT.MeleeAttackDamageType = DMG_SONIC
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
@@ -89,7 +89,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ_EmitSound(self, {"vj_cofr/aom/houndeye/he_blast1.wav","vj_cofr/aom/houndeye/he_blast2.wav","vj_cofr/aom/houndeye/he_blast3.wav"}, 100, math.random(80,100))
 end
-	util.VJ_SphereDamage(self, self, self:GetPos(), 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
+	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

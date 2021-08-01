@@ -16,7 +16,7 @@ ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
-ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackDistance = 50 
 ENT.MeleeAttackDamageDistance = 80
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
@@ -107,7 +107,7 @@ elseif hitgroup == 9 then
 	    dmginfo:ScaleDamage(0.001)		
 end
      if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
-        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,true)
+        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
 		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 85, 100)
 		self:SetSkin(1)
 		dmginfo:ScaleDamage(0.005)
@@ -116,8 +116,6 @@ end
 		self.Sawer_IsHurt = true
 		self.Sawer_NotHurt = false
         self.MovementType = VJ_MOVETYPE_STATIONARY
-        self.DisableChasingEnemy = true
-        self.DisableWandering = true
         self.CanTurnWhileStationary = false
         self.CanFlinch = 0
         self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))		
@@ -131,10 +129,8 @@ end
       timer.Simple(0.5,function()
       if IsValid(self) then
 		 self.Sawer_IsHurt = false
-		 self.Sawer_NotHurt = true 
+		 self.Sawer_NotHurt = true	 
          self.MovementType = VJ_MOVETYPE_GROUND
-         self.DisableChasingEnemy = false
-         self.DisableWandering = false
          self.CanFlinch = 1	
 		 self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
       end		 

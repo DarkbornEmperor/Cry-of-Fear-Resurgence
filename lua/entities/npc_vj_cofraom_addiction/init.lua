@@ -24,7 +24,7 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 ENT.HasSoundTrack = true
-ENT.Immune_Fire = true
+ENT.Immune_Fire = true 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -82,16 +82,12 @@ end
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-      dmginfo:ScaleDamage(0.15)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return false end
 
 	if self.Addiction_Axe == false && (self.StartHealth -200 > self:Health()) then
 		self.Addiction_Axe = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) then
         self:SetBodygroup(0,1)
      end		
@@ -110,10 +106,23 @@ end
 end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+   if self.Dead == true then return false end
+   
+    local attacker = dmginfo:GetAttacker()
+   if dmginfo:IsDamageType(DMG_GENERIC) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
+       dmginfo:ScaleDamage(0.15)
+   else
+	   attacker:TakeDamage(10,attacker,attacker)
+	   dmginfo:ScaleDamage(0.00)
+    end	  
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamageType = DMG_SHOCK
+		self.NextMeleeAttackTime = 3
 		self.HasMeleeAttackMissSounds = false
 		self.SoundTbl_MeleeAttackExtra = {
 		"vj_cofr/aom/davidbad/thunder_hit.wav"
@@ -143,7 +152,7 @@ if self:GetBodygroup(0) == 0 then
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ_EmitSound(self, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, math.random(80,100))
 end
-	util.VJ_SphereDamage(self, self, self:GetPos(), 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
+	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

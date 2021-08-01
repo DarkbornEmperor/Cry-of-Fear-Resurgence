@@ -88,7 +88,7 @@ function ENT:CustomOnThink_AIEnabled()
 
 	if self.Sewmo_WireBroken == false && (self.StartHealth *.50 > self:Health()) then
 		self.Sewmo_WireBroken = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(0.3,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav") end end end)
 			timer.Simple(1,function() if IsValid(self) then
