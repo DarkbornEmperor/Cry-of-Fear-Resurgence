@@ -14,7 +14,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.NextMeleeAttackTime = 1.5
+ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 20 
 ENT.MeleeAttackDistance = 25 
 ENT.MeleeAttackDamageDistance = 50
@@ -26,8 +26,7 @@ ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH,ACT_BIG_FLINCH} 
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
-ENT.DeathAnimationTime = 8 
-ENT.HasExtraMeleeAttackSounds = true 
+ENT.DeathAnimationTime = 8  
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person

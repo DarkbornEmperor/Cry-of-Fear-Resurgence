@@ -60,6 +60,9 @@ ENT.VJC_Data = {
 }	
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_FootStep = {
+"vj_cofr/fx/npc_step1.wav"
+}
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/zombie/claw_strike1.wav",
 "vj_cofr/aom/zombie/claw_strike2.wav",
@@ -101,13 +104,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	 --self:SetNoDraw(true)
-	 self:SetMaterial("hud/killicons/default")
+	 --self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
      self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
      self:Spector_CustomOnInitialize() 	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "step" then
+		self:FootStepSoundCode()
+end
 	if key == "attack_range" && self.RangeAttacking == true then
 		self:RangeAttackCode()
 		if IsValid(self.Face) then self.Face:Remove() end
@@ -132,6 +138,9 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 	if key == "attack" then
 		self:MeleeAttackCode()
+end	
+	if key == "death" then
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
