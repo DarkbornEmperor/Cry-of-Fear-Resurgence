@@ -19,7 +19,7 @@ ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true 
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spector_soul" 
+ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_eyeball" 
 ENT.RangeDistance = 1100 
 ENT.RangeToMeleeDistance = 200 
 ENT.TimeUntilRangeAttackProjectileRelease = false 
@@ -69,11 +69,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/zombie/claw_miss1.wav",
 "vj_cofr/aom/zombie/claw_miss2.wav"
 }
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/aom/agrunt/ag_fire1.wav",
-"vj_cofr/aom/agrunt/ag_fire2.wav",
-"vj_cofr/aom/agrunt/ag_fire3.wav"
-}	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spector_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -106,6 +101,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	 --self:SetNoDraw(true)
+	 self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
      self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
      self:Spector_CustomOnInitialize() 	 
@@ -132,7 +128,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self.Face:Spawn()
 		self.Face:Activate()
 		self:DeleteOnRemove(self.Face)
-		timer.Simple(0.05,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
+		timer.Simple(0.3,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
 end
 	if key == "attack" then
 		self:MeleeAttackCode()

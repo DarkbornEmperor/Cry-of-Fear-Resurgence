@@ -12,16 +12,12 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"}
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.HasMeleeAttack = false 
-ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
-ENT.RangeDistance = 80
-ENT.RangeToMeleeDistance = 1
-ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true 
-ENT.AnimTbl_RangeAttack = {ACT_MELEE_ATTACK1}
-ENT.RangeUseAttachmentForPosID = "mouth"
-ENT.NextRangeAttackTime = 1
+ENT.HasMeleeAttack = true 
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.NextMeleeAttackTime = 1.5
+ENT.MeleeAttackDamage = 20 
+ENT.MeleeAttackDistance = 25 
+ENT.MeleeAttackDamageDistance = 50
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -31,6 +27,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH,ACT_BIG_FLINCH}
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 ENT.DeathAnimationTime = 8 
+ENT.HasExtraMeleeAttackSounds = true 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -46,7 +43,7 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/wheelchair/wheel03.wav",
 "vj_cofr/aom/wheelchair/wheel04.wav"
 }
-ENT.SoundTbl_RangeAttack = {
+ENT.SoundTbl_BeforeMeleeAttack = {
 "vj_cofr/aom/wheelchair/wcm_squirt.wav"
 }	
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,8 +52,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 end
 	if key == "attack" then
-		self:RangeAttackCode()
-		--ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+		self:MeleeAttackCode()
+		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("mouth")).Pos,self:GetAngles())
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

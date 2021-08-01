@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/aom/eyeball/HGP_Side1"
+	"$additive" "1"
+                "$selfillum" 1 	
+}

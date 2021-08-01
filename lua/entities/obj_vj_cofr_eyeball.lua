@@ -7,15 +7,15 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Spector Soul"
+ENT.PrintName		= "Spector Eyeball"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Spector Soul"
-	local LangName = "obj_vj_cofr_spector_soul"
+	local Name = "Spector Eyeball"
+	local LangName = "obj_vj_cofr_eyeball"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
@@ -24,7 +24,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_small.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = {"models/vj_cofr/aom/hornet.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
@@ -51,27 +51,9 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-    self:SetNoDraw(true)
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
 	
-	self.IdleEffect = ents.Create("env_sprite")
-	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
-	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
-	self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
-	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-	self.IdleEffect:SetKeyValue("renderfx","0")
-	self.IdleEffect:SetKeyValue("rendermode","2")
-	self.IdleEffect:SetKeyValue("renderamt","255")
-	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-	self.IdleEffect:SetKeyValue("mindxlevel","0")
-	self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	self.IdleEffect:SetKeyValue("framerate","40.0")
-	self.IdleEffect:SetKeyValue("spawnflags","0")
-	self.IdleEffect:SetKeyValue("scale",tostring(self.Scale))
-	self.IdleEffect:SetPos(self:GetPos())
-	self.IdleEffect:Spawn()
-	self.IdleEffect:SetParent(self)
-	self:DeleteOnRemove(self.IdleEffect)	
+	--util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, ".vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -105,7 +87,6 @@ end
 function ENT:CustomOnDoDamage(data, phys, hitEnt)
 	if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
 		self:SetDeathVariablesTrue(data, phys)
-		ParticleEffect("vj_cofr_soul_splat", data.HitPos, Angle(0,0,0), nil)
 		self:Remove()
 	end
 end

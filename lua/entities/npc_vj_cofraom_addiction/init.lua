@@ -130,7 +130,8 @@ function ENT:MultipleMeleeAttacks()
 	elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamageType = DMG_SLASH
-		self.MeleeAttackDamage = 25 
+		self.NextMeleeAttackTime = 0
+		self.MeleeAttackDamage = 35 
 		self.SoundTbl_MeleeAttackMiss = {
 		"vj_cofr/aom/davidbad/Axe_swing.wav"
 }
@@ -143,7 +144,7 @@ end
 function ENT:CustomOnMeleeAttack_BeforeChecks()
 if self:GetBodygroup(0) == 0 then
 	local color = Color(255, 255, 255, 255) -- The shock wave color
-	local dmg = 15 -- How much damage should the shock wave do?
+	local dmg = 20 -- How much damage should the shock wave do?
 
 	-- flags 0 = No fade!
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/bluelight1", framerate=20, flags=0})

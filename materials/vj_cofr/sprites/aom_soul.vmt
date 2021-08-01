@@ -2,6 +2,7 @@
 {
                 "$basetexture" "vj_cofr/sprites/aom_soul"
                 "$surfaceprop" "Flesh"
+                "$selfillum" 1 
                 "$additive" 1
 	"Proxies"
 	{
