@@ -57,6 +57,12 @@ ENT.Sawer_NotHurt = true
 ENT.Eye_Close = true
 ENT.Eye_Open = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawer_CustomOnInitialize()
     self.SoundTbl_Breath = {
 	"vj_cofr/cof/sawer/chainsaw_loop.wav"

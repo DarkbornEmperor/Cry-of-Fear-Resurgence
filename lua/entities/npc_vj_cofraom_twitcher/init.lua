@@ -97,6 +97,7 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombiehd4.mdl"		
 }   
 end
+     if GetConVarNumber("VJ_COFR_Twitcher_Invisible") == 1 then
      if math.random(1,10) == 1 then
 	    self.Twitcher_Invisible = true 
 	    --self:SetNoDraw(true)
@@ -107,20 +108,21 @@ end
         self.Twitcher_Transparent = true
 	    self:SetMaterial("vj_cofr/transparent")
 		self:DrawShadow(false)
-    end
+	end
+  end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_CustomOnInitialize()
-if self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" then
-    self:SetBodygroup(0,math.random(0,9))
+   if self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" then
+       self:SetBodygroup(0,math.random(0,9))
 else
-    self:SetBodygroup(0,math.random(0,10))
-end	
+       self:SetBodygroup(0,math.random(0,10))
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TwitcherSounds()
-local Twitcher_Sounds = math.random(1,3)
-if Twitcher_Sounds == 1 then
+    local Twitcher_Sounds = math.random(1,3)
+    if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/zombie/zo_alert10.wav",
 	"vj_cofr/aom/zombie/zo_alert20.wav",
@@ -182,8 +184,8 @@ elseif self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
 	or self:GetModel() == "models/vj_cofr/aom/zombie5_5.mdl" then 
        self:SetBodygroup(0,math.random(0,1))
 end		
-     self:Twitcher_CustomOnInitialize()
-	 self:TwitcherSounds()
+       self:Twitcher_CustomOnInitialize()
+	   self:TwitcherSounds()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

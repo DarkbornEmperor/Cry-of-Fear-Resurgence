@@ -39,11 +39,12 @@ ENT.SoundTbl_MeleeAttackExtra = {
 }
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/watro/watro_swing.wav"
-}		
+}
+ENT.BreathSoundLevel = 75		
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HumanFlower_CustomOnInitialize()
-self.SoundTbl_Breath = {
-"vj_cofr/cof/humanflower/humanflowers.wav"
+    self.SoundTbl_Breath = {
+    "vj_cofr/cof/humanflower/humanflowers.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

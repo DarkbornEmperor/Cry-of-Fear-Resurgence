@@ -52,6 +52,12 @@ ENT.SoundTbl_SoundTrack = {
 }
 ENT.BreathSoundLevel = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Craig_CustomOnInitialize()
     self.SoundTbl_Breath = {
 	"vj_cofr/cof/sawer/chainsaw_loop.wav"

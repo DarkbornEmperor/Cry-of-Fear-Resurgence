@@ -81,7 +81,10 @@ function ENT:CustomOnPreInitialize()
 end	
 	if math.random(1,5) == 1 then
 		self.BookSimon_Sledgehammer = true
-    end		
+end	
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()

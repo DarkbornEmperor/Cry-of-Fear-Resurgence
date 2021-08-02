@@ -59,7 +59,10 @@ ENT.Doctor_FiredAtLeastOnce = false
 function ENT:CustomOnPreInitialize()
 	if math.random(1,5) == 1 then
 		self.Doctor_Pistol = true
-    end		
+end
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_CustomOnInitialize()

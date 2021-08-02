@@ -46,6 +46,12 @@ ENT.SoundTbl_SoundTrack = {
 ENT.Addiction_Axe = false
 ENT.Addiction_OnFire = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Addiction_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/davidbad/db_alert10.wav",
@@ -109,13 +115,15 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
    if self.Dead == true then return false end
    
+   if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
     local attacker = dmginfo:GetAttacker()
    if dmginfo:IsDamageType(DMG_GENERIC) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
        dmginfo:ScaleDamage(0.15)
    else
 	   attacker:TakeDamage(10,attacker,attacker)
 	   dmginfo:ScaleDamage(0.00)
-    end	  
+    end	   
+  end	  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()

@@ -60,6 +60,12 @@ ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sewer/getout.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Mace_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/sewer/mace_scream.wav"

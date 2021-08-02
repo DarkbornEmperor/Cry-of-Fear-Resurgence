@@ -91,7 +91,7 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
     VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
 
-	-- Custom --
+	-- Custom Campaigns --
 	vCat = "CoF Resurgence: Custom"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrc.png"})	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)	
@@ -209,7 +209,80 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/baby_swimmer.mdl")
     util.PrecacheModel("models/vj_cofr/custom/baby_swimmer2.mdl")
     util.PrecacheModel("models/vj_cofr/custom/mace_swimmer.mdl") 
-    util.PrecacheModel("models/vj_cofr/custom/slower3_dream.mdl")		
+    util.PrecacheModel("models/vj_cofr/custom/slower3_dream.mdl")
+
+	-- ConVars --
+	local AddConvars = {}
+	AddConvars["VJ_COFR_Boss_Music"] = 1
+	AddConvars["VJ_COFR_Twitcher_Invisible"] = 1
+	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
+	
+    -- Map Spawner ConVars --
+    AddConvars["VJ_COFR_MapSpawner_Music"] = 1
+	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
+	
+		for k, v in pairs(AddConvars) do
+		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
+	end
+	
+if (CLIENT) then
+local function VJ_COFR_MAIN(Panel)
+			if !game.SinglePlayer() then
+			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
+				Panel:AddControl( "Label", {Text = "You Are Not An Admin!"})
+				Panel:ControlHelp("Note: Only Admins Can Change These Settings!")
+return
+	end
+end
+			Panel:AddControl( "Label", {Text = "Note: Only Admins Can Change These Settings!"})
+			local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
+			vj_cofrreset.Options["#vjbase.menugeneral.default"] = { 
+				VJ_COFR_Boss_Music = "1",
+				VJ_COFR_Twitcher_Invisible = "1",
+				VJ_COFR_Addiction_SelfDamage = "1",
+}
+Panel:AddControl("ComboBox", vj_cofrreset)
+Panel:ControlHelp("NOTE: Only Future Spawned SNPCs Will Be Affected!")
+Panel:AddControl("Checkbox", {Label ="Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
+Panel:AddControl("Checkbox", {Label ="Enable Transparent/Invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
+Panel:AddControl("Checkbox", {Label ="Enable Self-Damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
+Panel:AddPanel(typebox)
+
+end
+	function VJ_ADDTOMENU_COFR(Panel)
+		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (Main)","CoF Resurgence (Main)","","", VJ_COFR_MAIN, {} )
+end
+		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR", VJ_ADDTOMENU_COFR )
+end
+
+if (CLIENT) then
+local function VJ_COFR_MAPSPAWNER(Panel)
+			if !game.SinglePlayer() then
+			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
+				Panel:AddControl( "Label", {Text = "You Are Not An Admin!"})
+				Panel:ControlHelp("Note: Only Admins Can Change These Settings!")
+return
+	end
+end
+			Panel:AddControl( "Label", {Text = "Note: Only Admins Can Change These Settings!"})
+			local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
+			vj_cofrreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
+			    VJ_COFR_MapSpawner_Music = "1",
+				VJ_COFR_MapSpawner_Boss = "0",			
+
+}
+Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
+Panel:ControlHelp("NOTE: Only Admins Can Change These Settings!")
+Panel:AddControl("Checkbox", {Label ="Enable Music?", Command ="VJ_COFR_MapSpawner_Music"})
+Panel:AddControl("Checkbox", {Label ="Enable Bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
+Panel:AddPanel(typebox)
+
+end
+	function VJ_ADDTOMENU_COFR_MAPSPAWNER(Panel)
+		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (MapSp)","CoF Resurgence (MapSp)","","", VJ_COFR_MAPSPAWNER, {} )
+end
+		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR_MAPSPAWNER", VJ_ADDTOMENU_COFR_MAPSPAWNER )
+end	
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

@@ -55,6 +55,12 @@ ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Carcass_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Carcass_CustomOnInitialize()
     self.SoundTbl_Breath = {
 	"vj_cofr/cof/roofboss/rb_mouthidle1.wav",
