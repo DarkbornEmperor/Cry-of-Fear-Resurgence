@@ -1,8 +1,9 @@
-ENT.Base 			= "npc_vj_creature_base"
-ENT.Type 			= "ai"
-ENT.PrintName 		= "Monster Map Spawner"
-ENT.Author 			= "Darkborn"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose 		= "Spawn it and fight with it!"
-ENT.Instructions 	= "Click on the spawnicon to spawn it."
-ENT.Category		= "Cry of Fear Resurgence"
+-- NOTE: ALL CODE HERE IS BY CPT. HAZAMA! I TAKE NO CREDIT FOR THIS!
+ENT.Type 			= "anim"
+ENT.Base 			= "base_anim"
+ENT.PrintName		= "Monster Map Spawner"
+ENT.Author			= "Darkborn"
+
+ENT.Spawnable			= false
+ENT.AdminSpawnable		= false
+

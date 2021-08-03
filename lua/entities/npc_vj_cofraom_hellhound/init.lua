@@ -36,8 +36,13 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Dog_CustomOnInitialize()
+function ENT:Hellhound_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/houndeye/he_alert1.wav",
 	"vj_cofr/aom/houndeye/he_alert2.wav"
@@ -63,7 +68,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:SetCollisionBounds(Vector(15, 15, 40), Vector(-15, -15, 0))
-     self:Dog_CustomOnInitialize()
+     self:Hellhound_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

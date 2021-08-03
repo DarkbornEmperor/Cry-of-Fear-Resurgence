@@ -41,6 +41,11 @@ ENT.VJC_Data = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sicksimon/sicksimon.mp3"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then

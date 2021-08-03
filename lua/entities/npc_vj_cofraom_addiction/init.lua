@@ -42,6 +42,11 @@ ENT.SoundTbl_SoundTrack = {
 "vj_cofr/aom/davidbad/sickness.mp3",
 "vj_cofr/aom/davidbad/4motherkill.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 -- Custom
 ENT.Addiction_Axe = false
 ENT.Addiction_OnFire = false
@@ -89,7 +94,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return false end
+	if self.Dead == true then return end
 
 	if self.Addiction_Axe == false && (self.StartHealth -200 > self:Health()) then
 		self.Addiction_Axe = true
@@ -115,11 +120,11 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
       dmginfo:ScaleDamage(0.15)
 	  
-   if self.Dead == true then return false end
+   if self.Dead == true then return end
    
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
     local attacker = dmginfo:GetAttacker()
-   if dmginfo:IsDamageType(DMG_GENERIC) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
+   if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
        dmginfo:ScaleDamage(0.15)
    else
 	   attacker:TakeDamage(10,attacker,attacker)
@@ -137,7 +142,7 @@ function ENT:MultipleMeleeAttacks()
 		self.SoundTbl_MeleeAttackExtra = {
 		"vj_cofr/aom/davidbad/thunder_hit.wav"
 }
-	elseif self:GetBodygroup(0) == 1 then
+elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamageType = DMG_SLASH
 		self.NextMeleeAttackTime = 0
@@ -152,7 +157,7 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
-if self:GetBodygroup(0) == 0 then
+    if self:GetBodygroup(0) == 0 then
 	local color = Color(255, 255, 255, 255) -- The shock wave color
 	local dmg = 20 -- How much damage should the shock wave do?
 

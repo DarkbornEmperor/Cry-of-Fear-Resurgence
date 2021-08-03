@@ -50,6 +50,11 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sawer/sawer.mp3"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_IsHurt = false

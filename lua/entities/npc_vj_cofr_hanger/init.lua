@@ -28,6 +28,13 @@ ENT.VJC_Data = {
 	ThirdP_Offset = Vector(30, 25, -40), -- The offset for the controller when the camera is in third person
 	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+}
+-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
 }	
 -- Custom
 ENT.Hanger_Death = false

@@ -55,6 +55,11 @@ ENT.SoundTbl_RangeAttack = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sicksimon/trainhurry.mp3"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ENT.RangeAttackSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 

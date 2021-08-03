@@ -40,6 +40,11 @@ ENT.SoundTbl_MeleeAttackExtra = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/watro/watro_swing.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ENT.BreathSoundLevel = 75		
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HumanFlower_CustomOnInitialize()
@@ -59,10 +64,6 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack" then
 		self:MeleeAttackCode()
     end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	self:DrawShadow(false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

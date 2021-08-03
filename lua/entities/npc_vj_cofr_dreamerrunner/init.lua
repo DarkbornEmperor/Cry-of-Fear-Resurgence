@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/dreamerrunner.mdl"} 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_CustomOnInitialize()
-    self.SoundTbl_Alert = {
+    self.SoundTbl_BeforeMeleeAttack = {
     "vj_cofr/cof/dreamer/dreamer_attack.wav"
 }
     self.SoundTbl_Pain = {

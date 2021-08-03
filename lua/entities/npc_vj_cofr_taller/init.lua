@@ -50,6 +50,11 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/taller/taller_step.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Taller_CustomOnInitialize()
     self.SoundTbl_Alert = {

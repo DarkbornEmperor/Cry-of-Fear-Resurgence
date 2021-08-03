@@ -58,6 +58,11 @@ ENT.SoundTbl_MeleeAttackExtra = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/flygare/flygare_slash.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Flygare_CustomOnInitialize()
     self.SoundTbl_Alert = {

@@ -57,6 +57,11 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/zombie/claw_miss1.wav",
 "vj_cofr/aom/zombie/claw_miss2.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 -- Cuatom
 ENT.Twitcher_Invisible = false
 ENT.Twitcher_Transparent = false
@@ -85,11 +90,11 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombie4_4.mdl",
         "models/vj_cofr/aom/zombie4_5.mdl"		
 }
- elseif self:GetClass() == "npc_vj_cofraom_twitcherda" then
+ elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
 		self.Model = {
 		"models/vj_cofr/aom/zombie_da.mdl"		
 } 
- elseif self:GetClass() == "npc_vj_cofraom_twitcherhd" then
+ elseif self:GetClass() == "npc_vj_cofraom_twitcher_hd" then
 		self.Model = {
 		"models/vj_cofr/aom/zombiehd.mdl",
         "models/vj_cofr/aom/zombiehd2.mdl",

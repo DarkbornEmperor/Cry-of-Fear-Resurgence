@@ -51,6 +51,11 @@ ENT.VJC_Data = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/roofboss/sorrow.mp3"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Carcass_HomingAttack = false -- false = Regular, true = Homing

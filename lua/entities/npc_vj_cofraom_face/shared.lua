@@ -1,6 +1,6 @@
-ENT.Base 			= "obj_vj_spawner_base"
-ENT.Type 			= "anim"
-ENT.PrintName 		= "Random Monster Spawner (Single)"
+ENT.Base 			= "npc_vj_creature_base" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
+ENT.Type 			= "ai"
+ENT.PrintName 		= "Face"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

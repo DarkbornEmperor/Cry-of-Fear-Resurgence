@@ -39,6 +39,11 @@ ENT.SoundTbl_FootStep = {
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/baby/b_attack1.wav",
 "vj_cofr/cof/baby/b_attack2.wav"
+}
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
 }	
 -- Custom
 ENT.Baby_DeathFromMeleeAttack = false
@@ -83,7 +88,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	--self:SetLocalVelocity(((self:GetEnemy():GetPos() + self:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 + self:GetUp()*40 + self:GetForward()*20)
 	self:SetBodygroup(0,1)
 	self.Baby_DeathFromMeleeAttack = true
-	self:TakeDamage(999999999999999,self,self)
+	self:TakeDamage(self:Health())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)

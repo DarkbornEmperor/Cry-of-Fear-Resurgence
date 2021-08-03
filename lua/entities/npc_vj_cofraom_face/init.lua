@@ -72,8 +72,13 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/zombie/claw_miss1.wav",
 "vj_cofr/aom/zombie/claw_miss2.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Spector_CustomOnInitialize()
+function ENT:Face_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/agrunt/ag_alert1.mp3",
 	"vj_cofr/aom/agrunt/ag_alert2.wav",
@@ -107,13 +112,16 @@ function ENT:CustomOnInitialize()
 	 --self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
      self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
-     self:Spector_CustomOnInitialize() 	 
+     self:Face_CustomOnInitialize() 	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
 end
+	if key == "attack" then
+		self:MeleeAttackCode()
+end	
 	if key == "attack_range" && self.RangeAttacking == true then
 		self:RangeAttackCode()
 		if IsValid(self.Face) then self.Face:Remove() end
@@ -136,9 +144,6 @@ end
 		self:DeleteOnRemove(self.Face)
 		timer.Simple(0.3,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
 end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
     end		

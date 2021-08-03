@@ -48,6 +48,11 @@ ENT.VJC_Data = {
 ENT.SoundTbl_LeapAttackDamage  = {
 "vj_cofr/aom/headcrab/hc_headbite.wav"
 }	
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Handcrab_CustomOnInitialize()
     self.SoundTbl_Alert = {

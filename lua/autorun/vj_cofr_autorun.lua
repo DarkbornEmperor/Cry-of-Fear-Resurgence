@@ -74,15 +74,15 @@ if VJExists == true then
 	vCat = "CoF Resurgence: AoM"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})	
     VJ.AddNPC("Twitcher","npc_vj_cofraom_twitcher",vCat)
-	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcherda",vCat)
+	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcher_da",vCat)
     VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)
 	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofraom_wheelchair",vCat)
-    VJ.AddNPC("Spitter Twitcher","npc_vj_cofraom_twitcherspit",vCat)
-    VJ.AddNPC("Bleeding Spector","npc_vj_cofraom_spector",vCat)
-    VJ.AddNPC("One-Eyed Dog","npc_vj_cofraom_dog",vCat)		
-	VJ.AddNPC("Abomination","npc_vj_cofraom_abomination",vCat)
-    VJ.AddNPC("Launcher Ghost","npc_vj_cofraom_ghost",vCat)
-	--VJ.AddNPC("Mouth Monster","npc_vj_cofraom_mouth",vCat)
+    VJ.AddNPC("Spitter","npc_vj_cofraom_spitter",vCat)
+    VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
+    VJ.AddNPC("Hellhound","npc_vj_cofraom_hellhound",vCat)		
+	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
+    VJ.AddNPC("Screamer","npc_vj_cofraom_screamer",vCat)
+	--VJ.AddNPC("Devourer","npc_vj_cofraom_mouth",vCat)
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
 
     -- AoM Random & Spawners --
@@ -218,8 +218,18 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
 	
     -- Map Spawner ConVars --
-    AddConvars["VJ_COFR_MapSpawner_Music"] = 1
+    --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
 	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
+	AddConvars["VJ_COFR_MapSpawner_Enabled"] = 1
+	AddConvars["VJ_COFR_MapSpawner_MaxMon"] = 50
+	AddConvars["VJ_COFR_MapSpawner_HordeCount"] = 20
+	AddConvars["VJ_COFR_MapSpawner_SpawnMax"] = 2000
+	AddConvars["VJ_COFR_MapSpawner_SpawnMin"] = 650
+	AddConvars["VJ_COFR_MapSpawner_HordeChance"] = 100
+	AddConvars["VJ_COFR_MapSpawner_HordeCooldownMin"] = 120
+	AddConvars["VJ_COFR_MapSpawner_HordeCooldownMax"] = 180
+	AddConvars["VJ_COFR_MapSpawner_DelayMin"] = 0.85
+	AddConvars["VJ_COFR_MapSpawner_DelayMax"] = 3
 	
 		for k, v in pairs(AddConvars) do
 		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
@@ -229,12 +239,12 @@ if (CLIENT) then
 local function VJ_COFR_MAIN(Panel)
 			if !game.SinglePlayer() then
 			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-				Panel:AddControl( "Label", {Text = "You Are Not An Admin!"})
-				Panel:ControlHelp("Note: Only Admins Can Change These Settings!")
+				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
+				Panel:ControlHelp("Note: Only Admins can change these settings!")
 return
 	end
 end
-			Panel:AddControl( "Label", {Text = "Note: Only Admins Can Change These Settings!"})
+			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
 			local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
 			vj_cofrreset.Options["#vjbase.menugeneral.default"] = { 
 				VJ_COFR_Boss_Music = "1",
@@ -242,7 +252,7 @@ end
 				VJ_COFR_Addiction_SelfDamage = "1",
 }
 Panel:AddControl("ComboBox", vj_cofrreset)
-Panel:ControlHelp("NOTE: Only Future Spawned SNPCs Will Be Affected!")
+Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
 Panel:AddControl("Checkbox", {Label ="Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
 Panel:AddControl("Checkbox", {Label ="Enable Transparent/Invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
 Panel:AddControl("Checkbox", {Label ="Enable Self-Damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
@@ -259,22 +269,41 @@ if (CLIENT) then
 local function VJ_COFR_MAPSPAWNER(Panel)
 			if !game.SinglePlayer() then
 			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-				Panel:AddControl( "Label", {Text = "You Are Not An Admin!"})
-				Panel:ControlHelp("Note: Only Admins Can Change These Settings!")
+				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
+				Panel:ControlHelp("Note: Only Admins can change these settings!")
 return
 	end
 end
-			Panel:AddControl( "Label", {Text = "Note: Only Admins Can Change These Settings!"})
+			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
 			local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
 			vj_cofrreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
-			    VJ_COFR_MapSpawner_Music = "1",
-				VJ_COFR_MapSpawner_Boss = "0",			
+			    --VJ_COFR_MapSpawner_Music = "1",
+				VJ_COFR_MapSpawner_Boss = "0",
+				VJ_COFR_MapSpawner_Enabled = "1",
+				VJ_COFR_MapSpawner_MaxMon = "50",	
+				VJ_COFR_MapSpawner_HordeCount = "20",	
+				VJ_COFR_MapSpawner_SpawnMax = "2000",	
+				VJ_COFR_MapSpawner_SpawnMin = "650",	
+				VJ_COFR_MapSpawner_HordeChance = "100",	
+				VJ_COFR_MapSpawner_HordeCooldownMin = "120",	
+				VJ_COFR_MapSpawner_HordeCooldownMax = "180",	
+				VJ_COFR_MapSpawner_DelayMin = "0.85",
+                VJ_COFR_MapSpawner_DelayMax = "3",				
 
 }
 Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
-Panel:ControlHelp("NOTE: Only Admins Can Change These Settings!")
-Panel:AddControl("Checkbox", {Label ="Enable Music?", Command ="VJ_COFR_MapSpawner_Music"})
-Panel:AddControl("Checkbox", {Label ="Enable Bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
+--Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
+Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
+Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
+Panel:AddControl("Slider", { Label 	= "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
+Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
+Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
+Panel:AddControl("Slider", { Label 	= "Min time between spawns", Command = "VJ_COFR_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
+Panel:AddControl("Slider", { Label 	= "Max time between spawns", Command = "VJ_COFR_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
+Panel:AddControl("Slider", { Label 	= "Max Monster horde", Command = "VJ_COFR_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
+Panel:AddControl("Slider", { Label 	= "Chance that a horde will appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
+Panel:AddControl("Slider", { Label 	= "Min cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
+Panel:AddControl("Slider", { Label 	= "Max cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
 Panel:AddPanel(typebox)
 
 end
@@ -283,6 +312,13 @@ end
 end
 		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR_MAPSPAWNER", VJ_ADDTOMENU_COFR_MAPSPAWNER )
 end	
+
+	VJ_COFR_NODEPOS = {}
+	hook.Add("EntityRemoved","VJ_COFR_AddNodes",function(ent)
+		if ent:GetClass() == "info_node" then
+			table.insert(VJ_COFR_NODEPOS,ent:GetPos())
+		end
+	end)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

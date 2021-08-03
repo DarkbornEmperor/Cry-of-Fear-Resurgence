@@ -55,6 +55,11 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.SoundTbl_RangeAttack = {
 "vj_cofr/cof/crazylady/suicide_attempt.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 -- Custom
 ENT.Drowned_Baby = false
 ENT.Drowned_DamageDistance = 500

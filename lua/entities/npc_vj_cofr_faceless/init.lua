@@ -54,6 +54,11 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faceless/fist_miss1.wav",
 "vj_cofr/cof/faceless/fist_miss2.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 -- Custom
 ENT.Faceless_Type = 0 
  	-- 0 = Normal Faceless

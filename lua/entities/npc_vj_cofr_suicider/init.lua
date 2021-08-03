@@ -50,6 +50,11 @@ ENT.SoundTbl_FootStep = {
 ENT.SoundTbl_RangeAttack = {
 "vj_cofr/cof/suicider/suicider_glock_fire.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ENT.RangeAttackSoundLevel = 100
 -- Custom
 ENT.Suicider_DeathSuicide = false
@@ -110,13 +115,13 @@ function ENT:Suicider_DoFireEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true or !IsValid(self:GetEnemy()) then return false end
+	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
 
 	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())
 	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce == true then
 		self.Suicider_DeathSuicide = true
 		self.Bleeds = false
-		self:TakeDamage(999999999999999,self,self)
+		self:TakeDamage(self:Health())
 		self.Bleeds = true
 	end
 end

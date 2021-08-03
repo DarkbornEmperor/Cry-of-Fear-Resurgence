@@ -58,6 +58,11 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/slower/hammer_miss1.wav",
 "vj_cofr/cof/slower/hammer_miss2.wav"
 }
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 -- Custom
 ENT.Slower_Skin = 0
 ENT.Slower_Type = 0 
