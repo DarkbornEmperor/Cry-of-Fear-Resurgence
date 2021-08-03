@@ -85,6 +85,7 @@ function ENT:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+     self:SetPos(self:GetPos() + self:GetUp()*100)
      self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, -30))
      self:Carcass_CustomOnInitialize()
 end
