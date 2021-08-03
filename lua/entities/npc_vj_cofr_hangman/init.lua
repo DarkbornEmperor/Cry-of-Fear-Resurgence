@@ -9,6 +9,7 @@ ENT.Model = {"models/vj_cofr/cof/hangman.mdl"}
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
+ENT.CanTurnWhileStationary = false
 ENT.GodMode = true
 ENT.CallForHelp = false
 ENT.HasMeleeAttack = true 
