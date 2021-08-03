@@ -113,6 +113,8 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+      dmginfo:ScaleDamage(0.15)
+	  
    if self.Dead == true then return false end
    
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
