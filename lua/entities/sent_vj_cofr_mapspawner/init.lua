@@ -1,4 +1,4 @@
--- NOTE: ALL CODE HERE IS BY CPT. HAZAMA! I TAKE NO CREDIT FOR THIS!
+/* Note: All credits go to Cpt. Hazama. I take no credit for this. */
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 
@@ -7,7 +7,7 @@ local table_remove = table.remove
 
 ENT.Monster = {
 	{class="npc_vj_cofr_slower1",chance=1},
-	{class="npc_vj_cofr_crawler",chance=2},
+	{class="npc_vj_cofr_crawler",chance=5},
 	{class="npc_vj_cofr_slower3",chance=2},
 	{class="npc_vj_cofr_slower10",chance=2},	
 	{class="npc_vj_cofr_croucher",chance=3},
@@ -358,7 +358,7 @@ function ENT:Think()
 			end
 		end
 
-		-- Spawns Mobs
+		-- Spawns Hordes
 		if CurTime() > self.NextHordeSpawnTime && math.random(1,self.COFR_HordeChance) == 1 then
 			for i = 1,self.COFR_MaxHordeSpawn do
 				timer.Simple(self.HordeSpawnRate *i,function() -- Help with lag when spawning

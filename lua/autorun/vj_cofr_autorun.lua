@@ -17,6 +17,8 @@ if VJExists == true then
 	-- Cry of Fear --
 	local vCat = "CoF Resurgence" 
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofr.png"})
+	
+	-- Enemies
 	VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",vCat)	
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",vCat)
 	VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",vCat)
@@ -46,12 +48,9 @@ if VJExists == true then
 	VJ.AddNPC("Spitter","npc_vj_cofr_spitter",vCat)
 	VJ.AddNPC("Hanger","npc_vj_cofr_hanger",vCat)
 	VJ.AddNPC("Flygare","npc_vj_cofr_flygare",vCat)
-	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
 	VJ.AddNPC("Dreamer (Runner)","npc_vj_cofr_dreamerrunner",vCat)
-	VJ.AddNPC("Hangman","npc_vj_cofr_hangman",vCat)
-	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
-    VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
-    VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)
+	
+	-- Bosses --
     VJ.AddNPC("Sawer","npc_vj_cofr_sawer",vCat)	
 	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
 	VJ.AddNPC("Mace","npc_vj_cofr_mace",vCat)
@@ -62,7 +61,14 @@ if VJExists == true then
     VJ.AddNPC("Book Simon (Manhunt)","npc_vj_cofr_simonbookm",vCat)
 	VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",vCat)
 	VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsicksui",vCat)	
-    VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)	
+    VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)
+
+	-- Misc/Hazards --
+	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)	
+	VJ.AddNPC("Hangman","npc_vj_cofr_hangman",vCat)
+	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
+    VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
+    VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)	
 
     -- CoF Random & Spawners --
 	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
@@ -72,7 +78,9 @@ if VJExists == true then
 	
 	-- Afraid of Monsters --
 	vCat = "CoF Resurgence: AoM"
-	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})	
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
+	
+    -- Enemies --	
     VJ.AddNPC("Twitcher","npc_vj_cofraom_twitcher",vCat)
 	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcher_da",vCat)
     VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)
@@ -83,6 +91,8 @@ if VJExists == true then
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
     VJ.AddNPC("Screamer","npc_vj_cofraom_screamer",vCat)
 	--VJ.AddNPC("Devourer","npc_vj_cofraom_mouth",vCat)
+	
+	-- Bosses --
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
 
     -- AoM Random & Spawners --
@@ -93,17 +103,20 @@ if VJExists == true then
 
 	-- Custom Campaigns --
 	vCat = "CoF Resurgence: Custom"
-	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrc.png"})	
-    VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)	
-	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)	
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrc.png"})
+
+    -- Enemies --	
+    VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)		
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
     VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
-    VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)	
     VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)	
-    VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
     VJ.AddNPC("Faster (Female)","npc_vj_cofrc_fasterfemale",vCat)	
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
 
+    -- Bosses --
+	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)
+    VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
+    VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)	
 	
     -- Particles --
     game.AddParticles("particles/vj_cofr_soul.pcf")
@@ -219,8 +232,8 @@ if VJExists == true then
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
-	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
 	AddConvars["VJ_COFR_MapSpawner_Enabled"] = 1
+	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
 	AddConvars["VJ_COFR_MapSpawner_MaxMon"] = 50
 	AddConvars["VJ_COFR_MapSpawner_HordeCount"] = 20
 	AddConvars["VJ_COFR_MapSpawner_SpawnMax"] = 2000
@@ -278,8 +291,8 @@ end
 			local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
 			vj_cofrreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
 			    --VJ_COFR_MapSpawner_Music = "1",
-				VJ_COFR_MapSpawner_Boss = "0",
 				VJ_COFR_MapSpawner_Enabled = "1",
+				VJ_COFR_MapSpawner_Boss = "0",
 				VJ_COFR_MapSpawner_MaxMon = "50",	
 				VJ_COFR_MapSpawner_HordeCount = "20",	
 				VJ_COFR_MapSpawner_SpawnMax = "2000",	
@@ -293,8 +306,8 @@ end
 }
 Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
 --Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
-Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
 Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
+Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
 Panel:AddControl("Slider", { Label 	= "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
 Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
 Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
