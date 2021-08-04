@@ -7,15 +7,15 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Carcass Soul"
+ENT.PrintName		= "Screamer Soul"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Carcass Soul"
-	local LangName = "obj_vj_cofr_carcass_soul"
+	local Name = "Screamer Soul"
+	local LangName = "obj_vj_cofr_soul"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
@@ -26,7 +26,7 @@ if !SERVER then return end
 
 ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 15 -- How much damage should it do when it hits something
+ENT.DirectDamage = 5 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
 

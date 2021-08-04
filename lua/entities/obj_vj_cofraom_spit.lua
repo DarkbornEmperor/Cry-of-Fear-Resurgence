@@ -7,15 +7,15 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Ghost Soul"
+ENT.PrintName		= "Spitter Spit"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Ghost Soul"
-	local LangName = "obj_vj_cofr_soul"
+	local Name = "Spitter Spit"
+	local LangName = "obj_vj_cofraom_spit"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
@@ -24,32 +24,29 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 5 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SLASH -- Damage type
-ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
-
--- Custom
-local defVec = Vector(0, 0, 0)
-
-ENT.Track_Enemy = NULL
-ENT.Track_Position = defVec
+ENT.Model = {"models/spitball_medium.mdl"}
+ENT.DoesRadiusDamage = true
+ENT.RadiusDamageRadius = 45
+ENT.RadiusDamage = 15
+ENT.RadiusDamageUseRealisticRadius = true
+ENT.RadiusDamageType = DMG_ACID
+ENT.SoundTbl_Idle = {"vj_cofr/aom/bullchicken/bc_acid1.wav","vj_cofr/aom/bullchicken/bc_acid2.wav"}
+ENT.SoundTbl_OnCollide = {"vj_cofr/aom/bullchicken/bc_spithit1.wav","vj_cofr/aom/bullchicken/bc_spithit2.wav","vj_cofr/aom/bullchicken/bc_spithit3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
+	phys:EnableGravity(true)
 	phys:EnableDrag(false)
-	phys:EnableGravity(false)
+	phys:SetBuoyancyRatio(0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetNoDraw(true)	
-	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
+	self:SetNoDraw(true)
 	
+	self.Scale = math.Rand(0.5,1.15)
+
 	self.IdleEffect = ents.Create("env_sprite")
-	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/mommaspit.vmt")
 	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
 	self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
 	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
@@ -67,24 +64,10 @@ function ENT:CustomOnInitialize()
 	self.IdleEffect:SetParent(self)
 	self:DeleteOnRemove(self.IdleEffect)	
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
-		self.DirectDamage = 25
-		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
-		if self:VisibleVec(pos) or self.Track_Position == defVec then
-			self.Track_Position = pos
-		end
-		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
-		end
-	end
-end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	effectdata:SetScale( 1 )
-	ParticleEffect("vj_cofr_soul_splat", data.HitPos, Angle(0,0,0), nil)
+	ParticleEffect("vj_cofr_spit_gib", data.HitPos, Angle(0,0,0), nil)
 end

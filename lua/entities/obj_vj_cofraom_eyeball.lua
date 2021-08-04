@@ -7,15 +7,15 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Spector Eyeball"
+ENT.PrintName		= "Face Eyeball"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Spector Eyeball"
-	local LangName = "obj_vj_cofr_eyeball"
+	local Name = "Face Eyeball"
+	local LangName = "obj_vj_cofraom_eyeball"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
