@@ -23,7 +23,7 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofr_slower3:5",
 	"npc_vj_cofr_slowerno:60",
 	"npc_vj_cofr_slower10:5",
-	"npc_vj_cofr_crawler:5",
+	"npc_vj_cofr_crawler:10",
 	"npc_vj_cofr_croucher:5",
 	"npc_vj_cofr_upper:60",
 	"npc_vj_cofr_baby:10",

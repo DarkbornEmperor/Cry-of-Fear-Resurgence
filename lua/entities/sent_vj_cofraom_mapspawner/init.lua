@@ -7,8 +7,8 @@ local table_remove = table.remove
 
 ENT.Monster = {
 	{class="npc_vj_cofraom_twitcher",chance=1},
-	{class="npc_vj_cofraom_twitcher_da",chance=1},
-	{class="npc_vj_cofraom_handcrab",chance=2},
+	{class="npc_vj_cofraom_twitcher_da",chance=2},
+	{class="npc_vj_cofraom_handcrab",chance=3},
 	{class="npc_vj_cofraom_wheelchair",chance=5},
 	{class="npc_vj_cofraom_hellhound",chance=5},	
 	{class="npc_vj_cofraom_spitter",chance=10},
