@@ -1,9 +1,9 @@
 "UnlitGeneric"
 {
-                "$basetexture" "vj_cofr/sprites/aom_soul"
-                "$surfaceprop" "Flesh"
-               // "$selfillum" 1 
-                "$additive" 1
+	"$basetexture" "vj_cofr/sprites/blood_red"
+	"$nolod" 1
+	"$translucent" 1
+	//"$alphatest" 1
 	"Proxies"
 	{
 		"AnimatedTexture"

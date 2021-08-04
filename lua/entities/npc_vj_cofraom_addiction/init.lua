@@ -10,7 +10,7 @@ ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
@@ -86,7 +86,7 @@ end
 end	
 	if key == "axe_grab" then
 		VJ_EmitSound(self, "vj_cofr/aom/davidbad/david_axegrab.wav", 85, 100)
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)

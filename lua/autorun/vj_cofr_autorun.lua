@@ -117,6 +117,10 @@ if VJExists == true then
 	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)
     VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)	
+
+    -- Decals --
+    game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
+    game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
 	
     -- Particles --
     game.AddParticles("particles/vj_cofr_soul.pcf")
@@ -125,7 +129,11 @@ if VJExists == true then
     game.AddParticles("particles/vj_cofr_spit.pcf")
 	game.AddParticles("particles/vj_cofr_spit_gib.pcf")
     game.AddParticles("particles/vj_cofr_flare_sparks.pcf")
-	game.AddParticles("particles/vj_cofr_flare_trail.pcf")	
+	game.AddParticles("particles/vj_cofr_flare_trail.pcf") 
+    game.AddParticles("particles/vj_cofr_blood.pcf")
+    PrecacheParticleSystem("vj_cofr_blood_red")
+    PrecacheParticleSystem("vj_cofr_blood_red_large")
+    PrecacheParticleSystem("vj_cofr_blood_boob_red")	
     PrecacheParticleSystem("vj_cofr_soul")
     PrecacheParticleSystem("vj_cofr_soul_splat")
     PrecacheParticleSystem("vj_cofr_face")
@@ -133,10 +141,6 @@ if VJExists == true then
 	PrecacheParticleSystem("vj_cofr_spit_gib")
     PrecacheParticleSystem("vj_cofr_flare_sparks")
 	PrecacheParticleSystem("vj_cofr_flare_trail")	
-
-    -- Decals --
-    game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
-    game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
 	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_cofr/cof/slower1.mdl")

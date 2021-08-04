@@ -10,7 +10,7 @@ ENT.StartHealth = 80
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.ConstantlyFaceEnemy = true 
 ENT.ConstantlyFaceEnemy_IfAttacking = true 
@@ -125,7 +125,7 @@ function ENT:CustomOnThink_AIEnabled()
 		timer.Simple(0.3,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav") end end end)
 			timer.Simple(0.1,function() if IsValid(self) then
-			    ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
+			    ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
 				self:SetBodygroup(0,1) 
 				self:DoChaseAnimation()
 			end

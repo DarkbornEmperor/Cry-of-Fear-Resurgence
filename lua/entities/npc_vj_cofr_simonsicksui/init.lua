@@ -10,7 +10,7 @@ ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.HasRangeAttack = true
@@ -82,7 +82,7 @@ end
 	if key == "suicide" then
 		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 85, 100)
 		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 		self:SickSimon_DoFireEffects()
 		self:SetBodygroup(0,1)
     end		

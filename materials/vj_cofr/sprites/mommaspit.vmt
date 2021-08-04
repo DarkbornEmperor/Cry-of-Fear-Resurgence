@@ -1,8 +1,8 @@
-"VertexlitGeneric"
+"UnlitGeneric"
 {
                 "$basetexture" "vj_cofr/sprites/mommaspit"
                 "$surfaceprop" "Flesh"
-                "$selfillum" 1 
+               // "$selfillum" 1 
                 "$additive" 1
 	"Proxies"
 	{
@@ -10,7 +10,7 @@
 		{
 			"animatedtexturevar" "$basetexture"
 			"animatedtextureframenumvar" "$frame"
-			"animatedtextureframerate" 10
+			"animatedtextureframerate" 30
 		}
 	}
 }

@@ -1,6 +1,6 @@
-"VertexlitGeneric"
+"UnlitGeneric"
 {
 	"$basetexture" "vj_cofr/sprites/face"
-                "$selfillum" 1 
+               // "$selfillum" 1 
 	"$additive" 1
 }
