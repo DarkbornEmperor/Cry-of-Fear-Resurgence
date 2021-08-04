@@ -10,7 +10,7 @@ ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red_large"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
@@ -162,8 +162,8 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	local dmg = 20 -- How much damage should the shock wave do?
 
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/bluelight1", framerate=20, flags=0})
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/bluelight1", framerate=20, flags=0})
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
 	
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ_EmitSound(self, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, math.random(80,100))

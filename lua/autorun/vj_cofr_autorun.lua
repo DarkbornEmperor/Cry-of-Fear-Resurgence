@@ -187,6 +187,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/doctor.mdl")
     util.PrecacheModel("models/vj_cofr/cof/sicksimon_sui.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/watro.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")

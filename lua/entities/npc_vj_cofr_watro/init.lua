@@ -13,12 +13,12 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red_large"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.HasMeleeAttack = true 
+ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
-ENT.MeleeAttackDistance = 60 
+ENT.MeleeAttackDistance = 80 
 ENT.MeleeAttackDamageDistance = 120
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -46,13 +46,21 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }	
+-- Custom
+ENT.Watro_Burrowed = true
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Watro_CustomOnInitialize()
+	if self.Watro_Burrowed == true then
+	    self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+		self.HasMeleeAttack = false
+		self:DrawShadow(false)
+		self:AddFlags(FL_NOTARGET)
+    end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:SetPos(self:GetPos() + self:GetUp()*30)
-	 self:SetCollisionBounds(Vector(30, 30, 90), Vector(-30, -30, -30))
+	 self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, -30))
      self:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,6 +68,18 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack" then
 		self:MeleeAttackCode()
     end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+    if self.Dead == true then return end
+	if self.Watro_Burrowed == true && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
+		self.Watro_Burrowed = false
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+	    self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
+		self.HasMeleeAttack = true
+		self:DrawShadow(true)
+        self:RemoveFlags(FL_NOTARGET)		
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)

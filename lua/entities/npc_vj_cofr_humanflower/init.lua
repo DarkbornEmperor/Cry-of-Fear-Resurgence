@@ -16,7 +16,10 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 90 
-ENT.MeleeAttackDamageDistance = 180
+ENT.MeleeAttackDamageDistance = 130
+ENT.HasMeleeAttackKnockBack = true
+ENT.MeleeAttackKnockBack_Forward1 = -300
+ENT.MeleeAttackKnockBack_Forward2 = -300
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true 
@@ -52,8 +55,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
-     self:SetPos(self:GetPos() + self:GetUp()*30)
-	 self:SetCollisionBounds(Vector(30, 30, 100), Vector(-30, -30, -35))
+     self:SetPos(self:GetPos() + self:GetUp()*50)
+	 self:SetCollisionBounds(Vector(30, 30, 100), Vector(-30, -30, -50))
      self:HumanFlower_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

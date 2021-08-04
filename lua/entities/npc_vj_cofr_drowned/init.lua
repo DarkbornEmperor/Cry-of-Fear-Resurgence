@@ -10,7 +10,7 @@ ENT.StartHealth = 80
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red_large"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.ConstantlyFaceEnemy = true 
 ENT.ConstantlyFaceEnemy_IfAttacking = true 
@@ -121,7 +121,7 @@ function ENT:CustomOnThink_AIEnabled()
 	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,1,false)
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
 		timer.Simple(0.3,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav") end end end)
 			timer.Simple(0.1,function() if IsValid(self) then
