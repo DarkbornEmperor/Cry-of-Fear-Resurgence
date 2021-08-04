@@ -16,8 +16,8 @@ ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
-ENT.MeleeAttackDistance = 50 
-ENT.MeleeAttackDamageDistance = 80
+ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackDamageDistance = 70
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -87,15 +87,10 @@ function ENT:Sawer_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize(hitgroup)
-    if hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG or hitgroup == 8 then
-		self:AddFlags(FL_NOTARGET)		
-elseif hitgroup == 9 then
-        self:RemoveFlags(FL_NOTARGET)		
-end
+function ENT:CustomOnInitialize()
      --VJ_EmitSound(self, "vj_cofr/sawer/chainsaw_start.wav", 85, 100)
 	 --ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("chainsaw"))
-     self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
+     self:SetCollisionBounds(Vector(18, 18, 108), Vector(-18, -18, 0))
      self:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,17 +106,16 @@ end
     end		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    if hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG or hitgroup == 8 then
-	    dmginfo:ScaleDamage(0.00)	
-elseif hitgroup == 9 then
-	    dmginfo:ScaleDamage(0.001)		
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)	
+     if hitgroup == 9 && self.Eye_Open == true && self.Eye_Close == false then
+	    dmginfo:ScaleDamage(0.005)
+     else	
+       	dmginfo:ScaleDamage(0.00) 
 end
      if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
         self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
 		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 85, 100)
 		self:SetSkin(1)
-		dmginfo:ScaleDamage(0.005)
 		self.Eye_Close = false
 		self.Eye_Open = true
 		self.Sawer_IsHurt = true

@@ -16,7 +16,7 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextMeleeAttackTime = 1.5
 ENT.MeleeAttackDistance = 100 
-ENT.MeleeAttackDamageType = DMG_SONIC
+ENT.MeleeAttackDamageType = DMG_SHOCK
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -85,8 +85,25 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
+    local friNum = 0 -- How many allies exist around the Hellhound
 	local color = Color(255, 0, 0, 255) -- The shock wave color
 	local dmg = 15 -- How much damage should the shock wave do?
+	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
+		if v != self && v:GetClass() == "npc_vj_hlr1_houndeye" then
+			friNum = friNum + 1
+	end
+end
+	-- More allies = more damage and different colors
+	if friNum == 1 then
+		--color = Color(101, 133, 221)
+		dmg = 30
+	elseif friNum == 2 then
+		--color = Color(67, 85, 255)
+		dmg = 45
+	elseif friNum >= 3 then
+		--color = Color(62, 33, 211)
+		dmg = 60
+end
 
 	-- flags 0 = No fade!
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/combineball_glow_red_1", framerate=20, flags=0})

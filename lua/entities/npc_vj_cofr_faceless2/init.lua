@@ -34,7 +34,7 @@ function ENT:Faceless_CustomOnInitialize()
 	"vj_cofr/cof/faceless/faceless_pain1.wav",
 	"vj_cofr/cof/faceless/faceless_pain2.wav"
 }
-    self:SetCollisionBounds(Vector(15, 15, 15), Vector(-15, -15, 0))
+    self:SetCollisionBounds(Vector(13, 13, 15), Vector(-13, -13, 0))
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

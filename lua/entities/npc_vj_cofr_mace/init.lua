@@ -21,18 +21,10 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.RunAwayOnUnknownDamage = false
-ENT.Immune_AcidPoisonRadiation = true 
-ENT.Immune_Bullet = true 
-ENT.Immune_Dissolve = true 
-ENT.Immune_Fire = true 
-ENT.Immune_Melee = true 
-ENT.Immune_Physics = true 
-ENT.Immune_Sonic = true 
-ENT.ImmuneDamagesTable = {DMG_GENERIC}
+ENT.RunAwayOnUnknownDamage = false 
 ENT.CanFlinch = 2
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
-ENT.FlinchChance = 5
+ENT.FlinchChance = 2
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
@@ -79,7 +71,7 @@ function ENT:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(18, 18, 95), Vector(-18, -18, 0))
+     self:SetCollisionBounds(Vector(20, 20, 95), Vector(-20, -20, 0))
      self:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,6 +90,8 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
 	    dmginfo:ScaleDamage(0.25)
+	else
+	    dmginfo:ScaleDamage(0.00)
     end			
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------

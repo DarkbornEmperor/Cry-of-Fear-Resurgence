@@ -111,7 +111,7 @@ function ENT:CustomOnInitialize()
 	 --self:SetNoDraw(true)
 	 --self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
-     self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
+     self:SetCollisionBounds(Vector(25, 25, 90), Vector(-25, -25, 0))
      self:Face_CustomOnInitialize() 	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

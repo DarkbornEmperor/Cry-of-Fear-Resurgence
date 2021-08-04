@@ -107,7 +107,7 @@ function ENT:CustomRangeAttackCode()
 	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
-	timer.Simple(5,function() if IsValid(self) && self:GetEnemy() && self.Dead == false then
+	timer.Simple(5,function() if IsValid(self) && self:Visible(self:GetEnemy()) && self.Dead == false then
 		self:GetEnemy():TakeDamage(200,self,self)
 		if self:GetEnemy():IsPlayer() then self:Drowned_Damage() end
 	    self.Drowned_NextEnemyDamage = CurTime() + 10

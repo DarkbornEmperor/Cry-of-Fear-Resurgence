@@ -62,7 +62,7 @@ function ENT:Stranger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
+     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
      self:Stranger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

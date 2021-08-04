@@ -17,7 +17,7 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 40 
-ENT.MeleeAttackDamageDistance = 80
+ENT.MeleeAttackDamageDistance = 70
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -85,7 +85,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      --ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupBone("chainsaw"))
-     self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
+     self:SetCollisionBounds(Vector(18, 18, 108), Vector(-18, -18, 0))
      self:Craig_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
