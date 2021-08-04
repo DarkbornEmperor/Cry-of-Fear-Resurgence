@@ -85,54 +85,63 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack_range" && self.RangeAttacking == true && self.Ghost_HomingAttack == false then
+	if key == "attack_rangeclose" then
+		if IsValid(self.Soul1) then self.Soul1:Remove() end
+		if IsValid(self.Soul2) then self.Soul2:Remove() end
+		self.Ghost_HomingAttack = true
 		self:RangeAttackCode()
-		if IsValid(self.Glow1) then self.Glow1:Remove() end
-		if IsValid(self.Glow2) then self.Glow2:Remove() end
-		self.Glow1 = ents.Create("env_sprite")
-		self.Glow1:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
-		self.Glow1:SetKeyValue("scale","1")
-		//self.Glow1:SetKeyValue("rendercolor","255 128 0")
-		self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Glow1:SetKeyValue("HDRColorScale","1.0")
-		self.Glow1:SetKeyValue("renderfx","14")
-		self.Glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Glow1:SetKeyValue("renderamt","255") -- Transparency
-		self.Glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Glow1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Glow1:SetKeyValue("spawnflags","0")
-		self.Glow1:SetParent(self)
-		self.Glow1:Fire("SetParentAttachment","rhand")
-		self.Glow1:Spawn()
-		self.Glow1:Activate()
-		self:DeleteOnRemove(self.Glow1)
-		timer.Simple(2,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)
+elseif key == "attack_range" then
+		if IsValid(self.Soul1) then self.Soul1:Remove() end
+		if IsValid(self.Soul2) then self.Soul2:Remove() end
+		self.Ghost_HomingAttack = false
+		self:RangeAttackCode()
+elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack == false then
+		if IsValid(self.Soul1) then self.Soul1:Remove() end
+		if IsValid(self.Soul2) then self.Soul2:Remove() end
+		self.Soul1 = ents.Create("env_sprite")
+		self.Soul1:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+		self.Soul1:SetKeyValue("scale","1")
+		//self.Soul1:SetKeyValue("rendercolor","255 128 0")
+		self.Soul1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+		//self.Soul1:SetKeyValue("HDRColorScale","1.0")
+		self.Soul1:SetKeyValue("renderfx","14")
+		self.Soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
+		self.Soul1:SetKeyValue("renderamt","255") -- Transparency
+		self.Soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+		self.Soul1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		self.Soul1:SetKeyValue("spawnflags","0")
+		self.Soul1:SetParent(self)
+		self.Soul1:Fire("SetParentAttachment","rhand")
+		self.Soul1:Spawn()
+		self.Soul1:Activate()
+		self:DeleteOnRemove(self.Soul1)
+		timer.Simple(2,function() if IsValid(self) && IsValid(self.Soul1) then self.Soul1:Remove() end end)
 		
-		self.Glow2 = ents.Create("env_sprite")
-		self.Glow2:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
-		self.Glow2:SetKeyValue("scale","1")
-		//self.Glow2:SetKeyValue("rendercolor","255 128 0")
-		self.Glow2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Glow2:SetKeyValue("HDRColorScale","1.0")
-		self.Glow2:SetKeyValue("renderfx","14")
-		self.Glow2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Glow2:SetKeyValue("renderamt","255") -- Transparency
-		self.Glow2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Glow2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Glow2:SetKeyValue("spawnflags","0")
-		self.Glow2:SetParent(self)
-		self.Glow2:Fire("SetParentAttachment","lhand")
-		self.Glow2:Spawn()
-		self.Glow2:Activate()
-		self:DeleteOnRemove(self.Glow2)
-		timer.Simple(2,function() if IsValid(self) && IsValid(self.Glow2) then self.Glow2:Remove() end end)
-    end	
+		self.Soul2 = ents.Create("env_sprite")
+		self.Soul2:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+		self.Soul2:SetKeyValue("scale","1")
+		//self.Soul2:SetKeyValue("rendercolor","255 128 0")
+		self.Soul2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+		//self.Soul2:SetKeyValue("HDRColorScale","1.0")
+		self.Soul2:SetKeyValue("renderfx","14")
+		self.Soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
+		self.Soul2:SetKeyValue("renderamt","255") -- Transparency
+		self.Soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+		self.Soul2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		self.Soul2:SetKeyValue("spawnflags","0")
+		self.Soul2:SetParent(self)
+		self.Soul2:Fire("SetParentAttachment","lhand")
+		self.Soul2:Spawn()
+		self.Soul2:Activate()
+		self:DeleteOnRemove(self.Soul2)
+		timer.Simple(2,function() if IsValid(self) && IsValid(self.Soul2) then self.Soul2:Remove() end end)
+	end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
 	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
-		self.RangeAttackPos_Up = 20
+		self.RangeAttackPos_Up = 80
 		self.Ghost_HomingAttack = true
 	else
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
@@ -155,7 +164,6 @@ end
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-	--ParticleEffect("face",self:GetAttachment(self:LookupAttachment(0)).Pos,self:GetAngles())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

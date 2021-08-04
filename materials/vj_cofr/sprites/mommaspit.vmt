@@ -1,8 +1,6 @@
 "UnlitGeneric"
 {
                 "$basetexture" "vj_cofr/sprites/mommaspit"
-                "$surfaceprop" "Flesh"
-               // "$selfillum" 1 
                 "$additive" 1
 	"Proxies"
 	{
