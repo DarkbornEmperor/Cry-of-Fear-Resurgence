@@ -57,7 +57,7 @@ function ENT:SickSimon_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(13, 13, 72), Vector(-13, -13, -12))
+     self:SetCollisionBounds(Vector(13, 13, 72), Vector(-13, -13, 0))
      self:SickSimon_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
