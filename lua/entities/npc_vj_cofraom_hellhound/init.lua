@@ -14,6 +14,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
+ENT.NextMeleeAttackTime = 1.5
 ENT.MeleeAttackDistance = 100 
 ENT.MeleeAttackDamageType = DMG_SONIC
 ENT.DisableFootStepSoundTimer = true

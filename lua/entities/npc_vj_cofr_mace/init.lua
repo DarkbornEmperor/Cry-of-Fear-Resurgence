@@ -32,6 +32,7 @@ ENT.Immune_Sonic = true
 ENT.ImmuneDamagesTable = {DMG_GENERIC}
 ENT.CanFlinch = 2
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
+ENT.FlinchChance = 5
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
