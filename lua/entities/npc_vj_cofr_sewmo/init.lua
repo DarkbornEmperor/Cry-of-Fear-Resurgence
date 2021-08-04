@@ -14,8 +14,6 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red_large"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -107,6 +105,8 @@ end
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+        self.MeleeAttackDistance = 40 
+        self.MeleeAttackDamageDistance = 80		
 		self.MeleeAttackDamage = 16
 		self.SoundTbl_MeleeAttackMiss = {
 		"vj_cofr/cof/sewmo/tunga_miss.wav"
@@ -117,6 +117,8 @@ function ENT:MultipleMeleeAttacks()
 }
 	elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+        self.MeleeAttackDistance = 30 
+        self.MeleeAttackDamageDistance = 60		
 		self.MeleeAttackDamage = 20 
 		self.SoundTbl_MeleeAttackMiss = {
 		"vj_cofr/cof/sewmo/claw_miss1.wav",

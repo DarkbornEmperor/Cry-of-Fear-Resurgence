@@ -240,8 +240,8 @@ if VJExists == true then
     --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
 	AddConvars["VJ_COFR_MapSpawner_Enabled"] = 1
 	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
-	AddConvars["VJ_COFR_MapSpawner_MaxMon"] = 50
-	AddConvars["VJ_COFR_MapSpawner_HordeCount"] = 20
+	AddConvars["VJ_COFR_MapSpawner_MaxMon"] = 80
+	AddConvars["VJ_COFR_MapSpawner_HordeCount"] = 35
 	AddConvars["VJ_COFR_MapSpawner_SpawnMax"] = 2000
 	AddConvars["VJ_COFR_MapSpawner_SpawnMin"] = 650
 	AddConvars["VJ_COFR_MapSpawner_HordeChance"] = 100
@@ -252,15 +252,16 @@ if VJExists == true then
 	
 		for k, v in pairs(AddConvars) do
 		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
-	end
-	
-if (CLIENT) then
-local function VJ_COFR_MAIN(Panel)
+end	
+
+    -- Main Configure Menu --	
+    if (CLIENT) then
+    local function VJ_COFR_MAIN(Panel)
 			if !game.SinglePlayer() then
 			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
 				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
 				Panel:ControlHelp("Note: Only Admins can change these settings!")
-return
+        return
 	end
 end
 			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
@@ -270,27 +271,27 @@ end
 				VJ_COFR_Twitcher_Invisible = "1",
 				VJ_COFR_Addiction_SelfDamage = "1",
 }
-Panel:AddControl("ComboBox", vj_cofrreset)
-Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
-Panel:AddControl("Checkbox", {Label ="Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
-Panel:AddControl("Checkbox", {Label ="Enable Transparent/Invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
-Panel:AddControl("Checkbox", {Label ="Enable Self-Damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
-Panel:AddPanel(typebox)
+            Panel:AddControl("ComboBox", vj_cofrreset)
+            Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
+            Panel:AddControl("Checkbox", {Label ="Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
+            Panel:AddControl("Checkbox", {Label ="Enable Transparent/Invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
+            Panel:AddControl("Checkbox", {Label ="Enable Self-Damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
+            Panel:AddPanel(typebox)
 
 end
-	function VJ_ADDTOMENU_COFR(Panel)
+	 function VJ_ADDTOMENU_COFR(Panel)
 		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (Main)","CoF Resurgence (Main)","","", VJ_COFR_MAIN, {} )
 end
 		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR", VJ_ADDTOMENU_COFR )
 end
-
-if (CLIENT) then
-local function VJ_COFR_MAPSPAWNER(Panel)
+       -- Map Spawner Configure Menu --
+       if (CLIENT) then
+       local function VJ_COFR_MAPSPAWNER(Panel)
 			if !game.SinglePlayer() then
 			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
 				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
 				Panel:ControlHelp("Note: Only Admins can change these settings!")
-return
+        return
 	end
 end
 			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
@@ -299,8 +300,8 @@ end
 			    --VJ_COFR_MapSpawner_Music = "1",
 				VJ_COFR_MapSpawner_Enabled = "1",
 				VJ_COFR_MapSpawner_Boss = "0",
-				VJ_COFR_MapSpawner_MaxMon = "50",	
-				VJ_COFR_MapSpawner_HordeCount = "20",	
+				VJ_COFR_MapSpawner_MaxMon = "80",	
+				VJ_COFR_MapSpawner_HordeCount = "35",	
 				VJ_COFR_MapSpawner_SpawnMax = "2000",	
 				VJ_COFR_MapSpawner_SpawnMin = "650",	
 				VJ_COFR_MapSpawner_HordeChance = "100",	
@@ -308,23 +309,21 @@ end
 				VJ_COFR_MapSpawner_HordeCooldownMax = "180",	
 				VJ_COFR_MapSpawner_DelayMin = "0.85",
                 VJ_COFR_MapSpawner_DelayMax = "3",				
-
 }
-Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
---Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
-Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
-Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
-Panel:AddControl("Slider", { Label 	= "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
-Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
-Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
-Panel:AddControl("Slider", { Label 	= "Min time between spawns", Command = "VJ_COFR_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
-Panel:AddControl("Slider", { Label 	= "Max time between spawns", Command = "VJ_COFR_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
-Panel:AddControl("Slider", { Label 	= "Max Monster horde", Command = "VJ_COFR_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
-Panel:AddControl("Slider", { Label 	= "Chance that a horde will appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
-Panel:AddControl("Slider", { Label 	= "Min cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
-Panel:AddControl("Slider", { Label 	= "Max cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
-Panel:AddPanel(typebox)
-
+            Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
+            --Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
+            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
+            Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
+            Panel:AddControl("Slider", { Label 	= "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
+            Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
+            Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
+            Panel:AddControl("Slider", { Label 	= "Min time between spawns", Command = "VJ_COFR_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
+            Panel:AddControl("Slider", { Label 	= "Max time between spawns", Command = "VJ_COFR_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
+            Panel:AddControl("Slider", { Label 	= "Max Monster horde", Command = "VJ_COFR_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
+            Panel:AddControl("Slider", { Label 	= "Chance that a horde will appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
+            Panel:AddControl("Slider", { Label 	= "Min cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
+            Panel:AddControl("Slider", { Label 	= "Max cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
+            Panel:AddPanel(typebox)
 end
 	function VJ_ADDTOMENU_COFR_MAPSPAWNER(Panel)
 		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (MapSp)","CoF Resurgence (MapSp)","","", VJ_COFR_MAPSPAWNER, {} )
@@ -336,8 +335,8 @@ end
 	hook.Add("EntityRemoved","VJ_COFR_AddNodes",function(ent)
 		if ent:GetClass() == "info_node" then
 			table.insert(VJ_COFR_NODEPOS,ent:GetPos())
-		end
-	end)
+	end
+end)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
