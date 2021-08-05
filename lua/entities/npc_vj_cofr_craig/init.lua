@@ -10,7 +10,7 @@ ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_cofr_blood_red_large"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
@@ -96,6 +96,9 @@ end
 	if key == "attack" then
 		self:MeleeAttackCode()
 end	
+	if key == "death_hammer" then
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop.wav", 75, 100)
+end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end		

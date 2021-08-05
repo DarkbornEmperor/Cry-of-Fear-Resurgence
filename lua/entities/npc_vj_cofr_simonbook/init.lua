@@ -10,7 +10,7 @@ ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
-ENT.CustomBlood_Particle = {"vj_cofr_blood_red_large"}
+ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
@@ -81,10 +81,10 @@ ENT.BookSimon_SledgehammerFlare = false
 ENT.Booksimon_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if math.random(1,5) == 1 then
+	if math.random(1,3) == 1 then
 		self.BookSimon_SledgehammerFlare = true
 end	
-	if math.random(1,5) == 1 then
+	if math.random(1,3) == 1 then
 		self.BookSimon_Sledgehammer = true
 end	
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
@@ -151,15 +151,14 @@ function ENT:SetSledgehammerFlare()
     self.AnimTbl_Walk = {ACT_SPRINT}
 	self.AnimTbl_Run = {ACT_SPRINT}
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
-	self.SoundTbl_Breath = {
-    "vj_cofr/cof/booksimon/flare_burn.wav"
-}
 	self:SetBodygroup(0,4)
 	self:SetBodygroup(2,1)
 	self.HasMeleeAttack = true
-	self.HasRangeAttack = false
-	
+	self.HasRangeAttack = false	
+	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
+	self.SoundTbl_Breath = {
+    "vj_cofr/cof/booksimon/flare_burn.wav"
+}	
 	self.StartLight1 = ents.Create("light_dynamic")
 	self.StartLight1:SetKeyValue("brightness", "1")
 	self.StartLight1:SetKeyValue("distance", "1000")
@@ -215,6 +214,10 @@ function ENT:CustomRangeAttackCode()
 	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 75, 100)
      end	
   end)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	    dmginfo:ScaleDamage(0.25)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

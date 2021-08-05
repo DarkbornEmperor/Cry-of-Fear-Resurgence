@@ -28,7 +28,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("bloodspray",bloodspray)
 end
 		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)	
-		ParticleEffect("vj_hl_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
 		return true,{DeathAnim=true}
 end	
 /*-----------------------------------------------
