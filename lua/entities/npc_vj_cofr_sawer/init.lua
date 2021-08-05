@@ -102,7 +102,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 end
      if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
         self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
-		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
 		self:SetSkin(1)
 		self.Eye_Close = false
 		self.Eye_Open = true

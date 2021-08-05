@@ -85,11 +85,11 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "axe_grab" then
-		VJ_EmitSound(self, "vj_cofr/aom/davidbad/david_axegrab.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/aom/davidbad/david_axegrab.wav", 75, 100)
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

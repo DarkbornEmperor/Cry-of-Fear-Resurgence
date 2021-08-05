@@ -98,7 +98,7 @@ end
 		self:RangeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

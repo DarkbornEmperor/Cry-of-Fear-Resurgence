@@ -123,7 +123,7 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -151,7 +151,7 @@ function ENT:SetSledgehammerFlare()
     self.AnimTbl_Walk = {ACT_SPRINT}
 	self.AnimTbl_Run = {ACT_SPRINT}
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 85, 100)
+	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
 	self.SoundTbl_Breath = {
     "vj_cofr/cof/booksimon/flare_burn.wav"
 }
@@ -212,7 +212,7 @@ function ENT:CustomRangeAttackCode()
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
 	    timer.Simple(0.5,function() if IsValid(self) then
-	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 85, 100)
+	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 75, 100)
      end	
   end)	
 end

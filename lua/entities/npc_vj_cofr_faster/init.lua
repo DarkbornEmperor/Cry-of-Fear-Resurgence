@@ -96,14 +96,14 @@ end
 		self:MeleeAttackCode()
 end	
 	if key == "suicide" then
-		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 75, 100)
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 end	
 	if key == "death_metal" then
-		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 75, 100)
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if self.Faster_Type == 1 && (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD then	
 	if (dmginfo:IsBulletDamage()) && self.HasSounds == true && self.HasImpactSounds == true then 
 	    dmginfo:ScaleDamage(0.00)
-		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav",70) end
+		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
 		local attacker = dmginfo:GetAttacker()
 			self.DamageSpark1 = ents.Create("env_spark")
 			self.DamageSpark1:SetKeyValue("Magnitude","1")

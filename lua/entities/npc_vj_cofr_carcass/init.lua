@@ -94,10 +94,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:RangeAttackCode()
 end	
 	if key == "stomach_open" then
-		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 75, 100)
 end	
 	if key == "stomach_close" then
-		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomclose.wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomclose.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -84,8 +84,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 	if key == "suicide" then
 		self:Suicider_DoFireEffects()
-		VJ_EmitSound(self,"vj_cofr/cof/suicider/suicider_glock_fire.wav",100)
-		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)
+		VJ_EmitSound(self,"vj_cofr/cof/suicider/suicider_glock_fire.wav", 100, 100)
+		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav", 75, 100)
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
 end	
 	if key == "death" then
@@ -161,7 +161,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("bloodspray",bloodspray)
 		util.Effect("bloodspray",bloodspray)
 end
-		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav",85)	
+		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav", 75, 100)	
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
 		return true,{DeathAnim=true}
 	end	
