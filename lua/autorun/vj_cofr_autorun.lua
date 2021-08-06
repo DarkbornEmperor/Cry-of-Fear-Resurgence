@@ -102,8 +102,7 @@ if VJExists == true then
     VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
 
 	-- Custom Campaigns --
-	vCat = "CoF Resurgence: Custom"
-	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofrc.png"})
+	vCat = "CoF Resurgence"
 
     -- Enemies --	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)		

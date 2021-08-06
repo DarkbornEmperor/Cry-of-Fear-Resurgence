@@ -18,6 +18,7 @@ ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true

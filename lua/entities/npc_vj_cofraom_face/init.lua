@@ -18,6 +18,7 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 10 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true 
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_eyeball" 
 ENT.RangeDistance = 1100 

@@ -17,6 +17,7 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
