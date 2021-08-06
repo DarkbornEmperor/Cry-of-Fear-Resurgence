@@ -198,7 +198,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	local bullet = {}
-		bullet.Num = 4
+		bullet.Num = 6
 		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
 		bullet.Spread = Vector(25,25,25)
