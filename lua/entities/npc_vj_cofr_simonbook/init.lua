@@ -23,7 +23,7 @@ ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
 ENT.AnimTbl_RangeAttack = {ACT_IDLE}
 ENT.RangeAttackAnimationStopMovement = false
-ENT.RangeDistance = 2600
+ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.5
 ENT.NextRangeAttackTime = 3
@@ -201,7 +201,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 4
 		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
-		bullet.Spread = Vector(20,20,20)
+		bullet.Spread = Vector(25,25,25)
 		bullet.Tracer = 6
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
