@@ -252,10 +252,9 @@ if VJExists == true then
 		for k, v in pairs(AddConvars) do
 		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
 end	
-
     -- Main Configure Menu --	
     if (CLIENT) then
-    local function VJ_COFR_MAIN(Panel)
+        local function VJ_COFR_MAIN(Panel)
 			if !game.SinglePlayer() then
 			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
 				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
@@ -282,9 +281,8 @@ end
 		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (Main)","CoF Resurgence (Main)","","", VJ_COFR_MAIN, {} )
 end
 		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR", VJ_ADDTOMENU_COFR )
-end
-       -- Map Spawner Configure Menu --
-       if (CLIENT) then
+		
+    -- Map Spawner Configure Menu --
        local function VJ_COFR_MAPSPAWNER(Panel)
 			if !game.SinglePlayer() then
 			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
