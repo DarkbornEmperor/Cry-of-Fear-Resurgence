@@ -70,6 +70,21 @@ if VJExists == true then
     VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)	
 
+	-- Custom Campaigns --	
+	
+    -- Enemies --	
+    VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)		
+    VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
+    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
+    VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)	
+    VJ.AddNPC("Faster (Female)","npc_vj_cofrc_fasterfemale",vCat)	
+    VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
+
+    -- Bosses --
+	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)
+    VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
+    VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)
+
     -- CoF Random & Spawners --
 	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",vCat)
@@ -99,23 +114,7 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofraom_mon_sp",vCat)
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
-    VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
-
-	-- Custom Campaigns --
-	vCat = "CoF Resurgence"
-
-    -- Enemies --	
-    VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)		
-    VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
-    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
-    VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)	
-    VJ.AddNPC("Faster (Female)","npc_vj_cofrc_fasterfemale",vCat)	
-    VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
-
-    -- Bosses --
-	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)
-    VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
-    VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)	
+    VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)		
 
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
