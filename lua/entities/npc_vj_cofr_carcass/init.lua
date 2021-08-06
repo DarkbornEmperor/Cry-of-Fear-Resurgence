@@ -58,7 +58,7 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 75
 -- Custom
-ENT.Carcass_HomingAttack = false -- false = Regular, true = Homing
+ENT.Carcass_HomingAttack = true -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then

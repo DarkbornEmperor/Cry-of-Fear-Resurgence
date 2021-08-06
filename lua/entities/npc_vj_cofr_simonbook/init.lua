@@ -53,9 +53,6 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/cof/booksimon/shoot.wav"
-}
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
 }
@@ -135,6 +132,7 @@ function ENT:SetShotgun()
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
+	self.CombatFaceEnemy = false
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammer()
@@ -201,7 +199,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 6
 		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
-		bullet.Spread = Vector(25,25,25)
+		bullet.Spread = Vector(35,35,35)
 		bullet.Tracer = 6
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
@@ -210,6 +208,7 @@ function ENT:CustomRangeAttackCode()
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
+		VJ_EmitSound(self, "vj_cofr/cof/booksimon/shoot.wav", 100, 100)
 	    timer.Simple(0.5,function() if IsValid(self) then
 	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 75, 100)
      end	

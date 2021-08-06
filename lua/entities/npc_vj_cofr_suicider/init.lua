@@ -20,13 +20,14 @@ ENT.AnimTbl_RangeAttack = {ACT_IDLE}
 ENT.RangeAttackAnimationStopMovement = false 
 ENT.RangeDistance = 2000 
 ENT.RangeToMeleeDistance = 1 
-ENT.TimeUntilRangeAttackProjectileRelease = 0.5
+ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.NextRangeAttackTime = 0.5
-ENT.NextAnyAttackTime_Range = 0.1 
+ENT.NextRangeAttackTime_DoRand = 0.25
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 250 
-ENT.NoChaseAfterCertainRange_CloseDistance = 150 
+ENT.NoChaseAfterCertainRange_CloseDistance = 200 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.CombatFaceEnemy = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -46,9 +47,6 @@ ENT.VJC_Data = {
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/cof/suicider/suicider_glock_fire.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -74,6 +72,9 @@ function ENT:Suicider_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+    if math.random(1,3) == 1 then
+	 self.NoChaseAfterCertainRange = false
+end	 
      self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
      self:Suicider_CustomOnInitialize()
 end
@@ -131,13 +132,14 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = 5 --0.001
+		bullet.Spread = Vector(25,25,25)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 5
 		bullet.Damage = 20
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
+		VJ_EmitSound(self, "vj_cofr/cof/suicider/suicider_glock_fire.wav", 100, 100)
 	    self.Suicider_FiredAtLeastOnce = true
 	    self:Suicider_DoFireEffects()
 end

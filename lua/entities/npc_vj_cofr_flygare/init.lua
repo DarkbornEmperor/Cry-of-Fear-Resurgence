@@ -86,7 +86,7 @@ function ENT:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(25, 25, 95), Vector(-25, -25, 35))
+     self:SetCollisionBounds(Vector(25, 25, 60), Vector(-25, -25, -10))
      self:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

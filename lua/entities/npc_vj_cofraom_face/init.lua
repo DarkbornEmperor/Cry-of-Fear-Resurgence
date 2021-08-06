@@ -166,7 +166,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-	ParticleEffect("vj_cofr_face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
+	--ParticleEffect("vj_cofr_face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

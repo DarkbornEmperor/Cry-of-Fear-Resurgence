@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-                "$basetexture" "vj_cofr/sprites/shockwave"
-	"$nolod" 1
-	"$translucent" 1
-	//"$alphatest" 1
-}

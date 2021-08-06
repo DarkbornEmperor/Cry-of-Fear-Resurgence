@@ -32,6 +32,7 @@ ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
 ENT.SoundTbl_Idle = {"vj_cofr/aom/bullchicken/bc_acid1.wav","vj_cofr/aom/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/bullchicken/bc_spithit1.wav","vj_cofr/aom/bullchicken/bc_spithit2.wav","vj_cofr/aom/bullchicken/bc_spithit3.wav"}
+ENT.DecalTbl_DeathDecals = {"VJ_COFR_Spit"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -56,7 +57,7 @@ function ENT:CustomOnInitialize()
 	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
 	self.IdleEffect:SetKeyValue("mindxlevel","0")
 	self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	self.IdleEffect:SetKeyValue("framerate","40.0")
+	self.IdleEffect:SetKeyValue("framerate","30.0")
 	self.IdleEffect:SetKeyValue("spawnflags","0")
 	self.IdleEffect:SetKeyValue("scale",tostring(self.Scale))
 	self.IdleEffect:SetPos(self:GetPos())
@@ -66,8 +67,22 @@ function ENT:CustomOnInitialize()
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
-	local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale( 1 )
-	ParticleEffect("vj_cofr_spit_gib", data.HitPos, Angle(0,0,0), nil)
+	self.DeathEffect = ents.Create("env_sprite")
+	self.DeathEffect:SetKeyValue("model","vj_cofr/sprites/spitsplat.vmt")
+	self.DeathEffect:SetKeyValue("rendercolor","255 255 255")
+	self.DeathEffect:SetKeyValue("GlowProxySize","1.0")
+	self.DeathEffect:SetKeyValue("HDRColorScale","1.0")
+	self.DeathEffect:SetKeyValue("renderfx","0")
+	self.DeathEffect:SetKeyValue("rendermode","2")
+	self.DeathEffect:SetKeyValue("renderamt","255")
+	self.DeathEffect:SetKeyValue("disablereceiveshadows","0")
+	self.DeathEffect:SetKeyValue("mindxlevel","0")
+	self.DeathEffect:SetKeyValue("maxdxlevel","0")
+	self.DeathEffect:SetKeyValue("framerate","30.0")
+	self.DeathEffect:SetKeyValue("spawnflags","0")
+	self.DeathEffect:SetKeyValue("scale","0.3")
+	self.DeathEffect:SetPos(self:GetPos())
+	self.DeathEffect:Spawn()
+	self.DeathEffect:SetParent(self)
+	self:DeleteOnRemove(self.DeathEffect)
 end

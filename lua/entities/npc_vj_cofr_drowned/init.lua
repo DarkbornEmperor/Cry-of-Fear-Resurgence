@@ -11,11 +11,7 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.ConstantlyFaceEnemy = true 
-ENT.ConstantlyFaceEnemy_IfAttacking = true 
-ENT.ConstantlyFaceEnemy_Postures = "Standing" 
-ENT.ConstantlyFaceEnemyDistance = 600 
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}  
 ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 14 
@@ -28,6 +24,14 @@ ENT.RangeDistance = 250
 ENT.RangeToMeleeDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 10
+ENT.ConstantlyFaceEnemy = true 
+ENT.ConstantlyFaceEnemy_IfAttacking = true 
+ENT.ConstantlyFaceEnemy_Postures = "Standing" 
+ENT.ConstantlyFaceEnemyDistance = 250 
+ENT.NoChaseAfterCertainRange = true
+ENT.NoChaseAfterCertainRange_FarDistance = 250 
+ENT.NoChaseAfterCertainRange_CloseDistance = 150 
+ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -51,9 +55,6 @@ ENT.SoundTbl_MeleeAttackExtra = {
 }
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/crazylady/knife_swing.wav"
-}
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/cof/crazylady/suicide_attempt.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -80,6 +81,9 @@ function ENT:Drowned_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+    if math.random(1,3) == 1 then
+	 self.NoChaseAfterCertainRange = false
+end
      self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
      self:Drowned_CustomOnInitialize()
 end
@@ -107,6 +111,7 @@ function ENT:CustomRangeAttackCode()
 	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
+	VJ_EmitSound(self, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100)
 	timer.Simple(5,function() if IsValid(self) && self:Visible(self:GetEnemy()) && self.Dead == false then
 		self:GetEnemy():TakeDamage(200,self,self)
 		if self:GetEnemy():IsPlayer() then self:Drowned_Damage() end
@@ -118,7 +123,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
     if self.Dead == true or self:BusyWithActivity() then return end
-	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
+	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)

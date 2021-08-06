@@ -27,6 +27,7 @@ ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 600 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.CombatFaceEnemy = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -48,9 +49,6 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/sicksimon/wheelchair_move1.wav",
 "vj_cofr/cof/sicksimon/wheelchair_move2.wav",
 "vj_cofr/cof/sicksimon/wheelchair_move3.wav"
-}
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/cof/sicksimon/shoot.wav"
 }
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sicksimon/trainhurry.mp3"
@@ -114,13 +112,14 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-25) -self:GetPos()
-		bullet.Spread = 5.5 --Vector(85,15,0)
-		bullet.Tracer = 6
+		bullet.Spread = Vector(25,25,25)
+		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
 		bullet.Damage = 15
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
+		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 100, 100)
 	    self.SickSimon_FiredAtLeastOnce = true
 	    self:SickSimon_DoFireEffects()
 end

@@ -18,7 +18,7 @@ ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
 ENT.AnimTbl_RangeAttack = {ACT_IDLE}
 ENT.RangeAttackAnimationStopMovement = false
-ENT.RangeDistance = 2600
+ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.5
 ENT.NextRangeAttackTime = 1
@@ -27,6 +27,7 @@ ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 600 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.CombatFaceEnemy = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -124,16 +125,10 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetRevolver()
-    self.SoundTbl_RangeAttack = {
-    "vj_cofr/cof/doc_ai/revolver_fire.wav"
-}
 	self:SetBodygroup(0,1)
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetPistol()
-    self.SoundTbl_RangeAttack = {
-    "vj_cofr/cof/doc_ai/p345_fire.wav"
-}
 	self:SetBodygroup(0,0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -183,35 +178,41 @@ end
 function ENT:CustomRangeAttackCode()
     if self.Doctor_Revolver then
 	local bullet = {}
-		bullet.Num = 4
+		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = 1.5
+		bullet.Spread = Vector(25,25,25)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
 		bullet.Damage = 20
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
+		VJ_EmitSound(self, "vj_cofr/cof/doc_ai/revolver_fire.wav", 100, 100)
 	    self.Doctor_FiredAtLeastOnce = true
 	    self:Doctor_DoFireEffects()
 end
     if self.Doctor_Pistol then
 	local bullet = {}
-		bullet.Num = 4
+		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = 5.5
+		bullet.Spread = Vector(25,25,25)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
 		bullet.Damage = 30
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
+		VJ_EmitSound(self, "vj_cofr/cof/doc_ai/p345_fire.wav", 100, 100)
 	    self.Doctor_FiredAtLeastOnce = true
 	    self:Doctor_DoFireEffects()
+    end	
 end	
-end	
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	    dmginfo:ScaleDamage(0.25)		
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
