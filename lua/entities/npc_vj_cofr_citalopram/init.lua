@@ -15,6 +15,12 @@ function ENT:CrazyRunner_CustomOnInitialize()
 }
     self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0)) 
 end 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/citalopram/citalopramscream.wav"}) 	
+    end
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

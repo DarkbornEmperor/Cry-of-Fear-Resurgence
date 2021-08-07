@@ -38,8 +38,7 @@ ENT.Dreamer_Jumpscare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Dreamer_CustomOnInitialize()
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/cof/dreamer/dreamer_attack.wav",
-	"vj_cofr/cof/dreamer/dreamer_pain.wav"
+	"vj_cofr/cof/dreamer/dreamer_scream.wav",
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

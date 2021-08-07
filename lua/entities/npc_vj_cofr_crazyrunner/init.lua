@@ -72,6 +72,12 @@ end
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end		
 end
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/rcrazy/screamloud.wav"}) 	
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
