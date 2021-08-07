@@ -89,7 +89,7 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",vCat)
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",vCat)
-    VJ.AddNPC("Monster Map Spawner","sent_vj_cofr_mapspawner",vCat)	
+    VJ.AddNPC("Map Monster Spawner","sent_vj_cofr_mapspawner",vCat)	
 	
 	-- Afraid of Monsters --
 	vCat = "CoF Resurgence: AoM"
@@ -114,7 +114,7 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofraom_mon_sp",vCat)
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
-    VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)		
+    VJ.AddNPC("Map Monster Spawner","sent_vj_cofraom_mapspawner",vCat)		
 
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})

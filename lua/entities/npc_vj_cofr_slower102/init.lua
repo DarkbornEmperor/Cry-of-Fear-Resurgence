@@ -7,7 +7,8 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/slower102.mdl"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
-ENT.CanTurnWhileStationary = false
+ENT.SightAngle = 180
+ENT.CallForHelp = false
 ENT.HasHitGroupFlinching = false 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
  ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +26,7 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/cof/slower/slower_pain1.wav",
 	"vj_cofr/cof/slower/slower_pain2.wav"
 }
-    self:SetPos(self:GetPos() + self:GetForward()*-33)
+    self:SetPos(self:GetPos() + self:GetForward()*-32)
     self:SetCollisionBounds(Vector(14, 14, 80), Vector(-14, -14, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
