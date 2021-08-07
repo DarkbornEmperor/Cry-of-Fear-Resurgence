@@ -108,8 +108,7 @@ end
 		self.Addiction_OnFire = true
 		self:Ignite(15)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),DMG_BURN,150)) do
-	    timer.Create("Addiction_Fire"..self:EntIndex(), 1, 15, function()
-	    if IsValid(self) then
+	    timer.Create("addiction_fire"..self:EntIndex(), 1, 15, function() if IsValid(self) then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
      end
   end)

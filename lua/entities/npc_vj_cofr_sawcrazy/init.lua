@@ -83,6 +83,14 @@ end
     end		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomAttack()
+    if self.Dead == true or GetConVarNumber("VJ_COFR_Sawcrazy_RadiusDamage") == 0 then return end
+	
+	if self.MeleeAttacking == false then
+       util.VJ_SphereDamage(self, self, hitpos, 60, 200, DMG_SLASH, true, false, {Force=30})
+    end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	    dmginfo:ScaleDamage(0.25)		
 end

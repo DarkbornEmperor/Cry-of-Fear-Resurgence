@@ -234,6 +234,7 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Boss_Music"] = 1
 	AddConvars["VJ_COFR_Twitcher_Invisible"] = 1
 	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
+	AddConvars["VJ_COFR_Sawcrazy_RadiusDamage"] = 0
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
@@ -268,12 +269,14 @@ end
 				VJ_COFR_Boss_Music = "1",
 				VJ_COFR_Twitcher_Invisible = "1",
 				VJ_COFR_Addiction_SelfDamage = "1",
+				VJ_COFR_Sawcrazy_RadiusDamage = "0",
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
-            Panel:AddControl("Checkbox", {Label ="Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
-            Panel:AddControl("Checkbox", {Label ="Enable Transparent/Invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
-            Panel:AddControl("Checkbox", {Label ="Enable Self-Damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
+            Panel:AddControl("Checkbox", {Label ="Enable boss nusic?", Command ="VJ_COFR_Boss_Music"})
+            Panel:AddControl("Checkbox", {Label ="Enable transparent/invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
+            Panel:AddControl("Checkbox", {Label ="Enable self-damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
+			Panel:AddControl("Checkbox", {Label ="Enable radius damage for Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
             Panel:AddPanel(typebox)
 
 end
