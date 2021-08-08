@@ -139,7 +139,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
-		timer.Simple(0.3,function() if IsValid(self) then
+		timer.Simple(0.1,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav", 75, 100) end end end)
 			timer.Simple(0.1,function() if IsValid(self) then
 			    ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
