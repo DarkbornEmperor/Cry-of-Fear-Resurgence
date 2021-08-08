@@ -11,6 +11,8 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
+ENT.PoseParameterLooking_InvertPitch = true 
+ENT.PoseParameterLooking_InvertYaw = true
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -43,6 +45,20 @@ ENT.SoundTbl_Impact = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spitter_CustomOnInitialize()
+    self.SoundTbl_Alert = {
+	"vj_cofr/cof/flygare/flygare_alert1.wav",
+	"vj_cofr/cof/flygare/flygare_alert2.wav"
+}
+    self.SoundTbl_BeforeRangeAttack = {
+    "vj_cofr/cof/flygare/flygare_attack1.wav",
+    "vj_cofr/cof/flygare/flygare_attack2.wav"
+}	
+    self.SoundTbl_Pain = {
+	"vj_cofr/cof/flygare/flygare_pain.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/flygare/flygare_death.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -58,6 +74,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Curve", self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	self:DrawShadow(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

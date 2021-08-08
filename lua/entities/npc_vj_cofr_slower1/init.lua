@@ -155,7 +155,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
 end
 	local headsplat = math.random(1,3)
-	if headsplat == 1 then
+	if headsplat == 1 && hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIEVIOLENT}
 		timer.Simple(1,function()
 			if IsValid(self) then

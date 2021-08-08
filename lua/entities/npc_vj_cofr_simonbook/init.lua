@@ -27,8 +27,7 @@ ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.5
-ENT.NextRangeAttackTime = 3
-ENT.NextAnyAttackTime_Range = 3
+ENT.NextRangeAttackTime = 2
 ENT.NoChaseAfterCertainRange = false
 ENT.NoChaseAfterCertainRange_FarDistance = 600 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
@@ -158,17 +157,18 @@ function ENT:SetSledgehammerFlare()
 	self.SoundTbl_Breath = {
     "vj_cofr/cof/booksimon/flare_burn.wav"
 }	
-	self.StartLight1 = ents.Create("light_dynamic")
-	self.StartLight1:SetKeyValue("brightness", "1")
-	self.StartLight1:SetKeyValue("distance", "1000")
-	self.StartLight1:SetLocalPos(self:GetPos())
-	self.StartLight1:SetLocalAngles( self:GetAngles() )
-	self.StartLight1:Fire("Color", "255 0 0")
-	self.StartLight1:SetParent(self)
-	self.StartLight1:Spawn()
-	self.StartLight1:Activate()
-	self.StartLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.StartLight1)
+	self.FlareLight = ents.Create("light_dynamic")
+	self.FlareLight:SetKeyValue("brightness", "1")
+	self.FlareLight:SetKeyValue("distance", "500")
+	self.FlareLight:SetLocalPos(self:GetPos())
+	self.FlareLight:SetLocalAngles( self:GetAngles() )
+	self.FlareLight:Fire("Color", "255 0 0")
+	self.FlareLight:SetParent(self)
+	self.FlareLight:Spawn()
+	self.FlareLight:Activate()
+	self.FlareLight:Fire("SetParentAttachment","flare")	
+	self.FlareLight:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(self.FlareLight)
 
 	ParticleEffectAttach("vj_cofr_flare_sparks",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
 	ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))	
