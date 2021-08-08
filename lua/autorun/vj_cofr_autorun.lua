@@ -66,8 +66,7 @@ if VJExists == true then
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
 	VJ.AddNPC("Hanger","npc_vj_cofr_hanger",vCat)	
 	VJ.AddNPC("Hangman","npc_vj_cofr_hangman",vCat)
-    VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
-    VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 	
+    VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 		
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)	
 	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
 
@@ -87,13 +86,13 @@ if VJExists == true then
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)
 
     -- CoF Random & Spawners --
+	VJ.AddNPC("Map Monster Spawner","sent_vj_cofr_mapspawner",vCat)	
 	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",vCat)
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",vCat)
-    VJ.AddNPC("Map Monster Spawner","sent_vj_cofr_mapspawner",vCat)	
 	
-	-- Afraid of Monsters --
-	vCat = "CoF Resurgence: AoM"
+	-- Afraid of Monsters: Director's Cut --
+	vCat = "CoF Resurgence: AoM:DC"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
 	
     -- Enemies --	
@@ -111,11 +110,11 @@ if VJExists == true then
 	-- Bosses --
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
 
-    -- AoM Random & Spawners --
+    -- AoM:DC Random & Spawners --
+	VJ.AddNPC("Map Monster Spawner","sent_vj_cofraom_mapspawner",vCat)	
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofraom_mon_sp",vCat)
-	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
-    VJ.AddNPC("Map Monster Spawner","sent_vj_cofraom_mapspawner",vCat)		
+	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)	
 
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
@@ -188,7 +187,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/sicksimon_sui.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
-    util.PrecacheModel("models/vj_cofr/cof/watro.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/watro.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")
