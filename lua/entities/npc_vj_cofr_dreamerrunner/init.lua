@@ -17,6 +17,9 @@ function ENT:CrazyRunner_CustomOnInitialize()
     self.SoundTbl_Pain = {
     "vj_cofr/cof/dreamer/dreamer_pain.wav"
 }
+    self.SoundTbl_Death = {
+    "vj_cofr/cof/dreamer/dreamer_pain.wav"
+}
 end
 -----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()

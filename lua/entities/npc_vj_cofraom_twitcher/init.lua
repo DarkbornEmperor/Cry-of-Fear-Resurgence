@@ -141,6 +141,10 @@ function ENT:TwitcherSounds()
 	"vj_cofr/aom/zombie/zo_pain1.wav",
 	"vj_cofr/aom/zombie/zo_pain2.wav"
 }
+    self.SoundTbl_Death = {
+	"vj_cofr/aom/zombie/zo_pain1.wav",
+	"vj_cofr/aom/zombie/zo_pain2.wav"
+}
 elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/zombie2/zo_alert10.wav",
@@ -152,6 +156,10 @@ elseif Twitcher_Sounds == 2 then
 	"vj_cofr/aom/zombie2/zo_attack2.wav"
 }
     self.SoundTbl_Pain = {
+	"vj_cofr/aom/zombie2/zo_pain1.wav",
+	"vj_cofr/aom/zombie2/zo_pain2.wav"
+}
+    self.SoundTbl_Death = {
 	"vj_cofr/aom/zombie2/zo_pain1.wav",
 	"vj_cofr/aom/zombie2/zo_pain2.wav"
 }

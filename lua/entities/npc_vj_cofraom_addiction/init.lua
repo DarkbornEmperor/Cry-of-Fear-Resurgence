@@ -70,6 +70,10 @@ function ENT:Addiction_CustomOnInitialize()
 	"vj_cofr/aom/davidbad/db_pain1.wav",
 	"vj_cofr/aom/davidbad/db_pain2.wav"
 }
+    self.SoundTbl_Death = {
+	"vj_cofr/aom/davidbad/db_pain1.wav",
+	"vj_cofr/aom/davidbad/db_pain2.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

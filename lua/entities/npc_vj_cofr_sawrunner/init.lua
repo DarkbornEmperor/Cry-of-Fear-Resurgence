@@ -88,6 +88,10 @@ function ENT:Sawrunner_CustomOnInitialize()
 	"vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
 	"vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
 }
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
+	"vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

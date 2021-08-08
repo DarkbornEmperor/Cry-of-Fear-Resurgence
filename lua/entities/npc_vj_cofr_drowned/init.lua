@@ -74,7 +74,19 @@ function ENT:Drowned_CustomOnInitialize()
 	"vj_cofr/cof/crazylady/lady_alert20.wav",
 	"vj_cofr/cof/crazylady/lady_alert30.wav"
 }
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/cof/crazylady/lady_attack1.wav",
+	"vj_cofr/cof/crazylady/lady_attack2.wav"
+}
+    self.SoundTbl_BeforeRangeAttack = {
+	"vj_cofr/cof/crazylady/lady_attack1.wav",
+	"vj_cofr/cof/crazylady/lady_attack2.wav"
+}
     self.SoundTbl_Pain = {
+	"vj_cofr/cof/crazylady/lady_pain1.wav",
+	"vj_cofr/cof/crazylady/lady_pain2.wav"
+}
+    self.SoundTbl_Death = {
 	"vj_cofr/cof/crazylady/lady_pain1.wav",
 	"vj_cofr/cof/crazylady/lady_pain2.wav"
 }

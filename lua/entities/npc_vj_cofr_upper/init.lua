@@ -37,6 +37,10 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/cof/slower/slower_pain1.wav",
 	"vj_cofr/cof/slower/slower_pain2.wav"
 }
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)

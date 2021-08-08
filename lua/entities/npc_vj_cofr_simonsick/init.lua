@@ -38,7 +38,8 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.SickSimon_ThrowProps = false
+ENT.SickSimon_NextTwisterSpawnT = 0
+ENT.SickSimon_NextAttackT = 0
 ENT.PropstoThrow ={
 "models/props_junk/wood_crate001a.mdl",
 "models/props_wasteland/dockplank01b.mdl",
@@ -60,14 +61,59 @@ function ENT:CustomOnInitialize()
      self:SickSimon_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-	local ene = self:GetEnemy()
-		return self:CalculateProjectile("Curve", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 1500)
+function ENT:Controller_IntMsg(ply)
+    ply:ChatPrint("E: Telekinesis Attack")
+	ply:ChatPrint("SPACE: Spawn Twisters")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled() 
-     if self:GetEnemy() != nil && self.SickSimon_ThrowProps == false or self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP) then
-            self.SickSimon_ThrowProps = true
+function ENT:CustomOnThink_AIEnabled()
+ 	if IsValid(self:GetEnemy()) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
+		if self.VJ_IsBeingControlled == true then
+			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Spawning Twisters! Cool Down: 20 seconds!")
+end		
+		self.Twister1 = ents.Create("npc_vj_cofr_twister")
+		self.Twister1:SetPos(self:GetPos() + self:GetRight()*60)
+		self.Twister1:SetAngles(self:GetAngles())
+		self.Twister1:Spawn()
+		self.Twister1:SetOwner(self)
+		self.Twister1:Activate()
+		self:DeleteOnRemove(self.Twister1)		
+		
+		self.Twister2 = ents.Create("npc_vj_cofr_twister")
+		self.Twister2:SetPos(self:GetPos() + self:GetRight()*-60)
+		self.Twister2:SetAngles(self:GetAngles())
+		self.Twister2:Spawn()
+		self.Twister2:SetOwner(self)
+	    self.Twister2:Activate()
+		self:DeleteOnRemove(self.Twister2)	
+		
+		self.Twister3 = ents.Create("npc_vj_cofr_twister")
+		self.Twister3:SetPos(self:GetPos() + self:GetRight()*90)
+		self.Twister3:SetAngles(self:GetAngles())
+		self.Twister3:Spawn()
+		self.Twister3:SetOwner(self)
+		self.Twister3:Activate()
+		self:DeleteOnRemove(self.Twister3)			
+		
+		self.Twister4 = ents.Create("npc_vj_cofr_twister")
+		self.Twister4:SetPos(self:GetPos() + self:GetRight()*-90)
+		self.Twister4:SetAngles(self:GetAngles())
+		self.Twister4:Spawn()
+		self.Twister4:SetOwner(self)
+		self.Twister4:Activate()
+		self:DeleteOnRemove(self.Twister4)			
+
+		self.Twister5 = ents.Create("npc_vj_cofr_twisterv")
+		self.Twister5:SetPos(self:GetPos() + self:GetForward()*-90)
+		self.Twister5:SetAngles(self:GetAngles())
+		self.Twister5:Spawn()
+		self.Twister5:SetOwner(self)
+		self.Twister5:Activate()
+		self:DeleteOnRemove(self.Twister5)			
+		
+		self.SickSimon_NextTwisterSpawnT = CurTime() + 20  
+end
+     if self:GetEnemy() != nil && CurTime() > self.SickSimon_NextAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_USE))) then
             self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1,true,false,true) 
             self.Prop = ents.Create("prop_physics") 
 			self.Prop:SetModel(VJ_PICK(self.PropstoThrow))
@@ -99,10 +145,10 @@ function ENT:CustomOnThink_AIEnabled()
 			self.Prop4:SetOwner(self)
 			self.Prop4:Spawn()
 			self.Prop4:Activate()
-			self:DeleteOnRemove(self.Prop4)				
+			self:DeleteOnRemove(self.Prop4)
 			
-			timer.Simple(math.random(10,15),function() if IsValid(self) then 
-            self.SickSimon_ThrowProps = false end end)
+            self.SickSimon_NextAttackT = CurTime() + 10
+			
 			for _,v in ipairs(ents.FindInSphere(self:GetPos(),99999999999999)) do
             timer.Simple(7,function() if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self.Prop) && IsValid(self.Prop2) && IsValid(self.Prop3) && IsValid(self.Prop4) then 
             self.Prop:Remove()
@@ -112,7 +158,7 @@ function ENT:CustomOnThink_AIEnabled()
         end  
     end)
 end
-     for _,v in ipairs(ents.FindInSphere(self:GetPos(),4000)) do
+     for _,v in ipairs(ents.FindInSphere(self:GetPos(),1000)) do
      if IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" && self:GetEnemy() != nil then
             v:GetPhysicsObject():Wake()
             timer.Simple(1.2,function() if IsValid(self) && IsValid(v) && self:GetEnemy() != nil then 
@@ -123,7 +169,7 @@ end
             v:GetPhysicsObject():SetVelocity((self:GetEnemy():GetPos() - v:GetPos())*8 + self:GetUp()*200) end end) end end)
 		 end
       end
-   end
+   end	  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
@@ -133,15 +179,16 @@ end
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	   self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
        self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
+--function ENT:CustomOnRemove()
+/*
      if IsValid(self.Prop) then self.Prop:Remove() end
      if IsValid(self.Prop2) then self.Prop2:Remove() end
      if IsValid(self.Prop3) then self.Prop3:Remove() end
-     if IsValid(self.Prop4) then self.Prop4:Remove() end	
-end
+     if IsValid(self.Prop4) then self.Prop4:Remove() end
+*/
+--end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

@@ -68,6 +68,10 @@ function ENT:Sewmo_CustomOnInitialize()
 	"vj_cofr/cof/sewmo/sewmo_pain1.wav",
 	"vj_cofr/cof/sewmo/sewmo_pain2.wav"
 }
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/sewmo/sewmo_pain1.wav",
+	"vj_cofr/cof/sewmo/sewmo_pain2.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
