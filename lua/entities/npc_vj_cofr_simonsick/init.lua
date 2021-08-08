@@ -131,10 +131,6 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-     for _,v in ipairs(ents.FindInSphere(self:GetPos(),99999)) do
-     if IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" then
-	        v:GetPhysicsObject():EnableGravity(true)		
-end	
 	   self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
        self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 	end
