@@ -27,7 +27,6 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 0.85 --1.45
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -72,7 +71,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Stranger_StartDmg()
+function ENT:Stranger_Damage()
 	net.Start("vj_cofr_stranger_damage")
 	net.WriteEntity(self)
 	net.WriteEntity(self:GetEnemy())
@@ -86,10 +85,21 @@ function ENT:CustomAttack()
 		self:StopMoving()
 		self:GetEnemy():TakeDamage(10,self,self)
 		VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100)
-		if self:GetEnemy():IsPlayer() then self:Stranger_StartDmg() end
+		if self:GetEnemy():IsPlayer() then self:Stranger_Damage() end
 	    self.Stranger_NextEnemyDamage = CurTime() + 0.5
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	 local Deathanim = math.random(1,3)
+	 if Deathanim == 1 then
+		self.DeathAnimationTime = 1.25
+ elseif Deathanim == 2 then
+		self.DeathAnimationTime = 1.00
+ elseif Deathanim == 3 then
+		self.DeathAnimationTime = 0.85		
+	end
+end  
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
