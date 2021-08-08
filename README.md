@@ -1,5 +1,6 @@
 # Cry of Fear Resurgence
- Overhaul recreation & expansion of NPCs from Cry of Fear & Afraid of Monsters for Garry's Mod. 
+ Overhaul recreation & expansion of NPCs from Cry of Fear & Afraid of Monsters: Director's Cut for Garry's Mod.
+ 
  Will feature all of the main NPCs, boss NPCs, custom NPCs and more.
  
  Note: You need VJ Base for everything to work:
