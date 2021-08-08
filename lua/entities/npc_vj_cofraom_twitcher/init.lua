@@ -126,7 +126,7 @@ else
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TwitcherSounds()
-    local Twitcher_Sounds = math.random(1,3)
+    local Twitcher_Sounds = math.random(1,2)
     if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/zombie/zo_alert10.wav",
@@ -154,17 +154,6 @@ elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Pain = {
 	"vj_cofr/aom/zombie2/zo_pain1.wav",
 	"vj_cofr/aom/zombie2/zo_pain2.wav"
-}
-elseif Twitcher_Sounds == 3 then
-    self.SoundTbl_Alert = {
-	"vj_cofr/aom/zombie/skuggfa.wav"
-}
-    self.SoundTbl_BeforeMeleeAttack = {
-	--"vj_cofr/aom/zombie/skuggfa.wav"
-}
-    self.SoundTbl_Pain = {
-	"vj_cofr/aom/zombie/zo_pain1.wav",
-	"vj_cofr/aom/zombie/zo_pain2.wav"
 }
     end
 end
@@ -203,6 +192,12 @@ end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
     end		
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 && self.Twitcher_Invisible == true then
+        self:PlaySoundSystem("Alert", {"vj_cofr/aom/zombie/skuggfa.wav"}) 	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)

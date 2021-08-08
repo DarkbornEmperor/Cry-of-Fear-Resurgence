@@ -45,6 +45,7 @@ end
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
 	 self:SetMaterial("hud/killicons/default")
+	 self:DrawShadow(false)
      self:SetCollisionBounds(Vector(13, 13, 90), Vector(-13, -13, 0))
      self:Dreamer_CustomOnInitialize()
 end
@@ -56,13 +57,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if !IsValid(self:GetEnemy()) then
-	--self:SetNoDraw(true)
-	self:DrawShadow(false)
-end	
 	if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
-	--self:SetNoDraw(false)
-	--self:DrawShadow(true)
+	self:DrawShadow(true)
     self:SetMaterial() 	
     timer.Simple(1,function() if IsValid(self) then	
 	self:SetGroundEntity(NULL)
