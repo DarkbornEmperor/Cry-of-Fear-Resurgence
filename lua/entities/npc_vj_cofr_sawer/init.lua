@@ -21,9 +21,7 @@ ENT.MeleeAttackDamageDistance = 70
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.RunAwayOnUnknownDamage = false
-ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.RunAwayOnUnknownDamage = false 
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8
@@ -59,8 +57,10 @@ ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_IsHurt = false
 ENT.Sawer_NotHurt = true
-ENT.Eye_Close = true
-ENT.Eye_Open = false
+ENT.Sawer_EyeClose = true
+ENT.Sawer_EyeOpen = false
+ENT.Sawer_NextDownTimeT = 0
+ENT.Sawer_NextFlinchTimeT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
@@ -110,43 +110,48 @@ end
     end		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)	
-     if hitgroup == 9 && self.Eye_Open == true && self.Eye_Close == false then
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+     if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && CurTime() > self.Sawer_NextFlinchTimeT && math.random(1,12) == 1 then
+        self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false) 
+		self.Sawer_NextFlinchTimeT = CurTime() + math.random(5,8)
+end	 
+     if hitgroup == 9 && self.Sawer_EyeOpen == true && self.Sawer_EyeClose == false then
 	    dmginfo:ScaleDamage(0.005)
      else	
        	dmginfo:ScaleDamage(0.00) 
 end
-     if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && math.random(1,20) == 1 && self.Eye_Close == true then 
-        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
-		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
-		self:SetSkin(1)
-		self.Eye_Close = false
-		self.Eye_Open = true
-		self.Sawer_IsHurt = true
-		self.Sawer_NotHurt = false
-        self.MovementType = VJ_MOVETYPE_STATIONARY
-        self.CanTurnWhileStationary = false
-        self.CanFlinch = 0
-        self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))		
+                  if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && CurTime() > self.Sawer_NextDownTimeT && math.random(1,20) == 1 && self.Sawer_EyeClose == true then 
+                     self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
+		             VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
+		             self:SetSkin(1)
+		             self.Sawer_EyeClose = false
+		             self.Sawer_EyeOpen = true
+		             self.Sawer_IsHurt = true
+		             self.Sawer_NotHurt = false
+                     self.MovementType = VJ_MOVETYPE_STATIONARY
+                     self.CanTurnWhileStationary = false
+                     self.CanFlinch = 0
+                     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))		
 
-      timer.Simple(6,function()
-      if IsValid(self) then
-	     self:SetSkin(0)
-	  	 self.Eye_Close = true
-		 self.Eye_Open = false
+                  timer.Simple(6,function()
+                  if IsValid(self) then
+	                 self:SetSkin(0)
+	  	             self.Sawer_EyeClose = true
+		             self.Sawer_EyeOpen = false
 		 
-      timer.Simple(0.5,function()
-      if IsValid(self) then
-		 self.Sawer_IsHurt = false
-		 self.Sawer_NotHurt = true	 
-         self.MovementType = VJ_MOVETYPE_GROUND
-         self.CanFlinch = 1	
-		 self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
-      end		 
-   end)		 
-end
-end)
-end
+                  timer.Simple(0.3,function()
+                  if IsValid(self) then
+		             self.Sawer_IsHurt = false
+		             self.Sawer_NotHurt = true	 
+                     self.MovementType = VJ_MOVETYPE_GROUND
+                     self.CanFlinch = 1	
+		             self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
+		             self.Sawer_NextDownTimeT = CurTime() + math.random(8,12) 
+                  end        	  
+              end)		 
+          end
+      end)
+   end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
