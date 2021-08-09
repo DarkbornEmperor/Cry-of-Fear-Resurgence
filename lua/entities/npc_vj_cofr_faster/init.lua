@@ -108,8 +108,8 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if self.Faster_Type == 1 && (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD then	
-	if (dmginfo:IsBulletDamage()) && self.HasSounds == true && self.HasImpactSounds == true then 
+	if self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD then	
+	if self.HasSounds == true && self.HasImpactSounds == true then 
 	    dmginfo:ScaleDamage(0.00)
 		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
 		local attacker = dmginfo:GetAttacker()
