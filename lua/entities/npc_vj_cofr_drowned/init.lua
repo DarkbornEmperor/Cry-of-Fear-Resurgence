@@ -120,7 +120,7 @@ function ENT:Drowned_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	if self.Dead == true or self.VJ_IsBeingControlled == true or GetConVarNumber("vj_npc_norange") == 1 then return end
+	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
 	
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
@@ -135,7 +135,8 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true or self:BusyWithActivity() then return end
+    if self.Dead == true or self.VJ_IsBeingControlled == true or self:BusyWithActivity() then return end
+	
 	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
