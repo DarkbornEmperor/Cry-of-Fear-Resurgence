@@ -68,7 +68,7 @@ ENT.SoundTbl_Impact = {
 ENT.Slower_Skin = 0
 ENT.Slower_Type = 0 
  	-- 0 = Slower 1
-	-- 1 = Crawler aka Slower 2
+	-- 1 = Crawler aka Slower 2/Krypandenej
 	-- 2 = Croucher
 	-- 3 = Slower 3
 	-- 4 = Slower No
@@ -110,7 +110,7 @@ end
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" then // Already the default
 		self.Slower_Type = 0
-	elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" then
 		self.Slower_Type = 1
 	elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" then
 		self.Slower_Type = 2			
