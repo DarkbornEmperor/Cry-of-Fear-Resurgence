@@ -57,6 +57,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
+
 	if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
 	self:DrawShadow(true)
     self:SetMaterial() 	

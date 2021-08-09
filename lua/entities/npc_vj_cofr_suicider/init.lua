@@ -120,7 +120,7 @@ function ENT:Suicider_DoFireEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
+	if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
 
 	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())
 	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce == true then

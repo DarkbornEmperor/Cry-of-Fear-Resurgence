@@ -120,7 +120,8 @@ function ENT:Drowned_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
+	if self.Dead == true or self.VJ_IsBeingControlled == true or GetConVarNumber("vj_npc_norange") == 1 then return end
+	
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
 	VJ_EmitSound(self, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100)

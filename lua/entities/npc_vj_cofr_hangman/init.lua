@@ -24,8 +24,8 @@ ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -40), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+	ThirdP_Offset = Vector(30, 25, -150), -- The offset for the controller when the camera is in third person
+	FirstP_Bone = "huvud2", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 -- ====== Sound File Paths ====== --
