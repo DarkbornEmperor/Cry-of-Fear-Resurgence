@@ -69,6 +69,18 @@ function ENT:Mace_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/sewer/mace_scream.wav"
 }
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/cof/slower/slower_attack1.wav",
+	"vj_cofr/cof/slower/slower_attack2.wav"
+}
+    self.SoundTbl_Pain = {
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
