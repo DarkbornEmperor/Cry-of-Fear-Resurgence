@@ -31,7 +31,7 @@ ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
 	ThirdP_Offset = Vector(30, 25, -50), -- The offset for the controller when the camera is in third person
 	FirstP_Bone = "Bip02 Head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+	FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
 }
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -50,6 +50,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Addiction_Axe = false
 ENT.Addiction_OnFire = false
+ENT.Addiction_NextChangeAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
@@ -94,20 +95,38 @@ end
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
-    end	
+end		
+    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+    end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("SPACE: Switch attacks")
+	ply:ChatPrint("NOTE: Switching attacks will cause a 10/15 second delay until able to switch again.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return end
 
-	if self.Addiction_Axe == false && (self.StartHealth -200 > self:Health()) then
+	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe == false && CurTime() > self.Addiction_NextChangeAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) then
         self:SetBodygroup(0,1)
+		self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)	
      end		
-  end)		
-end			
+  end)	
+end    
+    if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe == true && CurTime() > self.Addiction_NextChangeAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
+		self.Addiction_Axe = false
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+		timer.Simple(3,function() if IsValid(self) then
+        self:SetBodygroup(0,0)
+        self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)		
+     end      	 
+  end)
+end
     if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -300 > self:Health()) then
 		self.Addiction_OnFire = true
 		self:Ignite(15)
@@ -120,11 +139,10 @@ end
 end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-      dmginfo:ScaleDamage(0.15)
-	  
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)  
    if self.Dead == true then return end
-   
+       dmginfo:ScaleDamage(0.15)
+	   
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
     local attacker = dmginfo:GetAttacker()
    if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
@@ -140,7 +158,7 @@ function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamageType = DMG_SHOCK
-		self.NextMeleeAttackTime = 3
+		self.NextMeleeAttackTime = 2
 		self.HasMeleeAttackMissSounds = false
 		self.SoundTbl_MeleeAttackExtra = {
 		"vj_cofr/aom/davidbad/thunder_hit.wav"
@@ -162,7 +180,7 @@ end
 function ENT:CustomOnMeleeAttack_BeforeChecks()
     if self:GetBodygroup(0) == 0 then
 	local color = Color(255, 255, 255, 255) -- The shock wave color
-	local dmg = 20 -- How much damage should the shock wave do?
+	local dmg = 25 -- How much damage should the shock wave do?
 
 	-- flags 0 = No fade!
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
@@ -186,6 +204,12 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	   self:Extinguish()
 end
        self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFootStepSound()
+	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

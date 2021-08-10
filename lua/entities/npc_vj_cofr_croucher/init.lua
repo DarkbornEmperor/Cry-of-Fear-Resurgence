@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/croucher.mdl"}
 ENT.MeleeAttackDamage = 15 
-ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackDistance = 50 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, 

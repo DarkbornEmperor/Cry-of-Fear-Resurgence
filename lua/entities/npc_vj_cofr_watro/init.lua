@@ -11,10 +11,11 @@ ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
-ENT.CallForHelp = false
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
+ENT.CallForHelp = false
+ENT.SightAngle = 180
 ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
@@ -78,8 +79,13 @@ function ENT:CustomOnThink_AIEnabled()
 	    self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 		self.HasMeleeAttack = true
 		self:DrawShadow(true)
-        self:RemoveFlags(FL_NOTARGET)		
+        self:RemoveFlags(FL_NOTARGET)
+        return		
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	    dmginfo:ScaleDamage(0.25)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)

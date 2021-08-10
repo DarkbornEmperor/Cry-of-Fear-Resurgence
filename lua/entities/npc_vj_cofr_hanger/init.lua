@@ -12,14 +12,15 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
+ENT.SightAngle = 180
 ENT.HasMeleeAttack = true
 ENT.NextMeleeAttackTime = 100
 ENT.NextAnyAttackTime_Melee = 100
 ENT.DisableMeleeAttackAnimation = false
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25 
+ENT.MeleeAttackDamage = 10 
 ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDamageDistance = 40
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
@@ -60,18 +61,18 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
+	        if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
 
-	if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
-	self:DrawShadow(true)
-	timer.Simple(1.5,function()
-	if IsValid(self) then	
-	self:SetGroundEntity(NULL)
-	self.Hanger_Death = true
-	self:Remove()
-end	
-end)
-end
+	        if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	           self:DrawShadow(true)
+	        timer.Simple(1.5,function() if IsValid(self) then	
+	           self:SetGroundEntity(NULL)
+	           self.Hanger_Death = true
+	           self:Remove()
+			   return
+            end	
+        end)
+    end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

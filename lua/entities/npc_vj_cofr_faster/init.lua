@@ -58,10 +58,10 @@ ENT.Faster_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_CustomOnInitialize()
 if self.Faster_Type == 1 then
-   self.AlertSoundPitch = VJ_Set(70, 70)
-   self.BeforeMeleeAttackSoundPitch = VJ_Set(70, 70)
-   self.PainSoundPitch = VJ_Set(70, 70)
-   self.DeathSoundPitch = VJ_Set(70, 70)
+   self.AlertSoundPitch = VJ_Set(80, 80)
+   self.BeforeMeleeAttackSoundPitch = VJ_Set(80, 80)
+   self.PainSoundPitch = VJ_Set(80, 80)
+   self.DeathSoundPitch = VJ_Set(80, 80)
 
 end
     self.SoundTbl_Alert = {
@@ -104,6 +104,9 @@ end
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
+end		
+    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -130,6 +133,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFootStepSound()
+	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

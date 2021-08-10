@@ -15,8 +15,8 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
-ENT.MeleeAttackDistance = 40 
-ENT.MeleeAttackDamageDistance = 80
+ENT.MeleeAttackDistance = 50 
+ENT.MeleeAttackDamageDistance = 60
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -85,11 +85,20 @@ end
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
+end		
+    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFootStepSound()
+	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

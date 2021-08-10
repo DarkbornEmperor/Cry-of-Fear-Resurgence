@@ -94,7 +94,10 @@ end
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
+end		
+    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -128,6 +131,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Bleeds = false
 		self:TakeDamage(self:Health())
 		self.Bleeds = true
+		return
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -209,6 +213,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFootStepSound()
+	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

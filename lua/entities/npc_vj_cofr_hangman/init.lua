@@ -12,6 +12,7 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
+ENT.SightAngle = 180
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = 0.001
 ENT.NextMeleeAttackTime = 0.5

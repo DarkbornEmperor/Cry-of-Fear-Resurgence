@@ -88,29 +88,16 @@ end
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
+end		
+    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true then return false end
-
-	if self.Sewmo_WireBroken == false && (self.StartHealth *.50 > self:Health()) then
-		self.Sewmo_WireBroken = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(0.3,function() if IsValid(self) then
-			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100) end end end)
-			timer.Simple(1,function() if IsValid(self) then
-				self:SetBodygroup(0,1) 
-				self:DoChaseAnimation()
-			end
-		end)
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-        self.MeleeAttackDistance = 40 
+        self.MeleeAttackDistance = 50 
         self.MeleeAttackDamageDistance = 80		
 		self.MeleeAttackDamage = 16
 		self.SoundTbl_MeleeAttackMiss = {
@@ -138,6 +125,22 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+    if self.Dead == true or self.Sewmo_WireBroken == true then return end
+
+	if self.Sewmo_WireBroken == false && hitgroup == HITGROUP_CHEST && dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) && (self.StartHealth *.60 > self:Health()) then
+		self.Sewmo_WireBroken = true
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+		timer.Simple(0.3,function() if IsValid(self) then
+			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100) end end end)
+			timer.Simple(1,function() if IsValid(self) then
+				self:SetBodygroup(0,1) 
+				self:DoChaseAnimation()
+			end
+		end)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
@@ -156,6 +159,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFootStepSound()
+	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
