@@ -83,7 +83,7 @@ end
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
-endd
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
 	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
