@@ -12,17 +12,16 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
+ENT.SightAngle = 180
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {ACT_IDLE}
 ENT.TimeUntilMeleeAttackDamage = 0.001
-ENT.NextAnyAttackTime_Melee = 0.5
+ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 10 
 ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 50
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 50 
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
+ENT.MeleeAttackDamageAngleRadius = 180
+ENT.DisableMeleeAttackAnimation = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
@@ -40,7 +39,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Face_CustomOnInitialize()
+function ENT:FaceHead_CustomOnInitialize()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/facehead/facehead.wav"
 }
@@ -50,13 +49,7 @@ function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
      self:SetPos(self:GetPos() + self:GetUp()*30)
 	 self:SetCollisionBounds(Vector(30, 30, 55), Vector(-30, -30, -35))
-     self:Face_CustomOnInitialize()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack" then
-		self:MeleeAttackCode()
-    end		
+     self:FaceHead_CustomOnInitialize()
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

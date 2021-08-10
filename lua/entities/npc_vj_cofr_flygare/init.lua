@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/flygare.mdl"} 
 ENT.StartHealth = 100
-ENT.HullType = HULL_HUMAN
+ENT.HullType = HULL_MEDIUM
 ENT.MovementType = VJ_MOVETYPE_AERIAL 
 ENT.Aerial_FlyingSpeed_Calm = 150 
 ENT.Aerial_FlyingSpeed_Alerted = 350 

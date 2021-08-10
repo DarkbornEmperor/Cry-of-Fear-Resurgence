@@ -10,6 +10,7 @@ ENT.StartHealth = 80
 ENT.MeleeAttackDamage = 24 
 ENT.HasHitGroupFlinching = false
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
 	ThirdP_Offset = Vector(45, 20, -15), -- The offset for the controller when the camera is in third person

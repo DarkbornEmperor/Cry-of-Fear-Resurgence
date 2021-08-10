@@ -16,9 +16,9 @@ ENT.HasMeleeAttack = false
 ENT.ConstantlyFaceEnemy = true 
 ENT.ConstantlyFaceEnemy_IfAttacking = true 
 ENT.ConstantlyFaceEnemy_Postures = "Standing" 
-ENT.ConstantlyFaceEnemyDistance = 250 
+ENT.ConstantlyFaceEnemyDistance = 500 
 ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = 250 
+ENT.NoChaseAfterCertainRange_FarDistance = 300 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
 ENT.DisableFootStepSoundTimer = true
@@ -46,7 +46,7 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 75
 -- Custom
-ENT.Stranger_DamageDistance = 250
+ENT.Stranger_DamageDistance = 500
 ENT.Stranger_NextEnemyDamage = 0
 
 util.AddNetworkString("vj_cofr_stranger_damage")
@@ -61,6 +61,9 @@ function ENT:Stranger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+    if math.random(1,3) == 1 then
+	 self.NoChaseAfterCertainRange_FarDistance = 100 
+end
      self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
      self:Stranger_CustomOnInitialize()
 end
@@ -83,7 +86,7 @@ function ENT:CustomAttack()
 	
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Stranger_NextEnemyDamage then
-		self:StopMoving()
+		//self:StopMoving()
 		self:GetEnemy():TakeDamage(10,self,self)
 		VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100)
 		if self:GetEnemy():IsPlayer() then self:Stranger_Damage() end
@@ -92,13 +95,15 @@ function ENT:CustomAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	 local Deathanim = math.random(1,3)
+	 local Deathanim = math.random(1,4)
 	 if Deathanim == 1 then
 		self.DeathAnimationTime = 1.25
  elseif Deathanim == 2 then
 		self.DeathAnimationTime = 1.00
  elseif Deathanim == 3 then
-		self.DeathAnimationTime = 0.85		
+		self.DeathAnimationTime = 0.85
+ elseif Deathanim == 4 then
+		self.DeathAnimationTime = 0.75			
 	end
 end  
 ---------------------------------------------------------------------------------------------------------------------------------------------

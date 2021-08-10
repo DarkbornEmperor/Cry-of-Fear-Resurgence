@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/taller.mdl"} 
 ENT.StartHealth = 500
-ENT.HullType = HULL_HUMAN
+ENT.HullType = HULL_LARGE
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.VJ_IsHugeMonster = true
 ENT.BloodColor = "Red" 

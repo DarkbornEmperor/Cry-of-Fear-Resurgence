@@ -6,19 +6,19 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/hangman.mdl"} 
+ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
-ENT.GodMode = true
 ENT.CallForHelp = false
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {ACT_IDLE}
 ENT.TimeUntilMeleeAttackDamage = 0.001
-ENT.NextAnyAttackTime_Melee = 0.5
+ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
+ENT.DisableMeleeAttackAnimation = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
