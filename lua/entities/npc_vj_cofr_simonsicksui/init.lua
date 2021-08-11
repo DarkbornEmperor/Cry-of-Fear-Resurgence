@@ -112,7 +112,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-25) -self:GetPos()
-		bullet.Spread = Vector(25,25,25)
+		bullet.Spread = Vector(30,30,30)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
