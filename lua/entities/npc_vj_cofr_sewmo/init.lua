@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/sewmo.mdl"} 
 ENT.StartHealth = 140
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -128,12 +128,12 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
     if self.Dead == true or self.Sewmo_WireBroken == true then return end
 
-	if self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) then --&& math.random(1,5) == 1 then 
+	if self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH then --&& math.random(1,5) == 1 then 
 		self.Sewmo_WireBroken = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(0.1,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100) end end end)
-			timer.Simple(1,function() if IsValid(self) then
+			timer.Simple(0.3,function() if IsValid(self) then
 				self:SetBodygroup(0,1) 
 				self:DoChaseAnimation()
 			end

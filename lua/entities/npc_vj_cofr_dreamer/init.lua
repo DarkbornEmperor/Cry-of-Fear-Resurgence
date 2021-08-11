@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/dreamer.mdl"} 
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CallForHelp = false
 ENT.SightAngle = 180

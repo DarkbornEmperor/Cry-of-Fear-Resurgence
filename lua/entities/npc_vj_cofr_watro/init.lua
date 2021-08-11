@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/watro.mdl"} 
 ENT.StartHealth = 120
 ENT.HullType = HULL_MEDIUM_TALL
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.BloodColor = "Red" 

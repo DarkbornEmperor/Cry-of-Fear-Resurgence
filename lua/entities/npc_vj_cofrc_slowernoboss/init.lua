@@ -8,6 +8,32 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/custom/slowerno_boss.mdl"} 
 ENT.StartHealth = 300
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Slower_CustomOnInitialize()
+    self.SoundTbl_Alert = {
+	"vj_cofr/cof/slower3/slower_alert10.wav",
+	"vj_cofr/cof/slower3/slower_alert20.wav",
+	"vj_cofr/cof/slower3/slower_alert30.wav"
+}
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/cof/slower3/slower_attack1.wav",
+	"vj_cofr/cof/slower3/slower_attack2.wav"
+}
+    self.SoundTbl_Pain = {
+	"vj_cofr/cof/slower3/slower_pain1.wav",
+	"vj_cofr/cof/slower3/slower_pain2.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/slower3/slower_pain1.wav",
+	"vj_cofr/cof/slower3/slower_pain2.wav"
+}
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/slowerno/headdy.wav"}) 	
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT,ACT_DIEVIOLENT}

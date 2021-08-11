@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/baby.mdl"} 
 ENT.StartHealth = 50
 ENT.HullType = HULL_MEDIUM
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 

@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/suicider.mdl"} 
 ENT.StartHealth = 70
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -140,7 +140,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = Vector(25,25,25)
+		bullet.Spread = Vector(35,35,35)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 5

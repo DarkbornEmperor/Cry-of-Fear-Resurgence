@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/humanflower.mdl"} 
 ENT.GodMode = true
 ENT.HullType = HULL_MEDIUM_TALL
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
