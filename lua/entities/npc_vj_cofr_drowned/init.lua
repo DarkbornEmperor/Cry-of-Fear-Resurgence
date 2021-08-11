@@ -106,6 +106,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 	if key == "attack_range" then
 		self:RangeAttackCode()
+end	
+	if key == "baby_appear" then
+		VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav", 75, 100)
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
 end		
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
@@ -127,11 +131,11 @@ function ENT:CustomRangeAttackCode()
 	
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !self:Visible(self:GetEnemy()) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
-	VJ_EmitSound(self, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100)
+	if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
 	timer.Simple(5,function() if IsValid(self) && self:Visible(self:GetEnemy()) && self.Dead == false then
 		self:GetEnemy():TakeDamage(200,self,self)
 		if self:GetEnemy():IsPlayer() then self:Drowned_Damage() end
-	    self.Drowned_NextEnemyDamage = CurTime() + 10
+	    self.Drowned_NextEnemyDamage = CurTime() + 5
      end		
    end)		
  end	
@@ -144,10 +148,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
-		timer.Simple(0.1,function() if IsValid(self) then
-			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav", 75, 100) end end end)
 			timer.Simple(0.1,function() if IsValid(self) then
-			    ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
 				self:SetBodygroup(0,1) 
 				self:DoChaseAnimation()
                 return				

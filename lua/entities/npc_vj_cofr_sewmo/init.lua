@@ -131,7 +131,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) then --&& math.random(1,5) == 1 then 
 		self.Sewmo_WireBroken = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(0.3,function() if IsValid(self) then
+		timer.Simple(0.1,function() if IsValid(self) then
 			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100) end end end)
 			timer.Simple(1,function() if IsValid(self) then
 				self:SetBodygroup(0,1) 

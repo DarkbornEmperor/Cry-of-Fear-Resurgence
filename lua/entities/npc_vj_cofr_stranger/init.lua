@@ -88,7 +88,7 @@ function ENT:CustomAttack()
 	if CurTime() > self.Stranger_NextEnemyDamage then
 		//self:StopMoving()
 		self:GetEnemy():TakeDamage(10,self,self)
-		VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100)
+		if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100) end
 		if self:GetEnemy():IsPlayer() then self:Stranger_Damage() end
 	    self.Stranger_NextEnemyDamage = CurTime() + 0.5
 	end
