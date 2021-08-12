@@ -48,6 +48,12 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+-- Custom
+ENT.CrazyRunner_Type = 0 
+ 	-- 0 = Crazyrunner
+	-- 1 = Citalopram
+	-- 2 = Dreamer (Runner)
+	-- 3 = CrazyruMpel
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -58,6 +64,15 @@ function ENT:CrazyRunner_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" then // Already the default
+		self.Slower_Type = 0
+	elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" then
+		self.Slower_Type = 1
+	elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
+		self.Slower_Type = 2			
+	elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
+		self.Slower_Type = 3	
+end
      self:CrazyRunner_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

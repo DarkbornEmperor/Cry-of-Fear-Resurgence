@@ -33,12 +33,6 @@ function ENT:Slower_CustomOnInitialize()
     self:SetPos(self:GetPos() + self:GetForward()*-32)
     self:SetCollisionBounds(Vector(14, 14, 80), Vector(-14, -14, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
-end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

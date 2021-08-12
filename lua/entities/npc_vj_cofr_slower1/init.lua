@@ -68,7 +68,7 @@ ENT.SoundTbl_Impact = {
 ENT.Slower_Skin = 0
 ENT.Slower_Type = 0 
  	-- 0 = Slower 1
-	-- 1 = Crawler aka Slower 2/Krypandenej
+	-- 1 = Crawler/Krypandenej aka Slower 2
 	-- 2 = Croucher
 	-- 3 = Slower 3
 	-- 4 = Slower No
@@ -88,6 +88,9 @@ elseif Slower_Body == 3 then
     self.Slower_Skin = 2
     self:SetBodygroup(0,2)	
 end	
+if math.random(1,3) == 1 then
+    self.Slower_HeadSplat = true
+end
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/slower/slower_alert10.wav",
 	"vj_cofr/cof/slower/slower_alert20.wav",
@@ -152,29 +155,35 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	 if self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 then
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
-	else
+     else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
+	end	
 end
+    if self.Slower_Type == 0 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 then
 	local headsplat = math.random(1,3)
 	if headsplat == 1 && hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIEVIOLENT}
-		timer.Simple(1,function()
-			if IsValid(self) then
-				self:RunGibOnDeathCode(dmginfo,hitgroup,{CustomDmgTbl={"All"}})
-			end
-		end)
+		--timer.Simple(1,function()
+			--if IsValid(self) then
+				--self:RunGibOnDeathCode(dmginfo,hitgroup,{CustomDmgTbl={"All"}})
+			--end
+		--end)
+		end
 	end
-end   
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
-    if self.DeathAnimationCodeRan == false then return false end
-
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    if GetConVarNumber("VJ_COFR_Slower_HeadGib") == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 then return end
+	
+	if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+	
 	if self.Slower_Skin == 0 then self:SetBodygroup(0,3) end
 	if self.Slower_Skin == 1 then self:SetBodygroup(0,4) end
 	if self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
-
+	
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
 		bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -193,7 +202,8 @@ end
 		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav", 75, 100)	
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
 		return true,{DeathAnim=true}
-end	
+	end	
+end	  
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup) 
 return false 
