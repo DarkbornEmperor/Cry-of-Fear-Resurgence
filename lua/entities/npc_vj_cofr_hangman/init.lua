@@ -5,7 +5,8 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/hangman.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/hangman.mdl"}
+ENT.StartHealth = 5000
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
@@ -18,7 +19,9 @@ ENT.TimeUntilMeleeAttackDamage = 0.001
 ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
+ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDamageAngleRadius = 180
 ENT.DisableMeleeAttackAnimation = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100

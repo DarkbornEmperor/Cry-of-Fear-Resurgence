@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/watro.mdl"} 
-ENT.StartHealth = 120
+ENT.StartHealth = 150
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
@@ -20,7 +20,9 @@ ENT.HasMeleeAttack = false
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 80 
+--ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 120
+ENT.MeleeAttackDamageAngleRadius = 90
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true 
@@ -72,8 +74,13 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true then return end
+    if self.Dead == true then return end	
 	if self.Watro_Burrowed == true && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+    else
+        VJ_EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
+end		
 		self.Watro_Burrowed = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 	    self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}

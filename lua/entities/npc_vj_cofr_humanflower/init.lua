@@ -5,7 +5,8 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/humanflower.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/humanflower.mdl"}
+ENT.StartHealth = 5000
 ENT.GodMode = true
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
@@ -17,7 +18,9 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 90 
+ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 130
+ENT.MeleeAttackDamageAngleRadius = 180
 ENT.HasMeleeAttackKnockBack = true
 ENT.MeleeAttackKnockBack_Forward1 = -300
 ENT.MeleeAttackKnockBack_Forward2 = -300
