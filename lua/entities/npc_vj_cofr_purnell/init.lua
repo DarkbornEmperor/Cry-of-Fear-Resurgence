@@ -16,7 +16,6 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.AnimTbl_RangeAttack = {ACT_IDLE}
 ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
@@ -58,13 +57,16 @@ ENT.SoundTbl_Impact = {
 }
 ENT.RangeAttackSoundLevel = 100
 -- Custom
-ENT.Doctor_Revolver = true
+ENT.Doctor_Revolver = false
 ENT.Doctor_Pistol = false
 ENT.Doctor_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if math.random(1,5) == 1 then
-		self.Doctor_Pistol = true
+    local Doctor_Type = math.random(1,2)
+	if Doctor_Type == 1 then
+		self.Doctor_Revolver = true
+elseif Doctor_Type == 2 then
+		self.Doctor_Pistol = true		
 end
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
         self.HasSoundTrack = false 
@@ -100,12 +102,9 @@ function ENT:Doctor_CustomOnInitialize()
 	"vj_cofr/cof/doc_ai/ouch6.wav",
 	"vj_cofr/cof/doc_ai/ouch7.wav"
 }
-	 if self.Doctor_Pistol then
-	    self.Doctor_Revolver = false
+	if self.Doctor_Pistol then
 		self:SetPistol()
-end
-	 if self.Doctor_Revolver then
-	    self.Doctor_Pistol = false
+elseif self.Doctor_Revolver then
 		self:SetRevolver()
     end
 end
@@ -155,8 +154,8 @@ function ENT:Doctor_DoFireEffects()
 	FireLight1:Fire("TurnOn","",0)
 	FireLight1:Fire("Kill","",0.07)
 	self:DeleteOnRemove(FireLight1)
-end
-    if self.Doctor_Pistol then
+
+elseif self.Doctor_Pistol then
 	local flash = ents.Create("env_muzzleflash")
 	flash:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
 	flash:SetKeyValue("scale","1")
@@ -184,27 +183,27 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = Vector(30,30,30)
+		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 20
+		bullet.Damage = 13
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 		VJ_EmitSound(self, "vj_cofr/cof/doc_ai/revolver_fire.wav", 100, 100)
 	    self.Doctor_FiredAtLeastOnce = true
 	    self:Doctor_DoFireEffects()
-end
-    if self.Doctor_Pistol then
+		
+elseif self.Doctor_Pistol then
 	local bullet = {}
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = Vector(30,30,30)
+		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 30
+		bullet.Damage = 15
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 		VJ_EmitSound(self, "vj_cofr/cof/doc_ai/p345_fire.wav", 100, 100)

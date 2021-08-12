@@ -22,12 +22,9 @@ ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.AnimTbl_RangeAttack = {ACT_IDLE}
 ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
-ENT.TimeUntilRangeAttackProjectileRelease = 0.5
-ENT.NextRangeAttackTime = 1.5
 ENT.NoChaseAfterCertainRange = false
 ENT.NoChaseAfterCertainRange_FarDistance = 600 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
@@ -72,17 +69,28 @@ ENT.SoundTbl_Impact = {
 ENT.BreathSoundLevel = 75
 ENT.RangeAttackSoundLevel = 100
 -- Custom
-ENT.BookSimon_Shotgun = true
+ENT.BookSimon_Shotgun = false
+ENT.BookSimon_Glock = false
+ENT.BookSimon_TMP = false
+ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
-ENT.Booksimon_FiredAtLeastOnce = false
+ENT.BookSimon_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if math.random(1,3) == 1 then
+    local BookSimon_Type = math.random(1,6)
+    if BookSimon_Type == 1 then
+		self.BookSimon_Shotgun = true
+elseif BookSimon_Type == 2 then
+		self.BookSimon_Glock = true		
+elseif BookSimon_Type == 3 then
+		self.BookSimon_TMP = true		
+elseif BookSimon_Type == 4 then
+		self.BookSimon_M16 = true		
+elseif BookSimon_Type == 5 then
+		self.BookSimon_Sledgehammer = true	
+elseif BookSimon_Type == 6 then
 		self.BookSimon_SledgehammerFlare = true
-end	
-	if math.random(1,3) == 1 then
-		self.BookSimon_Sledgehammer = true
 end	
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
         self.HasSoundTrack = false 
@@ -90,21 +98,19 @@ end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()
-	 if self.BookSimon_SledgehammerFlare then
-	    self.BookSimon_Shotgun = false
-		self.BookSimon_Sledgehammer = false
-		self:SetSledgehammerFlare()
-end
-	 if self.BookSimon_Sledgehammer then
-	    self.BookSimon_Shotgun = false
-		self.BookSimon_SledgehammerFlare = false
+	 if self.BookSimon_Shotgun then 
+		self:SetShotgun()		
+elseif self.BookSimon_Glock then
+		self:SetGlock()			
+elseif self.BookSimon_TMP then
+		self:SetTMP()		
+elseif self.BookSimon_M16 then
+		self:SetM16()		
+elseif self.BookSimon_Sledgehammer then
+		self:SetSledgehammerFlare()	
+elseif self.BookSimon_SledgehammerFlare then
 		self:SetSledgehammer()
-end
-	 if self.BookSimon_Shotgun then
-	    self.BookSimon_Sledgehammer = false
-		self.BookSimon_SledgehammerFlare = false
-		self:SetShotgun()
-    end	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
@@ -136,13 +142,55 @@ function ENT:SetShotgun()
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
+	self.TimeUntilRangeAttackProjectileRelease = 0.5
+	self.NextRangeAttackTime = 1	
+end 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetTMP()
+	self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
+	self.AnimTbl_Walk = {ACT_WALK_HURT}
+	self.AnimTbl_Run = {ACT_WALK_HURT}
+	self:SetBodygroup(0,2)
+	self:SetBodygroup(1,1)
+	self.HasMeleeAttack = false
+	self.HasRangeAttack = true
+	self.NoChaseAfterCertainRange = true
+	self.CombatFaceEnemy = false
+	self.TimeUntilRangeAttackProjectileRelease = 0.01
+	self.NextRangeAttackTime = 0.07
+end 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetGlock()
+	self.AnimTbl_IdleStand = {ACT_IDLE_STEALTH}
+	self.AnimTbl_Walk = {ACT_WALK_STEALTH}
+	self.AnimTbl_Run = {ACT_WALK_STEALTH}
+	self:SetBodygroup(0,3)
+	self.HasMeleeAttack = false
+	self.HasRangeAttack = true
+	self.NoChaseAfterCertainRange = true
+	self.CombatFaceEnemy = false
+	self.TimeUntilRangeAttackProjectileRelease = 0.1
+	self.NextRangeAttackTime = 0.6		
+end 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetM16()
+    self.AnimTbl_IdleStand = {ACT_IDLE}
+    self.AnimTbl_Walk = {ACT_WALK}
+	self.AnimTbl_Run = {ACT_WALK}
+	self:SetBodygroup(0,4)
+	self.HasMeleeAttack = false
+	self.HasRangeAttack = true
+	self.NoChaseAfterCertainRange = true
+	self.CombatFaceEnemy = false
+	self.TimeUntilRangeAttackProjectileRelease = 0.1
+	self.NextRangeAttackTime = 0.05	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammer()
     self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
     self.AnimTbl_Walk = {ACT_RUN_STIMULATED}
 	self.AnimTbl_Run = {ACT_RUN_STIMULATED}
-	self:SetBodygroup(0,4)
+	self:SetBodygroup(0,5)
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false
 end
@@ -152,7 +200,7 @@ function ENT:SetSledgehammerFlare()
     self.AnimTbl_Walk = {ACT_SPRINT}
 	self.AnimTbl_Run = {ACT_SPRINT}
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-	self:SetBodygroup(0,4)
+	self:SetBodygroup(0,5)
 	self:SetBodygroup(2,1)
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false	
@@ -178,6 +226,7 @@ function ENT:SetSledgehammerFlare()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_DoFireEffects()
+    if self.BookSimon_Shotgun then
 	local flash = ents.Create("env_muzzleflash")
 	flash:SetPos(self:GetAttachment(self:LookupAttachment("shotgun")).Pos)
 	flash:SetKeyValue("scale","1")
@@ -196,14 +245,76 @@ function ENT:BookSimon_DoFireEffects()
 	FireLight1:Fire("TurnOn","",0)
 	FireLight1:Fire("Kill","",0.07)
 	self:DeleteOnRemove(FireLight1)
+	
+elseif self.BookSimon_Glock then
+	local flash = ents.Create("env_muzzleflash")
+	flash:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
+	flash:SetKeyValue("scale","1")
+	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
+	flash:Fire("Fire",0,0)
+
+	local FireLight1 = ents.Create("light_dynamic")
+	FireLight1:SetKeyValue("brightness", "4")
+	FireLight1:SetKeyValue("distance", "120")
+	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
+	FireLight1:SetLocalAngles(self:GetAngles())
+	FireLight1:Fire("Color", "255 150 60")
+	FireLight1:SetParent(self)
+	FireLight1:Spawn()
+	FireLight1:Activate()
+	FireLight1:Fire("TurnOn","",0)
+	FireLight1:Fire("Kill","",0.07)
+	self:DeleteOnRemove(FireLight1)
+	
+elseif self.BookSimon_TMP then
+	local flash = ents.Create("env_muzzleflash")
+	flash:SetPos(self:GetAttachment(self:LookupAttachment("tmp")).Pos)
+	flash:SetKeyValue("scale","1")
+	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
+	flash:Fire("Fire",0,0)
+
+	local FireLight1 = ents.Create("light_dynamic")
+	FireLight1:SetKeyValue("brightness", "4")
+	FireLight1:SetKeyValue("distance", "120")
+	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment("tmp")).Pos)
+	FireLight1:SetLocalAngles(self:GetAngles())
+	FireLight1:Fire("Color", "255 150 60")
+	FireLight1:SetParent(self)
+	FireLight1:Spawn()
+	FireLight1:Activate()
+	FireLight1:Fire("TurnOn","",0)
+	FireLight1:Fire("Kill","",0.07)
+	self:DeleteOnRemove(FireLight1)
+	
+elseif self.BookSimon_M16 then
+	local flash = ents.Create("env_muzzleflash")
+	flash:SetPos(self:GetAttachment(self:LookupAttachment("m16")).Pos)
+	flash:SetKeyValue("scale","1")
+	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
+	flash:Fire("Fire",0,0)
+
+	local FireLight1 = ents.Create("light_dynamic")
+	FireLight1:SetKeyValue("brightness", "4")
+	FireLight1:SetKeyValue("distance", "120")
+	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment("m16")).Pos)
+	FireLight1:SetLocalAngles(self:GetAngles())
+	FireLight1:Fire("Color", "255 150 60")
+	FireLight1:SetParent(self)
+	FireLight1:Spawn()
+	FireLight1:Activate()
+	FireLight1:Fire("TurnOn","",0)
+	FireLight1:Fire("Kill","",0.07)
+	self:DeleteOnRemove(FireLight1)		
+end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
+	if self.BookSimon_Shotgun then
 	local bullet = {}
 		bullet.Num = 6
 		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
-		bullet.Spread = Vector(45,45,45)
+		bullet.Spread = Vector(60,50,40)
 		bullet.Tracer = 6
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
@@ -212,11 +323,58 @@ function ENT:CustomRangeAttackCode()
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
-		VJ_EmitSound(self, "vj_cofr/cof/booksimon/shoot.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/booksimon/shotgun_fire.wav", 100, 100)
 	    timer.Simple(0.5,function() if IsValid(self) then
-	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 75, 100)
-     end	
-  end)	
+	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 75, 100) end end)
+		
+elseif self.BookSimon_Glock then
+	local bullet = {}
+		bullet.Num = 1
+		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
+		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
+		bullet.Spread = Vector(50,40,30)
+		bullet.Tracer = 1
+		bullet.TracerName = "Tracer"
+		bullet.Force = 4
+		bullet.Damage = 10
+		bullet.AmmoType = "SMG1"
+	    self:FireBullets(bullet)
+	    self.BookSimon_FiredAtLeastOnce = true
+	    self:BookSimon_DoFireEffects()
+		VJ_EmitSound(self, "vj_cofr/cof/booksimon/glock_fire.wav", 100, 100)
+		
+elseif self.BookSimon_TMP then
+	local bullet = {}
+		bullet.Num = 1
+		bullet.Src = self:GetAttachment(self:LookupAttachment("tmp")).Pos
+		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
+		bullet.Spread = Vector(60,50,40)
+		bullet.Tracer = 1
+		bullet.TracerName = "Tracer"
+		bullet.Force = 4
+		bullet.Damage = 4
+		bullet.AmmoType = "SMG1"
+	    self:FireBullets(bullet)
+	    self.BookSimon_FiredAtLeastOnce = true
+	    self:BookSimon_DoFireEffects()
+		VJ_EmitSound(self, "vj_cofr/cof/booksimon/tmp_fire.wav", 100, 100)
+		
+elseif self.BookSimon_M16 then
+	local bullet = {}
+		bullet.Num = 1
+		bullet.Src = self:GetAttachment(self:LookupAttachment("m16")).Pos
+		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
+		bullet.Spread = Vector(50,40,30)
+		bullet.Tracer = 1
+		bullet.TracerName = "Tracer"
+		bullet.Force = 4
+		bullet.Damage = 12
+		bullet.AmmoType = "SMG1"
+	    self:FireBullets(bullet)
+	    self.BookSimon_FiredAtLeastOnce = true
+	    self:BookSimon_DoFireEffects()
+		VJ_EmitSound(self, "vj_cofr/cof/booksimon/m16_fire.wav", 100, 100)				
+    end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)

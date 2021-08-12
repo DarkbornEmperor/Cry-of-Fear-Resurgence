@@ -16,7 +16,6 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.AnimTbl_RangeAttack = {ACT_IDLE}
 ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeDistance = 2600
 ENT.RangeToMeleeDistance = 1
@@ -112,11 +111,11 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-25) -self:GetPos()
-		bullet.Spread = Vector(30,30,30)
+		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 15
+		bullet.Damage = 12
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 100, 100)

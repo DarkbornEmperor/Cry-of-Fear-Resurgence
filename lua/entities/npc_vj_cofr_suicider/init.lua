@@ -16,7 +16,6 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true 
 ENT.DisableDefaultRangeAttackCode = true 
 ENT.DisableRangeAttackAnimation = true 
-ENT.AnimTbl_RangeAttack = {ACT_IDLE} 
 ENT.RangeAttackAnimationStopMovement = false 
 ENT.RangeDistance = 2000 
 ENT.RangeToMeleeDistance = 1 
@@ -140,11 +139,11 @@ function ENT:CustomRangeAttackCode()
 		bullet.Num = 1
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-45) -self:GetPos()
-		bullet.Spread = Vector(35,35,35)
+		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 5
-		bullet.Damage = 20
+		bullet.Damage = 10
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 		VJ_EmitSound(self, "vj_cofr/cof/suicider/suicider_glock_fire.wav", 100, 100)
