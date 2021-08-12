@@ -5,5 +5,5 @@
 	"$basetexture" "vj_cofr/decals/cof_blood05"
 	"$decal" 1
 	"$Size"		"25 25"
-	"$decalscale" 	0.05
+	"$decalscale" 	0.08
 }
