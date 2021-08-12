@@ -55,6 +55,7 @@ ENT.SoundTbl_Impact = {
 ENT.Faster_Type = 0
  	-- 0 = Female
 	-- 1 = Male
+	-- 2 = Out of It
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_CustomOnInitialize()
 if self.Faster_Type == 1 then
@@ -83,7 +84,9 @@ function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_cofr/cof/faster.mdl" then // Already the default
 		self.Faster_Type = 0
 	elseif self:GetModel() == "models/vj_cofr/cof/faster2.mdl" then
-		self.Faster_Type = 1			
+		self.Faster_Type = 1
+	elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
+		self.Faster_Type = 2			
 end
      self:Faster_CustomOnInitialize()
 end

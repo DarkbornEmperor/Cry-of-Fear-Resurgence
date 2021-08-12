@@ -50,7 +50,7 @@ ENT.EntitiesToSpawn = {
     "npc_vj_cofrc_fasterclown:60",
     "npc_vj_cofrc_psychopumpkin:60",
 	"npc_vj_cofrc_babyswimmer:60",
-	"npc_vj_cofrc_fasterfemale:60",
+	"npc_vj_cofrc_fasterooi:60",
 	"npc_vj_cofrc_slower3dream:60"
 }},
 }

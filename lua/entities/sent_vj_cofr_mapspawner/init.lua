@@ -37,7 +37,7 @@ ENT.Monster = {
 	{class="npc_vj_cofrc_psychopumpkin",chance=70},
 	{class="npc_vj_cofrc_crazyrumpel",chance=70},	
 	{class="npc_vj_cofrc_babyswimmer",chance=70},	
-	{class="npc_vj_cofrc_fasterfemale",chance=70},
+	{class="npc_vj_cofrc_fasterooi",chance=70},
 	{class="npc_vj_cofrc_slower3dream",chance=70},	
 }
 

@@ -76,7 +76,7 @@ if VJExists == true then
     VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)		
     VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)
-    VJ.AddNPC("Faster (Female)","npc_vj_cofrc_fasterfemale",vCat)		
+    VJ.AddNPC("Faster (Out of It)","npc_vj_cofrc_fasterooi",vCat)		
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
 
