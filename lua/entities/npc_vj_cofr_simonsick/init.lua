@@ -63,7 +63,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
     ply:ChatPrint("E: Telekinesis Attack")
-	ply:ChatPrint("SPACE: Spawn Twisters")
+	ply:ChatPrint("SPACE: Summon Twisters")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
@@ -71,7 +71,7 @@ function ENT:CustomOnThink_AIEnabled()
 	
  	if IsValid(self:GetEnemy()) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		if self.VJ_IsBeingControlled == true then
-			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Spawning Twisters! Cool Down: 20 seconds!")
+			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Summoning Twisters! Cool Down: 20 seconds!")
 end		
 		self.Twister1 = ents.Create("npc_vj_cofr_twister")
 		self.Twister1:SetPos(self:GetPos() + self:GetRight()*40 + self:GetUp()*10)

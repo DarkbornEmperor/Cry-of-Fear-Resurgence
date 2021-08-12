@@ -56,11 +56,11 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
-	ply:ChatPrint("SPACE: Spawn Faceless")
+	ply:ChatPrint("SPACE: Summon Faceless")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true then return end
+    if self.Dead == true or GetConVarNumber("VJ_COFR_FaceHead_SummonFaceless") == 0 then return end
 	
  	if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.Faceless1) && !IsValid(self.Faceless2) && !IsValid(self.Faceless3) && !IsValid(self.Faceless4) && !IsValid(self.Faceless5) && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		if self.VJ_IsBeingControlled == true then
