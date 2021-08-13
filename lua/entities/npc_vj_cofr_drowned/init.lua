@@ -134,7 +134,7 @@ function ENT:CustomRangeAttackCode()
 	if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
 	timer.Simple(5,function() if IsValid(self) && self:Visible(self:GetEnemy()) && self.Dead == false then
 		self:GetEnemy():TakeDamage(200,self,self)
-		if self:GetEnemy():IsPlayer() then self:Drowned_Damage() end
+        self:Drowned_Damage() 
 	    self.Drowned_NextEnemyDamage = CurTime() + 5
      end		
    end)		
