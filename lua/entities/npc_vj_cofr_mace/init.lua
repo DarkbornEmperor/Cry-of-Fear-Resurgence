@@ -105,7 +105,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
-	    dmginfo:ScaleDamage(0.25)
+	    dmginfo:ScaleDamage(0.15)
 	else
 	    dmginfo:ScaleDamage(0.00)
     end			
