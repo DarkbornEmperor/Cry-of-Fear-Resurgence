@@ -61,11 +61,11 @@ function ENT:CustomOnThink_AIEnabled()
 	         if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
 
 	         if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+			   self.Dreamer_Jumpscare = true
 	           self:DrawShadow(true)
+			   self:SetGroundEntity(NULL)
                self:SetMaterial() 	
              timer.Simple(1,function() if IsValid(self) then	
-	           self:SetGroundEntity(NULL)
-	           self.Dreamer_Jumpscare = true
 	           self:Remove()
 			   return
             end	
