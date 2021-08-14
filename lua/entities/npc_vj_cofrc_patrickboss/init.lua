@@ -1,0 +1,25 @@
+AddCSLuaFile("shared.lua")
+include('shared.lua')
+/*-----------------------------------------------
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
+	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/
+ENT.Model = {"models/vj_cofr/custom/saw_bateman.mdl"} 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Sawrunner_CustomOnInitialize()
+    self.SoundTbl_Breath = {
+	"vj_cofr/cof/sawer/chainsaw_loop.wav"
+}
+    self.SoundTbl_Alert = {
+	"vj_cofr/cof/patrick/patrick_scream.wav"
+}
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/cof/patrick/patrick_attack.wav"
+}
+end
+/*-----------------------------------------------
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
+	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/

@@ -28,7 +28,6 @@ if VJExists == true then
 	VJ.AddNPC("Dreamer (Runner)","npc_vj_cofr_dreamerrunner",vCat)	
     VJ.AddNPC("Drowned","npc_vj_cofr_drowned",vCat)
 	VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat)
-	VJ.AddNPC("Faceless (Boss)","npc_vj_cofr_facelessboss",vCat)
     VJ.AddNPC("Faceless (Crawler)","npc_vj_cofr_faceless2",vCat)
     VJ.AddNPC("Faceless (Faced)","npc_vj_cofr_faced",vCat)
     VJ.AddNPC("Faceless (Twister)","npc_vj_cofr_twister",vCat)
@@ -36,8 +35,7 @@ if VJExists == true then
     VJ.AddNPC("Faster","npc_vj_cofr_faster",vCat)
 	VJ.AddNPC("Faster (Male)","npc_vj_cofr_fastermale",vCat)
 	VJ.AddNPC("Flygare","npc_vj_cofr_flygare",vCat)	
-	VJ.AddNPC("Krypandenej","npc_vj_cofr_krypandenej",vCat)
-	VJ.AddNPC("Patrick Bateman","npc_vj_cofr_patrick",vCat)
+	VJ.AddNPC("Krypandenej","npc_vj_cofr_krypandenej",vCat)	
     VJ.AddNPC("Psycho","npc_vj_cofr_psycho",vCat)	
  	VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",vCat)	
 	VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",vCat)	
@@ -78,13 +76,20 @@ if VJExists == true then
     VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)		
     VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)
-    VJ.AddNPC("Faster (Out of It)","npc_vj_cofrc_fasterooi",vCat)	
+    VJ.AddNPC("Faster (Out of It)","npc_vj_cofrc_fasterooi",vCat)
+	VJ.AddNPC("Patrick Bateman","npc_vj_cofrc_patrick",vCat)
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
 
     -- Bosses --
+	VJ.AddNPC("Sick Simon (Book)","npc_vj_cofrc_simonbooksick",vCat)	
+	VJ.AddNPC("Craigrunner","npc_vj_cofrc_craigrunner",vCat)
 	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)
+	VJ.AddNPC("Faceless (Boss)","npc_vj_cofrc_facelessboss",vCat)
+	VJ.AddNPC("Jeffrunner","npc_vj_cofrc_jeffrunner",vCat)	
     VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_maceswimmer",vCat)	
+	VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrc_patrickboss",vCat)
+	VJ.AddNPC("Simon Henriksson","npc_vj_cofrc_simon",vCat)	
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)
 
     -- CoF Random & Spawners --
@@ -190,8 +195,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/watro.mdl")
-    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")
-    util.PrecacheModel("models/vj_cofr/cof/patrick.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")
@@ -232,6 +236,11 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/baby_swimmer2.mdl")
     util.PrecacheModel("models/vj_cofr/custom/mace_swimmer.mdl") 
     util.PrecacheModel("models/vj_cofr/custom/slower3_dream.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/craigrunnner.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/jeffrunner.mdl") 
+    util.PrecacheModel("models/vj_cofr/custom/saw_bateman.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/patrick.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/faceless_boss.mdl")	
 
 	-- ConVars --
 	local AddConvars = {}
