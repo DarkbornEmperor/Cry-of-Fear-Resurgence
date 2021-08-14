@@ -28,6 +28,7 @@ if VJExists == true then
 	VJ.AddNPC("Dreamer (Runner)","npc_vj_cofr_dreamerrunner",vCat)	
     VJ.AddNPC("Drowned","npc_vj_cofr_drowned",vCat)
 	VJ.AddNPC("Faceless","npc_vj_cofr_faceless",vCat)
+	VJ.AddNPC("Faceless (Boss)","npc_vj_cofr_facelessboss",vCat)
     VJ.AddNPC("Faceless (Crawler)","npc_vj_cofr_faceless2",vCat)
     VJ.AddNPC("Faceless (Faced)","npc_vj_cofr_faced",vCat)
     VJ.AddNPC("Faceless (Twister)","npc_vj_cofr_twister",vCat)

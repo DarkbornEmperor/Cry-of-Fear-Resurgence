@@ -51,7 +51,10 @@ ENT.EntitiesToSpawn = {
     "npc_vj_cofrc_psychopumpkin:60",
 	"npc_vj_cofrc_babyswimmer:60",
 	"npc_vj_cofrc_fasterooi:60",
-	"npc_vj_cofrc_slower3dream:60"
+	"npc_vj_cofrc_slower3dream:60",
+	"npc_vj_cofrc_slowernoboss:60",
+	"npc_vj_cofr_facelessboss:60",
+	"npc_vj_cofr_patrick:60"
 }},
 }
 /*-----------------------------------------------
