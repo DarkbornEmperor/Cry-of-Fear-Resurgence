@@ -54,7 +54,11 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_slower3dream:60",
 	"npc_vj_cofrc_slowernoboss:60",
 	"npc_vj_cofrc_facelessboss:60",
-	"npc_vj_cofrc_patrick:60"
+	"npc_vj_cofrc_patrick:60",
+	"npc_vj_cofrc_genomesol:60",
+	"npc_vj_cofrc_genomegeneric:60",
+	"npc_vj_cofrc_pedoslow:60",
+	"npc_vj_cofrc_slowermummy:60"
 }},
 }
 /*-----------------------------------------------

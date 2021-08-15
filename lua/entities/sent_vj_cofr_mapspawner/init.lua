@@ -39,7 +39,11 @@ ENT.Monster = {
 	{class="npc_vj_cofrc_babyswimmer",chance=70},	
 	{class="npc_vj_cofrc_fasterooi",chance=70},
 	{class="npc_vj_cofrc_slower3dream",chance=70}, 	
-	{class="npc_vj_cofrc_patrick",chance=70},	
+	{class="npc_vj_cofrc_patrick",chance=70},
+	{class="npc_vj_cofrc_genomesol",chance=70},	
+	{class="npc_vj_cofrc_genomegeneric",chance=70},
+	{class="npc_vj_cofrc_pedoslow",chance=70}, 	
+	{class="npc_vj_cofrc_slowermummy",chance=70},	
 }
 
 ENT.BossMonster = {

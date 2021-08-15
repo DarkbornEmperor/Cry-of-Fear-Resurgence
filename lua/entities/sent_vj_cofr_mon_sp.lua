@@ -54,7 +54,11 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_slower3dream:60",
 	"npc_vj_cofrc_slowernoboss:60",
 	"npc_vj_cofrc_facelessboss:60",
-	"npc_vj_cofrc_patrick:60"	
+	"npc_vj_cofrc_patrick:60",
+	"npc_vj_cofrc_genomesol:60",
+	"npc_vj_cofrc_genomegeneric:60",
+	"npc_vj_cofrc_pedoslow:60",
+	"npc_vj_cofrc_slowermummy:60"		
 }},
 	{EntityName = "NPC2",SpawnPosition = {vForward=0,vRight=50,vUp=0},Entities = {
 	"npc_vj_cofr_slower1",
@@ -92,7 +96,11 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_slower3dream:60",
 	"npc_vj_cofrc_slowernoboss:60",
 	"npc_vj_cofrc_facelessboss:60",
-	"npc_vj_cofrc_patrick:60"
+	"npc_vj_cofrc_patrick:60",
+	"npc_vj_cofrc_genomesol:60",
+	"npc_vj_cofrc_genomegeneric:60",
+	"npc_vj_cofrc_pedoslow:60",
+	"npc_vj_cofrc_slowermummy:60"	
 }},
 	{EntityName = "NPC3",SpawnPosition = {vForward=100,vRight=50,vUp=0},Entities = {
 	"npc_vj_cofr_slower1",
@@ -130,7 +138,11 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_slower3dream:60",
 	"npc_vj_cofrc_slowernoboss:60",
 	"npc_vj_cofrc_facelessboss:60",
-	"npc_vj_cofrc_patrick:60"	
+	"npc_vj_cofrc_patrick:60",
+	"npc_vj_cofrc_genomesol:60",
+	"npc_vj_cofrc_genomegeneric:60",
+	"npc_vj_cofrc_pedoslow:60",
+	"npc_vj_cofrc_slowermummy:60"		
 }},
 	{EntityName = "NPC4",SpawnPosition = {vForward=100,vRight=-50,vUp=0},Entities = {
 	"npc_vj_cofr_slower1",
@@ -168,7 +180,11 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_slower3dream:60",
 	"npc_vj_cofrc_slowernoboss:60",
 	"npc_vj_cofrc_facelessboss:60",
-	"npc_vj_cofrc_patrick:60"	
+	"npc_vj_cofrc_patrick:60",
+	"npc_vj_cofrc_genomesol:60",
+	"npc_vj_cofrc_genomegeneric:60",
+	"npc_vj_cofrc_pedoslow:60",
+	"npc_vj_cofrc_slowermummy:60"		
 }},
 	{EntityName = "NPC5",SpawnPosition = {vForward=0,vRight=-50,vUp=0},Entities = {
 	"npc_vj_cofr_slower1",
@@ -206,7 +222,11 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_slower3dream:60",
 	"npc_vj_cofrc_slowernoboss:60",
 	"npc_vj_cofrc_facelessboss:60",
-	"npc_vj_cofrc_patrick:60"
+	"npc_vj_cofrc_patrick:60",
+	"npc_vj_cofrc_genomesol:60",
+	"npc_vj_cofrc_genomegeneric:60",
+	"npc_vj_cofrc_pedoslow:60",
+	"npc_vj_cofrc_slowermummy:60"	
 }},
 }
 /*-----------------------------------------------

@@ -77,7 +77,7 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",vCat)
 
 	-- Custom Campaigns --	
-	local vCat = "CoF Resurgence: Custom Campaigns" 
+	local vCat = "CoF Resurgence: CC/Misc" 
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofr.png"})
 	
     -- Enemies --
@@ -249,7 +249,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/faceless_boss.mdl")
     util.PrecacheModel("models/vj_cofr/custom/genome_soldier1.mdl")
     util.PrecacheModel("models/vj_cofr/custom/generic_genole.mdl")	
-    util.PrecacheModel("models/vj_cofr/custom/slowermummy.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/slowermummy.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/pedoslow.mdl")		
 
 	-- ConVars --
 	local AddConvars = {}
