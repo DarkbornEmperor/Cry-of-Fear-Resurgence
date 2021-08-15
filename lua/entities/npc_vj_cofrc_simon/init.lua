@@ -9,6 +9,7 @@ ENT.Model = {"models/vj_cofr/custom/bosssimon.mdl"}
 ENT.StartHealth = 100
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY","CLASS_UNITED_STATES_FRIENDLY","CLASS_PLAYER_ALLY","CLASS_UNITED_STATES_FRIENDLY"} 
 ENT.FriendsWithAllPlayerAllies = true
+ENT.NoChaseAfterCertainRange_FarDistance = 1500 
 ENT.HasSoundTrack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()
