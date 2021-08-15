@@ -10,6 +10,9 @@ ENT.StartHealth = 100
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY","CLASS_UNITED_STATES_FRIENDLY","CLASS_PLAYER_ALLY","CLASS_UNITED_STATES_FRIENDLY"} 
 ENT.FriendsWithAllPlayerAllies = true
 ENT.NoChaseAfterCertainRange_FarDistance = 1500 
+ENT.IsMedicSNPC = true
+ENT.AnimTbl_Medic_GiveHealth = {"vjseq_sledgeflare_attack3"}
+ENT.Medic_SpawnPropOnHeal = false 
 ENT.HasSoundTrack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()

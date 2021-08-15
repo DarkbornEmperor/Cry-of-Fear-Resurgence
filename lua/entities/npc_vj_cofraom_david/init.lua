@@ -28,6 +28,9 @@ ENT.NoChaseAfterCertainRange = false
 ENT.NoChaseAfterCertainRange_FarDistance = 1500 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.IsMedicSNPC = true
+ENT.AnimTbl_Medic_GiveHealth = {"vjges_ref_shoot_crowbar"}
+ENT.Medic_SpawnPropOnHeal = false 
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -131,6 +134,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetShotgun()
     self.AnimTbl_IdleStand = {ACT_IDLE_STEALTH}
+	self.AnimTbl_Walk = {ACT_WALK_STEALTH}
+	self.AnimTbl_Run = {ACT_RUN_STEALTH}
 	self.AnimTbl_RangeAttack = {"vjges_ref_shoot_shotgun"}
 	self:SetBodygroup(3,1)
 	self.HasMeleeAttack = false
@@ -143,6 +148,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetGlock()
 	self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
+	self.AnimTbl_Walk = {ACT_WALK_HURT}
+	self.AnimTbl_Run = {ACT_RUN_HURT}	
 	self.AnimTbl_RangeAttack = {"vjges_ref_shoot_onehanded"}
 	self:SetBodygroup(2,1)
 	self.HasMeleeAttack = false
@@ -155,6 +162,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetKnife()
     self.AnimTbl_IdleStand = {ACT_IDLE}
+	self.AnimTbl_Walk = {ACT_WALK_RELAXED}
+	self.AnimTbl_Run = {ACT_RUN_RELAXED}	
 	self.AnimTbl_MeleeAttack = {"vjges_ref_shoot_crowbar"}
 	self:SetBodygroup(1,1)
 	self.HasMeleeAttack = true
