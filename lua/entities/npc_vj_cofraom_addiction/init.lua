@@ -146,7 +146,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
     local attacker = dmginfo:GetAttacker()
    if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
-       dmginfo:ScaleDamage(0.15)
+       dmginfo:ScaleDamage(1.00)
    else
 	   attacker:TakeDamage(10,attacker,attacker)
 	   dmginfo:ScaleDamage(0.00)
