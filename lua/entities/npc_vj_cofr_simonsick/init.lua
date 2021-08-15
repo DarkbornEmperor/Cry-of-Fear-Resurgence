@@ -67,7 +67,7 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true then return end
+    if self.Dead == true or !IsValid(self:GetEnemy()) then return end
 	
  	if IsValid(self:GetEnemy()) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		if self.VJ_IsBeingControlled == true then
@@ -132,7 +132,7 @@ end
 			self.Prop2:Spawn()
 			self.Prop2:Activate()			
 			self:DeleteOnRemove(self.Prop2)
-			
+/*			
             self.Prop3 = ents.Create("prop_physics") 
 			self.Prop3:SetModel(VJ_PICK(self.PropstoThrow))
 			self.Prop3:SetLocalPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*200 + self:GetUp()*60)
@@ -148,19 +148,19 @@ end
 			self.Prop4:Spawn()
 			self.Prop4:Activate()
 			self:DeleteOnRemove(self.Prop4)
-			
+*/			
             self.SickSimon_NextAttackT = CurTime() + 10
 			
 			for _,v in ipairs(ents.FindInSphere(self:GetPos(),99999999999999)) do
-            timer.Simple(7,function() if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self.Prop) && IsValid(self.Prop2) && IsValid(self.Prop3) && IsValid(self.Prop4) then 
+            timer.Simple(7,function() if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self.Prop) && IsValid(self.Prop2) then 
             self.Prop:Remove()
 			self.Prop2:Remove()
-			self.Prop3:Remove()
-			self.Prop4:Remove()
+			//self.Prop3:Remove()
+			//self.Prop4:Remove()
         end  
     end)
 end
-     for _,v in ipairs(ents.FindInSphere(self:GetPos(),1000)) do
+     for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
      if IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" && IsValid(self:GetEnemy()) then
             v:GetPhysicsObject():Wake()
             timer.Simple(1.2,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) then 

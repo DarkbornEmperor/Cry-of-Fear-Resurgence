@@ -151,7 +151,9 @@ function ENT:CustomRangeAttackCode()
 	    self:Suicider_DoFireEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)   
+	if GetConVarNumber("VJ_COFR_Slower_HeadGib") == 0 then return end
+	
 	if self.Suicider_DeathSuicide == false && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
 		self:SetBodygroup(0,1)
 	
