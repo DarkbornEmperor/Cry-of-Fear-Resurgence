@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/cof/drowned/hair"
+	"$basetexture" "models/vj_cofr/cof/crazyrunner/hair"
 	//"$translucent" 1
 	"$alphatest" 1
 }

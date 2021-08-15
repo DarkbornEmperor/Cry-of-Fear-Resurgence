@@ -70,16 +70,28 @@ if VJExists == true then
     VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)	
 	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
 
+    -- CoF Random & Spawners --
+	VJ.AddNPC("Monster Map Spawner","sent_vj_cofr_mapspawner",vCat)	
+	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
+    VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",vCat)
+	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",vCat)
+
 	-- Custom Campaigns --	
+	local vCat = "CoF Resurgence: Custom Campaigns" 
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofr.png"})
 	
     -- Enemies --
     VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_babyswimmer",vCat)		
     VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_fasterclown",vCat)
     VJ.AddNPC("Faster (Out of It)","npc_vj_cofrc_fasterooi",vCat)
+    VJ.AddNPC("Generic Genome","npc_vj_cofrc_genomegeneric",vCat)	
+    VJ.AddNPC("Genome Soldier","npc_vj_cofrc_genomesol",vCat)		
 	VJ.AddNPC("Patrick Bateman","npc_vj_cofrc_patrick",vCat)
+    VJ.AddNPC("Pedoslow","npc_vj_cofrc_pedoslow",vCat)		
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psychopumpkin",vCat)
-    VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)	
+    VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3dream",vCat)
+    VJ.AddNPC("Slower (Mummy)","npc_vj_cofrc_slowermummy",vCat)	
 
     -- Bosses --
 	VJ.AddNPC("Sick Simon (Book)","npc_vj_cofrc_simonbooksick",vCat)	
@@ -91,12 +103,6 @@ if VJExists == true then
 	VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrc_patrickboss",vCat)
 	VJ.AddNPC("Simon Henriksson","npc_vj_cofrc_simon",vCat)	
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowernoboss",vCat)
-
-    -- CoF Random & Spawners --
-	VJ.AddNPC("Monster Map Spawner","sent_vj_cofr_mapspawner",vCat)	
-	VJ.AddNPC("Random Monster","sent_vj_cofr_mon",vCat)	
-    VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",vCat)
-	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",vCat)
 	
 	-- Afraid of Monsters: Director's Cut --
 	vCat = "CoF Resurgence: AoM:DC"
@@ -240,7 +246,10 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/jeffrunner.mdl") 
     util.PrecacheModel("models/vj_cofr/custom/saw_bateman.mdl")
     util.PrecacheModel("models/vj_cofr/custom/patrick.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/faceless_boss.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/faceless_boss.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/genome_soldier1.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/generic_genole.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/slowermummy.mdl")	
 
 	-- ConVars --
 	local AddConvars = {}

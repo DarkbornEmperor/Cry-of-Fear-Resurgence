@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/custom/slower3dream/hair_2"
+	"$basetexture" "models/vj_cofr/cof/slower3/hair_2"
 	//"$translucent" 1
 	"$alphatest" 1
 }

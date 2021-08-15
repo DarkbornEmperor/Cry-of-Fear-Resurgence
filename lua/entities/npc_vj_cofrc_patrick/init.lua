@@ -9,10 +9,10 @@ ENT.Model = {"models/vj_cofr/custom/patrick.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Psycho_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/cof/patrick/patrick_scream.wav"
+	"vj_cofr/custom/patrick/patrick_scream.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/cof/patrick/patrick_attack.wav"
+	"vj_cofr/custom/patrick/patrick_attack.wav"
 }
 end
 /*-----------------------------------------------

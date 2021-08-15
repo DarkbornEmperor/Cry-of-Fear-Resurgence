@@ -88,9 +88,6 @@ elseif Slower_Body == 3 then
     self.Slower_Skin = 2
     self:SetBodygroup(0,2)	
 end	
-if math.random(1,3) == 1 then
-    self.Slower_HeadSplat = true
-end
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/slower/slower_alert10.wav",
 	"vj_cofr/cof/slower/slower_alert20.wav",
