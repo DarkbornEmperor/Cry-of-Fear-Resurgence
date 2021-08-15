@@ -84,11 +84,11 @@ end
 function ENT:CustomAttack()
 	if self.Dead == true or self.VJ_IsBeingControlled == true or GetConVarNumber("vj_npc_norange") == 1 then self.NoChaseAfterCertainRange = false return end
 	
-	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !self:Visible(self:GetEnemy()) then return end
+	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !IsValid(self:GetEnemy()) then return end
 	if CurTime() > self.Stranger_NextEnemyDamage then
-		//self:StopMoving()
+	if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100) end	
+		//self:StopMoving()		
 		self:GetEnemy():TakeDamage(10,self,self)
-	if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100) end
         self:Stranger_Damage() 
 	    self.Stranger_NextEnemyDamage = CurTime() + 0.5
 	end
