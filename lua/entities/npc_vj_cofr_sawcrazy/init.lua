@@ -22,7 +22,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8 
+ENT.DeathAnimationTime = 20 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --

@@ -61,6 +61,7 @@ if VJExists == true then
 	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
     VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)	
 	VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsick_sui",vCat)	
+	VJ.AddNPC("Simon Henriksson","npc_vj_cofrc_simon",vCat)	
 
 	-- Misc/Hazards --
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
@@ -101,7 +102,6 @@ if VJExists == true then
 	VJ.AddNPC("Jeffrunner","npc_vj_cofrc_jeffrunner",vCat)	
     VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_mace_swimmer",vCat)	
 	VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrc_patrick_boss",vCat)
-	VJ.AddNPC("Simon Henriksson","npc_vj_cofrc_simon",vCat)	
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowerno_boss",vCat)
 	
 	-- Afraid of Monsters: Director's Cut --
@@ -109,6 +109,7 @@ if VJExists == true then
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
 	
     -- Enemies --	
+    VJ.AddNPC("David Leatherhoff","npc_vj_cofraom_david",vCat)	
 	--VJ.AddNPC("Devourer","npc_vj_cofraom_mouth",vCat)	
     VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
@@ -201,7 +202,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/watro.mdl")
-    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/david.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")
@@ -247,6 +249,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/saw_bateman.mdl")
     util.PrecacheModel("models/vj_cofr/custom/patrick.mdl")
     util.PrecacheModel("models/vj_cofr/custom/faceless_boss.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/bosssimon.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/booksicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/genome_soldier1.mdl")
     util.PrecacheModel("models/vj_cofr/custom/generic_genole.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/slowermummy.mdl")

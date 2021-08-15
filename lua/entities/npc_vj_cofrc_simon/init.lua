@@ -76,7 +76,7 @@ function ENT:SetShotgun()
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
-	self.TimeUntilRangeAttackProjectileRelease = 0.5
+	self.TimeUntilRangeAttackProjectileRelease = 0.1
 	self.NextRangeAttackTime = 1	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ function ENT:SetGlock()
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.1
-	self.NextRangeAttackTime = 0.6		
+	self.NextRangeAttackTime = 0.2		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetM16()
