@@ -184,11 +184,15 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	else
        self.AnimTbl_Death = {ACT_DIE_HEADSHOT}		
 end
+    if self.Suicider_DeathSuicide == false then
+       self:DropGlock()
+end	   
 	if self.Suicider_DeathSuicide == true then
 		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
 		timer.Simple(0.5,function()
 			if IsValid(self) then
 			   self:SetBodygroup(0,1)
+			   self:DropGlock()
 				if self.HasGibDeathParticles == true then
 					local bloodeffect = EffectData()
 					bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -208,12 +212,46 @@ end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DropGlock() 
+    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") && !file.Exists("lua/entities/ent_cof_glock_ammo.lua","GAME") then return end
+	
+    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 1 && file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") && file.Exists("lua/entities/ent_cof_glock_ammo.lua","GAME") then
+	   self:SetBodygroup(1,1)
+	   
+	   local Glock = ents.Create("weapon_cof_glock")
+	   Glock:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
+	   Glock:SetLocalAngles(self:GetAngles())   
+	   //Glock:SetParent(self)
+	   Glock:Spawn()
+	   Glock:Activate()
+	   //self:DeleteOnRemove(Glock)
+   
+	   local GlockMag = ents.Create("ent_cof_glock_ammo")	   
+	   GlockMag:SetPos(self:GetPos() + self:OBBCenter())
+	   GlockMag:SetLocalAngles(self:GetAngles())	   
+	   //GlockMag:SetParent(self)
+	   GlockMag:Spawn()
+	   GlockMag:Activate()
+	   //self:DeleteOnRemove(GlockMag)
+	   
+		local phys = GlockMag:GetPhysicsObject()
+			if IsValid(phys) then
+				local dmgForce = (self.SavedDmgInfo.force / 40) + self:GetMoveVelocity() + self:GetVelocity()
+				if self.DeathAnimationCodeRan then
+					dmgForce = self:GetMoveVelocity() == defPos and self:GetGroundSpeedVelocity() or self:GetMoveVelocity()
+end
+				phys:SetMass(1)
+				phys:ApplyForceCenter(dmgForce)
+	     end   
+    end 	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup) 
 return false 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)  
+       self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()

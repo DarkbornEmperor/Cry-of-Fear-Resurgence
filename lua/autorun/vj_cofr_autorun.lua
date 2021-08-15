@@ -260,6 +260,7 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Sawcrazy_RadiusDamage"] = 0
 	AddConvars["VJ_COFR_FaceHead_SummonFaceless"] = 1
 	AddConvars["VJ_COFR_Slower_HeadGib"] = 1
+	AddConvars["VJ_COFR_Suicider_DropGlock"] = 1	
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
@@ -297,6 +298,7 @@ end
 				VJ_COFR_Sawcrazy_RadiusDamage = "0",
 				VJ_COFR_FaceHead_SummonFaceless = "1",
 				VJ_COFR_Slower_HeadGib = "1",
+				VJ_COFR_Suicider_DropGlock = "1",
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
@@ -305,7 +307,8 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable self-damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable radius damage for Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable The Face to summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
-            Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers?", Command ="VJ_COFR_Slower_HeadGib"})			
+            Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers?", Command ="VJ_COFR_Slower_HeadGib"})
+            Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks & ammo on death?", Command ="VJ_COFR_Suicider_DropGlock"})			
             Panel:AddPanel(typebox)
 
 end

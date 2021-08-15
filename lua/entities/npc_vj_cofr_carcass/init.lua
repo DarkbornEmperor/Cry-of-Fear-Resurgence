@@ -28,7 +28,6 @@ ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.RangeUseAttachmentForPos = true 
 ENT.RangeUseAttachmentForPosID = "range"
 ENT.NextRangeAttackTime = 20
-ENT.NextRangeAttackTime_DoRand = 20 
 ENT.NoChaseAfterCertainRange = true 
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" 
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" 
