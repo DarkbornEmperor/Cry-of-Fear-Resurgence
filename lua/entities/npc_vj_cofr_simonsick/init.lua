@@ -73,7 +73,7 @@ function ENT:CustomOnThink_AIEnabled()
 		if self.VJ_IsBeingControlled == true then
 			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Summoning Twisters! Cool Down: 20 seconds!")
 end		
-		self.Twister1 = ents.Create("npc_vj_cofr_twister")
+		self.Twister1 = ents.Create("npc_vj_cofr_faceless_twister")
 		self.Twister1:SetPos(self:GetPos() + self:GetRight()*40 + self:GetUp()*10)
 		self.Twister1:SetAngles(self:GetAngles())
 		self.Twister1:Spawn()
@@ -81,7 +81,7 @@ end
 		self.Twister1:Activate()
 		self:DeleteOnRemove(self.Twister1)		
 		
-		self.Twister2 = ents.Create("npc_vj_cofr_twister")
+		self.Twister2 = ents.Create("npc_vj_cofr_faceless_twister")
 		self.Twister2:SetPos(self:GetPos() + self:GetRight()*-40 + self:GetUp()*10)
 		self.Twister2:SetAngles(self:GetAngles())
 		self.Twister2:Spawn()
@@ -89,7 +89,7 @@ end
 	    self.Twister2:Activate()
 		self:DeleteOnRemove(self.Twister2)	
 		
-		self.Twister3 = ents.Create("npc_vj_cofr_twister")
+		self.Twister3 = ents.Create("npc_vj_cofr_faceless_twister")
 		self.Twister3:SetPos(self:GetPos() + self:GetRight()*80 + self:GetUp()*10)
 		self.Twister3:SetAngles(self:GetAngles())
 		self.Twister3:Spawn()
@@ -97,7 +97,7 @@ end
 		self.Twister3:Activate()
 		self:DeleteOnRemove(self.Twister3)			
 		
-		self.Twister4 = ents.Create("npc_vj_cofr_twister")
+		self.Twister4 = ents.Create("npc_vj_cofr_faceless_twister")
 		self.Twister4:SetPos(self:GetPos() + self:GetRight()*-80 + self:GetUp()*10)
 		self.Twister4:SetAngles(self:GetAngles())
 		self.Twister4:Spawn()
@@ -105,7 +105,7 @@ end
 		self.Twister4:Activate()
 		self:DeleteOnRemove(self.Twister4)			
 
-		self.Twister5 = ents.Create("npc_vj_cofr_twisterv")
+		self.Twister5 = ents.Create("npc_vj_cofr_faceless_twisterv")
 		self.Twister5:SetPos(self:GetPos() + self:GetForward()*-90 + self:GetUp()*10)
 		self.Twister5:SetAngles(self:GetAngles())
 		self.Twister5:Spawn()

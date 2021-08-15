@@ -98,7 +98,7 @@ end
 		self.Faceless4:Activate()
 		self:DeleteOnRemove(self.Faceless4)			
 
-		self.Faceless5 = ents.Create("npc_vj_cofr_faceless2")
+		self.Faceless5 = ents.Create("npc_vj_cofr_faceless_crawler")
 		self.Faceless5:SetPos(self:GetPos() + self:GetForward()*-90 + self:GetUp()*10)
 		self.Faceless5:SetAngles(self:GetAngles())
 		self.Faceless5:Spawn()
@@ -106,7 +106,7 @@ end
 		self.Faceless5:Activate()
 		self:DeleteOnRemove(self.Faceless5)
 
-		self.Faceless6 = ents.Create("npc_vj_cofr_faceless2")
+		self.Faceless6 = ents.Create("npc_vj_cofr_faceless_crawler")
 		self.Faceless6:SetPos(self:GetPos() + self:GetForward()*90 + self:GetUp()*10)
 		self.Faceless6:SetAngles(self:GetAngles())
 		self.Faceless6:Spawn()
