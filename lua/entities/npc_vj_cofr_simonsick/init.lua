@@ -124,44 +124,26 @@ end
 			self.Prop:Spawn()
 			self.Prop:Activate()
 			self:DeleteOnRemove(self.Prop)
-/*			
+		
             self.Prop2 = ents.Create("prop_physics") 
 			self.Prop2:SetModel(VJ_PICK(self.PropstoThrow))
-			self.Prop2:SetLocalPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*-400 + self:GetUp()*60)
+			self.Prop2:SetLocalPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*200 + self:GetUp()*60)
 			self.Prop2:SetOwner(self)
 			self.Prop2:Spawn()
-			self.Prop2:Activate()			
-			self:DeleteOnRemove(self.Prop2)
-*/			
-            self.Prop3 = ents.Create("prop_physics") 
-			self.Prop3:SetModel(VJ_PICK(self.PropstoThrow))
-			self.Prop3:SetLocalPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*200 + self:GetUp()*60)
-			self.Prop3:SetOwner(self)
-			self.Prop3:Spawn()
-			self.Prop3:Activate()
-			self:DeleteOnRemove(self.Prop3)	
-/*			
-            self.Prop4 = ents.Create("prop_physics") 
-			self.Prop4:SetModel(VJ_PICK(self.PropstoThrow))
-			self.Prop4:SetLocalPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*400 + self:GetUp()*60)
-			self.Prop4:SetOwner(self)
-			self.Prop4:Spawn()
-			self.Prop4:Activate()
-			self:DeleteOnRemove(self.Prop4)
-*/			
+			self.Prop2:Activate()
+			self:DeleteOnRemove(self.Prop2)	
+		
             self.SickSimon_NextAttackT = CurTime() + 10
 			
-			for _,v in ipairs(ents.FindInSphere(self:GetPos(),99999999999999)) do
-            timer.Simple(7,function() if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self.Prop) && IsValid(self.Prop3) then 
+			for _,v in ipairs(ents.FindInSphere(self:GetPos(),99999999)) do
+            timer.Simple(10,function() if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self.Prop) && IsValid(self.Prop2) then 
             self.Prop:Remove()
-			//self.Prop2:Remove()
-			self.Prop3:Remove()
-			//self.Prop4:Remove()
+			self.Prop2:Remove()
         end  
     end)
 end
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
-     if IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" && IsValid(self:GetEnemy()) then
+     if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" && IsValid(self:GetEnemy()) then
             v:GetPhysicsObject():Wake()
             timer.Simple(1.2,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) then 
             v:GetPhysicsObject():SetVelocity(v:GetUp()*100)
@@ -179,7 +161,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-     for _,v in ipairs(ents.FindInSphere(self:GetPos(),1000)) do
+     for _,v in ipairs(ents.FindInSphere(self:GetPos(),800)) do
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" then
 			v:GetPhysicsObject():EnableGravity(true)
 end
@@ -189,7 +171,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-     for _,v in ipairs(ents.FindInSphere(self:GetPos(),1000)) do
+     for _,v in ipairs(ents.FindInSphere(self:GetPos(),800)) do
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" then
 			self:GetPhysicsObject():EnableGravity(true)
 		end	
