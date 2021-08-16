@@ -9,7 +9,9 @@ ENT.Model = {"models/vj_cofr/cof/krypandenej.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/cof/krypandenej/scream.wav",
+	"vj_cofr/cof/slower/slower_alert10.wav",
+	"vj_cofr/cof/slower/slower_alert20.wav",
+	"vj_cofr/cof/slower/slower_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
 	"vj_cofr/cof/slower/slower_attack1.wav",
@@ -25,11 +27,11 @@ function ENT:Slower_CustomOnInitialize()
 }
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/krypandenej/scream.wav"}) 	
+    end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
