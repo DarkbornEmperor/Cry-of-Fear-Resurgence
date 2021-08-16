@@ -224,7 +224,7 @@ function ENT:DropGlock()
 	   //Glock:SetParent(self)
 	   Glock:Spawn()
 	   Glock:Activate()
-	   self:DeleteOnRemove(Glock)
+	   //self:DeleteOnRemove(Glock)
    
 	   local GlockMag = ents.Create("ent_cof_glock_ammo")	   
 	   GlockMag:SetPos(self:GetPos() + self:OBBCenter())
@@ -232,7 +232,7 @@ function ENT:DropGlock()
 	   //GlockMag:SetParent(self)
 	   GlockMag:Spawn()
 	   GlockMag:Activate()
-	   self:DeleteOnRemove(GlockMag)
+	   //self:DeleteOnRemove(GlockMag)
 	   
 		local phys = GlockMag:GetPhysicsObject()
 			if IsValid(phys) then

@@ -65,7 +65,7 @@ function ENT:CustomOnThink_AIEnabled()
 	           self:DrawShadow(true)
 			   self:SetGroundEntity(NULL)
                self:SetMaterial() 	
-             timer.Simple(1,function() if IsValid(self) then	
+             timer.Simple(1.25,function() if IsValid(self) then	
 	           self:Remove()
 			   return
             end	
