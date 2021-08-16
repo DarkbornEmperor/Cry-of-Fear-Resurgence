@@ -313,7 +313,7 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable self-damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable radius damage for Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable The Face to summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
-            Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers?", Command ="VJ_COFR_Slower_HeadGib"})
+            Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers & Suiciders?", Command ="VJ_COFR_Slower_HeadGib"})
             Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks & ammo on death?", Command ="VJ_COFR_Suicider_DropGlock"})			
             Panel:AddPanel(typebox)
 
