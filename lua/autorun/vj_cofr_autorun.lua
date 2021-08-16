@@ -254,7 +254,9 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/genome_soldier1.mdl")
     util.PrecacheModel("models/vj_cofr/custom/generic_genole.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/slowermummy.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/pedoslow.mdl")		
+    util.PrecacheModel("models/vj_cofr/custom/pedoslow.mdl")	
+    util.PrecacheModel("models/cof/weapons/glock/w_glock.mdl")
+    util.PrecacheModel("models/cof/ammo/clip.mdl")	
 
 	-- ConVars --
 	local AddConvars = {}
