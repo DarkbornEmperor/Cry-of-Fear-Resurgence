@@ -110,7 +110,7 @@ if VJExists == true then
 	
     -- Enemies --	
     VJ.AddNPC("David Leatherhoff","npc_vj_cofraom_david",vCat)	
-	--VJ.AddNPC("Devourer","npc_vj_cofraom_mouth",vCat)	
+	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
     VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
     VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)	
