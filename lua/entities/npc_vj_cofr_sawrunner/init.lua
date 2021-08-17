@@ -64,6 +64,8 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.BreathSoundLevel = 75
+-- Custom 
+ENT.Sawrunner_NextSpecialAlertT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
@@ -116,9 +118,14 @@ end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
-    if math.random(1,3) == 1 then
-	    VJ_EmitSound(self, "vj_cofr/cof/sawrunner/sawrunnerhello.wav", 100, 100)
-    end
+	if self.HasSounds == true then
+    if math.random(1,3) == 1 && CurTime() > self.Sawrunner_NextSpecialAlertT then
+        self.Sawrunner_SpecialAlert = CreateSound(self, "vj_cofr/cof/sawrunner/sawrunnerhello.wav") 
+		self.Sawrunner_SpecialAlert:SetSoundLevel(100)
+		self.Sawrunner_SpecialAlert:PlayEx(100,100)		
+		self.Sawrunner_NextSpecialAlertT = CurTime() + math.random(5,8)
+	 end
+  end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
@@ -145,6 +152,10 @@ function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
 		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.Sawrunner_SpecialAlert)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
