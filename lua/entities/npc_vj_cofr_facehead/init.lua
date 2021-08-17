@@ -25,6 +25,7 @@ ENT.MeleeAttackDamageAngleRadius = 180
 ENT.DisableMeleeAttackAnimation = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
+ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -34,6 +35,9 @@ ENT.VJC_Data = {
 }	
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_SoundTrack = {
+"vj_cofr/cof/facehead/sirensfromhell.mp3"
+}
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh6.wav",
@@ -41,6 +45,12 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.FaceHead_NextFacelessSpawnT = 0
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end
+end
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FaceHead_CustomOnInitialize()
     self.SoundTbl_Breath = {

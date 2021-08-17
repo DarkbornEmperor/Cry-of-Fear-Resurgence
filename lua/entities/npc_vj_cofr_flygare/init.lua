@@ -10,7 +10,7 @@ ENT.StartHealth = 100
 ENT.HullType = HULL_MEDIUM
 ENT.MovementType = VJ_MOVETYPE_AERIAL 
 ENT.Aerial_FlyingSpeed_Calm = 150 
-ENT.Aerial_FlyingSpeed_Alerted = 350 
+ENT.Aerial_FlyingSpeed_Alerted = 500 
 ENT.Aerial_AnimTbl_Calm = {"forward"} 
 ENT.Aerial_AnimTbl_Alerted = {"forward"} 
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
@@ -21,8 +21,8 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20 
-ENT.MeleeAttackDistance = 40 
-ENT.MeleeAttackDamageDistance = 70
+ENT.MeleeAttackDistance = 30 
+ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
 ENT.RangeDistance = 2048
@@ -86,7 +86,7 @@ function ENT:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(25, 25, 60), Vector(-25, -25, -10))
+     self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
      self:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
