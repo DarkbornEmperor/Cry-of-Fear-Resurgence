@@ -145,6 +145,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    VJ_STOPSOUND(self.Sawrunner_SpecialAlert)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 end  
 ---------------------------------------------------------------------------------------------------------------------------------------------
