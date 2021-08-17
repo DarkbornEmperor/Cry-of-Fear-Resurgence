@@ -84,14 +84,16 @@ end
 function ENT:CustomAttack()
 	if self.Dead == true or self.VJ_IsBeingControlled == true or GetConVarNumber("vj_npc_norange") == 1 then self.NoChaseAfterCertainRange = false return end
 	
-	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !IsValid(self:GetEnemy()) then return end
+    local ent = self:GetEnemy()	
+	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) && !self:Visible(ent) then return end
 	if CurTime() > self.Stranger_NextEnemyDamage then
-	if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100) end	
-		//self:StopMoving()		
-		self:GetEnemy():TakeDamage(10,self,self)
+	if self.HasSounds == true && self:Visible(ent) then VJ_EmitSound(ent, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100) end
+    if self:Visible(self:GetEnemy()) && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then	
+		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
 	    self.Stranger_NextEnemyDamage = CurTime() + 0.5
-	end
+     end		
+  end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
@@ -107,7 +109,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	end
 end  
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup) 
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

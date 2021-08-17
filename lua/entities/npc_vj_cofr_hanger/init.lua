@@ -50,6 +50,7 @@ function ENT:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	 self:SetMaterial("hud/killicons/default")
      self:DrawShadow(false)
      self:AddFlags(FL_NOTARGET)
      self:Hanger_CustomOnInitialize()
@@ -68,6 +69,7 @@ function ENT:CustomOnThink_AIEnabled()
 			   self.Hanger_Death = true
 			   self:SetGroundEntity(NULL)
 	           self:DrawShadow(true)
+			   self:SetMaterial() 
 	        timer.Simple(1.5,function() if IsValid(self) then	
 	           self:Remove()
 			   return

@@ -21,9 +21,9 @@ ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true 
 ENT.AnimTbl_RangeAttack = {ACT_SIGNAL1} 
 ENT.RangeDistance = 500 
-ENT.RangeToMeleeDistance = 100
+ENT.RangeToMeleeDistance = 150
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 10
+ENT.NextRangeAttackTime = 15
 ENT.ConstantlyFaceEnemy = true 
 ENT.ConstantlyFaceEnemy_IfAttacking = true 
 ENT.ConstantlyFaceEnemy_Postures = "Standing" 
@@ -127,15 +127,17 @@ function ENT:Drowned_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end
+	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end	
 	
-	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(self:GetEnemy()) then return end
+	local ent = self:GetEnemy()
+	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) && !self:Visible(ent) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
-	if self.HasSounds == true then VJ_EmitSound(self, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
-	timer.Simple(5,function() if IsValid(self) && IsValid(self:GetEnemy()) && self.Dead == false then
-		self:GetEnemy():TakeDamage(200,self,self)
-        self:Drowned_Damage() 
-	    self.Drowned_NextEnemyDamage = CurTime() + 5
+	if self.HasSounds == true && self:Visible(self:GetEnemy()) then VJ_EmitSound(ent, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
+	timer.Simple(5,function() if IsValid(self) && self.Dead == false && self:Visible(ent) && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
+		ent:TakeDamage(200,self,self)
+        self:Drowned_Damage()
+		self.Drowned_NextEnemyDamage = 15
+elseif IsValid(self) && !self:Visible(ent) && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then return false
      end		
    end)		
  end	
@@ -144,7 +146,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
     if self.Dead == true or self.VJ_IsBeingControlled == true or self:BusyWithActivity() then return end
 	
-	if self.Drowned_Baby == false && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
+	if self.Drowned_Baby == false && self.Dead == false && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
