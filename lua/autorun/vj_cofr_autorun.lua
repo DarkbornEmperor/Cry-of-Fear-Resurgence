@@ -196,6 +196,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/mace.mdl")
     util.PrecacheModel("models/vj_cofr/cof/sawcrazy.mdl")
     util.PrecacheModel("models/vj_cofr/cof/carcass.mdl")
+	util.PrecacheModel("models/vj_cofr/cof/hookedhead.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/craig.mdl")
     util.PrecacheModel("models/vj_cofr/cof/booksimon.mdl")
     util.PrecacheModel("models/vj_cofr/cof/booksimon_m.mdl")
