@@ -94,7 +94,6 @@ if VJExists == true then
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psycho_pumpkin",vCat)
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3_dream",vCat)
     VJ.AddNPC("Slower (Mummy)","npc_vj_cofrc_slower_mummy",vCat)
-    VJ.AddNPC("The Face (Out of It)","npc_vj_cofrc_facehead_ooi",vCat)	
 
     -- Bosses --
 	VJ.AddNPC("Sick Simon (Book)","npc_vj_cofrc_simonbook_sick",vCat)	
@@ -105,6 +104,10 @@ if VJExists == true then
     VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_mace_swimmer",vCat)	
 	VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrc_patrick_boss",vCat)
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowerno_boss",vCat)
+
+	-- Misc/Hazards --
+	VJ.AddNPC("Meatman","npc_vj_cofrc_meatman",vCat)		
+    VJ.AddNPC("The Face (Out of It)","npc_vj_cofrc_facehead_ooi",vCat)		
 	
 	-- Afraid of Monsters: Director's Cut --
 	vCat = "CoF Resurgence: AoM:DC"
@@ -260,6 +263,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/pedoslow.mdl")
     util.PrecacheModel("models/vj_cofr/custom/monster_cutter.mdl")
     util.PrecacheModel("models/vj_cofr/custom/ooi_facehead.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/meatman.mdl")
     util.PrecacheModel("models/cof/weapons/glock/w_glock.mdl")
     util.PrecacheModel("models/cof/ammo/clip.mdl")	
 
