@@ -62,8 +62,8 @@ function ENT:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetPos(self:GetPos() + self:GetUp()*30)
-	 self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, -30))
+     //self:SetPos(self:GetPos() + self:GetUp()*30)
+	 self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
      self:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

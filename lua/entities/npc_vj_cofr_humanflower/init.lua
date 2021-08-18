@@ -59,8 +59,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
-     self:SetPos(self:GetPos() + self:GetUp()*50)
-	 self:SetCollisionBounds(Vector(30, 30, 100), Vector(-30, -30, -50))
+     //self:SetPos(self:GetPos() + self:GetUp()*50)
+	 self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
      self:HumanFlower_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

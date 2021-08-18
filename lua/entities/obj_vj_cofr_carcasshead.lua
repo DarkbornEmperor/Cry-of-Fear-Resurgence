@@ -7,15 +7,15 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Carcass Soul"
+ENT.PrintName		= "Hooked Head"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Carcass Soul"
-	local LangName = "obj_vj_cofr_carcasssoul"
+	local Name = "Carcass Head"
+	local LangName = "obj_vj_cofr_carcasshead"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
@@ -24,12 +24,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = {"models/vj_cofr/cof/hookedhead.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 15 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
-
+ENT.SoundTbl_Idle = {"vj_cofr/cof/roofboss/rb_headshoot.wav"}
+ENT.SoundTbl_OnCollide = {"vj_cofr/cof/roofboss/rb_headhit.wav"}
+ENT.DecalTbl_DeathDecals = {"VJ_COFR_Blood_Red_Large"}
 -- Custom
 local defVec = Vector(0, 0, 0)
 
@@ -45,26 +47,8 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetNoDraw(true)	
-	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
-	
-	self.IdleEffect = ents.Create("env_sprite")
-	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
-	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
-	self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
-	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-	self.IdleEffect:SetKeyValue("renderfx","0")
-	self.IdleEffect:SetKeyValue("rendermode","2")
-	self.IdleEffect:SetKeyValue("renderamt","255")
-	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-	self.IdleEffect:SetKeyValue("mindxlevel","0")
-	self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	self.IdleEffect:SetKeyValue("framerate","30.0")
-	self.IdleEffect:SetKeyValue("spawnflags","0")
-	self.IdleEffect:SetPos(self:GetPos())
-	self.IdleEffect:Spawn()
-	self.IdleEffect:SetParent(self)
-	self:DeleteOnRemove(self.IdleEffect)	
+	//self:SetNoDraw(true)	
+	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -81,11 +65,9 @@ function ENT:CustomOnThink()
 	end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---function ENT:DeathEffects(data,phys)
-/*
+function ENT:DeathEffects(data,phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	effectdata:SetScale( 1 )
-	ParticleEffect("vj_cofr_soul_splt", data.HitPos, Angle(0,0,0), nil)
-*/
---end
+	ParticleEffect("vj_cofr_blood_red_large", data.HitPos, Angle(0,0,0), nil)
+end

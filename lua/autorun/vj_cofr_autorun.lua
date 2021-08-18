@@ -83,7 +83,8 @@ if VJExists == true then
 	
     -- Enemies --
     VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_baby_swimmer",vCat)		
-    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)	
+    VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
+    VJ.AddNPC("Cutter","npc_vj_cofrc_cutter",vCat)	
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_faster_clown",vCat)
     VJ.AddNPC("Faster (Out of It)","npc_vj_cofrc_faster_ooi",vCat)
     VJ.AddNPC("Generic Genome","npc_vj_cofrc_genome_generic",vCat)	
@@ -92,7 +93,8 @@ if VJExists == true then
     VJ.AddNPC("Pedoslow","npc_vj_cofrc_pedoslow",vCat)		
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psycho_pumpkin",vCat)
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3_dream",vCat)
-    VJ.AddNPC("Slower (Mummy)","npc_vj_cofrc_slower_mummy",vCat)	
+    VJ.AddNPC("Slower (Mummy)","npc_vj_cofrc_slower_mummy",vCat)
+    VJ.AddNPC("The Face (Out of It)","npc_vj_cofrc_facehead_ooi",vCat)	
 
     -- Bosses --
 	VJ.AddNPC("Sick Simon (Book)","npc_vj_cofrc_simonbook_sick",vCat)	
@@ -254,7 +256,9 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/genome_soldier1.mdl")
     util.PrecacheModel("models/vj_cofr/custom/generic_genole.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/slowermummy.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/pedoslow.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/pedoslow.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/monster_cutter.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/ooi_facehead.mdl")	
     util.PrecacheModel("models/cof/weapons/glock/w_glock.mdl")
     util.PrecacheModel("models/cof/ammo/clip.mdl")	
 
