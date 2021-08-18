@@ -1,4 +1,4 @@
-"LightmappedGeneric"
+"DecalModulate"
 {
 	// Original shader: DecalBaseTimesLightmapAlphaBlend
 	"$translucent" 1
