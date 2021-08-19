@@ -81,6 +81,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 end
 /*-----------------------------------------------
