@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/faceless_boss.mdl"}
+ENT.Model = {"models/vj_cofr/custom/faceless_boss.mdl"}
 ENT.StartHealth = 300
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play

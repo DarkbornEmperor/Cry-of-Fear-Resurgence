@@ -114,7 +114,7 @@ if VJExists == true then
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
 	
     -- Enemies --	
-    VJ.AddNPC("David Leatherhoff","npc_vj_cofraom_david",vCat)	
+    VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofr_glock","weapon_vj_cofr_shotgun"},vCat)	
 	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
     VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
@@ -133,8 +133,13 @@ if VJExists == true then
 	VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofraom_mon_sp",vCat)
-	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)	
-
+	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
+	
+    -- AoM:DC Weapons --
+	VJ.AddNPCWeapon("VJ_COFRAOM_Shotgun", "weapon_vj_cofraom_shotgun") 
+	VJ.AddNPCWeapon("VJ_COFRAOM_Knife", "weapon_vj_cofraom_knife") 
+	VJ.AddNPCWeapon("VJ_COFRAOM_Glock", "weapon_vj_cofraom_glock") 
+	
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
     game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})

@@ -14,6 +14,14 @@ ENT.IsMedicSNPC = true
 ENT.AnimTbl_Medic_GiveHealth = {"vjseq_sledgeflare_attack3"}
 ENT.Medic_SpawnPropOnHeal = false 
 ENT.HasSoundTrack = false
+	-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_FootStep = {
+"vj_cofr/cof/simon/concrete1.wav",
+"vj_cofr/cof/simon/concrete2.wav",
+"vj_cofr/cof/simon/concrete3.wav",
+"vj_cofr/cof/simon/concrete4.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()
 	 if self.BookSimon_Shotgun then 
