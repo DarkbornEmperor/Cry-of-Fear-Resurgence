@@ -116,7 +116,7 @@ if VJExists == true then
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
 	
     -- Enemies --	
-    VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofr_glock","weapon_vj_cofr_shotgun"},vCat)	
+    VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofraom_glock"},vCat)	
 	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
     VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
