@@ -34,7 +34,6 @@ ENT.Monster = {
 	{class="npc_vj_cofr_upper",chance=60},
 	{class="npc_vj_cofr_slowerno",chance=60},	
 	{class="npc_vj_cofrc_faster_clown",chance=70},	
-	{class="npc_vj_cofrc_psycho_pumpkin",chance=70},
 	{class="npc_vj_cofrc_crazyrumpel",chance=70},	
 	{class="npc_vj_cofrc_baby_swimmer",chance=70},	
 	{class="npc_vj_cofrc_faster_ooi",chance=70},
@@ -44,7 +43,8 @@ ENT.Monster = {
 	{class="npc_vj_cofrc_genome_generic",chance=70},
 	{class="npc_vj_cofrc_pedoslow",chance=70}, 	
 	{class="npc_vj_cofrc_slower_mummy",chance=70},
-	{class="npc_vj_cofrc_cutter",chance=70},	
+	{class="npc_vj_cofrc_cutter",chance=70},
+	{class="npc_vj_cofrc_psycho_le",chance=70},	
 }
 
 ENT.BossMonster = {
@@ -52,19 +52,21 @@ ENT.BossMonster = {
 	{class="npc_vj_cofr_sawrunner",max=1},
 	{class="npc_vj_cofr_mace",max=1},
 	{class="npc_vj_cofr_carcass",max=1},
-	{class="npc_vj_cofr_sawcrazy",max=2},
+	{class="npc_vj_cofr_sawcrazy",max=1},
 	{class="npc_vj_cofr_craig",max=1},
 	{class="npc_vj_cofr_simonbook",max=1},
 	{class="npc_vj_cofr_simonbook_mh",max=1},
 	{class="npc_vj_cofr_purnell",max=1},
 	{class="npc_vj_cofr_simonsick_sui",max=1},	
 	{class="npc_vj_cofrc_duorunner",max=1},
-	{class="npc_vj_cofrc_slowerno_boss",max=3},
-	{class="npc_vj_cofrc_faceless_boss",max=3},
+	{class="npc_vj_cofrc_slowerno_boss",max=1},
+	{class="npc_vj_cofrc_faceless_boss",max=1},
 	{class="npc_vj_cofrc_mace_swimmer",max=1}, 	
 	{class="npc_vj_cofrc_patrick_boss",max=1},	
 	{class="npc_vj_cofrc_craigrunner",max=1},
-	{class="npc_vj_cofrc_jeffrunner",max=1},	
+	{class="npc_vj_cofrc_jeffrunner",max=1}, 	
+	{class="npc_vj_cofrc_psycho_pumpkin",max=1},
+	{class="npc_vj_cofrc_mother",max=1}, 		
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()

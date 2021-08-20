@@ -1,4 +1,4 @@
-"VertexlitGeneric"
+"UnlitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/slower1/ogon2_fullbright"
                 "$selfillum" 1 

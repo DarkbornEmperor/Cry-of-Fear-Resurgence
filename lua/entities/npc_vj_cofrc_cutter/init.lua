@@ -28,6 +28,12 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/cof/slower/slower_pain2.wav"
 }
 end
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/faceless/psyksjuk.wav"}) 	
+    end
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

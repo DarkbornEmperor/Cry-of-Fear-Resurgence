@@ -88,10 +88,11 @@ if VJExists == true then
     VJ.AddNPC("Faster (Clown)","npc_vj_cofrc_faster_clown",vCat)
     VJ.AddNPC("Faster (Out of It)","npc_vj_cofrc_faster_ooi",vCat)
     VJ.AddNPC("Generic Genome","npc_vj_cofrc_genome_generic",vCat)	
-    VJ.AddNPC("Genome Soldier","npc_vj_cofrc_genome_soldier",vCat)		
+    VJ.AddNPC("Genome Soldier","npc_vj_cofrc_genome_soldier",vCat)
+    VJ.AddNPC("Mother","npc_vj_cofrc_mother",vCat)	
 	VJ.AddNPC("Patrick Bateman","npc_vj_cofrc_patrick",vCat)
-    VJ.AddNPC("Pedoslow","npc_vj_cofrc_pedoslow",vCat)		
-    VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psycho_pumpkin",vCat)
+    VJ.AddNPC("Pedoslow","npc_vj_cofrc_pedoslow",vCat)
+    VJ.AddNPC("Psycho (Lost Echo)","npc_vj_cofrc_psycho_le",vCat)	
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3_dream",vCat)
     VJ.AddNPC("Slower (Mummy)","npc_vj_cofrc_slower_mummy",vCat)
 
@@ -103,6 +104,7 @@ if VJExists == true then
 	VJ.AddNPC("Jeffrunner","npc_vj_cofrc_jeffrunner",vCat)	
     VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_mace_swimmer",vCat)	
 	VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrc_patrick_boss",vCat)
+    VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psycho_pumpkin",vCat)	
     VJ.AddNPC("Slower No (Boss)","npc_vj_cofrc_slowerno_boss",vCat)
 
 	-- Misc/Hazards --
@@ -269,6 +271,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/monster_cutter.mdl")
     util.PrecacheModel("models/vj_cofr/custom/ooi_facehead.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/meatman.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/psycho_le.mdl")	
+    util.PrecacheModel("models/vj_cofr/custom/mother.mdl")	
     util.PrecacheModel("models/cof/weapons/glock/w_glock.mdl")
     util.PrecacheModel("models/cof/ammo/clip.mdl")	
 
