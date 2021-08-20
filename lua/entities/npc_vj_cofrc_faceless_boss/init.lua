@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/faceless_boss.mdl"}
 ENT.StartHealth = 300
+ENT.MeleeAttackDamageType = DMG_SLASH
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {

@@ -2,5 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/custom/slower_mummy/ogon2_fullbright"
                 //"$selfillum" 1 
-                //"$additive" 1 
+               // "$additive" 1 
 }

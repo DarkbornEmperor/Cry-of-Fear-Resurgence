@@ -45,6 +45,13 @@ ENT.Monster = {
 	{class="npc_vj_cofrc_slower_mummy",chance=70},
 	{class="npc_vj_cofrc_cutter",chance=70},
 	{class="npc_vj_cofrc_psycho_le",chance=70},	
+	{class="npc_vj_cofrc_faceless_mummy",chance=70},	
+	{class="npc_vj_cofrc_faceless_mummycrawl",chance=70},
+	{class="npc_vj_cofrc_faceless_stone",chance=70}, 	
+	{class="npc_vj_cofrc_faceless_mummytwister",chance=70},
+	{class="npc_vj_cofrc_shaimoon_gold",chance=70},	
+	{class="npc_vj_cofrc_sicksophie",chance=70},
+	{class="npc_vj_cofrc_zombie",chance=70}, 		
 }
 
 ENT.BossMonster = {
@@ -66,7 +73,10 @@ ENT.BossMonster = {
 	{class="npc_vj_cofrc_craigrunner",max=1},
 	{class="npc_vj_cofrc_jeffrunner",max=1}, 	
 	{class="npc_vj_cofrc_psycho_pumpkin",max=1},
-	{class="npc_vj_cofrc_mother",max=1}, 		
+	{class="npc_vj_cofrc_mother",max=1},
+	{class="npc_vj_cofrc_mummy",max=1}, 
+	{class="npc_vj_cofrc_shaimoon",max=1},
+	{class="npc_vj_cofrc_dasubergator2",max=1}, 	
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()

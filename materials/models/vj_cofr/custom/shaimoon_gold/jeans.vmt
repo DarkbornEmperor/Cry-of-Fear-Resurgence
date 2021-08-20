@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/custom/shaimoon_gold/jeans"
+	"$envmap" "models/vj_cofr/custom/shaimoon_gold/babychrome"
+
+	"VertexLitGeneric_HDR_DX9"
+	{
+		"$envmaptint" "[.2 .2 .2]"
+		"$envmapcontrast" .5
+		"$envmapsaturation" 1
+	}
+}

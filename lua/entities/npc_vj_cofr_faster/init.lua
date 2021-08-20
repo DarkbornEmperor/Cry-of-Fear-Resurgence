@@ -106,7 +106,7 @@ end
 		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 75, 100)
 end	
 	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
+		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)

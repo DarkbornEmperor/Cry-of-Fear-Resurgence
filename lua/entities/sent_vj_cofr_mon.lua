@@ -60,7 +60,14 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_pedoslow:60",
 	"npc_vj_cofrc_slower_mummy:60",
 	"npc_vj_cofrc_mother:60",
-	"npc_vj_cofrc_psycho_le:60"	
+	"npc_vj_cofrc_psycho_le:60",
+	"npc_vj_cofrc_faceless_mummy:60",
+	"npc_vj_cofrc_faceless_mummycrawl:60",
+	"npc_vj_cofrc_faceless_stone:60",
+	"npc_vj_cofrc_faceless_mummytwister:60",
+	"npc_vj_cofrc_shaimoon_gold:60",
+	"npc_vj_cofrc_sicksophie:60",
+	"npc_vj_cofrc_zombie:60"	
 }},
 }
 /*-----------------------------------------------
