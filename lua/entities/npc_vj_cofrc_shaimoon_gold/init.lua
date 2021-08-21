@@ -52,7 +52,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faster/faster_miss.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-""
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",

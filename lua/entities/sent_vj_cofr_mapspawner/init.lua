@@ -51,7 +51,8 @@ ENT.Monster = {
 	{class="npc_vj_cofrc_faceless_mummytwister",chance=70},
 	{class="npc_vj_cofrc_shaimoon_gold",chance=70},	
 	{class="npc_vj_cofrc_sicksophie",chance=70},
-	{class="npc_vj_cofrc_zombie",chance=70}, 		
+	{class="npc_vj_cofrc_zombie",chance=70},  
+	{class="npc_vj_cofrc_crazyrunner_mummy",chance=70},	
 }
 
 ENT.BossMonster = {

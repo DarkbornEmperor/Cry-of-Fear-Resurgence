@@ -27,7 +27,7 @@ ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.DeathAnimationTime = 20
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
-ENT.HasSoundTrack = true
+ENT.HasSoundTrack = false
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -51,7 +51,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faster/faster_miss.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-""
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -60,9 +59,6 @@ ENT.SoundTbl_Impact = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
-        self.HasSoundTrack = false 
-end	
     self.SoundTbl_Alert = {
 	"vj_cofr/custom/shaimoon/shaimoonendtalk1.wav",
 	"vj_cofr/custom/shaimoon/shaimoonendtalk2.wav",

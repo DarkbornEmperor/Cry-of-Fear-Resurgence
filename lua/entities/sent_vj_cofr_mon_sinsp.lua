@@ -68,7 +68,8 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofrc_faceless_mummytwister:60",
 	"npc_vj_cofrc_shaimoon_gold:60",
 	"npc_vj_cofrc_sicksophie:60",
-	"npc_vj_cofrc_zombie:60"
+	"npc_vj_cofrc_zombie:60",
+    "npc_vj_cofrc_crazyrunner_mummy:60"	
 }},
 }
 /*-----------------------------------------------
