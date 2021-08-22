@@ -7,6 +7,8 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/sicksophie.mdl"} 
 ENT.CanFlinch = 0
+-- Custom 
+ENT.Slower_Type = 3
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
@@ -25,9 +27,23 @@ ENT.SoundTbl_Impact = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
-end
------------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+    self.SoundTbl_Alert = {
+	"vj_cofr/cof/slower/slower_alert10.wav",
+	"vj_cofr/cof/slower/slower_alert20.wav",
+	"vj_cofr/cof/slower/slower_alert30.wav"
+}
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/cof/slower/slower_attack1.wav",
+	"vj_cofr/cof/slower/slower_attack2.wav"
+}
+    self.SoundTbl_Pain = {
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/cof/slower/slower_pain1.wav",
+	"vj_cofr/cof/slower/slower_pain2.wav"
+}
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
