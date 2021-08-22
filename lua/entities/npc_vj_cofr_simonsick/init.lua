@@ -144,7 +144,7 @@ end
 end
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" && IsValid(self:GetEnemy()) then
-            v:GetPhysicsObject():Wake()
+            //v:GetPhysicsObject():Wake()
             timer.Simple(1.2,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) then 
             v:GetPhysicsObject():SetVelocity(v:GetUp()*100)
 			v:GetPhysicsObject():EnableGravity(false)
