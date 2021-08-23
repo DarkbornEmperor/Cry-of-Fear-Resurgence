@@ -25,8 +25,10 @@ ENT.HasCallForHelpAnimation = false
 ENT.AllowWeaponReloading = false
 ENT.DropWeaponOnDeath = false
 ENT.IsMedicSNPC = true
+ENT.Medic_HealthAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = {"vjges_ref_shoot_crowbar"}
-ENT.Medic_SpawnPropOnHeal = false 
+ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
+ENT.Medic_SpawnPropOnHealAttachment = "pistol" 
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -47,6 +49,12 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/david/pl_step2.wav",
 "vj_cofr/aom/david/pl_step3.wav",
 "vj_cofr/aom/david/pl_step4.wav"
+}
+ENT.SoundTbl_MedicBeforeHeal = {
+"vj_cofr/aom/pills/pills_pickup.wav"
+}
+ENT.SoundTbl_MedicAfterHeal = {
+"vj_cofr/aom/pills/pills_use.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",

@@ -154,6 +154,9 @@ if VJExists == true then
 	VJ.AddNPCWeapon("VJ_COFRAOM_Knife", "weapon_vj_cofraom_knife") 
 	VJ.AddNPCWeapon("VJ_COFRAOM_Glock", "weapon_vj_cofraom_glock") 
 	
+    -- AoM:DC Entities
+    VJ.AddEntity("Pills","sent_vj_cofraom_pills","Darkborn",true,0,true,vCat)	
+	
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
     game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
@@ -310,7 +313,8 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Sawcrazy_RadiusDamage"] = 0
 	AddConvars["VJ_COFR_FaceHead_SummonFaceless"] = 1
 	AddConvars["VJ_COFR_Slower_HeadGib"] = 1
-	AddConvars["VJ_COFR_Suicider_DropGlock"] = 1	
+	AddConvars["VJ_COFR_Suicider_DropGlock"] = 1 
+	AddConvars["VJ_COFR_Ghost_SlowSound"] = 0              	
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
@@ -349,6 +353,7 @@ end
 				VJ_COFR_FaceHead_SummonFaceless = "1",
 				VJ_COFR_Slower_HeadGib = "1",
 				VJ_COFR_Suicider_DropGlock = "1",
+				VJ_COFR_Ghost_SlowSound = "0",				
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
@@ -358,7 +363,8 @@ end
 			Panel:AddControl("Checkbox", {Label ="Enable radius damage for Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable The Face to summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
             Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers & Suiciders?", Command ="VJ_COFR_Slower_HeadGib"})
-            Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks & ammo on death?", Command ="VJ_COFR_Suicider_DropGlock"})			
+            Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks & ammo on death?", Command ="VJ_COFR_Suicider_DropGlock"})
+            Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})			
             Panel:AddPanel(typebox)
 
 end

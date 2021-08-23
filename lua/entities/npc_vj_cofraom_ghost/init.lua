@@ -16,7 +16,7 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 15 
-ENT.MeleeAttackDamageType = DMG_POISON
+ENT.MeleeAttackDamageType = DMG_NERVEGAS
 ENT.MeleeAttackDistance = 40 
 ENT.MeleeAttackDamageDistance = 80
 ENT.MeleeAttackBleedEnemy = true 
@@ -24,6 +24,10 @@ ENT.MeleeAttackBleedEnemyChance = 1
 ENT.MeleeAttackBleedEnemyDamage = 5 
 ENT.MeleeAttackBleedEnemyTime = 2 
 ENT.MeleeAttackBleedEnemyReps = 5 
+ENT.SlowPlayerOnMeleeAttack = true 
+ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 200 
+ENT.SlowPlayerOnMeleeAttack_RunSpeed = 290 
+ENT.SlowPlayerOnMeleeAttackTime = 10
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -59,6 +63,9 @@ ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/zombie/claw_strike1.wav",
 "vj_cofr/aom/zombie/claw_strike2.wav",
 "vj_cofr/aom/zombie/claw_strike3.wav"
+}
+ENT.SoundTbl_MeleeAttackSlowPlayer = {
+"vj_cofr/aom/aslave/ear_ringing.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/zombie/claw_miss1.wav",
@@ -69,6 +76,12 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVarNumber("VJ_COFR_Ghost_SlowSound") == 0 then
+        self.SlowPlayerOnMeleeAttack = false 
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_CustomOnInitialize()
     self.SoundTbl_Alert = {
