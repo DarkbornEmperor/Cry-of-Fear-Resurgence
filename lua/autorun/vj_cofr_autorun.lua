@@ -127,8 +127,7 @@ if VJExists == true then
 	vCat = "CoF Resurgence: AoM:DC"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
 	
-    -- Enemies --	
-    VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofraom_glock"},vCat)	
+    -- Enemies --		
 	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
     VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
@@ -142,7 +141,12 @@ if VJExists == true then
 	
 	-- Bosses --
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
-
+	
+    -- Friendlies --
+    VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofraom_glock"},vCat)
+    VJ.AddNPC_HUMAN("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",{"weapon_vj_cofraom_glock"},vCat)
+    VJ.AddNPC_HUMAN("Player (Dark Assistance)","npc_vj_cofraom_player_da",{"weapon_vj_cofraom_glock"},vCat)
+	
     -- AoM:DC Random & Spawners --
 	VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	

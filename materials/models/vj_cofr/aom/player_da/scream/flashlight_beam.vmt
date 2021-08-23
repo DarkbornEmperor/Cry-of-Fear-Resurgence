@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/aom/player_da/cross/flashlight_beam"
+                "$additive" 1 
+}

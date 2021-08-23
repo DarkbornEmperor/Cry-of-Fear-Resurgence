@@ -21,9 +21,11 @@ ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.Weapon_NoSpawnMenu = true
+ENT.MoveRandomlyWhenShooting = false
 ENT.HasCallForHelpAnimation = false
 ENT.AllowWeaponReloading = false
 ENT.DropWeaponOnDeath = false
+ENT.CombatFaceEnemy = false
 ENT.IsMedicSNPC = true
 ENT.Medic_HealthAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = {"vjges_ref_shoot_crowbar"}
@@ -150,26 +152,33 @@ end
 function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)			
         if htype == "shotgun" then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_SHOTGUN_IDLE4	
+/*			
 			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_AIM_SHOTGUN
 			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_AIM_SHOTGUN
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_SHOTGUN				
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_SHOTGUN
+*/			
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
-            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK2			
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK2
+            self.AnimTbl_WeaponAim = {ACT_SHOTGUN_IDLE4}			
 					
 	elseif htype == "pistol" then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_PISTOL
+/*
 			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_PISTOL
 			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_PISTOL
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_PISTOL
-			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_PISTOL				
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_PISTOL
+*/			
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_PISTOL
-            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK1		
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK1
+            self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}				
 			
 	elseif htype == "melee" then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE	
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK1
-            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_MELEE_ATTACK_SWING_GESTURE					
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_MELEE_ATTACK_SWING_GESTURE
+            self.AnimTbl_WeaponAim = {ACT_IDLE}			
 end
 	return true
 end
