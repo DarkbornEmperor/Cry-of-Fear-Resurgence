@@ -21,7 +21,7 @@ ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1 
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.NextRangeAttackTime = 0.5
-ENT.NextRangeAttackTime_DoRand = 0.25
+ENT.NextRangeAttackTime_DoRand = 0.1
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 250 
 ENT.NoChaseAfterCertainRange_CloseDistance = 200 
@@ -151,10 +151,19 @@ function ENT:CustomRangeAttackCode()
 	    self:Suicider_DoFireEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+    if GetConVarNumber("VJ_COFR_Suicider_Headshot") == 0 then return end
+	
+	if hitgroup == HITGROUP_HEAD then
+		dmginfo:SetDamage(self:Health())
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)   
 	if GetConVarNumber("VJ_COFR_Slower_HeadGib") == 0 then return end
 	
 	if self.Suicider_DeathSuicide == false && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+	    dmginfo:SetDamage(self:Health())
 		self:SetBodygroup(0,1)
 	
 	if self.HasGibDeathParticles == true then
