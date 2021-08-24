@@ -145,7 +145,7 @@ if VJExists == true then
     -- Friendlies --
     VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofraom_glock"},vCat)
     VJ.AddNPC_HUMAN("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",{"weapon_vj_cofraom_glock"},vCat)
-    VJ.AddNPC_HUMAN("Player (Dark Assistance)","npc_vj_cofraom_player_da",{"weapon_vj_cofraom_glock"},vCat)
+    VJ.AddNPC_HUMAN("Assistor","npc_vj_cofraom_assistor_da",{"weapon_vj_cofraom_glock"},vCat)
 	
     -- AoM:DC Random & Spawners --
 	VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
@@ -235,7 +235,12 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/watro.mdl")
     util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")
-    util.PrecacheModel("models/vj_cofr/aom/david.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/david.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/david_da.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/cross.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/question.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/scream.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/two.mdl")		
     util.PrecacheModel("models/vj_cofr/aom/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/controller.mdl")
@@ -245,6 +250,9 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/mouth_monster.mdl")
     util.PrecacheModel("models/vj_cofr/aom/david_monster.mdl") 
     util.PrecacheModel("models/vj_cofr/aom/wheelchair_monster.mdl") 	
+    util.PrecacheModel("models/vj_cofr/aom/w_glock.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/w_kitchenknife.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/w_shotgun.mdl") 	
 	util.PrecacheModel("models/vj_cofr/aom/zombie.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie2.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie3.mdl")
@@ -319,7 +327,8 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Slower_HeadGib"] = 1
 	AddConvars["VJ_COFR_Suicider_DropGlock"] = 0
 	AddConvars["VJ_COFR_Suicider_Headshot"] = 1 	
-	AddConvars["VJ_COFR_Ghost_SlowSound"] = 0              	
+	AddConvars["VJ_COFR_Ghost_SlowSound"] = 0
+	AddConvars["VJ_COFR_Assistor_Flashlight"] = 0 	
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
@@ -359,7 +368,8 @@ end
 				VJ_COFR_Slower_HeadGib = "1",
 				VJ_COFR_Suicider_DropGlock = "0",
 				VJ_COFR_Suicider_Headshot = "1",
-				VJ_COFR_Ghost_SlowSound = "0",				
+				VJ_COFR_Ghost_SlowSound = "0",
+                VJ_COFR_Assistor_Flashlight = "0",				
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
@@ -371,7 +381,8 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers & Suiciders?", Command ="VJ_COFR_Slower_HeadGib"})
             Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks & ammo on death?", Command ="VJ_COFR_Suicider_DropGlock"})
             Panel:AddControl("Checkbox", {Label ="Enable instant headshot for Suicider?", Command ="VJ_COFR_Suicider_Headshot"})			
-            Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})			
+            Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
+            Panel:AddControl("Checkbox", {Label ="Enable flashlight for Assistor?", Command ="VJ_COFR_Assistor_Flashlight"})				
             Panel:AddPanel(typebox)
 
 end

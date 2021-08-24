@@ -113,7 +113,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
      self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0))
-     self:David_CustomOnInitialize()	 
+     self:David_CustomOnInitialize()
+     self:AssistorFlashlight()	 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:AssistorFlashlight() 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
