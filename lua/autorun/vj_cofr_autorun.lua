@@ -160,6 +160,7 @@ if VJExists == true then
 	
     -- AoM:DC Entities
     VJ.AddEntity("Pills","sent_vj_cofraom_pills","Darkborn",true,0,true,vCat)	
+    VJ.AddEntity("Pills (Dark Assistance)","sent_vj_cofraom_pills_da","Darkborn",true,0,true,vCat)
 	
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
@@ -250,9 +251,11 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/mouth_monster.mdl")
     util.PrecacheModel("models/vj_cofr/aom/david_monster.mdl") 
     util.PrecacheModel("models/vj_cofr/aom/wheelchair_monster.mdl") 	
-    util.PrecacheModel("models/vj_cofr/aom/w_glock.mdl")
-    util.PrecacheModel("models/vj_cofr/aom/w_kitchenknife.mdl") 
-    util.PrecacheModel("models/vj_cofr/aom/w_shotgun.mdl") 	
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_glock.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_kitchenknife.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_shotgun.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/w_medkit.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/pill_bottle.mdl") 	
 	util.PrecacheModel("models/vj_cofr/aom/zombie.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie2.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie3.mdl")
@@ -312,8 +315,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/twistermummy.mdl")
     util.PrecacheModel("models/vj_cofr/custom/zombie.mdl")
     util.PrecacheModel("models/vj_cofr/custom/dasubergator.mdl")
-    util.PrecacheModel("models/vj_cofr/custom/dasubergator2.mdl")	
-	
+    util.PrecacheModel("models/vj_cofr/custom/dasubergator2.mdl")		
     util.PrecacheModel("models/cof/weapons/glock/w_glock.mdl")
     util.PrecacheModel("models/cof/ammo/clip.mdl")	
 

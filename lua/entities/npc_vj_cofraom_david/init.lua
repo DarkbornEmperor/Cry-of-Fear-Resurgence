@@ -112,7 +112,7 @@ elseif self.David_Knife then
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
-     self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0))
+     //self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0))
      self:David_CustomOnInitialize()
      self:AssistorFlashlight()	 
 end

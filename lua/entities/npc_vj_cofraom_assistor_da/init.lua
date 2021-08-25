@@ -5,7 +5,13 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/cross.mdl","models/vj_cofr/aom/question.mdl","models/vj_cofr/aom/scream.mdl","models/vj_cofr/aom/two.mdl"}
+ENT.Model = {
+"models/vj_cofr/aom/cross.mdl",
+"models/vj_cofr/aom/question.mdl",
+"models/vj_cofr/aom/scream.mdl",
+"models/vj_cofr/aom/two.mdl"
+}
+ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/pill_bottle.mdl"
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FollowPlayer = {
