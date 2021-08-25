@@ -13,66 +13,33 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Cry of Fear Resurgence"
+
+ENT.Spawnable		= false
+ENT.AdminSpawnable	= false
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
-
-ENT.SingleSpawner = false
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Core Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ENT.TimedSpawn_Time = 1
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+local entsList = {
+	"npc_vj_cofraom_twitcher",
+	"npc_vj_cofraom_twitcher_da",
+	"npc_vj_cofraom_handcrab:5",
+	"npc_vj_cofraom_wheelchair:10",
+	"npc_vj_cofraom_spitter:15",
+	"npc_vj_cofraom_face:25",
+	"npc_vj_cofraom_hellhound:10",
+	"npc_vj_cofraom_ghost:20",
+	"npc_vj_cofraom_screamer:25"
+}
 ENT.EntitiesToSpawn = {
-	{EntityName = "NPC1",SpawnPosition = {vForward=50,vRight=0,vUp=0},Entities = {
-	"npc_vj_cofraom_twitcher",
-	"npc_vj_cofraom_twitcher_da",
-	"npc_vj_cofraom_handcrab:5",
-	"npc_vj_cofraom_wheelchair:10",
-	"npc_vj_cofraom_spitter:15",
-	"npc_vj_cofraom_face:25",
-	"npc_vj_cofraom_hellhound:10",
-	"npc_vj_cofraom_ghost:20",
-	"npc_vj_cofraom_screamer:25"
-}},
-	{EntityName = "NPC2",SpawnPosition = {vForward=0,vRight=50,vUp=0},Entities = {
-	"npc_vj_cofraom_twitcher",
-	"npc_vj_cofraom_twitcher_da",
-	"npc_vj_cofraom_handcrab:5",
-	"npc_vj_cofraom_wheelchair:10",
-	"npc_vj_cofraom_spitter:15",
-	"npc_vj_cofraom_face:25",
-	"npc_vj_cofraom_hellhound:10",
-	"npc_vj_cofraom_ghost:20",
-	"npc_vj_cofraom_screamer:25"
-}},
-	{EntityName = "NPC3",SpawnPosition = {vForward=100,vRight=50,vUp=0},Entities = {
-	"npc_vj_cofraom_twitcher",
-	"npc_vj_cofraom_twitcher_da",
-	"npc_vj_cofraom_handcrab:5",
-	"npc_vj_cofraom_wheelchair:10",
-	"npc_vj_cofraom_spitter:15",
-	"npc_vj_cofraom_face:25",
-	"npc_vj_cofraom_hellhound:10",
-	"npc_vj_cofraom_ghost:20",
-	"npc_vj_cofraom_screamer:25"
-}},
-	{EntityName = "NPC4",SpawnPosition = {vForward=100,vRight=-50,vUp=0},Entities = {
-	"npc_vj_cofraom_twitcher",
-	"npc_vj_cofraom_twitcher_da",
-	"npc_vj_cofraom_handcrab:5",
-	"npc_vj_cofraom_wheelchair:10",
-	"npc_vj_cofraom_spitter:15",
-	"npc_vj_cofraom_face:25",
-	"npc_vj_cofraom_hellhound:10",
-	"npc_vj_cofraom_ghost:20",
-	"npc_vj_cofraom_screamer:25"
-}},
-	{EntityName = "NPC5",SpawnPosition = {vForward=0,vRight=-50,vUp=0},Entities = {
-	"npc_vj_cofraom_twitcher",
-	"npc_vj_cofraom_twitcher_da",
-	"npc_vj_cofraom_handcrab:5",
-	"npc_vj_cofraom_wheelchair:10",
-	"npc_vj_cofraom_spitter:15",
-	"npc_vj_cofraom_face:25",
-	"npc_vj_cofraom_hellhound:10",
-	"npc_vj_cofraom_ghost:20",
-	"npc_vj_cofraom_screamer:25"
-}},
+	{SpawnPosition = {vForward=20, vRight=0, vUp=0}, Entities = entsList},
+	{SpawnPosition = {vForward=0, vRight=50, vUp=0}, Entities = entsList},
+	{SpawnPosition = {vForward=50, vRight=50, vUp=0}, Entities = entsList},
+	{SpawnPosition = {vForward=50, vRight=-50, vUp=0}, Entities = entsList},
+	{SpawnPosition = {vForward=0, vRight=-50, vUp=0}, Entities = entsList},
 }
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
