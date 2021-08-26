@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_cofr_simonbook" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
+ENT.Base 			= "npc_vj_cofraom_david" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Simon Henriksson"
 ENT.Author 			= "Darkborn"

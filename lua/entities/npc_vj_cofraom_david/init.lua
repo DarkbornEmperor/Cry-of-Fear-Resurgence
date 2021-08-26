@@ -52,9 +52,9 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/david/pl_step3.wav",
 "vj_cofr/aom/david/pl_step4.wav"
 }
-ENT.SoundTbl_MedicBeforeHeal = {
-"vj_cofr/aom/pills/pills_pickup.wav"
-}
+--ENT.SoundTbl_MedicBeforeHeal = {
+--"vj_cofr/aom/pills/pills_pickup.wav"
+--}
 ENT.SoundTbl_MedicAfterHeal = {
 "vj_cofr/aom/pills/pills_use.wav"
 }

@@ -61,7 +61,9 @@ if VJExists == true then
 	VJ.AddNPC("Sawrunner","npc_vj_cofr_sawrunner",vCat)
     VJ.AddNPC("Sick Simon","npc_vj_cofr_simonsick",vCat)	
 	VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsick_sui",vCat)	
-	VJ.AddNPC("Simon Henriksson","npc_vj_cofrc_simon",vCat)	
+	
+	-- Friendlies --
+	VJ.AddNPC_HUMAN("Simon Henriksson","npc_vj_cofr_simon",{"weapon_vj_cofraom_glock"},vCat)	
 
 	-- Misc/Hazards --
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
@@ -127,8 +129,7 @@ if VJExists == true then
 	vCat = "CoF Resurgence: AoM:DC"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofraom.png"})
 	
-    -- Enemies --		
-	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
+    -- Enemies --			
     VJ.AddNPC("Face","npc_vj_cofraom_face",vCat)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",vCat)
     VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",vCat)	
@@ -146,6 +147,9 @@ if VJExists == true then
     VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofraom_glock"},vCat)
     VJ.AddNPC_HUMAN("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",{"weapon_vj_cofraom_glock"},vCat)
     VJ.AddNPC_HUMAN("Assistor","npc_vj_cofraom_assistor_da",{"weapon_vj_cofraom_glock"},vCat)
+
+	-- Misc/Hazards --
+	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
 	
     -- AoM:DC Random & Spawners --
 	VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",vCat)	
@@ -188,6 +192,8 @@ if VJExists == true then
 	PrecacheParticleSystem("vj_cofr_flare_trail")	
 	
 	-- Precache Models --
+    util.PrecacheModel("models/vj_cofr/cof/w_syringe.mdl")		
+    util.PrecacheModel("models/vj_cofr/cof/simon.mdl")	
 	util.PrecacheModel("models/vj_cofr/cof/slower1.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/crawler.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/croucher.mdl")
