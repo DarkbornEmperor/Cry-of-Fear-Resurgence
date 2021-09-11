@@ -132,12 +132,11 @@ function ENT:CustomRangeAttackCode()
 	local ent = self:GetEnemy()
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) && !self:Visible(ent) then return end
 	if CurTime() > self.Drowned_NextEnemyDamage then
-	if self.HasSounds == true && self:Visible(self:GetEnemy()) then VJ_EmitSound(ent, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
-	timer.Simple(5,function() if IsValid(self) && self.Dead == false && self:Visible(ent) && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
+	if self.HasSounds == true && self:Visible(ent) then VJ_EmitSound(ent, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
+	timer.Simple(5,function() if IsValid(self) && self.Dead == false && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()
 		self.Drowned_NextEnemyDamage = 15
-elseif IsValid(self) && !self:Visible(ent) && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then return false
      end		
    end)		
  end	
