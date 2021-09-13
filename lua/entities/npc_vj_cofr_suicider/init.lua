@@ -33,7 +33,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIE_HEADSHOT} 
-ENT.DeathAnimationTime = 20 
+ENT.DeathAnimationTime = 8 
 ENT.GibOnDeathDamagesTable = {"All"}
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {

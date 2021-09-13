@@ -34,7 +34,7 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
 ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 20
+ENT.DeathAnimationTime = 8
 ENT.HasExtraMeleeAttackSounds = true 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {

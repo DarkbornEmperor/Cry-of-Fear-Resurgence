@@ -26,7 +26,7 @@ ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true 
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 20
+ENT.DeathAnimationTime = 10
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
