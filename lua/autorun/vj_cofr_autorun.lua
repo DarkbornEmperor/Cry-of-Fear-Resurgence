@@ -381,7 +381,7 @@ end
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
-            Panel:AddControl("Checkbox", {Label ="Enable boss nusic?", Command ="VJ_COFR_Boss_Music"})
+            Panel:AddControl("Checkbox", {Label ="Enable boss music?", Command ="VJ_COFR_Boss_Music"})
             Panel:AddControl("Checkbox", {Label ="Enable transparent/invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
             Panel:AddControl("Checkbox", {Label ="Enable self-damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable radius damage for Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
