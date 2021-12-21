@@ -156,7 +156,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_SHOTGUN
 			self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_SHOTGUN_LOW
-			self.WeaponAnimTranslations[ACT_COVER] 					= ACT_COVER_LOW
+			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_LOW
             self.AnimTbl_WeaponAim = {ACT_SHOTGUN_IDLE4}			
 
 	elseif htype == "ar2" then
@@ -170,7 +170,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD
             self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_LOW			
-			self.WeaponAnimTranslations[ACT_COVER] 					= ACT_COVER
+			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_MED
             self.AnimTbl_WeaponAim = {ACT_IDLE_RIFLE}	
 					
 	elseif htype == "pistol" then
@@ -184,7 +184,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_PISTOL
             self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_PISTOL_LOW			
-			self.WeaponAnimTranslations[ACT_COVER] 					= ACT_COVER
+			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER
             self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}				
 			
 	elseif htype == "melee" then
