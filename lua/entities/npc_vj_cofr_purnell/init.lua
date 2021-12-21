@@ -190,7 +190,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Damage = 13
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
-		VJ_EmitSound(self, "vj_cofr/cof/doc_ai/revolver_fire.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/revolver/revolver_fire.wav", 100, 100)
 	    self.Doctor_FiredAtLeastOnce = true
 	    self:Doctor_DoFireEffects()
 		
@@ -206,7 +206,7 @@ elseif self.Doctor_Pistol then
 		bullet.Damage = 15
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
-		VJ_EmitSound(self, "vj_cofr/cof/doc_ai/p345_fire.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/p345/p345_fire.wav", 100, 100)
 	    self.Doctor_FiredAtLeastOnce = true
 	    self:Doctor_DoFireEffects()
     end	

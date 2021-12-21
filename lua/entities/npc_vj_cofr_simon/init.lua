@@ -63,16 +63,31 @@ function ENT:CustomOnPreInitialize()
 	"vj_cofr/cof/simon/death6.wav",
 	"vj_cofr/cof/simon/death7.wav"
 }	
-    local Weapon_Type = math.random(1,3)
+    local Weapon_Type = math.random(1,12)
     if Weapon_Type == 1 then
-		self.David_Shotgun = true
-        self:Give("weapon_vj_cofraom_shotgun")		
+        self:Give("weapon_vj_cofr_glock")		
 elseif Weapon_Type == 2 then
-		self.David_Glock = true
-        self:Give("weapon_vj_cofraom_glock")		
+        self:Give("weapon_vj_cofr_p345")		
 elseif Weapon_Type == 3 then
-		self.David_Knife = true	
-        self:Give("weapon_vj_cofraom_knife")		
+        self:Give("weapon_vj_cofr_m76")	
+elseif Weapon_Type == 4 then	
+        self:Give("weapon_vj_cofr_vp70")
+elseif Weapon_Type == 5 then	
+        self:Give("weapon_vj_cofr_revolver")			
+elseif Weapon_Type == 6 then	
+        self:Give("weapon_vj_cofr_tmp")	
+elseif Weapon_Type == 7 then	
+        self:Give("weapon_vj_cofr_mp5")	
+elseif Weapon_Type == 8 then	
+        self:Give("weapon_vj_cofr_m16")	
+elseif Weapon_Type == 9 then	
+        self:Give("weapon_vj_cofr_famas")
+elseif Weapon_Type == 10 then	
+        self:Give("weapon_vj_cofr_shotgun")	
+elseif Weapon_Type == 11 then	
+        self:Give("weapon_vj_cofr_rifle")
+elseif Weapon_Type == 12 then	
+        self:Give("weapon_vj_cofr_g43")			
     end	
 end	
 /*-----------------------------------------------

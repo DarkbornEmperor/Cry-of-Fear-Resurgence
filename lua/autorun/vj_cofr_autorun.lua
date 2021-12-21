@@ -63,7 +63,8 @@ if VJExists == true then
 	VJ.AddNPC("Sick Simon (Suicider)","npc_vj_cofr_simonsick_sui",vCat)	
 	
 	-- Friendlies --
-	VJ.AddNPC_HUMAN("Simon Henriksson","npc_vj_cofr_simon",{"weapon_vj_cofraom_glock"},vCat)	
+	VJ.AddNPC("Simon Henriksson","npc_vj_cofr_simon",vCat)
+    VJ.AddNPC("Police Officer","npc_vj_cofr_police",vCat)	
 
 	-- Misc/Hazards --
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
@@ -144,9 +145,9 @@ if VJExists == true then
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",vCat)
 	
     -- Friendlies --
-    VJ.AddNPC_HUMAN("David Leatherhoff","npc_vj_cofraom_david",{"weapon_vj_cofraom_glock"},vCat)
-    VJ.AddNPC_HUMAN("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",{"weapon_vj_cofraom_glock"},vCat)
-    VJ.AddNPC_HUMAN("Assistor","npc_vj_cofraom_assistor_da",{"weapon_vj_cofraom_glock"},vCat)
+    VJ.AddNPC("David Leatherhoff","npc_vj_cofraom_david",vCat)
+    VJ.AddNPC("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",vCat)
+    VJ.AddNPC("Assistor","npc_vj_cofraom_assistor_da",vCat)
 
 	-- Misc/Hazards --
 	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)	
@@ -156,11 +157,6 @@ if VJExists == true then
 	VJ.AddNPC("Random Monster","sent_vj_cofraom_mon",vCat)	
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofraom_mon_sp",vCat)
 	VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp",vCat)
-	
-    -- AoM:DC Weapons --
-	VJ.AddNPCWeapon("VJ_COFRAOM_Shotgun", "weapon_vj_cofraom_shotgun") 
-	VJ.AddNPCWeapon("VJ_COFRAOM_Knife", "weapon_vj_cofraom_knife") 
-	VJ.AddNPCWeapon("VJ_COFRAOM_Glock", "weapon_vj_cofraom_glock") 
 	
     -- AoM:DC Entities
     VJ.AddEntity("Pills","sent_vj_cofraom_pills","Darkborn",true,0,true,vCat)	
@@ -241,7 +237,23 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/watro.mdl")
-    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/police1.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/police2.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/police3.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/police4.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_browning.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_famas.mdl") 
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_g43.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_m16.mdl") 
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_m76.mdl") 
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_mp5.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_p345.mdl") 
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_revolver.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_rifle.mdl") 
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_shotgun.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_tmp.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/weapons/w_vp70.mdl")		
     util.PrecacheModel("models/vj_cofr/aom/david.mdl")
     util.PrecacheModel("models/vj_cofr/aom/david_da.mdl")
     util.PrecacheModel("models/vj_cofr/aom/cross.mdl")	
@@ -261,7 +273,14 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/weapons/w_kitchenknife.mdl") 
     util.PrecacheModel("models/vj_cofr/aom/weapons/w_shotgun.mdl")
     util.PrecacheModel("models/vj_cofr/aom/w_medkit.mdl") 
-    util.PrecacheModel("models/vj_cofr/aom/pill_bottle.mdl") 	
+    util.PrecacheModel("models/vj_cofr/aom/pill_bottle.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_beretta.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_deagle.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_l85.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_mp5k.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_p228.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_revolver.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/weapons/w_uzi.mdl")		
 	util.PrecacheModel("models/vj_cofr/aom/zombie.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie2.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie3.mdl")

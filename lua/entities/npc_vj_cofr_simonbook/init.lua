@@ -311,21 +311,21 @@ end
 function ENT:CustomRangeAttackCode()
 	if self.BookSimon_Shotgun then
 	local bullet = {}
-		bullet.Num = 6
+		bullet.Num = 12
 		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun")).Pos
 		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
 		bullet.Spread = Vector(60,50,40)
 		bullet.Tracer = 6
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 10
+		bullet.Damage = 5
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
-		VJ_EmitSound(self, "vj_cofr/cof/booksimon/shotgun_fire.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/shotgun/shoot.wav", 100, 100)
 	    timer.Simple(0.5,function() if IsValid(self) then
-	    VJ_EmitSound(self, "vj_cofr/cof/booksimon/pump_seq.wav", 75, 100) end end)
+	    VJ_EmitSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
 		
 elseif self.BookSimon_Glock then
 	local bullet = {}
@@ -341,7 +341,7 @@ elseif self.BookSimon_Glock then
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
-		VJ_EmitSound(self, "vj_cofr/cof/booksimon/glock_fire.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/glock/glock_fire.wav", 100, 100)
 		
 elseif self.BookSimon_TMP then
 	local bullet = {}
@@ -357,7 +357,7 @@ elseif self.BookSimon_TMP then
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
-		VJ_EmitSound(self, "vj_cofr/cof/booksimon/tmp_fire.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/tmp/tmp_fire.wav", 100, 100)
 		
 elseif self.BookSimon_M16 then
 	local bullet = {}
@@ -373,7 +373,7 @@ elseif self.BookSimon_M16 then
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
 	    self:BookSimon_DoFireEffects()
-		VJ_EmitSound(self, "vj_cofr/cof/booksimon/m16_fire.wav", 100, 100)				
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/m16/m16_fire.wav", 100, 100)				
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

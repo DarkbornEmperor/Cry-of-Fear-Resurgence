@@ -14,21 +14,20 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {"vjges_ref_melee_crowbar"}
+ENT.AnimTbl_MeleeAttack = {"vjseq_ref_shoot_crowbar"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25 
+ENT.MeleeAttackDamage = 15 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.Weapon_NoSpawnMenu = true
-ENT.MoveRandomlyWhenShooting = false
+//ENT.MoveRandomlyWhenShooting = false
 ENT.HasCallForHelpAnimation = false
-ENT.AllowWeaponReloading = false
 ENT.DropWeaponOnDeath = false
-ENT.CombatFaceEnemy = false
+//ENT.CombatFaceEnemy = false
 ENT.IsMedicSNPC = true
 ENT.Medic_HealthAmount = 15
-ENT.AnimTbl_Medic_GiveHealth = {"vjges_ref_shoot_crowbar"}
+ENT.AnimTbl_Medic_GiveHealth = {"vjseq_ref_shoot_crowbar"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
 ENT.Medic_SpawnPropOnHealAttachment = "pistol" 
 ENT.DisableFootStepSoundTimer = true
@@ -52,9 +51,17 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/david/pl_step3.wav",
 "vj_cofr/aom/david/pl_step4.wav"
 }
---ENT.SoundTbl_MedicBeforeHeal = {
---"vj_cofr/aom/pills/pills_pickup.wav"
---}
+/*
+ENT.SoundTbl_MedicBeforeHeal = {
+"vj_cofr/aom/pills/pills_pickup.wav"
+}
+*/
+ENT.SoundTbl_MeleeAttack = {
+"vj_cofr/cof/weapons/melee_hit.wav"
+}
+ENT.SoundTbl_MeleeAttackMiss = {
+"vj_cofr/cof/weapons/melee_swing.wav"
+}
 ENT.SoundTbl_MedicAfterHeal = {
 "vj_cofr/aom/pills/pills_use.wav"
 }
@@ -64,10 +71,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.BreathSoundLevel = 40
--- Custom
-ENT.David_Shotgun = false
-ENT.David_Glock = false
-ENT.David_Knife = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
     self.SoundTbl_Breath = {
@@ -88,32 +91,30 @@ function ENT:CustomOnPreInitialize()
     "vj_cofr/aom/david/pl_pain6.wav",
     "vj_cofr/aom/david/pl_pain7.wav",	
 }
-    local Weapon_Type = math.random(1,3)
+    local Weapon_Type = math.random(1,9)
     if Weapon_Type == 1 then
-		self.David_Shotgun = true
-        self:Give("weapon_vj_cofraom_shotgun")		
+        self:Give("weapon_vj_cofraom_beretta")		
 elseif Weapon_Type == 2 then
-		self.David_Glock = true
         self:Give("weapon_vj_cofraom_glock")		
-elseif Weapon_Type == 3 then
-		self.David_Knife = true	
-        self:Give("weapon_vj_cofraom_knife")		
+elseif Weapon_Type == 3 then	
+        self:Give("weapon_vj_cofraom_p228")
+elseif Weapon_Type == 4 then	
+        self:Give("weapon_vj_cofraom_deagle")
+elseif Weapon_Type == 5 then	
+        self:Give("weapon_vj_cofraom_revolver")		
+elseif Weapon_Type == 6 then	
+        self:Give("weapon_vj_cofraom_mp5k")	
+elseif Weapon_Type == 7 then	
+        self:Give("weapon_vj_cofraom_uzi")
+elseif Weapon_Type == 8 then	
+        self:Give("weapon_vj_cofraom_l85")
+elseif Weapon_Type == 9 then	
+        self:Give("weapon_vj_cofraom_shotgun")			
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:David_CustomOnInitialize()
-	 if self.David_Shotgun then 
-		self:SetShotgun()		
-elseif self.David_Glock then
-		self:SetGlock()					
-elseif self.David_Knife then
-		self:SetKnife()	
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
      //self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0))
-     self:David_CustomOnInitialize()
      self:AssistorFlashlight()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -135,54 +136,63 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetShotgun()
-	self:SetBodygroup(1,3)
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetGlock()
-	self:SetBodygroup(1,2)
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetKnife()
-	self:SetBodygroup(1,1)
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
+/*
 function ENT:CustomOnThink()
 	if IsValid(self:GetActiveWeapon()) then
 		self:GetActiveWeapon():SetClip1(999)
 	end
 end
+*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)			
         if htype == "shotgun" then
-			self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_SHOTGUN_IDLE4	
-/*			
-			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_AIM_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_AIM_SHOTGUN
-			self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_SHOTGUN
-*/			
+			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_SHOTGUN_IDLE4		
+			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_AGITATED
+			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_AGITATED
+			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_WALK_AGITATED
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_AGITATED				
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
-            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK2
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_SHOTGUN_LOW
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_SHOTGUN_LOW
+			self.WeaponAnimTranslations[ACT_COVER] 					= ACT_COVER_LOW
             self.AnimTbl_WeaponAim = {ACT_SHOTGUN_IDLE4}			
+
+	elseif htype == "ar2" then
+			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_RIFLE
+			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_RIFLE
+			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_RIFLE
+			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_WALK_RIFLE
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_RIFLE				
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_AR2_LOW			
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD
+            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_LOW			
+			self.WeaponAnimTranslations[ACT_COVER] 					= ACT_COVER
+            self.AnimTbl_WeaponAim = {ACT_IDLE_RIFLE}	
 					
 	elseif htype == "pistol" then
-			self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_PISTOL
-/*
+			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_PISTOL
 			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_PISTOL
 			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_PISTOL
-			self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_PISTOL
-			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_PISTOL
-*/			
+			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_WALK_PISTOL
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_PISTOL			
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_PISTOL
-            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_PISTOL_LOW			
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_PISTOL
+            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_PISTOL_LOW			
+			self.WeaponAnimTranslations[ACT_COVER] 					= ACT_COVER
             self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}				
 			
 	elseif htype == "melee" then
-			self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE	
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK1
-            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_MELEE_ATTACK_SWING_GESTURE
-            self.AnimTbl_WeaponAim = {ACT_IDLE}			
+			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_ANGRY
+			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_STIMULATED
+			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_STIMULATED			
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_MELEE_ATTACK_SWING
+            self.AnimTbl_WeaponAim = {ACT_IDLE_ANGRY}				
 end
 	return true
 end
@@ -192,15 +202,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
      else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-end
-	//self:DropWeaponOnDeathCode(dmginfo, hitgroup)
-	//self:SetBodygroup(1,0)
-	//if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
-	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
