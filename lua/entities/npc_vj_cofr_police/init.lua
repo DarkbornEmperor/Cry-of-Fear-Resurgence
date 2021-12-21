@@ -49,7 +49,7 @@ function ENT:CustomOnPreInitialize()
 	"vj_cofr/cof/police/death4.wav",
 	"vj_cofr/cof/police/death5.wav"
 }	
-    local Weapon_Type = math.random(1,12)
+    local Weapon_Type = math.random(1,13)
     if Weapon_Type == 1 then
         self:Give("weapon_vj_cofr_glock")		
 elseif Weapon_Type == 2 then
@@ -73,7 +73,9 @@ elseif Weapon_Type == 10 then
 elseif Weapon_Type == 11 then	
         self:Give("weapon_vj_cofr_rifle")
 elseif Weapon_Type == 12 then	
-        self:Give("weapon_vj_cofr_g43")		
+        self:Give("weapon_vj_cofr_g43")	
+elseif Weapon_Type == 13 then	
+        self:Give("weapon_vj_cofr_browning")	
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
