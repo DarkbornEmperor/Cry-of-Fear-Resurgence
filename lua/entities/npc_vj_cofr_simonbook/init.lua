@@ -191,6 +191,7 @@ function ENT:SetSledgehammer()
     self.AnimTbl_Walk = {ACT_RUN_STIMULATED}
 	self.AnimTbl_Run = {ACT_RUN_STIMULATED}
 	self:SetBodygroup(0,5)
+	self.HasPoseParameterLooking = false
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false
 end
@@ -202,6 +203,7 @@ function ENT:SetSledgehammerFlare()
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 	self:SetBodygroup(0,5)
 	self:SetBodygroup(2,1)
+	self.HasPoseParameterLooking = false	
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false	
 	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
