@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/bleedingspector/Sci3(Pelvis)"
                 "$additive" 1 
+                "$nodecal" 1
 }

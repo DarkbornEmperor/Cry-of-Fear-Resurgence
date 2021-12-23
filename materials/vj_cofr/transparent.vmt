@@ -1,4 +1,4 @@
-"UnlitGeneric"
+"VertexLitGeneric"
 {
 	"$baseTexture" "vj_cofr/transparent"
 	"$nocull" "1"
@@ -7,5 +7,6 @@
 	"$translucent" "1"
 	"$model" "1"
 	"$no_fullbright" 1
+                "$nodecal" 1
 }
 

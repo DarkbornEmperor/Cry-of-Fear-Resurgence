@@ -65,13 +65,13 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/zombie/claw_strike1.wav",
-"vj_cofr/aom/zombie/claw_strike2.wav",
-"vj_cofr/aom/zombie/claw_strike3.wav"
+"vj_cofr/aom/twitcher/claw_strike1.wav",
+"vj_cofr/aom/twitcher/claw_strike2.wav",
+"vj_cofr/aom/twitcher/claw_strike3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/aom/zombie/claw_miss1.wav",
-"vj_cofr/aom/zombie/claw_miss2.wav"
+"vj_cofr/aom/twitcher/claw_miss1.wav",
+"vj_cofr/aom/twitcher/claw_miss2.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -81,30 +81,30 @@ ENT.SoundTbl_Impact = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Face_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aom/agrunt/ag_alert1.mp3",
-	"vj_cofr/aom/agrunt/ag_alert2.wav",
-	"vj_cofr/aom/agrunt/ag_alert3.wav",
-	"vj_cofr/aom/agrunt/ag_alert4.wav",
-	"vj_cofr/aom/agrunt/ag_alert5.wav"
+	"vj_cofr/aom/face/ag_alert1.mp3",
+	"vj_cofr/aom/face/ag_alert2.wav",
+	"vj_cofr/aom/face/ag_alert3.wav",
+	"vj_cofr/aom/face/ag_alert4.wav",
+	"vj_cofr/aom/face/ag_alert5.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/aom/agrunt/ag_attack1.wav",
-	"vj_cofr/aom/agrunt/ag_attack2.wav",
-	"vj_cofr/aom/agrunt/ag_attack3.wav"
+	"vj_cofr/aom/face/ag_attack1.wav",
+	"vj_cofr/aom/face/ag_attack2.wav",
+	"vj_cofr/aom/face/ag_attack3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/aom/agrunt/ag_pain1.wav",
-	"vj_cofr/aom/agrunt/ag_pain2.wav",
-	"vj_cofr/aom/agrunt/ag_pain3.wav",
-	"vj_cofr/aom/agrunt/ag_pain4.wav",
-	"vj_cofr/aom/agrunt/ag_pain5.wav"
+	"vj_cofr/aom/face/ag_pain1.wav",
+	"vj_cofr/aom/face/ag_pain2.wav",
+	"vj_cofr/aom/face/ag_pain3.wav",
+	"vj_cofr/aom/face/ag_pain4.wav",
+	"vj_cofr/aom/face/ag_pain5.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aom/agrunt/ag_die1.wav",
-	"vj_cofr/aom/agrunt/ag_die2.wav",
-	"vj_cofr/aom/agrunt/ag_die3.wav",
-	"vj_cofr/aom/agrunt/ag_die4.wav",
-	"vj_cofr/aom/agrunt/ag_die5.wav"
+	"vj_cofr/aom/face/ag_die1.wav",
+	"vj_cofr/aom/face/ag_die2.wav",
+	"vj_cofr/aom/face/ag_die3.wav",
+	"vj_cofr/aom/face/ag_die4.wav",
+	"vj_cofr/aom/face/ag_die5.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

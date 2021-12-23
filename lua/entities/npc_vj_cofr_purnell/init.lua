@@ -74,6 +74,7 @@ end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_CustomOnInitialize()
+/*
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/doc_ai/be_careful_dont_make_me_angry.wav",
 	"vj_cofr/cof/doc_ai/dont_make_me_angry.wav"
@@ -84,6 +85,7 @@ function ENT:Doctor_CustomOnInitialize()
 	"vj_cofr/cof/doc_ai/stop_doing_that.wav",
 	"vj_cofr/cof/doc_ai/what_u_doin.wav"
 }
+*/
     self.SoundTbl_Pain = {
 	"vj_cofr/cof/doc_ai/ouch1.wav",
 	"vj_cofr/cof/doc_ai/ouch2.wav",

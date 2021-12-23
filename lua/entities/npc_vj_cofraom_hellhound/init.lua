@@ -45,25 +45,25 @@ ENT.SoundTbl_Impact = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hellhound_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aom/houndeye/he_alert1.wav",
-	"vj_cofr/aom/houndeye/he_alert2.wav"
+	"vj_cofr/aom/hellhound/he_alert1.wav",
+	"vj_cofr/aom/hellhound/he_alert2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/aom/houndeye/he_attack1.wav",
-	"vj_cofr/aom/houndeye/he_attack2.wav",
-	"vj_cofr/aom/houndeye/he_attack3.wav"
+	"vj_cofr/aom/hellhound/he_attack1.wav",
+	"vj_cofr/aom/hellhound/he_attack2.wav",
+	"vj_cofr/aom/hellhound/he_attack3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/aom/houndeye/he_pain1.wav",
-	"vj_cofr/aom/houndeye/he_pain2.wav",
-	"vj_cofr/aom/houndeye/he_pain3.wav",
-	"vj_cofr/aom/houndeye/he_pain4.wav",
-	"vj_cofr/aom/houndeye/he_pain5.wav"
+	"vj_cofr/aom/hellhound/he_pain1.wav",
+	"vj_cofr/aom/hellhound/he_pain2.wav",
+	"vj_cofr/aom/hellhound/he_pain3.wav",
+	"vj_cofr/aom/hellhound/he_pain4.wav",
+	"vj_cofr/aom/hellhound/he_pain5.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aom/houndeye/he_die1.wav",
-	"vj_cofr/aom/houndeye/he_die2.wav",
-	"vj_cofr/aom/houndeye/he_die3.wav"
+	"vj_cofr/aom/hellhound/he_die1.wav",
+	"vj_cofr/aom/hellhound/he_die2.wav",
+	"vj_cofr/aom/hellhound/he_die3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	local color = Color(255, 0, 0, 255) -- The shock wave color
 	local dmg = 15 -- How much damage should the shock wave do?
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
-		if v != self && v:GetClass() == "npc_vj_hlr1_houndeye" then
+		if v != self && v:GetClass() == "npc_vj_hlr1_hellhound" then
 			friNum = friNum + 1
 	end
 end
@@ -113,7 +113,7 @@ end
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/combineball_glow_red_1", framerate=20, flags=0})
 	
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
-		VJ_EmitSound(self, {"vj_cofr/aom/houndeye/he_blast1.wav","vj_cofr/aom/houndeye/he_blast2.wav","vj_cofr/aom/houndeye/he_blast3.wav"}, 100, math.random(80,100))
+		VJ_EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
 end
 	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end

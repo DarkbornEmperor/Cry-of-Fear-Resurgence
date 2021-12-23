@@ -3,4 +3,5 @@
 	"$basetexture" "models/vj_cofr/aom/ghost/Head-face1"
                 "$selfillum" 1 
                 "$additive" 1 
+                "$nodecal" 1
 }

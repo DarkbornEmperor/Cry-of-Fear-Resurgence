@@ -15,7 +15,7 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 100 
+ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
@@ -69,6 +69,7 @@ function ENT:Mace_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/sewer/mace_scream.wav"
 }
+/*
     self.SoundTbl_BeforeMeleeAttack = {
 	"vj_cofr/cof/slower/slower_attack1.wav",
 	"vj_cofr/cof/slower/slower_attack2.wav"
@@ -81,6 +82,7 @@ function ENT:Mace_CustomOnInitialize()
 	"vj_cofr/cof/slower/slower_pain1.wav",
 	"vj_cofr/cof/slower/slower_pain2.wav"
 }
+*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

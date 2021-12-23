@@ -42,16 +42,16 @@ ENT.DeathAnimationTime = 8
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
+	ThirdP_Offset = Vector(30, 25, -60), -- The offset for the screamer when the camera is in third person
 	FirstP_Bone = "bip01 neck", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(10, 0, -3), -- The offset for the controller when the camera is in first person
+	FirstP_Offset = Vector(10, 0, -3), -- The offset for the screamer when the camera is in first person
 }
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/aom/controller/con_attack1.wav",
-"vj_cofr/aom/controller/con_attack2.wav",
-"vj_cofr/aom/controller/con_attack3.wav"
+"vj_cofr/aom/screamer/con_attack1.wav",
+"vj_cofr/aom/screamer/con_attack2.wav",
+"vj_cofr/aom/screamer/con_attack3.wav"
 }	
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -63,18 +63,18 @@ ENT.Ghost_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Screamer_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aom/controller/con_alert1.wav",
-	"vj_cofr/aom/controller/con_alert2.wav",
-	"vj_cofr/aom/controller/con_alert3.wav"
+	"vj_cofr/aom/screamer/con_alert1.wav",
+	"vj_cofr/aom/screamer/con_alert2.wav",
+	"vj_cofr/aom/screamer/con_alert3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/aom/controller/con_pain1.wav",
-	"vj_cofr/aom/controller/con_pain2.wav",
-	"vj_cofr/aom/controller/con_pain3.wav"
+	"vj_cofr/aom/screamer/con_pain1.wav",
+	"vj_cofr/aom/screamer/con_pain2.wav",
+	"vj_cofr/aom/screamer/con_pain3.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aom/controller/con_die1.wav",
-	"vj_cofr/aom/controller/con_die2.wav"
+	"vj_cofr/aom/screamer/con_die1.wav",
+	"vj_cofr/aom/screamer/con_die2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/ghost/C_Head-Lip2"
                 "$additive" 1 
+                "$nodecal" 1
 }

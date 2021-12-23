@@ -13,7 +13,6 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 30 
@@ -51,36 +50,36 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/bullchicken/bc_bite1.wav",
-"vj_cofr/aom/bullchicken/bc_bite2.wav",
-"vj_cofr/aom/bullchicken/bc_bite3.wav"
+"vj_cofr/aom/spitter/bc_bite1.wav",
+"vj_cofr/aom/spitter/bc_bite2.wav",
+"vj_cofr/aom/spitter/bc_bite3.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/aom/zombie/claw_miss1.wav",
-"vj_cofr/aom/zombie/claw_miss2.wav"
+"vj_cofr/aom/twitcher/claw_miss1.wav",
+"vj_cofr/aom/twitcher/claw_miss2.wav"
 }
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/aom/bullchicken/bc_attack1.wav",
-"vj_cofr/aom/bullchicken/bc_attack2.wav",
-"vj_cofr/aom/bullchicken/bc_attack3.wav"
+"vj_cofr/aom/spitter/bc_attack1.wav",
+"vj_cofr/aom/spitter/bc_attack2.wav",
+"vj_cofr/aom/spitter/bc_attack3.wav"
 }	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spitter_CustomOnInitialize()
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/aom/bullchicken/bc_attackgrowl.wav",
-	"vj_cofr/aom/bullchicken/bc_attackgrowl2.wav",
-	"vj_cofr/aom/bullchicken/bc_attackgrowl3.wav"
+	"vj_cofr/aom/spitter/bc_attackgrowl.wav",
+	"vj_cofr/aom/spitter/bc_attackgrowl2.wav",
+	"vj_cofr/aom/spitter/bc_attackgrowl3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/aom/bullchicken/bc_pain1.wav",
-	"vj_cofr/aom/bullchicken/bc_pain2.wav",
-	"vj_cofr/aom/bullchicken/bc_pain3.wav",
-	"vj_cofr/aom/bullchicken/bc_pain4.wav"
+	"vj_cofr/aom/spitter/bc_pain1.wav",
+	"vj_cofr/aom/spitter/bc_pain2.wav",
+	"vj_cofr/aom/spitter/bc_pain3.wav",
+	"vj_cofr/aom/spitter/bc_pain4.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aom/bullchicken/bc_die1.wav",
-	"vj_cofr/aom/bullchicken/bc_die2.wav",
-	"vj_cofr/aom/bullchicken/bc_die3.wav"
+	"vj_cofr/aom/spitter/bc_die1.wav",
+	"vj_cofr/aom/spitter/bc_die2.wav",
+	"vj_cofr/aom/spitter/bc_die3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/ghost/C_In-Mouth1"
                 "$additive" 1 
+                "$nodecal" 1
 }

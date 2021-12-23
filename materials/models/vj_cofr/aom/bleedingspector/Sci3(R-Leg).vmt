@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/bleedingspector/Sci3(R-Leg)"
                 "$additive" 1 
+                "$nodecal" 1
 }

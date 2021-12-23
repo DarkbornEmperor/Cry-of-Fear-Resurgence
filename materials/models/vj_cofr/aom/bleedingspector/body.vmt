@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/bleedingspector/body"
                 "$additive" 1 
+                "$nodecal" 1
 }

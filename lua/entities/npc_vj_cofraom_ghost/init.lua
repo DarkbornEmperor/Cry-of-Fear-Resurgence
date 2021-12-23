@@ -60,16 +60,16 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/zombie/claw_strike1.wav",
-"vj_cofr/aom/zombie/claw_strike2.wav",
-"vj_cofr/aom/zombie/claw_strike3.wav"
+"vj_cofr/aom/twitcher/claw_strike1.wav",
+"vj_cofr/aom/twitcher/claw_strike2.wav",
+"vj_cofr/aom/twitcher/claw_strike3.wav"
 }
 ENT.SoundTbl_MeleeAttackSlowPlayer = {
-"vj_cofr/aom/aslave/ear_ringing.wav"
+"vj_cofr/aom/ghost/ear_ringing.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/aom/zombie/claw_miss1.wav",
-"vj_cofr/aom/zombie/claw_miss2.wav"
+"vj_cofr/aom/twitcher/claw_miss1.wav",
+"vj_cofr/aom/twitcher/claw_miss2.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -85,12 +85,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aom/aslave/slv_alert2.wav",
-	"vj_cofr/aom/aslave/slv_alert4.wav"
+	"vj_cofr/aom/ghost/slv_alert2.wav",
+	"vj_cofr/aom/ghost/slv_alert4.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aom/aslave/slv_die1.wav",
-	"vj_cofr/aom/aslave/slv_die2.wav"
+	"vj_cofr/aom/ghost/slv_die1.wav",
+	"vj_cofr/aom/ghost/slv_die2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

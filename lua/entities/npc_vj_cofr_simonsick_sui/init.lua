@@ -77,7 +77,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 end	
 	if key == "suicide" then
-		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/browning/browning_fire.wav", 100, 100)
 		VJ_EmitSound(self,"vj_cofr/fx/bodysplat.wav", 75, 100)
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 		self:SickSimon_DoFireEffects()
@@ -118,7 +118,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Damage = 12
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
-		VJ_EmitSound(self, "vj_cofr/cof/sicksimon/shoot.wav", 100, 100)
+		VJ_EmitSound(self, "vj_cofr/cof/weapons/browning/browning_fire.wav", 100, 100)
 	    self.SickSimon_FiredAtLeastOnce = true
 	    self:SickSimon_DoFireEffects()
 end

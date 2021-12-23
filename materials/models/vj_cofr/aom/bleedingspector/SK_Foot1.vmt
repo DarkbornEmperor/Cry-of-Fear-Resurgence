@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/bleedingspector/SK_Foot1"
                 "$additive" 1 
+                "$nodecal" 1
 }

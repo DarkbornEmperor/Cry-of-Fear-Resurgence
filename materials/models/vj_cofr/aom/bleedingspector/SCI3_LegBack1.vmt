@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/bleedingspector/SCI3_LegBack1"
                 "$additive" 1 
+                "$nodecal" 1
 }

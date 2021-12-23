@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/ghost/Foot_Btm1"
                 "$additive" 1 
+                "$nodecal" 1
 }

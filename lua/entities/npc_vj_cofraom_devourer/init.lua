@@ -43,9 +43,9 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/barnacle/bcl_chew1.wav",
-"vj_cofr/aom/barnacle/bcl_chew2.wav",
-"vj_cofr/aom/barnacle/bcl_chew3.wav"
+"vj_cofr/aom/devourer/bcl_chew1.wav",
+"vj_cofr/aom/devourer/bcl_chew2.wav",
+"vj_cofr/aom/devourer/bcl_chew3.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -62,8 +62,8 @@ ENT.Devourer_NextDamageT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_CustomOnInitialize()
     self.SoundTbl_Death = {
-	"vj_cofr/aom/barnacle/bcl_die1.wav",
-	"vj_cofr/aom/barnacle/bcl_die3.wav"
+	"vj_cofr/aom/devourer/bcl_die1.wav",
+	"vj_cofr/aom/devourer/bcl_die3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -120,8 +120,8 @@ function ENT:Devourer_CalculateTongue()
 			trent:SetPos(setpos) -- Set the position for the enemy
 			-- Play the pulling sound
 			if CurTime() > self.Devourer_NextPullSoundT then
-				VJ_EmitSound(self, "vj_cofr/aom/barnacle/bcl_alert2.wav")
-				self.Devourer_NextPullSoundT = CurTime() + SoundDuration("vj_cofr/aom/barnacle/bcl_alert2.wav")
+				VJ_EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
+				self.Devourer_NextPullSoundT = CurTime() + SoundDuration("vj_cofr/aom/devourer/bcl_alert2.wav")
 			end
 		end
 		self:SetPoseParameter("tongue_height", self:GetPos():Distance(self:GetUp()*125))
