@@ -12,7 +12,8 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"}
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.HasMeleeAttack = true 
+ENT.HasMeleeAttack = true
+ENT.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 14 
 ENT.MeleeAttackDistance = 30 
@@ -83,10 +84,11 @@ end
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_cofr/cof/faster.mdl" then // Already the default
 		self.Faster_Type = 0
-	elseif self:GetModel() == "models/vj_cofr/cof/faster2.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/faster2.mdl" or self:GetModel() == "models/vj_cofr/custom/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/faster2.mdl" then
 		self.Faster_Type = 1
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
-		self.Faster_Type = 2			
+		self.Faster_Type = 2		
 end
      self:Faster_CustomOnInitialize()
 end

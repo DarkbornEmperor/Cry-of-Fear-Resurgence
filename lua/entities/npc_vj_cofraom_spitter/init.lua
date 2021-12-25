@@ -13,11 +13,13 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
+ENT.AnimTbl_MeleeAttack = {"vjseq_bite"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
+ENT.AnimTbl_RangeAttack = {"vjseq_range"}
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_spit"
 ENT.RangeDistance = 784 
 ENT.RangeToMeleeDistance = 250
@@ -81,6 +83,10 @@ function ENT:Spitter_CustomOnInitialize()
 	"vj_cofr/aom/spitter/bc_die2.wav",
 	"vj_cofr/aom/spitter/bc_die3.wav"
 }
+ if self:GetModel() == "models/vj_cofr/aom/bullsquidhd.mdl" then
+      self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+	  self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+   end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

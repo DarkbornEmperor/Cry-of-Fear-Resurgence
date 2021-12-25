@@ -14,7 +14,8 @@ ENT.SoundTbl_FootStep = {
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faceless/fist_strike1.wav",
 "vj_cofr/cof/faceless/fist_strike2.wav",
-"vj_cofr/cof/faceless/fist_strike3.wav"
+"vj_cofr/cof/faceless/fist_strike3.wav",
+"vj_cofr/cof/faceless/fist_strike1.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faceless/fist_miss1.wav",

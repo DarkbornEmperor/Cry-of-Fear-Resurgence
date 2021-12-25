@@ -121,7 +121,23 @@ function ENT:Twitcher_CustomOnInitialize()
        self:SetBodygroup(0,math.random(0,9))
 else
        self:SetBodygroup(0,math.random(0,10))
-    end	
+end
+   if self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_3.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_4.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl" 
+   or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
+      self.AnimTbl_MeleeAttack = {"vjseq_attack0"}  
+end
+   if self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_3.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_4.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl" 
+   or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" then
+      self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"} 
+   end	  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TwitcherSounds()

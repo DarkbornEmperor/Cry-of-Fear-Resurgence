@@ -15,7 +15,7 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 
 	-- Cry of Fear --
-	local vCat = "CoF Resurgence" 
+	local vCat = "CoF Resurgence: CoF" 
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofr.png"})
 	
 	-- Enemies
@@ -64,6 +64,7 @@ if VJExists == true then
 	
 	-- Friendlies --
 	VJ.AddNPC("Simon Henriksson","npc_vj_cofr_simon",vCat)
+	VJ.AddNPC("Simon Henriksson (Beta)","npc_vj_cofr_simonbeta",vCat)
     VJ.AddNPC("Police Officer","npc_vj_cofr_police",vCat)	
 
 	-- Misc/Hazards --
