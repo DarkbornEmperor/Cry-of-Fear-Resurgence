@@ -48,8 +48,7 @@ ENT.VJC_Data = {
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ENT.SoundTbl_RangeAttack = {
-"vj_cofr/cof/roofboss/rb_attack1.wav",
-"vj_cofr/cof/roofboss/rb_attack2.wav"
+"vj_cofr/cof/roofboss/rb_headshoot.wav"
 }	
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/roofboss/sorrow.mp3"
@@ -73,6 +72,10 @@ function ENT:Carcass_CustomOnInitialize()
     self.SoundTbl_Breath = {
 	"vj_cofr/cof/roofboss/rb_mouthidle1.wav",
 	"vj_cofr/cof/roofboss/rb_mouthidle2.wav"
+}
+    self.SoundTbl_BeforeRangeAttack = {
+    "vj_cofr/cof/roofboss/rb_attack1.wav",
+    "vj_cofr/cof/roofboss/rb_attack2.wav"
 }
     self.SoundTbl_Pain = {
 	"vj_cofr/cof/roofboss/rb_hurt1.wav",
