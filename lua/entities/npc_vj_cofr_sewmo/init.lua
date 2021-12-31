@@ -22,9 +22,7 @@ ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasHitGroupFlinching = true 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
-ENT.HitGroupFlinching_Values = {
-{HitGroup = {HITGROUP_HEAD}, Animation = {ACT_BIG_FLINCH}}, 
-{HitGroup = {HITGROUP_CHEST}, Animation = {ACT_SMALL_FLINCH}}, 
+ENT.HitGroupFlinching_Values = { 
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
 {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 

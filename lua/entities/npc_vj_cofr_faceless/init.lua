@@ -148,14 +148,6 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	end		
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
-	else
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
 end

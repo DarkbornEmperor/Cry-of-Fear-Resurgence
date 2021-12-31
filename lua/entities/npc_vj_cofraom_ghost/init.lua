@@ -37,8 +37,6 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
 ENT.HasHitGroupFlinching = true 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = {
-{HitGroup = {HITGROUP_HEAD}, Animation = {ACT_BIG_FLINCH}}, 
-{HitGroup = {HITGROUP_CHEST}, Animation = {ACT_SMALL_FLINCH}}, 
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
 {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
@@ -112,14 +110,6 @@ end
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
-	else
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
