@@ -359,7 +359,7 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Assistor_Flashlight"] = 0 	
 	
     -- Map Spawner ConVars --
-    --AddConvars["VJ_COFR_MapSpawner_Music"] = 1
+    AddConvars["VJ_COFR_MapSpawner_Music"] = 1
 	AddConvars["VJ_COFR_MapSpawner_Enabled"] = 1
 	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
 	AddConvars["VJ_COFR_MapSpawner_MaxMon"] = 80
@@ -431,7 +431,7 @@ end
 			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
 			local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
 			vj_cofrreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
-			    --VJ_COFR_MapSpawner_Music = "1",
+			    VJ_COFR_MapSpawner_Music = "1",
 				VJ_COFR_MapSpawner_Enabled = "1",
 				VJ_COFR_MapSpawner_Boss = "0",
 				VJ_COFR_MapSpawner_MaxMon = "80",	
@@ -445,7 +445,7 @@ end
                 VJ_COFR_MapSpawner_DelayMax = "3",				
 }
             Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
-            --Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
+            Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
             Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
             Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
             Panel:AddControl("Slider", { Label 	= "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})

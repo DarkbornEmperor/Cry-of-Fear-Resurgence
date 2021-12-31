@@ -142,6 +142,15 @@ function ENT:Initialize()
 	self.HordeSpawnRate = 0.19
 	self.MaxBossMonster = 2
 	self.CanSpawnBossMonster = false --GetConVarNumber("VJ_COFR_MapSpawner_Boss")
+	
+	for _,v in ipairs(player.GetAll()) do
+		--v:ChatPrint("The book has been unleashed")
+		if GetConVarNumber("VJ_COFR_MapSpawner_Music") == 1 then
+		   self.CoF_Music = CreateSound(v,"vj_cofr/cof/mapspawner/music" .. math.random(1,6) .. ".mp3")
+		   self.CoF_Music:SetSoundLevel(100)
+           self.CoF_Music:PlayEx(100,100)		
+		end
+	end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckVisibility(pos,ent,mdl)
@@ -473,6 +482,7 @@ function ENT:SpawnBossMonster(ent,pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
+    VJ_STOPSOUND(self.CoF_Music)
 	for index,object in ipairs(self.tbl_SpawnedNPCs) do
 		if IsValid(object) then
 			object:Remove()
