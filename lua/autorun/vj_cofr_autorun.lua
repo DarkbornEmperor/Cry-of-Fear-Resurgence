@@ -147,6 +147,7 @@ if VJExists == true then
 	
     -- Friendlies --
     VJ.AddNPC("David Leatherhoff","npc_vj_cofraom_david",vCat)
+	VJ.AddNPC("David Leatherhoff (Dead)","npc_vj_cofraom_david_dead",vCat)
     VJ.AddNPC("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",vCat)
     VJ.AddNPC("Assistor","npc_vj_cofraom_assistor_da",vCat)
 
@@ -256,7 +257,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/weapons/w_tmp.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/weapons/w_vp70.mdl")		
     util.PrecacheModel("models/vj_cofr/aom/david.mdl")
-    util.PrecacheModel("models/vj_cofr/aom/david_da.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/david_da.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/david_dead.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/cross.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/question.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/scream.mdl")	
