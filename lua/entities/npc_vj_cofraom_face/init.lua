@@ -47,7 +47,6 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
 ENT.HasDeathAnimation = true 
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
 ENT.DeathAnimationTime = 8 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -164,6 +163,14 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	else
 		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	 if hitgroup == HITGROUP_HEAD then
+		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+	else
+		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
