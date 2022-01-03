@@ -140,9 +140,29 @@ end
    end  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:TwitcherSounds()
-    local Twitcher_Sounds = math.random(1,2)
-    if Twitcher_Sounds == 1 then
+function ENT:TwitcherSounds()	
+    self.SoundTbl_Pain = {
+	"vj_cofr/aom/twitcher/zo_pain1.wav",
+	"vj_cofr/aom/twitcher/zo_pain2.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/aom/twitcher/zo_pain1.wav",
+	"vj_cofr/aom/twitcher/zo_pain2.wav"
+}
+   if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 0 then	
+   if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie5.mdl" 
+   or self:GetModel() == "models/vj_cofr/aom/zombiehd.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_3.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_4.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie_da.mdl"   
+   or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher/zo_alert10.wav",
 	"vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -152,13 +172,40 @@ function ENT:TwitcherSounds()
 	"vj_cofr/aom/twitcher/zo_attack1.wav",
 	"vj_cofr/aom/twitcher/zo_attack2.wav"
 }
-    self.SoundTbl_Pain = {
-	"vj_cofr/aom/twitcher/zo_pain1.wav",
-	"vj_cofr/aom/twitcher/zo_pain2.wav"
+   elseif self:GetModel() == "models/vj_cofr/aom/zombie2_1.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie2_3.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie2_4.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie2_5.mdl" 
+   or self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_3.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_4.mdl"
+   or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl" 
+   or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
+    self.SoundTbl_Alert = {
+	"vj_cofr/aom/twitcher2/zo_alert10.wav",
+	"vj_cofr/aom/twitcher2/zo_alert20.wav",
+	"vj_cofr/aom/twitcher2/zo_alert30.wav"
 }
-    self.SoundTbl_Death = {
-	"vj_cofr/aom/twitcher/zo_pain1.wav",
-	"vj_cofr/aom/twitcher/zo_pain2.wav"
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/aom/twitcher2/zo_attack1.wav",
+	"vj_cofr/aom/twitcher2/zo_attack2.wav"
+}
+    end
+end	
+	if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 1 then
+	local Twitcher_Sounds = math.random(1,2)
+    if Twitcher_Sounds == 1 then
+    self.SoundTbl_Alert = {
+	"vj_cofr/aom/twitcher/zo_alert10.wav",
+	"vj_cofr/aom/twitcher/zo_alert20.wav",
+	"vj_cofr/aom/twitcher/zo_alert30.wav"
+}
+    self.SoundTbl_BeforeMeleeAttack = {
+	"vj_cofr/aom/twitcher/zo_attack1.wav",
+	"vj_cofr/aom/twitcher/zo_attack2.wav"
 }
 elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Alert = {
@@ -170,15 +217,8 @@ elseif Twitcher_Sounds == 2 then
 	"vj_cofr/aom/twitcher2/zo_attack1.wav",
 	"vj_cofr/aom/twitcher2/zo_attack2.wav"
 }
-    self.SoundTbl_Pain = {
-	"vj_cofr/aom/twitcher/zo_pain1.wav",
-	"vj_cofr/aom/twitcher/zo_pain2.wav"
-}
-    self.SoundTbl_Death = {
-	"vj_cofr/aom/twitcher/zo_pain1.wav",
-	"vj_cofr/aom/twitcher/zo_pain2.wav"
-}
-    end
+        end
+    end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

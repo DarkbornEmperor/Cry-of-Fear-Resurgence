@@ -352,6 +352,7 @@ if VJExists == true then
 	local AddConvars = {}
 	AddConvars["VJ_COFR_Boss_Music"] = 1
 	AddConvars["VJ_COFR_Twitcher_Invisible"] = 1
+	AddConvars["VJ_COFR_Twitcher_RandomSounds"] = 0
 	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
 	AddConvars["VJ_COFR_Sawcrazy_RadiusDamage"] = 0
 	AddConvars["VJ_COFR_FaceHead_SummonFaceless"] = 1
@@ -393,6 +394,7 @@ end
 			vj_cofrreset.Options["#vjbase.menugeneral.default"] = { 
 				VJ_COFR_Boss_Music = "1",
 				VJ_COFR_Twitcher_Invisible = "1",
+				VJ_COFR_Twitcher_RandomSounds = "0",
 				VJ_COFR_Addiction_SelfDamage = "1",
 				VJ_COFR_Sawcrazy_RadiusDamage = "0",
 				VJ_COFR_FaceHead_SummonFaceless = "1",
@@ -406,6 +408,7 @@ end
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
             Panel:AddControl("Checkbox", {Label ="Enable boss music?", Command ="VJ_COFR_Boss_Music"})
             Panel:AddControl("Checkbox", {Label ="Enable transparent/invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
+			Panel:AddControl("Checkbox", {Label ="Enable random sounds to Twitchers?", Command ="VJ_COFR_Twitcher_RandomSounds"})
             Panel:AddControl("Checkbox", {Label ="Enable self-damage to Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable radius damage to Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable The Face to summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
