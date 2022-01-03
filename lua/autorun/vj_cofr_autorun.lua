@@ -65,7 +65,8 @@ if VJExists == true then
 	-- Friendlies --
 	VJ.AddNPC("Simon Henriksson","npc_vj_cofr_simon",vCat)
 	VJ.AddNPC("Simon Henriksson (Beta)","npc_vj_cofr_simonbeta",vCat)
-    VJ.AddNPC("Police Officer","npc_vj_cofr_police",vCat)	
+    VJ.AddNPC("Police Officer","npc_vj_cofr_police",vCat)
+	VJ.AddNPC("Sawrunner (Friendly)","npc_vj_cofr_sawrunner_fri",vCat)	
 
 	-- Misc/Hazards --
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
