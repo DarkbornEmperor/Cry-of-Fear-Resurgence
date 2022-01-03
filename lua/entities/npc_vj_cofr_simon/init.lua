@@ -62,7 +62,10 @@ function ENT:CustomOnPreInitialize()
 	"vj_cofr/cof/simon/death5.wav",
 	"vj_cofr/cof/simon/death6.wav",
 	"vj_cofr/cof/simon/death7.wav"
-}	
+}
+    if GetConVarNumber("VJ_COFR_Simon_Costumes") == 1 then
+	   self:SetSkin(math.random(0,11))
+end	   
     local Weapon_Type = math.random(1,13)
     if Weapon_Type == 1 then
         self:Give("weapon_vj_cofr_glock")		

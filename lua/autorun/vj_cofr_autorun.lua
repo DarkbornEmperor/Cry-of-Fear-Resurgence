@@ -351,6 +351,7 @@ if VJExists == true then
 	-- ConVars --
 	local AddConvars = {}
 	AddConvars["VJ_COFR_Boss_Music"] = 1
+	AddConvars["VJ_COFR_Simon_Costumes"] = 0
 	AddConvars["VJ_COFR_Twitcher_Invisible"] = 1
 	AddConvars["VJ_COFR_Twitcher_RandomSounds"] = 0
 	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
@@ -393,6 +394,7 @@ end
 			local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
 			vj_cofrreset.Options["#vjbase.menugeneral.default"] = { 
 				VJ_COFR_Boss_Music = "1",
+				VJ_COFR_Simon_Costumes = "0",
 				VJ_COFR_Twitcher_Invisible = "1",
 				VJ_COFR_Twitcher_RandomSounds = "0",
 				VJ_COFR_Addiction_SelfDamage = "1",
@@ -407,6 +409,7 @@ end
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
             Panel:AddControl("Checkbox", {Label ="Enable boss music?", Command ="VJ_COFR_Boss_Music"})
+			Panel:AddControl("Checkbox", {Label ="Enable costumes to Simon?", Command ="VJ_COFR_Simon_Costumes"})
             Panel:AddControl("Checkbox", {Label ="Enable transparent/invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
 			Panel:AddControl("Checkbox", {Label ="Enable random sounds to Twitchers?", Command ="VJ_COFR_Twitcher_RandomSounds"})
             Panel:AddControl("Checkbox", {Label ="Enable self-damage to Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
