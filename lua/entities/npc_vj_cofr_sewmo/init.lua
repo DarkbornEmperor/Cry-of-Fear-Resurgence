@@ -126,7 +126,7 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
     if self.Dead == true or self.Sewmo_WireBroken == true then return end
 
-	if self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH then --&& math.random(1,5) == 1 then 
+	if self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 then 
 		self.Sewmo_WireBroken = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(0.1,function() if IsValid(self) then
