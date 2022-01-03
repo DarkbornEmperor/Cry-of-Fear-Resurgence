@@ -192,7 +192,8 @@ if VJExists == true then
 	
 	-- Precache Models --
     util.PrecacheModel("models/vj_cofr/cof/w_syringe.mdl")		
-    util.PrecacheModel("models/vj_cofr/cof/simon.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/simon.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/simon_beta.mdl")	
 	util.PrecacheModel("models/vj_cofr/cof/slower1.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/crawler.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/croucher.mdl")
