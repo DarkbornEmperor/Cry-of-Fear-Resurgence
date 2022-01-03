@@ -99,19 +99,7 @@ function ENT:CustomOnPreInitialize()
 		"models/vj_cofr/aom/zombiehd3.mdl",
         "models/vj_cofr/aom/zombiehd4.mdl"		
 }   
-end
-     if GetConVarNumber("VJ_COFR_Twitcher_Invisible") == 1 then
-     if math.random(1,10) == 1 then
-	    self.Twitcher_Invisible = true 
-		self:SetMaterial("hud/killicons/default")
-	    self:DrawShadow(false)
-
- elseif math.random(1,10) == 1 then
-        self.Twitcher_Transparent = true
-	    self:SetMaterial("vj_cofr/transparent")
-		self:DrawShadow(false)
-	end
-  end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_CustomOnInitialize()
@@ -135,7 +123,21 @@ end
    or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl" 
    or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"} 
-   end	  
+end
+     if GetConVarNumber("VJ_COFR_Twitcher_Invisible") == 1 then
+     if math.random(1,10) == 1 then
+	    self.Twitcher_Invisible = true 
+		self:SetMaterial("hud/killicons/default")
+	    self:DrawShadow(false)
+
+  elseif math.random(1,10) == 1 then
+         self.Twitcher_Transparent = true
+	     //self:SetMaterial("vj_cofr/transparent")
+		 self:SetRenderFX(kRenderFxDistort)
+		 self:SetRenderMode(RENDERMODE_TRANSADD)
+		 self:DrawShadow(false)
+	  end
+   end  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TwitcherSounds()

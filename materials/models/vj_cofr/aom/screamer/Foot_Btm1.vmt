@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/aom/screamer/Foot_Btm1"
+                "$additive" 1 
+                "$nodecal" 1
+}

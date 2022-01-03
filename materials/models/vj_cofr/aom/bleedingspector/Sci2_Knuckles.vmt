@@ -1,6 +1,0 @@
-"VertexLitGeneric"
-{
-	"$basetexture" "models/vj_cofr/aom/bleedingspector/Sci2_Knuckles"
-                "$additive" 1 
-                "$nodecal" 1
-}
