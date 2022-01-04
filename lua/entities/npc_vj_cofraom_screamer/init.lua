@@ -108,7 +108,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 		self.Soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
 		self.Soul1:SetKeyValue("renderamt","255") -- Transparency
 		self.Soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Soul1:SetKeyValue("framerate","30.0") -- Rate at which the sprite should animate, if at all.
+		self.Soul1:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
 		self.Soul1:SetKeyValue("spawnflags","0")
 		self.Soul1:SetParent(self)
 		self.Soul1:Fire("SetParentAttachment","rhand")
@@ -127,7 +127,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 		self.Soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
 		self.Soul2:SetKeyValue("renderamt","255") -- Transparency
 		self.Soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Soul2:SetKeyValue("framerate","30.0") -- Rate at which the sprite should animate, if at all.
+		self.Soul2:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
 		self.Soul2:SetKeyValue("spawnflags","0")
 		self.Soul2:SetParent(self)
 		self.Soul2:Fire("SetParentAttachment","lhand")

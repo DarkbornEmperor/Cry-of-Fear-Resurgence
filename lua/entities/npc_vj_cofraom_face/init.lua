@@ -12,7 +12,6 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"}
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
-ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 10 
@@ -133,7 +132,7 @@ end
 		self.Face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
 		self.Face:SetKeyValue("renderamt","255") -- Transparency
 		self.Face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		//self.Face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
 		self.Face:SetKeyValue("spawnflags","0")
 		self.Face:SetParent(self)
 		self.Face:Fire("SetParentAttachment","face")

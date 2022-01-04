@@ -215,7 +215,7 @@ elseif self.Doctor_Pistol then
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    dmginfo:ScaleDamage(0.25)		
+	    dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

@@ -52,6 +52,27 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
+
+	self:SetNoDraw(true)
+
+	self.IdleEffect = ents.Create("env_sprite")
+	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/eyeball.vmt")
+	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
+	self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
+	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
+	self.IdleEffect:SetKeyValue("renderfx","0")
+	self.IdleEffect:SetKeyValue("rendermode","2")
+	self.IdleEffect:SetKeyValue("renderamt","255")
+	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
+	self.IdleEffect:SetKeyValue("mindxlevel","0")
+	self.IdleEffect:SetKeyValue("maxdxlevel","0")
+	self.IdleEffect:SetKeyValue("framerate","5.0")
+	self.IdleEffect:SetKeyValue("spawnflags","0")
+	self.IdleEffect:SetKeyValue("scale","0.25")
+	self.IdleEffect:SetPos(self:GetPos())
+	self.IdleEffect:Spawn()
+	self.IdleEffect:SetParent(self)
+	self:DeleteOnRemove(self.IdleEffect)
 	
 	--util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, ".vmt")
 end

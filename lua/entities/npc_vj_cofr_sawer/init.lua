@@ -119,7 +119,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		self.Sawer_NextFlinchTimeT = CurTime() + math.random(5,8)
 end	 
      if hitgroup == 9 && self.Sawer_EyeOpen == true && self.Sawer_EyeClose == false then
-	    dmginfo:ScaleDamage(0.05)
+	    dmginfo:ScaleDamage(0.10)
      else	
        	dmginfo:ScaleDamage(0.00) 
 end
