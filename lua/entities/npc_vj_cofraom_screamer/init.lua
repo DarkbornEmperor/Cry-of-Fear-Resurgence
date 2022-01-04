@@ -99,7 +99,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Soul1 = ents.Create("env_sprite")
-		self.Soul1:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+		self.Soul1:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
 		self.Soul1:SetKeyValue("scale","1")
 		//self.Soul1:SetKeyValue("rendercolor","255 128 0")
 		self.Soul1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
@@ -108,7 +108,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 		self.Soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
 		self.Soul1:SetKeyValue("renderamt","255") -- Transparency
 		self.Soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Soul1:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
+		//self.Soul1:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
 		self.Soul1:SetKeyValue("spawnflags","0")
 		self.Soul1:SetParent(self)
 		self.Soul1:Fire("SetParentAttachment","rhand")
@@ -118,7 +118,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 		timer.Simple(2,function() if IsValid(self) && IsValid(self.Soul1) then self.Soul1:Remove() end end)
 		
 		self.Soul2 = ents.Create("env_sprite")
-		self.Soul2:SetKeyValue("model","vj_cofr/sprites/aom_soul.vmt")
+		self.Soul2:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
 		self.Soul2:SetKeyValue("scale","1")
 		//self.Soul2:SetKeyValue("rendercolor","255 128 0")
 		self.Soul2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
@@ -127,7 +127,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 		self.Soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
 		self.Soul2:SetKeyValue("renderamt","255") -- Transparency
 		self.Soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Soul2:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
+		//self.Soul2:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
 		self.Soul2:SetKeyValue("spawnflags","0")
 		self.Soul2:SetParent(self)
 		self.Soul2:Fire("SetParentAttachment","lhand")

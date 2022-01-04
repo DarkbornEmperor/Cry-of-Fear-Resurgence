@@ -1,6 +1,5 @@
 "VertexLitGeneric"
 {
-                "$basetexture" "models/vj_cofr/aom/twitcher/BX_Chrome1"
 	"$envmap" "models/vj_cofr/custom/shaimoon_gold/babychrome"
 	"$color2" "[0 0.08 0.12]"
 	"$envmapmode" 1

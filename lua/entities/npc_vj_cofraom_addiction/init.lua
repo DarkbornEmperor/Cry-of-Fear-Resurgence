@@ -106,13 +106,18 @@ function ENT:Controller_IntMsg(ply)
 	ply:ChatPrint("NOTE: Switching attacks will cause a 10/15 second delay until able to switch again.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(ent) 
+    if self.VJ_IsBeingControlled then return end
+       self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return end
+	if self.Dead or self.DeathAnimationCodeRan then return end
 
 	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe == false && CurTime() > self.Addiction_NextChangeAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(3,function() if IsValid(self) then
+		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
         self:SetBodygroup(0,1)
 		self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)	
      end		
@@ -121,7 +126,7 @@ end
     if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe == true && CurTime() > self.Addiction_NextChangeAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(3,function() if IsValid(self) then
+		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
         self:SetBodygroup(0,0)
         self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)		
      end      	 
@@ -140,7 +145,6 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)  
-   if self.Dead == true then return end
        dmginfo:ScaleDamage(0.15)
 	   
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
