@@ -127,11 +127,11 @@ end
      end      	 
   end)
 end
-    if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -300 > self:Health()) then
+    if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -250 > self:Health()) then
 		self.Addiction_OnFire = true
 		self:Ignite(15)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),DMG_BURN,150)) do
-	    timer.Create("addiction_fire"..self:EntIndex(), 1, 15, function() if IsValid(self) then
+	    timer.Create("addiction_fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire == true then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
      end
   end)
@@ -146,7 +146,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
     local attacker = dmginfo:GetAttacker()
    if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
-       dmginfo:ScaleDamage(1.00)
+       dmginfo:ScaleDamage(1.50)
    else
 	   attacker:TakeDamage(10,attacker,attacker)
 	   dmginfo:ScaleDamage(0.00)
