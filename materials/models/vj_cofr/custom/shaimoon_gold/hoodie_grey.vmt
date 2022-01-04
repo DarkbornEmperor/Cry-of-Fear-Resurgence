@@ -2,6 +2,7 @@
 {
 	"$basetexture" "models/vj_cofr/custom/shaimoon_gold/hoodie_grey"
 	"$envmap" "models/vj_cofr/custom/shaimoon_gold/babychrome"
+                "$color2" "[0 0.08 0.12]"
 
 	"VertexLitGeneric_HDR_DX9"
 	{
