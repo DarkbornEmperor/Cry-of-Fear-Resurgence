@@ -8,9 +8,8 @@ SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 1.3
-SWEP.NPC_TimeUntilFire = 0.08 
+SWEP.NPC_NextPrimaryFire = 1
+SWEP.NPC_TimeUntilFire = 0.05
 SWEP.NPC_ExtraShotsPerFire = 2
 //SWEP.NPC_ReloadSound			= {""} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)

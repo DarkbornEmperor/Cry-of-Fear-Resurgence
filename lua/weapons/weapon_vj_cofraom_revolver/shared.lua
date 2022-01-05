@@ -14,7 +14,7 @@ SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: R
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_cofr/aom/weapons/w_revolver.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.HoldType 					= "revolver"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------

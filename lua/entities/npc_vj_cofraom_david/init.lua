@@ -14,21 +14,22 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {"vjseq_ref_shoot_crowbar"}
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 ENT.TimeUntilMeleeAttackDamage = false
+ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 15 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.Weapon_NoSpawnMenu = true
-ENT.HasShootWhileMoving = false
-ENT.MoveRandomlyWhenShooting = false
+//ENT.HasShootWhileMoving = false
+//ENT.MoveRandomlyWhenShooting = false
 ENT.HasCallForHelpAnimation = false
 ENT.DropWeaponOnDeath = false
-ENT.CombatFaceEnemy = false
+//ENT.CombatFaceEnemy = false
 ENT.IsMedicSNPC = true
 ENT.Medic_HealthAmount = 15
-ENT.AnimTbl_Medic_GiveHealth = {"vjseq_ref_shoot_crowbar"}
+ENT.AnimTbl_Medic_GiveHealth = {ACT_SPECIAL_ATTACK1}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
 ENT.Medic_SpawnPropOnHealAttachment = "pistol" 
 ENT.DisableFootStepSoundTimer = true
@@ -147,51 +148,54 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)			
         if htype == "shotgun" then
-			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_SHOTGUN_IDLE4		
-			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_AGITATED
-			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_AGITATED
+			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_SHOTGUN_IDLE4}) 		
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_AGITATED})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_AGITATED})
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_WALK_AGITATED
 			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_AGITATED				
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_SHOTGUN_LOW
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK2_LOW			
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_SHOTGUN
 			self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_SHOTGUN_LOW
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_LOW
             self.AnimTbl_WeaponAim = {ACT_SHOTGUN_IDLE4}			
 
 	elseif htype == "ar2" then
-			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_RIFLE
-			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_RIFLE
-			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_RIFLE
+			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_RIFLE})
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK_RIFLE,ACT_WALK_RIFLE})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_RIFLE})
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_WALK_RIFLE
 			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_RIFLE				
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_AR2_LOW			
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK_SMG1_LOW			
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD
             self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_LOW			
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_MED
             self.AnimTbl_WeaponAim = {ACT_IDLE_RIFLE}	
 					
-	elseif htype == "pistol" then
-			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_PISTOL
-			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_PISTOL
-			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_PISTOL
+	elseif htype == "pistol" or htype == "revolver"  then
+			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_PISTOL})
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_PISTOL})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_PISTOL})
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_WALK_PISTOL
 			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_PISTOL			
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_PISTOL
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_PISTOL_LOW			
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL
+			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL_LOW
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_PISTOL
             self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_PISTOL_LOW			
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER
             self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}				
 			
 	elseif htype == "melee" then
-			//self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE_ANGRY
-			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_STIMULATED
-			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_STIMULATED			
+			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_ANGRY})
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_STIMULATED})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_STIMULATED})			
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_MELEE_ATTACK_SWING
             self.AnimTbl_WeaponAim = {ACT_IDLE_ANGRY}				
 end

@@ -14,13 +14,13 @@ SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: R
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_cofr/cof/weapons/w_revolver.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.HoldType 					= "revolver"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(2, -1, 90)
+SWEP.WorldModel_CustomPositionAngle = Vector(5, -1, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-2, 4.5, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
