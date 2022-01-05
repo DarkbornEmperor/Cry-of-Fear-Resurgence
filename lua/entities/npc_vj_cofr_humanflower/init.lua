@@ -55,6 +55,9 @@ function ENT:HumanFlower_CustomOnInitialize()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/humanflower/humanflowers.wav"
 }
+    self.SoundTbl_BeforeMeleeAttack = {
+    "vj_cofr/cof/humanflower/flowerstrike.wav"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

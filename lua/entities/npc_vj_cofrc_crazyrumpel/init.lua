@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_cofr/custom/crazyrumpel.mdl"}
 -----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/crazyrumpel/rumpelscream.wav"}) 	
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/crazyrumpel/rumpelscream.wav","vj_cofr/cof/crazyrumpel/rumpelscream2.wav"}) 	
     end
 end
 /*-----------------------------------------------
