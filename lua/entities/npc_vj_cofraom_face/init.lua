@@ -23,10 +23,9 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_eyeball"
 ENT.RangeDistance = 1100 
 ENT.RangeToMeleeDistance = 200 
 ENT.TimeUntilRangeAttackProjectileRelease = false 
-ENT.NextRangeAttackTime = 0 
-ENT.RangeAttackPos_Up = 65 
-ENT.RangeAttackPos_Forward = 10 
-ENT.RangeAttackPos_Right = 0 
+ENT.RangeUseAttachmentForPos = true 
+ENT.RangeUseAttachmentForPosID = "hornet"
+ENT.NextRangeAttackTime = 0  
 ENT.NoChaseAfterCertainRange = true 
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" 
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" 
@@ -119,7 +118,7 @@ end
 	if key == "attack" then
 		self:MeleeAttackCode()
 end	
-	if key == "attack_range" && self.RangeAttacking == true then
+	if key == "attack_range" && self.RangeAttacking == true && !self.DeathAnimationCodeRan then
 		self:RangeAttackCode()
 		if IsValid(self.Face) then self.Face:Remove() end
 		self.Face = ents.Create("env_sprite")
@@ -135,11 +134,11 @@ end
 		//self.Face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
 		self.Face:SetKeyValue("spawnflags","0")
 		self.Face:SetParent(self)
-		self.Face:Fire("SetParentAttachment","face")
+		self.Face:Fire("SetParentAttachment","hornet")
 		self.Face:Spawn()
 		self.Face:Activate()
 		self:DeleteOnRemove(self.Face)
-		timer.Simple(0.3,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
+		timer.Simple(0.1,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
 end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -173,7 +172,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
 	--ParticleEffect("vj_cofr_face",self:GetAttachment(self:LookupAttachment("face")).Pos,self:GetAngles())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
