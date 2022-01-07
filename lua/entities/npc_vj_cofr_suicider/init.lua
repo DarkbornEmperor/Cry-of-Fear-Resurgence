@@ -159,9 +159,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)   
-	if GetConVarNumber("VJ_COFR_Slower_HeadGib") == 0 then return end
-	
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)   	
 	if self.Suicider_DeathSuicide == false && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
 	    dmginfo:SetDamage(self:Health())
 		self:SetBodygroup(0,1)
