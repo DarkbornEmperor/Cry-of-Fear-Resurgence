@@ -7,8 +7,10 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/police1.mdl","models/vj_cofr/cof/police2.mdl","models/vj_cofr/cof/police3.mdl","models/vj_cofr/cof/police4.mdl"} 
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl"
-ENT.Medic_SpawnPropOnHealAttachment = "1" 
+ENT.Medic_SpawnPropOnHealAttachment = "pistol" 
 ENT.Medic_HealthAmount = 50
+ENT.WeaponInventory_Melee = true 
+ENT.WeaponInventory_MeleeList = {"weapon_vj_cofr_nightstick"} 
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
@@ -49,7 +51,7 @@ function ENT:CustomOnPreInitialize()
 	"vj_cofr/cof/police/death4.wav",
 	"vj_cofr/cof/police/death5.wav"
 }	
-    local Weapon_Type = math.random(1,13)
+    local Weapon_Type = math.random(1,21)
     if Weapon_Type == 1 then
         self:Give("weapon_vj_cofr_glock")		
 elseif Weapon_Type == 2 then
@@ -75,7 +77,23 @@ elseif Weapon_Type == 11 then
 elseif Weapon_Type == 12 then	
         self:Give("weapon_vj_cofr_g43")	
 elseif Weapon_Type == 13 then	
-        self:Give("weapon_vj_cofr_browning")	
+        self:Give("weapon_vj_cofr_browning")
+elseif Weapon_Type == 14 then	
+        self:Give("weapon_vj_cofr_switchblade")
+elseif Weapon_Type == 15 then	
+        self:Give("weapon_vj_cofr_nightstick")
+elseif Weapon_Type == 16 then	
+        self:Give("weapon_vj_cofr_sledgehammer")
+elseif Weapon_Type == 17 then	
+        self:Give("weapon_vj_cofr_branch")
+elseif Weapon_Type == 18 then	
+        self:Give("weapon_vj_cofraom_axe")
+elseif Weapon_Type == 19 then	
+        self:Give("weapon_vj_cofr_ak47")
+elseif Weapon_Type == 20 then	
+        self:Give("weapon_vj_cofr_pickaxe")	
+elseif Weapon_Type == 21 then	
+        self:Give("weapon_vj_cofr_shovel")	
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 "UnlitGeneric"
 {
-	"$basetexture" "vj_cofr/sprites/spitsplat"
+	"$basetexture" "vj_cofr/sprites/spitsplat_white"
 	"$nolod" 1
 	"$translucent" 1
 	//"$alphatest" 1

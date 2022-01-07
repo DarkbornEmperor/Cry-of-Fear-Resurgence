@@ -53,8 +53,9 @@ end
 function ENT:CustomOnInitialize()
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
 
+  if math.random(1,3) == 1 then
 	self:SetNoDraw(true)
-
+	
 	self.IdleEffect = ents.Create("env_sprite")
 	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/eyeball.vmt")
 	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
@@ -75,6 +76,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.IdleEffect)
 	
 	--util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, ".vmt")
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()

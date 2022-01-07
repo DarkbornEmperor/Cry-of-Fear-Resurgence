@@ -16,8 +16,8 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true 
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.NextMeleeAttackTime = 1
-ENT.MeleeAttackDamage = 15 
+//ENT.NextMeleeAttackTime = 1
+ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 //ENT.MeleeAttackAnimationAllowOtherTasks = true
@@ -93,7 +93,7 @@ function ENT:CustomOnPreInitialize()
     "vj_cofr/aom/david/pl_pain6.wav",
     "vj_cofr/aom/david/pl_pain7.wav",	
 }
-    local Weapon_Type = math.random(1,9)
+    local Weapon_Type = math.random(1,13)
     if Weapon_Type == 1 then
         self:Give("weapon_vj_cofraom_beretta")		
 elseif Weapon_Type == 2 then
@@ -111,7 +111,15 @@ elseif Weapon_Type == 7 then
 elseif Weapon_Type == 8 then	
         self:Give("weapon_vj_cofraom_l85")
 elseif Weapon_Type == 9 then	
-        self:Give("weapon_vj_cofraom_shotgun")			
+        self:Give("weapon_vj_cofraom_shotgun")
+elseif Weapon_Type == 10 then	
+        self:Give("weapon_vj_cofraom_knife")
+elseif Weapon_Type == 11 then	
+        self:Give("weapon_vj_cofraom_hammer")	
+elseif Weapon_Type == 12 then	
+        self:Give("weapon_vj_cofraom_axe")		
+elseif Weapon_Type == 13 then	
+        self:Give("weapon_vj_cofraom_spear")			
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,7 +204,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
 			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_ANGRY})
 			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_STIMULATED})
 			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_STIMULATED})			
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_MELEE_ATTACK_SWING
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_SPECIAL_ATTACK1 
             self.AnimTbl_WeaponAim = {ACT_IDLE_ANGRY}				
 end
 	return true

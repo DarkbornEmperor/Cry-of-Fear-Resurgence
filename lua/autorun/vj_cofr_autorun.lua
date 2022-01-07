@@ -106,7 +106,7 @@ if VJExists == true then
     VJ.AddNPC("Shaimoon (Gold)","npc_vj_cofrc_shaimoon_gold",vCat)	
     VJ.AddNPC("Sick Sophie","npc_vj_cofrc_sicksophie",vCat)		
     VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3_dream",vCat)
-    VJ.AddNPC("Slower (Mummy)","npc_vj_cofrc_slower_mummy",vCat)
+    VJ.AddNPC("Slower 1 (Mummy)","npc_vj_cofrc_slower1_mummy",vCat)
 	VJ.AddNPC("Zombie","npc_vj_cofrc_zombie",vCat)
 
     -- Bosses --

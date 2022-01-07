@@ -63,7 +63,7 @@ function ENT:CustomOnPreInitialize()
 	"vj_cofr/cof/simon/death6.wav",
 	"vj_cofr/cof/simon/death7.wav"
 }	
-    local Weapon_Type = math.random(1,13)
+    local Weapon_Type = math.random(1,21)
     if Weapon_Type == 1 then
         self:Give("weapon_vj_cofr_glock")		
 elseif Weapon_Type == 2 then
@@ -89,7 +89,23 @@ elseif Weapon_Type == 11 then
 elseif Weapon_Type == 12 then	
         self:Give("weapon_vj_cofr_g43")	
 elseif Weapon_Type == 13 then	
-        self:Give("weapon_vj_cofr_browning")			
+        self:Give("weapon_vj_cofr_browning")
+elseif Weapon_Type == 14 then	
+        self:Give("weapon_vj_cofr_switchblade")
+elseif Weapon_Type == 15 then	
+        self:Give("weapon_vj_cofr_nightstick")
+elseif Weapon_Type == 16 then	
+        self:Give("weapon_vj_cofr_sledgehammer")
+elseif Weapon_Type == 17 then	
+        self:Give("weapon_vj_cofr_branch")
+elseif Weapon_Type == 18 then	
+        self:Give("weapon_vj_cofraom_axe")
+elseif Weapon_Type == 19 then	
+        self:Give("weapon_vj_cofr_ak47")
+elseif Weapon_Type == 20 then	
+        self:Give("weapon_vj_cofr_pickaxe")	
+elseif Weapon_Type == 21 then	
+        self:Give("weapon_vj_cofr_shovel")			
     end	
 end	
 /*-----------------------------------------------

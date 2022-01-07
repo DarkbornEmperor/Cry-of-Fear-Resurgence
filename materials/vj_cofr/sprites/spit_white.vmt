@@ -1,6 +1,6 @@
 "UnlitGeneric"
 {
-                "$basetexture" "vj_cofr/sprites/mommaspit"
+                "$basetexture" "vj_cofr/sprites/spit_white"
 	"$nolod" 1
 	"$translucent" 1
 	//"$alphatest" 1
@@ -10,7 +10,7 @@
 		{
 			"animatedtexturevar" "$basetexture"
 			"animatedtextureframenumvar" "$frame"
-			"animatedtextureframerate" 30
+			"animatedtextureframerate" 10
 		}
 	}
 }
