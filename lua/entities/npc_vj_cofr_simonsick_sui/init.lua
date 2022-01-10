@@ -124,8 +124,27 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    dmginfo:ScaleDamage(0.45)		
-end
+	    dmginfo:ScaleDamage(0.45)
+        if hitgroup == 8 then	   
+	    if self.HasSounds == true && self.HasImpactSounds == true then
+            self.Bleeds = false
+			dmginfo:ScaleDamage(0.20)
+		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+			local spark = ents.Create("env_spark")
+			spark:SetKeyValue("Magnitude","1")
+			spark:SetKeyValue("Spark Trail Length","1")
+			spark:SetPos(dmginfo:GetDamagePosition())
+			spark:SetAngles(self:GetAngles())
+			spark:SetParent(self)
+			spark:Spawn()
+			spark:Activate()
+			spark:Fire("StartSpark", "", 0)
+			spark:Fire("StopSpark", "", 0.001)
+			self:DeleteOnRemove(spark)
+		else
+	        self.Bleeds = true
+     end	
+end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
