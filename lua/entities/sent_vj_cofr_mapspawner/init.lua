@@ -42,7 +42,7 @@ ENT.Monster = {
 	{class="npc_vj_cofrc_genome_soldier",chance=70},	
 	{class="npc_vj_cofrc_genome_generic",chance=70},
 	{class="npc_vj_cofrc_pedoslow",chance=70}, 	
-	{class="npc_vj_cofrc_slower_mummy",chance=70},
+	{class="npc_vj_cofrc_slower1_mummy",chance=70},
 	{class="npc_vj_cofrc_cutter",chance=70},
 	{class="npc_vj_cofrc_psycho_le",chance=70},	
 	{class="npc_vj_cofrc_faceless_mummy",chance=70},	

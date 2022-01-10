@@ -63,7 +63,7 @@ local entsList = {
 	"npc_vj_cofrc_genome_soldier:60",
 	"npc_vj_cofrc_genome_generic:60",
 	"npc_vj_cofrc_pedoslow:60",
-	"npc_vj_cofrc_slower_mummy:60",
+	"npc_vj_cofrc_slower1_mummy:60",
 	"npc_vj_cofrc_cutter:60",
 	"npc_vj_cofrc_mother:60",
 	"npc_vj_cofrc_psycho_le:60",
