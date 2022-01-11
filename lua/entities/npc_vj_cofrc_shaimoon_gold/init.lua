@@ -67,31 +67,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)	
 	if self.HasSounds == true && self.HasImpactSounds == true then 
-	    dmginfo:ScaleDamage(0.25)
+	    dmginfo:ScaleDamage(0.45)
 		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-		local attacker = dmginfo:GetAttacker()
-			self.DamageSpark1 = ents.Create("env_spark")
-			self.DamageSpark1:SetKeyValue("Magnitude","1")
-			self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
-			self.DamageSpark1:SetPos(dmginfo:GetDamagePosition())
-			self.DamageSpark1:SetAngles(self:GetAngles())
-			//self.DamageSpark1:Fire("LightColor", "255 255 255")
-			self.DamageSpark1:SetParent(self)
-			self.DamageSpark1:Spawn()
-			self.DamageSpark1:Activate()
-			self.DamageSpark1:Fire("StartSpark", "", 0)
-			self.DamageSpark1:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(self.DamageSpark1)	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
-	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
+			local spark = ents.Create("env_spark")
+			spark:SetKeyValue("Magnitude","1")
+			spark:SetKeyValue("Spark Trail Length","1")
+			spark:SetPos(dmginfo:GetDamagePosition())
+			spark:SetAngles(self:GetAngles())
+			spark:SetParent(self)
+			spark:Spawn()
+			spark:Activate()
+			spark:Fire("StartSpark", "", 0)
+			spark:Fire("StopSpark", "", 0.001)
+			self:DeleteOnRemove(spark)	
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
