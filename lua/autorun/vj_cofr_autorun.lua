@@ -360,6 +360,7 @@ if VJExists == true then
 	AddConvars["VJ_COFR_FaceHead_SummonFaceless"] = 1
 	AddConvars["VJ_COFR_Slower_HeadGib"] = 1
 	AddConvars["VJ_COFR_Suicider_DropGlock"] = 0
+	AddConvars["VJ_COFR_DropAmmo"] = 0	
 	AddConvars["VJ_COFR_Suicider_Headshot"] = 1 	
 	AddConvars["VJ_COFR_Ghost_SlowSound"] = 0
 	AddConvars["VJ_COFR_Assistor_Flashlight"] = 0 	
@@ -403,6 +404,7 @@ end
 				VJ_COFR_FaceHead_SummonFaceless = "1",
 				VJ_COFR_Slower_HeadGib = "1",
 				VJ_COFR_Suicider_DropGlock = "0",
+				VJ_COFR_DropAmmo = "0",				
 				VJ_COFR_Suicider_Headshot = "1",
 				VJ_COFR_Ghost_SlowSound = "0",
                 VJ_COFR_Assistor_Flashlight = "0",				
@@ -417,7 +419,8 @@ end
 			Panel:AddControl("Checkbox", {Label ="Enable radius damage to Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable The Face to summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
             Panel:AddControl("Checkbox", {Label ="Enable head gibbing to Slowers?", Command ="VJ_COFR_Slower_HeadGib"})
-            Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks & ammo on death?", Command ="VJ_COFR_Suicider_DropGlock"})
+            Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks on death?", Command ="VJ_COFR_Suicider_DropGlock"})
+            Panel:AddControl("Checkbox", {Label ="Enable SNPCs dropping ammo on death?", Command ="VJ_COFR_DropAmmo"})			
             Panel:AddControl("Checkbox", {Label ="Enable instant headshot to Suicider?", Command ="VJ_COFR_Suicider_Headshot"})			
             Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
             Panel:AddControl("Checkbox", {Label ="Enable flashlight to Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})				

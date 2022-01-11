@@ -54,6 +54,7 @@ ENT.SoundTbl_Impact = {
 }
 ENT.RangeAttackSoundLevel = 100
 -- Custom
+ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Suicider_DeathSuicide = false
 ENT.Suicider_FiredAtLeastOnce = false
 ENT.Suicider_Skin = 0
@@ -220,9 +221,9 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock() 
-    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") && !file.Exists("lua/entities/ent_cof_glock_ammo.lua","GAME") then return end
+    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
 	
-    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 1 && file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") && file.Exists("lua/entities/ent_cof_glock_ammo.lua","GAME") then
+    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 1 && file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then
 	   self:SetBodygroup(1,1)
 	   
 	   local Glock = ents.Create("weapon_cof_glock")
@@ -231,25 +232,7 @@ function ENT:DropGlock()
 	   //Glock:SetParent(self)
 	   Glock:Spawn()
 	   Glock:Activate()
-	   //self:DeleteOnRemove(Glock)
-   
-	   local GlockMag = ents.Create("ent_cof_glock_ammo")	   
-	   GlockMag:SetPos(self:GetPos() + self:OBBCenter())
-	   GlockMag:SetLocalAngles(self:GetAngles())	   
-	   //GlockMag:SetParent(self)
-	   GlockMag:Spawn()
-	   GlockMag:Activate()
-	   //self:DeleteOnRemove(GlockMag)
-	   
-		local phys = GlockMag:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40) + self:GetMoveVelocity() + self:GetVelocity()
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos and self:GetGroundSpeedVelocity() or self:GetMoveVelocity()
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-	     end   
+	   //self:DeleteOnRemove(Glock)	 
     end 	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -257,8 +240,30 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 return false 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)  
-       self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup) 
+    self:SetSolid(SOLID_NONE) 
+    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
+	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
+	   if pickedAmmoType != false then	   
+	   local AmmoDrop = ents.Create(pickedAmmoType)	   
+	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
+	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
+	   //AmmoDrop:SetParent(self)
+	   AmmoDrop:Spawn()
+	   AmmoDrop:Activate()
+	   //self:DeleteOnRemove(AmmoDrop)
+	   
+		local phys = AmmoDrop:GetPhysicsObject()
+			if IsValid(phys) then
+				local dmgForce = (self.SavedDmgInfo.force / 40)
+				if self.DeathAnimationCodeRan then
+					dmgForce = self:GetMoveVelocity() == defPos
+end
+				phys:SetMass(1)
+				phys:ApplyForceCenter(dmgForce)
+		end		
+	end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()

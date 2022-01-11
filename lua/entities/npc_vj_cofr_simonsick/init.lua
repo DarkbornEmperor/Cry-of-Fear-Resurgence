@@ -38,6 +38,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
+ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.SickSimon_NextTwisterSpawnT = 0
 ENT.SickSimon_NextAttackT = 0
 ENT.PropstoThrow ={
@@ -184,9 +185,31 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" then
 			v:GetPhysicsObject():EnableGravity(true)
 end
+       self:SetSolid(SOLID_NONE)
 	   self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
        self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-	end  
+end  
+       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
+	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
+	   if pickedAmmoType != false then	   
+	   local AmmoDrop = ents.Create(pickedAmmoType)	   
+	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
+	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
+	   //AmmoDrop:SetParent(self)
+	   AmmoDrop:Spawn()
+	   AmmoDrop:Activate()
+	   //self:DeleteOnRemove(AmmoDrop)
+	   
+		local phys = AmmoDrop:GetPhysicsObject()
+			if IsValid(phys) then
+				local dmgForce = (self.SavedDmgInfo.force / 40)
+				if self.DeathAnimationCodeRan then
+					dmgForce = self:GetMoveVelocity() == defPos
+end
+				phys:SetMass(1)
+				phys:ApplyForceCenter(dmgForce)
+		end		
+	end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

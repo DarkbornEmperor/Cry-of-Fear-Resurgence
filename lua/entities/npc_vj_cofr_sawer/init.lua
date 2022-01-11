@@ -12,7 +12,7 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"}
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
-ENT.TurningSpeed = 10
+//ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
@@ -55,9 +55,7 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 75
 -- Custom
-ENT.Sawer_IsHurt = false
-ENT.Sawer_NotHurt = true
-ENT.Sawer_EyeClose = true
+ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Sawer_EyeOpen = false
 ENT.Sawer_NextDownTimeT = 0
 ENT.Sawer_NextFlinchTimeT = 0
@@ -114,23 +112,20 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-     if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && CurTime() > self.Sawer_NextFlinchTimeT && math.random(1,12) == 1 then
+     if CurTime() > self.Sawer_NextFlinchTimeT && math.random(1,12) == 1 && !self.Sawer_EyeOpen then
         self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false) 
 		self.Sawer_NextFlinchTimeT = CurTime() + math.random(5,8)
 end	 
-     if hitgroup == 9 && self.Sawer_EyeOpen == true && self.Sawer_EyeClose == false then
+     if hitgroup == 9 && self.Sawer_EyeOpen then
 	    dmginfo:ScaleDamage(0.10)
      else	
        	dmginfo:ScaleDamage(0.00) 
 end
-                  if self.Sawer_NotHurt == true && self.Sawer_IsHurt == false && CurTime() > self.Sawer_NextDownTimeT && math.random(1,20) == 1 && self.Sawer_EyeClose == true then 
+                  if CurTime() > self.Sawer_NextDownTimeT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then 
                      self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
 		             VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
 		             self:SetSkin(1)
-		             self.Sawer_EyeClose = false
 		             self.Sawer_EyeOpen = true
-		             self.Sawer_IsHurt = true
-		             self.Sawer_NotHurt = false
                      self.MovementType = VJ_MOVETYPE_STATIONARY
                      self.CanTurnWhileStationary = false
                      self.CanFlinch = 0
@@ -139,13 +134,10 @@ end
                   timer.Simple(6,function()
                   if IsValid(self) then
 	                 self:SetSkin(0)
-	  	             self.Sawer_EyeClose = true
 		             self.Sawer_EyeOpen = false
 		 
                   timer.Simple(0.3,function()
-                  if IsValid(self) then
-		             self.Sawer_IsHurt = false
-		             self.Sawer_NotHurt = true	 
+                  if IsValid(self) then 
                      self.MovementType = VJ_MOVETYPE_GROUND
                      self.CanFlinch = 1	
 		             self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
@@ -158,9 +150,31 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+    self:SetSolid(SOLID_NONE)
     self:SetSkin(0)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
+       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
+	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
+	   if pickedAmmoType != false then	   
+	   local AmmoDrop = ents.Create(pickedAmmoType)	   
+	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
+	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
+	   //AmmoDrop:SetParent(self)
+	   AmmoDrop:Spawn()
+	   AmmoDrop:Activate()
+	   //self:DeleteOnRemove(AmmoDrop)
+	   
+		local phys = AmmoDrop:GetPhysicsObject()
+			if IsValid(phys) then
+				local dmgForce = (self.SavedDmgInfo.force / 40)
+				if self.DeathAnimationCodeRan then
+					dmgForce = self:GetMoveVelocity() == defPos
+end
+				phys:SetMass(1)
+				phys:ApplyForceCenter(dmgForce)
+		end		
+	end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
