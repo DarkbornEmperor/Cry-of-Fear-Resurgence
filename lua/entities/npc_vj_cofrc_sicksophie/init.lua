@@ -7,8 +7,6 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/sicksophie.mdl"} 
 ENT.CanFlinch = 0
--- Custom 
-ENT.Slower_Type = 3
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {

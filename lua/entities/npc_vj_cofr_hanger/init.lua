@@ -11,7 +11,6 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
-ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {ACT_SIGNAL1}
@@ -53,6 +52,7 @@ function ENT:CustomOnInitialize()
 	 self:SetMaterial("hud/killicons/default")
      self:DrawShadow(false)
      self:AddFlags(FL_NOTARGET)
+	 self.CallForHelp = false
      self:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -63,12 +63,12 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	        if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
-
+	        if self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
 	        if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
 			   self.Hanger_Death = true
 			   self:SetGroundEntity(NULL)
 	           self:DrawShadow(true)
+			   self.CallForHelp = true
 			   self:SetMaterial() 
 	        timer.Simple(1.5,function() if IsValid(self) then	
 	           self:Remove()

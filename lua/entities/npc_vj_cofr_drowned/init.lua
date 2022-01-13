@@ -65,7 +65,8 @@ ENT.SoundTbl_Impact = {
 ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Drowned_Baby = false
 ENT.Drowned_DamageDistance = 500
-ENT.Drowned_NextEnemyDamage = 0
+ENT.Drowned_NextEnemyDamageT = 0
+ENT.Drowned_NextAttackT = 0
 
 util.AddNetworkString("vj_cofr_drowned_damage")
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,6 +112,7 @@ end
 	if key == "baby_appear" then
 		VJ_EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav", 75, 100)
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
+		self:SetBodygroup(0,1)
 end		
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -128,34 +130,26 @@ function ENT:Drowned_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	if self.Dead == true or GetConVarNumber("vj_npc_norange") == 1 then return end	
-	
+	if GetConVarNumber("vj_npc_norange") == 1 or self.DeathAnimationCodeRan then return end	
 	local ent = self:GetEnemy()
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) && !self:Visible(ent) then return end
-	if CurTime() > self.Drowned_NextEnemyDamage then
+	if CurTime() > self.Drowned_NextEnemyDamageT then
 	if self.HasSounds == true && self:Visible(ent) then VJ_EmitSound(ent, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
-	timer.Simple(5,function() if IsValid(self) && self.Dead == false && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
+	timer.Simple(5,function() if IsValid(self) && !self.DeathAnimationCodeRan && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()
-		self.Drowned_NextEnemyDamage = 15
+		self.Drowned_NextEnemyDamageT = 15
      end		
    end)		
  end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true or self.VJ_IsBeingControlled == true or self:BusyWithActivity() then return end
-	
-	if self.Drowned_Baby == false && self.Dead == false && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
+    if self.VJ_IsBeingControlled == true or self:BusyWithActivity() or self.DeathAnimationCodeRan then return end	
+	if self.Drowned_Baby == false && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
-			timer.Simple(0.1,function() if IsValid(self) then
-				self:SetBodygroup(0,1) 
-				self:DoChaseAnimation()
-                return				
-			end
-		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -84,7 +84,11 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 	if key == "attack" then
 		self:MeleeAttackCode()
-end	
+end
+	if key == "barbedwire_break" then
+		VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
+		self:SetBodygroup(0,1)
+end		
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
@@ -125,18 +129,10 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-    if self.Dead == true or self.Sewmo_WireBroken == true or self.DeathAnimationCodeRan then return end
-
+    if self.Sewmo_WireBroken == true or self.DeathAnimationCodeRan then return end
 	if self:GetBodygroup(0) == 0 && self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 && !self.DeathAnimationCodeRan then 
 		self.Sewmo_WireBroken = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(0.1,function() if IsValid(self) && !self.DeathAnimationCodeRan then
-			if self.HasSounds == true then VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100) end end end)
-			timer.Simple(0.3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
-				self:SetBodygroup(0,1) 
-				self:DoChaseAnimation()
-			end
-		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -89,7 +89,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
-	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
+	if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
 	self:SetGroundEntity(NULL)
 	--self:SetLocalVelocity(((self:GetEnemy():GetPos() + self:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 + self:GetUp()*40 + self:GetForward()*20)
 	self:SetBodygroup(0,1)

@@ -6,8 +6,6 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/slower3_dream.mdl"} 
--- Custom
-ENT.Slower_Type = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
     self.SoundTbl_Alert = {

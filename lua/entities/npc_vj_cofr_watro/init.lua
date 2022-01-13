@@ -14,7 +14,6 @@ ENT.CanTurnWhileStationary = false
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
@@ -58,6 +57,7 @@ function ENT:Watro_CustomOnInitialize()
 	    self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.HasMeleeAttack = false
 		self:DrawShadow(false)
+		self.CallForHelp = false
 		self:AddFlags(FL_NOTARGET)
     end		
 end
@@ -87,13 +87,14 @@ end
 	    self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 		self.HasMeleeAttack = true
 		self:DrawShadow(true)
+		self.CallForHelp = true
         self:RemoveFlags(FL_NOTARGET)
         return		
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    dmginfo:ScaleDamage(0.25)		
+	    dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)

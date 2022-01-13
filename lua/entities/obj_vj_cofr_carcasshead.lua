@@ -26,7 +26,7 @@ if !SERVER then return end
 
 ENT.Model = {"models/vj_cofr/cof/hookedhead.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 5 -- How much damage should it do when it hits something
+ENT.DirectDamage = 3 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
 ENT.SoundTbl_Idle = {"vj_cofr/cof/roofboss/rb_headshoot.wav"}

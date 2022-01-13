@@ -27,7 +27,7 @@ ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false 
 ENT.RangeUseAttachmentForPos = true 
 ENT.RangeUseAttachmentForPosID = "range"
-ENT.NextRangeAttackTime = 20
+ENT.NextRangeAttackTime = 25
 ENT.NoChaseAfterCertainRange = true 
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" 
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" 
@@ -114,6 +114,28 @@ end
 function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*20, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+        if hitgroup == 0 then	   
+	    if self.HasSounds == true && self.HasImpactSounds == true then
+            self.Bleeds = false
+			dmginfo:ScaleDamage(0.20)
+		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+			local spark = ents.Create("env_spark")
+			spark:SetKeyValue("Magnitude","1")
+			spark:SetKeyValue("Spark Trail Length","1")
+			spark:SetPos(dmginfo:GetDamagePosition())
+			spark:SetAngles(self:GetAngles())
+			spark:SetParent(self)
+			spark:Spawn()
+			spark:Activate()
+			spark:Fire("StartSpark", "", 0)
+			spark:Fire("StopSpark", "", 0.001)
+			self:DeleteOnRemove(spark)
+		else
+	        self.Bleeds = true
+     end	
+end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
     self:SetSolid(SOLID_NONE)

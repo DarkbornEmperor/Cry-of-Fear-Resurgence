@@ -7,8 +7,6 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/slowerno_boss.mdl"} 
 ENT.StartHealth = 300
--- Custom
-ENT.Slower_Type = 4
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
     self.SoundTbl_Alert = {
