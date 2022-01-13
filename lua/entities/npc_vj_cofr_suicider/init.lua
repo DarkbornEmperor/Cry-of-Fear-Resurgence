@@ -91,8 +91,7 @@ end
 		self:Suicider_DoFireEffects()
 		VJ_EmitSound(self,"vj_cofr/cof/suicider/suicider_glock_fire.wav", 100, 100)
 		VJ_EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-        self:SetBodygroup(0,1)		
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())		
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -198,6 +197,7 @@ end
 		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
 		timer.Simple(0.5,function()
 			if IsValid(self) then
+			   self:SetBodygroup(0,1)
 			   self:DropGlock()
 				if self.HasGibDeathParticles == true then
 					local bloodeffect = EffectData()
