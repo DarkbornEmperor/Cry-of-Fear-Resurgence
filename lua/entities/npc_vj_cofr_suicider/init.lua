@@ -91,7 +91,10 @@ end
 		self:Suicider_DoFireEffects()
 		VJ_EmitSound(self,"vj_cofr/cof/suicider/suicider_glock_fire.wav", 100, 100)
 		VJ_EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())		
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
+        if self.Suicider_Skin == 0 then self:SetBodygroup(0,1) end
+	    if self.Suicider_Skin == 1 then self:SetBodygroup(0,3) end
+        if self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end	 
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -158,10 +161,13 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)   	
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end 	
 	if self.Suicider_DeathSuicide == false && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
 	    dmginfo:SetDamage(self:Health())
-		self:SetBodygroup(0,1)
+    if self.Suicider_Skin == 0 then self:SetBodygroup(0,1) end
+	if self.Suicider_Skin == 1 then self:SetBodygroup(0,3) end
+    if self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end	
 	
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
@@ -197,9 +203,8 @@ end
 		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
 		timer.Simple(0.5,function()
 			if IsValid(self) then
-			   self:SetBodygroup(0,1)
 			   self:DropGlock()
-				if self.HasGibDeathParticles == true then
+				if self.HasGibDeathParticles == true && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
 					local bloodeffect = EffectData()
 					bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
 					bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))

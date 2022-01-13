@@ -87,7 +87,8 @@ end
 end
 	if key == "barbedwire_break" then
 		VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
-		self:SetBodygroup(0,1)
+	 if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
+	 if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end		
 end		
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -110,7 +111,7 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/cof/sewmo/tunga_strike1.wav",
 		"vj_cofr/cof/sewmo/tunga_strike2.wav"
 }
-	elseif self:GetBodygroup(0) == 1 then
+	elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
         self.MeleeAttackDistance = 30 
         self.MeleeAttackDamageDistance = 60		
@@ -129,10 +130,12 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-    if self.Sewmo_WireBroken == true or self.DeathAnimationCodeRan then return end
-	if self:GetBodygroup(0) == 0 && self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 && !self.DeathAnimationCodeRan then 
-		self.Sewmo_WireBroken = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+    if self.Sewmo_WireBroken == true or self.DeathAnimationCodeRan then return end 
+	if self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2 then
+	if self.Sewmo_WireBroken == false && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 && !self.DeathAnimationCodeRan then 
+		    self.Sewmo_WireBroken = true
+		    self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
