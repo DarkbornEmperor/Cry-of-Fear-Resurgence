@@ -82,6 +82,7 @@ end
 		self.Faceless1:Spawn()
 		self.Faceless1:SetOwner(self)
 		self.Faceless1:Activate()
+		self.Faceless1:SetCollisionGroup(COLLISION_GROUP_NONE)
 		self:DeleteOnRemove(self.Faceless1)		
 		
 		self.Faceless2 = ents.Create("npc_vj_cofr_faceless")
@@ -90,7 +91,8 @@ end
 		self.Faceless2:Spawn()
 		self.Faceless2:SetOwner(self)
 	    self.Faceless2:Activate()
-		self:DeleteOnRemove(self.Faceless2)	
+		self.Faceless2:SetCollisionGroup(COLLISION_GROUP_NONE)
+		self:DeleteOnRemove(self.Faceless2)
 		
 		self.Faceless3 = ents.Create("npc_vj_cofr_faceless")
 		self.Faceless3:SetPos(self:GetPos() + self:GetRight()*100 + self:GetUp()*10)
@@ -98,7 +100,8 @@ end
 		self.Faceless3:Spawn()
 		self.Faceless3:SetOwner(self)
 		self.Faceless3:Activate()
-		self:DeleteOnRemove(self.Faceless3)			
+		self.Faceless3:SetCollisionGroup(COLLISION_GROUP_NONE)
+		self:DeleteOnRemove(self.Faceless3)		
 		
 		self.Faceless4 = ents.Create("npc_vj_cofr_faceless")
 		self.Faceless4:SetPos(self:GetPos() + self:GetRight()*-100 + self:GetUp()*10)
@@ -106,7 +109,8 @@ end
 		self.Faceless4:Spawn()
 		self.Faceless4:SetOwner(self)
 		self.Faceless4:Activate()
-		self:DeleteOnRemove(self.Faceless4)			
+		self.Faceless4:SetCollisionGroup(COLLISION_GROUP_NONE)
+		self:DeleteOnRemove(self.Faceless4)		
 
 		self.Faceless5 = ents.Create("npc_vj_cofr_faceless_crawler")
 		self.Faceless5:SetPos(self:GetPos() + self:GetForward()*-90 + self:GetUp()*10)
@@ -114,6 +118,7 @@ end
 		self.Faceless5:Spawn()
 		self.Faceless5:SetOwner(self)
 		self.Faceless5:Activate()
+		self.Faceless5:SetCollisionGroup(COLLISION_GROUP_NONE)		
 		self:DeleteOnRemove(self.Faceless5)
 
 		self.Faceless6 = ents.Create("npc_vj_cofr_faceless_crawler")
@@ -122,6 +127,7 @@ end
 		self.Faceless6:Spawn()
 		self.Faceless6:SetOwner(self)
 		self.Faceless6:Activate()
+		self.Faceless6:SetCollisionGroup(COLLISION_GROUP_NONE)		
 		self:DeleteOnRemove(self.Faceless6)		
 		
 		self.FaceHead_NextFacelessSpawnT = CurTime() + 20 

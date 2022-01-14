@@ -15,7 +15,7 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false 
 ENT.HasLeapAttack = true 
 ENT.LeapAttackDamage = 16
-ENT.AnimTbl_LeapAttack = {ACT_RANGE_ATTACK1} 
+ENT.AnimTbl_LeapAttack = {"vjseq_jump","vjseq_jump_variation1","vjseq_jump_variation2"} 
 ENT.LeapDistance = 256 
 ENT.LeapToMeleeDistance = 1 
 ENT.LeapAttackDamageDistance = 50 
@@ -68,8 +68,8 @@ function ENT:Handcrab_CustomOnInitialize()
 }
     self.SoundTbl_Pain = {
 	"vj_cofr/aom/handcrab/hc_pain1.wav",
-	"vj_cofr/aom/handcrab/hc_pain1.wav",
-	"vj_cofr/aom/handcrab/hc_pain1.wav"
+	"vj_cofr/aom/handcrab/hc_pain2.wav",
+	"vj_cofr/aom/handcrab/hc_pain3.wav"
 }
     self.SoundTbl_Death = {
 	"vj_cofr/aom/handcrab/hc_die1.wav",

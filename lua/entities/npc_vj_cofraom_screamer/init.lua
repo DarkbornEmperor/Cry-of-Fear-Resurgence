@@ -19,7 +19,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = false 
-ENT.HasRangeAttack = true 
+ENT.HasRangeAttack = true
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_soul" 
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 1 
@@ -141,11 +141,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
 	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_DUCK)) then
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		self.AnimTbl_RangeAttack = {"vjseq_attack2"}
 		self.RangeAttackPos_Up = 80
 		self.Ghost_HomingAttack = true
 	else
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+		self.AnimTbl_RangeAttack = {"vjseq_attack1"}
 		self.RangeAttackPos_Up = 20
 		self.Ghost_HomingAttack = false
 	end

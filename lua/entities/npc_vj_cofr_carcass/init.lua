@@ -21,6 +21,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.HasRangeAttack = true
+ENT.AnimTbl_RangeAttack = {"vjseq_attack"}
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_carcasshead"
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 1 

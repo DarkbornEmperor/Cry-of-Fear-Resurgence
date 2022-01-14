@@ -24,7 +24,10 @@ if !SERVER then return end
 ENT.TimedSpawn_Time = 1
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local entsList = {
-	"npc_vj_cofraom_twitcher",
+	"npc_vj_cofraom_twitcher1",
+	"npc_vj_cofraom_twitcher2",
+	"npc_vj_cofraom_twitcher3",
+	"npc_vj_cofraom_twitcher4",
 	"npc_vj_cofraom_twitcher_da",
 	"npc_vj_cofraom_handcrab:5",
 	"npc_vj_cofraom_wheelchair:10",

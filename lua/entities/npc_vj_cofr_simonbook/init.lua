@@ -14,7 +14,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+ENT.AnimTbl_MeleeAttack = {"vjseq_attack_sledgehammer"}
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
@@ -201,7 +201,7 @@ function ENT:SetSledgehammerFlare()
     self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
     self.AnimTbl_Walk = {ACT_SPRINT}
 	self.AnimTbl_Run = {ACT_SPRINT}
-	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+	self.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
 	self:SetBodygroup(0,5)
 	self:SetBodygroup(2,1)
 	self.HasPoseParameterLooking = false	

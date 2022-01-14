@@ -94,7 +94,7 @@ end
 function ENT:MultipleMeleeAttacks()
 local attack = math.random(1,2)
 	if attack == 1 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 		self.MeleeAttackDamage = 60
 		self.SlowPlayerOnMeleeAttack = true
 		self.HasMeleeAttackKnockBack = true
@@ -105,7 +105,7 @@ local attack = math.random(1,2)
 		"vj_cofr/cof/taller/taller_player_punch.wav"
 }
 	elseif attack == 2 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+		self.AnimTbl_MeleeAttack = {"vjseq_stamp"}
 		self.MeleeAttackDamage = 200 
 		self.SlowPlayerOnMeleeAttack = false
 		self.HasMeleeAttackKnockBack = false

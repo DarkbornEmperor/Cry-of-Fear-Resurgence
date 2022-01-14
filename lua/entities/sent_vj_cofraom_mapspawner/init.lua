@@ -6,7 +6,10 @@ local table_insert = table.insert
 local table_remove = table.remove
 
 ENT.Monster = {
-	{class="npc_vj_cofraom_twitcher",chance=1},
+	{class="npc_vj_cofraom_twitcher1",chance=1},
+	{class="npc_vj_cofraom_twitcher2",chance=1},
+	{class="npc_vj_cofraom_twitcher3",chance=1},
+	{class="npc_vj_cofraom_twitcher4",chance=1},	
 	{class="npc_vj_cofraom_twitcher_da",chance=2},
 	{class="npc_vj_cofraom_handcrab",chance=3},
 	{class="npc_vj_cofraom_wheelchair",chance=5},

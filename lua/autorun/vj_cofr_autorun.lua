@@ -139,7 +139,10 @@ if VJExists == true then
     VJ.AddNPC("Hellhound","npc_vj_cofraom_hellhound",vCat)
     VJ.AddNPC("Spitter","npc_vj_cofraom_spitter",vCat)		
     VJ.AddNPC("Screamer","npc_vj_cofraom_screamer",vCat)	
-    VJ.AddNPC("Twitcher","npc_vj_cofraom_twitcher",vCat)
+    VJ.AddNPC("Twitcher 1","npc_vj_cofraom_twitcher1",vCat)
+    VJ.AddNPC("Twitcher 2","npc_vj_cofraom_twitcher2",vCat)
+    VJ.AddNPC("Twitcher 3","npc_vj_cofraom_twitcher3",vCat)
+    VJ.AddNPC("Twitcher 4","npc_vj_cofraom_twitcher4",vCat)	
 	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcher_da",vCat)
 	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofraom_wheelchair",vCat)
 	

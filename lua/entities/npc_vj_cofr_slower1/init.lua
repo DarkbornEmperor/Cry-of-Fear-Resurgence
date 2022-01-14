@@ -74,7 +74,9 @@ ENT.Slower_Type = 0
 	-- 5 = Slower 10
 	-- 6 = Slower 10-2
 	-- 7 = Upper
-	-- 8 = Custom
+	-- 8 = Custom Slower 1
+	-- 9 = Custom Slower 10
+	-- 10 = Misc Custom	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
 local Slower_Body = math.random(1,3)
@@ -110,24 +112,40 @@ end
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/custom/pedoslow.mdl" then // Already the default
 		self.Slower_Type = 0
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler2.mdl" or self:GetModel() == "models/vj_cofr/custom/krypandenej.mdl" then
 		self.Slower_Type = 1
+		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 	elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/custom/croucher.mdl" then
-		self.Slower_Type = 2			
+		self.Slower_Type = 2
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}		
 	elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3_dream.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" then
 		self.Slower_Type = 3
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno_boss.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno.mdl" then
 		self.Slower_Type = 4
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slower10.mdl" then
 		self.Slower_Type = 5
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" then
 		self.Slower_Type = 6
+		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 	elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
 		self.Slower_Type = 7
-	elseif self:GetModel() == "models/vj_cofr/custom/monster_cutter.mdl" or self:GetModel() == "models/vj_cofr/custom/slowermummy.mdl" or self:GetModel() == "models/vj_cofr/custom/sicksophie.mdl" or self:GetModel() == "models/vj_cofr/custom/genome_soldier1.mdl" or self:GetModel() == "models/vj_cofr/custom/slower1.mdl" or self:GetModel() == "models/vj_cofr/custom/slower10.mdl" then
-		self.Slower_Type = 8		
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
+	elseif self:GetModel() == "models/vj_cofr/custom/monster_cutter.mdl" or self:GetModel() == "models/vj_cofr/custom/slowermummy.mdl" or self:GetModel() == "models/vj_cofr/custom/genome_soldier1.mdl" or self:GetModel() == "models/vj_cofr/custom/slower1.mdl" then
+		self.Slower_Type = 8
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}		
+	elseif self:GetModel() == "models/vj_cofr/custom/slower10.mdl" then
+		self.Slower_Type = 9
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
+	elseif self:GetModel() == "models/vj_cofr/custom/sicksophie.mdl" then
+		self.Slower_Type = 10
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}
+	elseif self:GetModel() == "models/vj_cofr/custom/zombie.mdl" then
+		self.Slower_Type = 10
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}		
 end
      self:Slower_CustomOnInitialize() 
 end
@@ -162,7 +180,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	 if self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 then
+	 if self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
      else
@@ -183,7 +201,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    if GetConVarNumber("VJ_COFR_Slower_HeadGib") == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 then return end	
+    if GetConVarNumber("VJ_COFR_Slower_HeadGib") == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end	
 	if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then	
 	if self.Slower_Skin == 0 then self:SetBodygroup(0,3) end
 	if self.Slower_Skin == 1 then self:SetBodygroup(0,4) end

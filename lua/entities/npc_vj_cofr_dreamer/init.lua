@@ -10,7 +10,6 @@ ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
-ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = true 
 ENT.AnimTbl_MeleeAttack = {ACT_SIGNAL1}
@@ -47,6 +46,7 @@ function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
 	 self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
+	 self.CallForHelp = false
      self:SetCollisionBounds(Vector(13, 13, 90), Vector(-13, -13, 0))
      self:Dreamer_CustomOnInitialize()
 end
@@ -62,6 +62,7 @@ function ENT:CustomOnThink_AIEnabled()
 
 	         if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
 			   self.Dreamer_Jumpscare = true
+			   self.CallForHelp = true
 	           self:DrawShadow(true)
 			   self:SetGroundEntity(NULL)
                self:SetMaterial() 	

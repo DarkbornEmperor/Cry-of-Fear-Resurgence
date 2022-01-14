@@ -100,7 +100,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}
         self.MeleeAttackDistance = 50 
         self.MeleeAttackDamageDistance = 90		
 		self.MeleeAttackDamage = 16
@@ -112,7 +112,7 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/cof/sewmo/tunga_strike2.wav"
 }
 	elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack2"}
         self.MeleeAttackDistance = 30 
         self.MeleeAttackDamageDistance = 60		
 		self.MeleeAttackDamage = 20 

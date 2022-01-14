@@ -161,7 +161,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 		self.MeleeAttackDamageType = DMG_SHOCK
 		self.NextMeleeAttackTime = 2
 		self.HasMeleeAttackMissSounds = false
@@ -169,7 +169,7 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/aom/davidbad/thunder_hit.wav"
 }
 elseif self:GetBodygroup(0) == 1 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack_axe"}
 		self.MeleeAttackDamageType = DMG_SLASH
 		self.NextMeleeAttackTime = 0
 		self.MeleeAttackDamage = 35 

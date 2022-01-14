@@ -18,12 +18,14 @@ ENT.ConstantlyFaceEnemy = true
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.HasMeleeAttack = true 
+ENT.HasMeleeAttack = true
+ENT.AnimTbl_MeleeAttack = {"vjseq_punch","vjseq_punchdown"}  
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20 
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
+ENT.AnimTbl_RangeAttack = {"vjseq_shoot"} 
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 300
@@ -104,15 +106,6 @@ end
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 75, 100)
     end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
-local attack = math.random(1,2)
-	if attack == 1 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-	elseif attack == 2 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
