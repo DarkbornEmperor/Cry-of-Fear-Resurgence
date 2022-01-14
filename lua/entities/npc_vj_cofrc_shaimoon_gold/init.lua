@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/shaimoon_gold.mdl"} 
 ENT.StartHealth = 150
+ENT.Bleeds = false
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
 ENT.MeleeAttackDamageType = DMG_SLASH
