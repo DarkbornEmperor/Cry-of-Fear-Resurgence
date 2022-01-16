@@ -39,10 +39,12 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
+/*
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/baby/b_attack1.wav",
 "vj_cofr/cof/baby/b_attack2.wav"
 }
+*/
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh6.wav",
@@ -80,6 +82,8 @@ end
 	if key == "attack" then
 		self:MeleeAttackCode()
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+		VJ_EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
+		self:SetBodygroup(0,1)
 end	
 	if key == "death" then
 		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -93,7 +97,6 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
 	self:SetGroundEntity(NULL)
 	--self:SetLocalVelocity(((self:GetEnemy():GetPos() + self:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 + self:GetUp()*40 + self:GetForward()*20)
-	self:SetBodygroup(0,1)
 	self.Baby_DeathFromMeleeAttack = true
 	self:TakeDamage(self:Health())
 end
