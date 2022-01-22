@@ -83,7 +83,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self:GetModel() == "models/vj_cofr/cof/faster.mdl" then // Already the default
+	if self:GetModel() == "models/vj_cofr/cof/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/faster_hh.mdl" then // Already the default
 		self.Faster_Type = 0
 	elseif self:GetModel() == "models/vj_cofr/cof/faster2.mdl" or self:GetModel() == "models/vj_cofr/custom/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/faster2.mdl" then
 		self.Faster_Type = 1

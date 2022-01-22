@@ -67,13 +67,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" then // Already the default
-		self.Slower_Type = 0
+		self.CrazyRunner_Type = 0
 	elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" then
-		self.Slower_Type = 1
+		self.CrazyRunner_Type = 1
 	elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
-		self.Slower_Type = 2			
+		self.CrazyRunner_Type = 2			
 	elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
-		self.Slower_Type = 3	
+		self.CrazyRunner_Type = 3	
 end
      self:CrazyRunner_CustomOnInitialize()
 end
