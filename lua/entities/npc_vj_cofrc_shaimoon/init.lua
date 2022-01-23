@@ -24,6 +24,12 @@ ENT.SoundTbl_MeleeAttackMiss = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
+    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+        self.HasSoundTrack = false 
+    end		
+end	
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:BookSimon_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/custom/shaimoon/shaimoonendtalk1.wav",
 	"vj_cofr/custom/shaimoon/shaimoonendtalk2.wav",
@@ -36,10 +42,7 @@ function ENT:CustomOnPreInitialize()
 }
     self.SoundTbl_SoundTrack = {
     "vj_cofr/custom/shaimoon/ruMpel4.mp3"
-}	
-end	
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BookSimon_CustomOnInitialize()		
+}		
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
