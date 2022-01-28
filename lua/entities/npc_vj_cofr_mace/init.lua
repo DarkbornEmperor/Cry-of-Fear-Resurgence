@@ -65,7 +65,11 @@ ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo",
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
         self.HasSoundTrack = false 
-    end
+end
+    if GetConVarNumber("VJ_COFR_Mace_Damage") == 0 then  
+        self.CanFlinch = 1
+		self.FlinchChance = 16
+	end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Mace_CustomOnInitialize()
@@ -109,6 +113,8 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+        dmginfo:ScaleDamage(0.10)
+    if GetConVarNumber("VJ_COFR_Mace_Damage") == 0 then return end
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
 	    dmginfo:ScaleDamage(0.15)
 	else

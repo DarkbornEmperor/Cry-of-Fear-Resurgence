@@ -359,6 +359,7 @@ if VJExists == true then
 	AddConvars["VJ_COFR_Twitcher_Invisible"] = 1
 	AddConvars["VJ_COFR_Twitcher_RandomSounds"] = 0
 	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
+	AddConvars["VJ_COFR_Mace_Damage"] = 1	
 	AddConvars["VJ_COFR_Sawcrazy_RadiusDamage"] = 0
 	AddConvars["VJ_COFR_FaceHead_SummonFaceless"] = 1
 	AddConvars["VJ_COFR_Slower_HeadGib"] = 1
@@ -403,6 +404,7 @@ end
 				VJ_COFR_Twitcher_Invisible = "1",
 				VJ_COFR_Twitcher_RandomSounds = "0",
 				VJ_COFR_Addiction_SelfDamage = "1",
+				VJ_COFR_Mace_Damage = "1",				
 				VJ_COFR_Sawcrazy_RadiusDamage = "0",
 				VJ_COFR_FaceHead_SummonFaceless = "1",
 				VJ_COFR_Slower_HeadGib = "1",
@@ -415,18 +417,19 @@ end
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
             Panel:AddControl("Checkbox", {Label ="Enable boss music?", Command ="VJ_COFR_Boss_Music"})
-			Panel:AddControl("Checkbox", {Label ="Enable costumes to Simon?", Command ="VJ_COFR_Simon_Costumes"})
+			Panel:AddControl("Checkbox", {Label ="Enable costumes for Simon?", Command ="VJ_COFR_Simon_Costumes"})
             Panel:AddControl("Checkbox", {Label ="Enable transparent/invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
-			Panel:AddControl("Checkbox", {Label ="Enable random sounds to Twitchers?", Command ="VJ_COFR_Twitcher_RandomSounds"})
-            Panel:AddControl("Checkbox", {Label ="Enable self-damage to Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
-			Panel:AddControl("Checkbox", {Label ="Enable radius damage to Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
+			Panel:AddControl("Checkbox", {Label ="Enable random sounds for Twitchers?", Command ="VJ_COFR_Twitcher_RandomSounds"})
+            Panel:AddControl("Checkbox", {Label ="Enable self-damage for Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
+            Panel:AddControl("Checkbox", {Label ="Enable original damage method for Mace?", Command ="VJ_COFR_Mace_Damage"})			
+			Panel:AddControl("Checkbox", {Label ="Enable radius damage for Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
 			Panel:AddControl("Checkbox", {Label ="Enable The Face to summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
-            Panel:AddControl("Checkbox", {Label ="Enable head gibbing to Slowers?", Command ="VJ_COFR_Slower_HeadGib"})
+            Panel:AddControl("Checkbox", {Label ="Enable head gibbing for Slowers?", Command ="VJ_COFR_Slower_HeadGib"})
             Panel:AddControl("Checkbox", {Label ="Enable Suiciders dropping Glocks on death?", Command ="VJ_COFR_Suicider_DropGlock"})
             Panel:AddControl("Checkbox", {Label ="Enable SNPCs dropping ammo on death?", Command ="VJ_COFR_DropAmmo"})			
-            Panel:AddControl("Checkbox", {Label ="Enable instant headshot to Suicider?", Command ="VJ_COFR_Suicider_Headshot"})			
+            Panel:AddControl("Checkbox", {Label ="Enable instant headshot for Suicider?", Command ="VJ_COFR_Suicider_Headshot"})			
             Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
-            Panel:AddControl("Checkbox", {Label ="Enable flashlight to Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})				
+            Panel:AddControl("Checkbox", {Label ="Enable flashlight for Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})				
             Panel:AddPanel(typebox)
 
 end
