@@ -87,7 +87,7 @@ if VJExists == true then
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_cofr/icons/cofr.png"})
 	
     -- Enemies --
-    VJ.AddNPC("Baby (Swimmer)","npc_vj_cofrc_baby_swimmer",vCat)		
+    VJ.AddNPC("Baby (Out of It)","npc_vj_cofrc_baby_ooi",vCat)		
     VJ.AddNPC("CrazyruMpel","npc_vj_cofrc_crazyrumpel",vCat)
     VJ.AddNPC("Crazyrunner (Mummy)","npc_vj_cofrc_crazyrunner_mummy",vCat)	
     VJ.AddNPC("Cutter","npc_vj_cofrc_cutter",vCat)
@@ -105,7 +105,7 @@ if VJExists == true then
     VJ.AddNPC("Psycho (Lost Echo)","npc_vj_cofrc_psycho_le",vCat)
     VJ.AddNPC("Shaimoon (Gold)","npc_vj_cofrc_shaimoon_gold",vCat)	
     VJ.AddNPC("Sick Sophie","npc_vj_cofrc_sicksophie",vCat)		
-    VJ.AddNPC("Slower 3 (Dream)","npc_vj_cofrc_slower3_dream",vCat)
+    VJ.AddNPC("Slower 3 (Out of It)","npc_vj_cofrc_slower3_ooi",vCat)
     VJ.AddNPC("Slower 1 (Mummy)","npc_vj_cofrc_slower1_mummy",vCat)
 	VJ.AddNPC("Zombie","npc_vj_cofrc_zombie",vCat)
 
@@ -116,7 +116,7 @@ if VJExists == true then
 	VJ.AddNPC("Duorunner","npc_vj_cofrc_duorunner",vCat)
 	VJ.AddNPC("Faceless (Boss)","npc_vj_cofrc_faceless_boss",vCat)
 	VJ.AddNPC("Jeffrunner","npc_vj_cofrc_jeffrunner",vCat)	
-    VJ.AddNPC("Mace (Lifeguard)","npc_vj_cofrc_mace_swimmer",vCat)	
+    VJ.AddNPC("Mace (Out of It)","npc_vj_cofrc_mace_ooi",vCat)	
 	VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrc_patrick_boss",vCat)
     VJ.AddNPC("Psycho (Pumpkin)","npc_vj_cofrc_psycho_pumpkin",vCat)
     VJ.AddNPC("Shaimoon","npc_vj_cofrc_shaimoon",vCat)
