@@ -184,7 +184,22 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
 			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD
             self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_LOW			
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_MED
-            self.AnimTbl_WeaponAim = {ACT_IDLE_RIFLE}	
+            self.AnimTbl_WeaponAim = {ACT_IDLE_RIFLE}
+
+	elseif htype == "smg" then
+			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_PISTOL})
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_PISTOL})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_PISTOL})
+			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_RUN_PISTOL
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_PISTOL			
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_PISTOL
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_PISTOL_LOW			
+            self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL_LOW
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_PISTOL
+            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_PISTOL_LOW			
+			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER
+            self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}			
 					
 	elseif htype == "pistol" or htype == "revolver"  then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_PISTOL})

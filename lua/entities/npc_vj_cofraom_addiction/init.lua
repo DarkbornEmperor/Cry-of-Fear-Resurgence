@@ -36,7 +36,10 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/fx/npc_step1.wav"
+"vj_cofr/aom/david/pl_step1.wav",
+"vj_cofr/aom/david/pl_step2.wav",
+"vj_cofr/aom/david/pl_step3.wav",
+"vj_cofr/aom/david/pl_step4.wav"
 }
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/aom/davidbad/sickness.mp3",

@@ -45,7 +45,10 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/fx/npc_step1.wav"
+"vj_cofr/cof/simon/concrete1.wav",
+"vj_cofr/cof/simon/concrete2.wav",
+"vj_cofr/cof/simon/concrete3.wav",
+"vj_cofr/cof/simon/concrete4.wav"
 }
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/doc_ai/despair.mp3"
@@ -139,11 +142,23 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_DoFireEffects()
     if self.Doctor_Revolver then
-	local flash = ents.Create("env_muzzleflash")
-	flash:SetPos(self:GetAttachment(self:LookupAttachment("revolver")).Pos)
-	flash:SetKeyValue("scale","1")
-	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
-	flash:Fire("Fire",0,0)
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment","revolver")
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
 
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
@@ -159,11 +174,23 @@ function ENT:Doctor_DoFireEffects()
 	self:DeleteOnRemove(FireLight1)
 
 elseif self.Doctor_Pistol then
-	local flash = ents.Create("env_muzzleflash")
-	flash:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
-	flash:SetKeyValue("scale","1")
-	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
-	flash:Fire("Fire",0,0)
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment","pistol")
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
 
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")

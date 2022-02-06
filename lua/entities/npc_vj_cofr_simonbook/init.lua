@@ -48,7 +48,10 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
-"vj_cofr/fx/npc_step1.wav"
+"vj_cofr/cof/simon/concrete1.wav",
+"vj_cofr/cof/simon/concrete2.wav",
+"vj_cofr/cof/simon/concrete3.wav",
+"vj_cofr/cof/simon/concrete4.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
@@ -59,7 +62,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/booksimon/ending5.mp3",
 "vj_cofr/cof/booksimon/fucked.mp3",
-"vj_cofr/cof/booksimon/fucked2.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -79,6 +81,17 @@ ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
+    if GetConVarNumber("VJ_COFR_BookSimon_Normal") == 1 then
+    local BookSimon_Type = math.random(1,3)
+    if BookSimon_Type == 1 then
+		self.BookSimon_Shotgun = true
+elseif BookSimon_Type == 2 then
+		self.BookSimon_Sledgehammer = true	
+elseif BookSimon_Type == 3 then
+		self.BookSimon_SledgehammerFlare = true	
+	end	
+end	
+    if GetConVarNumber("VJ_COFR_BookSimon_Normal") == 0 then	
     local BookSimon_Type = math.random(1,6)
     if BookSimon_Type == 1 then
 		self.BookSimon_Shotgun = true
@@ -92,6 +105,7 @@ elseif BookSimon_Type == 5 then
 		self.BookSimon_Sledgehammer = true	
 elseif BookSimon_Type == 6 then
 		self.BookSimon_SledgehammerFlare = true
+	end	
 end	
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
         self.HasSoundTrack = false 
@@ -230,11 +244,23 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_DoFireEffects()
     if self.BookSimon_Shotgun then
-	local flash = ents.Create("env_muzzleflash")
-	flash:SetPos(self:GetAttachment(self:LookupAttachment("shotgun")).Pos)
-	flash:SetKeyValue("scale","1")
-	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
-	flash:Fire("Fire",0,0)
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment","shotgun")
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
 
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
@@ -250,11 +276,23 @@ function ENT:BookSimon_DoFireEffects()
 	self:DeleteOnRemove(FireLight1)
 	
 elseif self.BookSimon_Glock then
-	local flash = ents.Create("env_muzzleflash")
-	flash:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
-	flash:SetKeyValue("scale","1")
-	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
-	flash:Fire("Fire",0,0)
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment","pistol")
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
 
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
@@ -270,11 +308,23 @@ elseif self.BookSimon_Glock then
 	self:DeleteOnRemove(FireLight1)
 	
 elseif self.BookSimon_TMP then
-	local flash = ents.Create("env_muzzleflash")
-	flash:SetPos(self:GetAttachment(self:LookupAttachment("tmp")).Pos)
-	flash:SetKeyValue("scale","1")
-	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
-	flash:Fire("Fire",0,0)
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment","tmp")
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
 
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
@@ -290,11 +340,23 @@ elseif self.BookSimon_TMP then
 	self:DeleteOnRemove(FireLight1)
 	
 elseif self.BookSimon_M16 then
-	local flash = ents.Create("env_muzzleflash")
-	flash:SetPos(self:GetAttachment(self:LookupAttachment("m16")).Pos)
-	flash:SetKeyValue("scale","1")
-	flash:SetKeyValue("angles",tostring(self:GetForward():Angle()))
-	flash:Fire("Fire",0,0)
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment","m16")
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
 
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
@@ -339,7 +401,7 @@ elseif self.BookSimon_Glock then
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 10
+		bullet.Damage = 13
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true
@@ -371,7 +433,7 @@ elseif self.BookSimon_M16 then
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
-		bullet.Damage = 12
+		bullet.Damage = 16
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
 	    self.BookSimon_FiredAtLeastOnce = true

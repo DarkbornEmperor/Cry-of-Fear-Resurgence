@@ -28,7 +28,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(-25, -1, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-5.5, 7, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 10 -- Damage
+SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.NumberOfShots		= 12 -- How many shots per attack?
 SWEP.Primary.ClipSize			= 5 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
@@ -38,4 +38,26 @@ SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_ShotgunShell1"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
     self:SetModelScale(0.85)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttackEffects()
+	self.PrimaryEffects_MuzzleFlash = false
+	muz = ents.Create("env_sprite")
+	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment",self.PrimaryEffects_MuzzleAttachment)
+	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
+	return true
 end
