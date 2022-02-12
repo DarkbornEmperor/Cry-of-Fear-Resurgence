@@ -142,7 +142,7 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/custom/sicksophie.mdl" then
 		self.Slower_Type = 10
-		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 	elseif self:GetModel() == "models/vj_cofr/custom/zombie.mdl" then
 		self.Slower_Type = 10
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}		

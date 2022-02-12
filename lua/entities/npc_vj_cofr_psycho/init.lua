@@ -75,6 +75,9 @@ function ENT:Psycho_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	if self:GetModel() == "models/vj_cofr/custom/patrick.mdl" or self:GetModel() == "models/vj_cofr/custom/psychopumpkin.mdl" or self:GetModel() == "models/vj_cofr/custom/psycho_le.mdl" then
+	   self.AnimTbl_MeleeAttack = {"vjseq_attack1_1","vjseq_attack1_2","vjseq_attack1_3"} 
+end		
      self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
      self:Psycho_CustomOnInitialize()
 end
