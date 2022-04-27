@@ -141,7 +141,7 @@ end
                   if IsValid(self) then 
                      self.MovementType = VJ_MOVETYPE_GROUND
                      self.CanFlinch = 1	
-		             self:SetCollisionBounds(Vector(15, 15, 105), Vector(-15, -15, 0))
+		             self:SetCollisionBounds(Vector(15, 15, 108), Vector(-15, -15, 0))
 		             self.Sawer_NextDownTimeT = CurTime() + math.random(5,8) 
                   end        	  
               end)		 
