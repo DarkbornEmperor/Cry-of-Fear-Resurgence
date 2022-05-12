@@ -11,6 +11,7 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= 0.35 -- Next time it can use primary fire
 //SWEP.NPC_ReloadSound			= {""} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_cofr/cof/weapons/w_p345.mdl"

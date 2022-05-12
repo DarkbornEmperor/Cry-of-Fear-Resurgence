@@ -8,8 +8,8 @@ SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 1 -- Next time it can use primary fire
-SWEP.NPC_TimeUntilFire = 0.2 -- How much time until the bullet/projectile is fired?
+SWEP.NPC_NextPrimaryFire = 0.25
+SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_sledgehammer.mdl"
 SWEP.HoldType = "melee"

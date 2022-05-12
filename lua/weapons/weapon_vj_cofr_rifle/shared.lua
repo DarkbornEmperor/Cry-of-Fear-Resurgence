@@ -15,6 +15,7 @@ SWEP.NPC_ReloadSound = {"vj_weapons/reload_boltaction.wav"} -- Sounds it plays w
 SWEP.NPC_FiringDistanceScale = 2.5 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
 SWEP.NPC_StandingOnly = true -- If true, the weapon can only be fired if the NPC is standing still
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_cofr/cof/weapons/w_rifle.mdl"
