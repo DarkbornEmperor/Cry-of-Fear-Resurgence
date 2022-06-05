@@ -24,6 +24,7 @@ ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.NextMoveRandomlyWhenShootingTime1 = 2
 ENT.NextMoveRandomlyWhenShootingTime2 = 3
 ENT.Weapon_NoSpawnMenu = true
+ENT.WaitForEnemyToComeOut = false
 ENT.HasCallForHelpAnimation = false
 ENT.DropWeaponOnDeath = false
 ENT.IsMedicSNPC = true
