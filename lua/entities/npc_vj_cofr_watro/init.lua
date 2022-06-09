@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/watro.mdl"} 
 ENT.StartHealth = 150
 ENT.HullType = HULL_MEDIUM_TALL
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.BloodColor = "Red" 
@@ -50,11 +50,10 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }	
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Watro_Burrowed = true
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Watro_CustomOnInitialize()
-	if self.Watro_Burrowed == true then
+	if self.Watro_Burrowed then
 	    self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.HasMeleeAttack = false
 		self:DrawShadow(false)
@@ -64,7 +63,6 @@ function ENT:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     //self:SetPos(self:GetPos() + self:GetUp()*30)
 	 self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
      self:Watro_CustomOnInitialize()
 end
@@ -76,8 +74,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Dead == true then return end	
-	if self.Watro_Burrowed == true && self.Dead == false && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
+    if self.DeathAnimationCodeRan or !self.Watro_Burrowed then return end	
+	if self.Watro_Burrowed && !self.DeathAnimationCodeRan && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     else
@@ -89,17 +87,18 @@ end
 		self.HasMeleeAttack = true
 		self:DrawShadow(true)
 		self.CallForHelp = true
-        self:RemoveFlags(FL_NOTARGET)
-        return		
+        self:RemoveFlags(FL_NOTARGET)		
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    dmginfo:ScaleDamage(0.45)		
+    dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	self:DrawShadow(false)
+	VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

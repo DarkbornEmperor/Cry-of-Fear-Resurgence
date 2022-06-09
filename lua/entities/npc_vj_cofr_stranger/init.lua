@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/stranger.mdl"} 
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -44,12 +44,14 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+ENT.SoundTbl_Stranger_HeartBeat = {
+"vj_cofr/cof/stranger/st_hearbeat.wav"
+}
 ENT.BreathSoundLevel = 75
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Stranger_DamageDistance = 500
 ENT.Stranger_NextEnemyDamage = 0
-
+ENT.Stranger_UsingDamageEffect = false
 util.AddNetworkString("vj_cofr_stranger_damage")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_CustomOnInitialize()
@@ -65,7 +67,7 @@ function ENT:CustomOnInitialize()
     if math.random(1,3) == 1 then
 	 self.NoChaseAfterCertainRange_FarDistance = 100 
 end
-     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
+     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
      self:Stranger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,57 +85,55 @@ function ENT:Stranger_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttack()
-	if self.Dead == true or self.VJ_IsBeingControlled == true or GetConVarNumber("vj_npc_norange") == 1 then self.NoChaseAfterCertainRange = false return end
-	
+	if self.DeathAnimationCodeRan then return end	
+    if GetConVarNumber("vj_npc_norange") == 1 then self.NoChaseAfterCertainRange = false return end	
     local ent = self:GetEnemy()	
-	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) && !self:Visible(ent) then return end
+	if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Stranger_NextEnemyDamage then
-	if self.HasSounds == true && self:Visible(ent) then VJ_EmitSound(ent, "vj_cofr/cof/stranger/st_hearbeat.wav", 75, 100) end
-    if self:Visible(self:GetEnemy()) && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then	
+	if self.HasSounds then VJ_EmitSound(ent, self.SoundTbl_Stranger_HeartBeat, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
 		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
-	    self.Stranger_NextEnemyDamage = CurTime() + 0.5
-     end		
-  end		
+	    self.Stranger_NextEnemyDamage = CurTime() + 0.5			
+    end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+if math.random(1,50) && self.DeathAnimationCodeRan then
+     self:SetRenderFX(kRenderFxFlickerSlow)
+     self:SetRenderMode(RENDERMODE_NORMAL)
+end	 
+  if GetConVarNumber("VJ_COFR_Stranger_ScreenEffect") == 0 then return end
+  if !IsValid(self:GetEnemy()) or !self:GetEnemy():Visible(self) or self.DeathAnimationCodeRan then self.Stranger_UsingDamageEffect = false RunConsoleCommand("pp_colormod", "0") return end
+    if self:GetEnemy():IsPlayer() then
+  	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())  
+	if self.Stranger_UsingDamageEffect && EnemyDistance > self.Stranger_DamageDistance then self.Stranger_UsingDamageEffect = false RunConsoleCommand("pp_colormod", "0") return end
+    if !self.Stranger_UsingDamageEffect && EnemyDistance < self.Stranger_DamageDistance then
+       self.Stranger_UsingDamageEffect = true	
+	   RunConsoleCommand("pp_colormod", "1")
+	   RunConsoleCommand("pp_colormod_brightness", "-0.10")
+	   RunConsoleCommand("pp_colormod_contrast", "0.50")
+	  end
+   end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	 local Deathanim = math.random(1,4)
+  local Deathanim = math.random(1,4)
 	 if Deathanim == 1 then
 		self.DeathAnimationTime = 1.25
- elseif Deathanim == 2 then
+     elseif Deathanim == 2 then
 		self.DeathAnimationTime = 1.00
- elseif Deathanim == 3 then
+     elseif Deathanim == 3 then
 		self.DeathAnimationTime = 0.85
- elseif Deathanim == 4 then
+     elseif Deathanim == 4 then
 		self.DeathAnimationTime = 0.75			
-	end
+end
+	VJ_COFR_DeathCode(self)	
 end  
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup) 
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
+function ENT:CustomOnRemove() 
+  if self.Stranger_UsingDamageEffect then
+        RunConsoleCommand("pp_colormod", "0")
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()

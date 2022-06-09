@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/aom/david_monster.mdl"} 
 ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -51,7 +51,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Addiction_Axe = false
 ENT.Addiction_OnFire = false
 ENT.Addiction_NextChangeAttackT = 0
@@ -116,9 +115,8 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead or self.DeathAnimationCodeRan then return end
-
-	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe == false && CurTime() > self.Addiction_NextChangeAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if self.DeathAnimationCodeRan then return end
+	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
@@ -127,7 +125,7 @@ function ENT:CustomOnThink_AIEnabled()
      end		
   end)	
 end    
-    if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe == true && CurTime() > self.Addiction_NextChangeAttackT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
@@ -136,21 +134,20 @@ end
      end      	 
   end)
 end
-    if self.Addiction_OnFire == false && !self:IsOnFire() && (self.StartHealth -250 > self:Health()) then
+    if !self.Addiction_OnFire && !self:IsOnFire() && (self.StartHealth -250 > self:Health()) then
 		self.Addiction_OnFire = true
 		self:Ignite(15)
-	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),DMG_BURN,150)) do
-	    timer.Create("addiction_fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire == true then
+	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),150)) do
+	    timer.Create("addiction_fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
-     end
-  end)
-end
-end		
+                end
+            end)
+        end
+    end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)  
-       dmginfo:ScaleDamage(0.15)
-	   
+   dmginfo:ScaleDamage(0.15)	   
    if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
     local attacker = dmginfo:GetAttacker()
    if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
@@ -171,7 +168,7 @@ function ENT:MultipleMeleeAttacks()
 		self.SoundTbl_MeleeAttackExtra = {
 		"vj_cofr/aom/davidbad/thunder_hit.wav"
 }
-elseif self:GetBodygroup(0) == 1 then
+    elseif self:GetBodygroup(0) == 1 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack_axe"}
 		self.MeleeAttackDamageType = DMG_SLASH
 		self.NextMeleeAttackTime = 0
@@ -194,47 +191,25 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
 	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
 	
-	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
+	if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ_EmitSound(self, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, math.random(80,100))
 end
 	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
-end	
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt, isProp)
-	if self:IsOnFire() then hitEnt:Ignite(4) end
+	if self:IsOnFire() && self:GetBodygroup(0) == 1 then hitEnt:Ignite(4) end
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-	if self:IsOnFire() then
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self:IsOnFire() && self.Addiction_OnFire then
 	   self.Addiction_OnFire = false
 	   self:Extinguish()
 end
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse	
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+    VJ_COFR_DeathCode(self)	
+end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then

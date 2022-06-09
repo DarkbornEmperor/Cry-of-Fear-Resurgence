@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/slower1.mdl"} 
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -63,7 +63,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Slower_Skin = 0
 ENT.Slower_Type = 0 
  	-- 0 = Slower 1
@@ -191,13 +190,9 @@ end
 	local headsplat = math.random(1,3)
 	if headsplat == 1 && hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIEVIOLENT}
-		--timer.Simple(1,function()
-			--if IsValid(self) then
-				--self:RunGibOnDeathCode(dmginfo,hitgroup,{CustomDmgTbl={"All"}})
-			--end
-		--end)
-	  end
-   end 
+    end
+end 
+    VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
@@ -207,7 +202,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	if self.Slower_Skin == 1 then self:SetBodygroup(0,4) end
 	if self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
 	
-	if self.HasGibDeathParticles == true then
+	if self.HasGibDeathParticles then
 		local bloodeffect = EffectData()
 		bloodeffect:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
 		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
@@ -228,35 +223,7 @@ end
 	end	
 end	  
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup) 
-return false 
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup) return false end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then

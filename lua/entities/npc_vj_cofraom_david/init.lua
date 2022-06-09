@@ -14,22 +14,23 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+ENT.AnimTbl_MeleeAttack = {"vjges_shoot_crowbar"}
 ENT.TimeUntilMeleeAttackDamage = false
 //ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
-ENT.NextMoveRandomlyWhenShootingTime1 = 2
-ENT.NextMoveRandomlyWhenShootingTime2 = 3
+ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
+ENT.NextMoveRandomlyWhenShootingTime1 = 0
+ENT.NextMoveRandomlyWhenShootingTime2 = 0.2
 ENT.Weapon_NoSpawnMenu = true
 ENT.WaitForEnemyToComeOut = false
 ENT.HasCallForHelpAnimation = false
 ENT.DropWeaponOnDeath = false
 ENT.IsMedicSNPC = true
 ENT.Medic_HealthAmount = 15
-ENT.AnimTbl_Medic_GiveHealth = {ACT_SPECIAL_ATTACK1}
+ENT.AnimTbl_Medic_GiveHealth = {"vjges_shoot_crowbar_custom"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
 ENT.Medic_SpawnPropOnHealAttachment = "anim_attachment_RH" 
 ENT.DisableFootStepSoundTimer = true
@@ -126,12 +127,11 @@ elseif Weapon_Type == 13 then
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
-     //self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0))
+     //self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
      self:AssistorFlashlight()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:AssistorFlashlight() 
-end
+function ENT:AssistorFlashlight() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
@@ -159,31 +159,31 @@ end
 function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)			
         if htype == "shotgun" then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_SHOTGUN_IDLE4}) 		
-			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_AGITATED})
-			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_AGITATED})
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK_AGITATED})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN_AGITATED})
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_RUN_AGITATED
 			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_AGITATED				
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_SHOTGUN_LOW
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
 			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK2_LOW			
-			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_SHOTGUN_LOW
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= "vjges_reload_shotgun"
+			self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= "vjges_crouch_reload_shotgun"	
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_LOW
             self.AnimTbl_WeaponAim = {ACT_SHOTGUN_IDLE4}			
 
 	elseif htype == "ar2" then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_RIFLE})
-			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK_RIFLE,ACT_WALK_RIFLE})
-			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_RIFLE})
+			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK_RIFLE})
+			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN_RIFLE})
 			self.WeaponAnimTranslations[ACT_WALK_AIM] 							= ACT_RUN_RIFLE
 			self.WeaponAnimTranslations[ACT_RUN_AIM] 							= ACT_RUN_RIFLE				
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_AR2_LOW			
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK_SMG1_LOW			
-			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD
-            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_LOW			
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= "vjges_reload_m16"
+            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= "vjges_crouch_reload_m16"			
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER_MED
             self.AnimTbl_WeaponAim = {ACT_IDLE_RIFLE}
 
@@ -197,8 +197,8 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_PISTOL_LOW			
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL_LOW
-			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_PISTOL
-            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_PISTOL_LOW			
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= "vjges_reload_onehanded"
+            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= "vjges_crouch_reload_onehanded"			
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER
             self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}			
 					
@@ -212,8 +212,8 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 					= ACT_RANGE_ATTACK_PISTOL_LOW			
             self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL
 			self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1_LOW] 			= ACT_GESTURE_RANGE_ATTACK_PISTOL_LOW
-			self.WeaponAnimTranslations[ACT_RELOAD] 					= ACT_RELOAD_PISTOL
-            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_PISTOL_LOW			
+			self.WeaponAnimTranslations[ACT_RELOAD] 					= "vjges_reload_onehanded"
+            self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= "vjges_crouch_reload_onehanded"			
 			self.WeaponAnimTranslations[ACT_COVER_LOW] 					= ACT_COVER
             self.AnimTbl_WeaponAim = {ACT_IDLE_PISTOL}				
 			
@@ -232,33 +232,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
      else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-    end	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
+end	
+    VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()

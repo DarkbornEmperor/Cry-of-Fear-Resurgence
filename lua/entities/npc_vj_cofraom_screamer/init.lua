@@ -13,7 +13,7 @@ ENT.Aerial_FlyingSpeed_Calm = 120
 ENT.Aerial_FlyingSpeed_Alerted = 300 
 ENT.Aerial_AnimTbl_Calm = {"forward"} 
 ENT.Aerial_AnimTbl_Alerted = {"forward"} 
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -59,7 +59,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Ghost_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Screamer_CustomOnInitialize()
@@ -96,7 +95,7 @@ elseif key == "attack_range" then
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Ghost_HomingAttack = false
 		self:RangeAttackCode()
-elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack == false then
+elseif key == "sprite" && self.RangeAttacking && self.Ghost_HomingAttack == false then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Soul1 = ents.Create("env_sprite")
@@ -140,7 +139,7 @@ elseif key == "sprite" && self.RangeAttacking == true && self.Ghost_HomingAttack
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_DUCK)) then
+	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = {"vjseq_attack2"}
 		self.RangeAttackPos_Up = 80
 		self.Ghost_HomingAttack = true
@@ -152,7 +151,7 @@ function ENT:MultipleRangeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if self.Ghost_HomingAttack == true && IsValid(self:GetEnemy()) then
+	if self.Ghost_HomingAttack && IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
@@ -170,32 +169,10 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-	self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+    VJ_COFR_DeathCode(self)	
+end 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

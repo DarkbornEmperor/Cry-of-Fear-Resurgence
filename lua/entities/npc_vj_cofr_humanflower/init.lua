@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_cofr/cof/humanflower.mdl"}
 ENT.StartHealth = 5000
 ENT.GodMode = true
 ENT.HullType = HULL_MEDIUM_TALL
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
@@ -63,7 +63,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
-     //self:SetPos(self:GetPos() + self:GetUp()*50)
 	 self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
      self:HumanFlower_CustomOnInitialize()
 end

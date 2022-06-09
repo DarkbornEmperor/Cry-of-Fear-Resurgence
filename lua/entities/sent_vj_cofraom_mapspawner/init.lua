@@ -88,11 +88,8 @@ function ENT:Initialize()
 	self.CanSpawnBossMonster = false --GetConVarNumber("VJ_COFR_MapSpawner_Boss")
 	
 	for _,v in ipairs(player.GetAll()) do
-		--v:ChatPrint("The book has been unleashed")
 		if GetConVarNumber("VJ_COFR_MapSpawner_Music") == 1 then
-		   self.CoF_Music = CreateSound(v,"vj_cofr/aom/davidbad/sickness.mp3")
-		   self.CoF_Music:SetSoundLevel(100)
-           self.CoF_Music:PlayEx(100,100)			
+		   self.COFR_Music = VJ_CreateSound(v,"vj_cofr/aom/davidbad/sickness.mp3",GetConVarNumber("VJ_LNR_MapSpawner_MusicVolume"), 100)			
 		end
 	end	
 end	

@@ -356,49 +356,47 @@ if VJExists == true then
     util.PrecacheModel("models/cof/ammo/clip.mdl")	
 
 	-- ConVars --
-	local AddConvars = {}
-	AddConvars["VJ_COFR_Boss_Music"] = 1
-	AddConvars["VJ_COFR_Simon_Costumes"] = 0
-	AddConvars["VJ_COFR_BookSimon_Normal"] = 1	
-	AddConvars["VJ_COFR_Twitcher_Invisible"] = 1
-	AddConvars["VJ_COFR_Twitcher_RandomSounds"] = 0
-	AddConvars["VJ_COFR_Addiction_SelfDamage"] = 1
-	AddConvars["VJ_COFR_Mace_Damage"] = 1	
-	AddConvars["VJ_COFR_Sawcrazy_RadiusDamage"] = 0
-	AddConvars["VJ_COFR_FaceHead_SummonFaceless"] = 1
-	AddConvars["VJ_COFR_Slower_HeadGib"] = 1
-	AddConvars["VJ_COFR_Suicider_DropGlock"] = 0
-	AddConvars["VJ_COFR_DropAmmo"] = 0	
-	AddConvars["VJ_COFR_Suicider_Headshot"] = 1 	
-	AddConvars["VJ_COFR_Ghost_SlowSound"] = 0
-	AddConvars["VJ_COFR_Assistor_Flashlight"] = 0 	
+	VJ.AddConVar("VJ_COFR_Boss_Music", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Simon_Costumes", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_BookSimon_Normal", 1, {FCVAR_ARCHIVE})	
+	VJ.AddConVar("VJ_COFR_Twitcher_Invisible", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Twitcher_RandomSounds", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Addiction_SelfDamage", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Mace_Damage", 1, {FCVAR_ARCHIVE})	
+	VJ.AddConVar("VJ_COFR_Sawcrazy_RadiusDamage", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_FaceHead_SummonFaceless", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Slower_HeadGib", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Suicider_DropGlock", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_DropAmmo", 0, {FCVAR_ARCHIVE})	
+	VJ.AddConVar("VJ_COFR_Suicider_Headshot", 1, {FCVAR_ARCHIVE})	
+	VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Assistor_Flashlight", 0, {FCVAR_ARCHIVE}) 
+	VJ.AddConVar("VJ_COFR_Stranger_ScreenEffect", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})	
 	
     -- Map Spawner ConVars --
-    AddConvars["VJ_COFR_MapSpawner_Music"] = 1
-	AddConvars["VJ_COFR_MapSpawner_Enabled"] = 1
-	AddConvars["VJ_COFR_MapSpawner_Boss"] = 0
-	AddConvars["VJ_COFR_MapSpawner_MaxMon"] = 80
-	AddConvars["VJ_COFR_MapSpawner_HordeCount"] = 35
-	AddConvars["VJ_COFR_MapSpawner_SpawnMax"] = 2000
-	AddConvars["VJ_COFR_MapSpawner_SpawnMin"] = 650
-	AddConvars["VJ_COFR_MapSpawner_HordeChance"] = 100
-	AddConvars["VJ_COFR_MapSpawner_HordeCooldownMin"] = 120
-	AddConvars["VJ_COFR_MapSpawner_HordeCooldownMax"] = 180
-	AddConvars["VJ_COFR_MapSpawner_DelayMin"] = 0.85
-	AddConvars["VJ_COFR_MapSpawner_DelayMax"] = 3
+    VJ.AddClientConVar("VJ_COFR_MapSpawner_Music", 1)
+	VJ.AddClientConVar("VJ_COFR_MapSpawner_MusicVolume",50)
+	VJ.AddConVar("VJ_COFR_MapSpawner_Enabled", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_MapSpawner_Boss", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_MapSpawner_MaxMon", 80)
+	VJ.AddConVar("VJ_COFR_MapSpawner_HordeCount", 35)
+	VJ.AddConVar("VJ_COFR_MapSpawner_SpawnMax", 2000)
+	VJ.AddConVar("VJ_COFR_MapSpawner_SpawnMin", 650)
+	VJ.AddConVar("VJ_COFR_MapSpawner_HordeChance", 100)
+	VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMin", 120)
+	VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMax", 180)
+	VJ.AddConVar("VJ_COFR_MapSpawner_DelayMin", 0.85)
+	VJ.AddConVar("VJ_COFR_MapSpawner_DelayMax", 3)
 	
-		for k, v in pairs(AddConvars) do
-		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
-end	
-    -- Main Configure Menu --	
-    if (CLIENT) then
-        local function VJ_COFR_MAIN(Panel)
-			if !game.SinglePlayer() then
-			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
-				Panel:ControlHelp("Note: Only Admins can change these settings!")
-        return
-	end
+-- Main Configure Menu --	
+      if CLIENT then
+         hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_COFR", function()
+		 spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Main)", "CoF Resurgence (Main)", "", "", function(Panel)
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+    return
 end
 			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
 			local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
@@ -410,17 +408,20 @@ end
 				VJ_COFR_Twitcher_RandomSounds = "0",
 				VJ_COFR_Addiction_SelfDamage = "1",
 				VJ_COFR_Mace_Damage = "1",				
-				VJ_COFR_Sawcrazy_RadiusDamage = "0",
+				VJ_COFR_Sawcrazy_RadiusDamage = "1",
 				VJ_COFR_FaceHead_SummonFaceless = "1",
 				VJ_COFR_Slower_HeadGib = "1",
 				VJ_COFR_Suicider_DropGlock = "0",
 				VJ_COFR_DropAmmo = "0",				
 				VJ_COFR_Suicider_Headshot = "1",
-				VJ_COFR_Ghost_SlowSound = "0",
-                VJ_COFR_Assistor_Flashlight = "0",				
+				VJ_COFR_Ghost_SlowSound = "1",
+                VJ_COFR_Assistor_Flashlight = "0",
+                VJ_COFR_Stranger_ScreenEffect = "1",
+                VJ_COFR_Suicider_ExtraPistol = "0",				
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
+			Panel:AddControl( "Label", {Text = "Options:"})
             Panel:AddControl("Checkbox", {Label ="Enable boss music?", Command ="VJ_COFR_Boss_Music"})
 			Panel:AddControl("Checkbox", {Label ="Enable costumes for Simon?", Command ="VJ_COFR_Simon_Costumes"})
 			Panel:AddControl("Checkbox", {Label ="Enable only normal weapons for Book Simon?", Command ="VJ_COFR_BookSimon_Normal"})			
@@ -435,23 +436,19 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable SNPCs dropping ammo on death?", Command ="VJ_COFR_DropAmmo"})			
             Panel:AddControl("Checkbox", {Label ="Enable instant headshot for Suicider?", Command ="VJ_COFR_Suicider_Headshot"})			
             Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
-            Panel:AddControl("Checkbox", {Label ="Enable flashlight for Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})				
+            Panel:AddControl("Checkbox", {Label ="Enable flashlight for Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})	
+            Panel:AddControl("Checkbox", {Label ="Enable screen effect for Strangers?", Command ="VJ_COFR_Stranger_ScreenEffect"})	
+            Panel:AddControl("Checkbox", {Label ="Enable P345 for Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})				
             Panel:AddPanel(typebox)
-
-end
-	 function VJ_ADDTOMENU_COFR(Panel)
-		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (Main)","CoF Resurgence (Main)","","", VJ_COFR_MAIN, {} )
-end
-		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR", VJ_ADDTOMENU_COFR )
-		
-    -- Map Spawner Configure Menu --
-       local function VJ_COFR_MAPSPAWNER(Panel)
-			if !game.SinglePlayer() then
-			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-				Panel:AddControl( "Label", {Text = "You are not nn Admin!"})
-				Panel:ControlHelp("Note: Only Admins can change these settings!")
-        return
-	end
+end)	
+-- Map Spawner Configure Menu --
+		 spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Map Spawner)", "CoF Resurgence (Map Spawner)", "", "", function(Panel)
+			    Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})	
+				Panel:AddControl("Slider", { Label 	= "Music Volume", Command = "VJ_COFR_MapSpawner_MusicVolume", Type = "Float", Min = "10", Max = "100"})				
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+    return
 end
 			Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
 			local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
@@ -470,7 +467,7 @@ end
                 VJ_COFR_MapSpawner_DelayMax = "3",				
 }
             Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
-            Panel:AddControl("Checkbox", {Label ="Enable music?", Command ="VJ_COFR_MapSpawner_Music"})
+			Panel:AddControl( "Label", {Text = "Options:"})
             Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
             Panel:AddControl("Checkbox", {Label ="Enable bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
             Panel:AddControl("Slider", { Label 	= "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
@@ -483,19 +480,42 @@ end
             Panel:AddControl("Slider", { Label 	= "Min cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
             Panel:AddControl("Slider", { Label 	= "Max cooldown time for horde spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
             Panel:AddPanel(typebox)
+        end)
+    end)
 end
-	function VJ_ADDTOMENU_COFR_MAPSPAWNER(Panel)
-		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","CoF Resurgence (MapSp)","CoF Resurgence (MapSp)","","", VJ_COFR_MAPSPAWNER, {} )
-end
-		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_COFR_MAPSPAWNER", VJ_ADDTOMENU_COFR_MAPSPAWNER )
-end	
-
 	VJ_COFR_NODEPOS = {}
 	hook.Add("EntityRemoved","VJ_COFR_AddNodes",function(ent)
 		if ent:GetClass() == "info_node" then
 			table.insert(VJ_COFR_NODEPOS,ent:GetPos())
 	end
 end)
+
+function VJ_COFR_DeathCode(ent)
+    ent.Dead = true
+    ent.Bleeds = false
+    ent:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+    ent:SetSolid(SOLID_NONE)
+    ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse.
+ if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
+ ent.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
+	local pickedAmmoType = VJ_PICK(ent.DropCoFAmmo)
+ if pickedAmmoType != false then	   
+	local AmmoDrop = ents.Create(pickedAmmoType)	   
+	   AmmoDrop:SetPos(ent:GetPos() + ent:OBBCenter())
+	   AmmoDrop:SetLocalAngles(ent:GetAngles())	   
+	   AmmoDrop:Spawn()
+	   AmmoDrop:Activate()	   
+		local phys = AmmoDrop:GetPhysicsObject()
+			if IsValid(phys) then
+				local dmgForce = (ent.SavedDmgInfo.force / 40)
+				if ent.DeathAnimationCodeRan then
+					dmgForce = ent:GetMoveVelocity() == defPos
+end
+				phys:SetMass(1)
+				phys:ApplyForceCenter(dmgForce)
+		end		
+	end		
+end
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

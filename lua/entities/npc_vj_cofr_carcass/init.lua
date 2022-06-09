@@ -13,7 +13,7 @@ ENT.Aerial_FlyingSpeed_Calm = 120
 ENT.Aerial_FlyingSpeed_Alerted = 150 
 ENT.Aerial_AnimTbl_Calm = {"kam52"} 
 ENT.Aerial_AnimTbl_Alerted = {"kam52"} 
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"}
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
 //ENT.TurningSpeed = 10
 ENT.ConstantlyFaceEnemy = true
 ENT.BloodColor = "Red" 
@@ -61,7 +61,6 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 75
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Carcass_HomingAttack = true -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
@@ -89,7 +88,7 @@ function ENT:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(18, 18, 95), Vector(-18, -18, 0))
+     self:SetCollisionBounds(Vector(15, 15, 92), Vector(-15, -15, 0))
      self:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +105,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if self.Carcass_HomingAttack == true && IsValid(self:GetEnemy()) then
+	if self.Carcass_HomingAttack && IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
@@ -118,7 +117,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
         if hitgroup == 0 then	   
-	    if self.HasSounds == true && self.HasImpactSounds == true then
+	    if self.HasSounds && self.HasImpactSounds then
             self.Bleeds = false
 			dmginfo:ScaleDamage(0.20)
 		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
@@ -138,32 +137,9 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
      end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-	self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

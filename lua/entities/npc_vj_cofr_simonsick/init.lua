@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/sicksimon.mdl"}
 ENT.StartHealth = 400 
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"}
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -38,7 +38,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.SickSimon_NextTwisterSpawnT = 0
 ENT.SickSimon_NextAttackT = 0
 ENT.PropstoThrow ={
@@ -70,7 +69,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
     if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end	
  	if IsValid(self:GetEnemy()) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
-		if self.VJ_IsBeingControlled == true then
+		if self.VJ_IsBeingControlled then
 			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Summoning Twisters! Cool Down: 20 seconds!")
 end		
 		self.Twister1 = ents.Create("npc_vj_cofr_faceless_twister")
@@ -182,39 +181,17 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		else
 	        self.Bleeds = true
      end	
-end			
+end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),800)) do
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" or v:GetClass() == "prop_ragdoll" then
 			v:GetPhysicsObject():EnableGravity(true)
+    end
 end
-       self:SetSolid(SOLID_NONE)
-	   self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-       self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-end  
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+   self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+   VJ_COFR_DeathCode(self)	
+end 		
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),800)) do

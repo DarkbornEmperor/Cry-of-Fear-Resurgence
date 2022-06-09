@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/sicksimon_sui.mdl"} 
 ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
@@ -17,6 +17,7 @@ ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationStopMovement = false
+ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeDistance = 2600
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.5
@@ -57,9 +58,10 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+ENT.SoundTbl_Browning = {
+"vj_cofr/cof/weapons/browning/browning_fire.wav"
+}
 ENT.RangeAttackSoundLevel = 100
--- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
@@ -100,31 +102,31 @@ function ENT:SickSimon_DoFireEffects()
 	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
 	muz:SetKeyValue("spawnflags","0")
 	muz:SetParent(self)
-	muz:Fire("SetParentAttachment","pistol")
+	muz:Fire("SetParentAttachment","pistol_muzzle")
 	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
 
-	local FireLight1 = ents.Create("light_dynamic")
-	FireLight1:SetKeyValue("brightness", "4")
-	FireLight1:SetKeyValue("distance", "120")
-	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
-	FireLight1:SetLocalAngles(self:GetAngles())
-	FireLight1:Fire("Color", "255 150 60")
-	FireLight1:SetParent(self)
-	FireLight1:Spawn()
-	FireLight1:Activate()
-	FireLight1:Fire("TurnOn","",0)
-	FireLight1:Fire("Kill","",0.07)
-	self:DeleteOnRemove(FireLight1)
+	local Light = ents.Create("light_dynamic")
+	Light:SetKeyValue("brightness", "4")
+	Light:SetKeyValue("distance", "120")
+	Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
+	Light:SetLocalAngles(self:GetAngles())
+	Light:Fire("Color", "255 150 60")
+	Light:SetParent(self)
+	Light:Spawn()
+	Light:Activate()
+	Light:Fire("TurnOn","",0)
+	Light:Fire("Kill","",0.07)
+	self:DeleteOnRemove(Light)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	local bullet = {}
 		bullet.Num = 1
-		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
-		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-25) -self:GetPos()
+		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
+		bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
 		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.TracerName = "Tracer"
@@ -132,7 +134,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Damage = 12
 		bullet.AmmoType = "SMG1"
 	    self:FireBullets(bullet)
-		VJ_EmitSound(self, "vj_cofr/cof/weapons/browning/browning_fire.wav", 100, 100)
+		VJ_EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 	    self.SickSimon_FiredAtLeastOnce = true
 	    self:SickSimon_DoFireEffects()
 end
@@ -160,31 +162,9 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
      end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then

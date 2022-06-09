@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/drowned.mdl"} 
 ENT.StartHealth = 80
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}  
@@ -62,8 +62,10 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+ENT.SoundTbl_Drowned_Suicide = {
+"vj_cofr/cof/crazylady/suicide_attempt.wav"
+}
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
 ENT.Drowned_Baby = false
 ENT.Drowned_DamageDistance = 500
 ENT.Drowned_NextEnemyDamageT = 0
@@ -99,7 +101,7 @@ function ENT:CustomOnInitialize()
     if math.random(1,3) == 1 then
 	 self.NoChaseAfterCertainRange = false
 end
-     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
+     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
      self:Drowned_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -133,52 +135,30 @@ end
 function ENT:CustomRangeAttackCode()
 	if GetConVarNumber("vj_npc_norange") == 1 or self.DeathAnimationCodeRan then return end	
 	local ent = self:GetEnemy()
-	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) && !self:Visible(ent) then return end
+	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Drowned_NextEnemyDamageT then
-	if self.HasSounds == true && self:Visible(ent) then VJ_EmitSound(ent, "vj_cofr/cof/crazylady/suicide_attempt.wav", 75, 100) end
-	timer.Simple(5,function() if IsValid(self) && !self.DeathAnimationCodeRan && IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
+	if self.HasSounds then VJ_EmitSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
+	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()
 		self.Drowned_NextEnemyDamageT = 15
-     end		
-   end)		
- end	
+            end		
+        end)		
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.VJ_IsBeingControlled == true or self:BusyWithActivity() or self.DeathAnimationCodeRan then return end	
-	if self.Drowned_Baby == false && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
+    if self.VJ_IsBeingControlled or self:BusyWithActivity() or self.DeathAnimationCodeRan or self.Drowned_Baby then return end	
+	if !self.Drowned_Baby && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
-end
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

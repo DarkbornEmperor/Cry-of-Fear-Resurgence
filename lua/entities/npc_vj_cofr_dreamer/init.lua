@@ -8,15 +8,10 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/dreamer.mdl"} 
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.SightAngle = 180
-ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {ACT_SIGNAL1}
-ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 10 
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 45
+ENT.HasMeleeAttack = false 
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
@@ -37,7 +32,7 @@ ENT.SoundTbl_Impact = {
 ENT.Dreamer_Jumpscare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Dreamer_CustomOnInitialize()
-    self.SoundTbl_BeforeMeleeAttack = {
+    self.SoundTbl_DreamerScream = {
 	"vj_cofr/cof/dreamer/dreamer_scream.wav",
 }
 end
@@ -47,28 +42,24 @@ function ENT:CustomOnInitialize()
 	 self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
 	 self.CallForHelp = false
-     self:SetCollisionBounds(Vector(13, 13, 90), Vector(-13, -13, 0))
+     self:SetCollisionBounds(Vector(13, 13, 87), Vector(-13, -13, 0))
      self:Dreamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack" then
-		self:MeleeAttackCode()
-    end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	         if self.Dead == true or self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
-
-	         if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	         if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
+	         if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+			   VJ_EmitSound(self, self.SoundTbl_DreamerScream, 75, 100)
 			   self.Dreamer_Jumpscare = true
 			   self.CallForHelp = true
 	           self:DrawShadow(true)
 			   self:SetGroundEntity(NULL)
-               self:SetMaterial() 	
-             timer.Simple(1.25,function() if IsValid(self) then	
+               self:SetMaterial() 
+	        timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
+               self:GetEnemy():TakeDamage(10,self,self)	end end)			   
+             timer.Simple(1,function() if IsValid(self) then	
 	           self:Remove()
-			   return
             end	
         end)
     end	

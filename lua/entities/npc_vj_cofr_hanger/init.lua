@@ -8,19 +8,11 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/cof/hanger.mdl"} 
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false
 ENT.SightAngle = 180
-ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {ACT_SIGNAL1}
-ENT.NextMeleeAttackTime = 100
-ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 10 
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackAngleRadius = 180
-ENT.MeleeAttackDamageDistance = 40
-ENT.MeleeAttackDamageAngleRadius = 180
+ENT.HasMeleeAttack = false
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
@@ -41,7 +33,7 @@ ENT.SoundTbl_Impact = {
 ENT.Hanger_Death = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hanger_CustomOnInitialize()
-    self.SoundTbl_BeforeMeleeAttack = {
+    self.SoundTbl_HangerScream = {
 	"vj_cofr/cof/hanger/hangerscream1.wav",
 	"vj_cofr/cof/hanger/hangerscream2.wav",
 	"vj_cofr/cof/hanger/hangerscream3.wav"
@@ -56,23 +48,20 @@ function ENT:CustomOnInitialize()
      self:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack" then
-		self:MeleeAttackCode()
-    end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	        if self.VJ_IsBeingControlled == true or !IsValid(self:GetEnemy()) then return end
-	        if IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	        if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
+	        if !self.Hanger_Death && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,10,false)
+			   VJ_EmitSound(self, self.SoundTbl_HangerScream, 75, 100)
 			   self.Hanger_Death = true
 			   self:SetGroundEntity(NULL)
 	           self:DrawShadow(true)
 			   self.CallForHelp = true
-			   self:SetMaterial() 
-	        timer.Simple(1.5,function() if IsValid(self) then	
+			   self:SetMaterial()
+	        timer.Simple(0.4,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
+               self:GetEnemy():TakeDamage(10,self,self)	end end)			   
+	        timer.Simple(8,function() if IsValid(self) then	
 	           self:Remove()
-			   return
             end	
         end)
     end
