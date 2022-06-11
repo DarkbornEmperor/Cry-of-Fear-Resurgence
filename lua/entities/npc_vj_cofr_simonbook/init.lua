@@ -227,7 +227,7 @@ function ENT:SetSledgehammerFlare()
 	self.HasPoseParameterLooking = false	
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false	
-	VJ_EmitSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
+	self.Flare_Ignite = VJ_CreateSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
 	self.SoundTbl_Breath = {
     "vj_cofr/cof/booksimon/flare_burn.wav"
 }	
@@ -309,9 +309,9 @@ function ENT:CustomRangeAttackCode()
 		bullet.Spread = Vector(60,50,40)
 		bullet.Tracer = 6
 		bullet.Damage = 5
-		VJ_EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		self.Shotgun = VJ_CreateSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 	    timer.Simple(0.5,function() if IsValid(self) then
-	    VJ_EmitSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
+	    self.Shotgun_Pump = VJ_CreateSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
 		
     elseif self.BookSimon_Glock then
 		bullet.Num = 1
@@ -319,7 +319,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.Damage = 13
-		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		self.Glock = VJ_CreateSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 		
     elseif self.BookSimon_TMP then
 		bullet.Num = 1
@@ -328,7 +328,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Tracer = 1
 		bullet.Force = 4
 		bullet.Damage = 4
-		VJ_EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		self.TMP = VJ_CreateSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 		
     elseif self.BookSimon_M16 then
 		bullet.Num = 1
@@ -339,7 +339,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Force = 4
 		bullet.Damage = 16
 		bullet.AmmoType = "SMG1"
-		VJ_EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self.RangeAttackPitch)				
+		self.M16 = VJ_CreateSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self.RangeAttackPitch)				
 end	
 	self:FireBullets(bullet)
 	self.BookSimon_FiredAtLeastOnce = true
@@ -353,6 +353,15 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.Shotgun)
+    VJ_STOPSOUND(self.Shotgun_Pump)
+    VJ_STOPSOUND(self.Glock)
+    VJ_STOPSOUND(self.TMP)
+    VJ_STOPSOUND(self.M16)
+    VJ_STOPSOUND(self.Flare_Ignite)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
 	[MAT_ANTLION] = {

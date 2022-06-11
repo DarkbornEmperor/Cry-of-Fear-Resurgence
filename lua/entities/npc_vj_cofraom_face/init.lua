@@ -159,8 +159,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
 		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-end
-	VJ_COFR_DeathCode(self)	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
@@ -168,7 +167,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-    end
+end
+	VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()

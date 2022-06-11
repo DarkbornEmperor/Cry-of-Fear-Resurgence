@@ -173,11 +173,11 @@ function ENT:Doctor_DoFireEffects()
 	
     if self.Doctor_Revolver then
 	   muz:Fire("SetParentAttachment","revolver")
-	   Light:SetPos(self:GetAttachment(self:LookupAttachment("revolver")).Pos)
+	   Light:SetPos(self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos)
 
     elseif self.Doctor_Pistol then
 	   muz:Fire("SetParentAttachment","pistol")
-	   Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
+	   Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -192,14 +192,14 @@ function ENT:CustomRangeAttackCode()
 	bullet.AmmoType = "SMG1"
 		
     if self.Doctor_Revolver then
-		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver")).Pos
+		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos
 		bullet.Damage = 13
-		VJ_EmitSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		self.Revolver = VJ_CreateSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 		
     elseif self.Doctor_Pistol then
-		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol")).Pos
+		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
 		bullet.Damage = 15
-		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		self.Pistol = VJ_CreateSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 end	
     self:FireBullets(bullet)
 	self.Doctor_FiredAtLeastOnce = true
@@ -225,6 +225,11 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.Revolver)
+    VJ_STOPSOUND(self.Pistol)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
 	[MAT_ANTLION] = {

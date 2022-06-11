@@ -90,7 +90,7 @@ function ENT:CustomAttack()
     local ent = self:GetEnemy()	
 	if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Stranger_NextEnemyDamage then
-	if self.HasSounds then VJ_EmitSound(ent, self.SoundTbl_Stranger_HeartBeat, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
+	if self.HasSounds then self.Stranger_HeartBeat = VJ_CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
 		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
 	    self.Stranger_NextEnemyDamage = CurTime() + 0.5			
@@ -133,7 +133,8 @@ end
 function ENT:CustomOnRemove() 
   if self.Stranger_UsingDamageEffect then
         RunConsoleCommand("pp_colormod", "0")
-	end
+end
+	VJ_STOPSOUND(self.Stranger_HeartBeat)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
