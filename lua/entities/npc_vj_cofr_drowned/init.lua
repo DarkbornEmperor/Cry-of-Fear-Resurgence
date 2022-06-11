@@ -25,10 +25,6 @@ ENT.RangeDistance = 500
 ENT.RangeToMeleeDistance = 300
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 15
-ENT.ConstantlyFaceEnemy = true 
-ENT.ConstantlyFaceEnemy_IfAttacking = true 
-ENT.ConstantlyFaceEnemy_Postures = "Standing" 
-ENT.ConstantlyFaceEnemyDistance = 500 
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 500 
 ENT.NoChaseAfterCertainRange_CloseDistance = 300 
@@ -69,7 +65,6 @@ ENT.SoundTbl_Drowned_Suicide = {
 ENT.Drowned_Baby = false
 ENT.Drowned_DamageDistance = 500
 ENT.Drowned_NextEnemyDamageT = 0
-ENT.Drowned_NextAttackT = 0
 
 util.AddNetworkString("vj_cofr_drowned_damage")
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -141,15 +136,19 @@ function ENT:CustomRangeAttackCode()
 	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()
-		self.Drowned_NextEnemyDamageT = 15
+		self.Drowned_NextEnemyDamageT = self.NextRangeAttackTime
             end		
         end)		
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("JUMP: Baby Burst")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.VJ_IsBeingControlled or self:BusyWithActivity() or self.DeathAnimationCodeRan or self.Drowned_Baby then return end	
-	if !self.Drowned_Baby && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 then
+    if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan or self.Drowned_Baby then return end	
+	if !self.Drowned_Baby && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)

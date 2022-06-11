@@ -13,10 +13,15 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
-ENT.ConstantlyFaceEnemy = true 
-ENT.ConstantlyFaceEnemy_IfAttacking = true 
-ENT.ConstantlyFaceEnemy_Postures = "Standing" 
-ENT.ConstantlyFaceEnemyDistance = 500 
+ENT.HasRangeAttack = true 
+ENT.DisableDefaultRangeAttackCode = true 
+ENT.DisableRangeAttackAnimation = true 
+ENT.RangeAttackAnimationStopMovement = false
+ENT.RangeAttackAnimationFaceEnemy = false
+ENT.RangeDistance = 500 
+ENT.RangeToMeleeDistance = 1
+ENT.TimeUntilRangeAttackProjectileRelease = 0.1
+ENT.NextRangeAttackTime = 0.5
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 300 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
@@ -50,7 +55,7 @@ ENT.SoundTbl_Stranger_HeartBeat = {
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Stranger_DamageDistance = 500
-ENT.Stranger_NextEnemyDamage = 0
+ENT.Stranger_NextEnemyDamageT = 0
 ENT.Stranger_UsingDamageEffect = false
 util.AddNetworkString("vj_cofr_stranger_damage")
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +70,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     if math.random(1,3) == 1 then
-	 self.NoChaseAfterCertainRange_FarDistance = 100 
+	 self.NoChaseAfterCertainRange = false 
 end
      self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
      self:Stranger_CustomOnInitialize()
@@ -84,20 +89,19 @@ function ENT:Stranger_Damage()
 	net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttack()
-	if self.DeathAnimationCodeRan then return end	
-    if GetConVarNumber("vj_npc_norange") == 1 then self.NoChaseAfterCertainRange = false return end	
+function ENT:CustomRangeAttackCode()	
+    if GetConVarNumber("vj_npc_norange") == 1 or self.DeathAnimationCodeRan then return end	
     local ent = self:GetEnemy()	
 	if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
-	if CurTime() > self.Stranger_NextEnemyDamage then
+	if CurTime() > self.Stranger_NextEnemyDamageT then
 	if self.HasSounds then self.Stranger_HeartBeat = VJ_CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
 		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
-	    self.Stranger_NextEnemyDamage = CurTime() + 0.5			
-    end		
+	    self.Stranger_NextEnemyDamageT = self.NextRangeAttackTime				
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:CustomOnThink_AIEnabled()
 if math.random(1,50) && self.DeathAnimationCodeRan then
      self:SetRenderFX(kRenderFxFlickerSlow)
      self:SetRenderMode(RENDERMODE_NORMAL)

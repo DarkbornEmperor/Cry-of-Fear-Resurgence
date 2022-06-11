@@ -17,7 +17,7 @@ ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -40), -- The offset for the controller when the camera is in third person
+	ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
 	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }	
@@ -46,9 +46,13 @@ function ENT:CustomOnInitialize()
      self:Dreamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("SPACE: Jumpscare")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	         if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
-	         if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	         if !IsValid(self:GetEnemy()) then return end
+	         if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
 			   self.Dreamer_Scream = VJ_CreateSound(self,self.SoundTbl_DreamerScream,75,100)
 			   self.Dreamer_Jumpscare = true
@@ -57,7 +61,7 @@ function ENT:CustomOnThink_AIEnabled()
                self:SetMaterial() 
 	         timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
                self:GetEnemy():TakeDamage(10,self,self)	end end)			   
-             timer.Simple(1,function() if IsValid(self) then self:SetMaterial("hud/killicons/default") end end)
+             timer.Simple(1,function() if IsValid(self) then self:SetMaterial("hud/killicons/default") self:DrawShadow(false) end end)
              timer.Simple(1.5,function() if IsValid(self) then self:Remove() end end)
     end	
 end

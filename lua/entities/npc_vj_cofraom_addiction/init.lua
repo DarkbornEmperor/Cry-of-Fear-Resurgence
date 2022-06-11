@@ -104,19 +104,19 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
-	ply:ChatPrint("SPACE: Switch attacks")
-	ply:ChatPrint("NOTE: Switching attacks will cause a 10/15 second delay until able to switch again.")
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent) 
     if self.VJ_IsBeingControlled then return end
        self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("JUMP: Switch attacks")
+	ply:ChatPrint("NOTE: Switching attacks will cause a 10/15 second delay until able to switch again.")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.DeathAnimationCodeRan then return end
-	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
+	if !self:BusyWithActivity() && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then

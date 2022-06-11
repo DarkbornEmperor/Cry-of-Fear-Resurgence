@@ -206,7 +206,7 @@ end
 	self:Doctor_DoFireEffects()	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:CustomOnThink_AIEnabled()
 	if self.VJ_IsBeingControlled or self.IsGuard or !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
 	if CurTime() > self.Doctor_NextRunT then
 		timer.Simple(5, function() 

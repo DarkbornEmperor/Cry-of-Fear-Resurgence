@@ -87,7 +87,7 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:CustomOnThink_AIEnabled()
     if self.DeathAnimationCodeRan or GetConVarNumber("VJ_COFR_Sawcrazy_RadiusDamage") == 0 then return end
 	if !self.MeleeAttacking then		
     for k,v in ipairs(ents.FindInSphere(self:GetPos(),self.MeleeAttackDamageDistance)) do

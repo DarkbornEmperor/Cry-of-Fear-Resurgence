@@ -25,7 +25,7 @@ ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 10, -60), -- The offset for the controller when the camera is in third person
+	ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
 	FirstP_Bone = "joint2", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(10, 0, 5), -- The offset for the controller when the camera is in first person
 }	
@@ -55,9 +55,13 @@ function ENT:CustomOnInitialize()
      self:FaceHead_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("SPACE: Jumpscare")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	         if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
-	         if !self.FaceHead_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	         if !IsValid(self:GetEnemy()) then return end
+	         if !self.FaceHead_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
 			   self.FaceHead_Scream = VJ_CreateSound(self,self.SoundTbl_FaceHeadScream,75,100)
 			   self.FaceHead_Jumpscare = true

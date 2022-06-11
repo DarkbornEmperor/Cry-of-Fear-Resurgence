@@ -48,9 +48,13 @@ function ENT:CustomOnInitialize()
      self:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("SPACE: Jumpscare")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	        if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
-	        if !self.Hanger_Death && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	        if !IsValid(self:GetEnemy()) then return end
+	        if !self.Hanger_Death && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,10,false)
 			   self.Hanger_Scream = VJ_CreateSound(self,self.SoundTbl_HangerScream,75,100)
 			   self.Hanger_Death = true

@@ -20,7 +20,7 @@ ENT.AnimTbl_MeleeAttack = {"vjseq_attack"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 80 
---ENT.MeleeAttackAngleRadius = 180
+//ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
 ENT.GeneralSoundPitch1 = 100
@@ -32,8 +32,8 @@ ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -40), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+	ThirdP_Offset = Vector(30, 25, -120), -- The offset for the controller when the camera is in third person
+	FirstP_Bone = "joint8", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 	-- ====== Sound File Paths ====== --
@@ -73,9 +73,13 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("SPACE: Unburrow")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.DeathAnimationCodeRan or !self.Watro_Burrowed then return end	
-	if self.Watro_Burrowed && !self.DeathAnimationCodeRan && self:GetEnemy() != nil && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 then
+    if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan or !self.Watro_Burrowed then return end	
+	if self.Watro_Burrowed && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     else
@@ -99,32 +103,6 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	self:DrawShadow(false)
 	VJ_COFR_DeathCode(self)	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
-end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***

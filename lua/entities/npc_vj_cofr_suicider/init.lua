@@ -159,15 +159,18 @@ function ENT:Suicider_DoFireEffects()
 	self:DeleteOnRemove(Light)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("SPACE: Suicide")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
+	if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
 	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())
-	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce then
+	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		self.Suicider_DeathSuicide = true
 		self.Bleeds = false
 		self:TakeDamage(self:Health())
 		self.Bleeds = true
-		return
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
