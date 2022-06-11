@@ -86,7 +86,7 @@ elseif Weapon_Type == 8 then
         self:Give("weapon_vj_cofr_m16")	
 elseif Weapon_Type == 9 then	
         self:Give("weapon_vj_cofr_famas")
-		VJ_EmitSound(self, "vj_cofr/cof/weapons/famas/french4.wav", 75, 100)
+		self.French = VJ_CreateSound(self,"vj_cofr/cof/weapons/famas/french4.wav",75, 100)
 elseif Weapon_Type == 10 then	
         self:Give("weapon_vj_cofr_shotgun")	
 elseif Weapon_Type == 11 then	
@@ -103,7 +103,7 @@ elseif Weapon_Type == 16 then
         self:Give("weapon_vj_cofr_sledgehammer")
 elseif Weapon_Type == 17 then	
         self:Give("weapon_vj_cofr_branch")
-		VJ_EmitSound(self, "vj_cofr/cof/weapons/branch/branch_first_get.wav", 75, 100)
+		self.Branch = VJ_CreateSound(self,"vj_cofr/cof/weapons/branch/branch_first_get.wav",75, 100)
 elseif Weapon_Type == 18 then	
         self:Give("weapon_vj_cofraom_axe")
 elseif Weapon_Type == 19 then	
