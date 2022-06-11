@@ -48,12 +48,6 @@ ENT.VJC_Data = {
 }
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {
-"vj_cofr/aom/david/pl_step1.wav",
-"vj_cofr/aom/david/pl_step2.wav",
-"vj_cofr/aom/david/pl_step3.wav",
-"vj_cofr/aom/david/pl_step4.wav"
-}
 /*
 ENT.SoundTbl_MedicBeforeHeal = {
 "vj_cofr/aom/pills/pills_pickup.wav"
@@ -75,7 +69,7 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 40
 -- Custom
-ENT.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
+//ENT.LowHealth_NextSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
     self.SoundTbl_Breath = {
@@ -148,14 +142,6 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*
-function ENT:CustomOnThink()
-	if IsValid(self:GetActiveWeapon()) then
-		self:GetActiveWeapon():SetClip1(999)
-	end
-end
-*/
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)			
         if htype == "shotgun" then
 			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_SHOTGUN_IDLE4}) 		
@@ -221,7 +207,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
 			self.WeaponAnimTranslations[ACT_IDLE] 							= VJ_PICK({ACT_IDLE,ACT_IDLE_ANGRY})
 			self.WeaponAnimTranslations[ACT_WALK] 							= VJ_PICK({ACT_WALK,ACT_WALK_STIMULATED})
 			self.WeaponAnimTranslations[ACT_RUN] 							= VJ_PICK({ACT_RUN,ACT_RUN_STIMULATED})			
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_SPECIAL_ATTACK1 
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_MELEE_ATTACK2
             self.AnimTbl_WeaponAim = {ACT_IDLE_ANGRY}				
 end
 	return true
@@ -236,9 +222,160 @@ end
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+ENT.FootSteps = {
+	[MAT_ANTLION] = {
+        "vj_cofr/cof/simon/footsteps/mud1.wav",
+        "vj_cofr/cof/simon/footsteps/mud2.wav",
+        "vj_cofr/cof/simon/footsteps/mud3.wav",
+        "vj_cofr/cof/simon/footsteps/mud4.wav"
+	},
+	[MAT_BLOODYFLESH] = {
+        "vj_cofr/cof/simon/footsteps/mud1.wav",
+        "vj_cofr/cof/simon/footsteps/mud2.wav",
+        "vj_cofr/cof/simon/footsteps/mud3.wav",
+        "vj_cofr/cof/simon/footsteps/mud4.wav"
+	},
+	[MAT_CONCRETE] = {
+        "vj_cofr/aom/david/footsteps/pl_step1.wav",
+        "vj_cofr/aom/david/footsteps/pl_step2.wav",
+        "vj_cofr/aom/david/footsteps/pl_step3.wav",
+        "vj_cofr/aom/david/footsteps/pl_step4.wav"
+	},
+	[MAT_DIRT] = {
+        "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt4.wav"
+	},
+	[MAT_FLESH] = {
+        "vj_cofr/cof/simon/footsteps/mud1.wav",
+        "vj_cofr/cof/simon/footsteps/mud2.wav",
+        "vj_cofr/cof/simon/footsteps/mud3.wav",
+        "vj_cofr/cof/simon/footsteps/mud4.wav"
+	},
+	[MAT_GRATE] = {
+        "vj_cofr/aom/david/footsteps/pl_metal1.wav",
+        "vj_cofr/aom/david/footsteps/pl_metal2.wav",
+        "vj_cofr/aom/david/footsteps/pl_metal3.wav",
+        "vj_cofr/aom/david/footsteps/pl_metal4.wav"
+	},
+	[MAT_ALIENFLESH] = {
+        "vj_cofr/cof/simon/footsteps/mud1.wav",
+        "vj_cofr/cof/simon/footsteps/mud2.wav",
+        "vj_cofr/cof/simon/footsteps/mud3.wav",
+        "vj_cofr/cof/simon/footsteps/mud4.wav"
+	},
+	[74] = { -- Snow
+        "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt4.wav"
+	},
+	[MAT_PLASTIC] = {
+        "vj_cofr/aom/david/footsteps/pl_tile1.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile2.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile3.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile4.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile5.wav"
+	},
+	[MAT_METAL] = {
+        "vj_cofr/aom/david/footsteps/pl_metal1.wav",
+        "vj_cofr/aom/david/footsteps/pl_metal2.wav",
+        "vj_cofr/aom/david/footsteps/pl_metal3.wav",
+        "vj_cofr/aom/david/footsteps/pl_metal4.wav"
+	},
+	[MAT_SAND] = {
+        "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt4.wav"
+	},
+	[MAT_FOLIAGE] = {
+        "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt4.wav"
+	},
+	[MAT_COMPUTER] = {
+        "vj_cofr/aom/david/footsteps/pl_tile1.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile2.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile3.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile4.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile5.wav"
+	},
+	[MAT_SLOSH] = {
+        "vj_cofr/aom/david/footsteps/pl_slosh1.wav",
+        "vj_cofr/aom/david/footsteps/pl_slosh2.wav",
+        "vj_cofr/aom/david/footsteps/pl_slosh3.wav",
+        "vj_cofr/aom/david/footsteps/pl_slosh4.wav"
+	},
+	[MAT_TILE] = {
+        "vj_cofr/aom/david/footsteps/pl_tile1.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile2.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile3.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile4.wav",
+        "vj_cofr/aom/david/footsteps/pl_tile5.wav"
+	},
+	[85] = { -- Grass
+        "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
+        "vj_cofr/aom/david/footsteps/pl_dirt4.wav"
+	},
+	[MAT_VENT] = {
+        "vj_cofr/aom/david/footsteps/pl_duct1.wav",
+        "vj_cofr/aom/david/footsteps/pl_duct2.wav",
+        "vj_cofr/aom/david/footsteps/pl_duct3.wav",
+        "vj_cofr/aom/david/footsteps/pl_duct4.wav"
+	},
+	[MAT_WOOD] = {
+        "vj_cofr/aom/david/footsteps/pl_grate1.wav",
+        "vj_cofr/aom/david/footsteps/pl_grate2.wav",
+        "vj_cofr/aom/david/footsteps/pl_grate3.wav",
+        "vj_cofr/aom/david/footsteps/pl_grate4.wav"
+	},
+	[MAT_GLASS] = {
+        "vj_cofr/aom/david/footsteps/pl_grate1.wav",
+        "vj_cofr/aom/david/footsteps/pl_grate2.wav",
+        "vj_cofr/aom/david/footsteps/pl_grate3.wav",
+        "vj_cofr/aom/david/footsteps/pl_grate4.wav"
+	}
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
+	if !self:IsOnGround() then return end
+	local tr = util.TraceLine({
+		start = self:GetPos(),
+		endpos = self:GetPos() +Vector(0,0,-150),
+		filter = {self}
+	})
+	if tr.Hit && self.FootSteps[tr.MatType] then
+		VJ_EmitSound(self,VJ_PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
 		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FootStepSoundCode(CustomTbl)
+	if self.HasSounds == false or self.HasFootStepSound == false or self.MovementType == VJ_MOVETYPE_STATIONARY then return end
+	if self:IsOnGround() && self:GetGroundEntity() != NULL then
+		if self.DisableFootStepSoundTimer == true then
+			self:CustomOnFootStepSound()
+			return
+		elseif self:IsMoving() && CurTime() > self.FootStepT then
+			self:CustomOnFootStepSound()
+			local CurSched = self.CurrentSchedule
+			if self.DisableFootStepOnRun == false && ((VJ_HasValue(self.AnimTbl_Run,self:GetMovementActivity())) or (CurSched != nil  && CurSched.IsMovingTask_Run == true)) /*(VJ_HasValue(VJ_RunActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomRunActivites,self:GetMovementActivity()))*/ then
+				self:CustomOnFootStepSound_Run()
+				self.FootStepT = CurTime() + self.FootStepTimeRun
+				return
+			elseif self.DisableFootStepOnWalk == false && (VJ_HasValue(self.AnimTbl_Walk,self:GetMovementActivity()) or (CurSched != nil  && CurSched.IsMovingTask_Walk == true)) /*(VJ_HasValue(VJ_WalkActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomWalkActivites,self:GetMovementActivity()))*/ then
+				self:CustomOnFootStepSound_Walk()
+				self.FootStepT = CurTime() + self.FootStepTimeWalk
+				return
+			end
+		end
 	end
 end
 /*-----------------------------------------------

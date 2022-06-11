@@ -68,12 +68,13 @@ if VJExists == true then
     VJ.AddNPC("Police Officer","npc_vj_cofr_police",vCat)
 	VJ.AddNPC("Sawrunner (Friendly)","npc_vj_cofr_sawrunner_fri",vCat)	
 
-	-- Misc/Hazards --
+	-- Screamers/Hazards --
 	VJ.AddNPC("Dreamer","npc_vj_cofr_dreamer",vCat)
 	VJ.AddNPC("Hanger","npc_vj_cofr_hanger",vCat)	
 	VJ.AddNPC("Hangman","npc_vj_cofr_hangman",vCat)
     VJ.AddNPC("Human Flower","npc_vj_cofr_humanflower",vCat) 		
-    VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)	
+    VJ.AddNPC("The Face","npc_vj_cofr_facehead",vCat)
+    VJ.AddNPC("The Face (Jumpscare)","npc_vj_cofr_facehead_js",vCat)	
 	VJ.AddNPC("Watro","npc_vj_cofr_watro",vCat)
 
     -- CoF Random & Spawners --
@@ -244,7 +245,8 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/cof/sicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/humanflower.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/watro.mdl")
-    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")	
+    util.PrecacheModel("models/vj_cofr/cof/facehead.mdl")
+    util.PrecacheModel("models/vj_cofr/cof/facehead_js.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/police1.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/police2.mdl")	
     util.PrecacheModel("models/vj_cofr/cof/police3.mdl")
@@ -491,9 +493,7 @@ end
 end)
 
 function VJ_COFR_DeathCode(ent)
-    ent.Dead = true
     ent.Bleeds = false
-    ent:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
     ent:SetSolid(SOLID_NONE)
     ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse.
  if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end

@@ -39,7 +39,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
-	 self:SetMaterial("hud/killicons/default")
+     self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
 	 self.CallForHelp = false
      self:SetCollisionBounds(Vector(13, 13, 87), Vector(-13, -13, 0))
