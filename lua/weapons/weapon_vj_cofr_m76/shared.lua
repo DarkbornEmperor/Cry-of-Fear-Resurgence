@@ -21,7 +21,7 @@ SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(185, -1, -90)
+SWEP.WorldModel_CustomPositionAngle = Vector(187, -1, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1.5, -6, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------

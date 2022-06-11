@@ -50,19 +50,20 @@ function ENT:CustomOnThink_AIEnabled()
 	         if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
 	         if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
 			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
-			   VJ_EmitSound(self, self.SoundTbl_DreamerScream, 75, 100)
+			   self.Dreamer_Scream = VJ_CreateSound(self,self.SoundTbl_DreamerScream,75,100)
 			   self.Dreamer_Jumpscare = true
 			   self.CallForHelp = true
 	           self:DrawShadow(true)
-			   self:SetGroundEntity(NULL)
                self:SetMaterial() 
-	        timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
+	         timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
                self:GetEnemy():TakeDamage(10,self,self)	end end)			   
-             timer.Simple(1,function() if IsValid(self) then	
-	           self:Remove()
-            end	
-        end)
+             timer.Simple(1,function() if IsValid(self) then self:SetMaterial("hud/killicons/default") end end)
+             timer.Simple(1.5,function() if IsValid(self) then self:Remove() end end)
     end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.Dreamer_Scream)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***

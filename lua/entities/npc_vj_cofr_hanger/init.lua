@@ -52,9 +52,8 @@ function ENT:CustomOnThink_AIEnabled()
 	        if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
 	        if !self.Hanger_Death && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
 			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,10,false)
-			   VJ_EmitSound(self, self.SoundTbl_HangerScream, 75, 100)
+			   self.Hanger_Scream = VJ_CreateSound(self,self.SoundTbl_HangerScream,75,100)
 			   self.Hanger_Death = true
-			   self:SetGroundEntity(NULL)
 	           self:DrawShadow(true)
 			   self.CallForHelp = true
 			   self:SetMaterial()
@@ -65,6 +64,10 @@ function ENT:CustomOnThink_AIEnabled()
             end	
         end)
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.Hanger_Scream)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***

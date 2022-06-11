@@ -222,6 +222,11 @@ end
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.French)
+	VJ_STOPSOUND(self.Branch)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
 	[MAT_ANTLION] = {
         "vj_cofr/cof/simon/footsteps/mud1.wav",

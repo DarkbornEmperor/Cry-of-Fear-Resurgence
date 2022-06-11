@@ -57,13 +57,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	         if self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) then return end
-	         if !self.Facehead_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
+	         if !self.FaceHead_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then
 			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
-			   VJ_EmitSound(self, self.SoundTbl_FaceHeadScream, 75, 100)
-			   self.Facehead_Jumpscare = true
+			   self.FaceHead_Scream = VJ_CreateSound(self,self.SoundTbl_FaceHeadScream,75,100)
+			   self.FaceHead_Jumpscare = true
+			   VJ_STOPSOUND(self.CurrentAlertSound)
 			   self.CallForHelp = true
 	           self:DrawShadow(true)
-			   self:SetGroundEntity(NULL)
                self:SetMaterial() 
 	        timer.Simple(0.2,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
                self:GetEnemy():TakeDamage(10,self,self)	end end)			   
@@ -72,6 +72,10 @@ function ENT:CustomOnThink_AIEnabled()
             end	
         end)
     end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.FaceHead_Scream)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
