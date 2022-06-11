@@ -194,12 +194,12 @@ function ENT:CustomRangeAttackCode()
     if self.Doctor_Revolver then
 		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos
 		bullet.Damage = 13
-		self.Revolver = VJ_CreateSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 		
     elseif self.Doctor_Pistol then
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
 		bullet.Damage = 15
-		self.Pistol = VJ_CreateSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 end	
     self:FireBullets(bullet)
 	self.Doctor_FiredAtLeastOnce = true
@@ -224,11 +224,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    VJ_STOPSOUND(self.Revolver)
-    VJ_STOPSOUND(self.Pistol)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {

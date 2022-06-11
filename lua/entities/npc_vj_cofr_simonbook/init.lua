@@ -309,7 +309,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Spread = Vector(60,50,40)
 		bullet.Tracer = 6
 		bullet.Damage = 5
-		self.Shotgun = VJ_CreateSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 	    timer.Simple(0.5,function() if IsValid(self) then
 	    self.Shotgun_Pump = VJ_CreateSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
 		
@@ -319,7 +319,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.Damage = 13
-		self.Glock = VJ_CreateSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 		
     elseif self.BookSimon_TMP then
 		bullet.Num = 1
@@ -328,7 +328,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Tracer = 1
 		bullet.Force = 4
 		bullet.Damage = 4
-		self.TMP = VJ_CreateSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self.RangeAttackPitch)
 		
     elseif self.BookSimon_M16 then
 		bullet.Num = 1
@@ -339,7 +339,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Force = 4
 		bullet.Damage = 16
 		bullet.AmmoType = "SMG1"
-		self.M16 = VJ_CreateSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self.RangeAttackPitch)				
+		VJ_EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self.RangeAttackPitch)				
 end	
 	self:FireBullets(bullet)
 	self.BookSimon_FiredAtLeastOnce = true
@@ -355,11 +355,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ_STOPSOUND(self.Shotgun)
     VJ_STOPSOUND(self.Shotgun_Pump)
-    VJ_STOPSOUND(self.Glock)
-    VJ_STOPSOUND(self.TMP)
-    VJ_STOPSOUND(self.M16)
     VJ_STOPSOUND(self.Flare_Ignite)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
