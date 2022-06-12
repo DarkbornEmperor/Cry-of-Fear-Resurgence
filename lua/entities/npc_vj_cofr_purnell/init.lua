@@ -172,11 +172,11 @@ function ENT:Doctor_DoFireEffects()
 	self:DeleteOnRemove(Light)
 	
     if self.Doctor_Revolver then
-	   muz:Fire("SetParentAttachment","revolver")
+	   muz:Fire("SetParentAttachment","revolver_muzzle")
 	   Light:SetPos(self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos)
 
     elseif self.Doctor_Pistol then
-	   muz:Fire("SetParentAttachment","pistol")
+	   muz:Fire("SetParentAttachment","pistol_muzzle")
 	   Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
     end	
 end
