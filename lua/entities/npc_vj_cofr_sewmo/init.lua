@@ -131,7 +131,7 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
  if self.Sewmo_WireBroken or self.DeathAnimationCodeRan then return end 
    if self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2 then
-	 if !self.Sewmo_WireBroken && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 && !self.DeathAnimationCodeRan then 
+	 if !self.Sewmo_WireBroken && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 then 
 		    self.Sewmo_WireBroken = true
 		    self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		end
