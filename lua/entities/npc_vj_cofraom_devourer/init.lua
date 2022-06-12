@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/aom/mouth_monster.mdl"} 
 ENT.SightDistance = 1024 
 ENT.SightAngle = 180 
-ENT.StartHealth = 30
+ENT.StartHealth = 50
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
 ENT.CanTurnWhileStationary = false 
 ENT.HullType = HULL_SMALL_CENTERED

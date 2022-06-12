@@ -6,7 +6,10 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/david.mdl"} 
-ENT.StartHealth = 100
+ENT.StartHealth = 200
+ENT.HasHealthRegeneration = true
+ENT.HealthRegenerationAmount = 2
+ENT.HealthRegenerationDelay = VJ_Set(0.5,0.5)
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY","CLASS_UNITED_STATES_FRIENDLY"} 
 ENT.FriendsWithAllPlayerAllies = true

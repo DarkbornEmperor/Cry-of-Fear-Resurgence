@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/ghost.mdl"} 
-ENT.StartHealth = 300
+ENT.StartHealth = 250
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
@@ -19,7 +19,7 @@ ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 15 
 ENT.MeleeAttackDamageType = DMG_NERVEGAS
 ENT.MeleeAttackDistance = 40 
-ENT.MeleeAttackDamageDistance = 80
+ENT.MeleeAttackDamageDistance = 70
 ENT.MeleeAttackBleedEnemy = true 
 ENT.MeleeAttackBleedEnemyChance = 1
 ENT.MeleeAttackBleedEnemyDamage = 5 

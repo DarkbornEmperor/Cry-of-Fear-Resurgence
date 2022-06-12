@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/agrunt.mdl"} 
-ENT.StartHealth = 350
+ENT.StartHealth = 300
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
@@ -15,9 +15,9 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_mattack2","vjseq_mattack3"} 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 10 
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
+ENT.MeleeAttackDamage = 20 
+ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackDamageDistance = 70
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true 
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_eyeball" 

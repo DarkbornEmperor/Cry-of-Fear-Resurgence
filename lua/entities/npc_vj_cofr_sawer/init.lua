@@ -18,7 +18,7 @@ ENT.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 65
+ENT.MeleeAttackDamageDistance = 70
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -90,7 +90,7 @@ function ENT:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     //VJ_EmitSound(self, "vj_cofr/sawer/chainsaw_start.wav", 75, 100)
+     //VJ_EmitSound(self, "vj_cofr/cof/sawer/chainsaw_start.wav", 75, 100)
 	 //ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("chainsaw"))
      self:SetCollisionBounds(Vector(18, 18, 108), Vector(-18, -18, 0))
      self:Sawer_CustomOnInitialize()
@@ -128,18 +128,29 @@ end
 		             self.Sawer_EyeOpen = true
                      self.MovementType = VJ_MOVETYPE_STATIONARY
                      self.CanTurnWhileStationary = false
-                     self.CanFlinch = 0
-                     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))		
+                     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
+                     self:AddFlags(FL_NOTARGET)					 
+	                 self.Sawer_Eye = ents.Create("obj_vj_bullseye")
+	                 self.Sawer_Eye:SetModel("models/hunter/plates/plate.mdl")
+	                 self.Sawer_Eye:SetParent(self)
+	                 self.Sawer_Eye:Fire("SetParentAttachment", "eye")
+	                 self.Sawer_Eye:Spawn()
+	                 self.Sawer_Eye:SetNoDraw(true)
+	                 self.Sawer_Eye:DrawShadow(false)
+	                 self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
+	                 table.insert(self.VJ_AddCertainEntityAsFriendly, self.Sawer_Eye) 
+	                 self:DeleteOnRemove(self.Sawer_Eye)					 
 
                   timer.Simple(6,function()
                   if IsValid(self) then
 	                 self:SetSkin(0)
 		             self.Sawer_EyeOpen = false
+                     self.Sawer_Eye:Remove()
+					 self:RemoveFlags(FL_NOTARGET)	
 		 
                   timer.Simple(0.3,function()
                   if IsValid(self) then 
                      self.MovementType = VJ_MOVETYPE_GROUND
-                     self.CanFlinch = 1	
 		             self:SetCollisionBounds(Vector(15, 15, 108), Vector(-15, -15, 0))
 		             self.Sawer_NextDownTimeT = CurTime() + math.random(5,8) 
                   end        	  

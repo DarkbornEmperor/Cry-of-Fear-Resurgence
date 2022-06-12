@@ -164,7 +164,7 @@ end
 		self:SetMaterial("hud/killicons/default")
 	    self:DrawShadow(false)
 
-  elseif math.random(1,10) == 1 then
+     elseif math.random(1,10) == 1 then
          self.Twitcher_Transparent = true
 		 self:SetRenderFX(kRenderFxDistort)
 		 self:SetRenderMode(RENDERMODE_TRANSADD)
@@ -182,7 +182,7 @@ function ENT:TwitcherSounds()
 	"vj_cofr/aom/twitcher/zo_pain1.wav",
 	"vj_cofr/aom/twitcher/zo_pain2.wav"
 }
-   if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 0 then	
+if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 0 then	
    if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
    or self:GetModel() == "models/vj_cofr/aom/zombie2.mdl"
    or self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
@@ -228,9 +228,9 @@ function ENT:TwitcherSounds()
 }
     end
 end	
-	if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 1 then
-	local Twitcher_Sounds = math.random(1,2)
-    if Twitcher_Sounds == 1 then
+if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 1 then
+local Twitcher_Sounds = math.random(1,2)
+if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher/zo_alert10.wav",
 	"vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -294,7 +294,7 @@ end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
-    if math.random(1,3) == 1 && self.Twitcher_Invisible == true then
+    if math.random(1,3) == 1 && self.Twitcher_Invisible then
         self:PlaySoundSystem("Alert", {"vj_cofr/aom/twitcher/skuggfa.wav"}) 	
     end
 end

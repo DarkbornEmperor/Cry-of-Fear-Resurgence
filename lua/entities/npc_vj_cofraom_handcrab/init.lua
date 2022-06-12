@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/headcrab.mdl"} 
-ENT.StartHealth = 20
+ENT.StartHealth = 30
 ENT.HullType = HULL_TINY
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}   
 ENT.BloodColor = "Red" 
@@ -14,7 +14,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.HasLeapAttack = true 
-ENT.LeapAttackDamage = 16
+ENT.LeapAttackDamage = 15
 ENT.AnimTbl_LeapAttack = {"vjseq_jump","vjseq_jump_variation1","vjseq_jump_variation2"} 
 ENT.LeapDistance = 256 
 ENT.LeapToMeleeDistance = 1 
