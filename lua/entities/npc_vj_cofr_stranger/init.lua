@@ -57,7 +57,11 @@ ENT.BreathSoundLevel = 75
 ENT.Stranger_DamageDistance = 500
 ENT.Stranger_NextEnemyDamageT = 0
 ENT.Stranger_UsingDamageEffect = false
-util.AddNetworkString("vj_cofr_stranger_damage")
+
+util.AddNetworkString("VJ_COFR_Stranger_Damage")
+
+local nwName = "VJ_COFR_Stranger_Controller"
+util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_CustomOnInitialize()
     self.SoundTbl_Breath = {
@@ -82,8 +86,29 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply)
+	local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
+    net.Start(nwName)
+		net.WriteBool(false)
+		net.WriteEntity(opt1)
+		net.WriteString(opt2)
+		net.WriteEntity(ply)
+		net.WriteEntity(opt3)
+        net.Send(ply)
+
+	function self.VJ_TheControllerEntity:CustomOnStopControlling()
+		net.Start(nwName)
+			net.WriteBool(true)
+			net.WriteEntity(opt1)
+			net.WriteString(opt2)
+			net.WriteEntity(ply)
+			net.WriteEntity(opt3)
+		    net.Send(ply)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_Damage()
-	net.Start("vj_cofr_stranger_damage")
+	net.Start("VJ_COFR_Stranger_Damage")
 	net.WriteEntity(self)
 	net.WriteEntity(self:GetEnemy())
 	net.Broadcast()
@@ -91,7 +116,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()	
     if GetConVarNumber("vj_npc_norange") == 1 or self.DeathAnimationCodeRan then return end	
-    local ent = self:GetEnemy()	
+    local ent = self:GetEnemy()
+    local cont = self.VJ_TheController
+	if IsValid(cont) then
+		for _,v in pairs(ents.FindInSphere(ent:GetPos(),10)) do
+			if v != self && v != ent && (v:IsNPC() or v:IsPlayer()) then
+				ent = v
+			break
+		end
+	end
+end	
 	if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Stranger_NextEnemyDamageT then
 	if self.HasSounds then self.Stranger_HeartBeat = VJ_CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
