@@ -59,7 +59,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.Ghost_HomingAttack = false -- false = Regular, true = Homing
+ENT.Screamer_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Screamer_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -88,14 +88,14 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack_rangeclose" then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
-		self.Ghost_HomingAttack = true
+		self.Screamer_HomingAttack = true
 		self:RangeAttackCode()
 elseif key == "attack_range" then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
-		self.Ghost_HomingAttack = false
+		self.Screamer_HomingAttack = false
 		self:RangeAttackCode()
-elseif key == "sprite" && self.RangeAttacking && self.Ghost_HomingAttack == false then
+elseif key == "sprite" && self.RangeAttacking && !self.Screamer_HomingAttack then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Soul1 = ents.Create("env_sprite")
@@ -142,16 +142,16 @@ function ENT:MultipleRangeAttacks()
 	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = {"vjseq_attack2"}
 		self.RangeAttackPos_Up = 80
-		self.Ghost_HomingAttack = true
+		self.Screamer_HomingAttack = true
 	else
 		self.AnimTbl_RangeAttack = {"vjseq_attack1"}
 		self.RangeAttackPos_Up = 20
-		self.Ghost_HomingAttack = false
+		self.Screamer_HomingAttack = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if self.Ghost_HomingAttack && IsValid(self:GetEnemy()) then
+	if self.Screamer_HomingAttack && IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
