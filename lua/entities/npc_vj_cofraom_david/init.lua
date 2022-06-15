@@ -93,7 +93,7 @@ function ENT:CustomOnPreInitialize()
     "vj_cofr/aom/david/pl_pain6.wav",
     "vj_cofr/aom/david/pl_pain7.wav",	
 }
-    local Weapon_Type = math.random(1,13)
+    local Weapon_Type = math.random(1,5)
     if Weapon_Type == 1 then
         self:Give("weapon_vj_cofraom_beretta")		
 elseif Weapon_Type == 2 then

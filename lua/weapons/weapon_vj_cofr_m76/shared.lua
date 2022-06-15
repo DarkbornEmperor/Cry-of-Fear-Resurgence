@@ -21,8 +21,8 @@ SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(187, -1, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1.5, -6, 0)
+SWEP.WorldModel_CustomPositionAngle = Vector(188, -1, -90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-1, -5.5, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 13 -- Damage
@@ -33,7 +33,7 @@ SWEP.Primary.DistantSound		= {""}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-    self:SetModelScale(0.8)
+    self:SetModelScale(0.75)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()

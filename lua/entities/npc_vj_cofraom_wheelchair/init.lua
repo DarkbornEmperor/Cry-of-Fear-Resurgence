@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/wheelchair_monster.mdl"} 
-ENT.StartHealth = 110
+ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
@@ -16,7 +16,7 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack2"} 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextMeleeAttackTime = 1
-ENT.MeleeAttackDamage = 20 
+ENT.MeleeAttackDamage = 30 
 ENT.MeleeAttackDistance = 25 
 ENT.MeleeAttackDamageDistance = 50
 ENT.DisableFootStepSoundTimer = true

@@ -15,7 +15,6 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -26,6 +25,8 @@ ENT.DeathAnimationTime = 10
 ENT.HasSoundTrack = true
 ENT.Immune_Fire = true 
 ENT.HasExtraMeleeAttackSounds = true
+ENT.HasBreathSound = false
+ENT.BreathSoundLevel = 75
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -40,6 +41,15 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/david/pl_step2.wav",
 "vj_cofr/aom/david/pl_step3.wav",
 "vj_cofr/aom/david/pl_step4.wav"
+}
+ENT.SoundTbl_Breath = {
+"vj_cofr/aom/davidbad/fire_loop.wav"
+}
+ENT.SoundTbl_FireIgnite = {
+"vj_cofr/aom/davidbad/fire_ignite.wav"
+}
+ENT.SoundTbl_FireOff = {
+"vj_cofr/aom/davidbad/fire_off.wav"
 }
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/aom/davidbad/sickness.mp3",
@@ -115,8 +125,8 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
-	if !self:BusyWithActivity() && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if self.DeathAnimationCodeRan then return end
+	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
@@ -137,9 +147,12 @@ end
     if !self.Addiction_OnFire && !self:IsOnFire() && (self.StartHealth -250 > self:Health()) then
 		self.Addiction_OnFire = true
 		self:Ignite(15)
+		//self.HasBreathSound = true
+		VJ_EmitSound(self, self.SoundTbl_FireIgnite, 75, 100)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),150)) do
-	    timer.Create("addiction_fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire then
+	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire && v:WaterLevel() != 3 then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
+		//timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then VJ_EmitSound(self, self.SoundTbl_FireOff, 75, 100) self.HasBreathSound = false end end)
                 end
             end)
         end
@@ -164,7 +177,9 @@ function ENT:MultipleMeleeAttacks()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 		self.MeleeAttackDamageType = DMG_SHOCK
 		self.NextMeleeAttackTime = 2
+		self.MeleeAttackDamageDistance = 150
 		self.HasMeleeAttackMissSounds = false
+		self.DisableDefaultMeleeAttackDamageCode = true
 		self.SoundTbl_MeleeAttackExtra = {
 		"vj_cofr/aom/davidbad/thunder_hit.wav"
 }
@@ -173,28 +188,31 @@ function ENT:MultipleMeleeAttacks()
 		self.MeleeAttackDamageType = DMG_SLASH
 		self.NextMeleeAttackTime = 0
 		self.MeleeAttackDamage = 35 
-		self.SoundTbl_MeleeAttackMiss = {
-		"vj_cofr/aom/davidbad/Axe_swing.wav"
-}
+		self.MeleeAttackDamageDistance = 60
+		self.HasMeleeAttackMissSounds = true
+		self.DisableDefaultMeleeAttackDamageCode = false
 		self.SoundTbl_MeleeAttackExtra = {
-		"vj_cofr/aom/davidbad/Axe_hitbody.wav"
+		"vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
+}
+		self.SoundTbl_MeleeAttackMiss = {
+		"vj_cofr/aom/weapons/axe/Axe_swing.wav"
 }
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
     if self:GetBodygroup(0) == 0 then
-	local color = Color(255, 255, 255, 255) -- The shock wave color
+	local color = Color(255, 243, 140, 255) -- The shock wave color
 	local dmg = 25 -- How much damage should the shock wave do?
 
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/combineball_glow_blue_1", framerate=20, flags=0})
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color)
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color)
 	
 	if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ_EmitSound(self, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, math.random(80,100))
 end
-	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
+	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck=true, Force=80})
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -207,6 +225,9 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if self:IsOnFire() && self.Addiction_OnFire then
 	   self.Addiction_OnFire = false
 	   self:Extinguish()
+       VJ_EmitSound(self, self.SoundTbl_FireOff, 75, 100)
+	   //self.HasBreathSound = false
+	   timer.Remove("VJ_COFR_Addiction_Fire")
 end
     VJ_COFR_DeathCode(self)	
 end 

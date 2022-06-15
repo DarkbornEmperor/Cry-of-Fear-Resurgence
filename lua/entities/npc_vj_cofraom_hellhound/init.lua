@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/black_dog.mdl"} 
-ENT.StartHealth = 80
+ENT.StartHealth = 70
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
@@ -93,7 +93,7 @@ end
 function ENT:CustomOnMeleeAttack_BeforeChecks()
     local friNum = 0 -- How many allies exist around the Hellhound
 	local color = Color(255, 0, 0, 255) -- The shock wave color
-	local dmg = 15 -- How much damage should the shock wave do?
+	local dmg = 20 -- How much damage should the shock wave do?
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
 		if v != self && v:GetClass() == "npc_vj_hlr1_hellhound" then
 			friNum = friNum + 1
@@ -112,8 +112,8 @@ end
 end
 
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="sprites/combineball_glow_red_1", framerate=20, flags=0})
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="sprites/combineball_glow_red_1", framerate=20, flags=0})
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color)
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color)
 	
 	if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ_EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))

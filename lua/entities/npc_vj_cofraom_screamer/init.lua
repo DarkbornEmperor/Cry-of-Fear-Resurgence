@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/controller.mdl"} 
-ENT.StartHealth = 100
+ENT.StartHealth = 170
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL 
 ENT.Aerial_FlyingSpeed_Calm = 120 
@@ -140,11 +140,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
 	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
-		self.AnimTbl_RangeAttack = {"vjseq_attack2"}
+		self.AnimTbl_RangeAttack = {"vjseq_shoot"}
 		self.RangeAttackPos_Up = 80
 		self.Screamer_HomingAttack = true
 	else
-		self.AnimTbl_RangeAttack = {"vjseq_attack1"}
+		self.AnimTbl_RangeAttack = {"vjseq_attack1","vjseq_attack2"}
 		self.RangeAttackPos_Up = 20
 		self.Screamer_HomingAttack = false
 	end
