@@ -41,10 +41,10 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/davidbad/Axe_hitbody.wav"
+"vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/aom/davidbad/Axe_swing.wav"
+"vj_cofr/aom/weapons/axe/Axe_swing.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",

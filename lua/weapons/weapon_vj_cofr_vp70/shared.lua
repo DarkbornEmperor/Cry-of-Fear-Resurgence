@@ -1,12 +1,12 @@
 if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Glock"
+SWEP.PrintName					= "VP70"
 SWEP.Author 					= "Darkborn"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for Players and NPCs"
+SWEP.Purpose					= "This weapon is made for NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "VJ Base"
+SWEP.Category					= "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1
 SWEP.NPC_TimeUntilFire = 0.05

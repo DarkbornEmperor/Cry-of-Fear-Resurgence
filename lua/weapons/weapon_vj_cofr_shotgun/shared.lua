@@ -4,9 +4,9 @@ SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "Shotgun"
 SWEP.Author 					= "Darkborn"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for Players and NPCs"
+SWEP.Purpose					= "This weapon is made for NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "VJ Base"
+SWEP.Category					= "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= 1.6 -- Next time it can use primary fire
 SWEP.NPC_CustomSpread	 		= 2.5 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
