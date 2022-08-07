@@ -90,7 +90,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SickSimon_DoFireEffects()
-	muz = ents.Create("env_sprite")
+	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
 	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
