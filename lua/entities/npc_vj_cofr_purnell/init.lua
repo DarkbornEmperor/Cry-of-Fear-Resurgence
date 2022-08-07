@@ -142,7 +142,7 @@ function ENT:SetPistol()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_DoFireEffects()
-	muz = ents.Create("env_sprite")
+	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
 	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
@@ -159,7 +159,7 @@ function ENT:Doctor_DoFireEffects()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
 
-	Light = ents.Create("light_dynamic")
+	local Light = ents.Create("light_dynamic")
 	Light:SetKeyValue("brightness", "4")
 	Light:SetKeyValue("distance", "120")
 	Light:SetLocalAngles(self:GetAngles())
