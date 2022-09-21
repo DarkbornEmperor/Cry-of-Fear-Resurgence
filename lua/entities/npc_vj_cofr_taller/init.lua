@@ -23,6 +23,7 @@ ENT.SlowPlayerOnMeleeAttack = false
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 0.001
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 0.001 
 ENT.SlowPlayerOnMeleeAttackTime = 3.5
+ENT.HasMeleeAttackSlowPlayerSound = false 
 ENT.HasMeleeAttackKnockBack = false 
 ENT.MeleeAttackKnockBack_Forward1 = 150 
 ENT.MeleeAttackKnockBack_Forward2 = 150 
@@ -114,6 +115,18 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/cof/taller/taller_stamp.wav"
 }
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
+	if (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
+		   hitEnt:StopMoving()
+           hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
+	       timer.Simple(3.5,function() if IsValid(hitEnt) then
+           hitEnt:SetState()
+		end
+    end)	
+end
+    return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
