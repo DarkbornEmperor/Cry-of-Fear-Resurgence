@@ -242,7 +242,7 @@ function ENT:SetSledgehammerFlare()
 	FlareLight:Activate()
 	FlareLight:Fire("SetParentAttachment","flare")	
 	FlareLight:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.FlareLight)
+	self:DeleteOnRemove(FlareLight)
 
 	ParticleEffectAttach("vj_cofr_flare_sparks",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
 	ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))	
