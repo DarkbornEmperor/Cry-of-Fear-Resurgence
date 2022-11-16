@@ -138,6 +138,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     VJ_COFR_DeathCode(self)	
 end 
 /*-----------------------------------------------
