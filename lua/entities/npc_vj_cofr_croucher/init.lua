@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -11,7 +11,7 @@ ENT.MeleeAttackDamage = 15
 ENT.VJC_Data = {
 	CameraMode = 1, 
 	ThirdP_Offset = Vector(45, 20, -15), 
-	FirstP_Bone = "ValveBiped.Bip01_Head1", 
+	FirstP_Bone = "Bip01 Head", 
 	FirstP_Offset = Vector(10, 0, -30), 
 }
  ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ end
     self:SetCollisionBounds(Vector(13, 13, 30), Vector(-13, -13, 0))
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

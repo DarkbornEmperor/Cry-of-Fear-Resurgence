@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -50,6 +50,8 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.BreathSoundLevel = 75
+-- Custom
+ENT.Sawcrazy_NextRadiusDamageT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_CustomOnInitialize()
     self.SoundTbl_Breath = {
@@ -89,10 +91,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
     if self.DeathAnimationCodeRan or GetConVarNumber("VJ_COFR_Sawcrazy_RadiusDamage") == 0 then return end
-	if !self.MeleeAttacking then		
+	if !self.PlayingAttackAnimation && self.Sawcrazy_NextRadiusDamageT < CurTime() then		
     for k,v in ipairs(ents.FindInSphere(self:GetPos(),self.MeleeAttackDamageDistance)) do
-    if v != self && v:IsNPC() or v:IsPlayer() or v:GetClass() == "prop_physics" then  		   
+    if v != self && (v:IsNPC() or v:IsPlayer() or v:GetClass() == "prop_physics" or v:GetClass() == "func_breakable") then  		   
            v:TakeDamage(self.MeleeAttackDamage,self,self)
+		   //VJ_EmitSound(self, "vj_cofr/cof/children/child_slice.wav", self.ExtraMeleeAttackSoundLevel, self:VJ_DecideSoundPitch(self.ExtraMeleeSoundPitch.a, self.ExtraMeleeSoundPitch.b))
+		   self.Sawcrazy_NextRadiusDamageT = CurTime() + 1
 		    end
 		end
     end 
@@ -112,7 +116,7 @@ function ENT:CustomOnFootStepSound()
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

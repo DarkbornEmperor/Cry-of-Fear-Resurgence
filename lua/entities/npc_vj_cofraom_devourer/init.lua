@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -17,7 +17,7 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.CallForHelp = false
-ENT.HasMeleeAttack = true 
+ENT.HasMeleeAttack = false 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
@@ -53,12 +53,12 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }	
 -- Custom
+ENT.Devourer_HasEnemy = false
 ENT.Devourer_LastHeight = 180
 ENT.Devourer_CurEnt = NULL
 ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_Status = 0
 ENT.Devourer_NextPullSoundT = 0
-ENT.Devourer_NextDamageT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_CustomOnInitialize()
     self.SoundTbl_Death = {
@@ -74,7 +74,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack" then
-		self:MeleeAttackCode()
+		//self:MeleeAttackCode()
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,18 +99,40 @@ function ENT:Devourer_CalculateTongue()
 		end
 		self.Devourer_CurEnt = trent
 		trent:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
-		if CurTime() > self.Devourer_NextDamageT then
-		if trent:IsNPC() then
-		    trent:TakeDamage(10,self,self)
+		local dmginfo = DamageInfo()
+		if trent:IsNPC() && !self.Devourer_HasEnemy then
+		    self.Devourer_HasEnemy = true
 			trent:StopMoving()
 			trent:SetVelocity(Vector(0,0,2))
 			trent:SetMoveType(MOVETYPE_FLY)
-		elseif trent:IsPlayer() then
-		    trent:TakeDamage(10,self,self)
+		timer.Simple(3.5,function() if IsValid(trent) && IsValid(self) && !self.Dead && self:GetSequence() == self:LookupSequence("chewcycle") then
+		    dmginfo:SetDamage(self.MeleeAttackDamage)
+			dmginfo:SetInflictor(self)
+			dmginfo:SetAttacker(self)
+			dmginfo:SetDamageType(DMG_ALWAYSGIB)
+			trent:TakeDamageInfo(dmginfo,self)
+			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false,false)
+			VJ_EmitSound(self, self.SoundTbl_MeleeAttackExtra)
+			self.Devourer_HasEnemy = false
+		else
+		    self.Devourer_HasEnemy = false
+	end end)
+		elseif trent:IsPlayer() && !self.Devourer_HasEnemy then
+		    self.Devourer_HasEnemy = true
 			trent:SetMoveType(MOVETYPE_NONE)
 			//trent:AddFlags(FL_ATCONTROLS)
-		end	
-		self.Devourer_NextDamageT = CurTime() + 0.5
+		timer.Simple(3.5,function() if IsValid(trent) && IsValid(self) && !self.Dead && self:GetSequence() == self:LookupSequence("chewcycle") then
+		    dmginfo:SetDamage(self.MeleeAttackDamage)
+			dmginfo:SetInflictor(self)
+			dmginfo:SetAttacker(self)
+			dmginfo:SetDamageType(DMG_ALWAYSGIB)
+			trent:TakeDamageInfo(dmginfo,self)
+			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false,false)
+			VJ_EmitSound(self, self.SoundTbl_MeleeAttackExtra)
+			self.Devourer_HasEnemy = false
+		else
+		    self.Devourer_HasEnemy = false
+	end end)	
 	end
 		trent:SetGroundEntity(NULL)
 		if height >= 50 then
@@ -183,7 +205,7 @@ function ENT:CustomOnRemove()
 	self:Devourer_ResetEnt()
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

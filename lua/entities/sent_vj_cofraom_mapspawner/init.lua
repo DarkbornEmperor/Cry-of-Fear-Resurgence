@@ -423,7 +423,7 @@ function ENT:SpawnBossMonster(ent,pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-    VJ_STOPSOUND(self.CoF_Music)
+    VJ_STOPSOUND(self.COFR_Music)
 	for index,object in ipairs(self.tbl_SpawnedNPCs) do
 		if IsValid(object) then
 			object:Remove()
