@@ -194,12 +194,12 @@ function ENT:CustomRangeAttackCode()
     if self.Doctor_Revolver then
 		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos
 		bullet.Damage = 13
-		VJ_EmitSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 		
     elseif self.Doctor_Pistol then
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
 		bullet.Damage = 15
-		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 end	
     self:FireBullets(bullet)
 	self.Doctor_FiredAtLeastOnce = true

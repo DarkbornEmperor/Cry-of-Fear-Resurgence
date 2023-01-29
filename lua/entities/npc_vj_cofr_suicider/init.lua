@@ -107,9 +107,9 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 	if key == "suicide" then
 	if self.Suicider_Glock then
-        VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+        VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
     elseif self.Suicider_P345 then
-        VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+        VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 end
 		self:Suicider_DoFireEffects()
 		VJ_EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
@@ -187,10 +187,10 @@ function ENT:CustomRangeAttackCode()
 	bullet.AmmoType = "SMG1"
 		
     if self.Suicider_Glock then
-		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 		
     elseif self.Suicider_P345 then
-		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self.RangeAttackPitch)
+		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 end	
     self:FireBullets(bullet)
 	self.Suicider_FiredAtLeastOnce = true
