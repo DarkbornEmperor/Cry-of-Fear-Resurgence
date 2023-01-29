@@ -92,7 +92,7 @@ end
 function ENT:CustomOnInitialize()
      //VJ_EmitSound(self, "vj_cofr/cof/sawer/chainsaw_start.wav", 75, 100)
 	 //ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("chainsaw"))
-     self:SetCollisionBounds(Vector(18, 18, 108), Vector(-18, -18, 0))
+     self:SetCollisionBounds(Vector(18, 18, 105), Vector(-18, -18, 0))
      self:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

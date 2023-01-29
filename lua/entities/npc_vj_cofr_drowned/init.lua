@@ -165,7 +165,7 @@ function ENT:CustomRangeAttackCode()
 end	
 	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Drowned_NextEnemyDamageT then
-	if self.HasSounds then self.Drowned_Suicide = VJ_CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
+	if self.HasSounds then self.Drowned_Suicide = VJ_CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
 	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()

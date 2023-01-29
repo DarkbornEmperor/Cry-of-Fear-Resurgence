@@ -16,7 +16,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))	
+     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))	
      self:Twitcher_CustomOnInitialize()
 	 self:TwitcherSounds()
 end

@@ -24,6 +24,7 @@ ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
+ENT.WeaponReload_FindCover = false
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
 ENT.NextMoveRandomlyWhenShootingTime1 = 0
 ENT.NextMoveRandomlyWhenShootingTime2 = 0.2

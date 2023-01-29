@@ -71,7 +71,7 @@ function ENT:Hellhound_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 40), Vector(-15, -15, 0))
+     self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
      self:Hellhound_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

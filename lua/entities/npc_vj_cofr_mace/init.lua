@@ -91,7 +91,7 @@ function ENT:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(20, 20, 95), Vector(-20, -20, 0))
+     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
      self:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

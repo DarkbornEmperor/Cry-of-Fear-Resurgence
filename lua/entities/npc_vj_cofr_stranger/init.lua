@@ -128,7 +128,7 @@ function ENT:CustomRangeAttackCode()
 end	
 	if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Stranger_NextEnemyDamageT then
-	if self.HasSounds then self.Stranger_HeartBeat = VJ_CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self.RangeAttackSoundLevel, self.RangeAttackPitch) end
+	if self.HasSounds then self.Stranger_HeartBeat = VJ_CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
 		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
 	    self.Stranger_NextEnemyDamageT = self.NextRangeAttackTime				

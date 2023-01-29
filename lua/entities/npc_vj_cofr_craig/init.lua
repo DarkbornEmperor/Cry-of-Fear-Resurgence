@@ -87,7 +87,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      //ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupBone("chainsaw"))
-     self:SetCollisionBounds(Vector(18, 18, 108), Vector(-18, -18, 0))
+     self:SetCollisionBounds(Vector(18, 18, 105), Vector(-18, -18, 0))
      self:Craig_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -13,7 +13,6 @@ function ENT:CrazyRunner_CustomOnInitialize()
 	"vj_cofr/cof/rcrazy/rc_alert2.wav",
 	"vj_cofr/cof/rcrazy/rc_alert3.wav"
 }
-    self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0)) 
 end 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
