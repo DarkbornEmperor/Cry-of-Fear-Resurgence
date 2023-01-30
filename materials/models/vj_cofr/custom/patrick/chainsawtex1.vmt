@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/sawrunner/chainsawtex1"
+	"$nodecal" 1
 }

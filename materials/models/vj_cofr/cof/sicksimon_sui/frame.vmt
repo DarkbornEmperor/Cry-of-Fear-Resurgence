@@ -1,4 +1,5 @@
 "VertexlitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/sicksimon_sui/frame"
+	"$nodecal" 1
 }

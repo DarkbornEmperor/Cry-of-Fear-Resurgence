@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/aom/twitcherwheelchair/Wheelchair"
 	"$alphatest" 1
+	"$nodecal" 1
 }

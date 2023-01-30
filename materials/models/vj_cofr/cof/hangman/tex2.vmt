@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/cof/hangman/tex2"
 	"$alphatest" 1
+	"$nodecal" 1
 }

@@ -1,6 +1,7 @@
 "VertexlitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/booksimon/foregrip"
-	"$surfaceprop" "Metal"
-	"$vertexcolor" 1
+	//"$surfaceprop" "Metal"
+	//"$vertexcolor" 1
+	"$nodecal" 1
 }

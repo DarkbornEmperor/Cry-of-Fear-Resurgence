@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/aom/addiction/skin"
+	"$nodecal" 1
 }

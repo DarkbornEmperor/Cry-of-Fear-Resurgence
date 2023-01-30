@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/drowned/handle"
+	"$nodecal" 1
 }

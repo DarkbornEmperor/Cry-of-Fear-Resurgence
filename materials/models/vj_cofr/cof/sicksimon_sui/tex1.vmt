@@ -2,4 +2,5 @@
 {
 	"$basetexture" "models/vj_cofr/cof/sicksimon_sui/tex1"
 	"$alphatest" 1
+	"$nodecal" 1
 }

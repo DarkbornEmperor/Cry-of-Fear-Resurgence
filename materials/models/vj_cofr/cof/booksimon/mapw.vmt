@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/booksimon/mapw"
+	"$nodecal" 1
 }

@@ -1,4 +1,5 @@
 "VertexlitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/doctor/frame_color"
+	"$nodecal" 1
 }
