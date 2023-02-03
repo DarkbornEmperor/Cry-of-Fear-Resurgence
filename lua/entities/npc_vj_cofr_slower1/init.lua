@@ -118,7 +118,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/custom/croucher.mdl" then
 		self.Slower_Type = 2
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}		
-	elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3_dream.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" then
+	elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3_dream.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/slower3_hh.mdl" then
 		self.Slower_Type = 3
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno_boss.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno.mdl" then
@@ -165,6 +165,7 @@ end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
+ if self.Slower_Type == 3 or self.Slower_Type == 7 then return end	
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", {"vj_cofr/cof/slower/scream1.wav"}) 	
     end
