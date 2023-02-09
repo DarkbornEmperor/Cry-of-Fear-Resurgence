@@ -90,7 +90,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.DeathAnimationCodeRan or GetConVarNumber("VJ_COFR_Sawcrazy_RadiusDamage") == 0 then return end
+    if self.Dead or GetConVarNumber("VJ_COFR_Sawcrazy_RadiusDamage") == 0 then return end
 	if !self.PlayingAttackAnimation && self.Sawcrazy_NextRadiusDamageT < CurTime() then		
     for k,v in ipairs(ents.FindInSphere(self:GetPos(),self.MeleeAttackDamageDistance)) do
     if v != self && (v:IsNPC() or v:IsPlayer() or v:GetClass() == "prop_physics" or v:GetClass() == "func_breakable") then  		   

@@ -164,7 +164,7 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
+	if !IsValid(self:GetEnemy()) or self.Dead then return end
 	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())
 	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		self.Suicider_DeathSuicide = true

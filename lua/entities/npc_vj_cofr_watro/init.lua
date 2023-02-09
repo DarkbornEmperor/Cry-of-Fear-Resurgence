@@ -78,7 +78,7 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan or !self.Watro_Burrowed then return end	
+    if !IsValid(self:GetEnemy()) or self.Dead or !self.Watro_Burrowed then return end	
 	if self.Watro_Burrowed && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)

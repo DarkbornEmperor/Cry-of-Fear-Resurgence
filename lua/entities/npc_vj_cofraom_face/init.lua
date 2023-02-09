@@ -117,7 +117,7 @@ end
 	if key == "attack" then
 		self:MeleeAttackCode()
 end	
-	if key == "attack_range" && self.RangeAttacking && !self.DeathAnimationCodeRan then
+	if key == "attack_range" && self.RangeAttacking && !self.Dead then
 		self:RangeAttackCode()
 		if IsValid(self.Face) then self.Face:Remove() end
 		self.Face = ents.Create("env_sprite")

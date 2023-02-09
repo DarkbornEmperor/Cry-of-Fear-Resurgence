@@ -164,7 +164,7 @@ function ENT:Devourer_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.DeathAnimationCodeRan then return end
+	if self.Dead then return end
 	local calc = self:Devourer_CalculateTongue()
 	if calc == true && self.Devourer_Status != 1 then
 		self.Devourer_Status = 1

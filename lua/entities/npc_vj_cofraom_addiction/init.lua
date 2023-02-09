@@ -25,8 +25,6 @@ ENT.DeathAnimationTime = 10
 ENT.HasSoundTrack = true
 ENT.Immune_Fire = true 
 ENT.HasExtraMeleeAttackSounds = true
-ENT.HasBreathSound = false
-ENT.BreathSoundLevel = 75
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -42,7 +40,7 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/david/pl_step3.wav",
 "vj_cofr/aom/david/pl_step4.wav"
 }
-ENT.SoundTbl_Breath = {
+ENT.SoundTbl_FireLoop = {
 "vj_cofr/aom/davidbad/fire_loop.wav"
 }
 ENT.SoundTbl_FireIgnite = {
@@ -62,6 +60,7 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Addiction_Axe = false
+ENT.Addiction_FinishedIgnited = false
 ENT.Addiction_OnFire = false
 ENT.Addiction_NextChangeAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -125,34 +124,36 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.DeathAnimationCodeRan then return end
+	if self.Dead then return end
 	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
+		timer.Simple(3,function() if IsValid(self) && !self.Dead then
         self:SetBodygroup(0,1)
 		self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)	
-     end		
-  end)	
+        end		
+    end)	
 end    
     if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		timer.Simple(3,function() if IsValid(self) && !self.DeathAnimationCodeRan then
+		timer.Simple(3,function() if IsValid(self) && !self.Dead then
         self:SetBodygroup(0,0)
         self.Addiction_NextChangeAttackT = CurTime() + math.random(10,15)		
-     end      	 
-  end)
+        end      	 
+    end)
 end
-    if !self.Addiction_OnFire && !self:IsOnFire() && (self.StartHealth -250 > self:Health()) then
+    if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
+    if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && (self.StartHealth -250 > self:Health()) then
 		self.Addiction_OnFire = true
-		self:Ignite(15)
-		//self.HasBreathSound = true
-		VJ_EmitSound(self, self.SoundTbl_FireIgnite, 75, 100)
+        ParticleEffectAttach("env_fire_tiny_smoke",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("axe"))
+        ParticleEffectAttach("env_fire_small",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("axe"))
+		self.Addiction_FireIgnite = VJ_CreateSound(self,self.SoundTbl_FireIgnite,75,100)
+		self.Addiction_FireLoop = VJ_CreateSound(self,self.SoundTbl_FireLoop,75,100)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),150)) do
-	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire && v:WaterLevel() != 3 then
+	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire && v:WaterLevel() == 0 then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
-		//timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then VJ_EmitSound(self, self.SoundTbl_FireOff, 75, 100) self.HasBreathSound = false end end)
+		timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ_CreateSound(self,self.SoundTbl_FireOff,75,100) self:StopParticles() VJ_STOPSOUND(self.Addiction_FireLoop) end end)
                 end
             end)
         end
@@ -168,8 +169,8 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
    else
 	   attacker:TakeDamage(10,attacker,attacker)
 	   dmginfo:ScaleDamage(0.00)
-    end	   
-  end	  
+        end	   
+    end	  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
@@ -222,15 +223,21 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt, isProp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	if self:IsOnFire() && self.Addiction_OnFire then
+	if self.Addiction_OnFire then
 	   self.Addiction_OnFire = false
-	   self:Extinguish()
-       VJ_EmitSound(self, self.SoundTbl_FireOff, 75, 100)
-	   //self.HasBreathSound = false
+	   self:StopParticles()
+       self.Addiction_FireOff = VJ_CreateSound(self,self.SoundTbl_FireOff,75,100)
+	   VJ_STOPSOUND(self.Addiction_FireLoop)
 	   timer.Remove("VJ_COFR_Addiction_Fire")
 end
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    VJ_STOPSOUND(self.Addiction_FireIgnite)
+    VJ_STOPSOUND(self.Addiction_FireOff)
+    VJ_STOPSOUND(self.Addiction_FireLoop)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
 	[MAT_ANTLION] = {

@@ -152,7 +152,7 @@ function ENT:Drowned_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	if GetConVarNumber("vj_npc_norange") == 1 or self.DeathAnimationCodeRan then return end	
+	if GetConVarNumber("vj_npc_norange") == 1 or self.Dead then return end	
 	local ent = self:GetEnemy()
     local cont = self.VJ_TheController
 	if IsValid(cont) then
@@ -180,7 +180,7 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan or self.Drowned_Baby then return end	
+    if !IsValid(self:GetEnemy()) or self.Dead or self.Drowned_Baby then return end	
 	if !self.Drowned_Baby && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		self.Drowned_Baby = true
 		self.HasMeleeAttack = true

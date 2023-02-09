@@ -66,7 +66,7 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end	
+    if !IsValid(self:GetEnemy()) or self.Dead then return end	
  	if IsValid(self:GetEnemy()) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		if self.VJ_IsBeingControlled then
 			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Summoning Twisters! Cool Down: 20 seconds!")
@@ -146,12 +146,12 @@ end
     end)
 end
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
-     if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self:GetEnemy()) && !self.DeathAnimationCodeRan then	 
+     if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(self:GetEnemy()) && !self.Dead then	 
             //v:GetPhysicsObject():Wake()
-            timer.Simple(1.2,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) && !self.DeathAnimationCodeRan then 
+            timer.Simple(1.2,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) && !self.Dead then 
             v:GetPhysicsObject():SetVelocity(v:GetUp()*100)
 			v:GetPhysicsObject():EnableGravity(false)
-            timer.Simple(2.5,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) && !self.DeathAnimationCodeRan then 
+            timer.Simple(2.5,function() if IsValid(self) && IsValid(v) && IsValid(self:GetEnemy()) && !self.Dead then 
 			v:GetPhysicsObject():EnableGravity(true)
             v:GetPhysicsObject():SetVelocity((self:GetEnemy():GetPos() - v:GetPos())*8 + self:GetUp()*200) end end) end end)
 		 end

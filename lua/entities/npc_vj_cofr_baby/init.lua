@@ -93,7 +93,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
- if !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
+ if !IsValid(self:GetEnemy()) or self.Dead then return end
 	self:SetGroundEntity(NULL)
 	self.Baby_DeathFromMeleeAttack = true
 	self:TakeDamage(self:Health())

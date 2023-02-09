@@ -96,7 +96,7 @@ function ENT:Sawrunner_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     --ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupBone("chainsaw"))
+     //ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupBone("chainsaw"))
      self:SetCollisionBounds(Vector(13, 13, 77), Vector(-13, -13, 0))
      self:Sawrunner_CustomOnInitialize()
 end
@@ -116,6 +116,7 @@ end
     end		
 end
 -----------------------------------------------------------------------------------------------------------------------------------------------
+/*
 function ENT:CustomOnAlert()
 	if self.HasSounds == true then
     if math.random(1,3) == 1 && CurTime() > self.Sawrunner_NextSpecialAlertT then
@@ -125,6 +126,13 @@ function ENT:CustomOnAlert()
 		self.Sawrunner_NextSpecialAlertT = CurTime() + math.random(5,8)
 	 end
   end
+end
+*/
+-----------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/sawrunner/sawrunnerhello.wav"}) 	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
@@ -140,34 +148,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-    end
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-    self:SetSolid(SOLID_NONE)
-    VJ_STOPSOUND(self.Sawrunner_SpecialAlert)
-    self:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
-       if GetConVarNumber("VJ_COFR_DropAmmo") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-	   local pickedAmmoType = VJ_PICK(self.DropCoFAmmo)
-	   if pickedAmmoType != false then	   
-	   local AmmoDrop = ents.Create(pickedAmmoType)	   
-	   AmmoDrop:SetPos(self:GetPos() + self:OBBCenter())
-	   AmmoDrop:SetLocalAngles(self:GetAngles())	   
-	   //AmmoDrop:SetParent(self)
-	   AmmoDrop:Spawn()
-	   AmmoDrop:Activate()
-	   //self:DeleteOnRemove(AmmoDrop)
-	   
-		local phys = AmmoDrop:GetPhysicsObject()
-			if IsValid(phys) then
-				local dmgForce = (self.SavedDmgInfo.force / 40)
-				if self.DeathAnimationCodeRan then
-					dmgForce = self:GetMoveVelocity() == defPos
 end
-				phys:SetMass(1)
-				phys:ApplyForceCenter(dmgForce)
-		end		
-	end		
+	VJ_COFR_DeathCode(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
@@ -177,7 +159,7 @@ function ENT:CustomOnFootStepSound()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ_STOPSOUND(self.Sawrunner_SpecialAlert)
+    //VJ_STOPSOUND(self.Sawrunner_SpecialAlert)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***

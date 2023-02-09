@@ -51,18 +51,18 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	         if !IsValid(self:GetEnemy()) then return end
-	         if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
-			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
-			   self.Dreamer_Scream = VJ_CreateSound(self,self.SoundTbl_DreamerScream,75,100)
-			   self.Dreamer_Jumpscare = true
-			   self.CallForHelp = true
-	           self:DrawShadow(true)
-               self:SetMaterial() 
-	         timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
-               self:GetEnemy():TakeDamage(10,self,self)	end end)			   
-             timer.Simple(1,function() if IsValid(self) then self:SetMaterial("hud/killicons/default") self:DrawShadow(false) end end)
-             timer.Simple(1.5,function() if IsValid(self) then self:Remove() end end)
+	if !IsValid(self:GetEnemy()) then return end
+	if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+		self.Dreamer_Scream = VJ_CreateSound(self,self.SoundTbl_DreamerScream,75,100)
+	    self.Dreamer_Jumpscare = true
+		self.CallForHelp = true
+	    self:DrawShadow(true)
+        self:SetMaterial() 
+	    timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
+        self:GetEnemy():TakeDamage(10,self,self)	end end)			   
+        timer.Simple(1,function() if IsValid(self) then self:SetMaterial("hud/killicons/default") self:DrawShadow(false) end end)
+        timer.Simple(1.5,function() if IsValid(self) then self:Remove() end end)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

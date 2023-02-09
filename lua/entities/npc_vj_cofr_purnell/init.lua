@@ -207,10 +207,10 @@ end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.VJ_IsBeingControlled or self.IsGuard or !IsValid(self:GetEnemy()) or self.DeathAnimationCodeRan then return end
+	if self.VJ_IsBeingControlled or self.IsGuard or !IsValid(self:GetEnemy()) or self.Dead then return end
 	if CurTime() > self.Doctor_NextRunT then
 		timer.Simple(5, function() 
-			if IsValid(self) && !self:IsMoving() then
+			if IsValid(self) && !self:IsMoving() && !self.Dead then
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 	end
 end)
