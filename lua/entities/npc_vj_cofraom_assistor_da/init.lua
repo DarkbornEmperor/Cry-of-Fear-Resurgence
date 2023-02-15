@@ -19,8 +19,7 @@ ENT.SoundTbl_FollowPlayer = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
-     if GetConVarNumber("VJ_COFR_Assistor_Flashlight") == 0 then return end	
-	 
+     if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end		 
      if math.random(1,3) == 1 then
 	    self:SetBodygroup(1,1)
 		self:SetSkin(1)
@@ -40,7 +39,7 @@ function ENT:AssistorFlashlight()
         self.light:Activate()
         self.light:DeleteOnRemove(self.light)
 
-  local glow1 = ents.Create("env_sprite")
+     local glow1 = ents.Create("env_sprite")
 		glow1:SetKeyValue("model","sprites/light_ignorez.vmt")
 		glow1:SetKeyValue("scale","0.2")
 		glow1:SetKeyValue("rendermode","3")

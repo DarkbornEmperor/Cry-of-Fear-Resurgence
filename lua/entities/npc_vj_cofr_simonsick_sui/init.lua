@@ -64,13 +64,12 @@ ENT.SoundTbl_Browning = {
 ENT.RangeAttackSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SickSimon_CustomOnInitialize()
-end
+function ENT:SickSimon_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
      self:SickSimon_CustomOnInitialize()	 
@@ -132,7 +131,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.TracerName = "Tracer"
 		bullet.Force = 4
 		bullet.Damage = 12
-		bullet.AmmoType = "SMG1"
+		bullet.AmmoType = "Pistol"
 	    self:FireBullets(bullet)
 		VJ_EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 	    self.SickSimon_FiredAtLeastOnce = true

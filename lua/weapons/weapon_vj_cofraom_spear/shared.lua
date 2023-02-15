@@ -8,7 +8,8 @@ SWEP.Purpose					= "This weapon is made for NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.25
+SWEP.NPC_NextPrimaryFire = 0.75 -- Next time it can use primary fire
+SWEP.NPC_TimeUntilFire = 0.15 -- How much time until the bullet/projectile is fired?
 SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_spear.mdl"
@@ -23,7 +24,3 @@ SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? 
 SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(3.5, 15, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
-    //self:SetModelScale(0.95)
-end

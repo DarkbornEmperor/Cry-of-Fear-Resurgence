@@ -87,7 +87,7 @@ ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-    if GetConVarNumber("VJ_COFR_BookSimon_Normal") == 1 then
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
     local BookSimon_Type = math.random(1,3)
     if BookSimon_Type == 1 then
 		self.BookSimon_Shotgun = true
@@ -97,7 +97,7 @@ elseif BookSimon_Type == 3 then
 		self.BookSimon_SledgehammerFlare = true	
 	end	
 end	
-    if GetConVarNumber("VJ_COFR_BookSimon_Normal") == 0 then	
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then	
     local BookSimon_Type = math.random(1,6)
     if BookSimon_Type == 1 then
 		self.BookSimon_Shotgun = true
@@ -113,7 +113,7 @@ elseif BookSimon_Type == 6 then
 		self.BookSimon_SledgehammerFlare = true
 	end	
 end	
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end	
 end	
@@ -301,7 +301,6 @@ function ENT:CustomRangeAttackCode()
 	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
 	bullet.TracerName = "Tracer"
 	bullet.Force = 4
-	bullet.AmmoType = "SMG1"
 	
 	if self.BookSimon_Shotgun then
 		bullet.Num = 12
@@ -309,6 +308,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Spread = Vector(60,50,40)
 		bullet.Tracer = 6
 		bullet.Damage = 5
+	    bullet.AmmoType = "Buckshot"
 		VJ_EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 	    timer.Simple(0.5,function() if IsValid(self) then
 	    self.Shotgun_Pump = VJ_CreateSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
@@ -319,6 +319,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Spread = Vector(50,40,30)
 		bullet.Tracer = 1
 		bullet.Damage = 13
+	    bullet.AmmoType = "Pistol"
 		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 		
     elseif self.BookSimon_TMP then
@@ -328,6 +329,7 @@ function ENT:CustomRangeAttackCode()
 		bullet.Tracer = 1
 		bullet.Force = 4
 		bullet.Damage = 4
+	    bullet.AmmoType = "SMG1"
 		VJ_EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 		
     elseif self.BookSimon_M16 then

@@ -115,7 +115,7 @@ function ENT:Stranger_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()	
-    if GetConVarNumber("vj_npc_norange") == 1 or self.Dead then return end	
+    if GetConVar("vj_npc_norange"):GetInt() == 1 or self.Dead then return end	
     local ent = self:GetEnemy()
     local cont = self.VJ_TheController
 	if IsValid(cont) then
@@ -140,7 +140,7 @@ if math.random(1,50) && self.Dead then
      self:SetRenderFX(kRenderFxFlickerSlow)
      self:SetRenderMode(RENDERMODE_NORMAL)
 end	 
-  if GetConVarNumber("VJ_COFR_Stranger_ScreenEffect") == 0 then return end
+  if GetConVar("VJ_COFR_Stranger_ScreenEffect"):GetInt() == 0 then return end
   if !IsValid(self:GetEnemy()) or !self:GetEnemy():Visible(self) or self.Dead then self.Stranger_UsingDamageEffect = false RunConsoleCommand("pp_colormod", "0") return end
     if self:GetEnemy():IsPlayer() then
   	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())  

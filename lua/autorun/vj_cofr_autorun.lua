@@ -374,7 +374,8 @@ if VJExists == true then
 	VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Assistor_Flashlight", 0, {FCVAR_ARCHIVE}) 
 	VJ.AddConVar("VJ_COFR_Stranger_ScreenEffect", 1, {FCVAR_ARCHIVE})
-	VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})	
+	VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})	
 	
     -- Map Spawner ConVars --
     VJ.AddClientConVar("VJ_COFR_MapSpawner_Music", 1)
@@ -419,7 +420,8 @@ end
 				VJ_COFR_Ghost_SlowSound = "1",
                 VJ_COFR_Assistor_Flashlight = "0",
                 VJ_COFR_Stranger_ScreenEffect = "1",
-                VJ_COFR_Suicider_ExtraPistol = "0",				
+                VJ_COFR_Suicider_ExtraPistol = "0",	
+                VJ_COFR_Human_ReloadCover = "0",				
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("NOTE: Only future spawned SNPCs will be affected!")
@@ -440,7 +442,8 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
             Panel:AddControl("Checkbox", {Label ="Enable flashlight for Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})	
             Panel:AddControl("Checkbox", {Label ="Enable screen effect for Strangers?", Command ="VJ_COFR_Stranger_ScreenEffect"})	
-            Panel:AddControl("Checkbox", {Label ="Enable P345 for Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})				
+            Panel:AddControl("Checkbox", {Label ="Enable P345 for Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})
+            Panel:AddControl("Checkbox", {Label ="Enable Human SNPCs Finding Cover To Reload?", Command ="VJ_COFR_Human_ReloadCover"})			
             Panel:AddPanel(typebox)
 end)	
 -- Map Spawner Configure Menu --

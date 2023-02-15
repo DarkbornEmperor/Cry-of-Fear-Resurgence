@@ -77,7 +77,7 @@ ENT.SoundTbl_Impact = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
-    if GetConVarNumber("VJ_COFR_Ghost_SlowSound") == 0 then
+    if GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 0 then
         self.SlowPlayerOnMeleeAttack = false 
     end
 end

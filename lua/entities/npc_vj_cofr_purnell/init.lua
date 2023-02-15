@@ -73,7 +73,7 @@ function ENT:CustomOnPreInitialize()
     elseif Doctor_Type == 2 then
 		self.Doctor_Pistol = true		
 end
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end	
 end	
@@ -189,16 +189,17 @@ function ENT:CustomRangeAttackCode()
 	bullet.Tracer = 1
 	bullet.TracerName = "Tracer"
 	bullet.Force = 4
-	bullet.AmmoType = "SMG1"
 		
     if self.Doctor_Revolver then
 		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos
 		bullet.Damage = 13
+	    bullet.AmmoType = "357"
 		VJ_EmitSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 		
     elseif self.Doctor_Pistol then
 		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
 		bullet.Damage = 15
+	    bullet.AmmoType = "Pistol"
 		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
 end	
     self:FireBullets(bullet)

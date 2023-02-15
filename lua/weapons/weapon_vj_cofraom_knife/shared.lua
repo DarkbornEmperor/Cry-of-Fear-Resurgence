@@ -8,7 +8,8 @@ SWEP.Purpose					= "This weapon is made for NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.25
+SWEP.NPC_NextPrimaryFire = 0.75 -- Next time it can use primary fire
+SWEP.NPC_TimeUntilFire = 0.15 -- How much time until the bullet/projectile is fired?
 SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_kitchenknife.mdl"

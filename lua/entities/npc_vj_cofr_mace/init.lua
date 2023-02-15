@@ -61,10 +61,10 @@ ENT.SoundTbl_Impact = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
 end
-    if GetConVarNumber("VJ_COFR_Mace_Damage") == 0 then  
+    if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then  
         self.CanFlinch = 1
 		self.FlinchChance = 16
 	end	
@@ -111,8 +111,8 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-        dmginfo:ScaleDamage(0.10)
-    if GetConVarNumber("VJ_COFR_Mace_Damage") == 0 then return end
+    dmginfo:ScaleDamage(0.10)
+    if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then return end
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
 	    dmginfo:ScaleDamage(0.15)
 	else

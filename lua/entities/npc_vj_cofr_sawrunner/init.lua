@@ -67,7 +67,7 @@ ENT.BreathSoundLevel = 75
 ENT.Sawrunner_NextSpecialAlertT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end
 end

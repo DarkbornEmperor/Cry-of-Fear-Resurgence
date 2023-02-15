@@ -157,7 +157,7 @@ end
    elseif self:GetModel() == "models/vj_cofr/aom/zombie_da.mdl" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"} 
 end
-     if GetConVarNumber("VJ_COFR_Twitcher_Invisible") == 1 then
+     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
      if math.random(1,10) == 1 then
 	    self.Twitcher_Invisible = true 
 		self:SetMaterial("hud/killicons/default")
@@ -181,7 +181,7 @@ function ENT:TwitcherSounds()
 	"vj_cofr/aom/twitcher/zo_pain1.wav",
 	"vj_cofr/aom/twitcher/zo_pain2.wav"
 }
-if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 0 then	
+if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then	
    if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
    or self:GetModel() == "models/vj_cofr/aom/zombie2.mdl"
    or self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
@@ -227,7 +227,7 @@ if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 0 then
 }
     end
 end	
-if GetConVarNumber("VJ_COFR_Twitcher_RandomSounds") == 1 then
+if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 1 then
 local Twitcher_Sounds = math.random(1,2)
 if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {

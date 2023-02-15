@@ -68,7 +68,7 @@ ENT.Suicider_FiredAtLeastOnce = false
 ENT.Suicider_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
- if GetConVarNumber("VJ_COFR_Suicider_ExtraPistol") == 0 then self.Suicider_Glock = true return end
+ if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true return end
     local Suicider_Type = math.random(1,2)
 	if Suicider_Type == 1 then
 		self.Suicider_Glock = true
@@ -184,7 +184,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.TracerName = "Tracer"
 	bullet.Force = 4
 	bullet.Damage = 10
-	bullet.AmmoType = "SMG1"
+	bullet.AmmoType = "Pistol"
 		
     if self.Suicider_Glock then
 		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
@@ -198,7 +198,7 @@ end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    if GetConVarNumber("VJ_COFR_Suicider_Headshot") == 0 then return end	
+    if GetConVar("VJ_COFR_Suicider_Headshot"):GetInt() == 0 then return end	
 	if hitgroup == HITGROUP_HEAD then
 		dmginfo:SetDamage(self:Health())
     end
@@ -268,7 +268,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock() 
-    if GetConVarNumber("VJ_COFR_Suicider_DropGlock") == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end	
+    if GetConVar("VJ_COFR_Suicider_DropGlock"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end	
 	   self:SetBodygroup(1,1)		 
     if self.Suicider_Glock then	   
 	   local Glock = ents.Create("weapon_cof_glock")

@@ -65,7 +65,7 @@ ENT.Addiction_OnFire = false
 ENT.Addiction_NextChangeAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end
 end
@@ -162,7 +162,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)  
    dmginfo:ScaleDamage(0.15)	   
-   if GetConVarNumber("VJ_COFR_Addiction_SelfDamage") == 1 then
+   if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
     local attacker = dmginfo:GetAttacker()
    if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then	
        dmginfo:ScaleDamage(1.50)

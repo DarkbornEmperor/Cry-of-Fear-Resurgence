@@ -47,7 +47,7 @@ ENT.SoundTbl_Impact = {
 ENT.FaceHead_NextFacelessSpawnT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
-    if GetConVarNumber("VJ_COFR_Boss_Music") == 0 then
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end
 end
@@ -69,7 +69,7 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if GetConVarNumber("VJ_COFR_FaceHead_SummonFaceless") == 0 then return end	
+    if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end	
  	if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.Faceless1) && !IsValid(self.Faceless2) && !IsValid(self.Faceless3) && !IsValid(self.Faceless4) && !IsValid(self.Faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		if self.VJ_IsBeingControlled == true then
 			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Spawning Faceless! Cool Down: 20 seconds!")

@@ -35,14 +35,13 @@ SWEP.Primary.DistantSound		= {""}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_RifleShell1"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-    //VJ_EmitSound(self, "vj_cofr/cof/weapons/famas/french4.wav", 75, 100)
     self:SetModelScale(0.70)
-	self:GetOwner().HasWeaponReload = self.NPC_HasReload
 	local Owner = self:GetOwner()
+	Owner.HasWeaponReload = self.NPC_HasReload
 	for i=1,(self.NPC_ExtraShotsPerFire) do
 		table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
 	end
-	if (self.Primary.Burst ==false) then
+	if !self.Primary.Burst then
 		if Owner.ExtraShotCount then
 			for i=1,(Owner.ExtraShotCount) do
 				table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
