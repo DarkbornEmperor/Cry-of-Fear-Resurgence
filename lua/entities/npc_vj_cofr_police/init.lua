@@ -7,7 +7,6 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/police1.mdl","models/vj_cofr/cof/police2.mdl","models/vj_cofr/cof/police3.mdl","models/vj_cofr/cof/police4.mdl"} 
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl"
-ENT.Medic_SpawnPropOnHealAttachment = "pistol" 
 ENT.Medic_HealthAmount = 50
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
