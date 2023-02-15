@@ -273,13 +273,13 @@ function ENT:DropGlock()
     if self.Suicider_Glock then	   
 	   local Glock = ents.Create("weapon_cof_glock")
 	   Glock:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
-	   Glock:SetLocalAngles(self:GetAngles())   
+	   Glock:SetAngles(self:GetAngles())   
 	   Glock:Spawn()
 	   Glock:Activate()	   
 	elseif self.Suicider_P345 then
 	   local Glock = ents.Create("weapon_cof_p345")
 	   Glock:SetPos(self:GetAttachment(self:LookupAttachment("pistol")).Pos)
-	   Glock:SetLocalAngles(self:GetAngles())   
+	   Glock:SetAngles(self:GetAngles())   
 	   Glock:Spawn()
 	   Glock:Activate()	   
     end	   
