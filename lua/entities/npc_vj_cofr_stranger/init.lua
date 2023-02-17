@@ -141,17 +141,18 @@ if math.random(1,50) && self.Dead then
      self:SetRenderMode(RENDERMODE_NORMAL)
 end	 
   if GetConVar("VJ_COFR_Stranger_ScreenEffect"):GetInt() == 0 then return end
-  if !IsValid(self:GetEnemy()) or !self:GetEnemy():Visible(self) or self.Dead then self.Stranger_UsingDamageEffect = false RunConsoleCommand("pp_colormod", "0") return end
-    if self:GetEnemy():IsPlayer() then
-  	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())  
+  local ent = self:GetEnemy()
+  if !IsValid(ent) or !ent:Visible(self) or self.Dead then self.Stranger_UsingDamageEffect = false RunConsoleCommand("pp_colormod", "0") return end
+    if ent:IsPlayer() then
+  	local EnemyDistance = self:GetPos():Distance(ent:GetPos())  
 	if self.Stranger_UsingDamageEffect && EnemyDistance > self.Stranger_DamageDistance then self.Stranger_UsingDamageEffect = false RunConsoleCommand("pp_colormod", "0") return end
     if !self.Stranger_UsingDamageEffect && EnemyDistance < self.Stranger_DamageDistance then
-       self.Stranger_UsingDamageEffect = true	
-	   RunConsoleCommand("pp_colormod", "1")
-	   RunConsoleCommand("pp_colormod_brightness", "-0.10")
-	   RunConsoleCommand("pp_colormod_contrast", "0.50")
-	  end
-   end
+        self.Stranger_UsingDamageEffect = true	
+	        RunConsoleCommand("pp_colormod", "1")
+	        RunConsoleCommand("pp_colormod_brightness", "-0.10")
+	        RunConsoleCommand("pp_colormod_contrast", "0.50")
+	    end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
@@ -166,7 +167,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.DeathAnimationTime = 0.75			
 end
 	VJ_COFR_DeathCode(self)	
-end  
+end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove() 
   if self.Stranger_UsingDamageEffect then

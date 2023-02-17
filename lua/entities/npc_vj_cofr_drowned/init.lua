@@ -20,7 +20,7 @@ ENT.MeleeAttackDistance = 15
 ENT.MeleeAttackDamageDistance = 35
 ENT.HasRangeAttack = true 
 ENT.DisableDefaultRangeAttackCode = true 
-ENT.AnimTbl_RangeAttack = {ACT_SIGNAL1} 
+ENT.AnimTbl_RangeAttack = {"vjseq_point"} 
 ENT.RangeDistance = 500 
 ENT.RangeToMeleeDistance = 300
 ENT.TimeUntilRangeAttackProjectileRelease = false
@@ -163,10 +163,10 @@ function ENT:CustomRangeAttackCode()
 		end
 	end
 end	
-	if self:GetPos():Distance(self:GetEnemy():GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
+	if self:GetPos():Distance(ent:GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Drowned_NextEnemyDamageT then
 	if self.HasSounds then self.Drowned_Suicide = VJ_CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
-	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) then
+	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()
 		self.Drowned_NextEnemyDamageT = self.NextRangeAttackTime
