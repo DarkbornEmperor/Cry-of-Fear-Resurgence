@@ -67,12 +67,6 @@ ENT.Doctor_FiredAtLeastOnce = false
 ENT.Doctor_NextRunT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-    local Doctor_Type = math.random(1,2)
-	if Doctor_Type == 1 then
-		self.Doctor_Revolver = true
-    elseif Doctor_Type == 2 then
-		self.Doctor_Pistol = true		
-end
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end	
@@ -117,6 +111,12 @@ function ENT:Doctor_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+    local Doctor_Type = math.random(1,2)
+	if Doctor_Type == 1 then
+		self.Doctor_Revolver = true
+    elseif Doctor_Type == 2 then
+		self.Doctor_Pistol = true		
+end
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
      self:Doctor_CustomOnInitialize()	 
 end
@@ -215,12 +215,12 @@ function ENT:CustomOnThink_AIEnabled()
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 	end
 end)
-			self.Doctor_NextRunT = CurTime() + 10
+		self.Doctor_NextRunT = CurTime() + 10
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    dmginfo:ScaleDamage(0.45)		
+	dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)

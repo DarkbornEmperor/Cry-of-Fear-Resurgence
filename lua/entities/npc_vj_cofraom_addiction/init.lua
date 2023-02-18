@@ -125,7 +125,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead then return end
-	if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	local ent = self:GetEnemy()
+	if !self:BusyWithActivity() && IsValid(ent) && !self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = true
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) && !self.Dead then
@@ -134,7 +135,7 @@ function ENT:CustomOnThink_AIEnabled()
         end		
     end)	
 end    
-    if !self:BusyWithActivity() && IsValid(self:GetEnemy()) && self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    if !self:BusyWithActivity() && IsValid(ent) && self.Addiction_Axe && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Addiction_Axe = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 		timer.Simple(3,function() if IsValid(self) && !self.Dead then
@@ -160,7 +161,7 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)  
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)  
    dmginfo:ScaleDamage(0.15)	   
    if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
     local attacker = dmginfo:GetAttacker()
@@ -217,7 +218,7 @@ end
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt, isProp)
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
 	if self:IsOnFire() && self:GetBodygroup(0) == 1 then hitEnt:Ignite(4) end
 	return false
 end

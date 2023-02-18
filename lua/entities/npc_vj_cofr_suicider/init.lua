@@ -164,9 +164,10 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if !IsValid(self:GetEnemy()) or self.Dead then return end
-	local EnemyDistance = self:GetPos():Distance(self:GetEnemy():GetPos())
-	if EnemyDistance <= 100 && self:GetEnemy():Visible(self) && self.Suicider_FiredAtLeastOnce && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+    local ent = self:GetEnemy()
+	if !IsValid(ent) or self.Dead then return end
+	local EnemyDistance = self:GetPos():Distance(ent:GetPos())
+	if EnemyDistance <= 100 && ent:Visible(self) && self.Suicider_FiredAtLeastOnce && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		self.Suicider_DeathSuicide = true
 		self.Bleeds = false
 		self:TakeDamage(self:Health())

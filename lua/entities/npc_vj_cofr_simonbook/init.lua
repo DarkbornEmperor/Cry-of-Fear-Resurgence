@@ -86,33 +86,7 @@ ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
-    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
-    local BookSimon_Type = math.random(1,3)
-    if BookSimon_Type == 1 then
-		self.BookSimon_Shotgun = true
-elseif BookSimon_Type == 2 then
-		self.BookSimon_Sledgehammer = true	
-elseif BookSimon_Type == 3 then
-		self.BookSimon_SledgehammerFlare = true	
-	end	
-end	
-    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then	
-    local BookSimon_Type = math.random(1,6)
-    if BookSimon_Type == 1 then
-		self.BookSimon_Shotgun = true
-elseif BookSimon_Type == 2 then
-		self.BookSimon_Glock = true		
-elseif BookSimon_Type == 3 then
-		self.BookSimon_TMP = true		
-elseif BookSimon_Type == 4 then
-		self.BookSimon_M16 = true		
-elseif BookSimon_Type == 5 then
-		self.BookSimon_Sledgehammer = true	
-elseif BookSimon_Type == 6 then
-		self.BookSimon_SledgehammerFlare = true
-	end	
-end	
+function ENT:CustomOnPreInitialize()	
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end	
@@ -121,20 +95,52 @@ end
 function ENT:BookSimon_CustomOnInitialize()
 	 if self.BookSimon_Shotgun then 
 		self:SetShotgun()		
-elseif self.BookSimon_Glock then
+     elseif self.BookSimon_Glock then
 		self:SetGlock()			
-elseif self.BookSimon_TMP then
+     elseif self.BookSimon_TMP then
 		self:SetTMP()		
-elseif self.BookSimon_M16 then
+     elseif self.BookSimon_M16 then
 		self:SetM16()		
-elseif self.BookSimon_Sledgehammer then
+     elseif self.BookSimon_Sledgehammer then
 		self:SetSledgehammerFlare()	
-elseif self.BookSimon_SledgehammerFlare then
+     elseif self.BookSimon_SledgehammerFlare then
 		self:SetSledgehammer()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()	
+local colorBlack = Color(0, 0, 0, 255)
+--
+function ENT:CustomOnInitialize()
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
+    local BookSimon_Type = math.random(1,3)
+    if BookSimon_Type == 1 then
+		self.BookSimon_Shotgun = true
+    elseif BookSimon_Type == 2 then
+		self.BookSimon_Sledgehammer = true	
+    elseif BookSimon_Type == 3 then
+		self.BookSimon_SledgehammerFlare = true	
+	end	
+end	
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then	
+    local BookSimon_Type = math.random(1,6)
+    if BookSimon_Type == 1 then
+		self.BookSimon_Shotgun = true
+    elseif BookSimon_Type == 2 then
+		self.BookSimon_Glock = true		
+    elseif BookSimon_Type == 3 then
+		self.BookSimon_TMP = true		
+    elseif BookSimon_Type == 4 then
+		self.BookSimon_M16 = true		
+    elseif BookSimon_Type == 5 then
+		self.BookSimon_Sledgehammer = true	
+    elseif BookSimon_Type == 6 then
+		self.BookSimon_SledgehammerFlare = true
+	end	
+end
+	-- Screen flash effect for all the players
+	for _,v in ipairs(player.GetHumans()) do
+		v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+end	
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
      self:BookSimon_CustomOnInitialize()	 
 end
@@ -354,6 +360,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local colorBlack = Color(0, 0, 0, 255)
+--
+function ENT:CustomOnKilled(dmginfo, hitgroup)
+	-- Screen flash effect for all the players
+	for _,v in ipairs(player.GetHumans()) do
+		v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+	end
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

@@ -372,8 +372,7 @@ if VJExists == true then
 	VJ.AddConVar("VJ_COFR_DropAmmo", 0, {FCVAR_ARCHIVE})	
 	VJ.AddConVar("VJ_COFR_Suicider_Headshot", 1, {FCVAR_ARCHIVE})	
 	VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, {FCVAR_ARCHIVE})
-	VJ.AddConVar("VJ_COFR_Assistor_Flashlight", 0, {FCVAR_ARCHIVE}) 
-	VJ.AddConVar("VJ_COFR_Stranger_ScreenEffect", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Assistor_Flashlight", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})	
 	
@@ -419,7 +418,6 @@ end
 				VJ_COFR_Suicider_Headshot = "1",
 				VJ_COFR_Ghost_SlowSound = "1",
                 VJ_COFR_Assistor_Flashlight = "0",
-                VJ_COFR_Stranger_ScreenEffect = "1",
                 VJ_COFR_Suicider_ExtraPistol = "0",	
                 VJ_COFR_Human_ReloadCover = "0",				
 }
@@ -441,7 +439,6 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable instant headshot for Suicider?", Command ="VJ_COFR_Suicider_Headshot"})			
             Panel:AddControl("Checkbox", {Label ="Enable Ghost's special sound after being hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
             Panel:AddControl("Checkbox", {Label ="Enable flashlight for Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})	
-            Panel:AddControl("Checkbox", {Label ="Enable screen effect for Strangers?", Command ="VJ_COFR_Stranger_ScreenEffect"})	
             Panel:AddControl("Checkbox", {Label ="Enable P345 for Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})
             Panel:AddControl("Checkbox", {Label ="Enable Human SNPCs Finding Cover To Reload?", Command ="VJ_COFR_Human_ReloadCover"})			
             Panel:AddPanel(typebox)
@@ -494,6 +491,44 @@ end
 			table.insert(VJ_COFR_NODEPOS,ent:GetPos())
 	end
 end)
+
+ if SERVER then
+	util.AddNetworkString("VJ_COFR_Drowned_ScreenEffect")
+	util.AddNetworkString("VJ_COFR_Stranger_ScreenEffect")
+end
+
+ if CLIENT then
+	net.Receive("VJ_COFR_Drowned_ScreenEffect",function()
+	local ply = net.ReadEntity()
+	local hookName = "VJ_COFR_Drowned_ScreenEffect" .. ply:EntIndex()
+	local colorRed = Color(255, 0, 0, 255)
+			
+	ply.VJ_COFR_Drowned_ScreenEffect_Time = CurTime() +0.1
+
+	hook.Add("RenderScreenspaceEffects",hookName,function()
+		if !IsValid(ply) or IsValid(ply) && (CurTime() > ply.VJ_COFR_Drowned_ScreenEffect_Time) then
+				hook.Remove("RenderScreenspaceEffects",hookName)
+				return
+			end
+			ply:ScreenFade(SCREENFADE.IN, colorRed, 1, 0)
+	end)
+end)
+	net.Receive("VJ_COFR_Stranger_ScreenEffect",function()
+	local ply = net.ReadEntity()
+	local hookName = "VJ_COFR_Stranger_ScreenEffect" .. ply:EntIndex()
+	local colorBlack = Color(0, 0, 0, 255)
+			
+	ply.VJ_COFR_Stranger_ScreenEffect_Time = CurTime() +0.1
+
+	hook.Add("RenderScreenspaceEffects",hookName,function()
+		if !IsValid(ply) or IsValid(ply) && (CurTime() > ply.VJ_COFR_Stranger_ScreenEffect_Time) then
+				hook.Remove("RenderScreenspaceEffects",hookName)
+				return
+			end
+			ply:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+	    end)
+    end)
+end
 
 function VJ_COFR_DeathCode(ent)
     ent.Bleeds = false
