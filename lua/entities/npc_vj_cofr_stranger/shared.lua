@@ -8,7 +8,7 @@ ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Cry of Fear Resurgence"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
-    function ENT:Think()
+    function ENT:Initialize()
         local function GetStrangers()
             local strangers = {}
             for _,v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do

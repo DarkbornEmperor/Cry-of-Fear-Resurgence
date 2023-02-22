@@ -11,6 +11,7 @@ ENT.Bleeds = false
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
 ENT.MeleeAttackDamageType = DMG_SLASH
+ENT.HasRangeAttack = false
 ENT.CombatFaceEnemy = true
 ENT.HasSoundTrack = false
 	-- ====== Sound File Paths ====== --
@@ -25,10 +26,12 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faster/faster_miss.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()	
-end	
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+     self:BookSimon_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)	

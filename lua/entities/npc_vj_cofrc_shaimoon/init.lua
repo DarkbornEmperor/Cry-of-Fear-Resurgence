@@ -9,6 +9,7 @@ ENT.Model = {"models/vj_cofr/custom/shaimoon.mdl"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
 ENT.MeleeAttackDamageType = DMG_SLASH
+ENT.HasRangeAttack = false
 ENT.CombatFaceEnemy = true
 ENT.DeathAnimationTime = 15
 	-- ====== Sound File Paths ====== --
@@ -21,13 +22,7 @@ ENT.SoundTbl_MeleeAttackExtra = {
 }	
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faster/faster_miss.wav"
-}
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
-    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
-        self.HasSoundTrack = false 
-    end		
-end	
+}	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -43,6 +38,17 @@ function ENT:BookSimon_CustomOnInitialize()
     self.SoundTbl_SoundTrack = {
     "vj_cofr/custom/shaimoon/ruMpel4.mp3"
 }		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local colorBlack = Color(0, 0, 0, 255)
+--
+function ENT:CustomOnInitialize()
+	-- Screen flash effect for all the players
+	for _,v in ipairs(player.GetHumans()) do
+		v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+end	
+     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+     self:BookSimon_CustomOnInitialize()	 
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
