@@ -152,7 +152,7 @@ end
 		self.Addiction_FireIgnite = VJ_CreateSound(self,self.SoundTbl_FireIgnite,75,100)
 		self.Addiction_FireLoop = VJ_CreateSound(self,self.SoundTbl_FireLoop,75,100)
 	    for _,v in ipairs(ents.FindInSphere(self:GetPos(),150)) do
-	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire && v:WaterLevel() == 0 then
+	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire && IsValid(v) && v:WaterLevel() == 0 then
         util.VJ_SphereDamage(self,self,self:GetPos(),150,math.random(10,15),DMG_BURN,true,true)
 		timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ_CreateSound(self,self.SoundTbl_FireOff,75,100) self:StopParticles() VJ_STOPSOUND(self.Addiction_FireLoop) end end)
                 end
