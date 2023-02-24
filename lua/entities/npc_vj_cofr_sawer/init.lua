@@ -57,8 +57,8 @@ ENT.SoundTbl_Impact = {
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_EyeOpen = false
-ENT.Sawer_NextDownTimeT = 0
-ENT.Sawer_NextFlinchTimeT = 0
+ENT.Sawer_NextDownT = 0
+ENT.Sawer_NextFlinchT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -112,58 +112,58 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-     if CurTime() > self.Sawer_NextFlinchTimeT && math.random(1,12) == 1 && !self.Sawer_EyeOpen then
+     if CurTime() > self.Sawer_NextFlinchT && math.random(1,12) == 1 && !self.Sawer_EyeOpen then
         self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false) 
-		self.Sawer_NextFlinchTimeT = CurTime() + math.random(5,8)
+		self.Sawer_NextFlinchT = CurTime() + math.Rand(5,10)
 end	 
      if hitgroup == 9 && self.Sawer_EyeOpen then
 	    dmginfo:ScaleDamage(0.10)
      else	
        	dmginfo:ScaleDamage(0.00) 
 end
-                  if CurTime() > self.Sawer_NextDownTimeT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then 
-                     self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
-		             VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
-		             self:SetSkin(1)
-		             self.Sawer_EyeOpen = true
-                     self.MovementType = VJ_MOVETYPE_STATIONARY
-                     self.CanTurnWhileStationary = false
-                     self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
-                     self:AddFlags(FL_NOTARGET)					 
-	                 self.Sawer_Eye = ents.Create("obj_vj_bullseye")
-	                 self.Sawer_Eye:SetModel("models/hunter/plates/plate.mdl")
-	                 self.Sawer_Eye:SetParent(self)
-	                 self.Sawer_Eye:Fire("SetParentAttachment", "eye")
-	                 self.Sawer_Eye:Spawn()
-	                 self.Sawer_Eye:SetNoDraw(true)
-	                 self.Sawer_Eye:DrawShadow(false)
-	                 self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
-	                 table.insert(self.VJ_AddCertainEntityAsFriendly, self.Sawer_Eye) 
-	                 self:DeleteOnRemove(self.Sawer_Eye)					 
+     if hitgroup != 9 then
+        self:SpawnBloodParticles(dmginfo,hitgroup)
+	    self:SpawnBloodDecal(dmginfo,hitgroup)
+end
+     if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
+	 local AnimTime = VJ_GetSequenceDuration(self,ACT_COWER)
+        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
+		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
+		self:SetSkin(1)
+		self.Sawer_EyeOpen = true
+        self.MovementType = VJ_MOVETYPE_STATIONARY
+        self.CanTurnWhileStationary = false
+        self:AddFlags(FL_NOTARGET)					 
+	    self.Sawer_Eye = ents.Create("obj_vj_bullseye")
+	    self.Sawer_Eye:SetModel("models/hunter/plates/plate.mdl")
+	    self.Sawer_Eye:SetParent(self)
+	    self.Sawer_Eye:Fire("SetParentAttachment", "eye")
+	    self.Sawer_Eye:Spawn()
+	    self.Sawer_Eye:SetNoDraw(true)
+	    self.Sawer_Eye:DrawShadow(false)
+	    self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
+	    table.insert(self.VJ_AddCertainEntityAsFriendly, self.Sawer_Eye) 
+	    self:DeleteOnRemove(self.Sawer_Eye)					 
 
-                  timer.Simple(6,function()
-                  if IsValid(self) then
-	                 self:SetSkin(0)
-		             self.Sawer_EyeOpen = false
-                     self.Sawer_Eye:Remove()
-					 self:RemoveFlags(FL_NOTARGET)	
-		 
-                  timer.Simple(0.3,function()
-                  if IsValid(self) then 
-                     self.MovementType = VJ_MOVETYPE_GROUND
-		             self:SetCollisionBounds(Vector(15, 15, 108), Vector(-15, -15, 0))
-		             self.Sawer_NextDownTimeT = CurTime() + math.random(5,8) 
-                  end        	  
-              end)		 
-          end
-      end)
-   end
+        timer.Simple(AnimTime,function()
+        if IsValid(self) && IsValid(self.Sawer_Eye) then
+	       self:SetSkin(0)
+		   self.Sawer_EyeOpen = false
+           self.Sawer_Eye:Remove()
+		   self:RemoveFlags(FL_NOTARGET)
+           self.MovementType = VJ_MOVETYPE_GROUND
+		   self.Sawer_NextDownT = CurTime() + math.Rand(5,10) 		   		 
+            end
+        end)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:SetSolid(SOLID_NONE)
+ if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
     self:SetSkin(0)
+	self.Sawer_Eye:Remove()
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+end
     VJ_COFR_DeathCode(self)	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
