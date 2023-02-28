@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/watro.mdl"} 
-ENT.StartHealth = 150
+ENT.StartHealth = 160
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.MovementType = VJ_MOVETYPE_STATIONARY 
