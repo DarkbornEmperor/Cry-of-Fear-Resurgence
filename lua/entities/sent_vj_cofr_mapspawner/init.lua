@@ -146,7 +146,7 @@ function ENT:Initialize()
 	for _,v in ipairs(player.GetAll()) do
 		   //v:ChatPrint("The book has been unleashed")
 		if GetConVarNumber("VJ_COFR_MapSpawner_Music") == 1 then
-		   self.COFR_Music = VJ_CreateSound(v,"vj_cofr/cof/mapspawner/music" .. math.random(1,6) .. ".mp3",GetConVarNumber("VJ_COFR_MapSpawner_MusicVolume"), 100)		
+		   self.COFR_Music = VJ_CreateSound(v,"vj_cofr/cof/mapspawner/music" .. math.random(1,6) .. ".mp3",GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(), 100)		
 		end
 	end	
 end
