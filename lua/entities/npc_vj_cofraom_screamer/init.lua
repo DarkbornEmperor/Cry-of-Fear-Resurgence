@@ -95,7 +95,7 @@ elseif key == "attack_range" then
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Screamer_HomingAttack = false
 		self:RangeAttackCode()
-elseif key == "sprite" && self.RangeAttacking && !self.Screamer_HomingAttack then
+elseif key == "sprite" && self.AttackType == VJ_ATTACK_RANGE && !self.Screamer_HomingAttack then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Soul1 = ents.Create("env_sprite")
