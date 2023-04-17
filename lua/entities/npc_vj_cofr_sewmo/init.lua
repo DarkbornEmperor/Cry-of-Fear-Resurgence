@@ -20,7 +20,6 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasHitGroupFlinching = true 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = { 
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
@@ -128,9 +127,9 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
  if self.Sewmo_WireBroken or self.Dead then return end 
-   if self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2 then
+   if self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
 	 if !self.Sewmo_WireBroken && (self.StartHealth *.65 > self:Health()) && math.random(1,5) == 1 then 
 		    self.Sewmo_WireBroken = true
 		    self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
@@ -138,7 +137,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
@@ -146,7 +145,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
