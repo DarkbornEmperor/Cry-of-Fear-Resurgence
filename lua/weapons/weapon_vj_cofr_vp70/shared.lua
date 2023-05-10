@@ -1,5 +1,3 @@
-if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
----------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "VP70"
 SWEP.Author 					= "Darkborn"
@@ -36,17 +34,9 @@ SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
 	local Owner = self:GetOwner()
-	Owner.HasWeaponReload = self.NPC_HasReload
 	for i=1,(self.NPC_ExtraShotsPerFire) do
 		table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
-	end
-	if !self.Primary.Burst then
-		if Owner.ExtraShotCount then
-			for i=1,(Owner.ExtraShotCount) do
-				table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
-			end
-		end
-	end	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()

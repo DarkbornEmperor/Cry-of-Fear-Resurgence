@@ -1,5 +1,3 @@
-if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
----------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "P228"
 SWEP.Author 					= "Darkborn"
@@ -33,7 +31,10 @@ SWEP.Primary.DistantSound		= {""}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-    self:SetModelScale(0.75)
+  self:SetModelScale(0.75)
+  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-0.5, 6.5, -0.9)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()

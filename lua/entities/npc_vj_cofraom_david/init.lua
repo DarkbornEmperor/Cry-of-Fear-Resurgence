@@ -83,12 +83,12 @@ ENT.Human_Type = 0
 
 ENT.WeaponsList_AoMDC = {
 	["Close"] = {
-		"weapon_vj_cofraom_beretta",
-		"weapon_vj_cofraom_glock",
-		"weapon_vj_cofraom_p228",
 		"weapon_vj_cofraom_shotgun",
 	},
 	["Normal"] = {
+		"weapon_vj_cofraom_beretta",
+		"weapon_vj_cofraom_glock",
+		"weapon_vj_cofraom_p228",
 		"weapon_vj_cofraom_deagle",
 		"weapon_vj_cofraom_revolver",
 		"weapon_vj_cofraom_mp5k",
@@ -100,14 +100,14 @@ ENT.WeaponsList_AoMDC = {
 }
 ENT.WeaponsList_CoF = {
 	["Close"] = {
+		"weapon_vj_cofr_shotgun",
+	},
+	["Normal"] = {
 		"weapon_vj_cofr_glock",
 		"weapon_vj_cofr_p345",
 		"weapon_vj_cofr_m76",
 		"weapon_vj_cofr_vp70",
 		"weapon_vj_cofr_browning",
-		"weapon_vj_cofr_shotgun",
-	},
-	["Normal"] = {
 		"weapon_vj_cofr_revolver",
 		"weapon_vj_cofr_tmp",
 		"weapon_vj_cofr_m16",
@@ -308,6 +308,7 @@ end
 	local dist = self.NearestPointToEnemyDistance
 	if IsValid(ent) then
 		local wep = self:GetActiveWeapon()
+		if self.WeaponInventoryStatus == VJ_WEP_INVENTORY_MELEE then return end
 		local selectType = false
 		if dist > 2200 then
 			selectType = "Far"

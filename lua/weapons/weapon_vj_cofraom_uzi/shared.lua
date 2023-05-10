@@ -1,5 +1,3 @@
-if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
----------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "Uzi"
 SWEP.Author 					= "Darkborn"
@@ -36,19 +34,13 @@ SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 SWEP.PrimaryEffects_SpawnShells = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-    self:SetModelScale(0.60)
-	local Owner = self:GetOwner()
-	Owner.HasWeaponReload = self.NPC_HasReload
+  self:SetModelScale(0.60)
+  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-5.5, -0.8, -0.7)
+end
 	for i=1,(self.NPC_ExtraShotsPerFire) do
 		table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
-	end
-	if !self.Primary.Burst then
-		if Owner.ExtraShotCount then
-			for i=1,(Owner.ExtraShotCount) do
-				table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
-			end
-		end
-	end	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()

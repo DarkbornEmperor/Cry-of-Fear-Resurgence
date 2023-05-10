@@ -1,5 +1,3 @@
-if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
----------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "Axe"
 SWEP.Author 					= "Darkborn"
@@ -26,5 +24,8 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(3.5, 15, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-    self:SetModelScale(0.95)
+  self:SetModelScale(0.95)
+  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+        self.WorldModel_CustomPositionOrigin = Vector(4, 14, -1)
+	end
 end

@@ -1,5 +1,3 @@
-if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
----------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "Spear"
 SWEP.Author 					= "Darkborn"
@@ -22,5 +20,11 @@ SWEP.MeleeWeaponSound_Miss = {"vj_cofr/aom/weapons/spear/spear_swing.wav"}
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(3.5, 15, -1)
+SWEP.WorldModel_CustomPositionOrigin = Vector(2.5, 15, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnInitialize() 
+  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+        self.WorldModel_CustomPositionOrigin = Vector(3.5, 15, -1)
+	end
+end
