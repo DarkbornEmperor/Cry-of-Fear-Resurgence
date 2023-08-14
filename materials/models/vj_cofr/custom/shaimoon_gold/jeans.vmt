@@ -1,8 +1,11 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/custom/shaimoon_gold/jeans"
-	"$envmap" "models/vj_cofr/custom/shaimoon_gold/babychrome"
+	"$envmap" "models/vj_cofr/custom/shaimoon_gold/shaimoon_gold"
                 "$color2" "[0 0.08 0.12]"
+	"$envmapmode" 1
+	"$multipass" 1
+	"$opaque" 1
                 "$nodecal" 1
 
 	"VertexLitGeneric_HDR_DX9"

@@ -24,16 +24,19 @@ SWEP.AdminSpawnable				= false
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(55, 181, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-8, -8, -0.8)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-8, -8, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.NumberOfShots		= 12 -- How many shots per attack?
-SWEP.Primary.ClipSize			= 5 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Damage				= 10 -- Damage
+SWEP.Primary.NumberOfShots		= 8 -- How many shots per attack?
+SWEP.Primary.ClipSize			= 8 -- Max amount of bullets per clip
+SWEP.Primary.Ammo				= "Buckshot" -- Ammo type
 SWEP.Primary.Sound				= {"vj_cofr/aom/weapons/shotgun/shotgun_fire.wav"}
-SWEP.Primary.DistantSound		= {""}
+SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_ShotgunShell1"
+SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+-- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
   self:SetModelScale(0.90)
@@ -42,7 +45,7 @@ function SWEP:CustomOnInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
+function SWEP:CustomOnPrimaryAttackEffects(owner)
 	self.PrimaryEffects_MuzzleFlash = false
 	muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")

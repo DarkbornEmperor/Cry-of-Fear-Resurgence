@@ -33,9 +33,10 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -50,6 +51,9 @@ ENT.SoundTbl_LeapAttackDamage  = {
 }	
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -82,7 +86,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

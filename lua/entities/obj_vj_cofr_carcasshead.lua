@@ -13,8 +13,10 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
+ENT.VJTag_ID_Danger = true
+
 if CLIENT then
-	local Name = "Carcass Head"
+	local Name = "Hooked Head"
 	local LangName = "obj_vj_cofr_carcasshead"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
@@ -26,10 +28,9 @@ if !SERVER then return end
 
 ENT.Model = {"models/vj_cofr/cof/hookedhead.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 3 -- How much damage should it do when it hits something
+ENT.DirectDamage = 15 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
-ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
-ENT.SoundTbl_Idle = {"vj_cofr/cof/roofboss/rb_headshoot.wav"}
+ENT.CollideCodeWithoutRemoving = false -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
 ENT.SoundTbl_OnCollide = {"vj_cofr/cof/roofboss/rb_headhit.wav"}
 ENT.DecalTbl_DeathDecals = {"VJ_COFR_Blood_Red_Large"}
 -- Custom
@@ -37,6 +38,7 @@ local defVec = Vector(0, 0, 0)
 
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
+ENT.Head_ChaseSpeed = 500
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -47,27 +49,54 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	//self:SetNoDraw(true)	
-	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)	
+    VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headshoot.wav", 75, 100)
+	timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100) self:DeathEffects() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
-		//self.DirectDamage = 15
+	local phys = self:GetPhysicsObject()
+	-- Homing Behavior
+	if IsValid(self.Track_Enemy) then
 		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
-		end
-		local phys = self:GetPhysicsObject()
+end
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), self.Head_ChaseSpeed))
+			self:SetAngles(self:GetVelocity():GetNormal():Angle())
+end
+	-- Not tracking, go in straight line
+	else
+		if IsValid(phys) then
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Head_ChaseSpeed / 2))
+			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage(dmginfo) 
+	VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100)
+    self:DeathEffects()
+	self:Remove()
+end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
-	local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale( 1 )
-	ParticleEffect("vj_cofr_blood_red_large", data.HitPos, Angle(0,0,0), nil)
+	self.Scale = math.Rand(0.5,1.15)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_cofr/sprites/spitsplat_red.vmt")
+	spr:SetKeyValue("GlowProxySize","1.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","0")
+	spr:SetKeyValue("rendermode","2")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	//spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale",tostring(self.Scale *0.3))
+	spr:SetPos(self:GetPos())
+	spr:Spawn()
+	spr:Fire("Kill","",0.3)
+	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 end

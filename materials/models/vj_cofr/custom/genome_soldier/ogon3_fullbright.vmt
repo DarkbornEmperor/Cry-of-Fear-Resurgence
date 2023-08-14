@@ -1,6 +1,13 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/cof/slower1/ogon3_fullbright"
-                "$selfillum" 1 
-                "$additive" 1 
+	"$emissiveBlendEnabled" 1
+                "$emissiveBlendTexture"  "hud/killicons/default"
+                "$emissiveBlendBaseTexture" "models/vj_cofr/cof/slower1/ogon3_fullbright"
+                "$emissiveBlendFlowTexture" "hud/killicons/default"
+                "$emissiveBlendTint" "[1 1 1]"
+                "$emissiveBlendStrength" 0.5
+                "$emissiveBlendScrollVector" "[0 0]"
+                "$additive" 1
+                "$nodecal" 1
 }

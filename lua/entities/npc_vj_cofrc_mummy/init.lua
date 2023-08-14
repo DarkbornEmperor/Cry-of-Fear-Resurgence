@@ -37,25 +37,12 @@ function ENT:Sawrunner_CustomOnInitialize()
 	"vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
 	"vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
 }
+    self.SoundTbl_SoundTrack = {
+    "vj_cofr/custom/themummy/forestpound.mp3"
+}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "step" then
-		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(1,4)..".wav", 75, 100)
-end		
-    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    end		
-end
------------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
-end
+function ENT:CustomOnAlert() end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

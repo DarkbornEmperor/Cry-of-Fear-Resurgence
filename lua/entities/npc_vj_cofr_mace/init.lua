@@ -28,9 +28,10 @@ ENT.CanFlinch = 2
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
 ENT.FlinchChance = 2
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -52,10 +53,13 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/sewer/mace_swing.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/sewer/getout.mp3"
+"vj_cofr/cof/sewer/sewer_boss.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -91,6 +95,10 @@ function ENT:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+  if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
+     self.CanFlinch = 1
+     self.FlinchChance = 16
+end
      self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
      self:Mace_CustomOnInitialize()
 end
@@ -98,35 +106,42 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    end		
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.10)
+    dmginfo:ScaleDamage(0.2)
     if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then return end
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
-	    dmginfo:ScaleDamage(0.15)
+	    dmginfo:ScaleDamage(0.5)
 	else
 	    dmginfo:ScaleDamage(0.00)
-    end			
+end
+     if !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
+        self:SpawnBloodParticles(dmginfo,hitgroup)
+	    self:SpawnBloodDecal(dmginfo,hitgroup)
+    end	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

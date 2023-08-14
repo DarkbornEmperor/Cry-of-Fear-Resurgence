@@ -22,9 +22,10 @@ ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -49,6 +50,9 @@ ENT.SoundTbl_MeleeAttackMiss = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -60,11 +64,10 @@ ENT.Faster_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_CustomOnInitialize()
 if self.Faster_Type == 1 then
-   self.AlertSoundPitch = VJ_Set(80, 80)
-   self.BeforeMeleeAttackSoundPitch = VJ_Set(80, 80)
-   self.PainSoundPitch = VJ_Set(80, 80)
-   self.DeathSoundPitch = VJ_Set(80, 80)
-
+   self.AlertSoundPitch = VJ.SET(80, 80)
+   self.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
+   self.PainSoundPitch = VJ.SET(80, 80)
+   self.DeathSoundPitch = VJ.SET(80, 80)
 end
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/faster/faster_alert1.wav",
@@ -96,70 +99,65 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "suicide" then
-		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 75, 100)
-		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-end	
-	if key == "death_metal" then
-		VJ_EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 75, 100)
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "suicide" then
+		VJ.EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 75, 100)
+		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())	
+	elseif key == "death_metal" then
+		VJ.EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 75, 100)	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD then	
-	if self.HasSounds == true && self.HasImpactSounds == true then 
-	    dmginfo:ScaleDamage(0.01)
-		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-			local spark = ents.Create("env_spark")
-			spark:SetKeyValue("Magnitude","1")
-			spark:SetKeyValue("Spark Trail Length","1")
-			spark:SetPos(dmginfo:GetDamagePosition())
-			spark:SetAngles(self:GetAngles())
-			spark:SetParent(self)
-			spark:Spawn()
-			spark:Activate()
-			spark:Fire("StartSpark", "", 0)
-			spark:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(spark)	
+function ENT:CustomOnAlert()
+    if math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", {"vj_cofr/cof/faster/faster_special.wav"}) 	
+    end
 end
-        if hitgroup == 8 then	   
-	    if self.HasSounds == true && self.HasImpactSounds == true then
-            self.Bleeds = false
-			dmginfo:ScaleDamage(0.20)
-		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-			local spark = ents.Create("env_spark")
-			spark:SetKeyValue("Magnitude","1")
-			spark:SetKeyValue("Spark Trail Length","1")
-			spark:SetPos(dmginfo:GetDamagePosition())
-			spark:SetAngles(self:GetAngles())
-			spark:SetParent(self)
-			spark:Spawn()
-			spark:Activate()
-			spark:Fire("StartSpark", "", 0)
-			spark:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(spark)
-		else
-	        self.Bleeds = true
-     end	
+---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+	-- Make a metal ricochet effect
+    if (self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD) or hitgroup == 8 then
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(5) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_COFR_Rico", rico)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if (self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD) or hitgroup == 8 then	
+	if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end 
+	if (self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD) then dmginfo:ScaleDamage(0.01) end	
+        self.Bleeds = false
+	    dmginfo:ScaleDamage(0.20)
+    else
+	    self.Bleeds = true
+    end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

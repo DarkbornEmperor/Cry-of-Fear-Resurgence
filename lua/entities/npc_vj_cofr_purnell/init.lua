@@ -12,28 +12,23 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
-ENT.HasMeleeAttack = false 
-ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
-ENT.DisableRangeAttackAnimation = true
-ENT.RangeAttackAnimationStopMovement = false
-ENT.RangeAttackAnimationFaceEnemy = false
-ENT.RangeDistance = 2000
-ENT.RangeToMeleeDistance = 1
-ENT.TimeUntilRangeAttackProjectileRelease = 0.5
-ENT.NextRangeAttackTime = 1
-ENT.NextAnyAttackTime_Range = 1
-ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = 600 
-ENT.NoChaseAfterCertainRange_CloseDistance = 1 
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.HasMeleeAttack = false
+ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
+ENT.HasLostWeaponSightAnimation = true
+ENT.HasCallForHelpAnimation = false
+ENT.MoveRandomlyWhenShooting = false
+ENT.DisableWeaponFiringGesture = true
+ENT.Weapon_NoSpawnMenu = true
 ENT.CombatFaceEnemy = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
 ENT.RunAwayOnUnknownDamage = false
-ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
 ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
@@ -46,25 +41,19 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/doc_ai/despair.mp3"
+"vj_cofr/cof/doc_ai/doctorbattle.mp3",
+"vj_cofr/cof/doc_ai/doctorbattle2.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.SoundTbl_Revolver = {
-"vj_cofr/cof/weapons/revolver/revolver_fire.wav"
-}
-ENT.SoundTbl_P345 = {
-"vj_cofr/cof/weapons/p345/p345_fire.wav"
-}
-ENT.RangeAttackSoundLevel = 100
 -- Custom
-ENT.Doctor_Revolver = false
-ENT.Doctor_Pistol = false
-ENT.Doctor_FiredAtLeastOnce = false
-ENT.Doctor_NextRunT = 0
+ENT.Doctor_NextRunT = CurTime()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -73,18 +62,6 @@ function ENT:CustomOnPreInitialize()
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_CustomOnInitialize()
-/*
-    self.SoundTbl_Alert = {
-	"vj_cofr/cof/doc_ai/be_careful_dont_make_me_angry.wav",
-	"vj_cofr/cof/doc_ai/dont_make_me_angry.wav"
-}
-    self.SoundTbl_CombatIdle = {
-	"vj_cofr/cof/doc_ai/simon_stop.wav",
-	"vj_cofr/cof/doc_ai/stop.wav",
-	"vj_cofr/cof/doc_ai/stop_doing_that.wav",
-	"vj_cofr/cof/doc_ai/what_u_doin.wav"
-}
-*/
     self.SoundTbl_Pain = {
 	"vj_cofr/cof/doc_ai/ouch1.wav",
 	"vj_cofr/cof/doc_ai/ouch2.wav",
@@ -103,120 +80,58 @@ function ENT:Doctor_CustomOnInitialize()
 	"vj_cofr/cof/doc_ai/ouch6.wav",
 	"vj_cofr/cof/doc_ai/ouch7.wav"
 }
-	if self.Doctor_Pistol then
-		self:SetPistol()
-    elseif self.Doctor_Revolver then
-		self:SetRevolver()
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-    local Doctor_Type = math.random(1,2)
-	if Doctor_Type == 1 then
-		self.Doctor_Revolver = true
-    elseif Doctor_Type == 2 then
-		self.Doctor_Pistol = true		
-end
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-     self:Doctor_CustomOnInitialize()	 
+     self:Doctor_CustomOnInitialize()
+	 self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
+	 local wep = math.random(1,2)
+	 if wep == 1 then
+     self:Give("weapon_vj_cofr_revolver")	
+	 elseif wep == 2 then
+     self:Give("weapon_vj_cofr_p345")	
+    end	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetRevolver()
-	self:SetBodygroup(0,1)
-end 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetPistol()
-	self:SetBodygroup(0,0)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Doctor_DoFireEffects()
-	local muz = ents.Create("env_sprite")
-	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
-	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
-	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	muz:SetKeyValue("HDRColorScale","1.0")
-	muz:SetKeyValue("renderfx","14")
-	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	muz:SetKeyValue("renderamt","255") -- Transparency
-	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	muz:SetKeyValue("spawnflags","0")
-	muz:SetParent(self)
-	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
-	muz:Spawn()
-	muz:Activate()
-	muz:Fire("Kill","",0.08)
-
-	local Light = ents.Create("light_dynamic")
-	Light:SetKeyValue("brightness", "4")
-	Light:SetKeyValue("distance", "120")
-	Light:SetLocalAngles(self:GetAngles())
-	Light:Fire("Color", "255 150 60")
-	Light:SetParent(self)
-	Light:Spawn()
-	Light:Activate()
-	Light:Fire("TurnOn","",0)
-	Light:Fire("Kill","",0.07)
-	self:DeleteOnRemove(Light)
-	
-    if self.Doctor_Revolver then
-	   muz:Fire("SetParentAttachment","revolver_muzzle")
-	   Light:SetPos(self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos)
-
-    elseif self.Doctor_Pistol then
-	   muz:Fire("SetParentAttachment","pistol_muzzle")
-	   Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
-    end	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	local bullet = {}
-	bullet.Num = 1
-	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
-	bullet.Spread = Vector(50,40,30)
-	bullet.Tracer = 1
-	bullet.TracerName = "Tracer"
-	bullet.Force = 4
-		
-    if self.Doctor_Revolver then
-		bullet.Src = self:GetAttachment(self:LookupAttachment("revolver_muzzle")).Pos
-		bullet.Damage = 13
-	    bullet.AmmoType = "357"
-		VJ_EmitSound(self, self.SoundTbl_Revolver, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-		
-    elseif self.Doctor_Pistol then
-		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
-		bullet.Damage = 15
-	    bullet.AmmoType = "Pistol"
-		VJ_EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-end	
-    self:FireBullets(bullet)
-	self.Doctor_FiredAtLeastOnce = true
-	self:Doctor_DoFireEffects()	
-end	
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if self.VJ_IsBeingControlled or self.IsGuard or !IsValid(self:GetEnemy()) or self.Dead then return end
+function ENT:CustomOnWeaponAttack()
+	if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
 	if CurTime() > self.Doctor_NextRunT then
-		timer.Simple(5, function() 
-			if IsValid(self) && !self:IsMoving() && !self.Dead then
+		timer.Simple(0.8, function() 
+			if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 	end
 end)
-		self.Doctor_NextRunT = CurTime() + 10
+		self.Doctor_NextRunT = CurTime() + math.Rand(12,18)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)			
+ if hType == "pistol" or hType == "revolver" then
+	self.WeaponAnimTranslations[ACT_IDLE] 					= ACT_IDLE
+	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] 			= ACT_IDLE_ANGRY			
+	self.WeaponAnimTranslations[ACT_WALK] 					= ACT_WALK
+	self.WeaponAnimTranslations[ACT_RUN] 					= ACT_RUN
+	self.WeaponAnimTranslations[ACT_WALK_AIM] 				= ACT_WALK_AIM
+	self.WeaponAnimTranslations[ACT_RUN_AIM] 				= ACT_RUN_AIM				
+	self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 			= ACT_IDLE_ANGRY
+	self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 		= ACT_RANGE_ATTACK1_LOW			
+	self.WeaponAnimTranslations[ACT_RELOAD] 				= ACT_CROUCHIDLE
+	self.WeaponAnimTranslations[ACT_RELOAD_LOW] 			= ACT_CROUCHIDLE	
+    self.WeaponAnimTranslations[ACT_COVER_LOW] 				= ACT_CROUCHIDLE						
+end
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
@@ -224,7 +139,19 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)	
+    VJ_COFR_DeathCode(self)
+	self:DoDropWeaponOnDeath(dmginfo,hitgroup)
+	local activeWep = self:GetActiveWeapon()
+	if IsValid(activeWep) then activeWep:Remove() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDropWeapon(dmginfo,hitgroup,wepEnt)
+	wepEnt:SetModelScale(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
@@ -352,28 +279,39 @@ function ENT:CustomOnFootStepSound()
 		filter = {self}
 	})
 	if tr.Hit && self.FootSteps[tr.MatType] then
-		VJ_EmitSound(self,VJ_PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:FootStepSoundCode(CustomTbl)
+function ENT:FootStepSoundCode(customSd)
 	if self.HasSounds == false or self.HasFootStepSound == false or self.MovementType == VJ_MOVETYPE_STATIONARY then return end
 	if self:IsOnGround() && self:GetGroundEntity() != NULL then
-		if self.DisableFootStepSoundTimer == true then
-			self:CustomOnFootStepSound()
+		if self.DisableFootStepSoundTimer then
+			local customTbl = VJ.PICK(customSd)
+			local sdtbl = VJ.PICK(self.SoundTbl_FootStep)
+			if customTbl then sdtbl = customTbl end
+			VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
+			local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Event", sdtbl) end
+			if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
 			return
-		elseif self:IsMoving() && CurTime() > self.FootStepT then
-			self:CustomOnFootStepSound()
-			local CurSched = self.CurrentSchedule
-			if self.DisableFootStepOnRun == false && ((VJ_HasValue(self.AnimTbl_Run,self:GetMovementActivity())) or (CurSched != nil  && CurSched.IsMovingTask_Run == true)) /*(VJ_HasValue(VJ_RunActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomRunActivites,self:GetMovementActivity()))*/ then
-				self:CustomOnFootStepSound_Run()
+		elseif self:IsMoving() && CurTime() > self.FootStepT && self:GetInternalVariable("m_flMoveWaitFinished") <= 0 then
+			local customTbl = VJ.PICK(customSd)
+			local sdtbl = VJ.PICK(self.SoundTbl_FootStep)
+			if customTbl then sdtbl = customTbl end
+			local curSched = self.CurrentSchedule
+			if !self.DisableFootStepOnRun && ((VJ.HasValue(self.AnimTbl_Run, self:GetMovementActivity())) or (curSched != nil && curSched.MoveType == 1)) then
+				VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
+				local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Run", sdtbl) end
+				if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
 				self.FootStepT = CurTime() + self.FootStepTimeRun
 				return
-			elseif self.DisableFootStepOnWalk == false && (VJ_HasValue(self.AnimTbl_Walk,self:GetMovementActivity()) or (CurSched != nil  && CurSched.IsMovingTask_Walk == true)) /*(VJ_HasValue(VJ_WalkActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomWalkActivites,self:GetMovementActivity()))*/ then
-				self:CustomOnFootStepSound_Walk()
+			elseif !self.DisableFootStepOnWalk && (VJ.HasValue(self.AnimTbl_Walk, self:GetMovementActivity()) or (curSched != nil && curSched.MoveType == 0)) then
+				VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
+				local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Walk", sdtbl) end
+				if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
 				self.FootStepT = CurTime() + self.FootStepTimeWalk
 				return
 			end

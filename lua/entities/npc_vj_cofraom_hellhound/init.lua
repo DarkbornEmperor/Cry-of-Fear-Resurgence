@@ -24,9 +24,10 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -42,6 +43,9 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -78,15 +82,13 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,40 +96,46 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
     local friNum = 0 -- How many allies exist around the Hellhound
 	local color = Color(255, 0, 0, 255) -- The shock wave color
 	local dmg = 20 -- How much damage should the shock wave do?
-	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
-		if v != self && v:GetClass() == "npc_vj_hlr1_hellhound" then
+	local myPos = self:GetPos()
+	for _, v in ipairs(ents.FindInSphere(myPos, 200)) do
+		if v != self && v:GetClass() == "npc_vj_cofraom_hellhound" then
 			friNum = friNum + 1
 	end
 end
 	-- More allies = more damage and different colors
 	if friNum == 1 then
 		--color = Color(101, 133, 221)
-		dmg = 30
+		dmg = 40
 	elseif friNum == 2 then
 		--color = Color(67, 85, 255)
-		dmg = 45
+		dmg = 60
 	elseif friNum >= 3 then
 		--color = Color(62, 33, 211)
-		dmg = 60
+		dmg = 80
 end
 
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color)
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color)
+	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
 	
 	if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
-		VJ_EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
+		VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
 end
-	util.VJ_SphereDamage(self, self, self:GetPos(), 150, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
+	VJ.ApplyRadiusDamage(self, self, myPos, 200, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

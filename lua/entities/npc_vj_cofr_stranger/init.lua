@@ -46,6 +46,9 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -55,8 +58,7 @@ ENT.SoundTbl_Stranger_HeartBeat = {
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Stranger_DamageDistance = 500
-ENT.Stranger_NextEnemyDamageT = 0
-ENT.Stranger_UsingDamageEffect = false
+ENT.Stranger_NextEnemyDamageT = CurTime()
 
 util.AddNetworkString("VJ_COFR_Stranger_Damage")
 
@@ -86,7 +88,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply)
+function ENT:Controller_Initialize(ply,controlEnt)
 	local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
     net.Start(nwName)
 		net.WriteBool(false)
@@ -128,7 +130,7 @@ function ENT:CustomRangeAttackCode()
 end	
 	if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
 	if CurTime() > self.Stranger_NextEnemyDamageT then
-	if self.HasSounds then self.Stranger_HeartBeat = VJ_CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
+	if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
 		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
 	    self.Stranger_NextEnemyDamageT = self.NextRangeAttackTime				
@@ -139,33 +141,12 @@ function ENT:CustomOnThink()
 	self:SetNW2Entity("Enemy",self:GetEnemy())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-  if math.random(1,50) && self.Dead then
-     self:SetRenderFX(kRenderFxFlickerSlow)
-     self:SetRenderMode(RENDERMODE_NORMAL)
-end	 
-  local ent = self:GetEnemy()
-  if !IsValid(ent) or !ent:Visible(self) or self.Dead then self.Stranger_UsingDamageEffect = false return end
-    if ent:IsPlayer() then
-  	local EnemyDistance = self:GetPos():Distance(ent:GetPos())  
-	if self.Stranger_UsingDamageEffect && EnemyDistance > self.Stranger_DamageDistance then self.Stranger_UsingDamageEffect = false return end
-    if !self.Stranger_UsingDamageEffect && EnemyDistance < self.Stranger_DamageDistance then
-        self.Stranger_UsingDamageEffect = true
-        end		
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-     local Deathanim = math.random(1,4)
-	 if Deathanim == 1 then
-		self.DeathAnimationTime = 1.25
-     elseif Deathanim == 2 then
-		self.DeathAnimationTime = 1.00
-     elseif Deathanim == 3 then
-		self.DeathAnimationTime = 0.85
-     elseif Deathanim == 4 then
-		self.DeathAnimationTime = 0.75			
+ if math.random(1,50) then
+    self:SetRenderFX(kRenderFxFlickerSlow)
+    self:SetRenderMode(RENDERMODE_NORMAL)
 end
+    self.DeathAnimationTime = math.Rand(0.75,1.25)
 	VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -175,12 +156,12 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 			net.WriteEntity(self:GetEnemy())
 		net.Send(self:GetEnemy())
 end
-	VJ_STOPSOUND(self.Stranger_HeartBeat)
+	VJ.STOPSOUND(self.Stranger_HeartBeat)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

@@ -7,14 +7,16 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Screamer Soul"
+ENT.PrintName		= "Soul"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
+ENT.VJTag_ID_Danger = true
+
 if CLIENT then
-	local Name = "Screamer Soul"
+	local Name = "Soul"
 	local LangName = "obj_vj_cofr_soul"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
@@ -45,26 +47,25 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetNoDraw(true)	
-	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
-	
-	self.IdleEffect = ents.Create("env_sprite")
-	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/soul_range.vmt")
-	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
-	self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
-	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-	self.IdleEffect:SetKeyValue("renderfx","0")
-	self.IdleEffect:SetKeyValue("rendermode","2")
-	self.IdleEffect:SetKeyValue("renderamt","255")
-	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-	self.IdleEffect:SetKeyValue("mindxlevel","0")
-	self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	self.IdleEffect:SetKeyValue("framerate","10.0")
-	self.IdleEffect:SetKeyValue("spawnflags","0")
-	self.IdleEffect:SetPos(self:GetPos())
-	self.IdleEffect:Spawn()
-	self.IdleEffect:SetParent(self)
-	self:DeleteOnRemove(self.IdleEffect)	
+	self:SetNoDraw(true)
+	self.StartSoul1 = ents.Create("env_sprite")
+	self.StartSoul1:SetKeyValue("model","vj_cofr/sprites/soul_range.vmt")
+	//self.StartSoul1:SetKeyValue("rendercolor","255 128 0")
+	self.StartSoul1:SetKeyValue("GlowProxySize","2.0")
+	self.StartSoul1:SetKeyValue("HDRColorScale","1.0")
+	self.StartSoul1:SetKeyValue("renderfx","14")
+	self.StartSoul1:SetKeyValue("rendermode","3")
+	self.StartSoul1:SetKeyValue("renderamt","255")
+	self.StartSoul1:SetKeyValue("disablereceiveshadows","0")
+	self.StartSoul1:SetKeyValue("mindxlevel","0")
+	self.StartSoul1:SetKeyValue("maxdxlevel","0")
+	self.StartSoul1:SetKeyValue("framerate","10.0")
+	self.StartSoul1:SetKeyValue("spawnflags","0")
+	self.StartSoul1:SetKeyValue("scale","1")
+	self.StartSoul1:SetPos(self:GetPos())
+	self.StartSoul1:Spawn()
+	self.StartSoul1:SetParent(self)
+	self:DeleteOnRemove(self.StartSoul1)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -73,19 +74,10 @@ function ENT:CustomOnThink()
 		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
-		end
+end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
 		end
 	end
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---function ENT:DeathEffects(data,phys)
-/*
-	local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale( 1 )
-	ParticleEffect("vj_cofr_soul_splt", data.HitPos, Angle(0,0,0), nil)
-*/
---end

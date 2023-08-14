@@ -1,24 +1,31 @@
-SWEP.Base 						= "weapon_vj_base"
+SWEP.Base 						= "weapon_vj_cofr_melee_base"
 SWEP.PrintName					= "Branch"
 SWEP.Author 					= "Darkborn"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose					= "This weapon is made for NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.75 -- Next time it can use primary fire
-SWEP.NPC_TimeUntilFire = 0.15 -- How much time until the bullet/projectile is fired?
-SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_branch.mdl"
-SWEP.HoldType = "melee"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10 -- Damage
-SWEP.IsMeleeWeapon = true -- Should this weapon be a melee weapon?
-SWEP.MeleeWeaponSound_Hit = {"vj_cofr/cof/weapons/branch/branch_hit.wav"} -- Sound it plays when it hits something
-SWEP.MeleeWeaponSound_Miss = {"vj_cofr/cof/weapons/branch/branch_swing.wav"}
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(143, -180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(10, -4, 0)
+SWEP.WorldModel_CustomPositionOrigin = Vector(7, -2, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnInitialize()
+  self:SetModelScale(0.75)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnThink()
+	self:GetOwner().MeleeAttackDamage = self.Primary.Damage	    
+	self:GetOwner().MeleeAttackDamageType = DMG_CLUB
+	self:GetOwner().SoundTbl_MeleeAttack = {
+	"vj_cofr/cof/weapons/branch/branch_hit.wav"
+	}
+	self:GetOwner().SoundTbl_MeleeAttackMiss = {
+	"vj_cofr/cof/weapons/branch/branch_swing.wav"
+	}
+end

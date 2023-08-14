@@ -23,9 +23,10 @@ ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false 
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 10
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -47,18 +48,21 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 }
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/sawer/sawer.mp3"
+"vj_cofr/cof/sawer/sawersong.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_EyeOpen = false
-ENT.Sawer_NextDownT = 0
-ENT.Sawer_NextFlinchT = 0
+ENT.Sawer_NextDownT = CurTime()
+ENT.Sawer_NextFlinchT = CurTime()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -90,8 +94,6 @@ function ENT:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     //VJ_EmitSound(self, "vj_cofr/cof/sawer/chainsaw_start.wav", 75, 100)
-	 //ParticleEffectAttach("smoke_exhaust_01",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("chainsaw"))
      self:SetCollisionBounds(Vector(18, 18, 105), Vector(-18, -18, 0))
      self:Sawer_CustomOnInitialize()
 end
@@ -99,15 +101,13 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,7 +117,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		self.Sawer_NextFlinchT = CurTime() + math.Rand(5,10)
 end	 
      if hitgroup == 9 && self.Sawer_EyeOpen then
-	    dmginfo:ScaleDamage(0.10)
+	    dmginfo:ScaleDamage(0.2)
      else	
        	dmginfo:ScaleDamage(0.00) 
 end
@@ -126,9 +126,9 @@ end
 	    self:SpawnBloodDecal(dmginfo,hitgroup)
 end
      if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
-	 local AnimTime = VJ_GetSequenceDuration(self,ACT_COWER)
+	 local AnimTime = VJ.AnimDuration(self,ACT_COWER)
         self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
-		VJ_EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
+		VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
 		self:SetSkin(1)
 		self.Sawer_EyeOpen = true
         self.MovementType = VJ_MOVETYPE_STATIONARY
@@ -165,11 +165,16 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

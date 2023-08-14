@@ -14,6 +14,12 @@ function ENT:Psycho_CustomOnInitialize()
     self.SoundTbl_BeforeMeleeAttack = {
 	"vj_cofr/custom/patrick/patrick_attack.wav"
 }
+    self.SoundTbl_Pain = {
+	"vj_cofr/custom/patrick/patrick_scream.wav"
+}
+    self.SoundTbl_Death = {
+	"vj_cofr/custom/patrick/patrick_scream.wav"
+}
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***

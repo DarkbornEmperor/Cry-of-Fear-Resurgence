@@ -8,7 +8,7 @@ SWEP.Category					= "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1
 SWEP.NPC_TimeUntilFire = 0.05
-SWEP.NPC_ExtraShotsPerFire = 2
+SWEP.NPC_TimeUntilFireExtraTimers = {0.05,0.05*2,0.05*3}
 //SWEP.NPC_ReloadSound			= {""} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 SWEP.MadeForNPCsOnly = true
@@ -22,24 +22,28 @@ SWEP.AdminSpawnable				= false
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(-35, 5, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1.6, -2.5, -0.5)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-1, -2, -0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 15 -- Damage
 SWEP.Primary.ClipSize			= 18 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Ammo				= "Pistol" -- Ammo type
 SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/vp70/vp70_fire.wav"}
-SWEP.Primary.DistantSound		= {""}
+SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/glock_distant2.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+-- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-	local Owner = self:GetOwner()
-	for i=1,(self.NPC_ExtraShotsPerFire) do
-		table.insert(self.NPC_TimeUntilFireExtraTimers, self.NPC_TimeUntilFire*(1+#self.NPC_TimeUntilFireExtraTimers))
+  if self:GetOwner():GetClass() == "npc_vj_cofr_simonbeta" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-1.5, -2, -0.5)
+  elseif self:GetOwner():GetClass() == "npc_vj_cofr_police" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-1.5, -2, -0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
+function SWEP:CustomOnPrimaryAttackEffects(owner)
 	self.PrimaryEffects_MuzzleFlash = false
 	muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")

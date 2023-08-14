@@ -27,7 +27,7 @@ function ENT:Slower_CustomOnInitialize()
 }
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
 end
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", {"vj_cofr/cof/krypandenej/scream.wav"}) 	

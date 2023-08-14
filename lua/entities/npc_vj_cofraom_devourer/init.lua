@@ -17,11 +17,11 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.CallForHelp = false
-ENT.HasMeleeAttack = false 
+ENT.HasMeleeAttack = true
+ENT.AnimTbl_MeleeAttack = {"vjseq_attack1"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
-ENT.NextAnyAttackTime_Melee = 1
 ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAngleRadius = 180 
@@ -30,9 +30,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.CanFlinch = 1 
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasDeathAnimation = true 
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
-ENT.DeathAnimationTime = 8 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -49,16 +50,29 @@ ENT.SoundTbl_MeleeAttackExtra = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
-}	
+}
+	-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_MeleeAttack = {
+"vj_cofr/aom/devourer/bcl_bite3.wav",
+"vj_cofr/aom/devourer/bcl_chew1.wav",
+"vj_cofr/aom/devourer/bcl_chew2.wav",
+"vj_cofr/aom/devourer/bcl_chew3.wav"
+}
+
+ENT.GeneralSoundPitch1 = 100
+
 -- Custom
-ENT.Devourer_HasEnemy = false
 ENT.Devourer_LastHeight = 180
 ENT.Devourer_CurEnt = NULL
 ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_Status = 0
-ENT.Devourer_NextPullSoundT = 0
+ENT.Devourer_NextPullSoundT = CurTime()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_CustomOnInitialize()
     self.SoundTbl_Death = {
@@ -68,16 +82,19 @@ function ENT:Devourer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(25,25,0),Vector(-25,-25,40))		
-     self:Devourer_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(25,25,0),Vector(-25,-25,39))
+	self:Devourer_CustomOnInitialize()
+	//self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack" then
-		//self:MeleeAttackCode()
-    end	
+		self:MeleeAttackCode()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local velInitial = Vector(0, 0, 2)
+--
 function ENT:Devourer_CalculateTongue()
 	//print(self.Devourer_LastHeight)
 	local tr = util.TraceLine({
@@ -91,49 +108,22 @@ function ENT:Devourer_CalculateTongue()
 	-- Increase the height by 10 every tick | minimum = 0, maximum = 1024
 	self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024)
 
-	if IsValid(trent) && (trent:IsNPC() or trent:IsPlayer()) && self:DoRelationshipCheck(trent) == true && trent.VJ_IsHugeMonster != true then
+	if IsValid(trent) && (trent:IsNPC() or trent:IsPlayer()) && self:CheckRelationship(trent) == D_HT && trent.VJ_IsHugeMonster != true then
 		-- If the grabbed enemy is a new enemy then reset the enemy values
 		if self.Devourer_CurEnt != trent then
 			self:Devourer_ResetEnt()
 			self.Devourer_CurEntMoveType = trent:GetMoveType()
-		end
+end
 		self.Devourer_CurEnt = trent
 		trent:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
-		local dmginfo = DamageInfo()
-		if trent:IsNPC() && !self.Devourer_HasEnemy then
-		    self.Devourer_HasEnemy = true
+		if trent:IsNPC() then
 			trent:StopMoving()
-			trent:SetVelocity(Vector(0,0,2))
+			trent:SetVelocity(velInitial)
 			trent:SetMoveType(MOVETYPE_FLY)
-		timer.Simple(3.5,function() if IsValid(trent) && IsValid(self) && !self.Dead && self:GetSequence() == self:LookupSequence("chewcycle") then
-		    dmginfo:SetDamage(self.MeleeAttackDamage)
-			dmginfo:SetInflictor(self)
-			dmginfo:SetAttacker(self)
-			dmginfo:SetDamageType(DMG_ALWAYSGIB)
-			trent:TakeDamageInfo(dmginfo,self)
-			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false,false)
-			VJ_EmitSound(self, self.SoundTbl_MeleeAttackExtra)
-			self.Devourer_HasEnemy = false
-		else
-		    self.Devourer_HasEnemy = false
-	end end)
-		elseif trent:IsPlayer() && !self.Devourer_HasEnemy then
-		    self.Devourer_HasEnemy = true
+		elseif trent:IsPlayer() then
 			trent:SetMoveType(MOVETYPE_NONE)
 			//trent:AddFlags(FL_ATCONTROLS)
-		timer.Simple(3.5,function() if IsValid(trent) && IsValid(self) && !self.Dead && self:GetSequence() == self:LookupSequence("chewcycle") then
-		    dmginfo:SetDamage(self.MeleeAttackDamage)
-			dmginfo:SetInflictor(self)
-			dmginfo:SetAttacker(self)
-			dmginfo:SetDamageType(DMG_ALWAYSGIB)
-			trent:TakeDamageInfo(dmginfo,self)
-			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false,false)
-			VJ_EmitSound(self, self.SoundTbl_MeleeAttackExtra)
-			self.Devourer_HasEnemy = false
-		else
-		    self.Devourer_HasEnemy = false
-	end end)	
-	end
+end
 		trent:SetGroundEntity(NULL)
 		if height >= 50 then
 			local setpos = trent:GetPos() + trent:GetUp()*10
@@ -142,15 +132,15 @@ function ENT:Devourer_CalculateTongue()
 			trent:SetPos(setpos) -- Set the position for the enemy
 			-- Play the pulling sound
 			if CurTime() > self.Devourer_NextPullSoundT then
-				VJ_EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
+				VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
 				self.Devourer_NextPullSoundT = CurTime() + SoundDuration("vj_cofr/aom/devourer/bcl_alert2.wav")
-			end
-		end
-		self:SetPoseParameter("tongue_height", self:GetPos():Distance(self:GetUp()*125))
+	end
+end
+		self:SetPoseParameter("tongue_height", self:GetPos():Distance(trpos + self:GetUp()*125))
 		return true
 	else
 		self:Devourer_ResetEnt()
-	end
+end
 	self:SetPoseParameter("tongue_height", self:GetPos():Distance(trpos + self:GetUp()*193))
 	return false
 end
@@ -169,7 +159,7 @@ function ENT:CustomOnThink_AIEnabled()
 	if calc == true && self.Devourer_Status != 1 then
 		self.Devourer_Status = 1
 		self.NextIdleStandTime = 0
-		self.AnimTbl_IdleStand = {ACT_BARNACLE_PULL}
+		self.AnimTbl_IdleStand = {ACT_MELEE_ATTACK1}
 	elseif calc == false && self.Devourer_Status != 0 then
 		self.Devourer_Status = 0
 		self.NextIdleStandTime = 0
@@ -177,28 +167,36 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetNearestPointToEntityPosition()
-	return self:GetPos() + self:GetUp()*-100 
+function ENT:GetDynamicOrigin()
+	return self:GetPos() + self:GetUp()*-50 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetMeleeAttackDamagePosition()
-	return self:GetPos() + self:GetUp()*-100 
+function ENT:GetMeleeAttackDamageOrigin()
+	return self:GetPos() + self:GetUp()*-50 -- Override this to use a different position
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
+	if hitEnt.IsVJBaseSNPC_Human then
+		self.MeleeAttackDamage = hitEnt:Health() + 10
+	else
+		self.MeleeAttackDamage = 200
+	end
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialKilled(dmginfo,hitgroup)
+	self:Devourer_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:Devourer_ResetEnt()
+    self:SetPos(self:GetPos() + self:GetUp()*-4)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:SetPos(self:GetPos() + self:GetUp()*-4)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	corpseEnt:DrawShadow(false)
-	corpseEnt:ResetSequence("Death")
-	corpseEnt:SetCycle(1)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
 	corpseEnt:SetPoseParameter("tongue_height", 1)
+    corpseEnt:SetMoveType(MOVETYPE_NONE)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

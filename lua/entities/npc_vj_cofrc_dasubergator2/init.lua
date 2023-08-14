@@ -8,14 +8,14 @@ include('shared.lua')
 ENT.Model = {"models/vj_cofr/custom/dasubergator2.mdl"} 
 ENT.StartHealth = 1000
 ENT.HullType = HULL_LARGE
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR","CLASS_AOM_DC","CLASS_GREY"} 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true
  ENT.AnimTbl_MeleeAttack = {"vjseq_biteattack_1"} 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 200 
+ENT.MeleeAttackDamage = 30 
 ENT.MeleeAttackDistance = 50 
 ENT.MeleeAttackDamageDistance = 120
 ENT.DisableFootStepSoundTimer = true
@@ -24,10 +24,16 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 20 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.AlertSoundPitch = VJ.SET(80, 80)
+ENT.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
+ENT.PainSoundPitch = VJ.SET(80, 80)
+ENT.DeathSoundPitch = VJ.SET(80, 80)
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -46,11 +52,23 @@ ENT.SoundTbl_MeleeAttackExtra = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/taller/taller_swing.wav"
 }
+ENT.SoundTbl_SoundTrack = {
+"vj_cofr/cof/craig/cof_gayviolin_s3.mp3"
+}
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize() 
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
+        self.HasSoundTrack = false 
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gator_CustomOnInitialize()
     self.SoundTbl_Alert = {
@@ -73,25 +91,23 @@ function ENT:Gator_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(50, 50, 70), Vector(-50, -50, 0))
+     self:SetCollisionBounds(Vector(35, 35, 70), Vector(-35, -35, 0))
      self:Gator_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", {"vj_cofr/cof/slower/scream1.wav"}) 	
@@ -100,11 +116,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_NONE)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

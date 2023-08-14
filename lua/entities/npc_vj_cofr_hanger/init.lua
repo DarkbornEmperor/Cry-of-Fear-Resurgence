@@ -5,14 +5,20 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/hanger.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/hanger.mdl"}
 ENT.GodMode = true
+ENT.Bleeds = false
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
-ENT.MovementType = VJ_MOVETYPE_STATIONARY 
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CallForHelp = false
 ENT.CanTurnWhileStationary = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.AnimTbl_Death = {ACT_SIGNAL1}
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
@@ -26,6 +32,9 @@ ENT.VJC_Data = {
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }	
@@ -33,7 +42,7 @@ ENT.SoundTbl_Impact = {
 ENT.Hanger_Death = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hanger_CustomOnInitialize()
-    self.SoundTbl_HangerScream = {
+    self.SoundTbl_Death = {
 	"vj_cofr/cof/hanger/hangerscream1.wav",
 	"vj_cofr/cof/hanger/hangerscream2.wav",
 	"vj_cofr/cof/hanger/hangerscream3.wav"
@@ -44,34 +53,40 @@ function ENT:CustomOnInitialize()
 	 self:SetMaterial("hud/killicons/default")
      self:DrawShadow(false)
      self:AddFlags(FL_NOTARGET)
-	 self.CallForHelp = false
      self:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
-	ply:ChatPrint("SPACE: Jumpscare")
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "attack" then
+		self:JumpscareDamage()
+    end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply,controlEnt)
+	ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	        if !IsValid(self:GetEnemy()) then return end
-	        if !self.Hanger_Death && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
-			   self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,10,false)
-			   self.Hanger_Scream = VJ_CreateSound(self,self.SoundTbl_HangerScream,75,100)
-			   self.Hanger_Death = true
-	           self:DrawShadow(true)
-			   self.CallForHelp = true
-			   self:SetMaterial()
-	        timer.Simple(0.4,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
-               self:GetEnemy():TakeDamage(10,self,self)	end end)			   
-	        timer.Simple(8,function() if IsValid(self) then	
-	           self:Remove()
-            end	
-        end)
+	 local ent = self:GetEnemy()
+	 if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+	    self.GodMode = false
+		self:TakeDamage(self:Health(),nil,nil)
+	    self.Hanger_Death = true
+		self.CallForHelp = true
+	    timer.Simple(0.3,function() if IsValid(self) then self:SetMaterial(nil) self:DrawShadow(true) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    VJ_STOPSOUND(self.Hanger_Scream)
+function ENT:JumpscareDamage()
+    local ent = self:GetEnemy()
+    if IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 then
+	    ent:TakeDamage(10,self,self)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_NONE)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***

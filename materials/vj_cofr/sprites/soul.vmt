@@ -3,5 +3,8 @@
                 "$basetexture" "vj_cofr/sprites/soul"
 	"$nolod" 1
 	"$translucent" 1
-	//"$alphatest" 1
+	"$additive" "1"
+	"$nocull" "1"
+	"$vertexcolor" "1"
+	"$overbrightfactor" "0.5"
 }

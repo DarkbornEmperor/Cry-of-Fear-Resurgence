@@ -4,6 +4,6 @@
 	"$translucent" 1
 	"$basetexture" "vj_cofr/decals/cof_blood05"
 	"$decal" 1
-	"$Size"		"25 25"
-	"$decalscale" 	0.08
+	"$Size"		"255 255"
+	"$decalscale" 	0.07
 }

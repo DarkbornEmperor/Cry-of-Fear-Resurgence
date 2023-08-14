@@ -7,6 +7,10 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/custom/sicksophie.mdl"} 
 ENT.CanFlinch = 0
+ENT.AlertSoundPitch = VJ.SET(120, 120)
+ENT.BeforeMeleeAttackSoundPitch = VJ.SET(120, 120)
+ENT.PainSoundPitch = VJ.SET(120, 120)
+ENT.DeathSoundPitch = VJ.SET(120, 120)
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {

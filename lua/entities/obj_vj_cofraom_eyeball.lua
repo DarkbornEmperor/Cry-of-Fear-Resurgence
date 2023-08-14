@@ -7,14 +7,16 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Face Eyeball"
+ENT.PrintName		= "Eyeball"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
+ENT.VJTag_ID_Danger = true
+
 if CLIENT then
-	local Name = "Face Eyeball"
+	local Name = "Eyeball"
 	local LangName = "obj_vj_cofraom_eyeball"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
@@ -41,6 +43,7 @@ local defVec = Vector(0, 0, 0)
 
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
+ENT.Eyeball_ChaseSpeed = 600
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -51,11 +54,9 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
-
+  timer.Simple(5, function() if IsValid(self) then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100) self:Remove() end end)
   if math.random(1,3) == 1 then
-	self:SetNoDraw(true)
-	
+	self:SetNoDraw(true)	
 	self.IdleEffect = ents.Create("env_sprite")
 	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/eyeball.vmt")
 	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
@@ -74,32 +75,31 @@ function ENT:CustomOnInitialize()
 	self.IdleEffect:Spawn()
 	self.IdleEffect:SetParent(self)
 	self:DeleteOnRemove(self.IdleEffect)
-	
-	--util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, ".vmt")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
+	local phys = self:GetPhysicsObject()
+	-- Homing Behavior
+	if IsValid(self.Track_Enemy) then
 		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
-		end
-		local phys = self:GetPhysicsObject()
+end
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), 600))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), self.Eyeball_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
-		end
+end
+	-- Not tracking, go in straight line
 	else
-		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), 300))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Eyeball_ChaseSpeed / 2))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
+function ENT:CustomOnPhysicsCollide(data,phys)
 	local lastVel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
 	local newVel = phys:GetVelocity():GetNormal()
 	lastVel = math.max(newVel:Length(), lastVel)
@@ -107,7 +107,7 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data, phys, hitEnt)
+function ENT:CustomOnDoDamage(data,phys,hitEnt)
 	if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
 		self:SetDeathVariablesTrue(data, phys)
 		self:Remove()

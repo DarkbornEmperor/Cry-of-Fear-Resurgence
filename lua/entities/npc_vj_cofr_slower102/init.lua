@@ -32,6 +32,11 @@ function ENT:Slower_CustomOnInitialize()
     self:SetPos(self:GetPos() + self:GetForward()*-32)
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_NONE)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

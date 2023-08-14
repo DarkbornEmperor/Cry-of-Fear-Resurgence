@@ -1,6 +1,6 @@
-"VertexLitGeneric"
+"VertexlitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/twitcherwheelchair/Wheelchair"
+	"$basetexture" "models/vj_cofr/cof/sicksimon/tex1"
 	"$alphatest" 1
 	"$nodecal" 1
 }

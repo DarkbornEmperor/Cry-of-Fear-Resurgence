@@ -19,6 +19,10 @@ function ENT:CustomOnPreInitialize()
         self.HasSoundTrack = false 
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	dmginfo:ScaleDamage(0.45)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

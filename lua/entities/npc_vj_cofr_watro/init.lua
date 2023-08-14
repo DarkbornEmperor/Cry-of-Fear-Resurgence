@@ -9,7 +9,8 @@ ENT.Model = {"models/vj_cofr/cof/watro.mdl"}
 ENT.StartHealth = 160
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
-ENT.MovementType = VJ_MOVETYPE_STATIONARY 
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CallForHelp = false
 ENT.CanTurnWhileStationary = false
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
@@ -25,9 +26,10 @@ ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 5 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -46,9 +48,12 @@ ENT.SoundTbl_MeleeAttackMiss = {
 }	
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
-}	
+}
 -- Custom
 ENT.Watro_Burrowed = true
  ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,7 +62,6 @@ function ENT:Watro_CustomOnInitialize()
 	    self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.HasMeleeAttack = false
 		self:DrawShadow(false)
-		self.CallForHelp = false
 		self:AddFlags(FL_NOTARGET)
     end		
 end
@@ -73,17 +77,17 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
-	ply:ChatPrint("SPACE: Unburrow")
+function ENT:Controller_Initialize(ply,controlEnt)
+	ply:ChatPrint("JUMP: Unburrow")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if !IsValid(self:GetEnemy()) or self.Dead or !self.Watro_Burrowed then return end	
-	if self.Watro_Burrowed && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+	local ent = self:GetEnemy()
+	if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
     else
-        VJ_EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
 end		
 		self.Watro_Burrowed = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
@@ -99,10 +103,28 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+       self.SoundTbl_Death = {
+       "vj_cofr/fx/out_water.wav"
+}
+    else
+       self.SoundTbl_Death = {
+       "vj_cofr/fx/bodysplat.wav"
+}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	self:DrawShadow(false)
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:DrawShadow(false)
+    corpseEnt:SetMoveType(MOVETYPE_NONE)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***

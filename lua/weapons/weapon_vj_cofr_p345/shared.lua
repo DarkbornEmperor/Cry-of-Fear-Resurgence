@@ -25,12 +25,28 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 20 -- Damage
 SWEP.Primary.ClipSize			= 8 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Ammo				= "Pistol" -- Ammo type
 SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/p345/p345_fire.wav"}
-SWEP.Primary.DistantSound		= {""}
+SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/hks_distant_new.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+-- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
+function SWEP:CustomOnInitialize() 
+  if self:GetOwner():GetClass() == "npc_vj_cofr_purnell" or self:GetOwner():GetClass() == "npc_vj_cofr_purnell_fri" then
+        self.WorldModel_CustomPositionAngle = Vector(80, -20, 10)
+        self.WorldModel_CustomPositionOrigin = Vector(-3.2, 4, -1)
+		self.NPC_NextPrimaryFire = 1
+		self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/p345_reload.wav"}
+  elseif self:GetOwner():GetClass() == "npc_vj_cofr_simonbeta" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-2, 3.2, -1)
+  elseif self:GetOwner():GetClass() == "npc_vj_cofr_police" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-2, 3.5, -1)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttackEffects(owner)
 	self.PrimaryEffects_MuzzleFlash = false
 	muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")

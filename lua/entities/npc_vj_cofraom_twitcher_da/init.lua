@@ -41,7 +41,7 @@ function ENT:TwitcherSounds()
 	"vj_cofr/aom/twitcher/zo_attack1.wav",
 	"vj_cofr/aom/twitcher/zo_attack2.wav"
 }
-elseif Twitcher_Sounds == 2 then
+    elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher2/zo_alert10.wav",
 	"vj_cofr/aom/twitcher2/zo_alert20.wav",
@@ -54,8 +54,7 @@ elseif Twitcher_Sounds == 2 then
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-end
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup) end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

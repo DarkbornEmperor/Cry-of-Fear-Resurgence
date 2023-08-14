@@ -7,14 +7,16 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Spitter Spit"
+ENT.PrintName		= "Spit"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
+ENT.VJTag_ID_Danger = true
+
 if CLIENT then
-	local Name = "Spitter Spit"
+	local Name = "Spit"
 	local LangName = "obj_vj_cofraom_spit"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
@@ -26,7 +28,7 @@ if !SERVER then return end
 
 ENT.Model = {"models/spitball_small.mdl"}
 ENT.DoesRadiusDamage = true
-ENT.RadiusDamageRadius = 45
+ENT.RadiusDamageRadius = 70
 ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
@@ -42,47 +44,44 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetNoDraw(true)
-	
+	self:SetNoDraw(true)	
 	self.Scale = math.Rand(0.5,1.15)
-
-	self.IdleEffect = ents.Create("env_sprite")
-	self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/spit_white.vmt")
-	self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
-	self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
-	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-	self.IdleEffect:SetKeyValue("renderfx","0")
-	self.IdleEffect:SetKeyValue("rendermode","2")
-	self.IdleEffect:SetKeyValue("renderamt","255")
-	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-	self.IdleEffect:SetKeyValue("mindxlevel","0")
-	self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	self.IdleEffect:SetKeyValue("framerate","10.0")
-	self.IdleEffect:SetKeyValue("spawnflags","0")
-	self.IdleEffect:SetKeyValue("scale",tostring(self.Scale))
-	self.IdleEffect:SetPos(self:GetPos())
-	self.IdleEffect:Spawn()
-	self.IdleEffect:SetParent(self)
-	self:DeleteOnRemove(self.IdleEffect)	
+	local idleSprite = ents.Create("env_sprite")
+	idleSprite:SetKeyValue("model","vj_cofr/sprites/spit_white.vmt")
+	idleSprite:SetKeyValue("rendercolor","255 255 255")
+	idleSprite:SetKeyValue("GlowProxySize","1.0")
+	idleSprite:SetKeyValue("HDRColorScale","1.0")
+	idleSprite:SetKeyValue("renderfx","0")
+	idleSprite:SetKeyValue("rendermode","2")
+	idleSprite:SetKeyValue("renderamt","255")
+	idleSprite:SetKeyValue("disablereceiveshadows","0")
+	idleSprite:SetKeyValue("mindxlevel","0")
+	idleSprite:SetKeyValue("maxdxlevel","0")
+	//idleSprite:SetKeyValue("framerate","40.0")
+	idleSprite:SetKeyValue("spawnflags","0")
+	idleSprite:SetKeyValue("scale",tostring(self.Scale))
+	idleSprite:SetPos(self:GetPos())
+	idleSprite:Spawn()
+	idleSprite:SetParent(self)
+	self:DeleteOnRemove(idleSprite)	
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
-	self.DeathEffect = ents.Create("env_sprite")
-	self.DeathEffect:SetKeyValue("model","vj_cofr/sprites/spitsplat_white.vmt")
-	self.DeathEffect:SetKeyValue("rendercolor","255 255 255")
-	self.DeathEffect:SetKeyValue("GlowProxySize","1.0")
-	self.DeathEffect:SetKeyValue("HDRColorScale","1.0")
-	self.DeathEffect:SetKeyValue("renderfx","0")
-	self.DeathEffect:SetKeyValue("rendermode","2")
-	self.DeathEffect:SetKeyValue("renderamt","255")
-	self.DeathEffect:SetKeyValue("disablereceiveshadows","0")
-	self.DeathEffect:SetKeyValue("mindxlevel","0")
-	self.DeathEffect:SetKeyValue("maxdxlevel","0")
-	self.DeathEffect:SetKeyValue("framerate","30.0")
-	self.DeathEffect:SetKeyValue("spawnflags","0")
-	self.DeathEffect:SetKeyValue("scale","0.3")
-	self.DeathEffect:SetPos(self:GetPos())
-	self.DeathEffect:Spawn()
-	self.DeathEffect:SetParent(self)
-	self:DeleteOnRemove(self.DeathEffect)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_cofr/sprites/spitsplat_white.vmt")
+	spr:SetKeyValue("GlowProxySize","1.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","0")
+	spr:SetKeyValue("rendermode","2")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	//spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale",tostring(self.Scale *0.3))
+	spr:SetPos(data.HitPos)
+	spr:Spawn()
+	spr:Fire("Kill","",0.3)
+	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 end

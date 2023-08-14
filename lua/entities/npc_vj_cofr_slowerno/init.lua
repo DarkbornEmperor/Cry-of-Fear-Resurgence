@@ -26,7 +26,7 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/cof/slower3/slower_pain2.wav"
 }
 end
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", {"vj_cofr/cof/slowerno/headdy.wav"}) 	

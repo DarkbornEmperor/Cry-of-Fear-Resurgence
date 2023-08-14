@@ -1,5 +1,5 @@
 "VertexlitGeneric"
 {
-	"$basetexture" "models/vj_cofr/cof/sicksimon_sui/grip"
+	"$basetexture" "models/vj_cofr/cof/weapons/browning/grip"
 	"$nodecal" 1
 }

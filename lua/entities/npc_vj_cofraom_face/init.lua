@@ -44,8 +44,9 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
-ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -70,13 +71,16 @@ ENT.SoundTbl_MeleeAttackMiss = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Face_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aom/face/ag_alert1.mp3",
+	"vj_cofr/aom/face/ag_alert1.wav",
 	"vj_cofr/aom/face/ag_alert2.wav",
 	"vj_cofr/aom/face/ag_alert3.wav",
 	"vj_cofr/aom/face/ag_alert4.wav",
@@ -105,18 +109,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	 self:DrawShadow(false)
-     self:SetCollisionBounds(Vector(25, 25, 90), Vector(-25, -25, 0))
-     self:Face_CustomOnInitialize() 	 
+     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
+     self:Face_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "attack_range" && self.AttackType == VJ_ATTACK_RANGE && !self.Dead then
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE && !self.Dead then
 		self:RangeAttackCode()
 		if IsValid(self.Face) then self.Face:Remove() end
 		self.Face = ents.Create("env_sprite")
@@ -136,24 +138,23 @@ end
 		self.Face:Spawn()
 		self.Face:Activate()
 		self:DeleteOnRemove(self.Face)
-		timer.Simple(0.1,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
-end
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+		timer.Simple(0.08,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if IsValid(self:GetEnemy()) then
-		projectile.Track_Enemy = self:GetEnemy()							
-    end
+	local ene = self:GetEnemy()
+	if IsValid(ene) then
+		projectile.Track_Enemy = ene
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
@@ -161,7 +162,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
@@ -170,9 +171,15 @@ end
 	VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:DrawShadow(false)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

@@ -17,28 +17,24 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 40 
-ENT.MeleeAttackDamageDistance = 80
+ENT.MeleeAttackDamageDistance = 85
 ENT.MeleeAttackDamageType = DMG_CRUSH
 ENT.SlowPlayerOnMeleeAttack = false
 ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 0.001
 ENT.SlowPlayerOnMeleeAttack_RunSpeed = 0.001 
-ENT.SlowPlayerOnMeleeAttackTime = 3.5
+ENT.SlowPlayerOnMeleeAttackTime = 4
 ENT.HasMeleeAttackSlowPlayerSound = false 
-ENT.HasMeleeAttackKnockBack = false 
-ENT.MeleeAttackKnockBack_Forward1 = 150 
-ENT.MeleeAttackKnockBack_Forward2 = 150 
-ENT.MeleeAttackKnockBack_Up1 = 250 
-ENT.MeleeAttackKnockBack_Up2 = 250 
-ENT.HasWorldShakeOnMove = true 
+ENT.HasMeleeAttackKnockBack = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -54,6 +50,9 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -78,19 +77,21 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
+        util.ScreenShake(self:GetPos(),10,100,0.4,300)
+	elseif key == "attack" then
+		self:MeleeAttackCode()		
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	if key == "attack" && self:GetSequence() == self:LookupSequence("stamp") then
+        util.ScreenShake(self:GetPos(),10,100,0.4,300)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     local attack = math.random(1,2)
 	if attack == 1 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
@@ -121,12 +122,16 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
 	if (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
 		   hitEnt:StopMoving()
            hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
-	       timer.Simple(3.5,function() if IsValid(hitEnt) then
+	       timer.Simple(self.SlowPlayerOnMeleeAttackTime,function() if IsValid(hitEnt) then
            hitEnt:SetState()
 		end
     end)	
 end
     return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+	return self:GetForward()*150 + self:GetUp()*250
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
@@ -135,11 +140,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

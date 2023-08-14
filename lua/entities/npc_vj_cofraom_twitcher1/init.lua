@@ -29,8 +29,9 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
-ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -55,6 +56,9 @@ ENT.SoundTbl_MeleeAttackMiss = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -71,7 +75,7 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombie4.mdl",
         "models/vj_cofr/aom/zombie5.mdl",		
 }
- elseif self:GetClass() == "npc_vj_cofraom_twitcher2" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher2" then
 		self.Model = {
         "models/vj_cofr/aom/zombie2_1.mdl",
         "models/vj_cofr/aom/zombie2_2.mdl",
@@ -79,7 +83,7 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombie2_4.mdl",
         "models/vj_cofr/aom/zombie2_5.mdl",		
 }
- elseif self:GetClass() == "npc_vj_cofraom_twitcher3" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher3" then
 		self.Model = {
         "models/vj_cofr/aom/zombie3_1.mdl",
         "models/vj_cofr/aom/zombie3_2.mdl",
@@ -87,7 +91,7 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombie3_4.mdl",
         "models/vj_cofr/aom/zombie3_5.mdl",	
 }
- elseif self:GetClass() == "npc_vj_cofraom_twitcher4" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher4" then
 		self.Model = {
         "models/vj_cofr/aom/zombie4_1.mdl",
         "models/vj_cofr/aom/zombie4_2.mdl",
@@ -95,23 +99,23 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombie4_4.mdl",
         "models/vj_cofr/aom/zombie4_5.mdl"		
 }
- elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
 		self.Model = {
 		"models/vj_cofr/aom/zombie_da.mdl"		
 } 
- elseif self:GetClass() == "npc_vj_cofraom_twitcher1_hd" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher1_hd" then
 		self.Model = {
 		"models/vj_cofr/aom/zombiehd.mdl"		
 } 
- elseif self:GetClass() == "npc_vj_cofraom_twitcher2_hd" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher2_hd" then
 		self.Model = {
         "models/vj_cofr/aom/zombiehd2.mdl"		
 } 
- elseif self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
 		self.Model = {
 		"models/vj_cofr/aom/zombiehd3.mdl"	
 } 
- elseif self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
+    elseif self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
 		self.Model = {
         "models/vj_cofr/aom/zombiehd4.mdl"		
 }   
@@ -119,42 +123,25 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_CustomOnInitialize()
-   if self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" then
-       self:SetBodygroup(0,math.random(0,9))
-else
-       self:SetBodygroup(0,math.random(0,10))
-end
-   if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie5.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_1.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_4.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" then
+   if self:GetClass() == "npc_vj_cofraom_twitcher1"
+   or self:GetClass() == "npc_vj_cofraom_twitcher2" 
+   or self:GetClass() == "npc_vj_cofraom_twitcher1_hd"
+   or self:GetClass() == "npc_vj_cofraom_twitcher2_hd" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack0","vjseq_attack1","vjseq_attack2","vjseq_attack22","vjseq_attack3","vjseq_attack32","vjseq_attack45"} 
 
-   elseif self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" then
+   elseif self:GetClass() == "npc_vj_cofraom_twitcher3"
+   or self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"} 
 
-   elseif self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
+   elseif self:GetClass() == "npc_vj_cofraom_twitcher4"
+   or self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack0"}  
 
-   elseif self:GetModel() == "models/vj_cofr/aom/zombie_da.mdl" then
+   elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"} 
+end
+     if (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
+	    self:DrawShadow(false)
 end
      if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
      if math.random(1,10) == 1 then
@@ -166,9 +153,8 @@ end
          self.Twitcher_Transparent = true
 		 self:SetRenderFX(kRenderFxDistort)
 		 self:SetRenderMode(RENDERMODE_TRANSADD)
-		 self:DrawShadow(false)
-	  end
-   end  
+	    end
+    end  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TwitcherSounds()	
@@ -180,20 +166,11 @@ function ENT:TwitcherSounds()
 	"vj_cofr/aom/twitcher/zo_pain1.wav",
 	"vj_cofr/aom/twitcher/zo_pain2.wav"
 }
-if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then	
-   if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie5.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie_da.mdl"   
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" then
+   if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then	
+   if self:GetClass() == "npc_vj_cofraom_twitcher1" 
+   or self:GetClass() == "npc_vj_cofraom_twitcher3"
+   or self:GetClass() == "npc_vj_cofraom_twitcher1_hd" 
+   or self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher/zo_alert10.wav",
 	"vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -203,18 +180,10 @@ if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then
 	"vj_cofr/aom/twitcher/zo_attack1.wav",
 	"vj_cofr/aom/twitcher/zo_attack2.wav"
 }
-   elseif self:GetModel() == "models/vj_cofr/aom/zombie2_1.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie2_5.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_3.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_4.mdl"
-   or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl" 
-   or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
+   elseif self:GetClass() == "npc_vj_cofraom_twitcher2" 
+   or self:GetClass() == "npc_vj_cofraom_twitcher4"
+   or self:GetClass() == "npc_vj_cofraom_twitcher2_hd" 
+   or self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher2/zo_alert10.wav",
 	"vj_cofr/aom/twitcher2/zo_alert20.wav",
@@ -226,9 +195,9 @@ if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then
 }
     end
 end	
-if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 1 then
-local Twitcher_Sounds = math.random(1,2)
-if Twitcher_Sounds == 1 then
+ if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 1 then
+ local Twitcher_Sounds = math.random(1,2)
+ if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher/zo_alert10.wav",
 	"vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -238,7 +207,7 @@ if Twitcher_Sounds == 1 then
 	"vj_cofr/aom/twitcher/zo_attack1.wav",
 	"vj_cofr/aom/twitcher/zo_attack2.wav"
 }
-elseif Twitcher_Sounds == 2 then
+ elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/twitcher2/zo_alert10.wav",
 	"vj_cofr/aom/twitcher2/zo_alert20.wav",
@@ -259,18 +228,24 @@ function ENT:CustomOnInitialize()
 	or self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl" then 
        self:SetBodygroup(0,math.random(0,3))
 	   
-elseif self:GetModel() == "models/vj_cofr/aom/zombie2.mdl" 
+    elseif self:GetModel() == "models/vj_cofr/aom/zombie2.mdl" 
 	or self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" 
 	or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl" 
 	or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl" then 
        self:SetBodygroup(0,math.random(0,2))
 		   
-elseif self:GetModel() == "models/vj_cofr/aom/zombie3.mdl" 
+    elseif self:GetModel() == "models/vj_cofr/aom/zombie3.mdl" 
 	or self:GetModel() == "models/vj_cofr/aom/zombie2_5.mdl"
 	or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl"
 	or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl"
 	or self:GetModel() == "models/vj_cofr/aom/zombie5_5.mdl" then 
        self:SetBodygroup(0,math.random(0,1))
+
+    elseif self:GetModel() == "models/vj_cofr/aom/zombiehd.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" 
+	or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
+       self:SetBodygroup(0,math.random(0,10))
 end		
        self:Twitcher_CustomOnInitialize()
 	   self:TwitcherSounds()
@@ -279,25 +254,30 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 && self.Twitcher_Invisible then
         self:PlaySoundSystem("Alert", {"vj_cofr/aom/twitcher/skuggfa.wav"}) 	
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+function ENT:CustomOnThink()
+	-- Remove decals for Transparent & Invisible Twitchers
+    if self.Twitcher_Invisible or self.Twitcher_Transparent then
+	    self:RemoveAllDecals()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
@@ -305,18 +285,29 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	 if hitgroup == HITGROUP_HEAD then
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
-	else
+    else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
 end
     VJ_COFR_DeathCode(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+ if self.Twitcher_Invisible or (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
+	corpseEnt:DrawShadow(false)
+ elseif self.Twitcher_Transparent then
+    corpseEnt:SetRenderFX(kRenderFxDistort)
+    corpseEnt:SetRenderMode(RENDERMODE_TRANSADD)
+end
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

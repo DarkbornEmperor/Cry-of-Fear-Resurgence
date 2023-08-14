@@ -1,5 +1,5 @@
 SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Glock"
+SWEP.PrintName					= "Glock 19"
 SWEP.Author 					= "Darkborn"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose					= "This weapon is made for NPCs"
@@ -25,12 +25,23 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 13 -- Damage
 SWEP.Primary.ClipSize			= 15 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Ammo				= "Pistol" -- Ammo type
 SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/glock/glock_fire.wav"}
-SWEP.Primary.DistantSound		= {""}
+SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/glock_distant2.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+-- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
+function SWEP:CustomOnInitialize() 
+  if self:GetOwner():GetClass() == "npc_vj_cofr_simonbeta" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-1.5, 4, -1)
+  elseif self:GetOwner():GetClass() == "npc_vj_cofr_police" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-1.1, 4.5, -1)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttackEffects(owner)
 	self.PrimaryEffects_MuzzleFlash = false
 	muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")

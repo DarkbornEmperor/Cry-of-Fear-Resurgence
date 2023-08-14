@@ -6,7 +6,6 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/hangman.mdl"}
-ENT.StartHealth = 5000
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -15,7 +14,7 @@ ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = true 
-ENT.TimeUntilMeleeAttackDamage = 0.001
+ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 30 
@@ -36,12 +35,14 @@ ENT.VJC_Data = {
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Hangman_CustomOnInitialize()
-end
+function ENT:Hangman_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)

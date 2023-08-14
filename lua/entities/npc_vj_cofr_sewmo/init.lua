@@ -27,8 +27,9 @@ ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, 
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}
 }
-ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 8 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -44,10 +45,14 @@ ENT.SoundTbl_FootStep = {
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
+//ENT.Sewmo_Sleep = false
 ENT.Sewmo_WireBroken = false
 ENT.Sewmo_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,6 +74,14 @@ function ENT:Sewmo_CustomOnInitialize()
 	"vj_cofr/cof/sewmo/sewmo_pain1.wav",
 	"vj_cofr/cof/sewmo/sewmo_pain2.wav"
 }
+	/*if self.Sewmo_Sleep then
+	    self.MovementType = VJ_MOVETYPE_STATIONARY
+		self.CanTurnWhileStationary = false
+	    self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+		self.HasMeleeAttack = false
+		self.CallForHelp = false
+		self:AddFlags(FL_NOTARGET)
+    end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -79,28 +92,39 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
+	elseif key == "attack" then
 		self:MeleeAttackCode()
-end
-	if key == "barbedwire_break" then
-		VJ_EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
+	elseif key == "barbedwire_break" then
+		VJ.EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
+		self:RemoveAllDecals()
 	if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
-	if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end		
-end		
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end				
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+/*function ENT:CustomOnThink_AIEnabled()
+    if !IsValid(self:GetEnemy()) or !self:Visible(self:GetEnemy()) or self.Dead or !self.Sewmo_Sleep then return end	
+	if self.Sewmo_Sleep && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then	
+		self.Sewmo_Sleep = false
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
+		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+	    self.AnimTbl_IdleStand = {ACT_IDLE}
+		self.HasMeleeAttack = true
+		self.CallForHelp = true
+        self:RemoveFlags(FL_NOTARGET)		
+	end
+end*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}
         self.MeleeAttackDistance = 50 
-        self.MeleeAttackDamageDistance = 90		
+        self.MeleeAttackDamageDistance = 75		
 		self.MeleeAttackDamage = 16
 		self.SoundTbl_MeleeAttackMiss = {
 		"vj_cofr/cof/sewmo/tunga_miss.wav"
@@ -142,7 +166,9 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
 		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-	end
+end
+    -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
+	return self:GetActivity() != ACT_SIGNAL1
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
@@ -154,9 +180,14 @@ end
 	VJ_COFR_DeathCode(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

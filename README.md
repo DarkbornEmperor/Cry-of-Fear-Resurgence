@@ -3,7 +3,7 @@ Overhaul recreation & expansion of NPCs/Entities from Cry of Fear & Afraid of Mo
  
 Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2573915612 
 
-Roadmap: https://trello.com/c/od9AtBFw/73-roadmap
+Roadmap: https://trello.com/b/bD2yGebK/cry-of-fear-resurgence
  
 Note: You need VJ Base for everything to work:
 https://steamcommunity.com/workshop/filedetails/?id=131759821

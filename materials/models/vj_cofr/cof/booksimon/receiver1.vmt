@@ -1,7 +1,5 @@
 "VertexlitGeneric"
 {
-	"$basetexture" "models/vj_cofr/cof/booksimon/receiver1"
-	//"$surfaceprop" "Metal"
-	//"$vertexcolor" 1
+	"$basetexture" "models/vj_cofr/cof/weapons/m16/receiver1"
 	"$nodecal" 1
 }

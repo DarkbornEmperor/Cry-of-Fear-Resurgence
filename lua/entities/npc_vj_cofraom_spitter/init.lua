@@ -18,6 +18,7 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 25 
 ENT.MeleeAttackDamageDistance = 50
+ENT.HasMeleeAttackKnockBack = true
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = {"vjseq_range"}
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_spit"
@@ -35,9 +36,10 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -60,17 +62,25 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/twitcher/claw_miss1.wav",
 "vj_cofr/aom/twitcher/claw_miss2.wav"
 }
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/aom/spitter/bc_attack1.wav",
-"vj_cofr/aom/spitter/bc_attack2.wav",
-"vj_cofr/aom/spitter/bc_attack3.wav"
-}	
+ENT.SoundTbl_Impact = {
+"vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
+"vj_cofr/fx/flesh6.wav",
+"vj_cofr/fx/flesh7.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spitter_CustomOnInitialize()
     self.SoundTbl_BeforeMeleeAttack = {
 	"vj_cofr/aom/spitter/bc_attackgrowl.wav",
 	"vj_cofr/aom/spitter/bc_attackgrowl2.wav",
 	"vj_cofr/aom/spitter/bc_attackgrowl3.wav"
+}
+    self.SoundTbl_RangeAttack = {
+    "vj_cofr/aom/spitter/bc_attack1.wav",
+    "vj_cofr/aom/spitter/bc_attack2.wav",
+    "vj_cofr/aom/spitter/bc_attack3.wav"
 }
     self.SoundTbl_Pain = {
 	"vj_cofr/aom/spitter/bc_pain1.wav",
@@ -84,8 +94,8 @@ function ENT:Spitter_CustomOnInitialize()
 	"vj_cofr/aom/spitter/bc_die3.wav"
 }
  if self:GetModel() == "models/vj_cofr/aom/bullsquidhd.mdl" then
-      self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-	  self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+      self.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
+	  self.AnimTbl_RangeAttack = {"vjseq_range"}
    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,19 +107,20 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack_range" then
+	elseif key == "attack_range" then
 		self:RangeAttackCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+	return self:GetForward()*55 + self:GetUp()*255
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
@@ -117,7 +128,7 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 		return self:CalculateProjectile("Curve", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
@@ -127,11 +138,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

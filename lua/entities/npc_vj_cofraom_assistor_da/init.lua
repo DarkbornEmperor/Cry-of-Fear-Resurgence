@@ -21,7 +21,7 @@ ENT.SoundTbl_FollowPlayer = {
 function ENT:AssistorFlashlight()
      if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end		 
      if math.random(1,3) == 1 then
-	    self:SetBodygroup(1,1)
+	    self:SetBodygroup(0,1)
 		self:SetSkin(1)
         self.light = ents.Create("env_projectedtexture")
         self.light:SetLocalPos( self:GetPos() + Vector(0,0,0) )

@@ -36,9 +36,10 @@ ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
 ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
@@ -47,14 +48,12 @@ ENT.VJC_Data = {
 	FirstP_Offset = Vector(10, 0, -3), -- The offset for the screamer when the camera is in first person
 }
 	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/aom/screamer/con_attack1.wav",
-"vj_cofr/aom/screamer/con_attack2.wav",
-"vj_cofr/aom/screamer/con_attack3.wav"
-}	
+-- Leave blank if you don't want any sounds to play	
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -66,6 +65,11 @@ function ENT:Screamer_CustomOnInitialize()
 	"vj_cofr/aom/screamer/con_alert1.wav",
 	"vj_cofr/aom/screamer/con_alert2.wav",
 	"vj_cofr/aom/screamer/con_alert3.wav"
+}
+    self.SoundTbl_RangeAttack = {
+	"vj_cofr/aom/screamer/con_attack1.wav",
+    "vj_cofr/aom/screamer/con_attack2.wav",
+    "vj_cofr/aom/screamer/con_attack3.wav"
 }
     self.SoundTbl_Pain = {
 	"vj_cofr/aom/screamer/con_pain1.wav",
@@ -90,12 +94,12 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Screamer_HomingAttack = true
 		self:RangeAttackCode()
-elseif key == "attack_range" then
+    elseif key == "attack_range" then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Screamer_HomingAttack = false
 		self:RangeAttackCode()
-elseif key == "sprite" && self.AttackType == VJ_ATTACK_RANGE && !self.Screamer_HomingAttack then
+    elseif key == "sprite" && self.AttackType == VJ.ATTACK_TYPE_RANGE && !self.Screamer_HomingAttack then
 		if IsValid(self.Soul1) then self.Soul1:Remove() end
 		if IsValid(self.Soul2) then self.Soul2:Remove() end
 		self.Soul1 = ents.Create("env_sprite")
@@ -105,10 +109,10 @@ elseif key == "sprite" && self.AttackType == VJ_ATTACK_RANGE && !self.Screamer_H
 		self.Soul1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
 		//self.Soul1:SetKeyValue("HDRColorScale","1.0")
 		self.Soul1:SetKeyValue("renderfx","14")
-		self.Soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
+		self.Soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
 		self.Soul1:SetKeyValue("renderamt","255") -- Transparency
 		self.Soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		//self.Soul1:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
+		self.Soul1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
 		self.Soul1:SetKeyValue("spawnflags","0")
 		self.Soul1:SetParent(self)
 		self.Soul1:Fire("SetParentAttachment","rhand")
@@ -124,10 +128,10 @@ elseif key == "sprite" && self.AttackType == VJ_ATTACK_RANGE && !self.Screamer_H
 		self.Soul2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
 		//self.Soul2:SetKeyValue("HDRColorScale","1.0")
 		self.Soul2:SetKeyValue("renderfx","14")
-		self.Soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Soul)
+		self.Soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
 		self.Soul2:SetKeyValue("renderamt","255") -- Transparency
 		self.Soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		//self.Soul2:SetKeyValue("framerate","5.0") -- Rate at which the sprite should animate, if at all.
+		self.Soul2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
 		self.Soul2:SetKeyValue("spawnflags","0")
 		self.Soul2:SetParent(self)
 		self.Soul2:Fire("SetParentAttachment","lhand")
@@ -138,7 +142,7 @@ elseif key == "sprite" && self.AttackType == VJ_ATTACK_RANGE && !self.Screamer_H
 	end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleRangeAttacks()
+function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
 	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = {"vjseq_shoot"}
 		self.RangeAttackPos_Up = 80
@@ -172,7 +176,13 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:DrawShadow(false)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

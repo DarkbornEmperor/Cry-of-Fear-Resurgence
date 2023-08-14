@@ -6,7 +6,6 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/cof/facehead.mdl"}
-ENT.StartHealth = 5000
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -15,7 +14,7 @@ ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = true 
-ENT.TimeUntilMeleeAttackDamage = 0.001
+ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 10 
 ENT.MeleeAttackDistance = 40 
@@ -36,15 +35,18 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/facehead/sirensfromhell.mp3"
+"vj_cofr/cof/facehead/sirensfromhell2.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.FaceHead_NextFacelessSpawnT = 0
+ENT.FaceHead_NextFacelessSpawnT = CurTime()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -64,16 +66,15 @@ function ENT:CustomOnInitialize()
      self:FaceHead_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
+function ENT:Controller_Initialize(ply,controlEnt)
+ if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end	
 	ply:ChatPrint("JUMP: Summon Faceless")
+    ply:ChatPrint("NOTE: Summoning Faceless will cause a 20 second delay until able to spawn more and the current Faceless are dead.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
     if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end	
- 	if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.Faceless1) && !IsValid(self.Faceless2) && !IsValid(self.Faceless3) && !IsValid(self.Faceless4) && !IsValid(self.Faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-		if self.VJ_IsBeingControlled then
-			self.VJ_TheController:PrintMessage(HUD_PRINTCENTER, "Spawning Faceless! Cool Down: 20 seconds!")
-end		
+ 	if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.Faceless1) && !IsValid(self.Faceless2) && !IsValid(self.Faceless3) && !IsValid(self.Faceless4) && !IsValid(self.Faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then	
 		local Faceless1 = ents.Create("npc_vj_cofr_faceless")
 		Faceless1:SetPos(self:GetPos() + self:GetRight()*60 + self:GetUp()*10)
 		Faceless1:SetAngles(self:GetAngles())

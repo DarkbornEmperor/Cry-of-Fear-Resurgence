@@ -23,6 +23,31 @@ ENT.Monster = {
 ENT.BossMonster = {
 	{class="npc_vj_cofraom_addiction",max=1},
 }
+
+local AmbientSounds = {
+    "vj_cofr/aom/mapspawner/4motherbr.wav",
+	"vj_cofr/aom/mapspawner/babylaugh12.wav",
+	"vj_cofr/aom/mapspawner/brutalskrik.wav",
+	"vj_cofr/aom/mapspawner/cagesound.wav",
+	"vj_cofr/aom/mapspawner/cover_here.wav",
+	"vj_cofr/aom/mapspawner/cry1.wav",
+	"vj_cofr/aom/mapspawner/cry2.wav",
+	"vj_cofr/aom/mapspawner/cry3.wav",
+	"vj_cofr/aom/mapspawner/freakguyscream.wav",
+	"vj_cofr/aom/mapspawner/freakguyscream2.wav",
+	"vj_cofr/aom/mapspawner/iscareyou1.wav",
+	"vj_cofr/aom/mapspawner/karringskrik1.wav",
+	"vj_cofr/aom/mapspawner/karringskrik2.wav",
+	"vj_cofr/aom/mapspawner/ki5.wav",
+	"vj_cofr/aom/mapspawner/ki6.wav",
+	"vj_cofr/aom/mapspawner/ki9.wav",
+	"vj_cofr/aom/mapspawner/over_here.wav",
+	"vj_cofr/aom/mapspawner/scream22.wav",
+	"vj_cofr/aom/mapspawner/vaggover.wav",
+	"vj_cofr/aom/mapspawner/viskingar.wav",
+	"vj_cofr/aom/mapspawner/viskingar2.wav",
+	"vj_cofr/aom/mapspawner/child_cryin.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
 	local i = 0
@@ -85,11 +110,12 @@ function ENT:Initialize()
 	self.NextAIBossCheckTime = CurTime() +5
 	self.HordeSpawnRate = 0.19
 	self.MaxBossMonster = 1
+	self.NextAmbientSoundT = CurTime() + math.Rand(1,30)
 	self.CanSpawnBossMonster = false --GetConVarNumber("VJ_COFR_MapSpawner_Boss")
-	
-	for _,v in ipairs(player.GetAll()) do
-		if GetConVarNumber("VJ_COFR_MapSpawner_Music") == 1 then
-		   self.COFR_Music = VJ_CreateSound(v,"vj_cofr/aom/davidbad/sickness.mp3",GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(), 100)			
+
+	if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then
+	   for _,v in ipairs(player.GetAll()) do
+		   self.COFR_Music = VJ.CreateSound(v,"vj_cofr/aom/davidbad/sickness.mp3",GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(),100)			
 		end
 	end	
 end	
@@ -126,7 +152,7 @@ function ENT:FindHiddenNavPoint(ent)
 		local hidingSpots = v:GetHidingSpots()
 		if !hidingSpots then continue end
 		if #hidingSpots <= 0 then continue end
-		local testPos = VJ_PICK(hidingSpots)
+		local testPos = VJ.PICK(hidingSpots)
 		local dist = testPos:Distance(ent:GetPos())
 		if dist <= self.COFR_SpawnDistance && dist >= self.COFR_SpawnDistanceClose && !self:CheckVisibility(testPos,ent) then
 			return testPos
@@ -153,7 +179,7 @@ function ENT:GetClosestNavPosition(ent,getHidden)
 		local hidingSpots = getHidden && v:GetHidingSpots() or true
 		if !hidingSpots then continue end
 		if istable(hidingSpots) && #hidingSpots <= 0 then continue end
-		local testPos = getHidden && VJ_PICK(v:GetHidingSpots()) or v:GetRandomPoint()
+		local testPos = getHidden && VJ.PICK(v:GetHidingSpots()) or v:GetRandomPoint()
 		local dist = ent:GetPos():Distance(testPos)
 		if dist < closestDist && (dist <= self.COFR_SpawnDistance && dist >= self.COFR_SpawnDistanceClose && !self:CheckVisibility(testPos,ent)) then
 			closestDist = dist
@@ -230,7 +256,7 @@ function ENT:FindEnemy()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetRandomEnemy()
-	return VJ_PICK(self:FindEnemy())
+	return VJ.PICK(self:FindEnemy())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetClosestEnemy(pos)
@@ -275,8 +301,16 @@ function ENT:Think()
 	    self.COFR_HordeCooldownMax = GetConVarNumber("VJ_COFR_MapSpawner_HordeCooldownMax")
 	    self.COFR_MaxMonster = GetConVarNumber("VJ_COFR_MapSpawner_MaxMon")
 	    self.COFR_MaxHordeSpawn = GetConVarNumber("VJ_COFR_MapSpawner_HordeCount")
-		self.AI_RefreshTime = GetConVarNumber("VJ_COFR_MapSpawner_RefreshRate") 
-		
+		self.AI_RefreshTime = GetConVarNumber("VJ_COFR_MapSpawner_RefreshRate") 	
+
+	 if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
+     for _,v in ipairs(player.GetAll()) do	
+     if math.random(1,2) == 1 && self.NextAmbientSoundT < CurTime() then
+        self.COFR_Ambient = VJ.CreateSound(v,AmbientSounds,GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(),100) 
+	    self.NextAmbientSoundT = CurTime() + math.random(20,40)
+		end
+    end
+end		
 		-- Checks for inactive AI, this code is quite bulky and might be able to be optimized better
 		if CurTime() > self.NextAICheckTime then
 			if #self.tbl_SpawnedNPCs > 0 then
@@ -323,7 +357,7 @@ function ENT:Think()
 			self.NextMonsterSpawnTime = CurTime() +math.Rand(GetConVarNumber("VJ_COFR_MapSpawner_DelayMin"),GetConVarNumber("VJ_COFR_MapSpawner_DelayMax"))
 		end
 
-		if GetConVarNumber("VJ_COFR_MapSpawner_Boss") == 1 then
+		if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
 		    self.CanSpawnBossMonster = true
 			if CurTime() > self.NextBossMonsterSpawnTime then
 				self:SpawnBossMonster(self:PickMonster(self.BossMonster),self:FindSpawnPosition(true))
@@ -423,7 +457,8 @@ function ENT:SpawnBossMonster(ent,pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-    VJ_STOPSOUND(self.COFR_Music)
+    VJ.STOPSOUND(self.COFR_Music)
+    VJ.STOPSOUND(self.COFR_Ambient)
 	for index,object in ipairs(self.tbl_SpawnedNPCs) do
 		if IsValid(object) then
 			object:Remove()

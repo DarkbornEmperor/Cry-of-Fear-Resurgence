@@ -24,6 +24,7 @@ ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
+ENT.NextRangeAttackTime = 0
 ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
 ENT.NoChaseAfterCertainRange = false
@@ -34,8 +35,9 @@ ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
-ENT.HasDeathAnimation = true 
-ENT.DeathAnimationTime = 10
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
@@ -54,29 +56,32 @@ ENT.SoundTbl_MeleeAttackExtra = {
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/booksimon/sledgehammer_swing.wav"
 }
+ENT.SoundTbl_Glock = {
+"vj_cofr/cof/suicider/suicider_glock_fire.wav"
+}
+ENT.SoundTbl_Shotgun = {
+"vj_cofr/cof/weapons/shotgun/shoot.wav"
+}
+ENT.SoundTbl_TMP = {
+"vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
+}
+ENT.SoundTbl_M16 = {
+"vj_cofr/cof/weapons/m16/m16_fire.wav"
+}
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/booksimon/ending5.mp3",
 "vj_cofr/cof/booksimon/fucked.mp3",
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.SoundTbl_Glock = {
-"vj_cofr/cof/weapons/glock/glock_fire.wav"
-}
-ENT.SoundTbl_Shotgun = {
-"vj_cofr/cof/weapons/shotgun/shoot.wav"
-}
-ENT.SoundTbl_TMP = {
-"vj_cofr/cof/weapons/tmp/tmp_fire.wav"
-}
-ENT.SoundTbl_M16 = {
-"vj_cofr/cof/weapons/m16/m16_fire.wav"
-}
 ENT.BreathSoundLevel = 75
-ENT.RangeAttackSoundLevel = 100
+ENT.RangeAttackSoundLevel = 90
 -- Custom
 ENT.BookSimon_Shotgun = false
 ENT.BookSimon_Glock = false
@@ -84,7 +89,6 @@ ENT.BookSimon_TMP = false
 ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
-ENT.BookSimon_FiredAtLeastOnce = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()	
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -148,15 +152,14 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
-end
-	if key == "attack" then
-		self:MeleeAttackCode()
-end	
-	if key == "death" then
-		VJ_EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+		self:CustomOnFootStepSound()
+	elseif key == "attack" then
+		self:MeleeAttackCode()	
+	elseif key == "death" then
+		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end		
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ_EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,11 +173,12 @@ function ENT:SetShotgun()
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.5
-	self.NextRangeAttackTime = 1	
+	self.NextAnyAttackTime_Range = 1	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetTMP()
 	self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
+	self:SetIdleAnimation({ACT_IDLE_HURT}, true)
 	self.AnimTbl_Walk = {ACT_WALK_HURT}
 	self.AnimTbl_Run = {ACT_WALK_HURT}
 	self:SetBodygroup(0,2)
@@ -183,12 +187,14 @@ function ENT:SetTMP()
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
-	self.TimeUntilRangeAttackProjectileRelease = 0.01
-	self.NextRangeAttackTime = 0.07
+	self.TimeUntilRangeAttackProjectileRelease = 0.09
+	self.RangeAttackReps = 10
+	self.NextAnyAttackTime_Range = 1.5
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetGlock()
 	self.AnimTbl_IdleStand = {ACT_IDLE_STEALTH}
+	self:SetIdleAnimation({ACT_IDLE_STEALTH}, true)
 	self.AnimTbl_Walk = {ACT_WALK_STEALTH}
 	self.AnimTbl_Run = {ACT_WALK_STEALTH}
 	self:SetBodygroup(0,3)
@@ -197,7 +203,7 @@ function ENT:SetGlock()
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.1
-	self.NextRangeAttackTime = 0.6		
+	self.NextAnyAttackTime_Range = 0.6		
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetM16()
@@ -209,12 +215,14 @@ function ENT:SetM16()
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
 	self.CombatFaceEnemy = false
-	self.TimeUntilRangeAttackProjectileRelease = 0.1
-	self.NextRangeAttackTime = 0.05	
+	self.TimeUntilRangeAttackProjectileRelease = 0.05
+	self.RangeAttackReps = 3
+	self.NextAnyAttackTime_Range = 1.5	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammer()
     self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
+	self:SetIdleAnimation({ACT_IDLE_STIMULATED}, true)
     self.AnimTbl_Walk = {ACT_RUN_STIMULATED}
 	self.AnimTbl_Run = {ACT_RUN_STIMULATED}
 	self:SetBodygroup(0,5)
@@ -225,6 +233,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammerFlare()
     self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+	self:SetIdleAnimation({ACT_IDLE_RELAXED}, true)
     self.AnimTbl_Walk = {ACT_SPRINT}
 	self.AnimTbl_Run = {ACT_SPRINT}
 	self.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
@@ -233,7 +242,7 @@ function ENT:SetSledgehammerFlare()
 	self.HasPoseParameterLooking = false	
 	self.HasMeleeAttack = true
 	self.HasRangeAttack = false	
-	self.Flare_Ignite = VJ_CreateSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
+	self.Flare_Ignite = VJ.CreateSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
 	self.SoundTbl_Breath = {
     "vj_cofr/cof/booksimon/flare_burn.wav"
 }	
@@ -254,7 +263,11 @@ function ENT:SetSledgehammerFlare()
 	ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BookSimon_DoFireEffects()
+function ENT:CustomOnChangeActivity(newAct)
+    if self.BookSimon_Glock or self.BookSimon_TMP or self.BookSimon_Sledgehammer or self.BookSimon_SledgehammerFlare then self.NextIdleStandTime = 0 end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FireFX()
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
 	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
@@ -303,59 +316,89 @@ function ENT:BookSimon_DoFireEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	local bullet = {}
-	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()+self:GetEnemy():GetUp()*-35) -self:GetPos()
-	bullet.TracerName = "Tracer"
-	bullet.Force = 4
-	
-	if self.BookSimon_Shotgun then
-		bullet.Num = 12
-		bullet.Src = self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos
-		bullet.Spread = Vector(60,50,40)
-		bullet.Tracer = 6
-		bullet.Damage = 5
-	    bullet.AmmoType = "Buckshot"
-		VJ_EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-	    timer.Simple(0.5,function() if IsValid(self) then
-	    self.Shotgun_Pump = VJ_CreateSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
+ local ene = self:GetEnemy()
+ if IsValid(self) && IsValid(self:GetEnemy()) then	
+ if self.BookSimon_Shotgun then
+    VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+	timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
+	self:FireBullets({
+        Attacker = self,
+		Num = 6,
+		Src = self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos,
+	    Dir = (ene:GetPos() + ene:OBBCenter() - self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos):Angle():Forward(),
+		Spread = Vector(0.1,0.1,0),
+		TracerName = "VJ_COFR_Tracer",
+		Tracer = 1,
+		Damage = 5,
+		Force = 5,
+	    AmmoType = "Buckshot",
+		Distance = 2048,
+		HullSize = 1
+     })
 		
-    elseif self.BookSimon_Glock then
-		bullet.Num = 1
-		bullet.Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos
-		bullet.Spread = Vector(50,40,30)
-		bullet.Tracer = 1
-		bullet.Damage = 13
-	    bullet.AmmoType = "Pistol"
-		VJ_EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+ elseif self.BookSimon_Glock then
+    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+	self:FireBullets({
+        Attacker = self,
+		Num = 1,
+		Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos,
+	    Dir = (ene:GetPos() + ene:OBBCenter() - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+		Spread = Vector(0.1,0.1,0),
+		TracerName = "VJ_COFR_Tracer",
+		Tracer = 1,
+		Damage = 13,
+		Force = 5,
+	    AmmoType = "Pistol",
+		Distance = 2048,
+		HullSize = 1
+     })
 		
-    elseif self.BookSimon_TMP then
-		bullet.Num = 1
-		bullet.Src = self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos
-		bullet.Spread = Vector(60,50,40)
-		bullet.Tracer = 1
-		bullet.Force = 4
-		bullet.Damage = 4
-	    bullet.AmmoType = "SMG1"
-		VJ_EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+ elseif self.BookSimon_TMP then
+	VJ.EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/hks_distant_new.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+	self:FireBullets({
+        Attacker = self,
+		Num = 1,
+		Src = self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos,
+	    Dir = (ene:GetPos() + ene:OBBCenter() - self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos):Angle():Forward(),
+		Spread = Vector(0.1,0.1,0),
+		TracerName = "VJ_COFR_Tracer",
+		Tracer = 1,
+		Force = 4,
+		Damage = 4,
+		Force = 5,
+	    AmmoType = "SMG1",
+		Distance = 2048,
+		HullSize = 1
+	 })
 		
-    elseif self.BookSimon_M16 then
-		bullet.Num = 1
-		bullet.Src = self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos
-		bullet.Spread = Vector(50,40,30)
-		bullet.Tracer = 1
-		bullet.TracerName = "Tracer"
-		bullet.Force = 4
-		bullet.Damage = 16
-		bullet.AmmoType = "SMG1"
-		VJ_EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))				
-end	
-	self:FireBullets(bullet)
-	self.BookSimon_FiredAtLeastOnce = true
-	self:BookSimon_DoFireEffects()	
+ elseif self.BookSimon_M16 then
+	VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))	
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/hks_distant_new.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))	
+	self:FireBullets({
+        Attacker = self,
+		Num = 1,
+		Src = self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos,
+	    Dir = (ene:GetPos() + ene:OBBCenter() - self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos):Angle():Forward(),
+		Spread = Vector(0.1,0.1,0),
+		TracerName = "VJ_COFR_Tracer",
+		Tracer = 1,
+		Force = 4,
+		Damage = 16,
+		Force = 5,
+		AmmoType = "SMG1",
+		Distance = 2048,
+		HullSize = 1
+	 })
+	end
+end
+	self:FireFX()	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    dmginfo:ScaleDamage(0.45)		
+	dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
@@ -364,16 +407,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorBlack = Color(0, 0, 0, 255)
 --
-function ENT:CustomOnKilled(dmginfo, hitgroup)
+function ENT:CustomOnKilled(dmginfo,hitgroup)
 	-- Screen flash effect for all the players
 	for _,v in ipairs(player.GetHumans()) do
 		v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
 	end
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ_STOPSOUND(self.Shotgun_Pump)
-    VJ_STOPSOUND(self.Flare_Ignite)
+    VJ.STOPSOUND(self.Shotgun_Pump)
+    VJ.STOPSOUND(self.Flare_Ignite)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
@@ -501,32 +549,10 @@ function ENT:CustomOnFootStepSound()
 		filter = {self}
 	})
 	if tr.Hit && self.FootSteps[tr.MatType] then
-		VJ_EmitSound(self,VJ_PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+		VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:FootStepSoundCode(CustomTbl)
-	if self.HasSounds == false or self.HasFootStepSound == false or self.MovementType == VJ_MOVETYPE_STATIONARY then return end
-	if self:IsOnGround() && self:GetGroundEntity() != NULL then
-		if self.DisableFootStepSoundTimer == true then
-			self:CustomOnFootStepSound()
-			return
-		elseif self:IsMoving() && CurTime() > self.FootStepT then
-			self:CustomOnFootStepSound()
-			local CurSched = self.CurrentSchedule
-			if self.DisableFootStepOnRun == false && ((VJ_HasValue(self.AnimTbl_Run,self:GetMovementActivity())) or (CurSched != nil  && CurSched.IsMovingTask_Run == true)) /*(VJ_HasValue(VJ_RunActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomRunActivites,self:GetMovementActivity()))*/ then
-				self:CustomOnFootStepSound_Run()
-				self.FootStepT = CurTime() + self.FootStepTimeRun
-				return
-			elseif self.DisableFootStepOnWalk == false && (VJ_HasValue(self.AnimTbl_Walk,self:GetMovementActivity()) or (CurSched != nil  && CurSched.IsMovingTask_Walk == true)) /*(VJ_HasValue(VJ_WalkActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomWalkActivites,self:GetMovementActivity()))*/ then
-				self:CustomOnFootStepSound_Walk()
-				self.FootStepT = CurTime() + self.FootStepTimeWalk
-				return
-			end
-		end
+		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
 	end
 end
 /*-----------------------------------------------

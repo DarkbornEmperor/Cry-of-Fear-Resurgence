@@ -20,8 +20,7 @@ ENT.AdminSpawnable	= false
 if !SERVER then return end
 
 ENT.SingleSpawner = true
-ENT.EntitiesToSpawn = {
-	{Entities = {
+local entsList = {
 	"npc_vj_cofraom_twitcher1",
 	"npc_vj_cofraom_twitcher2",
 	"npc_vj_cofraom_twitcher3",
@@ -34,11 +33,34 @@ ENT.EntitiesToSpawn = {
 	"npc_vj_cofraom_hellhound:10",
 	"npc_vj_cofraom_ghost:20",
 	"npc_vj_cofraom_screamer:25"
-	
-}},
 }
+ENT.EntitiesToSpawn = {
+	{SpawnPosition = {vForward=20, vRight=0, vUp=0}, Entities = entsList},
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+ if GetConVar("VJ_COFR_Boss_Spawner"):GetInt() == 0 then return end
+    entsList = {
+	"npc_vj_cofraom_twitcher1",
+	"npc_vj_cofraom_twitcher2",
+	"npc_vj_cofraom_twitcher3",
+	"npc_vj_cofraom_twitcher4",	
+	"npc_vj_cofraom_twitcher_da",
+	"npc_vj_cofraom_handcrab:5",
+	"npc_vj_cofraom_wheelchair:10",
+	"npc_vj_cofraom_spitter:15",
+	"npc_vj_cofraom_face:25",
+	"npc_vj_cofraom_hellhound:10",
+	"npc_vj_cofraom_ghost:20",
+	"npc_vj_cofraom_screamer:25",
+	"npc_vj_cofraom_addiction:60"
+}
+self.EntitiesToSpawn = {
+	{SpawnPosition = {vForward=20, vRight=0, vUp=0}, Entities = entsList},
+}
+end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2017 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted, 
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

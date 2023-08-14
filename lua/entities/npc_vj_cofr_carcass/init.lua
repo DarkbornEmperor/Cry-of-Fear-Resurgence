@@ -37,9 +37,10 @@ ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.RunAwayOnUnknownDamage = false
-ENT.HasDeathAnimation = true 
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE}
-ENT.DeathAnimationTime = 8 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -48,20 +49,20 @@ ENT.VJC_Data = {
 	FirstP_Bone = "joint11", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/cof/roofboss/rb_headshoot.wav"
-}	
+	-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/roofboss/sorrow.mp3"
+"vj_cofr/cof/roofboss/sophie3.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.BreathSoundLevel = 75
--- Custom
-ENT.Carcass_HomingAttack = true -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -85,6 +86,11 @@ function ENT:Carcass_CustomOnInitialize()
     self.SoundTbl_Death = {
 	"vj_cofr/cof/roofboss/rb_death.wav"
 }
+    if GetConVar("VJ_COFR_JoeBiden"):GetInt() == 1 then
+        self.RangeAttackEntityToSpawn = "obj_vj_cofr_biden"
+        self:SetMaterial("hud/killicons/default")
+        self:DrawShadow(false)		
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -94,20 +100,18 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)	
 	if key == "attack_range" then
-		self:RangeAttackCode()
-end	
-	if key == "stomach_open" then
-		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 75, 100)
-end	
-	if key == "stomach_close" then
-		VJ_EmitSound(self, "vj_cofr/cof/roofboss/rb_stomclose.wav", 75, 100)
+		self:RangeAttackCode()	
+	elseif key == "stomach_open" then
+		VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 75, 100)	
+	elseif key == "stomach_close" then
+		VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_stomclose.wav", 75, 100)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if self.Carcass_HomingAttack && IsValid(self:GetEnemy()) then
-		projectile.Track_Enemy = self:GetEnemy()
-		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
+	local ene = self:GetEnemy()
+	if IsValid(ene) then
+		projectile.Track_Enemy = ene
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -120,7 +124,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	    if self.HasSounds && self.HasImpactSounds then
             self.Bleeds = false
 			dmginfo:ScaleDamage(0.20)
-		VJ_EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+		    VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
 			local spark = ents.Create("env_spark")
 			spark:SetKeyValue("Magnitude","1")
 			spark:SetKeyValue("Spark Trail Length","1")
@@ -140,7 +144,12 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     VJ_COFR_DeathCode(self)	
-end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    corpseEnt:SetMoveType(MOVETYPE_STEP)
+	VJ_COFR_ApplyCorpse(self,corpseEnt)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

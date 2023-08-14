@@ -9,9 +9,10 @@ ENT.Model = {"models/vj_cofr/cof/dreamer.mdl"}
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
-ENT.MovementType = VJ_MOVETYPE_STATIONARY 
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CallForHelp = false
 ENT.SightAngle = 180
-ENT.HasMeleeAttack = false 
+ENT.HasMeleeAttack = false
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 	-- ====== Controller Data ====== --
@@ -25,6 +26,9 @@ ENT.VJC_Data = {
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
+"vj_cofr/fx/flesh2.wav",
+"vj_cofr/fx/flesh3.wav",
+"vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
@@ -41,33 +45,42 @@ function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
      self:SetMaterial("hud/killicons/default")
 	 self:DrawShadow(false)
-	 self.CallForHelp = false
-     self:SetCollisionBounds(Vector(13, 13, 87), Vector(-13, -13, 0))
+     self:SetCollisionBounds(Vector(13, 13, 86), Vector(-13, -13, 0))
      self:Dreamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
-	ply:ChatPrint("SPACE: Jumpscare")
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if !IsValid(self:GetEnemy()) then return end
-	if !self.Dreamer_Jumpscare && IsValid(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
-		self.Dreamer_Scream = VJ_CreateSound(self,self.SoundTbl_DreamerScream,75,100)
-	    self.Dreamer_Jumpscare = true
-		self.CallForHelp = true
-	    self:DrawShadow(true)
-        self:SetMaterial() 
-	    timer.Simple(0.8,function() if IsValid(self) && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 60 then	
-        self:GetEnemy():TakeDamage(10,self,self)	end end)			   
-        timer.Simple(1,function() if IsValid(self) then self:SetMaterial("hud/killicons/default") self:DrawShadow(false) end end)
-        timer.Simple(1.5,function() if IsValid(self) then self:Remove() end end)
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "attack" then
+		self:JumpscareDamage()
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply,controlEnt)
+	ply:ChatPrint("JUMP: Jumpscare")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	local ent = self:GetEnemy()
+	if !self.Dreamer_Jumpscare && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+		self.Dreamer_Scream = VJ.CreateSound(self,self.SoundTbl_DreamerScream,75,100)
+	    self.Dreamer_Jumpscare = true
+		self.CallForHelp = true
+	    self:DrawShadow(true)
+        self:SetMaterial(nil) 			   
+        timer.Simple(SoundDuration("vj_cofr/cof/dreamer/dreamer_scream.wav"),function() if IsValid(self) then self:Remove() end end)
+    end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:JumpscareDamage()
+    local ent = self:GetEnemy()
+    if IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 then
+	    ent:TakeDamage(10,self,self)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ_STOPSOUND(self.Dreamer_Scream)
+    VJ.STOPSOUND(self.Dreamer_Scream)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
