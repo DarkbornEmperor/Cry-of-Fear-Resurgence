@@ -119,11 +119,12 @@ end
      if hitgroup == 9 && self.Sawer_EyeOpen then
 	    dmginfo:ScaleDamage(0.2)
      else	
-       	dmginfo:ScaleDamage(0.00) 
+       	dmginfo:ScaleDamage(0) 
 end
      if hitgroup != 9 then
         self:SpawnBloodParticles(dmginfo,hitgroup)
 	    self:SpawnBloodDecal(dmginfo,hitgroup)
+		self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 end
      if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
 	 local AnimTime = VJ.AnimDuration(self,ACT_COWER)
@@ -131,7 +132,7 @@ end
 		VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
 		self:SetSkin(1)
 		self.Sawer_EyeOpen = true
-        self.MovementType = VJ_MOVETYPE_STATIONARY
+        self:DoChangeMovementType(VJ_MOVETYPE_STATIONARY)
         self.CanTurnWhileStationary = false
         self:AddFlags(FL_NOTARGET)					 
 	    self.Sawer_Eye = ents.Create("obj_vj_bullseye")
@@ -151,7 +152,7 @@ end
 		   self.Sawer_EyeOpen = false
            self.Sawer_Eye:Remove()
 		   self:RemoveFlags(FL_NOTARGET)
-           self.MovementType = VJ_MOVETYPE_GROUND
+           self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 		   self.Sawer_NextDownT = CurTime() + math.Rand(5,10) 		   		 
             end
         end)

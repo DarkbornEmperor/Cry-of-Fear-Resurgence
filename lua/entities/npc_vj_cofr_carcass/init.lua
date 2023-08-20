@@ -119,27 +119,30 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*20, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+	-- Make a metal ricochet effect
+    if hitgroup == 8 then
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(5) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_COFR_Rico", rico)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-        if hitgroup == 0 then	   
-	    if self.HasSounds && self.HasImpactSounds then
-            self.Bleeds = false
-			dmginfo:ScaleDamage(0.20)
-		    VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-			local spark = ents.Create("env_spark")
-			spark:SetKeyValue("Magnitude","1")
-			spark:SetKeyValue("Spark Trail Length","1")
-			spark:SetPos(dmginfo:GetDamagePosition())
-			spark:SetAngles(self:GetAngles())
-			spark:SetParent(self)
-			spark:Spawn()
-			spark:Activate()
-			spark:Fire("StartSpark", "", 0)
-			spark:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(spark)
-		else
-	        self.Bleeds = true
-     end	
-end	
+    if hitgroup == 8 then
+	if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end		
+        self.Bleeds = false
+		dmginfo:ScaleDamage(0.20)
+	else
+	    self.Bleeds = true
+    end	
+end		
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)

@@ -122,11 +122,12 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
 	    dmginfo:ScaleDamage(0.5)
 	else
-	    dmginfo:ScaleDamage(0.00)
+	    dmginfo:ScaleDamage(0)
 end
      if !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
         self:SpawnBloodParticles(dmginfo,hitgroup)
 	    self:SpawnBloodDecal(dmginfo,hitgroup)
+		self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
     end	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------

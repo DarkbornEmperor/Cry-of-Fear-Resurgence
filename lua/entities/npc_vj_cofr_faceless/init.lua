@@ -130,26 +130,29 @@ function ENT:CustomOnAlert()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+	-- Make a metal ricochet effect
+    if self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(5) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_COFR_Rico", rico)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	    if self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
-            self.Bleeds = false
-            dmginfo:ScaleDamage(0.20)	   
-	    if self.HasSounds == true && self.HasImpactSounds == true then 
-		VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-			local spark = ents.Create("env_spark")
-			spark:SetKeyValue("Magnitude","1")
-			spark:SetKeyValue("Spark Trail Length","1")
-			spark:SetPos(dmginfo:GetDamagePosition())
-			spark:SetAngles(self:GetAngles())
-			spark:SetParent(self)
-			spark:Spawn()
-			spark:Activate()
-			spark:Fire("StartSpark", "", 0)
-			spark:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(spark)
-		else
-	        self.Bleeds = true		
-	end		
+    if self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
+	if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end		
+        self.Bleeds = false
+		dmginfo:ScaleDamage(0.20)
+	else
+	    self.Bleeds = true
+    end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
