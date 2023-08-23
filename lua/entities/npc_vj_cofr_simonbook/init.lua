@@ -367,7 +367,7 @@ function ENT:CustomRangeAttackCode()
 		TracerName = "VJ_COFR_Tracer",
 		Tracer = 1,
 		Force = 4,
-		Damage = 4,
+		Damage = 7,
 		Force = 5,
 	    AmmoType = "SMG1",
 		Distance = 2048,

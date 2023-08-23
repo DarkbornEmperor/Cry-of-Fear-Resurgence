@@ -25,7 +25,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(6, 5, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-2.5, 3, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 4 -- Damage
+SWEP.Primary.Damage				= 7 -- Damage
 SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"}
