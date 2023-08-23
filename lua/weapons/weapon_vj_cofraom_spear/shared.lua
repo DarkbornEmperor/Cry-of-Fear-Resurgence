@@ -9,7 +9,7 @@ SWEP.Category					= "Cry of Fear Resurgence"
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_spear.mdl"
 SWEP.HoldType = "melee"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 30 -- Damage
+SWEP.Primary.Damage = 50 -- Damage
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
@@ -23,9 +23,8 @@ function SWEP:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
- if self:GetOwner():GetClass() == "npc_vj_cofraom_davidsource" then return end
 	self:GetOwner().MeleeAttackDamage = self.Primary.Damage	    
-	self:GetOwner().MeleeAttackDamageType = DMG_SLASH
+	self:GetOwner().MeleeAttackDamageType = DMG_SHOCK
 	self:GetOwner().SoundTbl_MeleeAttack = {
 	"vj_cofr/aom/weapons/spear/spear_stab.wav"
 	}
