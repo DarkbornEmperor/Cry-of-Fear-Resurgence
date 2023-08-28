@@ -44,6 +44,7 @@ local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600
+ENT.Eyeball_Classic = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -54,7 +55,13 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-  timer.Simple(5, function() if IsValid(self) then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100) self:Remove() end end)
+  timer.Simple(5, function() if IsValid(self) then 
+  if !self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100)
+  elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100) end
+     self:Remove() 
+    end
+end) 
+  if self.Eyeball_Classic then self.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/classic/ag_hornethit1.wav","vj_cofr/aom/eyeball/classic/ag_hornethit2.wav","vj_cofr/aom/eyeball/classic/ag_hornethit3.wav"} end
   if math.random(1,3) == 1 then
 	self:SetNoDraw(true)	
 	self.IdleEffect = ents.Create("env_sprite")

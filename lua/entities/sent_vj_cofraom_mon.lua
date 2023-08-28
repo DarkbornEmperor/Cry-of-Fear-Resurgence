@@ -32,7 +32,14 @@ local entsList = {
 	"npc_vj_cofraom_face:25",
 	"npc_vj_cofraom_hellhound:10",
 	"npc_vj_cofraom_ghost:20",
-	"npc_vj_cofraom_screamer:25"
+	"npc_vj_cofraom_screamer:25",
+	"npc_vj_cofraomc_twitcher",
+	"npc_vj_cofraomc_headcrab:5",
+	"npc_vj_cofraomc_hellhound:10",
+	"npc_vj_cofraomc_spitter:15",
+	"npc_vj_cofraomc_ghost:20",
+	"npc_vj_cofraomc_face:25",
+	"npc_vj_cofraomc_screamer:25"
 }
 ENT.EntitiesToSpawn = {
 	{SpawnPosition = {vForward=20, vRight=0, vUp=0}, Entities = entsList},
@@ -53,6 +60,13 @@ function ENT:CustomOnInitialize()
 	"npc_vj_cofraom_hellhound:10",
 	"npc_vj_cofraom_ghost:20",
 	"npc_vj_cofraom_screamer:25",
+	"npc_vj_cofraomc_twitcher",
+	"npc_vj_cofraomc_headcrab:5",
+	"npc_vj_cofraomc_hellhound:10",
+	"npc_vj_cofraomc_spitter:15",
+	"npc_vj_cofraomc_ghost:20",
+	"npc_vj_cofraomc_face:25",
+	"npc_vj_cofraomc_screamer:25",
 	"npc_vj_cofraom_addiction:60"
 }
 self.EntitiesToSpawn = {

@@ -152,37 +152,47 @@ if VJExists == true then
     -- Apparitions --
 	VJ.AddNPC("Corpse","sent_vj_cofrc_corpse",spawnCategory)	
 	
-	-- Afraid of Monsters: Director's Cut --
-	spawnCategory = "CoF Resurgence: AoM:DC"
+	-- Afraid of Monsters: Classic/Director's Cut --
+	spawnCategory = "CoF Resurgence: AoM"
 	VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofraom.png"})
 	
     -- Enemies --			
     VJ.AddNPC("Face","npc_vj_cofraom_face",spawnCategory)
+    VJ.AddNPC("Face (Classic)","npc_vj_cofraomc_face",spawnCategory)
 	VJ.AddNPC("Ghost","npc_vj_cofraom_ghost",spawnCategory)
-    VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",spawnCategory)	
+	VJ.AddNPC("Ghost (Classic)","npc_vj_cofraomc_ghost",spawnCategory)
+    VJ.AddNPC("Handcrab","npc_vj_cofraom_handcrab",spawnCategory)
+    VJ.AddNPC("Headcrab","npc_vj_cofraomc_headcrab",spawnCategory)		
     VJ.AddNPC("Hellhound","npc_vj_cofraom_hellhound",spawnCategory)
-    VJ.AddNPC("Spitter","npc_vj_cofraom_spitter",spawnCategory)		
-    VJ.AddNPC("Screamer","npc_vj_cofraom_screamer",spawnCategory)	
+    VJ.AddNPC("Hellhound (Classic)","npc_vj_cofraomc_hellhound",spawnCategory)
+    VJ.AddNPC("Lurker","npc_vj_cofraomc_lurker",spawnCategory)
+    VJ.AddNPC("Spitter","npc_vj_cofraom_spitter",spawnCategory)
+    VJ.AddNPC("Spitter (Classic)","npc_vj_cofraomc_spitter",spawnCategory)	
+    VJ.AddNPC("Screamer","npc_vj_cofraom_screamer",spawnCategory)
+    VJ.AddNPC("Screamer (Classic)","npc_vj_cofraomc_screamer",spawnCategory)
+    VJ.AddNPC("Twitcher (Classic)","npc_vj_cofraomc_twitcher",spawnCategory)
     VJ.AddNPC("Twitcher 1","npc_vj_cofraom_twitcher1",spawnCategory)
     VJ.AddNPC("Twitcher 2","npc_vj_cofraom_twitcher2",spawnCategory)
     VJ.AddNPC("Twitcher 3","npc_vj_cofraom_twitcher3",spawnCategory)
     VJ.AddNPC("Twitcher 4","npc_vj_cofraom_twitcher4",spawnCategory)	
 	VJ.AddNPC("Twitcher (Dark Assistance)","npc_vj_cofraom_twitcher_da",spawnCategory)
 	VJ.AddNPC("Wheelchair Twitcher","npc_vj_cofraom_wheelchair",spawnCategory)
-	
+
 	-- Bosses --
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",spawnCategory)
 	
     -- Friendlies --
+    VJ.AddNPC("Assistor","npc_vj_cofraom_assistor_da",spawnCategory)
     VJ.AddNPC("David Leatherhoff","npc_vj_cofraom_david",spawnCategory)
+    VJ.AddNPC("David Leatherhoff (Classic)","npc_vj_cofraomc_david",spawnCategory)
 	VJ.AddNPC("David Leatherhoff (Dead)","npc_vj_cofraom_david_dead",spawnCategory)
     VJ.AddNPC("David Leatherhoff (Dark Assistance)","npc_vj_cofraom_david_da",spawnCategory)
     //VJ.AddNPC("David Leatherhoff (Source)","npc_vj_cofraom_davidsource",spawnCategory)
-    VJ.AddNPC("Assistor","npc_vj_cofraom_assistor_da",spawnCategory)
-
+	
 	-- Misc/Hazards --
 	VJ.AddNPC("Devourer","npc_vj_cofraom_devourer",spawnCategory,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-
+	VJ.AddNPC("Devourer (Classic)","npc_vj_cofraomc_devourer",spawnCategory,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+	
     -- Apparitions --
 	VJ.AddNPC("Corpse","sent_vj_cofraom_corpse",spawnCategory)
 	VJ.AddNPC("David (Hanging)","sent_vj_cofraom_davidhang",spawnCategory)
@@ -215,11 +225,17 @@ if VJExists == true then
 		"weapon_vj_cofraom_axe",
 		"weapon_vj_cofraom_spear"		
     }
+    VJ_COFR_MELEEWEAPONS_AOMC = {					
+		"weapon_vj_cofraomc_knife",		
+    }
+	
 	
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
     game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
     game.AddDecal("VJ_COFR_Spit",{"vj_cofr/decals/cof_spit01","vj_cofr/decals/cof_spit02"})
+    game.AddDecal("VJ_COFR_Scorch_Small", {"vj_cofr/decals/smscorch1", "vj_cofr/decals/smscorch2", "vj_cofr/decals/smscorch3"})
+    game.AddDecal("VJ_COFR_Scorch", {"vj_cofr/decals/scorch1", "vj_cofr/decals/scorch2", "vj_cofr/decals/scorch3"})
 	
     -- Particles --
 	VJ.AddParticle("particles/vj_cofr_blood.pcf", {
@@ -346,6 +362,25 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_cofr/aom/ghost.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/black_dog.mdl")
     util.PrecacheModel("models/vj_cofr/aom/agrunt.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/david.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/bullsquid.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/headcrab.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/controller.mdl")
+	util.PrecacheModel("models/vj_cofr/aom/classic/ghost.mdl")
+	util.PrecacheModel("models/vj_cofr/aom/classic/houndeye.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/agrunt.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/icky.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie2.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie3.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie4.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie5.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie6.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie7.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie8.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie9.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie10.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/zombie11.mdl")	
     util.PrecacheModel("models/vj_cofr/aom/mouth_monster.mdl")
     util.PrecacheModel("models/vj_cofr/aom/david_monster.mdl") 
     util.PrecacheModel("models/vj_cofr/aom/wheelchair_monster.mdl") 	
@@ -364,6 +399,13 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/weapons/w_axe.mdl")
     util.PrecacheModel("models/vj_cofr/aom/weapons/w_hammer.mdl")
     util.PrecacheModel("models/vj_cofr/aom/weapons/w_spear.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_9mmhandgun.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_9mmar.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_357.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_shotgun.mdl") 
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_crowbar.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_grenade.mdl")	
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/grenade.mdl")		
 	util.PrecacheModel("models/vj_cofr/aom/zombie.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie2.mdl")
 	util.PrecacheModel("models/vj_cofr/aom/zombie3.mdl")

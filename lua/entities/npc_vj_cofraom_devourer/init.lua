@@ -22,8 +22,9 @@ ENT.AnimTbl_MeleeAttack = {"vjseq_attack1"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
-ENT.MeleeAttackDistance = 30 
-ENT.MeleeAttackDamageDistance = 60
+ENT.NextAnyAttackTime_Melee = 10
+ENT.MeleeAttackDistance = 30
+ENT.MeleeAttackDamageDistance = 80
 ENT.MeleeAttackAngleRadius = 180 
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.GeneralSoundPitch1 = 100
@@ -44,6 +45,7 @@ ENT.VJC_Data = {
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
+"vj_cofr/aom/devourer/bcl_bite3.wav",
 "vj_cofr/aom/devourer/bcl_chew1.wav",
 "vj_cofr/aom/devourer/bcl_chew2.wav",
 "vj_cofr/aom/devourer/bcl_chew3.wav"
@@ -55,14 +57,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh5.wav",
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
-}
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_MeleeAttack = {
-"vj_cofr/aom/devourer/bcl_bite3.wav",
-"vj_cofr/aom/devourer/bcl_chew1.wav",
-"vj_cofr/aom/devourer/bcl_chew2.wav",
-"vj_cofr/aom/devourer/bcl_chew3.wav"
 }
 
 ENT.GeneralSoundPitch1 = 100
@@ -159,7 +153,7 @@ function ENT:CustomOnThink_AIEnabled()
 	if calc == true && self.Devourer_Status != 1 then
 		self.Devourer_Status = 1
 		self.NextIdleStandTime = 0
-		self.AnimTbl_IdleStand = {ACT_MELEE_ATTACK1}
+		self.AnimTbl_IdleStand = {ACT_BARNACLE_PULL}
 	elseif calc == false && self.Devourer_Status != 0 then
 		self.Devourer_Status = 0
 		self.NextIdleStandTime = 0
@@ -168,11 +162,11 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetDynamicOrigin()
-	return self:GetPos() + self:GetUp()*-50 -- Override this to use a different position
+	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetMeleeAttackDamageOrigin()
-	return self:GetPos() + self:GetUp()*-50 -- Override this to use a different position
+	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)

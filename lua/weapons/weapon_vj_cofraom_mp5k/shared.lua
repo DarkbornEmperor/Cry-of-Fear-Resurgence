@@ -31,7 +31,6 @@ SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_cofr/aom/weapons/mp5k/mp5k_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/hks_distant_new.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
-SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"} -- The sound that it plays when the weapon is out of ammo

@@ -99,6 +99,20 @@ function ENT:CustomOnPreInitialize()
         "models/vj_cofr/aom/zombie4_4.mdl",
         "models/vj_cofr/aom/zombie4_5.mdl"		
 }
+    elseif self:GetClass() == "npc_vj_cofraomc_twitcher" then
+		self.Model = {
+        "models/vj_cofr/aom/classic/zombie.mdl",
+        "models/vj_cofr/aom/classic/zombie2.mdl",
+        "models/vj_cofr/aom/classic/zombie3.mdl",
+        "models/vj_cofr/aom/classic/zombie4.mdl",
+        "models/vj_cofr/aom/classic/zombie5.mdl",
+        "models/vj_cofr/aom/classic/zombie6.mdl",
+        "models/vj_cofr/aom/classic/zombie7.mdl",
+        "models/vj_cofr/aom/classic/zombie8.mdl",
+        "models/vj_cofr/aom/classic/zombie9.mdl",
+        "models/vj_cofr/aom/classic/zombie10.mdl",
+        "models/vj_cofr/aom/classic/zombie11.mdl"		
+}
     elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
 		self.Model = {
 		"models/vj_cofr/aom/zombie_da.mdl"		
@@ -138,7 +152,10 @@ function ENT:Twitcher_CustomOnInitialize()
       self.AnimTbl_MeleeAttack = {"vjseq_attack0"}  
 
    elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
-      self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"} 
+      self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
+
+   elseif self:GetClass() == "npc_vj_cofrc_twitcher" then
+      self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}
 end
      if (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
 	    self:DrawShadow(false)

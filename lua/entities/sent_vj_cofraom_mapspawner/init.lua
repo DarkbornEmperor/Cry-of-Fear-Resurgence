@@ -17,7 +17,14 @@ ENT.Monster = {
 	{class="npc_vj_cofraom_spitter",chance=10},
 	{class="npc_vj_cofraom_face",chance=20},
 	{class="npc_vj_cofraom_ghost",chance=20},
-	{class="npc_vj_cofraom_screamer",chance=20},	
+	{class="npc_vj_cofraom_screamer",chance=20},
+	{class="npc_vj_cofraomc_twitcher",chance=1},
+	{class="npc_vj_cofraomc_headcrab",chance=3},
+	{class="npc_vj_cofraomc_hellhound",chance=5},	
+	{class="npc_vj_cofraomc_spitter",chance=10},
+	{class="npc_vj_cofraomc_face",chance=20},
+	{class="npc_vj_cofraomc_ghost",chance=20},
+	{class="npc_vj_cofraomc_screamer",chance=20},	
 }
 
 ENT.BossMonster = {

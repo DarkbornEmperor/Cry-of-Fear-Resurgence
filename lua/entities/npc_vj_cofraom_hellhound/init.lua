@@ -124,6 +124,11 @@ end
 	VJ.ApplyRadiusDamage(self, self, myPos, 200, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+	-- Hellhound shouldn't have its sonic attack interrupted by a flinch animation!
+	return self.CurAttackAnimTime < CurTime()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end

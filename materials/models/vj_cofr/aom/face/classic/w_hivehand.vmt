@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/vj_cofr/aom/face/classic/w_hivehand"
+                "$additive" 1 
+                "$nodecal" 1
+}

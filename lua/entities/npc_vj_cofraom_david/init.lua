@@ -40,7 +40,9 @@ ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_HealthAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = {"vjges_heal"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
-ENT.Medic_SpawnPropOnHealAttachment = "rhand" 
+ENT.Medic_SpawnPropOnHealAttachment = "rhand"
+//ENT.AnimTbl_WeaponAttackSecondary = {"shoot_m203"}
+ENT.WeaponAttackSecondaryTimeUntilFire = 0.05
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -90,6 +92,7 @@ ENT.Human_Type = 0
  	-- 0 = David & Assistor
 	-- 1 = Simon
 	-- 2 = Police
+	-- 3 = David (Classic)
 
 ENT.WeaponsList_AoMDC = {
 	["Close"] = {
@@ -106,6 +109,20 @@ ENT.WeaponsList_AoMDC = {
 	},
 	["Far"] = {
 		"weapon_vj_cofraom_l85",
+	},
+}
+ENT.WeaponsList_AoMC = {
+	["Close"] = {
+		"weapon_vj_cofraomc_shotgun",
+	},
+	["Normal"] = {
+		"weapon_vj_cofraomc_beretta",
+		"weapon_vj_cofraomc_revolver",
+		"weapon_vj_cofraomc_m4",
+		"weapon_vj_cofraomc_grenade",
+	},
+	["Far"] = {
+		"weapon_vj_cofraomc_m4",
 	},
 }
 ENT.WeaponsList_CoF = {
@@ -163,6 +180,15 @@ ENT.WeaponsList_AoMDC_Cont = {
 		"weapon_vj_cofraom_l85",
 	},
 }
+ENT.WeaponsList_AoMC_Cont = {
+	["ContWeapons"] = {
+		"weapon_vj_cofraomc_beretta",
+		"weapon_vj_cofraomc_revolver",
+		"weapon_vj_cofraomc_m4",
+		"weapon_vj_cofraomc_grenade",
+		"weapon_vj_cofraomc_shotgun",
+	},
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if math.random(1,3) == 1 then
@@ -178,6 +204,35 @@ function ENT:David_CustomOnInitialize()
 end
  if self.Human_Type == 0 then
     self.WeaponInventory_MeleeList = {"weapon_vj_cofraom_knife","weapon_vj_cofraom_hammer","weapon_vj_cofraom_axe","weapon_vj_cofraom_spear"}
+    self.SoundTbl_Breath = {
+    "vj_cofr/aom/david/breathe1.wav",
+	"vj_cofr/aom/david/breathe2.wav"
+}
+    self.SoundTbl_Pain = {
+    "vj_cofr/aom/david/pl_pain2.wav",
+    "vj_cofr/aom/david/pl_pain4.wav",
+    "vj_cofr/aom/david/pl_pain5.wav",
+    "vj_cofr/aom/david/pl_pain6.wav",
+    "vj_cofr/aom/david/pl_pain7.wav",	
+}
+    self.SoundTbl_Death = {
+    "vj_cofr/aom/david/pl_pain2.wav",
+    "vj_cofr/aom/david/pl_pain4.wav",
+    "vj_cofr/aom/david/pl_pain5.wav",
+    "vj_cofr/aom/david/pl_pain6.wav",
+    "vj_cofr/aom/david/pl_pain7.wav",	
+}	
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DavidClassic_CustomOnInitialize()
+ if !self.DisableWeapons && self.Human_Type == 3 then
+ if !self.WeaponInventory_Melee then
+     self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
+	end
+end
+ if self.Human_Type == 3 then
+    self.WeaponInventory_MeleeList = {"weapon_vj_cofraomc_knife"}
     self.SoundTbl_Breath = {
     "vj_cofr/aom/david/breathe1.wav",
 	"vj_cofr/aom/david/breathe2.wav"
@@ -341,11 +396,20 @@ end
 	end
 end
 	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Normal"]),true)
+end
+ if self.Human_Type == 3 then
+	for _,category in pairs(self.WeaponsList_AoMC) do
+		for _,wep in pairs(category) do
+			self:Give(wep)
+	end
+end
+	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]),true)
     end
 end		 
      self:David_CustomOnInitialize()
      self:Simon_CustomOnInitialize()
-     self:Police_CustomOnInitialize()	 
+     self:Police_CustomOnInitialize()
+     self:DavidClassic_CustomOnInitialize()	 
      self:AssistorFlashlight()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -379,6 +443,7 @@ end
 	if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_Melee then 
 	if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]),true) end
 	if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]),true) end
+	if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]),true) end
 	   self.CoFR_NextWepSwitchT = CurTime() + 1    
 end
 	/*if controller:KeyDown(IN_DUCK) then
@@ -422,6 +487,7 @@ end
 		if selectType != false && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && math.random(1,wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() *0.35) && 1 or (selectType == "Close" && 20 or 150)) == 1 then
 		if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC[selectType]),true) end
 		if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]),true) end
+		if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC[selectType]),true) end
 			wep = self:GetActiveWeapon()
 			self.NextWeaponSwitchT = CurTime() + math.Rand(6,math.Round(math.Clamp(wep:Clip1() *0.5,1,wep:Clip1())))
 		end
@@ -562,7 +628,7 @@ end
 		defCrouch = VJ.SequenceToActivity(self,"crouch_crowbar")
 		defCrawl = VJ.SequenceToActivity(self,"crawl_crowbar")
 		defFire = "vjges_shoot_gren"
-		defReload = "vjges_reload_gren"
+		defReload = "vjges_reload_onehanded" //vjges_reload_gren
 	elseif h == "saw" then
 		defIdleAim = VJ.SequenceToActivity(self,"aim_saw")
 		defWalkAim = VJ.SequenceToActivity(self,"walk_saw")

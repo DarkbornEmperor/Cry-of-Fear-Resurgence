@@ -38,7 +38,7 @@ ENT.CanFlinch = 1
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -95,7 +95,6 @@ function ENT:Spitter_CustomOnInitialize()
 }
  if self:GetModel() == "models/vj_cofr/aom/bullsquidhd.mdl" then
       self.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
-	  self.AnimTbl_RangeAttack = {"vjseq_range"}
    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
