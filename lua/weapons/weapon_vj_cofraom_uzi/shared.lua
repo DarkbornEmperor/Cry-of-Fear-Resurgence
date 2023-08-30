@@ -15,14 +15,15 @@ SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_cofr/aom/weapons/w_uzi.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.HoldType 					= "smg"
+SWEP.CoFR_HoldType              = "uzi"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(-84, -180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-4.5, -0.2, -0.7)
+SWEP.WorldModel_CustomPositionAngle = Vector(-90, -180, 90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-4.5, 0.1, -0.7)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
@@ -37,9 +38,10 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-  self:SetModelScale(0.60)
-  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
-        self.WorldModel_CustomPositionOrigin = Vector(-5.5, -0.8, -0.7)
+  self:SetModelScale(0.6)
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofraom_david_da" then 
+        self.WorldModel_CustomPositionOrigin = Vector(-5.5, -0.5, -0.7)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

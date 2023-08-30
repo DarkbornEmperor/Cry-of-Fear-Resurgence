@@ -54,7 +54,9 @@ function ENT:TwitcherSounds()
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup) end
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup) 
+    VJ_COFR_DeathCode(self)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

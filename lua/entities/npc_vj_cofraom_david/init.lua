@@ -105,7 +105,7 @@ ENT.WeaponsList_AoMDC = {
 		"weapon_vj_cofraom_deagle",
 		"weapon_vj_cofraom_revolver",
 		"weapon_vj_cofraom_mp5k",
-		"weapon_vj_cofraom_uzi",
+		"weapon_vj_cofraom_uzi"
 	},
 	["Far"] = {
 		"weapon_vj_cofraom_l85",
@@ -622,11 +622,11 @@ end
 		defFire = "vjges_shoot_squeak"
 		defReload = "vjges_reload_squeak"
 	elseif h == "grenade" then
-		defIdleAim = VJ.SequenceToActivity(self,"aim_crowbar")
-		defWalkAim = VJ.SequenceToActivity(self,"walk_crowbar")
-		defRunAim = VJ.SequenceToActivity(self,"run_crowbar")
-		defCrouch = VJ.SequenceToActivity(self,"crouch_crowbar")
-		defCrawl = VJ.SequenceToActivity(self,"crawl_crowbar")
+		defIdleAim = VJ.SequenceToActivity(self,"aim_gren")
+		defWalkAim = VJ.SequenceToActivity(self,"walk_gren")
+		defRunAim = VJ.SequenceToActivity(self,"run_gren")
+		defCrouch = VJ.SequenceToActivity(self,"crouch_gren")
+		defCrawl = VJ.SequenceToActivity(self,"crawl_gren")
 		defFire = "vjges_shoot_gren"
 		defReload = "vjges_reload_onehanded" //vjges_reload_gren
 	elseif h == "saw" then
@@ -669,6 +669,14 @@ end
 		defCrawl = VJ.SequenceToActivity(self,"crawl_minigun")
 		defFire = "vjges_shoot_minigun"
 		defReload = "vjges_reload_minigun"
+	elseif h == "uzi" then
+		defIdleAim = VJ.SequenceToActivity(self,"aim_hive")
+		defWalkAim = VJ.SequenceToActivity(self,"walk_hive")
+		defRunAim = VJ.SequenceToActivity(self,"run_hive")
+		defCrouch = VJ.SequenceToActivity(self,"crouch_hive")
+		defCrawl = VJ.SequenceToActivity(self,"crawl_hive")
+		defFire = "vjges_shoot_hive"
+		defReload = "vjges_reload_uzis_right"
 end
 
 	self.WeaponAnimTranslations[ACT_IDLE] = defIdleAim

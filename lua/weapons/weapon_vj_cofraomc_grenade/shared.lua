@@ -51,14 +51,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if CLIENT then return end
-	local plasma = ents.Create("obj_vj_cofraomc_grenade")
-	plasma:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
-	plasma:SetAngles(self:GetOwner():GetAngles())
-	plasma:SetOwner(self:GetOwner())
-	plasma:Spawn()
-	plasma:Activate()
+	local grenade = ents.Create("obj_vj_cofraomc_grenade")
+	grenade:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
+	grenade:SetAngles(self:GetOwner():GetAngles())
+	grenade:SetOwner(self:GetOwner())
+	grenade:Spawn()
+	grenade:Activate()
 	
-	local phys = plasma:GetPhysicsObject()
+	local phys = grenade:GetPhysicsObject()
 	if IsValid(phys) then
 		phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetNW2Vector("VJ_CurBulletPos"), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
 	end

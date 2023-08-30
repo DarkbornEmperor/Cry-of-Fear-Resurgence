@@ -55,6 +55,34 @@ local AmbientSounds = {
 	"vj_cofr/aom/mapspawner/viskingar2.wav",
 	"vj_cofr/aom/mapspawner/child_cryin.wav"
 }
+
+local MusicList = {
+    "vj_cofr/aom/mapspawner/afterforest1.wav",
+	"vj_cofr/aom/mapspawner/angforest1.wav",
+	"vj_cofr/aom/mapspawner/arforest1.wav",
+	"vj_cofr/aom/mapspawner/asick.wav",
+	"vj_cofr/aom/mapspawner/backalley4530.wav",
+	"vj_cofr/aom/mapspawner/carforest1.wav",
+    "vj_cofr/aom/mapspawner/carforest2.wav",
+	"vj_cofr/aom/mapspawner/city2.wav",
+	"vj_cofr/aom/mapspawner/cityz22.wav",
+	"vj_cofr/aom/mapspawner/cityz45.wav",
+	"vj_cofr/aom/mapspawner/darkalley1.wav",
+    "vj_cofr/aom/mapspawner/forest21.wav",
+	"vj_cofr/aom/mapspawner/forhousemain.wav",
+	"vj_cofr/aom/mapspawner/heaven22.wav",
+	"vj_cofr/aom/mapspawner/hospital2.wav",
+	"vj_cofr/aom/mapspawner/hospital3.wav",
+	"vj_cofr/aom/mapspawner/ridingcar2.wav",
+	"vj_cofr/aom/mapspawner/sewer1.wav",
+	"vj_cofr/aom/mapspawner/sickfromsick.wav",
+	"vj_cofr/aom/mapspawner/sorgard1.wav",
+	"vj_cofr/aom/mapspawner/sorgard2.wav"
+}
+
+if SERVER then
+	util.AddNetworkString("VJ_CoFR_Music")
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
 	local i = 0
@@ -110,7 +138,7 @@ function ENT:Initialize()
 	self.tbl_SpawnedBossMonster = {}
 	self.NextAICheckTime = CurTime() +5
 	self.NextMonsterSpawnTime = CurTime() +1
-	self.NextBossMonsterSpawnTime = CurTime() +math.random(4,20)
+	self.NextBossMonsterSpawnTime = CurTime() +math.random(10,20)
 	self.NextHordeSpawnTime = CurTime() +math.Rand(self.COFR_HordeCooldownMin,self.COFR_HordeCooldownMax)
 	self.DidStartMusic = false
 	self.NextMusicSwitchT = CurTime() +1
@@ -118,13 +146,7 @@ function ENT:Initialize()
 	self.HordeSpawnRate = 0.19
 	self.MaxBossMonster = 1
 	self.NextAmbientSoundT = CurTime() + math.Rand(1,30)
-	self.CanSpawnBossMonster = false --GetConVarNumber("VJ_COFR_MapSpawner_Boss")
-
-	if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then
-	   for _,v in ipairs(player.GetAll()) do
-		   self.COFR_Music = VJ.CreateSound(v,"vj_cofr/aom/davidbad/sickness.mp3",GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(),100)			
-		end
-	end	
+	self.CanSpawnBossMonster = false	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckVisibility(pos,ent,mdl)
@@ -313,8 +335,9 @@ function ENT:Think()
 	 if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
      for _,v in ipairs(player.GetAll()) do	
      if math.random(1,2) == 1 && self.NextAmbientSoundT < CurTime() then
-        self.COFR_Ambient = VJ.CreateSound(v,AmbientSounds,GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(),100) 
-	    self.NextAmbientSoundT = CurTime() + math.random(20,40)
+	    self.CoFR_PickAmbient = VJ.PICK(AmbientSounds)
+        self.COFR_Ambient = VJ.CreateSound(v,self.CoFR_PickAmbient,GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(),100) 
+	    self.NextAmbientSoundT = CurTime() + ((((SoundDuration(self.CoFR_PickAmbient) > 0) and SoundDuration(self.CoFR_PickAmbient)) or 2) + 1) + math.Rand(20,40)
 		end
     end
 end		
@@ -357,6 +380,9 @@ end
 			self.NextAICheckTime = CurTime() +5
 		end
 
+		-- Manages Music
+		   self:DoMusic(false)
+
 		-- Spawns AI
 		if CurTime() > self.NextMonsterSpawnTime then
 			if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster -self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
@@ -368,7 +394,7 @@ end
 		    self.CanSpawnBossMonster = true
 			if CurTime() > self.NextBossMonsterSpawnTime then
 				self:SpawnBossMonster(self:PickMonster(self.BossMonster),self:FindSpawnPosition(true))
-				self.NextBossMonsterSpawnTime = CurTime() +math.Rand(4,20)
+				self.NextBossMonsterSpawnTime = CurTime() +math.Rand(10,20)
 			end
 		end
 
@@ -382,6 +408,30 @@ end
 				end)
 			end
 			self.NextHordeSpawnTime = CurTime() +math.Rand(self.COFR_HordeCooldownMin,self.COFR_HordeCooldownMax)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoMusic(stop)
+	for _,v in ipairs(player.GetAll()) do
+		if !stop && !self.DidStartMusic then
+			self.DidStartMusic = true
+			self.NextMusicSwitchT = CurTime() +1
+			if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then
+				self.NextAoMMusicT = self.NextAoMMusicT or 0
+				if CurTime() > self.NextAoMMusicT then
+					self.CoFR_PickTrack = VJ.PICK(MusicList)
+					self.CoFR_Track = VJ.CreateSound(v,self.CoFR_PickTrack,GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(),100)
+					self.NextAoMMusicT = CurTime() + ((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1)
+					
+					timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1),function() if IsValid(self) then self.DidStartMusic = false VJ.STOPSOUND(self.CoFR_Track) end end)
+				end
+			end
+		end
+		if stop && self.DidStartMusic then
+			self.DidStartMusic = false
+			self.NextMusicSwitchT = CurTime() +1
+			VJ.STOPSOUND(self.CoFR_Track)
 		end
 	end
 end
@@ -436,6 +486,7 @@ function ENT:SpawnMonster(ent,pos,isMob)
 	end
 	Monster.MapSpawner = self
 	Monster.EntitiesToNoCollide = {}
+	Monster.CallForHelp = false
 	for _,v in pairs(self.Monster) do
 		table_insert(Monster.EntitiesToNoCollide,v.class)
 	end
@@ -455,6 +506,8 @@ function ENT:SpawnBossMonster(ent,pos)
 	Boss:Spawn()
 	Boss.FindEnemy_UseSphere = true
 	Boss.FindEnemy_CanSeeThroughWalls = true
+	Boss.CallForHelp = false
+	Boss.HasSoundTrack = false
 	table_insert(self.tbl_SpawnedBossMonster,Boss)
 	Boss.MapSpawner = self
 	Boss.EntitiesToNoCollide = {}
@@ -464,7 +517,7 @@ function ENT:SpawnBossMonster(ent,pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-    VJ.STOPSOUND(self.COFR_Music)
+	self:DoMusic(true)
     VJ.STOPSOUND(self.COFR_Ambient)
 	for index,object in ipairs(self.tbl_SpawnedNPCs) do
 		if IsValid(object) then

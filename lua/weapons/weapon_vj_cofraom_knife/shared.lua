@@ -17,19 +17,21 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
   self:SetModelScale(0.75)
-  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofraom_david_da" then 
         self.WorldModel_CustomPositionOrigin = Vector(-4, 2.5, 0)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
-	self:GetOwner().MeleeAttackDamage = self.Primary.Damage	    
-	self:GetOwner().MeleeAttackDamageType = DMG_SLASH
-	self:GetOwner().SoundTbl_MeleeAttack = {
+    local owner = self:GetOwner()
+	owner.MeleeAttackDamage = self.Primary.Damage	    
+	owner.MeleeAttackDamageType = DMG_SLASH
+	owner.SoundTbl_MeleeAttack = {
 	"vj_cofr/aom/weapons/knife/knife_hit1.wav",
 	"vj_cofr/aom/weapons/knife/knife_hit2.wav"
 	}
-	self:GetOwner().SoundTbl_MeleeAttackMiss = {
+	owner.SoundTbl_MeleeAttackMiss = {
 	"vj_cofr/aom/weapons/knife/knife_swing1.wav"
 	}
 end

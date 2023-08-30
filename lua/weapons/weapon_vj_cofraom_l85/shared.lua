@@ -38,8 +38,9 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-  self:SetModelScale(0.60)	
-  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+  self:SetModelScale(0.60)
+  local owner = self:GetOwner()  
+  if owner:GetClass() == "npc_vj_cofraom_david_da" then 
         self.WorldModel_CustomPositionOrigin = Vector(3.5, -2.8, -0.7)
     end
 end

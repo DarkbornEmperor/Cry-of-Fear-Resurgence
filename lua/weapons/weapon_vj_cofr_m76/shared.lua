@@ -36,10 +36,6 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
-    //self:SetModelScale(0.80)d
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects(owner)
 	self.PrimaryEffects_MuzzleFlash = false
 	muz = ents.Create("env_sprite")

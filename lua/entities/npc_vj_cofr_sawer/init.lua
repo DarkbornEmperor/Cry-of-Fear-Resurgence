@@ -94,7 +94,7 @@ function ENT:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(18, 18, 105), Vector(-18, -18, 0))
+     self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
      self:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -20,13 +20,14 @@ function SWEP:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
-	self:GetOwner().MeleeAttackDamage = self.Primary.Damage	    
-	self:GetOwner().MeleeAttackDamageType = DMG_CLUB
-	self:GetOwner().SoundTbl_MeleeAttack = {
+    local owner = self:GetOwner()
+	owner.MeleeAttackDamage = self.Primary.Damage	    
+	owner.MeleeAttackDamageType = DMG_CLUB
+	owner.SoundTbl_MeleeAttack = {
 	"vj_cofr/cof/weapons/nightstick/nightstick_hitbody1.wav",
 	"vj_cofr/cof/weapons/nightstick/nightstick_hitbody2.wav"
 	}
-	self:GetOwner().SoundTbl_MeleeAttackMiss = {
+	owner.SoundTbl_MeleeAttackMiss = {
 	"vj_cofr/cof/weapons/nightstick/nightstick_swing.wav"
 	}
 end

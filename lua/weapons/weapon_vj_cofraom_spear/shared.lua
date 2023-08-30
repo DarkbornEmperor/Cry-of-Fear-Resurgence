@@ -16,19 +16,21 @@ SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(2.5, 15, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
-  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
+function SWEP:CustomOnInitialize()
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofraom_david_da" then 
         self.WorldModel_CustomPositionOrigin = Vector(4, 15, -1)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
-	self:GetOwner().MeleeAttackDamage = self.Primary.Damage	    
-	self:GetOwner().MeleeAttackDamageType = DMG_SHOCK
-	self:GetOwner().SoundTbl_MeleeAttack = {
+    local owner = self:GetOwner()
+	owner.MeleeAttackDamage = self.Primary.Damage	    
+	owner.MeleeAttackDamageType = DMG_SLASH
+	owner.SoundTbl_MeleeAttack = {
 	"vj_cofr/aom/weapons/spear/spear_stab.wav"
 	}
-	self:GetOwner().SoundTbl_MeleeAttackMiss = {
+	owner.SoundTbl_MeleeAttackMiss = {
 	"vj_cofr/aom/weapons/spear/spear_swing.wav"
 	}
 end

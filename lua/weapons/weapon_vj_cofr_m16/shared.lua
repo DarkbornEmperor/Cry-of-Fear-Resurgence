@@ -38,9 +38,10 @@ SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound t
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
   self:SetModelScale(0.85)
-  if self:GetOwner():GetClass() == "npc_vj_cofr_simonbeta" then 
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofr_simonbeta" then 
         self.WorldModel_CustomPositionOrigin = Vector(8, -2.5, -0.3)
-  elseif self:GetOwner():GetClass() == "npc_vj_cofr_police" then 
+  elseif owner:GetClass() == "npc_vj_cofr_police" then 
         self.WorldModel_CustomPositionOrigin = Vector(9, -2, -0.3)
     end
 end

@@ -20,8 +20,8 @@ SWEP.MeleeWeaponSound_Hit = false -- Sound it plays when it hits something
 SWEP.MeleeWeaponSound_Miss = false -- Sound it plays when it misses (Doesn't hit anything)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-    local owner = self:GetOwner()
-    if !owner.IsCoFRHuman then return end 
+   local owner = self:GetOwner()
+   if !owner.IsCoFRHuman then return end 
      if CurTime() > owner.CoFR_NextMeleeSoundT then
         owner:PlaySoundSystem("BeforeMeleeAttack",owner.SoundTbl_BeforeMeleeAttack)
 		owner.CoFR_NextMeleeSoundT = CurTime() + 1

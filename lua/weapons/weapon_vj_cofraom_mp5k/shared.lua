@@ -15,14 +15,14 @@ SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_cofr/aom/weapons/w_mp5k.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.HoldType 					= "smg"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(187, -185, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(4, 6.5, -0.7)
+SWEP.WorldModel_CustomPositionAngle = Vector(181, -185, 90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(4, 7, -0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 31 -- Damage
@@ -37,8 +37,9 @@ SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"} -- The sound that it pla
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
   self:SetModelScale(0.45)
-  if self:GetOwner():GetClass() == "npc_vj_cofraom_david_da" then 
-        self.WorldModel_CustomPositionOrigin = Vector(3, 8.5, -0.7)
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofraom_david_da" then 
+        self.WorldModel_CustomPositionOrigin = Vector(3.5, 8.5, -0.7)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

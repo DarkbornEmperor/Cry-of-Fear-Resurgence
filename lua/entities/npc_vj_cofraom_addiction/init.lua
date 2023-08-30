@@ -145,7 +145,7 @@ end
 		self.Addiction_FireIgnite = VJ.CreateSound(self,self.SoundTbl_FireIgnite,75,100)
 		self.Addiction_FireLoop = VJ.CreateSound(self,self.SoundTbl_FireLoop,75,100)
 	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire then
-	if ent:WaterLevel() != 3 then
+	if IsValid(ent) && ent:WaterLevel() != 3 then
         VJ.ApplyRadiusDamage(self,self,self:GetPos(),150,10,DMG_BURN,true,true)
 end
 		timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.FireEffect) then self.FireEffect:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)

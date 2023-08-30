@@ -34,16 +34,20 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
-  if self:GetOwner():GetClass() == "npc_vj_cofr_police" then 
+function SWEP:CustomOnInitialize()
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofr_police" then 
         self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
-  elseif self:GetOwner():GetClass() == "npc_vj_cofr_simonbeta" then 
+  elseif owner:GetClass() == "npc_vj_cofr_simonbeta" then 
         self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
-  elseif self:GetOwner():GetClass() == "npc_vj_cofr_purnell" or self:GetOwner():GetClass() == "npc_vj_cofr_purnell_fri" then
+  elseif owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" then
         self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
         self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
+  if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" then
 		self.NPC_NextPrimaryFire = 1
+		self.Primary.Damage	= 13
 		self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/revolver_reload.wav"}
+		end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
