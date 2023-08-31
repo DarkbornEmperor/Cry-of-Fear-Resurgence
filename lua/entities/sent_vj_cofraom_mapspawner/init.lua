@@ -60,8 +60,6 @@ local MusicList = {
     "vj_cofr/aom/mapspawner/afterforest1.wav",
 	"vj_cofr/aom/mapspawner/angforest1.wav",
 	"vj_cofr/aom/mapspawner/arforest1.wav",
-	"vj_cofr/aom/mapspawner/asick.wav",
-	"vj_cofr/aom/mapspawner/backalley4530.wav",
 	"vj_cofr/aom/mapspawner/carforest1.wav",
     "vj_cofr/aom/mapspawner/carforest2.wav",
 	"vj_cofr/aom/mapspawner/city2.wav",
@@ -73,23 +71,16 @@ local MusicList = {
 	"vj_cofr/aom/mapspawner/heaven22.wav",
 	"vj_cofr/aom/mapspawner/hospital2.wav",
 	"vj_cofr/aom/mapspawner/hospital3.wav",
-	"vj_cofr/aom/mapspawner/ridingcar2.wav",
 	"vj_cofr/aom/mapspawner/sewer1.wav",
-	"vj_cofr/aom/mapspawner/sickfromsick.wav",
-	"vj_cofr/aom/mapspawner/sorgard1.wav",
-	"vj_cofr/aom/mapspawner/sorgard2.wav"
+	"vj_cofr/aom/mapspawner/sickfromsick.wav"
 }
-
-if SERVER then
-	util.AddNetworkString("VJ_CoFR_Music")
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
 	local i = 0
 	for k, v in ipairs(ents.GetAll()) do
-		if v:GetClass() == "sent_vj_cofraom_mapspawner" then
+		if (v:GetClass() == "sent_vj_cofraom_mapspawner" or v:GetClass() == "sent_vj_cofr_mapspawner") then
 			i = i + 1
-			if i > 1 then PrintMessage(HUD_PRINTTALK, "Only one Map Spawner is allowed on the map.") self.SkipOnRemove = true self:Remove() return end
+			if i > 1 then PrintMessage(HUD_PRINTTALK, "WARNING: Only one Map Spawner is allowed on the map!") self.SkipOnRemove = true self:Remove() end
 		end
 	end
 
@@ -106,16 +97,13 @@ function ENT:Initialize()
 
 	local count = #self.nodePositions +#self.navAreas
 	if count <= 50 then
-		local msg = "Low node/nav-area count detected! The Map Spawner may find it difficult to process with such low nodes/nav-areas...removing..."
+		local msg = "WARNING: Low node/nav-area count detected! The Map Spawner may find it difficult to process with such low nodes/nav-areas. The Map Spawner will now remove itself."
 		if count <= 0 then
-			msg = "No nodes or nav-mesh detected! The Map Spawner relies on nodes/nav-areas for many things. Without any, the Map Spawner will not work! The Map Spawner will now remove itself..."
+			msg = "WARNING: No nodes or nav-mesh detected! The Map Spawner relies on nodes/nav-areas for many things. Without any, the Map Spawner will not work! The Map Spawner will now remove itself."
 		end
 		MsgN(msg)
-		if IsValid(self:GetCreator()) then
-			self:GetCreator():ChatPrint(msg)
-		end
+        PrintMessage(HUD_PRINTTALK, msg)
 		SafeRemoveEntity(self)
-		return
 	end
 
 	self:SetCollisionGroup(COLLISION_GROUP_NONE)

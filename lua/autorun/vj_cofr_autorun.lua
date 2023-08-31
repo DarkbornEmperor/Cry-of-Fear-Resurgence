@@ -577,6 +577,7 @@ end
 end)	
 -- Map Spawner Configure Menu --
 		 spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Map Spawner)", "CoF Resurgence (Map Spawner)", "", "", function(Panel)
+		 		Panel:AddControl( "Label", {Text = "Client-Side Options:"})
 			    Panel:AddControl("Checkbox", {Label ="Enable Music?", Command ="VJ_COFR_MapSpawner_Music"})
 			    Panel:AddControl("Checkbox", {Label ="Enable Ambience?", Command ="VJ_COFR_MapSpawner_Ambience"})	
 				Panel:AddControl("Slider", { Label 	= "Music Volume", Command = "VJ_COFR_MapSpawner_MusicVolume", Type = "Float", Min = "10", Max = "100"})
