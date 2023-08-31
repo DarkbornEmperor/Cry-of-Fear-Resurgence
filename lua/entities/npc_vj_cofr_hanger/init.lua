@@ -50,10 +50,10 @@ function ENT:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	 self:SetMaterial("hud/killicons/default")
-     self:DrawShadow(false)
-     self:AddFlags(FL_NOTARGET)
-     self:Hanger_CustomOnInitialize()
+	self:SetMaterial("hud/killicons/default")
+    self:DrawShadow(false)
+    self:AddFlags(FL_NOTARGET)
+    self:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

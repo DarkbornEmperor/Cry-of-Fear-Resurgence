@@ -97,8 +97,8 @@ function ENT:Ghost_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
-     self:Ghost_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
+    self:Ghost_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -123,13 +123,16 @@ end
     return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE}
-end
-	VJ_COFR_DeathCode(self)	
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

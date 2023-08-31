@@ -115,13 +115,16 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	self:TakeDamage(self:Health())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if !self.Baby_DeathFromMeleeAttack then
 		self.AnimTbl_Death = {ACT_DIESIMPLE}
     elseif self.Baby_DeathFromMeleeAttack then
 		self.AnimTbl_Death = {ACT_SIGNAL1}
-end	
-    VJ_COFR_DeathCode(self)	
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

@@ -99,8 +99,8 @@ function ENT:Spitter_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(20, 20, 44), Vector(-20, -20, 0))
-     self:Spitter_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(20, 20, 44), Vector(-20, -20, 0))
+    self:Spitter_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -135,7 +135,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -149,7 +149,7 @@ function ENT:CustomOnInitialize()
 		self.Slower_Type = 10
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}		
 end
-     self:Slower_CustomOnInitialize() 
+    self:Slower_CustomOnInitialize() 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -192,9 +192,8 @@ end
 	local headsplat = math.random(1,3)
 	if headsplat == 1 && hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIEVIOLENT}
-    end
-end 
-    VJ_COFR_DeathCode(self)	
+        end
+    end 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
@@ -221,7 +220,8 @@ end
 		VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)	
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
 		return true,{DeathAnim=true}
-	end	
+end
+    VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

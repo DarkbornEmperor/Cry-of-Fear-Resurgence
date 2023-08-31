@@ -83,9 +83,9 @@ function ENT:Screamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:DrawShadow(false)
-     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
-     self:Screamer_CustomOnInitialize()
+    self:DrawShadow(false)
+    self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
+    self:Screamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -173,9 +173,12 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

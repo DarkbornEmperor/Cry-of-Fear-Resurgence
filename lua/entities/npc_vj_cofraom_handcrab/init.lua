@@ -80,11 +80,11 @@ function ENT:Handcrab_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
-     self:Handcrab_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
+    self:Handcrab_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

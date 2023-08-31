@@ -78,7 +78,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
 		self.CrazyRunner_Type = 3	
 end
-     self:CrazyRunner_CustomOnInitialize()
+    self:CrazyRunner_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -100,13 +100,16 @@ function ENT:CustomOnAlert()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-end
-    VJ_COFR_DeathCode(self)   
+    end  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

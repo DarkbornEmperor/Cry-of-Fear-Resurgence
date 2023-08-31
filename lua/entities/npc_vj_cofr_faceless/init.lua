@@ -108,7 +108,7 @@ function ENT:CustomOnInitialize()
 		self.Faceless_Type = 5
         self.AnimTbl_MeleeAttack = {"vjseq_attack2"}		
 end
-     self:Faceless_CustomOnInitialize()
+    self:Faceless_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -155,7 +155,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

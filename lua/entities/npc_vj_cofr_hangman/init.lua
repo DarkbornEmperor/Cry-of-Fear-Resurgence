@@ -45,9 +45,9 @@ ENT.SoundTbl_Impact = {
 function ENT:Hangman_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:AddFlags(FL_NOTARGET)
-     self:SetCollisionBounds(Vector(13, 13, 150), Vector(-13, -13, 10))
-     self:Hangman_CustomOnInitialize()
+    self:AddFlags(FL_NOTARGET)
+    self:SetCollisionBounds(Vector(13, 13, 150), Vector(-13, -13, 10))
+    self:Hangman_CustomOnInitialize()
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***

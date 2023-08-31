@@ -79,8 +79,8 @@ function ENT:Lurker_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	 self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
-     self:Lurker_CustomOnInitialize()
+	self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
+    self:Lurker_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -115,7 +115,7 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
 	self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

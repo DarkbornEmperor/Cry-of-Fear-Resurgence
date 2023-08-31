@@ -76,7 +76,7 @@ end
 function ENT:SickSimon_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()	
-     self:SickSimon_CustomOnInitialize()	 
+    self:SickSimon_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -174,7 +174,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

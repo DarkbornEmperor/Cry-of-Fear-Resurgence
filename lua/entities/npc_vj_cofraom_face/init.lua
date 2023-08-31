@@ -108,9 +108,9 @@ function ENT:Face_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	 self:DrawShadow(false)
-     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
-     self:Face_CustomOnInitialize()	 
+	self:DrawShadow(false)
+    self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
+    self:Face_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -162,13 +162,16 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-end
-	VJ_COFR_DeathCode(self)	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

@@ -100,11 +100,11 @@ function ENT:Drowned_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-    if math.random(1,3) == 1 then
-	 self.NoChaseAfterCertainRange = false
+ if math.random(1,3) == 1 then
+	self.NoChaseAfterCertainRange = false
 end
-     self:SetCollisionBounds(Vector(13, 13, 78), Vector(-13, -13, 0))
-     self:Drowned_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(13, 13, 78), Vector(-13, -13, 0))
+    self:Drowned_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -191,7 +191,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

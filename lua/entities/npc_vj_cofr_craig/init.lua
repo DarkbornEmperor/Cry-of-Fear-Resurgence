@@ -90,8 +90,8 @@ function ENT:Craig_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
-     self:Craig_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
+    self:Craig_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -111,7 +111,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     dmginfo:ScaleDamage(0.10)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -67,8 +67,8 @@ function ENT:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	 self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
-     self:Watro_CustomOnInitialize()
+	self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
+    self:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -115,10 +115,13 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	self:DrawShadow(false)
-	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-	VJ_COFR_DeathCode(self)	
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

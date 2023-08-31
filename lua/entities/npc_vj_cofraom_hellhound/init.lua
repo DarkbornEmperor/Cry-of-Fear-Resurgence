@@ -75,8 +75,8 @@ function ENT:Hellhound_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
-     self:Hellhound_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
+    self:Hellhound_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -129,7 +129,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	return self.CurAttackAnimTime < CurTime()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

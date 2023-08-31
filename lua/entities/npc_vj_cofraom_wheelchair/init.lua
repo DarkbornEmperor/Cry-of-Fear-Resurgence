@@ -55,6 +55,12 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+ ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Wheelchair_CustomOnInitialize() end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+    self:Wheelchair_CustomOnInitialize()
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
@@ -90,7 +96,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

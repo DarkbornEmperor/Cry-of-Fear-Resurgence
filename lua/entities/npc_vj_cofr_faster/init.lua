@@ -93,7 +93,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
 		self.Faster_Type = 2		
 end
-     self:Faster_CustomOnInitialize()
+    self:Faster_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -146,7 +146,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

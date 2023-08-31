@@ -62,9 +62,9 @@ function ENT:HumanFlower_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:AddFlags(FL_NOTARGET)
-	 self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
-     self:HumanFlower_CustomOnInitialize()
+    self:AddFlags(FL_NOTARGET)
+	self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
+    self:HumanFlower_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

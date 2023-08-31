@@ -94,8 +94,8 @@ function ENT:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
-     self:Flygare_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
+    self:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -137,9 +137,12 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-    VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

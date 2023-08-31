@@ -406,11 +406,11 @@ end
 	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]),true)
     end
 end		 
-     self:David_CustomOnInitialize()
-     self:Simon_CustomOnInitialize()
-     self:Police_CustomOnInitialize()
-     self:DavidClassic_CustomOnInitialize()	 
-     self:AssistorFlashlight()	 
+    self:David_CustomOnInitialize()
+    self:Simon_CustomOnInitialize()
+    self:Police_CustomOnInitialize()
+    self:DavidClassic_CustomOnInitialize()	 
+    self:AssistorFlashlight()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight() end
@@ -699,6 +699,10 @@ end
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
@@ -708,7 +712,6 @@ end
 	self:DoDropWeaponOnDeath(dmginfo,hitgroup)
 	local activeWep = self:GetActiveWeapon()
 	if IsValid(activeWep) then activeWep:Remove() end
-    VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

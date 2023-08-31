@@ -95,12 +95,12 @@ function ENT:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-  if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
-     self.CanFlinch = 1
-     self.FlinchChance = 16
+ if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
+    self.CanFlinch = 1
+    self.FlinchChance = 16
 end
-     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
-     self:Mace_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
+    self:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -131,7 +131,7 @@ end
     end	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -77,11 +77,11 @@ function ENT:Psycho_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self:GetModel() == "models/vj_cofr/custom/patrick.mdl" or self:GetModel() == "models/vj_cofr/custom/psychopumpkin.mdl" or self:GetModel() == "models/vj_cofr/custom/psycho_le.mdl" then
-	   self.AnimTbl_MeleeAttack = {"vjseq_attack1_1","vjseq_attack1_2","vjseq_attack1_3"} 
+ if self:GetModel() == "models/vj_cofr/custom/patrick.mdl" or self:GetModel() == "models/vj_cofr/custom/psychopumpkin.mdl" or self:GetModel() == "models/vj_cofr/custom/psycho_le.mdl" then
+    self.AnimTbl_MeleeAttack = {"vjseq_attack1_1","vjseq_attack1_2","vjseq_attack1_3"} 
 end		
-     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-     self:Psycho_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+    self:Psycho_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -97,7 +97,7 @@ end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

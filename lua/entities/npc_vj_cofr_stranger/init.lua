@@ -141,13 +141,16 @@ function ENT:CustomOnThink()
 	self:SetNW2Entity("Enemy",self:GetEnemy())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
  if math.random(1,50) then
     self:SetRenderFX(kRenderFxFlickerSlow)
     self:SetRenderMode(RENDERMODE_NORMAL)
 end
     self.DeathAnimationTime = math.Rand(0.75,1.25)
-	VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo,hitgroup)	

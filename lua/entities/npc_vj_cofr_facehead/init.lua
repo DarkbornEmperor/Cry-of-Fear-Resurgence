@@ -61,9 +61,9 @@ function ENT:FaceHead_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:AddFlags(FL_NOTARGET)
-	 self:SetCollisionBounds(Vector(30, 30, 90), Vector(-30, -30, 0))
-     self:FaceHead_CustomOnInitialize()
+    self:AddFlags(FL_NOTARGET)
+	self:SetCollisionBounds(Vector(30, 30, 90), Vector(-30, -30, 0))
+    self:FaceHead_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply,controlEnt)

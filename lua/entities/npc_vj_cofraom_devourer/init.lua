@@ -77,7 +77,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     self:SetCollisionBounds(Vector(25,25,0),Vector(-25,-25,39))
-	self:Devourer_CustomOnInitialize()
+    self:Devourer_CustomOnInitialize()
 	//self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -182,9 +182,12 @@ function ENT:CustomOnInitialKilled(dmginfo,hitgroup)
 	self:Devourer_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:SetPos(self:GetPos() + self:GetUp()*-4)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+    self:SetPos(self:GetPos() + self:GetUp()*-4)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

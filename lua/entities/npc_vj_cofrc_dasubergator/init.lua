@@ -91,8 +91,8 @@ function ENT:Gator_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(35, 35, 70), Vector(-35, -35, 0))
-     self:Gator_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(35, 35, 70), Vector(-35, -35, 0))
+    self:Gator_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -107,7 +107,7 @@ function ENT:CustomOnAlert()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

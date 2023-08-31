@@ -73,8 +73,8 @@ function ENT:Sawcrazy_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
-     self:Sawcrazy_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
+    self:Sawcrazy_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -103,7 +103,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     dmginfo:ScaleDamage(0.30)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

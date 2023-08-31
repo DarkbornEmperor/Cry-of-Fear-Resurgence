@@ -83,14 +83,14 @@ function ENT:Doctor_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-     self:Doctor_CustomOnInitialize()
-	 self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
-	 local wep = math.random(1,2)
-	 if wep == 1 then
-     self:Give("weapon_vj_cofr_revolver")	
-	 elseif wep == 2 then
-     self:Give("weapon_vj_cofr_p345")	
+    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+    self:Doctor_CustomOnInitialize()
+	self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
+	local wep = math.random(1,2)
+	if wep == 1 then
+    self:Give("weapon_vj_cofr_revolver")	
+	elseif wep == 2 then
+    self:Give("weapon_vj_cofr_p345")	
     end	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -138,8 +138,11 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	dmginfo:ScaleDamage(0.45)		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
 	self:DoDropWeaponOnDeath(dmginfo,hitgroup)
 	local activeWep = self:GetActiveWeapon()
 	if IsValid(activeWep) then activeWep:Remove() end

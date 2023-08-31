@@ -97,11 +97,11 @@ function ENT:Suicider_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-   if math.random(1,3) == 1 then
-	 self.NoChaseAfterCertainRange = false
+ if math.random(1,3) == 1 then
+	self.NoChaseAfterCertainRange = false
 end	 
-     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-     self:Suicider_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+    self:Suicider_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
@@ -249,7 +249,8 @@ end
 		VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)	
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())					
 		return true,{DeathAnim=true}
-	end	
+end
+    VJ_COFR_DeathCode(self)		
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
@@ -258,12 +259,11 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	else
        self.AnimTbl_Death = {ACT_DIE_HEADSHOT}		
 end
-    if !self.Suicider_DeathSuicide then
-       self:DropGlock()
-    else
-	   self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
-end
-    VJ_COFR_DeathCode(self)
+     if !self.Suicider_DeathSuicide then
+        self:DropGlock()
+     else
+	    self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock() 

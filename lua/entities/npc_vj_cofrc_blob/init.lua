@@ -64,9 +64,9 @@ end
 function ENT:Blob_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	 self:SetCollisionBounds(Vector(350, 350, 620), Vector(-350, -350, 0))
-     self:Blob_CustomOnInitialize()
-     self.Tentacles = {}
+	self:SetCollisionBounds(Vector(350, 350, 620), Vector(-350, -350, 0))
+    self:Blob_CustomOnInitialize()
+    self.Tentacles = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()	
@@ -89,7 +89,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     dmginfo:ScaleDamage(0.45)	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

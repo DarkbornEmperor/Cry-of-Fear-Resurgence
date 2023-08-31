@@ -98,8 +98,8 @@ function ENT:Addiction_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))		
-     self:Addiction_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))		
+    self:Addiction_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -133,7 +133,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
  local ent = self:GetEnemy()
- if !IsValid(ent) or self.Dead then return end
+ /*if !IsValid(ent) or self.Dead then return end*/
  if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 	self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 	self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)		
@@ -145,9 +145,9 @@ end
 		self.Addiction_FireIgnite = VJ.CreateSound(self,self.SoundTbl_FireIgnite,75,100)
 		self.Addiction_FireLoop = VJ.CreateSound(self,self.SoundTbl_FireLoop,75,100)
 	    timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire then
-	if IsValid(ent) && ent:WaterLevel() != 3 then
+	/*if IsValid(ent) && ent:WaterLevel() != 3 then*/
         VJ.ApplyRadiusDamage(self,self,self:GetPos(),150,10,DMG_BURN,true,true)
-end
+/*end*/
 		timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.FireEffect) then self.FireEffect:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
     end	
 end
@@ -262,15 +262,18 @@ end
     end	  
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	if self.Addiction_OnFire then
-	   self.Addiction_OnFire = false
-    if IsValid(self.FireEffect) then self.FireEffect:Remove() end
-       self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
-	   VJ.STOPSOUND(self.Addiction_FireLoop)
-	   timer.Remove("VJ_COFR_Addiction_Fire")
-end
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	 if self.Addiction_OnFire then
+	    self.Addiction_OnFire = false
+     if IsValid(self.FireEffect) then self.FireEffect:Remove() end
+        self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
+	    VJ.STOPSOUND(self.Addiction_FireLoop)
+	    timer.Remove("VJ_COFR_Addiction_Fire")
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
@@ -282,6 +285,7 @@ function ENT:CustomOnRemove()
     VJ.STOPSOUND(self.Addiction_FireIgnite)
     VJ.STOPSOUND(self.Addiction_FireOff)
     VJ.STOPSOUND(self.Addiction_FireLoop)
+	timer.Remove("VJ_COFR_Addiction_Fire")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {

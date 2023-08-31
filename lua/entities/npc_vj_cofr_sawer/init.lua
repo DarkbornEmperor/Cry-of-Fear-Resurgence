@@ -94,8 +94,8 @@ function ENT:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
-     self:Sawer_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
+    self:Sawer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -159,13 +159,16 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
  if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
     self:SetSkin(0)
 	self.Sawer_Eye:Remove()
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-end
-    VJ_COFR_DeathCode(self)	
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

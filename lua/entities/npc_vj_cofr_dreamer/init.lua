@@ -42,11 +42,11 @@ function ENT:Dreamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:AddFlags(FL_NOTARGET)
-     self:SetMaterial("hud/killicons/default")
-	 self:DrawShadow(false)
-     self:SetCollisionBounds(Vector(13, 13, 86), Vector(-13, -13, 0))
-     self:Dreamer_CustomOnInitialize()
+    self:AddFlags(FL_NOTARGET)
+    self:SetMaterial("hud/killicons/default")
+	self:DrawShadow(false)
+    self:SetCollisionBounds(Vector(13, 13, 86), Vector(-13, -13, 0))
+    self:Dreamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

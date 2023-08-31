@@ -94,8 +94,8 @@ function ENT:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-     self:SetCollisionBounds(Vector(15, 15, 92), Vector(-15, -15, 0))
-     self:Carcass_CustomOnInitialize()
+    self:SetCollisionBounds(Vector(15, 15, 92), Vector(-15, -15, 0))
+    self:Carcass_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)	
@@ -142,11 +142,14 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	else
 	    self.Bleeds = true
     end	
-end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+    VJ_COFR_DeathCode(self)	
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-    VJ_COFR_DeathCode(self)	
+    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

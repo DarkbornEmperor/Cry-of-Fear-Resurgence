@@ -692,7 +692,7 @@ end)
 				hook.Remove("RenderScreenspaceEffects",hookName)
 	return
 end
-			ply:ScreenFade(SCREENFADE.IN, colorRed, 0.2, 0)
+			ply:ScreenFade(SCREENFADE.IN, colorRed, 0.1, 0)
 	    end)
     end)
 end
@@ -723,6 +723,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_ApplyCorpse(ent,corpse)
+ if GetConVar("ai_disabled"):GetInt() == 1 then corpse:Remove() end
     //VJ_COFR_ExtraCorpseOptions(corpse)	
 	corpse:ResetSequence(ent:GetSequence())
 	corpse:SetCycle(1)
