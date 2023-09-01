@@ -38,7 +38,7 @@ function SWEP:CustomOnInitialize()
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofr_police" then 
         self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
-  elseif owner:GetClass() == "npc_vj_cofr_simonbeta" then 
+  elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then 
         self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
   elseif owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" then
         self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)

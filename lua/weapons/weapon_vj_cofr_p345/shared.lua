@@ -43,7 +43,7 @@ function SWEP:CustomOnInitialize()
 		self.Primary.Damage	= 15
 		self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/p345_reload.wav"}
 end
-  elseif owner:GetClass() == "npc_vj_cofr_simonbeta" then 
+  elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then 
         self.WorldModel_CustomPositionOrigin = Vector(-2, 3.2, -1)
   elseif owner:GetClass() == "npc_vj_cofr_police" then 
         self.WorldModel_CustomPositionOrigin = Vector(-2, 3.5, -1)

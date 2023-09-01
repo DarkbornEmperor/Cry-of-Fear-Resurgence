@@ -117,12 +117,12 @@ ENT.WeaponsList_AoMC = {
 	},
 	["Normal"] = {
 		"weapon_vj_cofraomc_beretta",
-		"weapon_vj_cofraomc_revolver",
-		"weapon_vj_cofraomc_m4",
+		"weapon_vj_cofraomc_deagle",
+		"weapon_vj_cofraomc_ak47",
 		"weapon_vj_cofraomc_grenade",
 	},
 	["Far"] = {
-		"weapon_vj_cofraomc_m4",
+		"weapon_vj_cofraomc_ak47",
 	},
 }
 ENT.WeaponsList_CoF = {
@@ -183,8 +183,8 @@ ENT.WeaponsList_AoMDC_Cont = {
 ENT.WeaponsList_AoMC_Cont = {
 	["ContWeapons"] = {
 		"weapon_vj_cofraomc_beretta",
-		"weapon_vj_cofraomc_revolver",
-		"weapon_vj_cofraomc_m4",
+		"weapon_vj_cofraomc_deagle",
+		"weapon_vj_cofraomc_ak47",
 		"weapon_vj_cofraomc_grenade",
 		"weapon_vj_cofraomc_shotgun",
 	},
@@ -250,7 +250,10 @@ end
     "vj_cofr/aom/david/pl_pain5.wav",
     "vj_cofr/aom/david/pl_pain6.wav",
     "vj_cofr/aom/david/pl_pain7.wav",	
-}	
+}
+    if self:GetModel() == "models/vj_cofr/aom/classic/david_old.mdl" then
+	    self:SetBodygroup(0,math.random(0,1))	
+	    end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

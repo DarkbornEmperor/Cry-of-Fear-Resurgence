@@ -12,15 +12,15 @@ SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: R
 SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_cofr/aom/weapons/classic/w_9mmhandgun.mdl"
+SWEP.WorldModel					= "models/vj_cofr/aom/weapons/classic/w_beretta.mdl"
 SWEP.HoldType 					= "pistol"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(5.5, -180, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0, -5.5, -1)
+SWEP.WorldModel_CustomPositionAngle = Vector(185, -180, 90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(1, 4.2, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 20 -- Damage

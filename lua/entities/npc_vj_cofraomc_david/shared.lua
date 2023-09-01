@@ -1,6 +1,6 @@
 ENT.Base 			= "npc_vj_cofraom_david" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
 ENT.Type 			= "ai"
-ENT.PrintName 		= "David Leatherhoff"
+ENT.PrintName 		= "David Leatherhoff (Classic)"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

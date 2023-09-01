@@ -6,17 +6,21 @@ SWEP.Purpose					= "This weapon is made for NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "Cry of Fear Resurgence"
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel = "models/vj_cofr/aom/weapons/classic/w_crowbar.mdl"
+SWEP.WorldModel = "models/vj_cofr/aom/weapons/classic/w_knife.mdl"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10 -- Damage
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(264, 180, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(3.2, 4.5, -1.2)
+SWEP.WorldModel_CustomPositionOrigin = Vector(3.2, 6, -1.2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize() 
-    self:SetModelScale(0.5)
+  self:SetModelScale(0.7)
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofraomc_david_old" && owner:GetBodygroup(0) == 0 then 
+        self.WorldModel_CustomPositionOrigin = Vector(2.5, 6, -1.2)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
