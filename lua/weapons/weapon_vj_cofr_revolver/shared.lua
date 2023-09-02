@@ -40,10 +40,10 @@ function SWEP:CustomOnInitialize()
         self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
   elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then 
         self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
-  elseif owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" then
+  elseif owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" or owner:GetClass() == "npc_vj_cofrc_robert" then
         self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
         self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
-  if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" then
+  if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrc_robert" then
 		self.NPC_NextPrimaryFire = 1
 		self.Primary.Damage	= 13
 		self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/revolver_reload.wav"}

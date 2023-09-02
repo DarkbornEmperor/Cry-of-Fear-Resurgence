@@ -143,6 +143,7 @@ if VJExists == true then
     VJ.AddNPC("The Mummy","npc_vj_cofrc_mummy",spawnCategory)
 	
 	-- Friendlies --
+	VJ.AddNPC("Robert","npc_vj_cofrc_robert",spawnCategory)
 	VJ.AddNPC("Roderick Henriksson","npc_vj_cofrc_roderick",spawnCategory)
 
 	-- Misc/Hazards --
@@ -449,6 +450,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/saw_bateman.mdl")
     util.PrecacheModel("models/vj_cofr/custom/patrick.mdl")
     util.PrecacheModel("models/vj_cofr/custom/faceless_boss.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/robert.mdl")
     util.PrecacheModel("models/vj_cofr/custom/roderick.mdl")
     util.PrecacheModel("models/vj_cofr/custom/booksicksimon.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/genome_soldier1.mdl")
