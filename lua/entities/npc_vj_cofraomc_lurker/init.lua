@@ -63,7 +63,6 @@ ENT.Icky_BlinkingT = 0
 function ENT:Lurker_CustomOnInitialize()
     self.SoundTbl_Alert = {
 	"vj_cofr/aom/lurker/ichy_alert1.wav",
-	"vj_cofr/aom/lurker/ichy_alert2.wav",
 	"vj_cofr/aom/lurker/ichy_alert3.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {

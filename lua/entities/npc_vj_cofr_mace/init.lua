@@ -95,7 +95,7 @@ function ENT:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
- if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
+ if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
     self.CanFlinch = 1
     self.FlinchChance = 16
 end
