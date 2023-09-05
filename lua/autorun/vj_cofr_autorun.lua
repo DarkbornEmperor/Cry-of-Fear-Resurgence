@@ -19,6 +19,7 @@ if VJExists == true then
 	-- Enemies
 	VJ.AddNPC("Baby","npc_vj_cofr_baby",spawnCategory)
 	VJ.AddNPC("Children","npc_vj_cofr_children",spawnCategory)
+	VJ.AddNPC("Children (Early)","npc_vj_cofr_children_early",spawnCategory)
 	VJ.AddNPC("Citalopram","npc_vj_cofr_citalopram",spawnCategory)
 	VJ.AddNPC("Crawler","npc_vj_cofr_crawler",spawnCategory)
 	VJ.AddNPC("Crazyrunner","npc_vj_cofr_crazyrunner",spawnCategory)
@@ -286,6 +287,7 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_cofr/cof/sewmo.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/crazyrunner.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/children.mdl")
+	util.PrecacheModel("models/vj_cofr/cof/children_early.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/citalopram.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/krypandenej.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/children.mdl")	

@@ -30,6 +30,7 @@ local entsList = {
 	"npc_vj_cofr_upper:60",
 	"npc_vj_cofr_baby:10",
 	"npc_vj_cofr_children:10",
+	"npc_vj_cofr_children_early:10",
 	"npc_vj_cofr_faster:15",
     "npc_vj_cofr_faster_male:15",
     "npc_vj_cofr_drowned:15",

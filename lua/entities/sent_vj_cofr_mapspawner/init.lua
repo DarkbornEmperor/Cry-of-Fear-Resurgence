@@ -13,6 +13,7 @@ ENT.Monster = {
 	{class="npc_vj_cofr_croucher",chance=5},
 	{class="npc_vj_cofr_baby",chance=3},
 	{class="npc_vj_cofr_children",chance=3},
+	{class="npc_vj_cofr_children_early",chance=3},
 	{class="npc_vj_cofr_faster",chance=4},
 	{class="npc_vj_cofr_faster_male",chance=6},	
 	{class="npc_vj_cofr_crazyrunner",chance=5},
