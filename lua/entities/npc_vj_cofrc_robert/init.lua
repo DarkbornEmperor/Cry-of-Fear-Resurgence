@@ -10,7 +10,6 @@ ENT.StartHealth = 200
 ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
-ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} 
 ENT.FriendsWithAllPlayerAllies = true  
 ENT.HasSoundTrack = false
