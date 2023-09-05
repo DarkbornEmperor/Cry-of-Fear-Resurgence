@@ -90,7 +90,12 @@ ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()	
+function ENT:CustomOnPreInitialize()
+ if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 then
+    self.SoundTbl_Glock = {
+    "vj_cofr/cof/weapons/glock/glock_fire.wav"
+}
+end	
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end	

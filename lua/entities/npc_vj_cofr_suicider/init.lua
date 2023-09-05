@@ -71,6 +71,11 @@ ENT.Suicider_DeathSuicide = false
 ENT.Suicider_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
+ if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 then
+    self.SoundTbl_Glock = {
+    "vj_cofr/cof/weapons/glock/glock_fire.wav"
+}
+end
  if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true return end
     local Suicider_Type = math.random(1,2)
 	if Suicider_Type == 1 then
