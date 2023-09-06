@@ -24,19 +24,6 @@ function ENT:CustomOnInitialize()
 	 self.Hellhound_NextSleepT = CurTime() + math.Rand(0, 15)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "step" then
-		self:FootStepSoundCode()
-	elseif key == "attack" then
-		self:MeleeAttackCode()
-	elseif key == "death" then
-		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-end		
-    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    end		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	-- Idle animations
 	if self.VJ_IsBeingControlled then
@@ -88,7 +75,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Hellhound_CurIdleAnim = 1
 		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
 		self:SetState(VJ_STATE_ONLY_ANIMATION, sleept)
-		timer.Simple(7, function() if IsValid(self) && self.Hellhound_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
+		timer.Simple(7, function() if IsValid(self) && self.Hellhound_Sleeping then self:SetSkin(2) end end) -- Close eyes
 		timer.Simple(sleept, function() -- Reset after sleept seconds
 			if IsValid(self) && self.Hellhound_Sleeping == true then
 				self.Hellhound_Sleeping = false
@@ -102,7 +89,7 @@ end
 local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
 --
 function ENT:CustomOnAlert(ent)
-	if self.Hellhound_Sleeping == true then -- Wake up if sleeping and play a special alert animation
+	if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 		self.Hellhound_Sleeping = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)

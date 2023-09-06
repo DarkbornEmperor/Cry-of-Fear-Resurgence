@@ -115,10 +115,14 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())	
 	elseif key == "death" then
 		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-end		
-    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    end		
+	    /*local effectdata = EffectData()
+	    effectdata:SetOrigin(self:GetPos())
+	    effectdata:SetScale(10)
+	    util.Effect("watersplash",effectdata)*/
+	    end
+    end			
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent) 

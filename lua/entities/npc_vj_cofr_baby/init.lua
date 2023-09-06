@@ -86,6 +86,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	elseif key == "attack" then
 		self:MeleeAttackCode()
 		ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+		VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
+		self:SetBodygroup(0,1)
 	if self.HasGibDeathParticles then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -97,14 +99,16 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		effectData:SetColor(0)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
-end
-		VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-		self:SetBodygroup(0,1)	
+end	
 	elseif key == "death" then
 		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-end		
-    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+	    /*local effectdata = EffectData()
+	    effectdata:SetOrigin(self:GetPos())
+	    effectdata:SetScale(10)
+	    util.Effect("watersplash",effectdata)*/
+	    end
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

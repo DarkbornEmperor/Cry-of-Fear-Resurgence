@@ -85,10 +85,14 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 	if key == "attack" && self:GetSequence() == self:LookupSequence("stamp") then
         util.ScreenShake(self:GetPos(),10,100,0.4,300)
-end		
-    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    end		
+	    /*local effectdata = EffectData()
+	    effectdata:SetOrigin(self:GetPos())
+	    effectdata:SetScale(10)
+	    util.Effect("watersplash",effectdata)*/
+	    end
+    end			
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
