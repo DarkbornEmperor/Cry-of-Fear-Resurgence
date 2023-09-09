@@ -57,7 +57,7 @@ end
 function ENT:CustomOnInitialize()
   timer.Simple(5, function() if IsValid(self) then 
   if !self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100)
-  elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100) end
+  elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
      self:Remove() 
     end
 end) 

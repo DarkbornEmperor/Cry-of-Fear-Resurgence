@@ -137,7 +137,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
  local ent = self:GetEnemy()
- /*if !IsValid(ent) or self.Dead then return end*/
+ if self.Dead then return end
  if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 	self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
 	self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)		
@@ -233,10 +233,10 @@ function ENT:CustomRangeAttackCode()
 	self.Lightning:SetPos(enePos + ent:GetUp()*60)
 	self.Lightning:Spawn()
 	self.Lightning:Activate()
+	self.Lightning:Fire("Kill","",0.2)
 	self:DeleteOnRemove(self.Lightning)
 	
-	timer.Simple(0.2,function() if IsValid(ent) && IsValid(self.Lightning) then self.Lightning:Remove() end end)
-	VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_hit.wav"}, 75, 100) end end)
+	VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_hit.wav"}, 90, 100) end end)
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -73,6 +73,9 @@ function ENT:Sawcrazy_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+ if GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 1 then
+    self.VJTag_ID_Danger = true
+end
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
     self:Sawcrazy_CustomOnInitialize()
 end
