@@ -1,40 +1,37 @@
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "M76"
-SWEP.Author 					= "Darkborn"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for NPCs"
-SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 1.5
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "M76"
+SWEP.Author = "Darkborn"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Purpose = "This weapon is made for NPCs"
+SWEP.Instructions = "Controls are like a regular weapon."
+SWEP.Category = "Cry of Fear Resurgence"
+-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.09
-SWEP.NPC_TimeUntilFireExtraTimers = {0.09,0.09*2,0.09*3,0.09*4,0.09*5,0.09*6,0.09*7}
-//SWEP.NPC_ReloadSound			= {""} -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+//SWEP.NPC_ReloadSound = {""}
+SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_cofr/cof/weapons/w_m76.mdl"
-SWEP.HoldType 					= "smg"
-SWEP.CoFR_HoldType              = "sniper"
-SWEP.Spawnable					= false
-SWEP.AdminSpawnable				= false
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel	= "models/vj_cofr/cof/weapons/w_m76.mdl"
+SWEP.HoldType = "smg"
+SWEP.CoFR_HoldType = "sniper"
+SWEP.Spawnable = false
+SWEP.AdminSpawnable = false
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(7, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-6, -4, -5)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 7 -- Damage
-SWEP.Primary.ClipSize			= 36 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
-SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/m76/shoot.wav"}
-SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/hks_distant_new.wav"}
-SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.Primary.Damage	= 7
+SWEP.Primary.ClipSize = 36
+SWEP.Primary.Ammo = "SMG1" -- Ammo type
+SWEP.Primary.Sound = {"vj_cofr/cof/weapons/m76/shoot.wav"}
+SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/hks_distant_new.wav"}
+SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
+SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects(owner)
 	self.PrimaryEffects_MuzzleFlash = false
@@ -56,4 +53,26 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
 	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttack_BeforeShoot()
+    local Brt = math.random(1,8)
+	local Num = 0.09
+	if Brt == 1 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
+	self.NPC_NextPrimaryFire = math.Rand(0.6,0.7)
+	elseif Brt == 2 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3}
+	self.NPC_NextPrimaryFire = math.Rand(0.7,0.8)
+	elseif Brt == 3 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4}
+	self.NPC_NextPrimaryFire = math.Rand(0.8,0.9)
+	elseif Brt == 4 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5}
+	self.NPC_NextPrimaryFire = math.Rand(0.9,1.25)
+	elseif Brt == 5 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5,Num*6}
+	self.NPC_NextPrimaryFire = math.Rand(1.25,1.35)
+	elseif Brt == 6 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5,Num*6,Num*7}
+	self.NPC_NextPrimaryFire = math.Rand(1.35,1.45)
+	elseif Brt == 7 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5,Num*6,Num*7,Num*8}
+	self.NPC_NextPrimaryFire = math.Rand(1.45,1.55)
+	elseif Brt == 8 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5,Num*6,Num*7,Num*8,Num*9}
+	self.NPC_NextPrimaryFire = math.Rand(1.55,1.85)
+	end
 end

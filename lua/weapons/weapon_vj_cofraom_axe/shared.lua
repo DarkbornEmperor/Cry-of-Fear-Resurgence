@@ -1,10 +1,10 @@
-SWEP.Base 						= "weapon_vj_cofr_melee_base"
-SWEP.PrintName					= "Axe"
-SWEP.Author 					= "Darkborn"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for NPCs"
-SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "Cry of Fear Resurgence"
+SWEP.Base = "weapon_vj_cofr_melee_base"
+SWEP.PrintName = "Axe"
+SWEP.Author = "Darkborn"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Purpose = "This weapon is made for NPCs"
+SWEP.Instructions = "Controls are like a regular weapon."
+SWEP.Category = "Cry of Fear Resurgence"
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_axe.mdl"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------

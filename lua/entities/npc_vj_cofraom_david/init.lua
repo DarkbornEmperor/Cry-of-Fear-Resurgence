@@ -535,6 +535,15 @@ function ENT:CustomOnMoveRandomlyWhenShooting()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnWeaponReload() 
+ if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover then return end
+    self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemyVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnWeaponReload_AfterRanToCover()
+    self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemyVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(h)
 	local defIdleAim = ACT_IDLE -- ACT_IDLE_ANGRY
 	local defWalkAim = ACT_WALK

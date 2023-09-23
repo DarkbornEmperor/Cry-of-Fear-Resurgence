@@ -1,19 +1,19 @@
-SWEP.Base 						= "weapon_vj_cofr_melee_base"
-SWEP.PrintName					= "Nigntstick"
-SWEP.Author 					= "Darkborn"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for NPCs"
-SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "Cry of Fear Resurgence"
+SWEP.Base = "weapon_vj_cofr_melee_base"
+SWEP.PrintName = "Nigntstick"
+SWEP.Author = "Darkborn"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Purpose = "This weapon is made for NPCs"
+SWEP.Instructions = "Controls are like a regular weapon."
+SWEP.Category = "Cry of Fear Resurgence"
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_nightstick.mdl"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 11 -- Damage
+SWEP.Primary.Damage = 11
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-350, -180, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1.5, 0, -1.8)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
     self:SetModelScale(0.90)

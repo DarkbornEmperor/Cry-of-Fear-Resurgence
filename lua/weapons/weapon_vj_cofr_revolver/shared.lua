@@ -1,38 +1,38 @@
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Taurus Revolver"
-SWEP.Author 					= "Darkborn"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for NPCs"
-SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "Cry of Fear Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Revolver"
+SWEP.Author = "Darkborn"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Purpose = "This weapon is made for NPCs"
+SWEP.Instructions = "Controls are like a regular weapon."
+SWEP.Category = "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= 1.5 -- Next time it can use primary fire
-//SWEP.NPC_ReloadSound			= {""} -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_NextPrimaryFire = 1.5
+//SWEP.NPC_ReloadSound = {""}
+SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_cofr/cof/weapons/w_revolver.mdl"
-SWEP.HoldType 					= "revolver"
-SWEP.Spawnable					= false
-SWEP.AdminSpawnable				= false
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel	= "models/vj_cofr/cof/weapons/w_revolver.mdl"
+SWEP.HoldType = "revolver"
+SWEP.Spawnable = false
+SWEP.AdminSpawnable	= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(7, -1, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1.5, 4.2, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 40 -- Damage
-SWEP.Primary.ClipSize			= 5 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "357" -- Ammo type
-SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/revolver/revolver_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/357_shot_distant_final.wav"}
-SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.Damage	= 40
+SWEP.Primary.Force = 1.6
+SWEP.Primary.ClipSize = 5
+SWEP.Primary.Ammo = "357"
+SWEP.Primary.Sound = {"vj_cofr/cof/weapons/revolver/revolver_fire.wav"}
+SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/357_shot_distant_final.wav"}
+SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
+SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   local owner = self:GetOwner()

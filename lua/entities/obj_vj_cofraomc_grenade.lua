@@ -71,11 +71,11 @@ function ENT:DeathEffects()
 	expLight:SetLocalPos(selfPos)
 	expLight:SetLocalAngles(self:GetAngles())
 	expLight:Fire("Color", "255 150 0")
-	expLight:SetParent(self)
+	//expLight:SetParent(self)
 	expLight:Spawn()
 	expLight:Activate()
 	expLight:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(expLight)
+	expLight:Fire("Kill","",0.08)
 	util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 	
 	self:SetLocalPos(selfPos + vecZ4) -- Because the entity is too close to the ground

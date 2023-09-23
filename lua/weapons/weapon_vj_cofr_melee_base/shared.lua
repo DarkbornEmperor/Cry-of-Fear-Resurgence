@@ -6,18 +6,18 @@ SWEP.Purpose = "This weapon is made for Players and NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 1 -- Next time it can use primary fire
-SWEP.NPC_TimeUntilFire = 0 -- How much time until the bullet/projectile is fired?
+SWEP.NPC_NextPrimaryFire = 1
+SWEP.NPC_TimeUntilFire = 0
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HoldType = "melee"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable	= false
-SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly = true
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.IsMeleeWeapon = true -- Should this weapon be a melee weapon?
-SWEP.MeleeWeaponDistance = 70 -- If it's this close, it will attack
-SWEP.MeleeWeaponSound_Hit = false -- Sound it plays when it hits something
-SWEP.MeleeWeaponSound_Miss = false -- Sound it plays when it misses (Doesn't hit anything)
+SWEP.IsMeleeWeapon = true
+SWEP.MeleeWeaponDistance = 70
+SWEP.MeleeWeaponSound_Hit = false
+SWEP.MeleeWeaponSound_Miss = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
    local owner = self:GetOwner()
@@ -77,7 +77,7 @@ function SWEP:PrimaryAttack(UseAlt)
 	/*
 		local meleeHitEnt = false
 		for _,v in ipairs(ents.FindInSphere(owner:GetPos(), self.MeleeWeaponDistance)) do
-			if (owner.VJ_IsBeingControlled == true && owner.VJ_TheControllerBullseye == v) or (v:IsPlayer() && v.IsControlingNPC == true) then continue end
+			if (owner.VJ_IsBeingControlled == true && owner.VJ_TheControllerBullseye == v) or (v:IsPlayer() && v.VJTag_IsControllingNPC == true) then continue end
 			if (isPly && v:EntIndex() != owner:EntIndex()) or (isNPC && (v:IsNPC() or (v:IsPlayer() && v:Alive() && !VJ_CVAR_IGNOREPLAYERS)) && (owner:Disposition(v) != D_LI) && (v != owner) && (v:GetClass() != owner:GetClass()) or (v:GetClass() == "prop_physics") or v:GetClass() == "func_breakable_surf" or v:GetClass() == "func_breakable" && (owner:GetForward():Dot((v:GetPos() -owner:GetPos()):GetNormalized()) > math.cos(math.rad(owner.MeleeAttackDamageAngleRadius)))) then
 				local dmginfo = DamageInfo()
 				dmginfo:SetDamage(isNPC and owner:VJ_GetDifficultyValue(self.Primary.Damage) or self.Primary.Damage)
@@ -158,17 +158,16 @@ function SWEP:PrimaryAttack(UseAlt)
 				end
 			owner:FireBullets(bullet)
 		end
-		if isNPC && owner.IsVJBaseSNPC then
-			self:SetClip1(self:Clip1() - 1)
-		end
 		if GetConVar("vj_wep_nomuszzleflash"):GetInt() == 0 then owner:MuzzleFlash() end
 	end
 	
-	self:PrimaryAttackEffects()
+	self:TakePrimaryAmmo(self.Primary.TakeAmmo)
+	
+	self:PrimaryAttackEffects(owner)
+	
 	if isPly then
 		//self:ShootEffects("ToolTracer") -- Deprecated
 		owner:ViewPunch(Angle(-self.Primary.Recoil, 0, 0))
-		self:TakePrimaryAmmo(self.Primary.TakeAmmo)
 		owner:SetAnimation(PLAYER_ATTACK1)
 		local anim = VJ.PICK(self.AnimTbl_PrimaryFire)
 		local animTime = VJ.AnimDuration(owner:GetViewModel(), anim)

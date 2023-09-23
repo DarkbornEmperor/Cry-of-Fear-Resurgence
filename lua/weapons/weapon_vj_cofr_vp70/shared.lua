@@ -1,39 +1,36 @@
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "VP70"
-SWEP.Author 					= "Darkborn"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for NPCs"
-SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "Cry of Fear Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "VP70"
+SWEP.Author = "Darkborn"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Purpose = "This weapon is made for NPCs"
+SWEP.Instructions = "Controls are like a regular weapon."
+SWEP.Category = "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 1
 SWEP.NPC_TimeUntilFire = 0.05
-SWEP.NPC_TimeUntilFireExtraTimers = {0.05,0.05*2,0.05*3}
-//SWEP.NPC_ReloadSound			= {""} -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+//SWEP.NPC_ReloadSound = {""}
+SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_cofr/cof/weapons/w_vp70.mdl"
-SWEP.HoldType 					= "pistol"
-SWEP.Spawnable					= false
-SWEP.AdminSpawnable				= false
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel	= "models/vj_cofr/cof/weapons/w_vp70.mdl"
+SWEP.HoldType = "pistol"
+SWEP.Spawnable = false
+SWEP.AdminSpawnable = false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-35, 5, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, -2, -0.5)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 15 -- Damage
-SWEP.Primary.ClipSize			= 18 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "Pistol" -- Ammo type
-SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/vp70/vp70_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/glock_distant2.wav"}
-SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.Damage	= 15
+SWEP.Primary.ClipSize = 18
+SWEP.Primary.Ammo = "Pistol"
+SWEP.Primary.Sound = {"vj_cofr/cof/weapons/vp70/vp70_fire.wav"}
+SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/glock_distant2.wav"}
+SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"} -- The sound that it plays when the weapon is out of ammo
+SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   local owner = self:GetOwner()
@@ -64,4 +61,10 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
 	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttack_BeforeShoot()
+	local Num = 0.05
+	self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
+	self.NPC_NextPrimaryFire = math.Rand(0.8,1.2)
 end
