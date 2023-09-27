@@ -39,7 +39,7 @@ function SWEP:PrimaryAttack(UseAlt)	-- Heavily modified PrimaryAttack function t
 	
 	-- Melee Gesture
 	if owner.IsVJBaseSNPC_Human && !owner.DisableWeaponFiringGesture && CurTime() > self.NextMeleeAnimT then
-		owner:VJ_ACT_PLAYACTIVITY(owner:TranslateToWeaponAnim(VJ.PICK(owner.AnimTbl_WeaponAttackFiringGesture)), false, false, false, 0, {AlwaysUseGesture=true, SequenceInterruptible=false})
+		owner:VJ_ACT_PLAYACTIVITY(owner:TranslateToWeaponAnim(VJ.PICK(owner.AnimTbl_WeaponAttackFiringGesture)), false, false, false, 0, {AlwaysUseGesture=true})
         self.NextMeleeAnimT = CurTime() + VJ.AnimDuration(owner,owner.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1])
     end
 end
