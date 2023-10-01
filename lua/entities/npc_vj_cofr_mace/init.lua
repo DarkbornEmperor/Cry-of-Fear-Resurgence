@@ -67,11 +67,7 @@ ENT.SoundTbl_Impact = {
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
-end
-    if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then  
-        self.CanFlinch = 1
-		self.FlinchChance = 16
-	end	
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Mace_CustomOnInitialize()
