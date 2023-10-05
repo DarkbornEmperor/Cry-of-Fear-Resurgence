@@ -525,19 +525,23 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMoveRandomlyWhenShooting()
- if self.VJ_IsBeingControlled then return end
     if math.random(1,3) == 1 then
-        self.AnimTbl_ShootWhileMovingRun = {ACT_WALK_CROUCH_AIM}
-        self.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_CROUCH_AIM}
+        self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_CROUCH_AIM}
+        self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_CROUCH_AIM}
 	else
         self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_AIM}
-        self.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
+        self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_AIM}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponReload() 
- if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover then return end
-    self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemyVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end)
+ if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
+ timer.Simple(0,function() if IsValid(self) && !self.Dead then
+    local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 400), true, "0111"))
+    if moveCheck then
+    self:StopMoving()
+    self:SetLastPosition(moveCheck)
+	self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy = true end) end end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponReload_AfterRanToCover()
