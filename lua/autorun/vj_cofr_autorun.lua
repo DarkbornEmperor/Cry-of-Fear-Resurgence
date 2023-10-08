@@ -500,6 +500,7 @@ if VJExists == true then
 	VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Suicider_NewSound", 1, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_JoeBiden", 0, {FCVAR_ARCHIVE})
 	VJ.AddClientConVar("VJ_COFR_SparkFX", 0, {FCVAR_ARCHIVE})
@@ -559,6 +560,7 @@ end
                 VJ_COFR_Suicider_ExtraPistol = "0",
                 VJ_COFR_Suicider_NewSound = "1",
                 VJ_COFR_Human_ReloadCover = "0",
+			    VJ_COFR_Human_ReloadRun = "1",
                 VJ_COFR_Boss_Spawner = "0",	
                 VJ_COFR_JoeBiden = "0",				
 }
@@ -583,6 +585,7 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable P345 For Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})
             Panel:AddControl("Checkbox", {Label ="Enable Updated Glock Sound For Suiciders?", Command ="VJ_COFR_Suicider_NewSound"})
             Panel:AddControl("Checkbox", {Label ="Enable Human SNPCs Finding Cover To Reload?", Command ="VJ_COFR_Human_ReloadCover"})
+            Panel:AddControl("Checkbox", {Label ="Enable SNPCs Moving While Reloading?", Command ="VJ_COFR_Human_ReloadRun"})
             Panel:AddControl("Checkbox", {Label ="Enable Bosses Spawning From Spawners?", Command ="VJ_COFR_Boss_Spawner"})
             Panel:AddControl("Checkbox", {Label ="Enable Joe Biden Mode For Carcass?", Command ="VJ_COFR_JoeBiden"})			
 end)	

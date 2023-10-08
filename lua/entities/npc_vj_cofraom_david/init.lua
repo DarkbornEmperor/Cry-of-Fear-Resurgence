@@ -535,7 +535,7 @@ function ENT:CustomOnMoveRandomlyWhenShooting()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponReload() 
- if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
+ if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
  timer.Simple(0,function() if IsValid(self) && !self.Dead then
     local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 400), true, "0111"))
     if moveCheck then
