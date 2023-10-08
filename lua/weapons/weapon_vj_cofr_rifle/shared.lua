@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 2.5
-SWEP.NPC_ExtraFireSound	= {"vj_cofr/cof/weapons/rifle/rifle_cock_forward.wav"}
+SWEP.NPC_ExtraFireSound	= {"vj_cofr/cof/weapons/rifle/rifle_cock_back.wav"}
 SWEP.NPC_ExtraFireSoundTime	= 0.5
 SWEP.NPC_ReloadSound = {"vj_weapons/reload_boltaction.wav"}
 SWEP.NPC_FiringDistanceScale = 2.5
@@ -57,5 +57,9 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
+	timer.Simple(0.85, function() if IsValid(self) && IsValid(owner) then
+		VJ.EmitSound(owner, "vj_cofr/cof/weapons/rifle/rifle_cock_forward.wav", self.NPC_ExtraFireSoundLevel, math.Rand(self.NPC_ExtraFireSoundPitch.a, self.NPC_ExtraFireSoundPitch.b))
+	end
+end)
 	return true
 end
