@@ -28,7 +28,7 @@ SWEP.Primary.ClipSize = 60
 SWEP.Primary.Ammo = "SMG1"
 SWEP.Primary.Sound = {"vj_cofr/aom/weapons/uzi/uzi_fire.wav"}
 SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/hks_distant_new.wav"}
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------

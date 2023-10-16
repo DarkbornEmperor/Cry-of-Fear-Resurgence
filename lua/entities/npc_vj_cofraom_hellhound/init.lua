@@ -130,7 +130,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	-- Hellhound shouldn't have its sonic attack interrupted by a flinch animation!
-	return self.CurAttackAnimTime < CurTime()
+	return self.CurrentAttackAnimationTime < CurTime()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)

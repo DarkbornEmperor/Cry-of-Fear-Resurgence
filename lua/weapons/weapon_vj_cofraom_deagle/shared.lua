@@ -28,7 +28,7 @@ SWEP.Primary.ClipSize = 7
 SWEP.Primary.Ammo = "357"
 SWEP.Primary.Sound = {"vj_cofr/aom/weapons/deagle/deagle_fire.wav"}
 SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/desert_eagle_fire_distant_final.wav"}
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}

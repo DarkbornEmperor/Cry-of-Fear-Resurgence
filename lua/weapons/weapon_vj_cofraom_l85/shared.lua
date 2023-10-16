@@ -28,7 +28,7 @@ SWEP.Primary.ClipSize = 30 -- Max amount of bullets per clip
 SWEP.Primary.Ammo = "SMG1" -- Ammo type
 SWEP.Primary.Sound = {"vj_cofr/aom/weapons/l85/gm_expell.wav"}
 SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/hks_distant_new.wav"}
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_RifleShell1"
+SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------

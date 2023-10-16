@@ -27,7 +27,7 @@ SWEP.Primary.ClipSize = 17 -- Max amount of bullets per clip
 SWEP.Primary.Ammo = "Pistol" -- Ammo type
 SWEP.Primary.Sound = {"vj_cofr/aom/weapons/beretta/classic/pl_gun3.wav"}
 SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/glock_distant2.wav"}
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
