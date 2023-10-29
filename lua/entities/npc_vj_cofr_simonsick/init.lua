@@ -50,8 +50,8 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.SickSimon_NextTwisterSpawnT = CurTime()
-ENT.SickSimon_NextPropT = CurTime()
+ENT.SickSimon_NextTwisterSpawnT = 0
+ENT.SickSimon_NextPropT = 0
 
 ENT.PropstoThrow = {
 "models/props_junk/wood_crate001a.mdl",

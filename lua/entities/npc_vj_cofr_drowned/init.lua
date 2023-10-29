@@ -68,7 +68,7 @@ ENT.SoundTbl_Drowned_Suicide = {
 -- Custom
 ENT.Drowned_Baby = false
 ENT.Drowned_DamageDistance = 500
-ENT.Drowned_NextEnemyDamageT = CurTime()
+ENT.Drowned_NextEnemyDamageT = 0
 
 util.AddNetworkString("VJ_COFR_Drowned_Damage")
 

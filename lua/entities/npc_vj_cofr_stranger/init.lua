@@ -58,7 +58,7 @@ ENT.SoundTbl_Stranger_HeartBeat = {
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Stranger_DamageDistance = 500
-ENT.Stranger_NextEnemyDamageT = CurTime()
+ENT.Stranger_NextEnemyDamageT = 0
 
 util.AddNetworkString("VJ_COFR_Stranger_Damage")
 

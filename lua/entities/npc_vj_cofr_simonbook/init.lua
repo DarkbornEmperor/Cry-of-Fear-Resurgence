@@ -272,8 +272,11 @@ function ENT:SetSledgehammerFlare()
 	ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-    if self.BookSimon_Glock or self.BookSimon_TMP or self.BookSimon_Sledgehammer or self.BookSimon_SledgehammerFlare then self.NextIdleStandTime = 0 end
+function ENT:OnChangeActivity(newAct)
+     if self.BookSimon_Glock or self.BookSimon_TMP or self.BookSimon_Sledgehammer or self.BookSimon_SledgehammerFlare then
+ 	    self.NextIdleStandTime = 0
+        self:VJ_TASK_IDLE_STAND()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()

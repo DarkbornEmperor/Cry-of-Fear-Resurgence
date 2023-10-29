@@ -53,7 +53,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.Doctor_NextRunT = CurTime()
+ENT.Doctor_NextRunT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then

@@ -61,8 +61,8 @@ ENT.SoundTbl_Impact = {
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_EyeOpen = false
-ENT.Sawer_NextDownT = CurTime()
-ENT.Sawer_NextFlinchT = CurTime()
+ENT.Sawer_NextDownT = 0
+ENT.Sawer_NextFlinchT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -116,9 +116,9 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-     if CurTime() > self.Sawer_NextFlinchT && math.random(1,12) == 1 && !self.Sawer_EyeOpen then
+     if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
         self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false) 
-		self.Sawer_NextFlinchT = CurTime() + math.Rand(5,10)
+		self.Sawer_NextFlinchT = CurTime() + self.NextFlinchTime
 end	 
      if hitgroup == 9 && self.Sawer_EyeOpen then
 	    dmginfo:ScaleDamage(0.2)

@@ -25,10 +25,6 @@ ENT.MeleeAttackBleedEnemyChance = 1
 ENT.MeleeAttackBleedEnemyDamage = 5 
 ENT.MeleeAttackBleedEnemyTime = 2 
 ENT.MeleeAttackBleedEnemyReps = 5 
-ENT.SlowPlayerOnMeleeAttack = true 
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 200 
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 290 
-ENT.SlowPlayerOnMeleeAttackTime = 10
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -63,12 +59,12 @@ ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/twitcher/claw_strike2.wav",
 "vj_cofr/aom/twitcher/claw_strike3.wav"
 }
-ENT.SoundTbl_MeleeAttackSlowPlayer = {
-"vj_cofr/aom/ghost/ear_ringing.wav"
-}	
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/twitcher/claw_miss1.wav",
 "vj_cofr/aom/twitcher/claw_miss2.wav"
+}
+ENT.SoundTbl_Tinnitus = {
+"vj_cofr/aom/ghost/ear_ringing.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -78,6 +74,9 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
+-- Custom
+ENT.Ghost_Tinnitus = false
+ENT.Ghost_NextTinnitusSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 0 then
@@ -119,10 +118,21 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-	if hitEnt:IsPlayer() then
-		net.Start("VJ_COFR_Ghost_ScreenEffect")
-			net.WriteEntity(hitEnt)
-		net.Send(hitEnt)
+ if hitEnt:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
+    self.Ghost_Tinnitus = true
+ if self.HasSounds then
+	self.Ghost_TinnitusSound = CreateSound(hitEnt,self.SoundTbl_Tinnitus)
+	self.Ghost_TinnitusSound:Play()
+	self.Ghost_TinnitusSound:SetSoundLevel(100)
+	hook.Add("Think","VJ_COFR_GhostTinnitus",function()
+	if !hitEnt:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think","VJ_COFR_GhostTinnitus") end
+	end)
+end
+	net.Start("VJ_COFR_Ghost_ScreenEffect")
+		net.WriteEntity(hitEnt)
+	net.Send(hitEnt)
+	self.Ghost_Tinnitus = false
+	self.Ghost_NextTinnitusSoundT = CurTime() + SoundDuration("vj_cofr/aom/ghost/ear_ringing.wav")
 end
     return false
 end

@@ -66,7 +66,7 @@ ENT.Devourer_LastHeight = 180
 ENT.Devourer_CurEnt = NULL
 ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_Status = 0
-ENT.Devourer_NextPullSoundT = CurTime()
+ENT.Devourer_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_CustomOnInitialize()
     self.SoundTbl_Death = {

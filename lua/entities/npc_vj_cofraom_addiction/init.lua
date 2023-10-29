@@ -70,7 +70,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Addiction_FinishedIgnited = false
 ENT.Addiction_OnFire = false
-ENT.Addiction_NextChangeAttackT = CurTime()
+ENT.Addiction_NextChangeAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize() 
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
