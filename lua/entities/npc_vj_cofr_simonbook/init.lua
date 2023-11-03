@@ -430,8 +430,8 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ.STOPSOUND(self.Shotgun_Pump)
-    VJ.STOPSOUND(self.Flare_Ignite)
+    StopSound(self.Shotgun_Pump)
+    StopSound(self.Flare_Ignite)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {

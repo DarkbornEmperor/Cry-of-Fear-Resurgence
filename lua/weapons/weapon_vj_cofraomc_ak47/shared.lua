@@ -1,5 +1,5 @@
 SWEP.Base = "weapon_vj_base"
-SWEP.PrintName = "AK47"
+SWEP.PrintName = "AK-47"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"

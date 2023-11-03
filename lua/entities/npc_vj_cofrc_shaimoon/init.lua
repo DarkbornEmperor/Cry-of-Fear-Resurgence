@@ -53,7 +53,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ.STOPSOUND(self.Shaimoon_Spawn)
+    StopSound(self.Shaimoon_Spawn)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***

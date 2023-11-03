@@ -159,7 +159,7 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 			net.WriteEntity(self:GetEnemy())
 		net.Send(self:GetEnemy())
 end
-	VJ.STOPSOUND(self.Stranger_HeartBeat)
+	StopSound(self.Stranger_HeartBeat)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()

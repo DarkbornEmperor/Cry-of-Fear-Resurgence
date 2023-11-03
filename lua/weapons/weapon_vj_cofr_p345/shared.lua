@@ -72,6 +72,8 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
+  local owner = self:GetOwner()
+  if owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" then return end
     local Brt = math.random(1,3)
 	local Num = 0.35
 	if Brt == 1 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
