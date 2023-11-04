@@ -412,14 +412,14 @@ function ENT:DoMusic(stop)
 					self.CoFR_Track = VJ.CreateSound(v,self.CoFR_PickTrack,GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(),100)
 					self.NextAoMMusicT = CurTime() + ((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1)
 					
-					timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1),function() if IsValid(self) then self.DidStartMusic = false StopSound(self.CoFR_Track) end end)
+					timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1),function() if IsValid(self) then self.DidStartMusic = false VJ.STOPSOUND(self.CoFR_Track) end end)
 				end
 			end
 		end
 		if stop && self.DidStartMusic then
 			self.DidStartMusic = false
 			self.NextMusicSwitchT = CurTime() +1
-			StopSound(self.CoFR_Track)
+			VJ.STOPSOUND(self.CoFR_Track)
 		end
 	end
 end
@@ -506,7 +506,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
 	self:DoMusic(true)
-    StopSound(self.COFR_Ambient)
+    VJ.STOPSOUND(self.COFR_Ambient)
 	for index,object in ipairs(self.tbl_SpawnedNPCs) do
 		if IsValid(object) then
 			object:Remove()

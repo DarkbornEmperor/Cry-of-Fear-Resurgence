@@ -152,7 +152,7 @@ end
 	/*if IsValid(ent) && ent:WaterLevel() != 3 then*/
         VJ.ApplyRadiusDamage(self,self,self:GetPos(),150,10,DMG_BURN,true,true)
 /*end*/
-		timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.FireEffect) then self.FireEffect:Remove() end StopSound(self.Addiction_FireLoop) end end) end end)
+		timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.FireEffect) then self.FireEffect:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -275,7 +275,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	    self.Addiction_OnFire = false
      if IsValid(self.FireEffect) then self.FireEffect:Remove() end
         self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
-	    StopSound(self.Addiction_FireLoop)
+	    VJ.STOPSOUND(self.Addiction_FireLoop)
 	    timer.Remove("VJ_COFR_Addiction_Fire")
     end
 end
@@ -286,9 +286,9 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    StopSound(self.Addiction_FireIgnite)
-    StopSound(self.Addiction_FireOff)
-    StopSound(self.Addiction_FireLoop)
+    VJ.STOPSOUND(self.Addiction_FireIgnite)
+    VJ.STOPSOUND(self.Addiction_FireOff)
+    VJ.STOPSOUND(self.Addiction_FireLoop)
 	timer.Remove("VJ_COFR_Addiction_Fire")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -66,7 +66,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
 		self.FaceHead_Scream = VJ.CreateSound(self,self.SoundTbl_FaceHeadScream,75,100)
 		self.FaceHead_Jumpscare = true
-		StopSound(self.CurrentAlertSound)
+		VJ.STOPSOUND(self.CurrentAlertSound)
 	    self.CallForHelp = true
 	    self:DrawShadow(true)
         self:SetMaterial(nil) 			   
@@ -82,7 +82,7 @@ function ENT:JumpscareDamage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    StopSound(self.FaceHead_Scream)
+    VJ.STOPSOUND(self.FaceHead_Scream)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
