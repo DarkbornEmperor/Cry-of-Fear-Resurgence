@@ -1,12 +1,6 @@
-/*--------------------------------------------------
-	=============== Autorun File ===============
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
 ------------------ Addon Information ------------------
 local AddonName = "Cry of Fear Resurgence"
-local AddonType = "SNPC"
+local AddonType = "NPC"
 -------------------------------------------------------
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
@@ -503,13 +497,13 @@ if VJExists == true then
 	VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_JoeBiden", 0, {FCVAR_ARCHIVE})
-	VJ.AddClientConVar("VJ_COFR_SparkFX", 0, {FCVAR_ARCHIVE})
+	VJ.AddClientConVar("VJ_COFR_SparkFX", 0, "Create GoldSrc-Style Sparks On Metal Surfaces")
 	
     -- Map Spawner ConVars --
-    VJ.AddClientConVar("VJ_COFR_MapSpawner_Music", 1, {FCVAR_ARCHIVE})
-	VJ.AddClientConVar("VJ_COFR_MapSpawner_MusicVolume", 50, {FCVAR_ARCHIVE})
-    VJ.AddClientConVar("VJ_COFR_MapSpawner_Ambience", 1, {FCVAR_ARCHIVE})
-	VJ.AddClientConVar("VJ_COFR_MapSpawner_AmbienceVolume", 50, {FCVAR_ARCHIVE})
+    VJ.AddClientConVar("VJ_COFR_MapSpawner_Music", 1, "Music For Map Spawner")
+    VJ.AddClientConVar("VJ_COFR_MapSpawner_Ambience", 1, "Ambience For Map Spawner")		
+	VJ.AddClientConVar("VJ_COFR_MapSpawner_MusicVolume", 50, "Adjust Music Volume For Map Spawner")
+	VJ.AddClientConVar("VJ_COFR_MapSpawner_AmbienceVolume", 30, "Adjust Ambience Volume For Map Spawner")
 	VJ.AddConVar("VJ_COFR_MapSpawner_Enabled", 1, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_MapSpawner_Boss", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_MapSpawner_MaxMon", 80, {FCVAR_ARCHIVE})

@@ -268,8 +268,12 @@ function ENT:SetSledgehammerFlare()
 	ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetIdleTurns() -- Resets the listed actvities for specific needs (Ex: NPCs with custom idle animations) due to engine limitations
+    return self:GetActivity() == ACT_IDLE
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-     if (self.BookSimon_Glock or self.BookSimon_TMP or self.BookSimon_Sledgehammer or self.BookSimon_SledgehammerFlare) && self:GetActivity() == ACT_IDLE then
+     if (self.BookSimon_Glock or self.BookSimon_TMP or self.BookSimon_Sledgehammer or self.BookSimon_SledgehammerFlare) && self:GetIdleTurns() then
         self:VJ_TASK_IDLE_STAND()
  	    self.NextIdleStandTime = 0
 	end
