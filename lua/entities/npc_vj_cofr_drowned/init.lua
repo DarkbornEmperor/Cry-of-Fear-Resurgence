@@ -205,7 +205,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    VJ.VJ.STOPSOUND(self.Drowned_Suicide)
+    VJ.STOPSOUND(self.Drowned_Suicide)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
