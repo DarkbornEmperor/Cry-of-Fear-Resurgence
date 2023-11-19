@@ -5,7 +5,7 @@
 --------------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base 			= "base_gmodentity"
+ENT.Base 			= "sent_vj_cofraom_pills"
 ENT.Type 			= "anim"
 ENT.PrintName 		= "Pills (Dark Assistance)"
 ENT.Author 			= "Darkborn"
@@ -13,9 +13,6 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Provides health."
 ENT.Instructions 	= "Don't change anything."
 ENT.Category		= "CoF Resurgence: AoM:DC"
-
-ENT.Spawnable = true
-ENT.AdminOnly = false
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
@@ -29,30 +26,4 @@ function ENT:Initialize()
 	if phys && IsValid(phys) then
 		phys:Wake()
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:PhysicsCollide(data,physobj)
-    local l = self:GetVelocity():Length()
-    if l >= 25 then
-        self:EmitSound("vj_cofr/aom/pills/pills_drop.wav",75,100,math.Clamp(data.Speed / 100,.25,1))
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Use(ply,caller)
-	if IsValid(ply) && ply:IsPlayer() then
-	   ply:PickupObject(self)
-	   self:EmitSound("vj_cofr/aom/pills/pills_pickup.wav",75,100)
-end
-	local hp,maxhp = ply:Health(),ply:GetMaxHealth()
-	if hp >= maxhp then return end
-	if ply:IsPlayer() then
-		ply:EmitSound(Sound("vj_cofr/aom/pills/pills_use.wav"),75,100)
-		ply:SetHealth(math.min(hp + 15, maxhp))		
-		//ply:PrintMessage(HUD_PRINTTALK, "Don't Do Drugs, Kids.")
-		self:Remove()
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnTakeDamage(dmginfo)
-	self:GetPhysicsObject():AddVelocity(dmginfo:GetDamageForce() * 0.1)
 end

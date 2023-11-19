@@ -263,7 +263,8 @@ function ENT:CustomOnInitialize()
 	or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl" 
 	or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
        self:SetBodygroup(0,math.random(0,10))
-end		
+end	
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Twitcher_CustomOnInitialize()
 	self:TwitcherSounds()
 end

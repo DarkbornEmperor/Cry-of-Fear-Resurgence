@@ -69,6 +69,7 @@ end
 function ENT:SickSimon_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:SickSimon_CustomOnInitialize()
     self.Twisters = {}
     self.Props = {}

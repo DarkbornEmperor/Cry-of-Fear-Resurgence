@@ -78,6 +78,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
 		self.CrazyRunner_Type = 3	
 end
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:CrazyRunner_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

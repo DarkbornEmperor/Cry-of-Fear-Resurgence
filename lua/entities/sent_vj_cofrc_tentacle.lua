@@ -50,6 +50,7 @@ function ENT:Initialize()
 end	
 	self:SetModel("models/vj_cofr/custom/tentacleboss.mdl")
     //self:SetCollisionBounds(Vector(10, 10, 165), Vector(-10, -10, 0))
+	self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 200))
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_BBOX)
 	self:SetMaxHealth(50)

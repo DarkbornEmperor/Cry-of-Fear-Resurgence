@@ -64,6 +64,7 @@ end
 function ENT:CustomOnInitialize()
     self:AddFlags(FL_NOTARGET)
 	self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
+	self:SetSurroundingBounds(Vector(-90, -90, 0), Vector(90, 90, 190))
     self:HumanFlower_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

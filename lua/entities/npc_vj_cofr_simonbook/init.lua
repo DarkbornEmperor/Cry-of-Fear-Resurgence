@@ -151,6 +151,7 @@ end
 		v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
 end	
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:BookSimon_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -180,7 +181,7 @@ function ENT:SetShotgun()
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
-	self.CombatFaceEnemy = false
+	self.CanTurnWhileMoving = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.5
 	self.NextAnyAttackTime_Range = 1	
 end 
@@ -194,7 +195,7 @@ function ENT:SetTMP()
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
-	self.CombatFaceEnemy = false
+	self.CanTurnWhileMoving = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.09
 	self.RangeAttackReps = 10
 	self.NextAnyAttackTime_Range = 1.5
@@ -208,7 +209,7 @@ function ENT:SetGlock()
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
-	self.CombatFaceEnemy = false
+	self.CanTurnWhileMoving = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.1
 	self.NextAnyAttackTime_Range = 0.6		
 end 
@@ -221,7 +222,7 @@ function ENT:SetM16()
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
 	self.NoChaseAfterCertainRange = true
-	self.CombatFaceEnemy = false
+	self.CanTurnWhileMoving = false
 	self.TimeUntilRangeAttackProjectileRelease = 0.05
 	self.RangeAttackReps = 3
 	self.NextAnyAttackTime_Range = 1.5	

@@ -96,6 +96,7 @@ function ENT:CustomOnInitialize()
     self.FlinchChance = 16
 end
     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
+	self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 120))
     self:Mace_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

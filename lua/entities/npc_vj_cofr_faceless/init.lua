@@ -108,6 +108,7 @@ function ENT:CustomOnInitialize()
 		self.Faceless_Type = 5
         self.AnimTbl_MeleeAttack = {"vjseq_attack2"}		
 end
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Faceless_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

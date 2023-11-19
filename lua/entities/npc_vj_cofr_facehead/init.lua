@@ -63,6 +63,7 @@ end
 function ENT:CustomOnInitialize()
     self:AddFlags(FL_NOTARGET)
 	self:SetCollisionBounds(Vector(30, 30, 90), Vector(-30, -30, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:FaceHead_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

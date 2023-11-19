@@ -47,6 +47,7 @@ function ENT:Hangman_CustomOnInitialize() end
 function ENT:CustomOnInitialize()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(13, 13, 150), Vector(-13, -13, 10))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 180))
     self:Hangman_CustomOnInitialize()
 end
 /*-----------------------------------------------

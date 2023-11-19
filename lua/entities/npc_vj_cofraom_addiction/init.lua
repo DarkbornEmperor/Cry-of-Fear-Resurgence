@@ -98,7 +98,8 @@ function ENT:Addiction_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))		
+    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Addiction_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

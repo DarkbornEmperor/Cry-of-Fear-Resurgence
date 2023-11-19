@@ -408,7 +408,8 @@ end
 end
 	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]),true)
     end
-end		 
+end
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:David_CustomOnInitialize()
     self:Simon_CustomOnInitialize()
     self:Police_CustomOnInitialize()
@@ -534,18 +535,15 @@ function ENT:CustomOnMoveRandomlyWhenShooting()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponReload() 
+function ENT:CustomOnWeaponReload()
+ //if self.WeaponReload_FindCover then self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
  if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
  timer.Simple(0,function() if IsValid(self) && !self.Dead then
     local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 400), true, "0111"))
     if moveCheck then
     self:StopMoving()
     self:SetLastPosition(moveCheck)
-	self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy = true end) end end end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponReload_AfterRanToCover()
-    self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemyVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end)
+	self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(h)

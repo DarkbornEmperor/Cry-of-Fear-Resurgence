@@ -10,7 +10,7 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.HasRangeAttack = false
-ENT.CombatFaceEnemy = true
+ENT.CanTurnWhileMoving = true
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
@@ -49,6 +49,7 @@ function ENT:CustomOnInitialize()
 end
      self.Shaimoon_Spawn = VJ.CreateSound(self, self.SoundTbl_Spawn, 75, 100)	
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+	 self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
      self:BookSimon_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

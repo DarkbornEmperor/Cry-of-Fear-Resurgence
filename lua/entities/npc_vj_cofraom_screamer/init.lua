@@ -85,6 +85,7 @@ end
 function ENT:CustomOnInitialize()
     self:DrawShadow(false)
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Screamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

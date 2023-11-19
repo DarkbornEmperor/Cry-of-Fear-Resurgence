@@ -19,7 +19,7 @@ ENT.HasCallForHelpAnimation = false
 ENT.MoveRandomlyWhenShooting = false
 ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_NoSpawnMenu = true
-ENT.CombatFaceEnemy = false
+ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -84,6 +84,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Doctor_CustomOnInitialize()
 	self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
 	local wep = math.random(1,2)

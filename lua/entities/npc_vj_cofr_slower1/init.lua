@@ -149,6 +149,7 @@ function ENT:CustomOnInitialize()
 		self.Slower_Type = 10
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}		
 end
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Slower_CustomOnInitialize() 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

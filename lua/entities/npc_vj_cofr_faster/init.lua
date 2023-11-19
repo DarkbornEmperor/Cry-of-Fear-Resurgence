@@ -93,6 +93,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
 		self.Faster_Type = 2		
 end
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Faster_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -21,6 +21,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18,18,0),Vector(-18,-18,-50))
+	self:SetSurroundingBounds(Vector(-60, -60, -60), Vector(60, 60, 40))
 	//self:GetPoseParameters(true) -- tongue_height 0 / 1024
 	self:Devourer_CustomOnInitialize()
 end

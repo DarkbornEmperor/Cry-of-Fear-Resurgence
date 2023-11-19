@@ -77,6 +77,7 @@ function ENT:CustomOnInitialize()
     self.VJTag_ID_Danger = true
 end
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Sawcrazy_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

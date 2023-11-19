@@ -46,6 +46,7 @@ function ENT:CustomOnPreInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Ghost_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

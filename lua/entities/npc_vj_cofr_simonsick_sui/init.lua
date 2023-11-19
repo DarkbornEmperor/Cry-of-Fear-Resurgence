@@ -27,7 +27,7 @@ ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 600 
 ENT.NoChaseAfterCertainRange_CloseDistance = 1 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
-ENT.CombatFaceEnemy = false
+ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -75,7 +75,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SickSimon_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()	
+function ENT:CustomOnInitialize()
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:SickSimon_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

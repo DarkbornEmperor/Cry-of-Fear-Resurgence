@@ -46,6 +46,7 @@ function ENT:CustomOnInitialize()
     self:SetMaterial("hud/killicons/default")
 	self:DrawShadow(false)
     self:SetCollisionBounds(Vector(13, 13, 86), Vector(-13, -13, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Dreamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

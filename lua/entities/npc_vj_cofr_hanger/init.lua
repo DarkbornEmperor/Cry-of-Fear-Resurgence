@@ -53,6 +53,7 @@ function ENT:CustomOnInitialize()
 	self:SetMaterial("hud/killicons/default")
     self:DrawShadow(false)
     self:AddFlags(FL_NOTARGET)
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

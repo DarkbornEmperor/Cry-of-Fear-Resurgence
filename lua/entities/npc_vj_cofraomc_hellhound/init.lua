@@ -19,6 +19,7 @@ ENT.Hellhound_CurIdleAnim = 0 -- 0 = regular | 1 = sleeping | 2 = angry
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
+	 self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
      self:Hellhound_CustomOnInitialize()
 	 
 	 self.Hellhound_NextSleepT = CurTime() + math.Rand(0, 15)

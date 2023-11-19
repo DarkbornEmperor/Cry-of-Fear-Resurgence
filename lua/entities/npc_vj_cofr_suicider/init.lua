@@ -27,7 +27,7 @@ ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = 250 
 ENT.NoChaseAfterCertainRange_CloseDistance = 200 
 ENT.NoChaseAfterCertainRange_Type = "Regular"
-ENT.CombatFaceEnemy = false
+ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -106,6 +106,7 @@ function ENT:CustomOnInitialize()
 	self.NoChaseAfterCertainRange = false
 end	 
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Suicider_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

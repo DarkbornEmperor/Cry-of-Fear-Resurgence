@@ -110,6 +110,7 @@ end
 function ENT:CustomOnInitialize()
 	self:DrawShadow(false)
     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
     self:Face_CustomOnInitialize()	 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
