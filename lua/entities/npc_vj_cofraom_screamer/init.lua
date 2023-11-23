@@ -163,7 +163,9 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*20, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
+	local ene = self:GetEnemy()
+	local projPos = projectile:GetPos()
+	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(ene, projPos, 1, 700), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
