@@ -215,7 +215,7 @@ end
     Attacker = self,
 	Num = 1,
 	Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos,
-	Dir = (ene:GetPos() + ene:OBBCenter() - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+	Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
 	Spread = Vector(0.1,0.1,0),
 	TracerName = "VJ_COFR_Tracer",
 	Tracer = 1,

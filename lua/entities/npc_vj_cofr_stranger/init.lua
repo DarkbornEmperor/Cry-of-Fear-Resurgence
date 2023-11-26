@@ -134,7 +134,7 @@ end
 	if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
 		ent:TakeDamage(10,self,self)
         self:Stranger_Damage() 
-	    self.Stranger_NextEnemyDamageT = self.NextRangeAttackTime				
+	    self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime				
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

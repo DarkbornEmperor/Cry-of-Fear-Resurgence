@@ -181,7 +181,7 @@ end
 	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
 		ent:TakeDamage(200,self,self)
         self:Drowned_Damage()
-		self.Drowned_NextEnemyDamageT = self.NextRangeAttackTime
+		self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
             end		
         end)		
     end	
