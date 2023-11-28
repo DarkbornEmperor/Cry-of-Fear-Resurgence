@@ -577,7 +577,7 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable Ghost's Tinnitus Sound After Being Hit?", Command ="VJ_COFR_Ghost_SlowSound"})	
             Panel:AddControl("Checkbox", {Label ="Enable Flashlight For Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})	
             Panel:AddControl("Checkbox", {Label ="Enable P345 For Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})
-            Panel:AddControl("Checkbox", {Label ="Enable Updated Glock Sound For Suiciders?", Command ="VJ_COFR_Suicider_NewSound"})
+            Panel:AddControl("Checkbox", {Label ="Enable Updated Glock Sound For Suiciders & Book Simon?", Command ="VJ_COFR_Suicider_NewSound"})
             Panel:AddControl("Checkbox", {Label ="Enable Human SNPCs Finding Cover To Reload?", Command ="VJ_COFR_Human_ReloadCover"})
             Panel:AddControl("Checkbox", {Label ="Enable SNPCs Moving While Reloading?", Command ="VJ_COFR_Human_ReloadRun"})
             Panel:AddControl("Checkbox", {Label ="Enable Bosses Spawning From Spawners?", Command ="VJ_COFR_Boss_Spawner"})

@@ -18,7 +18,7 @@ SWEP.IsMeleeWeapon = true
 SWEP.MeleeWeaponDistance = 70
 SWEP.MeleeWeaponSound_Hit = false
 SWEP.MeleeWeaponSound_Miss = false
-SWEP.NextMeleeAnimT = CurTime()
+SWEP.NextMeleeAnimT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
    local owner = self:GetOwner()
