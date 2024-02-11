@@ -1,5 +1,5 @@
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -95,13 +95,13 @@ function ENT:CustomOnThink()
 			self.Track_Position = pos
 end
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + trackedEnt:GetUp()*math.random(-50,50) + trackedEnt:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + trackedEnt:GetUp()*math.random(-50,50) + trackedEnt:GetRight()*math.random(-50,50), self.Eyeball_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 	-- Not tracking, go in straight line
 	else
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Hornet_ChaseSpeed / 2))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Eyeball_ChaseSpeed / 2))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	end

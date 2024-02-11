@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -197,7 +197,7 @@ function ENT:CustomOnThink_AIEnabled()
 	if EnemyDistance <= 100 && ent:Visible(self) && !self.Suicider_DeathSuicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
 		self.Suicider_DeathSuicide = true
 		self.Bleeds = false
-		self:TakeDamage(self:Health())
+		self:TakeDamage(self:GetMaxHealth(),self,self)
 		self.Bleeds = true
 	end
 end
@@ -307,7 +307,7 @@ function ENT:CustomOnFootStepSound()
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

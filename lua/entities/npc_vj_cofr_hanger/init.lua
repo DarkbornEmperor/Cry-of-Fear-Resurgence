@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -71,7 +71,7 @@ function ENT:CustomOnThink_AIEnabled()
 	 local ent = self:GetEnemy()
 	 if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
 	    self.GodMode = false
-		self:TakeDamage(self:Health(),nil,nil)
+		self:TakeDamage(self:GetMaxHealth(),self,self)
 	    self.Hanger_Death = true
 		self.CallForHelp = true
 	    timer.Simple(0.3,function() if IsValid(self) then self:SetMaterial(nil) self:DrawShadow(true) end end)
@@ -90,7 +90,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
 	VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
