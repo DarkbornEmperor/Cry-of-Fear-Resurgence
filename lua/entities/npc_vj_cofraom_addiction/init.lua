@@ -144,7 +144,7 @@ function ENT:CustomOnThink_AIEnabled()
 	self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)		
 end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
-    if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && (self.StartHealth -250 > self:Health()) then
+    if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then
 		self.Addiction_OnFire = true
         self:FireSprite()
 		self.Addiction_FireIgnite = VJ.CreateSound(self,self.SoundTbl_FireIgnite,75,100)

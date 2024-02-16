@@ -13,6 +13,8 @@ ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} 
 ENT.FriendsWithAllPlayerAllies = true  
 ENT.HasSoundTrack = false
+-- Custom
+ENT.CoFR_NextLowHPSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_CustomOnInitialize()
     self.SoundTbl_Pain = {
@@ -25,6 +27,13 @@ function ENT:Doctor_CustomOnInitialize()
 	"vj_cofr/cof/doctor/Pain7.wav",
 	"vj_cofr/cof/doctor/Pain8.wav"
 }
+    self.SoundTbl_LowHealth = {
+    "vj_cofr/cof/doctor/lhealth1.wav",
+    "vj_cofr/cof/doctor/lhealth2.wav",
+    "vj_cofr/cof/doctor/lhealth3.wav",
+    "vj_cofr/cof/doctor/lhealth4.wav",
+    "vj_cofr/cof/doctor/lhealth5.wav"
+}
     self.SoundTbl_Death = {
 	"vj_cofr/cof/doctor/death1.wav",
 	"vj_cofr/cof/doctor/death2.wav",
@@ -34,6 +43,15 @@ function ENT:Doctor_CustomOnInitialize()
 	"vj_cofr/cof/doctor/death6.wav",
 	"vj_cofr/cof/doctor/death7.wav"
 }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+ if self.HasSounds && !self.Dead then	
+    if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
+        self:PlaySoundSystem("GeneralSpeech", self.SoundTbl_LowHealth) 
+	    self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)
+		end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup) end

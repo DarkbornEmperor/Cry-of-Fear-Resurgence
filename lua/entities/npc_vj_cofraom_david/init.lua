@@ -87,7 +87,7 @@ ENT.Simon_French = false
 ENT.Simon_Branch = false
 ENT.CoFR_NextMeleeSoundT = 0
 ENT.CoFR_NextWepSwitchT = 0
-//ENT.LowHealth_NextSoundT = 0
+ENT.CoFR_NextLowHPSoundT = 0
 ENT.Human_Type = 0
  	-- 0 = David & Assistor
 	-- 1 = Simon
@@ -213,15 +213,15 @@ end
     "vj_cofr/aom/david/pl_pain4.wav",
     "vj_cofr/aom/david/pl_pain5.wav",
     "vj_cofr/aom/david/pl_pain6.wav",
-    "vj_cofr/aom/david/pl_pain7.wav",	
+    "vj_cofr/aom/david/pl_pain7.wav"	
 }
     self.SoundTbl_Death = {
     "vj_cofr/aom/david/pl_pain2.wav",
     "vj_cofr/aom/david/pl_pain4.wav",
     "vj_cofr/aom/david/pl_pain5.wav",
     "vj_cofr/aom/david/pl_pain6.wav",
-    "vj_cofr/aom/david/pl_pain7.wav",	
-}	
+    "vj_cofr/aom/david/pl_pain7.wav"	
+}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -242,14 +242,14 @@ end
     "vj_cofr/aom/david/pl_pain4.wav",
     "vj_cofr/aom/david/pl_pain5.wav",
     "vj_cofr/aom/david/pl_pain6.wav",
-    "vj_cofr/aom/david/pl_pain7.wav",	
+    "vj_cofr/aom/david/pl_pain7.wav"	
 }
     self.SoundTbl_Death = {
     "vj_cofr/aom/david/pl_pain2.wav",
     "vj_cofr/aom/david/pl_pain4.wav",
     "vj_cofr/aom/david/pl_pain5.wav",
     "vj_cofr/aom/david/pl_pain6.wav",
-    "vj_cofr/aom/david/pl_pain7.wav",	
+    "vj_cofr/aom/david/pl_pain7.wav"
 }
     if self:GetModel() == "models/vj_cofr/aom/classic/david_old.mdl" then
 	    self:SetBodygroup(0,math.random(0,1))	
@@ -298,6 +298,13 @@ end
 	"vj_cofr/cof/simon/Pain15.wav",
 	"vj_cofr/cof/simon/Pain16.wav"
 }
+    self.SoundTbl_LowHealth = {
+    "vj_cofr/cof/simon/lhealth1.wav",
+    "vj_cofr/cof/simon/lhealth2.wav",
+    "vj_cofr/cof/simon/lhealth3.wav",
+    "vj_cofr/cof/simon/lhealth4.wav",
+    "vj_cofr/cof/simon/lhealth5.wav"
+}
     self.SoundTbl_MedicReceiveHeal = {
     "vj_cofr/cof/simon/morphine1.wav", 
     "vj_cofr/cof/simon/morphine2.wav", 
@@ -306,7 +313,7 @@ end
     "vj_cofr/cof/simon/morphine5.wav", 
     "vj_cofr/cof/simon/morphine6.wav", 
     "vj_cofr/cof/simon/morphine7.wav", 
-    "vj_cofr/cof/simon/morphine8.wav", 
+    "vj_cofr/cof/simon/morphine8.wav" 
 }
     self.SoundTbl_Death = {
 	"vj_cofr/cof/simon/death1.wav",
@@ -353,6 +360,12 @@ end
 	"vj_cofr/cof/police/Pain8.wav",
 	"vj_cofr/cof/police/Pain9.wav",
 	"vj_cofr/cof/police/Pain10.wav"
+}
+    self.SoundTbl_LowHealth = {
+    "vj_cofr/cof/police/lhealth1.wav",
+    "vj_cofr/cof/police/lhealth2.wav",
+    "vj_cofr/cof/police/lhealth3.wav",
+    "vj_cofr/cof/police/lhealth4.wav",	
 }
     self.SoundTbl_MedicReceiveHeal = {
     "vj_cofr/cof/police/morphine1.wav", 
@@ -473,6 +486,12 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+ if self.HasSounds && !self.Dead then	
+    if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
+        self:PlaySoundSystem("GeneralSpeech", self.SoundTbl_LowHealth) 
+	    self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)
+    end
+end
  if self.Human_Type == 1 && IsValid(self:GetActiveWeapon()) then
     local wep = self:GetActiveWeapon()
 	if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/weapons/famas/french4.wav"}) self.Simon_French = true
