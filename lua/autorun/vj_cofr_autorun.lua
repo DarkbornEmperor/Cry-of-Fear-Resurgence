@@ -148,7 +148,7 @@ if VJExists == true then
     -- Apparitions --
 	VJ.AddNPC("Corpse","sent_vj_cofrc_corpse",spawnCategory)	
 	
-	-- Afraid of Monsters: Classic/Director's Cut --
+	-- Afraid of Monsters: Classic/Director's Cut/Dark Assistance --
 	spawnCategory = "CoF Resurgence: AoM"
 	VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofraom.png"})
 	
