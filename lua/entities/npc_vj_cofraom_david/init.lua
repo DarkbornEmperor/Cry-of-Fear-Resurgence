@@ -7,7 +7,6 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/david.mdl"} 
 ENT.StartHealth = 200
-ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
 ENT.HullType = HULL_HUMAN
@@ -386,6 +385,9 @@ end
 function ENT:CustomOnInitialize()
  if GetConVar("VJ_COFR_Human_ReloadCover"):GetInt() == 1 then 
     self.WeaponReload_FindCover = true
+end
+ if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
+	self.HasHealthRegeneration = true
 end
   if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_da.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/cross.mdl" or self:GetModel() == "models/vj_cofr/aom/question.mdl" or self:GetModel() == "models/vj_cofr/aom/scream.mdl" or self:GetModel() == "models/vj_cofr/aom/two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
 	 self.Human_Type = 0
