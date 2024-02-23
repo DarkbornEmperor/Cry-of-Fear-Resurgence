@@ -22,12 +22,12 @@ SWEP.WorldModel_CustomPositionAngle = Vector(6, 4, 95)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1.8, 4.5, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 13
-SWEP.Primary.ClipSize			= 15
-SWEP.Primary.Ammo				= "Pistol"
-SWEP.Primary.Sound				= {"vj_cofr/cof/weapons/glock/glock_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_cofr/fx/distant/glock_distant2.wav"}
-SWEP.PrimaryEffects_ShellType 	= "ShellEject"
+SWEP.Primary.Damage	= 13
+SWEP.Primary.ClipSize = 15
+SWEP.Primary.Ammo = "Pistol"
+SWEP.Primary.Sound = {"vj_cofr/cof/weapons/glock/glock_fire.wav"}
+SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/glock_distant2.wav"}
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}

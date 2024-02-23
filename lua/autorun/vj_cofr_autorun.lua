@@ -237,16 +237,19 @@ if VJExists == true then
 	
     -- Particles --
 	VJ.AddParticle("particles/vj_cofr_blood.pcf", {
-		"vj_cofr_blood_red",
-		"vj_cofr_blood_red_large",
-		"vj_cofr_blood_boob_red",
-	})
+	"vj_cofr_blood_red",
+	"vj_cofr_blood_red_large",
+	"vj_cofr_blood_boob_red",
+})
 	VJ.AddParticle("particles/vj_cofr_flare_sparks.pcf", {
-		"vj_cofr_flare_sparks",
-	})
+	"vj_cofr_flare_sparks",
+})
 	VJ.AddParticle("particles/vj_cofr_flare_trail.pcf", {
-		"vj_cofr_flare_trail",
-	})
+	"vj_cofr_flare_trail",
+})
+	VJ.AddParticle("particles/vj_cofr_weaponparticles.pcf", {
+	"vj_cofr_muzzle",
+})
 	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_cofr/cof/policedead.mdl")

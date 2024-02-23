@@ -111,19 +111,19 @@ function ENT:FireFX()
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
-
+	
 	local Light = ents.Create("light_dynamic")
 	Light:SetKeyValue("brightness", "4")
 	Light:SetKeyValue("distance", "120")
 	Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
 	Light:SetLocalAngles(self:GetAngles())
 	Light:Fire("Color", "255 150 60")
-	Light:SetParent(self)
+	//Light:SetParent(self)
 	Light:Spawn()
 	Light:Activate()
 	Light:Fire("TurnOn","",0)
 	Light:Fire("Kill","",0.07)
-	self:DeleteOnRemove(Light)
+	//self:DeleteOnRemove(Light)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
