@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_cofr_sawrunner" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
+ENT.Base 			= "npc_vj_creature_base" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Craigrunner"
 ENT.Author 			= "Darkborn"

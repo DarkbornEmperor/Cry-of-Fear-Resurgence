@@ -1,5 +1,5 @@
 AddCSLuaFile("shared.lua")
-include('shared.lua')
+include("shared.lua")
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
@@ -405,7 +405,14 @@ end
 			self:Give(wep)
 	end
 end
-	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Normal"]),true)
+     local wepList = math.random(1,3)
+	 if wepList == 1 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Normal"]),true)
+	 elseif wepList == 2 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Close"]),true)
+	 elseif wepList == 3 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Far"]),true)
+	end
 end
  if self.Human_Type == 1 or self.Human_Type == 2 then
 	for _,category in pairs(self.WeaponsList_CoF) do
@@ -413,7 +420,14 @@ end
 			self:Give(wep)
 	end
 end
-	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Normal"]),true)
+     local wepList = math.random(1,3)
+	 if wepList == 1 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Normal"]),true)
+	 elseif wepList == 2 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Close"]),true)
+	 elseif wepList == 3 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Far"]),true)
+	end
 end
  if self.Human_Type == 3 then
 	for _,category in pairs(self.WeaponsList_AoMC) do
@@ -421,7 +435,14 @@ end
 			self:Give(wep)
 	end
 end
-	 self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]),true)
+     local wepList = math.random(1,3)
+	 if wepList == 1 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]),true)
+	 elseif wepList == 2 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Close"]),true)
+	 elseif wepList == 3 then
+	    self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Far"]),true)
+	    end
     end
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))

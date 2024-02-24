@@ -1,5 +1,6 @@
+include("entities/npc_vj_cofr_simonbook/init.lua")
 AddCSLuaFile("shared.lua")
-include('shared.lua')
+include("shared.lua")
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
@@ -29,7 +30,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faster/faster_miss.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BookSimon_CustomOnInitialize()	end
+function ENT:BookSimon_CustomOnInitialize() return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
@@ -55,9 +56,9 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo,hitgroup) end
+function ENT:CustomOnKilled(dmginfo,hitgroup) return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound() end 
+function ENT:CustomOnFootStepSound() return end 
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

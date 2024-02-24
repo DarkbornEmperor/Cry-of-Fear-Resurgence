@@ -5,14 +5,14 @@
 --------------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base 			= "base_gmodentity"
+ENT.Base 			= "base_anim"
 ENT.Type 			= "anim"
 ENT.PrintName 		= "Pills"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Provides health."
 ENT.Instructions 	= "Don't change anything."
-ENT.Category		= "CoF Resurgence: AoM:DC"
+ENT.Category		= "CoF Resurgence: AoM"
 
 ENT.Spawnable = true
 ENT.AdminOnly = false

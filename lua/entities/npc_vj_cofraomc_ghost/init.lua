@@ -1,5 +1,6 @@
+include("entities/npc_vj_cofraom_ghost/init.lua")
 AddCSLuaFile("shared.lua")
-include('shared.lua')
+include("shared.lua")
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
@@ -42,7 +43,7 @@ ENT.SoundTbl_RangeAttack = {
 
 ENT.RangeAttackPitch = VJ.SET(130, 160)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize() end
+function ENT:CustomOnPreInitialize() return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
@@ -69,7 +70,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp) end
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp) return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_DoElecEffect(sp, hp, hn, a, t)
 	local elec = EffectData()

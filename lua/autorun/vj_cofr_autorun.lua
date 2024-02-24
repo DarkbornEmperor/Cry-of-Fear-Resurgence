@@ -746,11 +746,11 @@ function VJ_COFR_ApplyCorpse(ent,corpse)
 end
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile()
-	VJ.AddAddonProperty(AddonName,AddonType)
+	VJ.AddAddonProperty(AddonName, AddonType)
 else
 	if CLIENT then
-		chat.AddText(Color(0, 200, 200), AddonName,
-		Color(0, 255, 0), " was unable to install, you are missing ",
+		chat.AddText(Color(0, 200, 200), AddonName, 
+		Color(0, 255, 0), " was unable to install, you are missing ", 
 		Color(255, 100, 0), "VJ Base!")
 	end
 	
@@ -774,7 +774,7 @@ else
 				local labelTitle = vgui.Create("DLabel", frame)
 				labelTitle:SetPos(250, 30)
 				labelTitle:SetText("VJ BASE IS MISSING!")
-				labelTitle:SetTextColor(Color(255,128,128))
+				labelTitle:SetTextColor(Color(255, 128, 128))
 				labelTitle:SizeToContents()
 				
 				local label1 = vgui.Create("DLabel", frame)

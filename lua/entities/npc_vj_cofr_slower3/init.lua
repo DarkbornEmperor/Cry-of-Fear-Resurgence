@@ -1,5 +1,6 @@
+include("entities/npc_vj_cofr_slower1/init.lua")
 AddCSLuaFile("shared.lua")
-include('shared.lua')
+include("shared.lua")
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
@@ -26,8 +27,6 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/cof/slower3/slower_pain2.wav"
 }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert() end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
