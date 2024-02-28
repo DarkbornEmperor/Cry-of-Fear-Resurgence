@@ -137,7 +137,7 @@ end
 		VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
 		self:SetSkin(1)
 		self.Sawer_EyeOpen = true
-        self:DoChangeMovementType(VJ_MOVETYPE_STATIONARY)
+        self.MovementType = VJ_MOVETYPE_STATIONARY
         self.CanTurnWhileStationary = false
         self:AddFlags(FL_NOTARGET)					 
 	    self.Sawer_Eye = ents.Create("obj_vj_bullseye")

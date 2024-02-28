@@ -113,9 +113,9 @@ end
 function ENT:CustomOnWeaponAttack()
 	if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
 	if CurTime() > self.Doctor_NextRunT then
-		timer.Simple(0.8, function() 
+		timer.Simple(0.5, function() 
 			if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
-				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
 	end
 end)
 		self.Doctor_NextRunT = CurTime() + math.Rand(12,18)
