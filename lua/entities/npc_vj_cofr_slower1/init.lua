@@ -129,7 +129,7 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slower10.mdl" then
 		self.Slower_Type = 5
-		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" then
 		self.Slower_Type = 6
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
@@ -141,7 +141,7 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}		
 	elseif self:GetModel() == "models/vj_cofr/custom/slower10.mdl" then
 		self.Slower_Type = 9
-		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
+		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 	elseif self:GetModel() == "models/vj_cofr/custom/sicksophie.mdl" then
 		self.Slower_Type = 10
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
