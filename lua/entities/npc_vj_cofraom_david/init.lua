@@ -34,7 +34,6 @@ ENT.HasLostWeaponSightAnimation = true
 ENT.WaitForEnemyToComeOut = false
 ENT.HasCallForHelpAnimation = false
 ENT.Weapon_NoSpawnMenu = true
-ENT.IsMedicSNPC = true
 ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_HealthAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = {"vjges_heal"}
@@ -196,6 +195,7 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:David_CustomOnInitialize()
+ if math.random(1,5) == 1 then self.IsMedicSNPC = true end
  if !self.DisableWeapons && self.Human_Type == 0 then
  if !self.WeaponInventory_Melee then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
