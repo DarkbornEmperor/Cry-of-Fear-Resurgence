@@ -5,7 +5,7 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.6
 SWEP.NPC_CustomSpread = 2.5
 //SWEP.NPC_ReloadSound = {""}
@@ -14,18 +14,18 @@ SWEP.NPC_ExtraFireSoundTime	= 0.5
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_shotgun.mdl"
 SWEP.HoldType = "shotgun"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable	= false
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-25, -1, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-5.5, 6.6, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage	= 5
 SWEP.Primary.NumberOfShots = 6
 SWEP.Primary.ClipSize = 5
@@ -37,7 +37,11 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
+function SWEP:CustomOnInitialize()
+ if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.Primary.Sound = {"vj_cofr/cof/weapons/shotgun/old/shoot.wav"}
+    self.NPC_ExtraFireSound	= {"vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"}	
+end
   self:SetModelScale(0.85)
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofr_police" then 

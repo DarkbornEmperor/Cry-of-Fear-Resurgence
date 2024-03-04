@@ -5,24 +5,24 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.05
 //SWEP.NPC_ReloadSound = {""}
 SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_m16.mdl"
 SWEP.HoldType = "ar2"
 SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable	= false
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-92, 15, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(9, -2.5, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage	= 16
 SWEP.Primary.ClipSize = 20
 SWEP.Primary.Ammo = "SMG1"
@@ -33,7 +33,10 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
+function SWEP:CustomOnInitialize()
+ if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.Primary.Sound = {"vj_cofr/cof/weapons/m16/old/m16_fire.wav"} 
+end
   self:SetModelScale(0.85)
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofr_simon_beta" then 

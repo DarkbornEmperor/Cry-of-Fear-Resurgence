@@ -5,24 +5,24 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.05
 //SWEP.NPC_ReloadSound = {""}
 SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel	= "models/vj_cofr/cof/weapons/w_ooi_ak47.mdl"
 SWEP.HoldType = "ar2"
 SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable	= false
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-93.5, 0, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(10, -3.2, -0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 16
 SWEP.Primary.ClipSize = 20
 SWEP.Primary.Ammo = "SMG1"

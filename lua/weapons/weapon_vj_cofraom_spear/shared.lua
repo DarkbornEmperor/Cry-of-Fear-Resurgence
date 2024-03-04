@@ -5,12 +5,12 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_spear.mdl"
 SWEP.HoldType = "melee"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 50
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(2.5, 15, -1)

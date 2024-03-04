@@ -62,6 +62,9 @@ ENT.SoundTbl_Glock = {
 ENT.SoundTbl_Shotgun = {
 "vj_cofr/cof/weapons/shotgun/shoot.wav"
 }
+ENT.SoundTbl_ShotgunPump = {
+"vj_cofr/cof/weapons/shotgun/pump_seq.wav"
+}
 ENT.SoundTbl_TMP = {
 "vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
 }
@@ -90,12 +93,7 @@ ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
- if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 then
-    self.SoundTbl_Glock = {
-    "vj_cofr/cof/weapons/glock/glock_fire.wav"
-}
-end	
+function ENT:CustomOnPreInitialize()	
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false 
     end	
@@ -145,6 +143,29 @@ end
     elseif BookSimon_Type == 6 then
 		self.BookSimon_SledgehammerFlare = true
 	end	
+end
+ if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
+    self.SoundTbl_Glock = {
+    "vj_cofr/cof/weapons/glock/glock_fire.wav"
+}
+ elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.SoundTbl_Glock = {
+	"vj_cofr/cof/weapons/glock/old/glock_fire.wav"
+} 
+end
+ if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.SoundTbl_Shotgun = {
+	"vj_cofr/cof/weapons/shotgun/old/shoot.wav"
+}
+    self.SoundTbl_ShotgunPump = {
+	"vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
+}
+    self.SoundTbl_TMP = {
+	"vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
+}
+    self.SoundTbl_M16 = {
+	"vj_cofr/cof/weapons/m16/old/m16_fire.wav"
+} 
 end
 	-- Screen flash effect for all the players
 	for _,v in ipairs(player.GetHumans()) do
@@ -334,7 +355,7 @@ function ENT:CustomRangeAttackCode()
  if self.BookSimon_Shotgun then
     VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
     VJ.EmitSound(self, {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
-	timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, "vj_cofr/cof/weapons/shotgun/pump_seq.wav", 75, 100) end end)
+	timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
 	self:FireBullets({
         Attacker = self,
 		Num = 6,

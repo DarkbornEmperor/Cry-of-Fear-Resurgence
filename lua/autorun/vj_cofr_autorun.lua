@@ -147,6 +147,7 @@ if VJExists == true then
 
     -- Apparitions --
 	VJ.AddNPC("Corpse","sent_vj_cofrc_corpse",spawnCategory)	
+	VJ.AddNPC("Meatman (Corpse)","sent_vj_cofrc_meatman_corpse",spawnCategory)
 	
 	-- Afraid of Monsters: Classic/Director's Cut/Dark Assistance --
 	spawnCategory = "CoF Resurgence: AoM"
@@ -459,6 +460,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/monster_cutter.mdl")
     util.PrecacheModel("models/vj_cofr/custom/ooi_facehead.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/meatman.mdl")
+    util.PrecacheModel("models/vj_cofr/custom/meatman_corpse.mdl")
     util.PrecacheModel("models/vj_cofr/custom/psycho_le.mdl")	
     util.PrecacheModel("models/vj_cofr/custom/mother.mdl")
     util.PrecacheModel("models/vj_cofr/custom/realmother.mdl")		
@@ -496,6 +498,7 @@ if VJExists == true then
 	VJ.AddConVar("VJ_COFR_Assistor_Flashlight", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Suicider_NewSound", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_COFR_OldWepSounds", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Human_Regen", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})
 	VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, {FCVAR_ARCHIVE})
@@ -557,6 +560,7 @@ end
                 VJ_COFR_Assistor_Flashlight = "0",
                 VJ_COFR_Suicider_ExtraPistol = "0",
                 VJ_COFR_Suicider_NewSound = "1",
+				VJ_COFR_OldWepSounds = "0",	
                 VJ_COFR_Human_Regen = "0",
                 VJ_COFR_Human_ReloadCover = "0",
 			    VJ_COFR_Human_ReloadRun = "1",
@@ -583,6 +587,8 @@ end
             Panel:AddControl("Checkbox", {Label ="Enable Flashlight For Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})	
             Panel:AddControl("Checkbox", {Label ="Enable P345 For Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})
             Panel:AddControl("Checkbox", {Label ="Enable Updated Glock Sound For Suiciders & Book Simon?", Command ="VJ_COFR_Suicider_NewSound"})
+            Panel:AddControl("Checkbox", {Label ="Enable Old Weapon Sounds?", Command ="VJ_COFR_OldWepSounds"})
+			Panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
             Panel:AddControl("Checkbox", {Label ="Enable Human SNPCs Having HP Regen?", Command ="VJ_COFR_Human_Regen"})
             Panel:AddControl("Checkbox", {Label ="Enable Human SNPCs Finding Cover To Reload?", Command ="VJ_COFR_Human_ReloadCover"})
             Panel:AddControl("Checkbox", {Label ="Enable SNPCs Moving While Reloading?", Command ="VJ_COFR_Human_ReloadRun"})

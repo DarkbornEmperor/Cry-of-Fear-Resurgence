@@ -5,23 +5,23 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.35
+-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+SWEP.NPC_TimeUntilFire = 0.35
 //SWEP.NPC_ReloadSound = {""}
 SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_p345.mdl"
 SWEP.HoldType = "pistol"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-14, -1, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-2.5, 3.5, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage	= 20
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Pistol"
@@ -33,6 +33,9 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
+ if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.Primary.Sound = {"vj_cofr/cof/weapons/p345/old/p345_fire.wav"} 
+end
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" or owner:GetClass() == "npc_vj_cofrc_robert" then
         self.WorldModel_CustomPositionAngle = Vector(80, -20, 10)
@@ -40,6 +43,7 @@ function SWEP:CustomOnInitialize()
   if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrc_robert" then
 		self.NPC_NextPrimaryFire = 1
 		self.Primary.Damage	= 15
+		if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/old/p345_reload.wav"} end
 		self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/p345_reload.wav"}
 end
   elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then 

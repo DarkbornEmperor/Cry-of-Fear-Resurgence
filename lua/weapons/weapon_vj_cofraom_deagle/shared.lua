@@ -5,23 +5,23 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.5
 //SWEP.NPC_ReloadSoun = {""}
 SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel	= "models/vj_cofr/aom/weapons/w_deagle.mdl"
 SWEP.HoldType = "pistol"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-159, -185, 95)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 6, -0.7)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage	= 40
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 7

@@ -76,6 +76,11 @@ end
 function ENT:SickSimon_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+ if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.SoundTbl_Browning = {
+	"vj_cofr/cof/weapons/browning/old/browning_fire.wav"
+} 
+end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:SickSimon_CustomOnInitialize()	 
 end

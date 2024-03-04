@@ -71,11 +71,6 @@ ENT.Suicider_DeathSuicide = false
 ENT.Suicider_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
- if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 then
-    self.SoundTbl_Glock = {
-    "vj_cofr/cof/weapons/glock/glock_fire.wav"
-}
-end
  if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true return end
     local Suicider_Type = math.random(1,2)
 	if Suicider_Type == 1 then
@@ -102,6 +97,15 @@ function ENT:Suicider_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+ if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
+    self.SoundTbl_Glock = {
+    "vj_cofr/cof/weapons/glock/glock_fire.wav"
+}
+ elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+    self.SoundTbl_Glock = {
+	"vj_cofr/cof/weapons/glock/old/glock_fire.wav"
+} 
+end
  if math.random(1,3) == 1 then
 	self.NoChaseAfterCertainRange = false
 end	 
