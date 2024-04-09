@@ -27,10 +27,7 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.WeaponInventory_Melee = true
 ENT.WeaponReload_FindCover = false
-ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
-ENT.NextMoveRandomlyWhenShootingTime1 = 0
-ENT.NextMoveRandomlyWhenShootingTime2 = 0.2
-ENT.HasLostWeaponSightAnimation = true
+ENT.NextMoveRandomlyWhenShootingTime = VJ.SET(0,0.2)
 ENT.WaitForEnemyToComeOut = false
 ENT.HasCallForHelpAnimation = false
 ENT.Weapon_NoSpawnMenu = true
@@ -83,6 +80,7 @@ ENT.BreathSoundLevel = 40
 -- Custom
 ENT.Simon_French = false
 ENT.Simon_Branch = false
+ENT.CoFR_Crouching = false
 ENT.CoFR_NextMeleeSoundT = 0
 ENT.CoFR_NextWepSwitchT = 0
 ENT.CoFR_NextLowHPSoundT = 0
@@ -472,38 +470,39 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end			
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+    if self.CoFR_Crouching && self.HasShootWhileMoving && IsValid(self:GetEnemy()) then
+	if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving == true && self:IsAbleToShootWeapon(true, false) == true then
+		self.DoingWeaponAttack = true
+		self.DoingWeaponAttack_Standing = false
+    if act == ACT_WALK then
+		return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
+    elseif act == ACT_RUN then
+		return self:TranslateActivity(act == ACT_RUN and ACT_RUN_CROUCH_AIM)
+		end
+	end
+end
+ if act == ACT_IDLE then
+	if !self:OnGround() && !self:IsMoving() then
+		return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
+	end
+end
+	return self.BaseClass.TranslateActivity(self,act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
- if IsValid(self:GetActiveWeapon()) && !self.CurrentWeaponEntity.IsMeleeWeapon then
-    self.MeleeAttackDamage = 15
-	self.SoundTbl_MeleeAttack = {
-    "vj_cofr/cof/weapons/melee_hit.wav"
-}
-	self.SoundTbl_MeleeAttackMiss = {
-    "vj_cofr/cof/weapons/melee_swing.wav"
-}
+     local controller = self.VJ_TheController
+     if IsValid(controller) then
+	 if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_Melee then 
+	 if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]),true) end
+	 if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]),true) end
+	 if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]),true) end
+	    self.CoFR_NextWepSwitchT = CurTime() + 1
 end
-    local controller = self.VJ_TheController
-    if IsValid(controller) then
-	if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_Melee then 
-	if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]),true) end
-	if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]),true) end
-	if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]),true) end
-	   self.CoFR_NextWepSwitchT = CurTime() + 1    
-end
-	/*if controller:KeyDown(IN_DUCK) then
-		self.AnimTbl_IdleStand = {ACT_COVER_LOW}
-		self.AnimTbl_WeaponAttack = {ACT_COVER_LOW}
-		self.AnimTbl_Walk = {ACT_WALK_CROUCH}
-		self.AnimTbl_Run = {ACT_RUN_CROUCH}
-		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_CROUCH_AIM}
-		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_CROUCH_AIM}
+	/*if controller:KeyDown(IN_DUCK) && !self.CoFR_Crouching then
+	    self.CoFR_Crouching = true
 	else
-		self.AnimTbl_IdleStand = {ACT_IDLE}
-		self.AnimTbl_WeaponAttack = {ACT_IDLE}
-		self.AnimTbl_Walk = {ACT_WALK}
-		self.AnimTbl_Run = {ACT_RUN}
-		self.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
-		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_AIM}
+	    self.CoFR_Crouching = false
         end*/
     end
 end
@@ -567,13 +566,24 @@ function ENT:CustomOnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMoveRandomlyWhenShooting()
-    if math.random(1,3) == 1 then
-        self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_CROUCH_AIM}
-        self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_CROUCH_AIM}
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed) 
+ if IsValid(self:GetActiveWeapon()) && !self.CurrentWeaponEntity.IsMeleeWeapon then
+    self.MeleeAttackDamage = 15
+	self.MeleeAttackDamageType = DMG_CLUB
+	self.SoundTbl_MeleeAttack = {
+    "vj_cofr/cof/weapons/melee_hit.wav"
+}
+	self.SoundTbl_MeleeAttackMiss = {
+    "vj_cofr/cof/weapons/melee_swing.wav"
+}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMoveRandomlyWhenShooting() 
+     if math.random(1,2) == 1 && !self.CoFR_Crouching then
+        self.CoFR_Crouching = true
 	else
-        self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_AIM}
-        self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_AIM}
+        self.CoFR_Crouching  = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -588,7 +598,7 @@ function ENT:CustomOnWeaponReload()
 	self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(h)
+function ENT:SetAnimationTranslations(h)
 	local defIdleAim = ACT_IDLE -- ACT_IDLE_ANGRY
 	local defWalkAim = ACT_WALK
 	local defRunAim = ACT_RUN
@@ -739,23 +749,23 @@ end
 		defReload = "vjges_reload_uzis_right"
 end
 
-	self.WeaponAnimTranslations[ACT_IDLE] = defIdleAim
-	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = defIdleAim
-	self.WeaponAnimTranslations[ACT_WALK] = defWalkAim
-	self.WeaponAnimTranslations[ACT_WALK_AIM] = defWalkAim
-	self.WeaponAnimTranslations[ACT_RUN] = defRunAim
-	self.WeaponAnimTranslations[ACT_RUN_AIM] = defRunAim
-	self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = defIdleAim
-	self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = defCrouch
-	self.WeaponAnimTranslations[ACT_COVER_LOW] = defCrouch
-	self.WeaponAnimTranslations[ACT_WALK_CROUCH] = defCrawl
-	self.WeaponAnimTranslations[ACT_WALK_CROUCH_AIM] = defCrawl
-	self.WeaponAnimTranslations[ACT_RUN_CROUCH] = defCrawl
-	self.WeaponAnimTranslations[ACT_RUN_CROUCH_AIM] = defCrawl
-	self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] = defFire
-	self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK2] = defFire
-	self.WeaponAnimTranslations[ACT_RELOAD] = defReload
-	self.WeaponAnimTranslations[ACT_RELOAD_LOW] = defReload
+	self.AnimationTranslations[ACT_IDLE] = defIdleAim
+	self.AnimationTranslations[ACT_IDLE_ANGRY] = defIdleAim
+	self.AnimationTranslations[ACT_WALK] = defWalkAim
+	self.AnimationTranslations[ACT_WALK_AIM] = defWalkAim
+	self.AnimationTranslations[ACT_RUN] = defRunAim
+	self.AnimationTranslations[ACT_RUN_AIM] = defRunAim
+	self.AnimationTranslations[ACT_RANGE_ATTACK1] = defIdleAim
+	self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = defCrouch
+	self.AnimationTranslations[ACT_COVER_LOW] = defCrouch
+	self.AnimationTranslations[ACT_WALK_CROUCH] = defCrawl
+	self.AnimationTranslations[ACT_WALK_CROUCH_AIM] = defCrawl
+	self.AnimationTranslations[ACT_RUN_CROUCH] = defCrawl
+	self.AnimationTranslations[ACT_RUN_CROUCH_AIM] = defCrawl
+	self.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1] = defFire
+	self.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK2] = defFire
+	self.AnimationTranslations[ACT_RELOAD] = defReload
+	self.AnimationTranslations[ACT_RELOAD_LOW] = defReload
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

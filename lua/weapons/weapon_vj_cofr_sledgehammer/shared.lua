@@ -19,7 +19,7 @@ function SWEP:CustomOnInitialize()
     self:SetModelScale(1.2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnThink()
+function SWEP:CustomOnEquip(newOwner)
     local owner = self:GetOwner()
 	owner.MeleeAttackDamage = self.Primary.Damage	    
 	owner.MeleeAttackDamageType = DMG_CLUB

@@ -97,6 +97,7 @@ function ENT:Suicider_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+ if self.Suicider_Glock then
  if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
     self.SoundTbl_Glock = {
     "vj_cofr/cof/weapons/glock/glock_fire.wav"
@@ -104,6 +105,12 @@ function ENT:CustomOnInitialize()
  elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
     self.SoundTbl_Glock = {
 	"vj_cofr/cof/weapons/glock/old/glock_fire.wav"
+} 
+    end
+end
+ if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 && self.Suicider_P345 then
+    self.SoundTbl_P345 = {
+	"vj_cofr/cof/weapons/p345/old/p345_fire.wav"
 } 
 end
  if math.random(1,3) == 1 then

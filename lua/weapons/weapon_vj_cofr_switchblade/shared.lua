@@ -24,7 +24,7 @@ function SWEP:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnThink()
+function SWEP:CustomOnEquip(newOwner)
     local owner = self:GetOwner()
 	owner.MeleeAttackDamage = self.Primary.Damage	    
 	owner.MeleeAttackDamageType = DMG_SLASH

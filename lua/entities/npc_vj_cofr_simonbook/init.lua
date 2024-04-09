@@ -109,9 +109,9 @@ function ENT:BookSimon_CustomOnInitialize()
      elseif self.BookSimon_M16 then
 		self:SetM16()		
      elseif self.BookSimon_Sledgehammer then
-		self:SetSledgehammerFlare()	
+		self:SetSledgehammer()	
      elseif self.BookSimon_SledgehammerFlare then
-		self:SetSledgehammer()
+		self:SetSledgehammerFlare()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -195,9 +195,6 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetShotgun()
-	self:SetIdleAnimation({ACT_IDLE}, true)
-    self.AnimTbl_Walk = {ACT_WALK}
-	self.AnimTbl_Run = {ACT_WALK}
 	self:SetBodygroup(0,1)
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
@@ -208,9 +205,6 @@ function ENT:SetShotgun()
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetTMP()
-	self:SetIdleAnimation({ACT_IDLE_HURT}, true)
-	self.AnimTbl_Walk = {ACT_WALK_HURT}
-	self.AnimTbl_Run = {ACT_WALK_HURT}
 	self:SetBodygroup(0,2)
 	self:SetBodygroup(1,1)
 	self.HasMeleeAttack = false
@@ -223,9 +217,6 @@ function ENT:SetTMP()
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetGlock()
-	self:SetIdleAnimation({ACT_IDLE_STEALTH}, true)
-	self.AnimTbl_Walk = {ACT_WALK_STEALTH}
-	self.AnimTbl_Run = {ACT_WALK_STEALTH}
 	self:SetBodygroup(0,3)
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
@@ -236,9 +227,6 @@ function ENT:SetGlock()
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetM16()
-	self:SetIdleAnimation({ACT_IDLE}, true)
-    self.AnimTbl_Walk = {ACT_WALK}
-	self.AnimTbl_Run = {ACT_WALK}
 	self:SetBodygroup(0,4)
 	self.HasMeleeAttack = false
 	self.HasRangeAttack = true
@@ -250,9 +238,6 @@ function ENT:SetM16()
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammer()
-	self:SetIdleAnimation({ACT_IDLE_STIMULATED}, true)
-    self.AnimTbl_Walk = {ACT_RUN_STIMULATED}
-	self.AnimTbl_Run = {ACT_RUN_STIMULATED}
 	self:SetBodygroup(0,5)
 	self.HasPoseParameterLooking = false
 	self.HasMeleeAttack = true
@@ -260,9 +245,6 @@ function ENT:SetSledgehammer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammerFlare()
-	self:SetIdleAnimation({ACT_IDLE_RELAXED}, true)
-    self.AnimTbl_Walk = {ACT_SPRINT}
-	self.AnimTbl_Run = {ACT_SPRINT}
 	self.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
 	self:SetBodygroup(0,5)
 	self:SetBodygroup(2,1)
@@ -288,17 +270,6 @@ function ENT:SetSledgehammerFlare()
 
 	ParticleEffectAttach("vj_cofr_flare_sparks",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
 	ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetIdleTurns() -- Resets the listed actvities for specific needs (Ex: NPCs with custom idle animations) due to engine limitations
-    return self:GetActivity() == ACT_IDLE
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-     if (self.BookSimon_Glock or self.BookSimon_TMP or self.BookSimon_Sledgehammer or self.BookSimon_SledgehammerFlare) && self:GetIdleTurns() then
-        self:VJ_TASK_IDLE_STAND()
- 	    self.NextIdleStandTime = 0
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
@@ -347,6 +318,38 @@ function ENT:FireFX()
 	    muz:Fire("SetParentAttachment","m16_muzzle")
 	    Light:SetPos(self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos)	
     end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+ if self.BookSimon_Glock then
+	if act == ACT_IDLE then
+		return ACT_IDLE_STEALTH
+	elseif act == ACT_RUN or act == ACT_WALK then
+		return ACT_WALK_STEALTH
+    end
+end
+ if self.BookSimon_TMP then
+	if act == ACT_IDLE then
+		return ACT_IDLE_HURT
+	elseif act == ACT_RUN or act == ACT_WALK then
+		return ACT_WALK_HURT
+    end
+end
+ if self.BookSimon_Sledgehammer then
+	if act == ACT_IDLE then
+		return ACT_IDLE_STIMULATED
+	elseif act == ACT_RUN or act == ACT_WALK then
+		return ACT_RUN_STIMULATED
+    end
+end
+ if self.BookSimon_SledgehammerFlare then
+	if act == ACT_IDLE then
+		return ACT_IDLE_RELAXED
+	elseif act == ACT_RUN or act == ACT_WALK then
+		return ACT_SPRINT
+    end
+end
+	return self.BaseClass.TranslateActivity(self,act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()

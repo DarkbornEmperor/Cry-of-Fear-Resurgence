@@ -41,7 +41,7 @@ local entsList = {
 	"npc_vj_cofraomc_screamer:25"
 }
 ENT.EntitiesToSpawn = {
-	{SpawnPosition = {vForward=20, vRight=0, vUp=0}, Entities = entsList},
+	{SpawnPosition = Vector(0, 0, 0), Entities = entsList},
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -69,7 +69,7 @@ function ENT:CustomOnInitialize()
 	"npc_vj_cofraom_addiction:60"
 }
 self.EntitiesToSpawn = {
-	{SpawnPosition = {vForward=20, vRight=0, vUp=0}, Entities = entsList},
+	{SpawnPosition = Vector(0, 0, 0), Entities = entsList},
 }
 end
 /*-----------------------------------------------

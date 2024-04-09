@@ -59,7 +59,6 @@ ENT.Watro_Burrowed = true
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Watro_CustomOnInitialize()
 	if self.Watro_Burrowed then
-	    self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.HasMeleeAttack = false
 		self:DrawShadow(false)
 		self:AddFlags(FL_NOTARGET)
@@ -82,6 +81,19 @@ function ENT:Controller_Initialize(ply,controlEnt)
 	ply:ChatPrint("JUMP: Unburrow")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+ if self.Watro_Burrowed then
+	if act == ACT_IDLE then
+		return ACT_IDLE_RELAXED
+end
+ elseif !self.Watro_Burrowed then
+	if act == ACT_IDLE then
+		return ACT_IDLE_STIMULATED
+    end
+end
+	return self.BaseClass.TranslateActivity(self,act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	local ent = self:GetEnemy()
 	if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
@@ -92,7 +104,6 @@ function ENT:CustomOnThink_AIEnabled()
 end		
 		self.Watro_Burrowed = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-	    self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 		self.HasMeleeAttack = true
 		self:DrawShadow(true)
 		self.CallForHelp = true
@@ -113,10 +124,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
        self.SoundTbl_Death = {
        "vj_cofr/fx/bodysplat.wav"
 }
-    end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
     VJ_COFR_DeathCode(self)	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

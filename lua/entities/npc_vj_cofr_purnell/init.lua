@@ -13,7 +13,6 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false
-ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN_AIM}
 ENT.HasLostWeaponSightAnimation = true
 ENT.HasCallForHelpAnimation = false
 ENT.MoveRandomlyWhenShooting = false
@@ -113,28 +112,28 @@ end
 function ENT:CustomOnWeaponAttack()
 	if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
 	if CurTime() > self.Doctor_NextRunT then
-		timer.Simple(0.5, function() 
-			if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
-				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
+	timer.Simple(0.5, function() 
+	    if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
+		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
 	end
 end)
 		self.Doctor_NextRunT = CurTime() + math.Rand(12,18)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)			
+function ENT:SetAnimationTranslations(hType)			
  if hType == "pistol" or hType == "revolver" then
-	self.WeaponAnimTranslations[ACT_IDLE] 					= ACT_IDLE
-	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] 			= ACT_IDLE_ANGRY			
-	self.WeaponAnimTranslations[ACT_WALK] 					= ACT_WALK
-	self.WeaponAnimTranslations[ACT_RUN] 					= ACT_RUN
-	self.WeaponAnimTranslations[ACT_WALK_AIM] 				= ACT_WALK_AIM
-	self.WeaponAnimTranslations[ACT_RUN_AIM] 				= ACT_RUN_AIM				
-	self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 			= ACT_IDLE_ANGRY
-	self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 		= ACT_RANGE_ATTACK1_LOW			
-	self.WeaponAnimTranslations[ACT_RELOAD] 				= ACT_CROUCHIDLE
-	self.WeaponAnimTranslations[ACT_RELOAD_LOW] 			= ACT_CROUCHIDLE	
-    self.WeaponAnimTranslations[ACT_COVER_LOW] 				= ACT_CROUCHIDLE						
+	self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
+	self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY			
+	self.AnimationTranslations[ACT_WALK] = ACT_WALK
+	self.AnimationTranslations[ACT_RUN] = ACT_RUN
+	self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM
+	self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM				
+	self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_IDLE_ANGRY
+	self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK1_LOW			
+	self.AnimationTranslations[ACT_RELOAD] = ACT_CROUCHIDLE
+	self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_CROUCHIDLE	
+    self.AnimationTranslations[ACT_COVER_LOW] = ACT_CROUCHIDLE						
 end
 	return true
 end

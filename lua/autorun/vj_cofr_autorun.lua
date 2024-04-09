@@ -253,7 +253,7 @@ if VJExists == true then
 })
 	
 	-- Precache Models --
-	util.PrecacheModel("models/vj_cofr/cof/policedead.mdl")
+	/*util.PrecacheModel("models/vj_cofr/cof/policedead.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/deadvictim.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/deadvictim2.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/cutters.mdl")
@@ -368,6 +368,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/classic/david.mdl")
     util.PrecacheModel("models/vj_cofr/aom/classic/david_old.mdl")
     util.PrecacheModel("models/vj_cofr/aom/classic/david_early.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/classic/barnacle.mdl")
     util.PrecacheModel("models/vj_cofr/aom/classic/bullsquid.mdl")
     util.PrecacheModel("models/vj_cofr/aom/classic/headcrab.mdl")
     util.PrecacheModel("models/vj_cofr/aom/classic/controller.mdl")
@@ -478,7 +479,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/dasubergator.mdl")
     util.PrecacheModel("models/vj_cofr/custom/dasubergator2.mdl")		
     util.PrecacheModel("models/cof/weapons/glock/w_glock.mdl")
-    util.PrecacheModel("models/cof/ammo/clip.mdl")	
+    util.PrecacheModel("models/cof/ammo/clip.mdl")*/	
 
 	-- ConVars --
 	VJ.AddConVar("VJ_COFR_Boss_Music", 1, {FCVAR_ARCHIVE})
