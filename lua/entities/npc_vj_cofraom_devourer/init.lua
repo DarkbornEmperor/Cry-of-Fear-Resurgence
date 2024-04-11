@@ -148,17 +148,24 @@ function ENT:Devourer_ResetEnt()
 	self.Devourer_CurEnt = NULL
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+ if self.Devourer_Status == 1 then
+	if act == ACT_IDLE then
+		return ACT_BARNACLE_PULL
+    end
+end
+	return self.BaseClass.TranslateActivity(self,act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead then return end
 	local calc = self:Devourer_CalculateTongue()
 	if calc == true && self.Devourer_Status != 1 then
 		self.Devourer_Status = 1
 		self.NextIdleStandTime = 0
-		self.AnimTbl_IdleStand = {ACT_BARNACLE_PULL}
 	elseif calc == false && self.Devourer_Status != 0 then
 		self.Devourer_Status = 0
 		self.NextIdleStandTime = 0
-		self.AnimTbl_IdleStand = {ACT_IDLE}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
