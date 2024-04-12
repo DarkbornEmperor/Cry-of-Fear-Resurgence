@@ -162,10 +162,8 @@ function ENT:CustomOnThink_AIEnabled()
 	local calc = self:Devourer_CalculateTongue()
 	if calc == true && self.Devourer_Status != 1 then
 		self.Devourer_Status = 1
-		self.NextIdleStandTime = 0
 	elseif calc == false && self.Devourer_Status != 0 then
 		self.Devourer_Status = 0
-		self.NextIdleStandTime = 0
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
