@@ -96,7 +96,7 @@ end
     end			
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+function ENT:MultipleMeleeAttacks()
     local attack = math.random(1,2)
 	if attack == 1 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
@@ -124,11 +124,11 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-	if (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
-		   hitEnt:StopMoving()
-           hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
-	       timer.Simple(self.SlowPlayerOnMeleeAttackTime,function() if IsValid(hitEnt) then
-           hitEnt:SetState()
+	 if (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
+		    hitEnt:StopMoving()
+            hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
+	        timer.Simple(self.SlowPlayerOnMeleeAttackTime,function() if IsValid(hitEnt) then
+            hitEnt:SetState()
 		end
     end)	
 end

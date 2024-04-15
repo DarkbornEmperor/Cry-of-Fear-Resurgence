@@ -606,11 +606,10 @@ function ENT:SetAnimationTranslations(h)
 	local defCrouch = ACT_RANGE_ATTACK1_LOW
 	local defCrawl = ACT_RUN_CROUCH
 	local defReload = ACT_RELOAD
-
+	
 	if self:GetActiveWeapon().CoFR_HoldType then -- Allow for more than default hold types
 		h = self:GetActiveWeapon().CoFR_HoldType
 end
-
 	if h == "crossbow" then
 		defIdleAim = VJ.SequenceToActivity(self,"aim_bow")
 		defWalkAim = VJ.SequenceToActivity(self,"walk_bow")

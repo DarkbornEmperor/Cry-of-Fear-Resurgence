@@ -178,7 +178,7 @@ function ENT:FireSprite()
 	self:DeleteOnRemove(self.FireEffect)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 		self.MeleeAttackDamage = 20
@@ -237,7 +237,7 @@ function ENT:CustomRangeAttackCode()
 	self.Lightning:Fire("Kill","",0.2)
 	self:DeleteOnRemove(self.Lightning)
 	
-	VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_hit.wav"}, 90, 100) end end)
+	VJ.EmitSound(ent, "vj_cofr/aom/davidbad/thunder_hit.wav", 90, 100) end end)
     end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
