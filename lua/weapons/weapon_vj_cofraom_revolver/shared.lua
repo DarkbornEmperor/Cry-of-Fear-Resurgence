@@ -9,7 +9,6 @@ SWEP.Category = "Cry of Fear Resurgence"
 SWEP.NPC_NextPrimaryFire = 1.5
 //SWEP.NPC_ReloadSound = {""}
 SWEP.NPC_CanBePickedUp = false
-SWEP.MadeForNPCsOnly = true
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel	= "models/vj_cofr/aom/weapons/w_revolver.mdl"

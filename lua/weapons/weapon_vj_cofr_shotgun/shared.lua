@@ -13,7 +13,6 @@ SWEP.NPC_ExtraFireSound	= {"vj_cofr/cof/weapons/shotgun/pump_seq.wav"}
 SWEP.NPC_ExtraFireSoundTime	= 0.5
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_CanBePickedUp = false
-SWEP.MadeForNPCsOnly = true
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_shotgun.mdl"

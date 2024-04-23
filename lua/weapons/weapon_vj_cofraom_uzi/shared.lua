@@ -9,7 +9,6 @@ SWEP.Category = "Cry of Fear Resurgence"
 SWEP.NPC_TimeUntilFire = 0.07 
 //SWEP.NPC_ReloadSound = {""}
 SWEP.NPC_CanBePickedUp = false
-SWEP.MadeForNPCsOnly = true
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_uzi.mdl"

@@ -436,7 +436,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/custom/dasubergator2.mdl")
     util.PrecacheModel("models/vj_cofr/cof/w_syringe.mdl")
     util.PrecacheModel("models/vj_cofr/aom/w_medkit.mdl") 
-    util.PrecacheModel("models/vj_cofr/aom/pill_bottle.mdl")*/
+    util.PrecacheModel("models/vj_cofr/aom/pill_bottle.mdl")
 
     util.PrecacheModel("models/vj_cofr/cof/weapons/w_browning.mdl")
     util.PrecacheModel("models/vj_cofr/cof/weapons/w_famas.mdl") 
@@ -478,7 +478,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_shotgun.mdl") 
     util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_knife.mdl")
     util.PrecacheModel("models/vj_cofr/aom/weapons/classic/w_grenade.mdl")	
-    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/grenade.mdl")
+    util.PrecacheModel("models/vj_cofr/aom/weapons/classic/grenade.mdl")*/
 	
 	-- ConVars --
 	VJ.AddConVar("VJ_COFR_Boss_Music", 1, {FCVAR_ARCHIVE})
@@ -718,8 +718,8 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_DeathCode(ent)
- ent.Bleeds = false
- ent:SetSolid(SOLID_NONE)
+ //ent.Bleeds = false
+ //ent:SetSolid(SOLID_NONE)
  ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
  if GetConVar("VJ_COFR_DropAmmo"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
  ent.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
@@ -743,7 +743,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_ApplyCorpse(ent,corpse)
- if GetConVar("ai_disabled"):GetInt() == 1 then corpse:Remove() end
+ if !VJ_CVAR_AI_ENABLED then corpse:Remove() end
     //VJ_COFR_ExtraCorpseOptions(corpse)	
 	corpse:ResetSequence(ent:GetSequence())
 	corpse:SetCycle(1)

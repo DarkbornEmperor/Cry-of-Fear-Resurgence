@@ -13,7 +13,6 @@ SWEP.NPC_ReloadSound = {"vj_weapons/reload_boltaction.wav"}
 SWEP.NPC_FiringDistanceScale = 2.5
 SWEP.NPC_StandingOnly = true
 SWEP.NPC_CanBePickedUp = false
-SWEP.MadeForNPCsOnly = true
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel	= "models/vj_cofr/cof/weapons/w_rifle.mdl"

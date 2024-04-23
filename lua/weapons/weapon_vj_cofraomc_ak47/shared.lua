@@ -12,7 +12,6 @@ SWEP.NPC_HasSecondaryFire = true
 SWEP.NPC_SecondaryFireEnt = "obj_vj_cofraomc_grenade_40mm"
 SWEP.NPC_SecondaryFireSound = {"vj_cofr/aom/weapons/ak47/glauncher.wav","vj_cofr/aom/weapons/ak47/glauncher2.wav"}
 SWEP.NPC_CanBePickedUp = false
-SWEP.MadeForNPCsOnly = true
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel	= "models/vj_cofr/aom/weapons/classic/w_ak47.mdl"
