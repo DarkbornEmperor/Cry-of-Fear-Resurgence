@@ -32,6 +32,7 @@ ENT.WaitForEnemyToComeOut = false
 ENT.HasCallForHelpAnimation = false
 ENT.Weapon_NoSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
+ENT.Medic_SpawnPropOnHeal = false
 ENT.Medic_HealthAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = {"vjges_heal"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
@@ -84,6 +85,7 @@ ENT.CoFR_Crouching = false
 ENT.CoFR_NextMeleeSoundT = 0
 ENT.CoFR_NextWepSwitchT = 0
 ENT.CoFR_NextLowHPSoundT = 0
+ENT.CoFR_NextSelfHealT = 0
 ENT.Human_Type = 0
  	-- 0 = David & Assistor
 	-- 1 = Simon
@@ -193,7 +195,6 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:David_CustomOnInitialize()
- if math.random(1,5) == 1 then self.IsMedicSNPC = true end
  if !self.DisableWeapons && self.Human_Type == 0 then
  if !self.WeaponInventory_Melee then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
@@ -381,6 +382,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+ if math.random(1,5) == 1 then self.IsMedicSNPC = true end
  if GetConVar("VJ_COFR_Human_ReloadCover"):GetInt() == 1 then 
     self.WeaponReload_FindCover = true
 end
@@ -394,6 +396,7 @@ end
   elseif self:GetModel() == "models/vj_cofr/cof/police1.mdl" or self:GetModel() == "models/vj_cofr/cof/police2.mdl" or self:GetModel() == "models/vj_cofr/cof/police3.mdl" or self:GetModel() == "models/vj_cofr/cof/police4.mdl" then
 	 self.Human_Type = 2
 end
+    self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
 	self.NextWeaponSwitchT = CurTime() + math.Rand(2,4)
 
  if self.WeaponInventory_Melee then	
@@ -506,6 +509,22 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+ if self.IsMedicSNPC && !self:IsBusy() && self.Medic_Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+    self:CustomOnMedic_BeforeHeal() 
+ 	self:VJ_ACT_PLAYACTIVITY("vjges_heal",true,false,false)
+ if IsValid(self:GetEnemy()) then
+    self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end
+	timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
+	local CurHP = self:Health()
+	self:SetHealth(math.Clamp(CurHP + self.Medic_HealthAmount, CurHP, self:GetMaxHealth()))
+	self:CustomOnMedic_OnHeal()
+	self:PlaySoundSystem("GeneralSpeech",self.SoundTbl_MedicReceiveHeal)
+	VJ.CreateSound(self,self.SoundTbl_MedicAfterHeal,75,100)
+	self:RemoveAllDecals()
+	end
+end)
+    self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
+end
  if self.HasSounds && !self.Dead then	
     if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
         self:PlaySoundSystem("GeneralSpeech", self.SoundTbl_LowHealth) 
@@ -543,11 +562,24 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_BeforeHeal() 
     if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(true) end
+	local att = self:GetAttachment(self:LookupAttachment("rhand"))
+	self.HealItem = ents.Create("prop_vj_animatable")
+	self.HealItem:SetModel(self.Medic_SpawnPropOnHealModel)
+	self.HealItem:SetPos(att.Pos)
+	self.HealItem:SetAngles(att.Ang)
+	self.HealItem:SetParent(self)
+	self.HealItem:Fire("SetParentAttachment","rhand")
+	self.HealItem:Spawn()
+	//self.HealItem:AddEffects(EF_BONEMERGE)
+	self.HealItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	self:DeleteOnRemove(self.HealItem)
+	//SafeRemoveEntityDelayed(self.HealItem,1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_OnHeal(ent) 
 	timer.Simple(0.1,function()
 	if IsValid(self) then
+	SafeRemoveEntity(self.HealItem)
 		if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end
 	end
 end) return true end
