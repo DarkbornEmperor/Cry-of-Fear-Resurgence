@@ -325,7 +325,7 @@ end
     if GetConVar("VJ_COFR_Simon_Costumes"):GetInt() == 1 then
 	    self:SetSkin(math.random(0,13))
 end
-    if self:GetSkin() == 8 && math.random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl") then
+    if self:GetSkin() == 8 && math.random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
         self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/simon/hellokitty.wav"})		
         end
     end	
