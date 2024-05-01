@@ -42,6 +42,7 @@ ENT.WeaponAttackSecondaryTimeUntilFire = 0.05
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
+ENT.HasExtraMeleeAttackSounds = true
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -60,7 +61,7 @@ ENT.SoundTbl_MedicBeforeHeal = {
 "vj_cofr/aom/pills/pills_pickup.wav"
 }
 */
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/weapons/melee_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
@@ -78,6 +79,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.BreathSoundLevel = 40
+ENT.DefaultSoundTbl_MeleeAttack = false
 -- Custom
 ENT.Simon_French = false
 ENT.Simon_Branch = false
@@ -600,13 +602,27 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
  if IsValid(self:GetActiveWeapon()) && !self.CurrentWeaponEntity.IsMeleeWeapon then
     self.MeleeAttackDamage = 15
 	self.MeleeAttackDamageType = DMG_CLUB
-	self.SoundTbl_MeleeAttack = {
+	self.SoundTbl_MeleeAttackExtra = {
     "vj_cofr/cof/weapons/melee_hit.wav"
 }
 	self.SoundTbl_MeleeAttackMiss = {
     "vj_cofr/cof/weapons/melee_swing.wav"
 }
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnWeaponAttack()
+ if self.VJ_IsBeingControlled then return end
+ local wep = self.CurrentWeaponEntity
+ if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
+ if self.MoveRandomlyWhenShooting && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.DoingWeaponAttack && CurTime() > self.NextMoveRandomlyWhenShootingT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
+ timer.Simple(0,function()
+    local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 250), true, "0111"))
+    if moveCheck then
+    self:StopMoving()
+	self.NextMoveRandomlyWhenShootingT = CurTime() + math.Rand(self.NextMoveRandomlyWhenShootingTime.a, self.NextMoveRandomlyWhenShootingTime.b)
+    self:SetLastPosition(moveCheck)
+	self:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMoveRandomlyWhenShooting()
@@ -621,12 +637,12 @@ end
 function ENT:CustomOnWeaponReload()
  //if self.WeaponReload_FindCover then self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
  if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.WeaponReload_FindCover or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
- timer.Simple(0,function() if IsValid(self) && !self.Dead then
+ timer.Simple(0,function()
     local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 400), true, "0111"))
     if moveCheck then
     self:StopMoving()
     self:SetLastPosition(moveCheck)
-	self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end end)
+	self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(h)
