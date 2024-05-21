@@ -147,10 +147,8 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
- if math.random(1,50) == 1 then
     self:SetRenderFX(kRenderFxFlickerSlow)
     self:SetRenderMode(RENDERMODE_NORMAL)
-end
     self.DeathAnimationTime = math.Rand(0.75,1.25)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
