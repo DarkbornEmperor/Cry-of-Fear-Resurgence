@@ -16,7 +16,7 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 //ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true 
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 40 
+ENT.MeleeAttackDistance = 55 
 ENT.MeleeAttackDamageDistance = 85
 ENT.MeleeAttackDamageType = DMG_CRUSH
 ENT.SlowPlayerOnMeleeAttack = false
@@ -125,10 +125,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
 	 if (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
-		    hitEnt:StopMoving()
-            hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
-	        timer.Simple(self.SlowPlayerOnMeleeAttackTime,function() if IsValid(hitEnt) then
-            hitEnt:SetState()
+		hitEnt:StopMoving()
+        hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
+	    timer.Simple(self.SlowPlayerOnMeleeAttackTime,function() if IsValid(hitEnt) then
+        hitEnt:SetState()
 		end
     end)	
 end
