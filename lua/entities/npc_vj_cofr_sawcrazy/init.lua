@@ -101,7 +101,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
     if self.Dead or GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 0 then return end
 	if /*self.CurAttackAnimTime < CurTime() &&*/ self.Sawcrazy_NextRadiusDamageT < CurTime() then		  		   
-        VJ.ApplyRadiusDamage(self,self,self:GetPos(),self.MeleeAttackDamageDistance,self.MeleeAttackDamage,DMG_SLASH,false,true)
+        VJ.ApplyRadiusDamage(self,self,self:GetPos(),60,self.MeleeAttackDamage,DMG_SLASH,false,true)
 		//VJ.EmitSound(self, "vj_cofr/cof/children/child_slice.wav", self.ExtraMeleeAttackSoundLevel, self:VJ_DecideSoundPitch(self.ExtraMeleeSoundPitch.a, self.ExtraMeleeSoundPitch.b))
 		self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5
     end 

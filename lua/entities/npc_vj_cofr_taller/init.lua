@@ -124,10 +124,10 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-	 if (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
+	 if self:GetSequence() == self:LookupSequence("attack") && (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then	
 		hitEnt:StopMoving()
         hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)		   
-	    timer.Simple(self.SlowPlayerOnMeleeAttackTime,function() if IsValid(hitEnt) then
+	    timer.Simple(4,function() if IsValid(hitEnt) then
         hitEnt:SetState()
 		end
     end)	
