@@ -74,6 +74,16 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
+	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+		self.MeleeAttackDamage = hitEnt:Health() + 10
+	elseif hitEnt:IsPlayer() then
+		self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+	else
+		self.MeleeAttackDamage = 200
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 	return self:GetForward()*-300 + self:GetUp()*100
 end

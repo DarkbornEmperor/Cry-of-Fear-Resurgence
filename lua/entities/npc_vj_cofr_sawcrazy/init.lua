@@ -55,6 +55,7 @@ ENT.SoundTbl_Impact = {
 ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawcrazy_NextRadiusDamageT = 0
+ENT.Sawcrazy_RadiusDamage = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_CustomOnInitialize()
     self.SoundTbl_Breath = {
@@ -99,11 +100,24 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
     if self.Dead or GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 0 then return end
-	if /*self.CurAttackAnimTime < CurTime() &&*/ self.Sawcrazy_NextRadiusDamageT < CurTime() then		  		   
-        VJ.ApplyRadiusDamage(self,self,self:GetPos(),60,self.MeleeAttackDamage,DMG_SLASH,false,true)
-		//VJ.EmitSound(self, "vj_cofr/cof/children/child_slice.wav", self.ExtraMeleeAttackSoundLevel, self:VJ_DecideSoundPitch(self.ExtraMeleeSoundPitch.a, self.ExtraMeleeSoundPitch.b))
-		self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5
+	if self.Sawcrazy_NextRadiusDamageT < CurTime() then
+	for _,v in ipairs(ents.FindInSphere(self:GetPos(),60)) do
+	if v != self && IsValid(v) && self:Visible(v) then
+		if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(),self,self) elseif v:IsPlayer() then v:TakeDamage(v:Health()+v:Armor(),self,self) else v:TakeDamage(200,self,self) end		  		   
+		    self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5 
+		    end
+	    end
     end 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
+	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+		self.MeleeAttackDamage = hitEnt:Health() + 10
+	elseif hitEnt:IsPlayer() then
+		self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+	else
+		self.MeleeAttackDamage = 200
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)

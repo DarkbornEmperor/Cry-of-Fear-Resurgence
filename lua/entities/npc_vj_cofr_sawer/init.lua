@@ -116,6 +116,16 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end			
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
+	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+		self.MeleeAttackDamage = hitEnt:Health() + 10
+	elseif hitEnt:IsPlayer() then
+		self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+	else
+		self.MeleeAttackDamage = 200
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
      if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
         self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false) 

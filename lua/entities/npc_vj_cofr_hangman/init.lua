@@ -49,6 +49,16 @@ function ENT:CustomOnInitialize()
 	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 180))
     self:Hangman_CustomOnInitialize()
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
+	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+		self.MeleeAttackDamage = hitEnt:Health() + 10
+	elseif hitEnt:IsPlayer() then
+		self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+	else
+		self.MeleeAttackDamage = 200
+	end
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

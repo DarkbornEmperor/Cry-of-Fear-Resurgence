@@ -178,7 +178,7 @@ end
 		net.Send(ent)
 end
 	timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
-		ent:TakeDamage(200,self,self)
+		if ent.IsVJBaseSNPC_Human then ent:TakeDamage(ent:Health(),self,self) elseif ent:IsPlayer() then ent:TakeDamage(ent:Health()+ent:Armor(),self,self) else ent:TakeDamage(200,self,self) end
         self:Drowned_Damage()
 		self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
             end		
