@@ -16,7 +16,6 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20 
-ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100

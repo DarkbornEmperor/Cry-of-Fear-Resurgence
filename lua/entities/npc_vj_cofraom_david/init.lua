@@ -22,7 +22,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 //ENT.NextMeleeAttackTime_DoRand = 0.25
 ENT.NextAnyAttackTime_Melee = 1.5
 ENT.MeleeAttackDamage = 10
-ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.WeaponInventory_Melee = true
@@ -812,7 +811,6 @@ end
 	self.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK2] = defFire
 	self.AnimationTranslations[ACT_RELOAD] = defReload
 	self.AnimationTranslations[ACT_RELOAD_LOW] = defReload
-	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)

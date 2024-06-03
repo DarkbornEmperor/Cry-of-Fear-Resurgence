@@ -15,6 +15,7 @@ ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasLostWeaponSightAnimation = true
 ENT.HasCallForHelpAnimation = false
+ENT.HasShootWhileMoving = false
 ENT.MoveRandomlyWhenShooting = false
 ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_NoSpawnMenu = true
@@ -121,8 +122,8 @@ end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetAnimationTranslations(hType)			
- if hType == "pistol" or hType == "revolver" then
+function ENT:SetAnimationTranslations(wepHoldType)			
+ if wepHoldType == "pistol" or wepHoldType == "revolver" then
 	self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
 	self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY			
 	self.AnimationTranslations[ACT_WALK] = ACT_WALK
@@ -134,8 +135,7 @@ function ENT:SetAnimationTranslations(hType)
 	self.AnimationTranslations[ACT_RELOAD] = ACT_CROUCHIDLE
 	self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_CROUCHIDLE	
     self.AnimationTranslations[ACT_COVER_LOW] = ACT_CROUCHIDLE						
-end
-	return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)

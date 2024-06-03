@@ -125,7 +125,7 @@ end
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}
         self.MeleeAttackDistance = 50 
@@ -140,7 +140,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
 }
 	elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack2"}
-        self.MeleeAttackDistance = 30 
+        self.MeleeAttackDistance = false 
         self.MeleeAttackDamageDistance = 60		
 		self.MeleeAttackDamage = 20 
 		self.SoundTbl_MeleeAttackMiss = {

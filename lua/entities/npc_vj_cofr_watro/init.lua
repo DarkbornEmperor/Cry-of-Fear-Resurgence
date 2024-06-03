@@ -21,7 +21,6 @@ ENT.AnimTbl_MeleeAttack = {"vjseq_attack"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 80 
-//ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
 ENT.GeneralSoundPitch1 = 100

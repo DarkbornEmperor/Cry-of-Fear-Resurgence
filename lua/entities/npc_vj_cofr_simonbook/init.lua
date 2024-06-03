@@ -16,7 +16,6 @@ ENT.HasMeleeAttack = false
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack_sledgehammer"}
 ENT.MeleeAttackDamage = 25 
-ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true

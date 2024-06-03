@@ -17,7 +17,6 @@ ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 200 
-ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180

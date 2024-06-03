@@ -22,7 +22,6 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_punch","vjseq_punchdown"}  
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20 
-ENT.MeleeAttackDistance = 30 
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = {"vjseq_shoot"} 
