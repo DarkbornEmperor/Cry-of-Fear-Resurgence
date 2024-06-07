@@ -140,7 +140,7 @@ function ENT:MultipleMeleeAttacks()
 }
 	elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack2"}
-        self.MeleeAttackDistance = false 
+        self.MeleeAttackDistance = 30 
         self.MeleeAttackDamageDistance = 60		
 		self.MeleeAttackDamage = 20 
 		self.SoundTbl_MeleeAttackMiss = {
