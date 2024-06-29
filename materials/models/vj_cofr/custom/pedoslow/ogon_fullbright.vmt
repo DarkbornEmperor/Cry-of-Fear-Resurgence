@@ -2,12 +2,12 @@
 {
 	"$basetexture" "models/vj_cofr/custom/pedoslow/ogon_fullbright"
 	"$emissiveBlendEnabled" 1
-                "$emissiveBlendTexture"  "hud/killicons/default"
-                "$emissiveBlendBaseTexture" "models/vj_cofr/custom/pedoslow/ogon_fullbright"
-                "$emissiveBlendFlowTexture" "hud/killicons/default"
-                "$emissiveBlendTint" "[1 1 1]"
-                "$emissiveBlendStrength" 0.5
-                "$emissiveBlendScrollVector" "[0 0]"
-                "$additive" 1
-                "$nodecal" 1
+    "$emissiveBlendTexture" "vgui/white"
+    "$emissiveBlendBaseTexture" "models/vj_cofr/custom/pedoslow/ogon_fullbright"
+    "$emissiveBlendFlowTexture" "vgui/white"
+    "$emissiveBlendTint" "[1 1 1]"
+    "$emissiveBlendStrength" 0.5
+    "$emissiveBlendScrollVector" "[0 0]"
+    "$additive" 1
+    "$nodecal" 1
 }

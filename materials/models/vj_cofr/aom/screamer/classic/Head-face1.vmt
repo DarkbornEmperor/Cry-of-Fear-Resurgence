@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/vj_cofr/aom/screamer/Head-face1"
-                "$nodecal" 1
+    "$nodecal" 1
 }
