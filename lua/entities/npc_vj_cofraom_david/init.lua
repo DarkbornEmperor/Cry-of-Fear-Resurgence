@@ -25,7 +25,6 @@ ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackAnimationAllowOtherTasks = true
-ENT.WeaponInventory_Melee = true
 ENT.WeaponReload_FindCover = false
 ENT.NextMoveRandomlyWhenShootingTime = VJ.SET(0,0.2)
 ENT.WaitForEnemyToComeOut = false
@@ -192,13 +191,13 @@ ENT.WeaponsList_AoMC_Cont = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if math.random(1,3) == 1 then
-		self.WeaponInventory_Melee = false
+		self.WeaponInventory_MeleeList = false
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:David_CustomOnInitialize()
  if !self.DisableWeapons && self.Human_Type == 0 then
- if !self.WeaponInventory_Melee then
+ if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
 	end
 end
@@ -227,7 +226,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DavidClassic_CustomOnInitialize()
  if !self.DisableWeapons && self.Human_Type == 3 then
- if !self.WeaponInventory_Melee then
+ if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
 	end
 end
@@ -259,7 +258,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Simon_CustomOnInitialize()
  if !self.DisableWeapons then
- if !self.WeaponInventory_Melee && self.Human_Type == 1 then
+ if !self.WeaponInventory_MeleeList && self.Human_Type == 1 then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
 	end
 end
@@ -335,7 +334,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Police_CustomOnInitialize()
  if !self.DisableWeapons then
- if !self.WeaponInventory_Melee && self.Human_Type == 2 then
+ if !self.WeaponInventory_MeleeList && self.Human_Type == 2 then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
 	end
 end
@@ -401,7 +400,7 @@ end
     self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
 	self.NextWeaponSwitchT = CurTime() + math.Rand(2,4)
 
- if self.WeaponInventory_Melee then	
+ if self.WeaponInventory_MeleeList then	
  if self.Human_Type == 0 then
 	for _,category in pairs(self.WeaponsList_AoMDC) do
 		for _,wep in pairs(category) do
@@ -496,7 +495,7 @@ end
 function ENT:CustomOnThink()
      local controller = self.VJ_TheController
      if IsValid(controller) then
-	 if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_Melee then 
+	 if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then 
 	 if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]),true) end
 	 if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]),true) end
 	 if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]),true) end
@@ -538,7 +537,7 @@ end
 	if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/weapons/famas/french4.wav"}) self.Simon_French = true
 	elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/weapons/branch/branch_first_get.wav"}) self.Simon_Branch = true end 
 end	
- if !self.WeaponInventory_Melee or self.DisableWeapons or !IsValid(self:GetActiveWeapon()) then return end
+ if !self.WeaponInventory_MeleeList or self.DisableWeapons or !IsValid(self:GetActiveWeapon()) then return end
 	local ent = self:GetEnemy()
 	local dist = self.NearestPointToEnemyDistance
 	if IsValid(ent) && !self.VJ_IsBeingControlled then
