@@ -10,7 +10,7 @@ ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "Spit"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectiles for my addons"
+ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 ENT.VJTag_ID_Danger = true

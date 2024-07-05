@@ -10,7 +10,7 @@ ENT.Base 			= "obj_vj_grenade"
 ENT.PrintName		= "Grenade"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectiles for my addons"
+ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
@@ -24,7 +24,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/aom/weapons/classic/w_grenade.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = {"models/vj_cofr/aom/weapons/classic/w_grenade.mdl"}
 ENT.DecalTbl_DeathDecals = {"VJ_COFR_Scorch"}
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/weapons/grenade/grenade_hit1.wav","vj_cofr/aom/weapons/grenade/grenade_hit2.wav","vj_cofr/aom/weapons/grenade/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}

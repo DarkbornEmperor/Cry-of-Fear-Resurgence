@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/wheelchair_monster.mdl"} 
+ENT.Model = "models/vj_cofr/aom/wheelchair_monster.mdl"
 ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -24,7 +24,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}

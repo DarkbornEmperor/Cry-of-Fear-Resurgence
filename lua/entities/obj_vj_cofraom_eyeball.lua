@@ -10,7 +10,7 @@ ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "Eyeball"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectiles for my addons"
+ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 ENT.VJTag_ID_Danger = true
@@ -26,21 +26,18 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/aom/hornet.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
-ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 6 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SLASH -- Damage type
-ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
+ENT.Model = {"models/vj_cofr/aom/hornet.mdl"}
+ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE
+ENT.RemoveOnHit = false
+ENT.DoesDirectDamage = true
+ENT.DirectDamage = 6
+ENT.DirectDamageType = DMG_SLASH
+ENT.CollideCodeWithoutRemoving = true
 ENT.SoundTbl_Idle = {"vj_cofr/aom/eyeball/ag_buzz1.wav","vj_cofr/aom/eyeball/ag_buzz2.wav","vj_cofr/aom/eyeball/ag_buzz3.wav"}
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/ag_hornethit1.wav","vj_cofr/aom/eyeball/ag_hornethit2.wav","vj_cofr/aom/eyeball/ag_hornethit3.wav"}
-
 ENT.IdleSoundPitch = VJ_Set(100, 100)
-
 -- Custom
 local defVec = Vector(0, 0, 0)
-
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/custom/blob.mdl"}
+ENT.Model = "models/vj_cofr/custom/blob.mdl"
 ENT.StartHealth = 2000
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
 ENT.BloodColor = "Red" 
@@ -25,10 +25,10 @@ ENT.NextRangeAttackTime_DoRand = 10
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Death = ACT_SMALL_FLINCH
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 ENT.HasSoundTrack = true
@@ -79,8 +79,7 @@ function ENT:CustomRangeAttackCode()
         Tentacle.VJ_NPC_Class = self.VJ_NPC_Class		
 		Tentacle:Spawn()
 	    self.Tentacles[#self.Tentacles + 1] = Tentacle -- Register the Tentacles		
-        self.Tentacle = Tentacle				
-		
+        self.Tentacle = Tentacle						
         SafeRemoveEntityDelayed(self.Tentacle,25)		
     end	
 end

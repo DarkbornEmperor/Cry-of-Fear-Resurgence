@@ -228,7 +228,6 @@ if VJExists == true then
 		"weapon_vj_cofraomc_knife",		
     }
 	
-	
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red",{"vj_cofr/decals/cof_blood01","vj_cofr/decals/cof_blood02","vj_cofr/decals/cof_blood03","vj_cofr/decals/cof_blood04","vj_cofr/decals/cof_blood05","vj_cofr/decals/cof_blood06","vj_cofr/decals/cof_blood07"})
     game.AddDecal("VJ_COFR_Blood_Red_Large",{"vj_cofr/decals/cof_bigblood01","vj_cofr/decals/cof_bigblood02"})
@@ -251,8 +250,7 @@ if VJExists == true then
 	VJ.AddParticle("particles/vj_cofr_weaponparticles.pcf", {
 	"vj_cofr_muzzle",
 })
-	
-	-- Precache Models --
+	-- Precache Models -- No need for precache due to being GoldSrc and other bugs
 	/*util.PrecacheModel("models/vj_cofr/cof/policedead.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/deadvictim.mdl")
 	util.PrecacheModel("models/vj_cofr/cof/deadvictim2.mdl")

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/spitter.mdl"} 
+ENT.Model = "models/vj_cofr/cof/spitter.mdl"
 ENT.StartHealth = 140
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -18,7 +18,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.HasRangeAttack = true
-ENT.AnimTbl_RangeAttack = {"vjseq_spit"}
+ENT.AnimTbl_RangeAttack = "vjseq_spit"
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
 ENT.RangeToMeleeDistance = 1.5
 ENT.TimeUntilRangeAttackProjectileRelease = false
@@ -29,7 +29,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {

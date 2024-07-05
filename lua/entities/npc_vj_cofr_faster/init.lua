@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/faster.mdl"} 
+ENT.Model = "models/vj_cofr/cof/faster.mdl"
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -24,7 +24,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -121,7 +121,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/faster/faster_special.wav"}) 	
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/faster/faster_special.wav") 	
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

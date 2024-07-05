@@ -6,12 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {
-"models/vj_cofr/aom/cross.mdl",
-"models/vj_cofr/aom/question.mdl",
-"models/vj_cofr/aom/scream.mdl",
-"models/vj_cofr/aom/two.mdl"
-}
+ENT.Model = {"models/vj_cofr/aom/cross.mdl","models/vj_cofr/aom/question.mdl","models/vj_cofr/aom/scream.mdl","models/vj_cofr/aom/two.mdl"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/pill_bottle.mdl"
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -40,7 +35,7 @@ function ENT:AssistorFlashlight()
         self.light:Activate()
         self.light:DeleteOnRemove(self.light)
 
-     local glow1 = ents.Create("env_sprite")
+        local glow1 = ents.Create("env_sprite")
 		glow1:SetKeyValue("model","sprites/light_ignorez.vmt")
 		glow1:SetKeyValue("scale","0.2")
 		glow1:SetKeyValue("rendermode","3")

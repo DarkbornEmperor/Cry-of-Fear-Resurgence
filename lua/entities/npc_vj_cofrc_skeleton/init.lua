@@ -6,10 +6,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/custom/zombie.mdl"} 
+ENT.Model = "models/vj_cofr/custom/zombie.mdl"
 ENT.Bleeds = false
 -- Custom 
 ENT.Slower_Type = 3
+ENT.SlowerSounds = false
 ENT.FacelessSounds = false
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -24,8 +25,9 @@ ENT.SoundTbl_MeleeAttackMiss = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
- local Sounds = math.random(1,2)
- if Sounds == 1 then
+ local voiceType = math.random(1,2)
+ if voiceType == 1 then
+	self.SlowerSounds = true
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/slower/slower_alert10.wav",
 	"vj_cofr/cof/slower/slower_alert20.wav",
@@ -43,7 +45,7 @@ function ENT:Slower_CustomOnInitialize()
 	"vj_cofr/cof/slower/slower_pain1.wav",
 	"vj_cofr/cof/slower/slower_pain2.wav"
 }
- elseif Sounds == 2 then
+ elseif voiceType == 2 then
     self.FacelessSounds = true
     self.SoundTbl_Alert = {
 	"vj_cofr/cof/faceless/faceless_alert10.wav",
@@ -66,9 +68,10 @@ function ENT:Slower_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
- if self.FacelessSounds then return end	
-    if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/slower/scream1.wav"}) 	
+    if self.SlowerSounds && math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav") 	
+    elseif self.FacelessSounds && math.random(1,3) == 1 then
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/faceless/psyksjuk.wav") 	
     end
 end
 /*-----------------------------------------------

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/humanflower.mdl"}
+ENT.Model = "models/vj_cofr/cof/humanflower.mdl"
 ENT.GodMode = true
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -14,7 +14,7 @@ ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_smash"} 
+ENT.AnimTbl_MeleeAttack = "vjseq_smash"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 90 

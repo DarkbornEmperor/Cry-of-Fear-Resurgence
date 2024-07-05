@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/doctor.mdl"} 
+ENT.Model = "models/vj_cofr/cof/doctor.mdl"
 ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -24,12 +24,12 @@ ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {

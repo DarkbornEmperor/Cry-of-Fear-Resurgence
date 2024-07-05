@@ -10,7 +10,7 @@ ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "Joe Biden Box"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectiles for my addons"
+ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 ENT.VJTag_ID_Danger = true
@@ -28,15 +28,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/cof/biden_box.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 15 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SLASH -- Damage type
-ENT.CollideCodeWithoutRemoving = false -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
+ENT.Model = {"models/vj_cofr/cof/biden_box.mdl"}
+ENT.DoesDirectDamage = true
+ENT.DirectDamage = 15
+ENT.DirectDamageType = DMG_SLASH
+ENT.CollideCodeWithoutRemoving = false
 ENT.SoundTbl_OnCollide = {"vj_cofr/cof/roofboss/milkme.wav"}
 -- Custom
 local defVec = Vector(0, 0, 0)
-
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/hanger.mdl"}
+ENT.Model = "models/vj_cofr/cof/hanger.mdl"
 ENT.GodMode = true
 ENT.Bleeds = false
 ENT.HullType = HULL_HUMAN
@@ -17,7 +17,7 @@ ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_SIGNAL1}
+ENT.AnimTbl_Death = ACT_SIGNAL1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -50,7 +50,7 @@ function ENT:Hanger_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetMaterial("hud/killicons/default")
+	self:SetNoDraw(true)
     self:DrawShadow(false)
     self:AddFlags(FL_NOTARGET)
 	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
@@ -74,7 +74,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self:TakeDamage(self:GetMaxHealth(),self,self)
 	    self.Hanger_Death = true
 		self.CallForHelp = true
-	    timer.Simple(0.3,function() if IsValid(self) then self:SetMaterial(nil) self:DrawShadow(true) end end)
+	    timer.Simple(0.3,function() if IsValid(self) then self:SetNoDraw(false) self:DrawShadow(true) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

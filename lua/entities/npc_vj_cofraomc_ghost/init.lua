@@ -6,16 +6,16 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/classic/islave.mdl"} 
+ENT.Model = "models/vj_cofr/aom/classic/islave.mdl"
 ENT.StartHealth = 300
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack1"}
+ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.NextMeleeAttackTime = 0
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.MeleeAttackBleedEnemy = false 
 ENT.SlowPlayerOnMeleeAttack = false
 ENT.HasRangeAttack = true
-ENT.AnimTbl_RangeAttack = {"vjseq_zapattack1"}
+ENT.AnimTbl_RangeAttack = "vjseq_zapattack1"
 ENT.RangeDistance = 1020
 ENT.RangeToMeleeDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
@@ -160,7 +160,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE}
 end

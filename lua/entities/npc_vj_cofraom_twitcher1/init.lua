@@ -21,7 +21,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = { 
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
@@ -149,7 +149,7 @@ function ENT:Twitcher_CustomOnInitialize()
 
    elseif self:GetClass() == "npc_vj_cofraom_twitcher4"
    or self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
-      self.AnimTbl_MeleeAttack = {"vjseq_attack0"}  
+      self.AnimTbl_MeleeAttack = "vjseq_attack0" 
 
    elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
       self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
@@ -163,7 +163,7 @@ end
      if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
      if math.random(1,10) == 1 then
 	    self.Twitcher_Invisible = true 
-		self:SetMaterial("hud/killicons/default")
+		self:SetNoDraw(true)
 	    self:DrawShadow(false)
 
      elseif math.random(1,10) == 1 then

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/stranger.mdl"} 
+ENT.Model = "models/vj_cofr/cof/stranger.mdl"
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -31,7 +31,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true 
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
 	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person

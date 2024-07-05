@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/taller.mdl"} 
+ENT.Model = "models/vj_cofr/cof/taller.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -30,10 +30,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -99,7 +99,7 @@ end
 function ENT:MultipleMeleeAttacks()
     local attack = math.random(1,2)
 	if attack == 1 then
-		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack"
 		self.MeleeAttackDamage = 60
 		self.SlowPlayerOnMeleeAttack = true
 		self.HasMeleeAttackKnockBack = true
@@ -110,7 +110,7 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/cof/taller/taller_player_punch.wav"
 }
 	elseif attack == 2 then
-		self.AnimTbl_MeleeAttack = {"vjseq_stamp"}
+		self.AnimTbl_MeleeAttack = "vjseq_stamp"
 		self.MeleeAttackDamage = 200 
 		self.SlowPlayerOnMeleeAttack = false
 		self.HasMeleeAttackKnockBack = false

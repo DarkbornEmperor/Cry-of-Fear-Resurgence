@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/custom/realmother.mdl"}
+ENT.Model = "models/vj_cofr/custom/realmother.mdl"
 ENT.StartHealth = 300
 ENT.HasSoundTrack = true
 	-- ====== Sound File Paths ====== --
@@ -23,7 +23,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/custom/mother/mothertalk.wav"}) 	
+        self:PlaySoundSystem("Alert", "vj_cofr/custom/mother/mothertalk.wav") 	
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

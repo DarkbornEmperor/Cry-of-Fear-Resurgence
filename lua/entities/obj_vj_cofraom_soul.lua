@@ -10,7 +10,7 @@ ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "Soul"
 ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectiles for my addons"
+ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 ENT.VJTag_ID_Danger = true
@@ -26,15 +26,13 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_small.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 10 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SHOCK -- Damage type
+ENT.Model = {"models/spitball_small.mdl"}
+ENT.DoesDirectDamage = true
+ENT.DirectDamage = 10
+ENT.DirectDamageType = DMG_SHOCK
 ENT.HasOnCollideSounds = false
-
 -- Custom
 local defVec = Vector(0, 0, 0)
-
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------

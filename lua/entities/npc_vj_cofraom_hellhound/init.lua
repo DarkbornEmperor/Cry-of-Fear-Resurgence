@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/black_dog.mdl"} 
+ENT.Model = "models/vj_cofr/aom/black_dog.mdl" 
 ENT.StartHealth = 70
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -13,7 +13,7 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack2"} 
+ENT.AnimTbl_MeleeAttack = "vjseq_attack2"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextMeleeAttackTime = 1.5
 ENT.MeleeAttackDistance = 100 
@@ -23,10 +23,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -97,13 +97,16 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local hellhoundClasses = {npc_vj_cofraom_hellhound = true, npc_vj_cofraomc_hellhound = true}
+local beamEffectTbl = {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0}
+--
 function ENT:CustomOnMeleeAttack_BeforeChecks()
     local friNum = 0 -- How many allies exist around the Hellhound
 	local color = Color(255, 0, 0, 255) -- The shock wave color
 	local dmg = 20 -- How much damage should the shock wave do?
 	local myPos = self:GetPos()
 	for _, v in ipairs(ents.FindInSphere(myPos, 200)) do
-		if v != self && v:GetClass() == "npc_vj_cofraom_hellhound" then
+		if v != self && hellhoundClasses[v:GetClass()] then
 			friNum = friNum + 1
 	end
 end
@@ -120,8 +123,8 @@ end
 end
 
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
-	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
+	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
 	
 	if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))

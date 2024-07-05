@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/sawer.mdl"} 
+ENT.Model = "models/vj_cofr/cof/sawer.mdl" 
 ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -25,7 +25,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false 
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
@@ -142,7 +142,7 @@ end
 		self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 end
      if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
-	 local AnimTime = VJ.AnimDuration(self,ACT_COWER)
+	 local animTime = VJ.AnimDuration(self,ACT_COWER)
         self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
 		VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
 		self:SetSkin(1)
@@ -161,7 +161,7 @@ end
 	    table.insert(self.VJ_AddCertainEntityAsFriendly, self.Sawer_Eye) 
 	    self:DeleteOnRemove(self.Sawer_Eye)					 
 
-        timer.Simple(AnimTime,function()
+        timer.Simple(animTime,function()
         if IsValid(self) && IsValid(self.Sawer_Eye) then
 	       self:SetSkin(0)
 		   self.Sawer_EyeOpen = false

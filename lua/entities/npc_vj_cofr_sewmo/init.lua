@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/sewmo.mdl"} 
+ENT.Model = "models/vj_cofr/cof/sewmo.mdl"
 ENT.StartHealth = 140
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -19,7 +19,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = { 
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
@@ -98,8 +98,8 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	elseif key == "barbedwire_break" then
 		VJ.EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
 		self:RemoveAllDecals()
-	if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
-	if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end				
+	    if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
+	    if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end				
 	elseif key == "death" then
 		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -127,7 +127,7 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
-		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack1"
         self.MeleeAttackDistance = 50 
         self.MeleeAttackDamageDistance = 75		
 		self.MeleeAttackDamage = 16
@@ -139,7 +139,7 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/cof/sewmo/tunga_strike2.wav"
 }
 	elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
-		self.AnimTbl_MeleeAttack = {"vjseq_attack2"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack2"
         self.MeleeAttackDistance = 30 
         self.MeleeAttackDamageDistance = 60		
 		self.MeleeAttackDamage = 20 
@@ -169,10 +169,10 @@ end
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.FlinchChance = 8
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+		self.AnimTbl_Flinch = ACT_BIG_FLINCH
 	else
 		self.FlinchChance = 16
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+		self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 end
     -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
 	return self:GetActivity() != ACT_SIGNAL1
@@ -184,7 +184,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end

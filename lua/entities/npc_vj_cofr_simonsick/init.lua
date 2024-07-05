@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/sicksimon.mdl"}
+ENT.Model = "models/vj_cofr/cof/sicksimon.mdl"
 ENT.StartHealth = 400 
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
@@ -26,7 +26,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --
@@ -150,8 +150,8 @@ function ENT:LiftProps()
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
 	 local PropPhysics = v:GetPhysicsObject()
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then
-            PropPhysics:SetVelocity(v:GetUp()*100)
-			PropPhysics:EnableGravity(false)			
+        PropPhysics:SetVelocity(v:GetUp()*100)
+		PropPhysics:EnableGravity(false)			
         end
     end	  
 end
@@ -189,8 +189,8 @@ function ENT:CustomRangeAttackCode()
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
 	 local PropPhysics = v:GetPhysicsObject()
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then			
-			PropPhysics:EnableGravity(true)
-            PropPhysics:SetVelocity((ent:GetPos() + ent:OBBCenter() - v:GetPos())*8 + v:GetUp()*200) 			
+		PropPhysics:EnableGravity(true)
+        PropPhysics:SetVelocity((ent:GetPos() + ent:OBBCenter() - v:GetPos())*8 + v:GetUp()*200) 			
         end
     end
 end

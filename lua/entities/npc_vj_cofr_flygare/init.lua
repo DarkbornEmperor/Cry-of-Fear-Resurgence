@@ -5,14 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/flygare.mdl"} 
+ENT.Model = "models/vj_cofr/cof/flygare.mdl"
 ENT.StartHealth = 100
 ENT.HullType = HULL_MEDIUM
 ENT.MovementType = VJ_MOVETYPE_AERIAL 
 ENT.Aerial_FlyingSpeed_Calm = 150 
-ENT.Aerial_FlyingSpeed_Alerted = 500 
-ENT.Aerial_AnimTbl_Calm = {"forward"} 
-ENT.Aerial_AnimTbl_Alerted = {"forward"} 
+ENT.Aerial_FlyingSpeed_Alerted = 500
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.ConstantlyFaceEnemy = true
 ENT.BloodColor = "Red" 
@@ -25,7 +23,7 @@ ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
-ENT.AnimTbl_RangeAttack = {"vjseq_shoot"} 
+ENT.AnimTbl_RangeAttack = "vjseq_shoot"
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 300
@@ -42,10 +40,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -94,6 +92,13 @@ function ENT:Flygare_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	self.Flygare_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
+	self.Flygare_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
+	self.Flygare_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
+	self.Flygare_FlyAnim_Left  = self:GetSequenceActivity(self:LookupSequence("left"))
+	self.Flygare_FlyAnim_Up  = self:GetSequenceActivity(self:LookupSequence("up"))
+	self.Flygare_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
+
     self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
 	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
     self:Flygare_CustomOnInitialize()
@@ -107,6 +112,37 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	elseif key == "death" then
 		VJ.EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 75, 100)
     end		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_FLY then
+	if self.AA_CurrentMovePosDir then
+	local moveDir = self.AA_CurrentMovePosDir:GetNormal()
+	-- Up-down
+	local dotUp = moveDir:Dot(self:GetUp())
+	if dotUp > 0.60 then
+		return self.Flygare_FlyAnim_Up
+	elseif dotUp < -0.60 then
+		return self.Flygare_FlyAnim_Down
+end
+	-- Forward-backward
+	local dotForward = moveDir:Dot(self:GetForward())
+	if dotForward > 0.5 then
+		return self.Flygare_FlyAnim_Forward
+	elseif dotForward < -0.5 then
+		return self.Flygare_FlyAnim_Backward
+end
+	-- Right-left
+	local dotRight = moveDir:Dot(self:GetRight())
+	if dotRight > 0.5 then
+		return self.Flygare_FlyAnim_Right
+	elseif dotRight < -0.5 then
+		return self.Flygare_FlyAnim_Left
+	end
+end
+		return self.Flygare_FlyAnim_Up -- Fallback animation
+end
+	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)

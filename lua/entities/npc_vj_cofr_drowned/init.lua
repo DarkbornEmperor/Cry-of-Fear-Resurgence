@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/drowned.mdl"} 
+ENT.Model = "models/vj_cofr/cof/drowned.mdl"
 ENT.StartHealth = 80
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -13,14 +13,14 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}  
 ENT.HasMeleeAttack = false
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack"} 
+ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 14
 ENT.MeleeAttackDistance = 25
 ENT.MeleeAttackDamageDistance = 50
 ENT.HasRangeAttack = true 
 ENT.DisableDefaultRangeAttackCode = true 
-ENT.AnimTbl_RangeAttack = {"vjseq_point"} 
+ENT.AnimTbl_RangeAttack = "vjseq_point"
 ENT.RangeDistance = 500 
 ENT.RangeToMeleeDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
@@ -35,7 +35,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1 
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --

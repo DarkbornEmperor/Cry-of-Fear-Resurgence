@@ -5,15 +5,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/classic/icky.mdl"} 
+ENT.Model = "models/vj_cofr/aom/classic/icky.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
 ENT.TurningUseAllAxis = true
 ENT.MovementType = VJ_MOVETYPE_AQUATIC
 ENT.Aquatic_SwimmingSpeed_Calm = 80
 ENT.Aquatic_SwimmingSpeed_Alerted = 500
-ENT.Aquatic_AnimTbl_Calm = {ACT_WALK}
-ENT.Aquatic_AnimTbl_Alerted = {ACT_RUN}
+ENT.Aquatic_AnimTbl_Calm = ACT_WALK
+ENT.Aquatic_AnimTbl_Alerted = ACT_RUN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
@@ -30,10 +30,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_HOVER, ACT_DIEVIOLENT, ACT_DIESIMPLE}
+ENT.AnimTbl_Death = {ACT_HOVER,ACT_DIEVIOLENT,ACT_DIESIMPLE}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --

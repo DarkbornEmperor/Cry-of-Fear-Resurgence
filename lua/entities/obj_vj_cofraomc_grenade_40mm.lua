@@ -8,10 +8,10 @@ AddCSLuaFile()
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "40mm Grenade"
-ENT.Author 			= "DrVrej"
+ENT.Author 			= "Darkborn"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectiles for my addons"
-ENT.Category		= "VJ Base"
+ENT.Information		= "Projectile, usually used for NPCs & Weapons"
+ENT.Category		= "Projectiles"
 
 ENT.VJTag_ID_Danger = true
 
@@ -26,15 +26,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/aom/weapons/classic/grenade.mdl"} -- The models it should spawn with | Picks a random one from the table
-
-ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
-ENT.RadiusDamageRadius = 150 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
-ENT.RadiusDamage = 80 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
-ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
-ENT.RadiusDamageType = DMG_BLAST -- Damage type
-ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
-ENT.DecalTbl_DeathDecals = {"VJ_COFR_Scorch"} -- Decals that paint when the projectile dies | It picks a random one from this table
+ENT.Model = {"models/vj_cofr/aom/weapons/classic/grenade.mdl"}
+ENT.DoesRadiusDamage = true
+ENT.RadiusDamageRadius = 150
+ENT.RadiusDamage = 80
+ENT.RadiusDamageUseRealisticRadius = true
+ENT.RadiusDamageType = DMG_BLAST
+ENT.RadiusDamageForce = 90
+ENT.DecalTbl_DeathDecals = {"VJ_COFR_Scorch"}
 ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

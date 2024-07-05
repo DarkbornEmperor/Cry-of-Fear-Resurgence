@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/slower1.mdl"} 
+ENT.Model = "models/vj_cofr/cof/slower1.mdl"
 ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -23,7 +23,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}  
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH 
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = { 
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
@@ -117,10 +117,10 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
 	elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler2.mdl" or self:GetModel() == "models/vj_cofr/custom/krypandenej.mdl" then
 		self.Slower_Type = 1
-		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack"
 	elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/custom/croucher.mdl" then
 		self.Slower_Type = 2
-		self.AnimTbl_MeleeAttack = {"vjseq_attack1"}		
+		self.AnimTbl_MeleeAttack = "vjseq_attack1"		
 	elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3_dream.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/slower3_hh.mdl" then
 		self.Slower_Type = 3
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
@@ -132,7 +132,7 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 	elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" then
 		self.Slower_Type = 6
-		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack"
 	elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
 		self.Slower_Type = 7
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
@@ -144,7 +144,7 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 	elseif self:GetModel() == "models/vj_cofr/custom/sicksophie.mdl" then
 		self.Slower_Type = 10
-		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack"
 	elseif self:GetModel() == "models/vj_cofr/custom/zombie.mdl" then
 		self.Slower_Type = 10
 		self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}		
@@ -173,24 +173,24 @@ end
 function ENT:CustomOnAlert()
  if self.Slower_Type == 3 then return end	
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/slower/scream1.wav"}) 	
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav") 	
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.FlinchChance = 8
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+		self.AnimTbl_Flinch = ACT_BIG_FLINCH
 	else
 		self.FlinchChance = 16
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+		self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
      else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
 	end	
@@ -198,7 +198,7 @@ end
     if self.Slower_Type == 0 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 then
 	local headsplat = math.random(1,3)
 	if headsplat == 1 && hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIEVIOLENT}
+		self.AnimTbl_Death = ACT_DIEVIOLENT
         end
     end 
 end

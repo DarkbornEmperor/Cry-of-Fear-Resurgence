@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/david.mdl"} 
+ENT.Model = "models/vj_cofr/aom/david.mdl"
 ENT.StartHealth = 200
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
@@ -17,7 +17,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.PoseParameterLooking_InvertPitch = true 
 ENT.HasMeleeAttack = true 
-ENT.AnimTbl_MeleeAttack = {"vjseq_vjges_shoot_crowbar"}
+ENT.AnimTbl_MeleeAttack = "vjseq_vjges_shoot_crowbar"
 ENT.TimeUntilMeleeAttackDamage = false
 //ENT.NextMeleeAttackTime_DoRand = 0.25
 ENT.NextAnyAttackTime_Melee = 1.5
@@ -33,10 +33,10 @@ ENT.Weapon_NoSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_SpawnPropOnHeal = false
 ENT.Medic_HealthAmount = 15
-ENT.AnimTbl_Medic_GiveHealth = {"vjges_heal"}
+ENT.AnimTbl_Medic_GiveHealth = "vjges_heal"
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl" 
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
-//ENT.AnimTbl_WeaponAttackSecondary = {"shoot_m203"}
+//ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.05
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
@@ -92,7 +92,6 @@ ENT.Human_Type = 0
 	-- 1 = Simon
 	-- 2 = Police
 	-- 3 = David (Classic)
-
 ENT.WeaponsList_AoMDC = {
 	["Close"] = {
 		"weapon_vj_cofraom_shotgun",
@@ -819,7 +818,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
      else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
 end

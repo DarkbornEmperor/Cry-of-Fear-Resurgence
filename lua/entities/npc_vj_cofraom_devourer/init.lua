@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/mouth_monster.mdl"} 
+ENT.Model = "models/vj_cofr/aom/mouth_monster.mdl" 
 ENT.SightDistance = 1024 
 ENT.SightAngle = 180 
 ENT.StartHealth = 50
@@ -17,7 +17,7 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack1"}
+ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
@@ -34,10 +34,10 @@ ENT.CallForHelp = false
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.CanFlinch = 1 
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH 
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --

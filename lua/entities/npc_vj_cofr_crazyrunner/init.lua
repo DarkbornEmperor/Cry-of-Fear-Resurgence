@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/crazyrunner.mdl"} 
+ENT.Model = "models/vj_cofr/cof/crazyrunner.mdl"
 ENT.StartHealth = 80
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -13,7 +13,7 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack"}
+ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
@@ -101,7 +101,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/rcrazy/screamloud.wav"}) 	
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/rcrazy/screamloud.wav") 	
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end  

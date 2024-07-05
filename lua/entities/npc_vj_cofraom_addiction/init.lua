@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/david_monster.mdl"} 
+ENT.Model = "models/vj_cofr/aom/david_monster.mdl"
 ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -33,7 +33,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasSoundTrack = true 
 ENT.HasExtraMeleeAttackSounds = true
@@ -180,7 +180,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self:GetBodygroup(0) == 0 then
-		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack"
 		self.MeleeAttackDamage = 20
 		self.HasMeleeAttackMissSounds = false
 		self.SoundTbl_MeleeAttackExtra = {
@@ -189,7 +189,7 @@ function ENT:MultipleMeleeAttacks()
 		"vj_cofr/aom/davidbad/david_hurt3.wav"
 }
     elseif self:GetBodygroup(0) == 1 then
-		self.AnimTbl_MeleeAttack = {"vjseq_attack_axe"}
+		self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
 		self.MeleeAttackDamage = 35 
 		self.HasMeleeAttackMissSounds = true
 		self.SoundTbl_MeleeAttackExtra = {

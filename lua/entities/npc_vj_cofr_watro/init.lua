@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/watro.mdl"} 
+ENT.Model = "models/vj_cofr/cof/watro.mdl" 
 ENT.StartHealth = 160
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -17,7 +17,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack"} 
+ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25 
 ENT.MeleeAttackDistance = 80 
@@ -27,7 +27,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
@@ -81,14 +81,10 @@ function ENT:Controller_Initialize(ply,controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if self.Watro_Burrowed then
-	if act == ACT_IDLE then
+ if act == ACT_IDLE && self.Watro_Burrowed then
 		return ACT_IDLE_RELAXED
-end
- elseif !self.Watro_Burrowed then
-	if act == ACT_IDLE then
+ elseif !self.Watro_Burrowed && act == ACT_IDLE then
 		return ACT_IDLE_STIMULATED
-    end
 end
 	return self.BaseClass.TranslateActivity(self,act)
 end

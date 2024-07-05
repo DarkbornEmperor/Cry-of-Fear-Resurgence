@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/custom/dasubergator2.mdl"} 
+ENT.Model = "models/vj_cofr/custom/dasubergator2.mdl"
 ENT.StartHealth = 1000
 ENT.HullType = HULL_LARGE
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
@@ -13,7 +13,7 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = true
- ENT.AnimTbl_MeleeAttack = {"vjseq_biteattack_1"} 
+ ENT.AnimTbl_MeleeAttack = "vjseq_biteattack_1"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 30 
 ENT.MeleeAttackDistance = 50 
@@ -23,10 +23,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
@@ -115,7 +115,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/slower/scream1.wav"}) 	
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav") 	
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

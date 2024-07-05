@@ -5,14 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/controller.mdl"} 
+ENT.Model = "models/vj_cofr/aom/controller.mdl" 
 ENT.StartHealth = 170
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL 
 ENT.Aerial_FlyingSpeed_Calm = 120 
-ENT.Aerial_FlyingSpeed_Alerted = 300 
-ENT.Aerial_AnimTbl_Calm = {"forward"} 
-ENT.Aerial_AnimTbl_Alerted = {"forward"} 
+ENT.Aerial_FlyingSpeed_Alerted = 300
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
 ENT.BloodColor = "Red" 
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
@@ -35,10 +33,10 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -83,64 +81,115 @@ function ENT:Screamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	self.Screamer_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
+	self.Screamer_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
+	self.Screamer_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
+	self.Screamer_FlyAnim_Left  = self:GetSequenceActivity(self:LookupSequence("left"))
+	self.Screamer_FlyAnim_Up  = self:GetSequenceActivity(self:LookupSequence("up"))
+	self.Screamer_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
+
+	local soul1 = ents.Create("env_sprite")
+	soul1:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
+	soul1:SetKeyValue("scale","1")
+	soul1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	soul1:SetKeyValue("renderfx","14")
+	soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	soul1:SetKeyValue("renderamt","255") -- Transparency
+	soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	soul1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	soul1:SetKeyValue("spawnflags","0")
+	soul1:SetParent(self)
+	soul1:Fire("SetParentAttachment","rhand")
+	soul1:Spawn()
+	soul1:Activate()
+	soul1:SetNoDraw(true)
+	self:DeleteOnRemove(soul1)
+	self.soul1 = soul1
+	
+	local soul2 = ents.Create("env_sprite")
+	soul2:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
+	soul2:SetKeyValue("scale","1")
+	soul2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	soul2:SetKeyValue("renderfx","14")
+	soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	soul2:SetKeyValue("renderamt","255") -- Transparency
+	soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	soul2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	soul2:SetKeyValue("spawnflags","0")
+	soul2:SetParent(self)
+	soul2:Fire("SetParentAttachment","lhand")
+	soul2:Spawn()
+	soul2:Activate()
+	soul2:SetNoDraw(true)
+	self:DeleteOnRemove(soul2)
+	self.soul2 = soul2
+
     self:DrawShadow(false)
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
 	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Screamer_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack_rangeclose" then
-		if IsValid(self.Soul1) then self.Soul1:Remove() end
-		if IsValid(self.Soul2) then self.Soul2:Remove() end
-		self.Screamer_HomingAttack = true
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
+	if key == "attack_range" or key == "attack_rangeclose" then
+		if IsValid(self.soul1) then
+			self.soul1:SetNoDraw(true)
+end
+		if IsValid(self.soul2) then
+			self.soul2:SetNoDraw(true)
+end
+		self.Screamer_HomingAttack = key == "attack_rangeclose"
 		self:RangeAttackCode()
-    elseif key == "attack_range" then
-		if IsValid(self.Soul1) then self.Soul1:Remove() end
-		if IsValid(self.Soul2) then self.Soul2:Remove() end
-		self.Screamer_HomingAttack = false
-		self:RangeAttackCode()
-    elseif key == "sprite" && self.AttackType == VJ.ATTACK_TYPE_RANGE && !self.Screamer_HomingAttack then
-		if IsValid(self.Soul1) then self.Soul1:Remove() end
-		if IsValid(self.Soul2) then self.Soul2:Remove() end
-		self.Soul1 = ents.Create("env_sprite")
-		self.Soul1:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
-		self.Soul1:SetKeyValue("scale","1")
-		//self.Soul1:SetKeyValue("rendercolor","255 128 0")
-		self.Soul1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Soul1:SetKeyValue("HDRColorScale","1.0")
-		self.Soul1:SetKeyValue("renderfx","14")
-		self.Soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Soul1:SetKeyValue("renderamt","255") -- Transparency
-		self.Soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Soul1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Soul1:SetKeyValue("spawnflags","0")
-		self.Soul1:SetParent(self)
-		self.Soul1:Fire("SetParentAttachment","rhand")
-		self.Soul1:Spawn()
-		self.Soul1:Activate()
-		self:DeleteOnRemove(self.Soul1)
-		timer.Simple(2,function() if IsValid(self) && IsValid(self.Soul1) then self.Soul1:Remove() end end)
-		
-		self.Soul2 = ents.Create("env_sprite")
-		self.Soul2:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
-		self.Soul2:SetKeyValue("scale","1")
-		//self.Soul2:SetKeyValue("rendercolor","255 128 0")
-		self.Soul2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Soul2:SetKeyValue("HDRColorScale","1.0")
-		self.Soul2:SetKeyValue("renderfx","14")
-		self.Soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Soul2:SetKeyValue("renderamt","255") -- Transparency
-		self.Soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Soul2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Soul2:SetKeyValue("spawnflags","0")
-		self.Soul2:SetParent(self)
-		self.Soul2:Fire("SetParentAttachment","lhand")
-		self.Soul2:Spawn()
-		self.Soul2:Activate()
-		self:DeleteOnRemove(self.Soul2)
-		timer.Simple(2,function() if IsValid(self) && IsValid(self.Soul2) then self.Soul2:Remove() end end)
-	end	
+	elseif key == "sprite" && self.AttackType == VJ.ATTACK_TYPE_RANGE && !self.Screamer_HomingAttack then
+		if IsValid(self.soul1) then
+			self.soul1:SetNoDraw(false)
+end
+		if IsValid(self.soul2) then
+			self.soul2:SetNoDraw(false)
+end
+		-- Backup timer to make sure the sprites are hidden in case event doesn't run!
+		timer.Simple(2, function()
+			if IsValid(self) then
+				if IsValid(self.soul1) then
+					self.soul1:SetNoDraw(true)
+end
+				if IsValid(self.soul2) then
+					self.soul2:SetNoDraw(true)
+				end
+			end
+		end)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_FLY then
+	if self.AA_CurrentMovePosDir then
+	local moveDir = self.AA_CurrentMovePosDir:GetNormal()
+	-- Up-down
+	local dotUp = moveDir:Dot(self:GetUp())
+	if dotUp > 0.60 then
+		return self.Screamer_FlyAnim_Up
+	elseif dotUp < -0.60 then
+		return self.Screamer_FlyAnim_Down
+end
+	-- Forward-backward
+	local dotForward = moveDir:Dot(self:GetForward())
+	if dotForward > 0.5 then
+		return self.Screamer_FlyAnim_Forward
+	elseif dotForward < -0.5 then
+		return self.Screamer_FlyAnim_Backward
+end
+	-- Right-left
+	local dotRight = moveDir:Dot(self:GetRight())
+	if dotRight > 0.5 then
+		return self.Screamer_FlyAnim_Right
+	elseif dotRight < -0.5 then
+		return self.Screamer_FlyAnim_Left
+	end
+end
+		return self.Screamer_FlyAnim_Up -- Fallback animation
+end
+	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
@@ -170,9 +219,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	if dmginfo:GetDamage() > 30 then
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+		self.AnimTbl_Flinch = ACT_BIG_FLINCH
 	else
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+		self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

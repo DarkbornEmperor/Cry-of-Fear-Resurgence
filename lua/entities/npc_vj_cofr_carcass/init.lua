@@ -5,14 +5,14 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/carcass.mdl"} 
+ENT.Model = "models/vj_cofr/cof/carcass.mdl"
 ENT.StartHealth = 2000
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL 
 ENT.Aerial_FlyingSpeed_Calm = 120 
 ENT.Aerial_FlyingSpeed_Alerted = 150 
-ENT.Aerial_AnimTbl_Calm = {"kam52"} 
-ENT.Aerial_AnimTbl_Alerted = {"kam52"} 
+ENT.Aerial_AnimTbl_Calm = "kam52"
+ENT.Aerial_AnimTbl_Alerted = "kam52" 
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
 //ENT.TurningSpeed = 10
 ENT.ConstantlyFaceEnemy = true
@@ -21,7 +21,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
 ENT.HasMeleeAttack = false 
 ENT.HasRangeAttack = true
-ENT.AnimTbl_RangeAttack = {"vjseq_attack"}
+ENT.AnimTbl_RangeAttack = "vjseq_attack"
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_carcasshead"
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 1 
@@ -39,7 +39,7 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 	-- ====== Controller Data ====== --

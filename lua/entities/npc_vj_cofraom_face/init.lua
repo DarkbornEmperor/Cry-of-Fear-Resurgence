@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/agrunt.mdl"} 
+ENT.Model = "models/vj_cofr/aom/agrunt.mdl"
 ENT.StartHealth = 350
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -36,7 +36,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 1
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_DefaultWhenNotHit = true
 ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, 
@@ -108,6 +108,24 @@ function ENT:Face_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	local face = ents.Create("env_sprite")
+	face:SetKeyValue("model","vj_cofr/sprites/face.vmt")
+	face:SetKeyValue("scale","1")
+	face:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	face:SetKeyValue("renderfx","14")
+	face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	face:SetKeyValue("renderamt","255") -- Transparency
+	face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	face:SetKeyValue("spawnflags","0")
+	face:SetParent(self)
+	face:Fire("SetParentAttachment","hornet")
+	face:Spawn()
+	face:Activate()
+	face:SetNoDraw(true)
+	self:DeleteOnRemove(face)
+	self.face = face
+
 	self:DrawShadow(false)
     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
 	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
@@ -119,27 +137,19 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:FootStepSoundCode()
 	elseif key == "attack" then
 		self:MeleeAttackCode()	
-	elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE && !self.Dead then
+	elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
 		self:RangeAttackCode()
-		if IsValid(self.Face) then self.Face:Remove() end
-		self.Face = ents.Create("env_sprite")
-		self.Face:SetKeyValue("model","vj_cofr/sprites/face.vmt")
-		self.Face:SetKeyValue("scale","1")
-		//self.Face:SetKeyValue("rendercolor","255 128 0")
-		self.Face:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Face:SetKeyValue("HDRColorScale","1.0")
-		self.Face:SetKeyValue("renderfx","14")
-		self.Face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Face:SetKeyValue("renderamt","255") -- Transparency
-		self.Face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		//self.Face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Face:SetKeyValue("spawnflags","0")
-		self.Face:SetParent(self)
-		self.Face:Fire("SetParentAttachment","hornet")
-		self.Face:Spawn()
-		self.Face:Activate()
-		self:DeleteOnRemove(self.Face)
-		timer.Simple(0.08,function() if IsValid(self) && IsValid(self.Face) then self.Face:Remove() end end)		
+		if IsValid(self.face) then
+		self.face:SetNoDraw(false)
+end
+ -- Backup timer to make sure the sprites are hidden in case event doesn't run!
+ timer.Simple(0.08, function()
+	if IsValid(self) then
+		if IsValid(self.face) then
+			self.face:SetNoDraw(true)
+        end
+	end
+end)		
 	elseif key == "death" then
 		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -162,10 +172,10 @@ end
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.FlinchChance = 8
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+		self.AnimTbl_Flinch = ACT_BIG_FLINCH
 	else
 		self.FlinchChance = 16
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+		self.AnimTbl_Flinch = ACT_SMALL_FLINCH
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -175,7 +185,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	 if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	else
 		self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end

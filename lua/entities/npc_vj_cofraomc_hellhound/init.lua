@@ -6,79 +6,63 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/aom/classic/houndeye.mdl"} 
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack"}
+ENT.Model = "models/vj_cofr/aom/classic/houndeye.mdl"
+ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false //2.35
 ENT.NextMeleeAttackTime = 2
-
 -- Custom
 ENT.Hellhound_BlinkingT = 0
 ENT.Hellhound_NextSleepT = 0
 ENT.Hellhound_Sleeping = false
-ENT.Hellhound_LimpWalking = false -- Used for optimization
-ENT.Hellhound_CurIdleAnim = 0 -- 0 = regular | 1 = sleeping | 2 = angry
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	 self.Hellhound_NextSleepT = CurTime() + math.Rand(0,15)
      self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
 	 self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
      self:Hellhound_CustomOnInitialize()
-	 
-	 self.Hellhound_NextSleepT = CurTime() + math.Rand(0, 15)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local defIdle = {ACT_IDLE,ACT_IDLE,ACT_IDLE,ACT_IDLE,ACT_IDLE_PACKAGE}
+--
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE then
+	-- Sleeping
+	if self.Hellhound_Sleeping then
+		return ACT_CROUCHIDLE
+	-- Barking
+	elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+		return ACT_IDLE_ANGRY
+end
+	-- Default idle
+		return self:ResolveAnimation(defIdle)
+	-- Limp Walking
+	elseif act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
+		return ACT_WALK_HURT
+end
+	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	-- Idle animations
-	if self.VJ_IsBeingControlled then
-		self.AnimTbl_IdleStand = {ACT_IDLE, ACT_IDLE_PACKAGE}
-		self.DisableWandering = false
-	else
-		if IsValid(self:GetEnemy()) then
-			if self.Hellhound_CurIdleAnim != 2 then
-				self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
-				self.Hellhound_CurIdleAnim = 2
-				self.DisableWandering = true
-			end
-		elseif !self.Hellhound_Sleeping && self.Hellhound_CurIdleAnim != 0 then
-			self.Hellhound_CurIdleAnim = 0
-			self.AnimTbl_IdleStand = {ACT_IDLE, ACT_IDLE_PACKAGE}
-			self.DisableWandering = false
-		end
-	end
-	
-	-- Limp walking
-	if (self:GetMaxHealth() * 0.35) > self:Health() then
-		if !self.Hellhound_LimpWalking then
-			self.AnimTbl_Walk = {ACT_WALK_HURT}
-			self.Hellhound_LimpWalking = true
-		end
-	elseif self.Hellhound_LimpWalking then
-		self.AnimTbl_Walk = {ACT_WALK}
-		self.Hellhound_LimpWalking = false
-	end
-	
 	-- Blinking
-	if !self.Dead && CurTime() > self.Hellhound_BlinkingT && self.Hellhound_Sleeping == false then
+	if !self.Dead && CurTime() > self.Hellhound_BlinkingT && !self.Hellhound_Sleeping then
 		self:SetSkin(1)
 		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
-		self.Hellhound_BlinkingT = CurTime() + math.Rand(2, 3.5)
+		self.Hellhound_BlinkingT = CurTime() + math.Rand(2,3.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.VJ_IsBeingControlled then return end
-	
+	if self.VJ_IsBeingControlled then return end	
 	-- Sleep system
 	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
-		local sleept = math.Rand(15, 30) -- How long it should sleep
+		local sleepTime = math.Rand(15,30) -- How long it should sleep
 		self.Hellhound_Sleeping = true
-		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		self.Hellhound_CurIdleAnim = 1
 		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
-		self:SetState(VJ_STATE_ONLY_ANIMATION, sleept)
-		timer.Simple(7, function() if IsValid(self) && self.Hellhound_Sleeping then self:SetSkin(2) end end) -- Close eyes
-		timer.Simple(sleept, function() -- Reset after sleept seconds
+		self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
+		timer.Simple(7, function() if IsValid(self) && self.Hellhound_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
+		timer.Simple(sleepTime, function() -- Reset after sleepTime expires
 			if IsValid(self) && self.Hellhound_Sleeping == true then
 				self.Hellhound_Sleeping = false
 				self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false)
@@ -88,7 +72,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
+local alertAnims = {"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}
 --
 function ENT:CustomOnAlert(ent)
 	if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
@@ -102,16 +86,19 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnResetEnemy()
-	self.Hellhound_NextSleepT = CurTime() + math.Rand(15, 45)
+	self.Hellhound_NextSleepT = CurTime() + math.Rand(15,45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local hellhoundClasses = {npc_vj_cofraom_hellhound = true, npc_vj_cofraomc_hellhound = true}
+local beamEffectTbl = {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0}
+--
 function ENT:CustomOnMeleeAttack_BeforeChecks()
     local friNum = 0 -- How many allies exist around the Hellhound
 	local color = Color(255, 0, 0, 255) -- The shock wave color
 	local dmg = 20 -- How much damage should the shock wave do?
 	local myPos = self:GetPos()
 	for _, v in ipairs(ents.FindInSphere(myPos, 200)) do
-		if v != self && v:GetClass() == "npc_vj_cofraomc_hellhound" then
+		if v != self && hellhoundClasses[v:GetClass()] then
 			friNum = friNum + 1
 	end
 end
@@ -128,8 +115,8 @@ end
 end
 
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
-	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
+	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
 	
 	if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
 		VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))

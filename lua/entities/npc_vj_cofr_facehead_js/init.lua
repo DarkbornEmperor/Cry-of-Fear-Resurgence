@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/facehead_js.mdl"}
+ENT.Model = "models/vj_cofr/cof/facehead_js.mdl"
 ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -44,7 +44,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
      self:AddFlags(FL_NOTARGET)
-	 self:SetMaterial("hud/killicons/default")
+	 self:SetNoDraw(true)
 	 self:DrawShadow(false)
 	 self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
 	 self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
@@ -70,7 +70,7 @@ function ENT:CustomOnThink_AIEnabled()
 		VJ.STOPSOUND(self.CurrentAlertSound)
 	    self.CallForHelp = true
 	    self:DrawShadow(true)
-        self:SetMaterial(nil) 			   
+        self:SetNoDraw(false) 			   
         timer.Simple(SoundDuration("vj_cofr/cof/facehead/b_screamclose1.wav"),function() if IsValid(self) then self:Remove() end end)
     end	
 end

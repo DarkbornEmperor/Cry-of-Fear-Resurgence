@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/mace.mdl"} 
+ENT.Model = "models/vj_cofr/cof/mace.mdl" 
 ENT.StartHealth = 180
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -14,7 +14,7 @@ ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 //ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack1"} 
+ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200 
 ENT.MeleeAttackDistance = 40 
@@ -27,10 +27,10 @@ ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = 2
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
 ENT.FlinchChance = 2
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} 
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true

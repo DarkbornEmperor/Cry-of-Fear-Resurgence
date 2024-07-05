@@ -1,11 +1,11 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/booksimon_m.mdl"} 
+ENT.Model = "models/vj_cofr/cof/booksimon_m.mdl" 
 ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
@@ -26,15 +26,15 @@ ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1 
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} 
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
-	-- ====== Controller Data ====== --
+-- ====== Controller Data ====== --
 ENT.VJC_Data = {
-	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -50), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(30, 25, -50), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
 }
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -70,22 +70,22 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "step" then
-		self:FootStepSoundCode()
-		self:CustomOnFootStepSound()
-	elseif key == "attack" then
-		self:MeleeAttackCode()
-	elseif key == "death_hammer" then
-		VJ.EmitSound(self, "vj_cofr/cof/booksimon/sledgehammer_hit.wav", 75, 100)		
-	elseif key == "death" then
-		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+    if key == "step" then
+	self:FootStepSoundCode()
+	self:CustomOnFootStepSound()
+    elseif key == "attack" then
+	self:MeleeAttackCode()
+    elseif key == "death_hammer" then
+	VJ.EmitSound(self, "vj_cofr/cof/booksimon/sledgehammer_hit.wav", 75, 100)		
+    elseif key == "death" then
+	VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-	    /*local effectdata = EffectData()
-	    effectdata:SetOrigin(self:GetPos())
-	    effectdata:SetScale(10)
-	    util.Effect("watersplash",effectdata)*/
-	    end
+	/*local effectdata = EffectData()
+	effectdata:SetOrigin(self:GetPos())
+	effectdata:SetScale(10)
+	util.Effect("watersplash",effectdata)*/
+	end
     end			
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,142 +99,142 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-	VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
-	[MAT_ANTLION] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
-	},
-	[MAT_BLOODYFLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
-	},
-	[MAT_CONCRETE] = {
-        "vj_cofr/cof/simon/footsteps/concrete1.wav",
-        "vj_cofr/cof/simon/footsteps/concrete2.wav",
-        "vj_cofr/cof/simon/footsteps/concrete3.wav",
-        "vj_cofr/cof/simon/footsteps/concrete4.wav"
-    },
-	[MAT_DIRT] = {
-        "vj_cofr/cof/simon/footsteps/dirt1.wav",
-        "vj_cofr/cof/simon/footsteps/dirt2.wav",
-        "vj_cofr/cof/simon/footsteps/dirt3.wav",
-        "vj_cofr/cof/simon/footsteps/dirt4.wav"
-    },
-	[MAT_FLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
-	},
-	[MAT_GRATE] = {
-        "vj_cofr/cof/simon/footsteps/metal1.wav",
-        "vj_cofr/cof/simon/footsteps/metal2.wav",
-        "vj_cofr/cof/simon/footsteps/metal3.wav",
-        "vj_cofr/cof/simon/footsteps/metal4.wav"
-	},
-	[MAT_ALIENFLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
-	},
-	[74] = { -- Snow
-        "vj_cofr/cof/simon/footsteps/snow1.wav",
-        "vj_cofr/cof/simon/footsteps/snow2.wav",
-        "vj_cofr/cof/simon/footsteps/snow3.wav",
-        "vj_cofr/cof/simon/footsteps/snow4.wav"
-    },
-	[MAT_PLASTIC] = {
-        "vj_cofr/cof/simon/footsteps/paper1.wav",
-        "vj_cofr/cof/simon/footsteps/paper2.wav",
-        "vj_cofr/cof/simon/footsteps/paper3.wav",
-        "vj_cofr/cof/simon/footsteps/paper4.wav"
-	},
-	[MAT_METAL] = {
-        "vj_cofr/cof/simon/footsteps/metal1.wav",
-        "vj_cofr/cof/simon/footsteps/metal2.wav",
-        "vj_cofr/cof/simon/footsteps/metal3.wav",
-        "vj_cofr/cof/simon/footsteps/metal4.wav"
-    },
-	[MAT_SAND] = {
-        "vj_cofr/cof/simon/footsteps/sand1.wav",
-        "vj_cofr/cof/simon/footsteps/sand2.wav",
-        "vj_cofr/cof/simon/footsteps/sand3.wav",
-        "vj_cofr/cof/simon/footsteps/sand4.wav"
-    },
-	[MAT_FOLIAGE] = {
-        "vj_cofr/cof/simon/footsteps/gravel1.wav",
-        "vj_cofr/cof/simon/footsteps/gravel2.wav",
-        "vj_cofr/cof/simon/footsteps/gravel3.wav",
-        "vj_cofr/cof/simon/footsteps/gravel4.wav"
-	},
-	[MAT_COMPUTER] = {
-        "vj_cofr/cof/simon/footsteps/paper1.wav",
-        "vj_cofr/cof/simon/footsteps/paper2.wav",
-        "vj_cofr/cof/simon/footsteps/paper3.wav",
-        "vj_cofr/cof/simon/footsteps/paper4.wav"
-	},
-	[MAT_SLOSH] = {
-        "vj_cofr/cof/simon/footsteps/splash1.wav",
-        "vj_cofr/cof/simon/footsteps/splash2.wav",
-        "vj_cofr/cof/simon/footsteps/splash3.wav",
-        "vj_cofr/cof/simon/footsteps/splash4.wav"
-	},
-	[MAT_TILE] = {
-        "vj_cofr/cof/simon/footsteps/concrete1.wav",
-        "vj_cofr/cof/simon/footsteps/concrete2.wav",
-        "vj_cofr/cof/simon/footsteps/concrete3.wav",
-        "vj_cofr/cof/simon/footsteps/concrete4.wav"
-	},
-	[85] = { -- Grass
-        "vj_cofr/cof/simon/footsteps/grass1.wav",
-        "vj_cofr/cof/simon/footsteps/grass2.wav",
-        "vj_cofr/cof/simon/footsteps/grass3.wav",
-        "vj_cofr/cof/simon/footsteps/grass4.wav"
-	},
-	[MAT_VENT] = {
-        "vj_cofr/cof/simon/footsteps/metal1.wav",
-        "vj_cofr/cof/simon/footsteps/metal2.wav",
-        "vj_cofr/cof/simon/footsteps/metal3.wav",
-        "vj_cofr/cof/simon/footsteps/metal4.wav"
-	},
-	[MAT_WOOD] = {
-        "vj_cofr/cof/simon/footsteps/wood1.wav",
-        "vj_cofr/cof/simon/footsteps/wood2.wav",
-        "vj_cofr/cof/simon/footsteps/wood3.wav",
-        "vj_cofr/cof/simon/footsteps/wood4.wav"
-	},
-	[MAT_GLASS] = {
-        "vj_cofr/cof/simon/footsteps/glass1.wav",
-        "vj_cofr/cof/simon/footsteps/glass2.wav",
-        "vj_cofr/cof/simon/footsteps/glass3.wav",
-        "vj_cofr/cof/simon/footsteps/glass4.wav"
-	}
+   [MAT_ANTLION] = {
+       "vj_cofr/cof/simon/footsteps/mud1.wav",
+       "vj_cofr/cof/simon/footsteps/mud2.wav",
+       "vj_cofr/cof/simon/footsteps/mud3.wav",
+       "vj_cofr/cof/simon/footsteps/mud4.wav"
+   },
+   [MAT_BLOODYFLESH] = {
+       "vj_cofr/cof/simon/footsteps/mud1.wav",
+       "vj_cofr/cof/simon/footsteps/mud2.wav",
+       "vj_cofr/cof/simon/footsteps/mud3.wav",
+       "vj_cofr/cof/simon/footsteps/mud4.wav"
+   },
+   [MAT_CONCRETE] = {
+       "vj_cofr/cof/simon/footsteps/concrete1.wav",
+       "vj_cofr/cof/simon/footsteps/concrete2.wav",
+       "vj_cofr/cof/simon/footsteps/concrete3.wav",
+       "vj_cofr/cof/simon/footsteps/concrete4.wav"
+   },
+   [MAT_DIRT] = {
+       "vj_cofr/cof/simon/footsteps/dirt1.wav",
+       "vj_cofr/cof/simon/footsteps/dirt2.wav",
+       "vj_cofr/cof/simon/footsteps/dirt3.wav",
+       "vj_cofr/cof/simon/footsteps/dirt4.wav"
+   },
+   [MAT_FLESH] = {
+       "vj_cofr/cof/simon/footsteps/mud1.wav",
+       "vj_cofr/cof/simon/footsteps/mud2.wav",
+       "vj_cofr/cof/simon/footsteps/mud3.wav",
+       "vj_cofr/cof/simon/footsteps/mud4.wav"
+   },
+   [MAT_GRATE] = {
+       "vj_cofr/cof/simon/footsteps/metal1.wav",
+       "vj_cofr/cof/simon/footsteps/metal2.wav",
+       "vj_cofr/cof/simon/footsteps/metal3.wav",
+       "vj_cofr/cof/simon/footsteps/metal4.wav"
+   },
+   [MAT_ALIENFLESH] = {
+       "vj_cofr/cof/simon/footsteps/mud1.wav",
+       "vj_cofr/cof/simon/footsteps/mud2.wav",
+       "vj_cofr/cof/simon/footsteps/mud3.wav",
+       "vj_cofr/cof/simon/footsteps/mud4.wav"
+   },
+   [74] = { -- Snow
+       "vj_cofr/cof/simon/footsteps/snow1.wav",
+       "vj_cofr/cof/simon/footsteps/snow2.wav",
+       "vj_cofr/cof/simon/footsteps/snow3.wav",
+       "vj_cofr/cof/simon/footsteps/snow4.wav"
+   },
+   [MAT_PLASTIC] = {
+       "vj_cofr/cof/simon/footsteps/paper1.wav",
+       "vj_cofr/cof/simon/footsteps/paper2.wav",
+       "vj_cofr/cof/simon/footsteps/paper3.wav",
+       "vj_cofr/cof/simon/footsteps/paper4.wav"
+   },
+   [MAT_METAL] = {
+       "vj_cofr/cof/simon/footsteps/metal1.wav",
+       "vj_cofr/cof/simon/footsteps/metal2.wav",
+       "vj_cofr/cof/simon/footsteps/metal3.wav",
+       "vj_cofr/cof/simon/footsteps/metal4.wav"
+   },
+   [MAT_SAND] = {
+       "vj_cofr/cof/simon/footsteps/sand1.wav",
+       "vj_cofr/cof/simon/footsteps/sand2.wav",
+       "vj_cofr/cof/simon/footsteps/sand3.wav",
+       "vj_cofr/cof/simon/footsteps/sand4.wav"
+   },
+   [MAT_FOLIAGE] = {
+       "vj_cofr/cof/simon/footsteps/gravel1.wav",
+       "vj_cofr/cof/simon/footsteps/gravel2.wav",
+       "vj_cofr/cof/simon/footsteps/gravel3.wav",
+       "vj_cofr/cof/simon/footsteps/gravel4.wav"
+   },
+   [MAT_COMPUTER] = {
+       "vj_cofr/cof/simon/footsteps/paper1.wav",
+       "vj_cofr/cof/simon/footsteps/paper2.wav",
+       "vj_cofr/cof/simon/footsteps/paper3.wav",
+       "vj_cofr/cof/simon/footsteps/paper4.wav"
+   },
+   [MAT_SLOSH] = {
+       "vj_cofr/cof/simon/footsteps/splash1.wav",
+       "vj_cofr/cof/simon/footsteps/splash2.wav",
+       "vj_cofr/cof/simon/footsteps/splash3.wav",
+       "vj_cofr/cof/simon/footsteps/splash4.wav"
+   },
+   [MAT_TILE] = {
+       "vj_cofr/cof/simon/footsteps/concrete1.wav",
+       "vj_cofr/cof/simon/footsteps/concrete2.wav",
+       "vj_cofr/cof/simon/footsteps/concrete3.wav",
+       "vj_cofr/cof/simon/footsteps/concrete4.wav"
+   },
+   [85] = { -- Grass
+       "vj_cofr/cof/simon/footsteps/grass1.wav",
+       "vj_cofr/cof/simon/footsteps/grass2.wav",
+       "vj_cofr/cof/simon/footsteps/grass3.wav",
+       "vj_cofr/cof/simon/footsteps/grass4.wav"
+   },
+   [MAT_VENT] = {
+       "vj_cofr/cof/simon/footsteps/metal1.wav",
+       "vj_cofr/cof/simon/footsteps/metal2.wav",
+       "vj_cofr/cof/simon/footsteps/metal3.wav",
+       "vj_cofr/cof/simon/footsteps/metal4.wav"
+   },
+   [MAT_WOOD] = {
+       "vj_cofr/cof/simon/footsteps/wood1.wav",
+       "vj_cofr/cof/simon/footsteps/wood2.wav",
+       "vj_cofr/cof/simon/footsteps/wood3.wav",
+       "vj_cofr/cof/simon/footsteps/wood4.wav"
+   },
+   [MAT_GLASS] = {
+       "vj_cofr/cof/simon/footsteps/glass1.wav",
+       "vj_cofr/cof/simon/footsteps/glass2.wav",
+       "vj_cofr/cof/simon/footsteps/glass3.wav",
+       "vj_cofr/cof/simon/footsteps/glass4.wav"
+   }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
-	if !self:IsOnGround() then return end
-	local tr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() +Vector(0,0,-150),
-		filter = {self}
-	})
-	if tr.Hit && self.FootSteps[tr.MatType] then
-		VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
-	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
+    if !self:IsOnGround() then return end
+    local tr = util.TraceLine({
+	start = self:GetPos(),
+	endpos = self:GetPos() +Vector(0,0,-150),
+        filter = {self}
+    })
+    if tr.Hit && self.FootSteps[tr.MatType] then
+	VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+    end
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+    end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/custom/pedoslow.mdl"} 
+ENT.Model = "models/vj_cofr/custom/pedoslow.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_CustomOnInitialize()
 local Slower_Body = 1
@@ -35,7 +35,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/faceless/psyksjuk.wav"}) 	
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/faceless/psyksjuk.wav") 	
     end
 end
 /*-----------------------------------------------

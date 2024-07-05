@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/doctor_friendly.mdl"}
+ENT.Model = "models/vj_cofr/cof/doctor_friendly.mdl"
 ENT.StartHealth = 200
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
