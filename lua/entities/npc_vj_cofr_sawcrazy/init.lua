@@ -1,17 +1,17 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/sawcrazy.mdl"
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} 
-ENT.BloodColor = "Red" 
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
@@ -24,17 +24,17 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasExtraMeleeAttackSounds = true
-	-- ====== Controller Data ====== --
+-- ====== Controller Data ====== --
 ENT.VJC_Data = {
-	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 1,
+    ThirdP_Offset = Vector(30, 25, -60),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(0, 0, 5),
 }
-	-- ====== Sound File Paths ====== --
+-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
@@ -60,16 +60,16 @@ ENT.Sawcrazy_RadiusDamage = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_CustomOnInitialize()
     self.SoundTbl_Breath = {
-	"vj_cofr/cof/sawcrazy/dblsawloop.wav"
+    "vj_cofr/cof/sawcrazy/dblsawloop.wav"
 }
     self.SoundTbl_Alert = {
-	"vj_cofr/cof/sawcrazy/random2.wav"
+    "vj_cofr/cof/sawcrazy/random2.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/cof/sawcrazy/random1.wav"
+    "vj_cofr/cof/sawcrazy/random1.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/cof/sawcrazy/death.wav"
+    "vj_cofr/cof/sawcrazy/death.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,69 +78,69 @@ function ENT:CustomOnInitialize()
     self.VJTag_ID_Danger = true
 end
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
-	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Sawcrazy_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "step" then
-		self:FootStepSoundCode()
-	elseif key == "attack" then
-		self:MeleeAttackCode()	
-	elseif key == "death" then
-		VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+    if key == "step" then
+        self:FootStepSoundCode()
+    elseif key == "attack" then
+        self:MeleeAttackCode()
+    elseif key == "death" then
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-	    /*local effectdata = EffectData()
-	    effectdata:SetOrigin(self:GetPos())
-	    effectdata:SetScale(10)
-	    util.Effect("watersplash",effectdata)*/
-	    end
-    end		
+        /*local effectdata = EffectData()
+        effectdata:SetOrigin(self:GetPos())
+        effectdata:SetScale(10)
+        util.Effect("watersplash",effectdata)*/
+        end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
     if self.Dead or GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 0 then return end
-	if self.Sawcrazy_NextRadiusDamageT < CurTime() then
-	for _,v in ipairs(ents.FindInSphere(self:GetPos(),60)) do
-	if v != self && IsValid(v) && self:Visible(v) then
-		if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(),self,self) elseif v:IsPlayer() then v:TakeDamage(v:Health()+v:Armor(),self,self) else v:TakeDamage(200,self,self) end		  		   
-		    self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5 
-		    end
-	    end
-    end 
+    if self.Sawcrazy_NextRadiusDamageT < CurTime() then
+    for _,v in ipairs(ents.FindInSphere(self:GetPos(),60)) do
+    if v != self && IsValid(v) && self:Visible(v) then
+        if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(),self,self) elseif v:IsPlayer() then v:TakeDamage(v:Health()+v:Armor(),self,self) else v:TakeDamage(200,self,self) end
+            self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5
+            end
+        end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-		self.MeleeAttackDamage = hitEnt:Health() + 10
-	elseif hitEnt:IsPlayer() then
-		self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
-	else
-		self.MeleeAttackDamage = 200
-	end
+    if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+        self.MeleeAttackDamage = hitEnt:Health() + 10
+    elseif hitEnt:IsPlayer() then
+        self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+    else
+        self.MeleeAttackDamage = 200
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.30)		
+    dmginfo:ScaleDamage(0.30)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)	
+    VJ_COFR_DeathCode(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-	VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
-	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+    end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

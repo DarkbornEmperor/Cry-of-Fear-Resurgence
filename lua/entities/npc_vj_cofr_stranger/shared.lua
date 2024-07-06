@@ -1,11 +1,11 @@
-ENT.Base 			= "npc_vj_creature_base" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
-ENT.Type 			= "ai"
-ENT.PrintName 		= "Stranger"
-ENT.Author 			= "Darkborn"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose 		= "Spawn it and fight with it!"
-ENT.Instructions 	= "Click on the spawnicon to spawn it."
-ENT.Category		= "Cry of Fear Resurgence"
+ENT.Base            = "npc_vj_creature_base" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
+ENT.Type            = "ai"
+ENT.PrintName       = ""
+ENT.Author          = "Stranger"
+ENT.Contact         = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Purpose         = "Spawn it and fight with it!"
+ENT.Instructions    = "Click on the spawnicon to spawn it."
+ENT.Category        = "Cry of Fear Resurgence"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
     function ENT:Initialize()
@@ -36,7 +36,7 @@ end
     end
 end
             if ply.VJTag_IsControllingNPC then return end
-			if !IsValid(stranger) then return end
+            if !IsValid(stranger) then return end
             local dist = ply:GetPos():Distance(stranger:GetPos())
             local enemy = stranger:GetNW2Entity("Enemy")
 
@@ -59,6 +59,6 @@ end
                 }
                 DrawColorModify(tab)
             end)
-	    end)
-	end
+        end)
+    end
 end

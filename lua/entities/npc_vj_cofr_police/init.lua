@@ -6,19 +6,19 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_cofr/cof/police1.mdl","models/vj_cofr/cof/police2.mdl","models/vj_cofr/cof/police3.mdl","models/vj_cofr/cof/police4.mdl"} 
+ENT.Model = {"models/vj_cofr/cof/police1.mdl","models/vj_cofr/cof/police2.mdl","models/vj_cofr/cof/police3.mdl","models/vj_cofr/cof/police4.mdl"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl"
 ENT.Medic_HealthAmount = 50
-	-- ====== Sound File Paths ====== --
+-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MedicAfterHeal = {
-"vj_cofr/cof/weapons/syringe/syringe_inject.wav" 
+"vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
-     if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end		 
+     if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end
      if math.random(1,3) == 1 then
-	self:SetBodygroup(0,1)
+    self:SetBodygroup(0,1)
         self.light = ents.Create("env_projectedtexture")
         self.light:SetLocalPos( self:GetPos() + Vector(0,0,0) )
         self.light:SetLocalAngles( self:GetAngles() + Angle(0,0,0) )
@@ -30,23 +30,23 @@ function ENT:AssistorFlashlight()
         self.light:Input( 'SpotlightTexture', NULL, NULL, "effects/flashlight001")
         self.light:SetOwner(self)
         self.light:SetParent(self)
-        self.light:Fire("setparentattachment", "flashlight")		
+        self.light:Fire("setparentattachment", "flashlight")
         self.light:Spawn()
         self.light:Activate()
         self.light:DeleteOnRemove(self.light)
 
         local glow1 = ents.Create("env_sprite")
-	glow1:SetKeyValue("model","sprites/light_ignorez.vmt")
-	glow1:SetKeyValue("scale","0.2")
-	glow1:SetKeyValue("rendermode","3")
-	glow1:SetKeyValue("rendercolor","255 255 255")
-	glow1:SetKeyValue("spawnflags","0.1") -- If animated
-	glow1:SetParent(self)
-	glow1:Fire("SetParentAttachment","flashlight",0)
-	glow1:Spawn()
-	glow1:Activate()
-	self:DeleteOnRemove(glow1)
-    end	 
+    glow1:SetKeyValue("model","sprites/light_ignorez.vmt")
+    glow1:SetKeyValue("scale","0.2")
+    glow1:SetKeyValue("rendermode","3")
+    glow1:SetKeyValue("rendercolor","255 255 255")
+    glow1:SetKeyValue("spawnflags","0.1") -- If animated
+    glow1:SetParent(self)
+    glow1:Fire("SetParentAttachment","flashlight",0)
+    glow1:Spawn()
+    glow1:Activate()
+    self:DeleteOnRemove(glow1)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {

@@ -48,12 +48,12 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
-	-- ====== Controller Data ====== --
+-- ====== Controller Data ====== --
 ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 1,
+    ThirdP_Offset = Vector(30, 25, -60),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(0, 0, 5),
 }
    -- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -135,7 +135,7 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
     if key == "step" then
        self:FootStepSoundCode()
-	elseif key == "attack" then
+    elseif key == "attack" then
        self:MeleeAttackCode()
     elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
        self:RangeAttackCode()

@@ -7,12 +7,12 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/simon_beta.mdl"
-ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl" 
+ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl"
 ENT.Medic_HealthAmount = 50
-	-- ====== Sound File Paths ====== --
+-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MedicAfterHeal = {
-"vj_cofr/cof/weapons/syringe/syringe_inject.wav" 
+"vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {

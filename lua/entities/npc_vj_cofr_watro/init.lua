@@ -1,26 +1,26 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/cof/watro.mdl" 
+ENT.Model = "models/vj_cofr/cof/watro.mdl"
 ENT.StartHealth = 160
 ENT.HullType = HULL_MEDIUM_TALL
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}  
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CallForHelp = false
 ENT.CanTurnWhileStationary = false
-ENT.BloodColor = "Red" 
+ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"} 
+ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25 
-ENT.MeleeAttackDistance = 80 
+ENT.MeleeAttackDamage = 25
+ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
 ENT.GeneralSoundPitch1 = 100
@@ -28,23 +28,23 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DeathCorpseEntityClass = "prop_vj_animatable" 
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
-	-- ====== Controller Data ====== --
+-- ====== Controller Data ====== --
 ENT.VJC_Data = {
-	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -120), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "joint8", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 1,
+    ThirdP_Offset = Vector(30, 25, -120),
+    FirstP_Bone = "joint8",
+    FirstP_Offset = Vector(0, 0, 5),
 }
-	-- ====== Sound File Paths ====== --
+-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/watro/watro_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/watro/watro_swing.wav"
-}	
+}
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -57,57 +57,57 @@ ENT.SoundTbl_Impact = {
 ENT.Watro_Burrowed = true
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Watro_CustomOnInitialize()
-	if self.Watro_Burrowed then
-		self.HasMeleeAttack = false
-		self:DrawShadow(false)
-		self:AddFlags(FL_NOTARGET)
-    end		
+    if self.Watro_Burrowed then
+        self.HasMeleeAttack = false
+        self:DrawShadow(false)
+        self:AddFlags(FL_NOTARGET)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
-	self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 160))
+    self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
+    self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 160))
     self:Watro_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "attack" then
-		self:MeleeAttackCode()
-    end		
+    if key == "attack" then
+        self:MeleeAttackCode()
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply,controlEnt)
-	ply:ChatPrint("JUMP: Unburrow")
+    ply:ChatPrint("JUMP: Unburrow")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
  if act == ACT_IDLE && self.Watro_Burrowed then
-		return ACT_IDLE_RELAXED
+        return ACT_IDLE_RELAXED
  elseif !self.Watro_Burrowed && act == ACT_IDLE then
-		return ACT_IDLE_STIMULATED
+        return ACT_IDLE_STIMULATED
 end
-	return self.BaseClass.TranslateActivity(self,act)
+    return self.BaseClass.TranslateActivity(self,act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	local ent = self:GetEnemy()
-	if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local ent = self:GetEnemy()
+    if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
     else
         VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
-end		
-		self.Watro_Burrowed = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
-		self.HasMeleeAttack = true
-		self:DrawShadow(true)
-		self.CallForHelp = true
-        self:RemoveFlags(FL_NOTARGET)		
-	end
+end
+        self.Watro_Burrowed = false
+        self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+        self.HasMeleeAttack = true
+        self:DrawShadow(true)
+        self.CallForHelp = true
+        self:RemoveFlags(FL_NOTARGET)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.45)		
+    dmginfo:ScaleDamage(0.45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
@@ -120,21 +120,21 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
        "vj_cofr/fx/bodysplat.wav"
 }
 end
-    VJ_COFR_DeathCode(self)	
+    VJ_COFR_DeathCode(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	self:DrawShadow(false)
-	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)	
+    self:DrawShadow(false)
+    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
     corpseEnt:DrawShadow(false)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-	VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
