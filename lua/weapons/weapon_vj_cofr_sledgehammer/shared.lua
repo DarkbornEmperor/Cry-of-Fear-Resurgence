@@ -21,12 +21,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnEquip(newOwner)
     local owner = self:GetOwner()
-	owner.MeleeAttackDamage = self.Primary.Damage	    
-	owner.MeleeAttackDamageType = DMG_CLUB
-	owner.SoundTbl_MeleeAttackExtra = {
-	"vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
-	}
-	owner.SoundTbl_MeleeAttackMiss = {
-	"vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
-	}
+    owner.MeleeAttackDamage = self.Primary.Damage
+    owner.MeleeAttackDamageType = DMG_CLUB
+    owner.SoundTbl_MeleeAttackExtra = {
+    "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
+    }
+    owner.SoundTbl_MeleeAttackMiss = {
+    "vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
+    }
 end

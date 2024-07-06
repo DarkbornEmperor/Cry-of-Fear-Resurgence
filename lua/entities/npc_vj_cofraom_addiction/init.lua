@@ -37,15 +37,15 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip02 Head",
     FirstP_Offset = Vector(5, 0, 5),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FireLoop = {
 "vj_cofr/aom/davidbad/fire_loop.wav"
 }

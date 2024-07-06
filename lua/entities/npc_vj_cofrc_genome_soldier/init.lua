@@ -7,8 +7,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/custom/genome_soldier1.mdl"
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faceless/fist_strike1.wav",
 "vj_cofr/cof/faceless/fist_strike2.wav",

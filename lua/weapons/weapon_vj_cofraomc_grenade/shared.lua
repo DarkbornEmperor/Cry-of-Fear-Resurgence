@@ -13,7 +13,7 @@ SWEP.NPC_FiringDistanceScale = 0.65
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
-SWEP.WorldModel	= "models/vj_cofr/aom/weapons/classic/w_grenade.mdl"
+SWEP.WorldModel = "models/vj_cofr/aom/weapons/classic/w_grenade.mdl"
 SWEP.HoldType = "grenade"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
@@ -23,7 +23,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0,0,0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-2,2,-3)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage	= 1 -- Damage
+SWEP.Primary.Damage = 1 -- Damage
 SWEP.Primary.ClipSize = 10
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Sound = {"vj_cofr/fx/null.wav"}
@@ -33,31 +33,31 @@ SWEP.HasDryFireSound = false
 SWEP.PrimaryEffects_SpawnMuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize() 
+function SWEP:CustomOnInitialize()
     self:SetModelScale(0.5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomBulletSpawnPosition()
-	local owner = self:GetOwner()
+    local owner = self:GetOwner()
 
-	return owner:GetPos() + owner:GetUp() + Vector(0,0,50)
+    return owner:GetPos() + owner:GetUp() + Vector(0,0,50)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
-	return false
+    return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	if CLIENT then return end
-	local grenade = ents.Create("obj_vj_cofraomc_grenade")
-	grenade:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
-	grenade:SetAngles(self:GetOwner():GetAngles())
-	grenade:SetOwner(self:GetOwner())
-	grenade:Spawn()
-	grenade:Activate()
-	
-	local phys = grenade:GetPhysicsObject()
-	if IsValid(phys) then
-		phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetNW2Vector("VJ_CurBulletPos"), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
-	end
+    if CLIENT then return end
+    local grenade = ents.Create("obj_vj_cofraomc_grenade")
+    grenade:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
+    grenade:SetAngles(self:GetOwner():GetAngles())
+    grenade:SetOwner(self:GetOwner())
+    grenade:Spawn()
+    grenade:Activate()
+
+    local phys = grenade:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetNW2Vector("VJ_CurBulletPos"), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
+    end
 end

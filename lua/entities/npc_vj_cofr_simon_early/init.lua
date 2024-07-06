@@ -9,8 +9,8 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cof/simon_early.mdl"
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl"
 ENT.Medic_HealthAmount = 50
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MedicAfterHeal = {
 "vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 }

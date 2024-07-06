@@ -15,15 +15,15 @@ ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 5),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",

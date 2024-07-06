@@ -32,15 +32,15 @@ ENT.AnimTbl_Death = ACT_SMALL_FLINCH
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 ENT.HasSoundTrack = true
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(-100, 25, -300),
     FirstP_Bone = "bone006",
     FirstP_Offset = Vector(0, 0, 60),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/custom/blob/final2.mp3"
 }

@@ -38,15 +38,15 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60), -- The offset for the screamer when the camera is in third person
     FirstP_Bone = "bip01 neck",
     FirstP_Offset = Vector(10, 0, -3), -- The offset for the screamer when the camera is in first person
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",

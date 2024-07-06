@@ -21,18 +21,18 @@ function SWEP:CustomOnInitialize()
         self.Primary.Damage = 9
         self.WorldModel_CustomPositionAngle = Vector(0, -180, -90)
         self.WorldModel_CustomPositionOrigin = Vector(-2, -3.2, -1.2)
-	end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnEquip(newOwner)
     local owner = self:GetOwner()
-	owner.MeleeAttackDamage = self.Primary.Damage	    
-	owner.MeleeAttackDamageType = DMG_SLASH
-	owner.SoundTbl_MeleeAttackExtra = {
-	"vj_cofr/cof/weapons/switchblade/switchblade_hitbody1.wav",
-	"vj_cofr/cof/weapons/switchblade/switchblade_hitbody2.wav"
-	}
-	owner.SoundTbl_MeleeAttackMiss = {
-	"vj_cofr/aom/weapons/knife/knife_swing1.wav"
-	}
+    owner.MeleeAttackDamage = self.Primary.Damage
+    owner.MeleeAttackDamageType = DMG_SLASH
+    owner.SoundTbl_MeleeAttackExtra = {
+    "vj_cofr/cof/weapons/switchblade/switchblade_hitbody1.wav",
+    "vj_cofr/cof/weapons/switchblade/switchblade_hitbody2.wav"
+    }
+    owner.SoundTbl_MeleeAttackMiss = {
+    "vj_cofr/aom/weapons/knife/knife_swing1.wav"
+    }
 end

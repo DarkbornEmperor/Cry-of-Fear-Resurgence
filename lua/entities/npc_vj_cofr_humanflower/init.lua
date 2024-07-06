@@ -27,15 +27,15 @@ ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationTime = 8
 ENT.HasExtraMeleeAttackSounds = true
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -150),
     FirstP_Bone = "joint2",
     FirstP_Offset = Vector(0, 0, 5),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/watro/watro_hit.wav"
 }

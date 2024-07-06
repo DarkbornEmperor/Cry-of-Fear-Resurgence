@@ -11,8 +11,8 @@ ENT.StartHealth = 300
 //ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.HasSoundTrack = true
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faster/faster_hit1.wav",
 "vj_cofr/cof/faster/faster_hit2.wav",

@@ -25,15 +25,15 @@ ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance"
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange"
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -40),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 5),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_BeforeRangeAttack = {
 "vj_cofr/aom/ghost/classic/zap4.wav"
 }

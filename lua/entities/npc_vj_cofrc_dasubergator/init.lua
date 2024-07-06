@@ -37,15 +37,15 @@ ENT.AlertSoundPitch = VJ.SET(80, 80)
 ENT.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
 ENT.PainSoundPitch = VJ.SET(80, 80)
 ENT.DeathSoundPitch = VJ.SET(80, 80)
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 5),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/taller/taller_stamp.wav"
 }

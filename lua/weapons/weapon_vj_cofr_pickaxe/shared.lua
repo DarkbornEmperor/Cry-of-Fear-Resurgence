@@ -16,17 +16,17 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(4, -1, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
-    self:SetModelScale(0.80) 
+    self:SetModelScale(0.80)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnEquip(newOwner)
     local owner = self:GetOwner()
-	owner.MeleeAttackDamage = self.Primary.Damage	    
-	owner.MeleeAttackDamageType = DMG_CLUB
-	owner.SoundTbl_MeleeAttackExtra = {
-	"vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
-	}
-	owner.SoundTbl_MeleeAttackMiss = {
-	"vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
-	}
+    owner.MeleeAttackDamage = self.Primary.Damage
+    owner.MeleeAttackDamageType = DMG_CLUB
+    owner.SoundTbl_MeleeAttackExtra = {
+    "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
+    }
+    owner.SoundTbl_MeleeAttackMiss = {
+    "vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
+    }
 end

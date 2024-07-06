@@ -12,8 +12,8 @@ ENT.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.HasRangeAttack = false
 ENT.CanTurnWhileMoving = true
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faster/faster_hit1.wav",
 "vj_cofr/cof/faster/faster_hit2.wav",

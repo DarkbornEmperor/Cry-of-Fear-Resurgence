@@ -11,15 +11,15 @@ ENT.StartHealth = 80
 ENT.MeleeAttackDamage = 24
 ENT.HasHitGroupFlinching = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE
--- ====== Controller Data ====== --
+    -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
     ThirdP_Offset = Vector(45, 20, -15),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 5),
 }
--- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
+    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/slower/k_crawl1.wav",
 "vj_cofr/cof/slower/k_crawl2.wav",
