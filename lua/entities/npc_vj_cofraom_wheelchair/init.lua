@@ -59,6 +59,7 @@ ENT.SoundTbl_Impact = {
 function ENT:Wheelchair_CustomOnInitialize() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Wheelchair_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

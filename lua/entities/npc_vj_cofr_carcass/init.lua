@@ -88,7 +88,7 @@ function ENT:Carcass_CustomOnInitialize()
 }
     if GetConVar("VJ_COFR_JoeBiden"):GetInt() == 1 then
         self.RangeAttackEntityToSpawn = "obj_vj_cofr_biden"
-        self:SetMaterial("hud/killicons/default")
+        self:SetNoDraw(true)
         self:DrawShadow(false)		
     end
 end
