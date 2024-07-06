@@ -1,9 +1,9 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/agrunt.mdl"
 ENT.StartHealth = 350
@@ -50,12 +50,12 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
-	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-	ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(30, 25, -60), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
-	-- ====== Sound File Paths ====== --
+   -- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
@@ -80,100 +80,100 @@ ENT.SoundTbl_Impact = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Face_CustomOnInitialize()
     self.SoundTbl_Alert = {
-	"vj_cofr/aom/face/ag_alert1.wav",
-	"vj_cofr/aom/face/ag_alert2.wav",
-	"vj_cofr/aom/face/ag_alert3.wav",
-	"vj_cofr/aom/face/ag_alert4.wav",
-	"vj_cofr/aom/face/ag_alert5.wav"
+    "vj_cofr/aom/face/ag_alert1.wav",
+    "vj_cofr/aom/face/ag_alert2.wav",
+    "vj_cofr/aom/face/ag_alert3.wav",
+    "vj_cofr/aom/face/ag_alert4.wav",
+    "vj_cofr/aom/face/ag_alert5.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-	"vj_cofr/aom/face/ag_attack1.wav",
-	"vj_cofr/aom/face/ag_attack2.wav",
-	"vj_cofr/aom/face/ag_attack3.wav"
+    "vj_cofr/aom/face/ag_attack1.wav",
+    "vj_cofr/aom/face/ag_attack2.wav",
+    "vj_cofr/aom/face/ag_attack3.wav"
 }
     self.SoundTbl_Pain = {
-	"vj_cofr/aom/face/ag_pain1.wav",
-	"vj_cofr/aom/face/ag_pain2.wav",
-	"vj_cofr/aom/face/ag_pain3.wav",
-	"vj_cofr/aom/face/ag_pain4.wav",
-	"vj_cofr/aom/face/ag_pain5.wav"
+    "vj_cofr/aom/face/ag_pain1.wav",
+    "vj_cofr/aom/face/ag_pain2.wav",
+    "vj_cofr/aom/face/ag_pain3.wav",
+    "vj_cofr/aom/face/ag_pain4.wav",
+    "vj_cofr/aom/face/ag_pain5.wav"
 }
     self.SoundTbl_Death = {
-	"vj_cofr/aom/face/ag_die1.wav",
-	"vj_cofr/aom/face/ag_die2.wav",
-	"vj_cofr/aom/face/ag_die3.wav",
-	"vj_cofr/aom/face/ag_die4.wav",
-	"vj_cofr/aom/face/ag_die5.wav"
+    "vj_cofr/aom/face/ag_die1.wav",
+    "vj_cofr/aom/face/ag_die2.wav",
+    "vj_cofr/aom/face/ag_die3.wav",
+    "vj_cofr/aom/face/ag_die4.wav",
+    "vj_cofr/aom/face/ag_die5.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	local face = ents.Create("env_sprite")
-	face:SetKeyValue("model","vj_cofr/sprites/face.vmt")
-	face:SetKeyValue("scale","1")
-	face:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	face:SetKeyValue("renderfx","14")
-	face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	face:SetKeyValue("renderamt","255") -- Transparency
-	face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	face:SetKeyValue("spawnflags","0")
-	face:SetParent(self)
-	face:Fire("SetParentAttachment","hornet")
-	face:Spawn()
-	face:Activate()
-	face:SetNoDraw(true)
-	self:DeleteOnRemove(face)
-	self.face = face
+    local face = ents.Create("env_sprite")
+    face:SetKeyValue("model","vj_cofr/sprites/face.vmt")
+    face:SetKeyValue("scale","1")
+    face:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+    face:SetKeyValue("renderfx","14")
+    face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+    face:SetKeyValue("renderamt","255") -- Transparency
+    face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+    face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+    face:SetKeyValue("spawnflags","0")
+    face:SetParent(self)
+    face:Fire("SetParentAttachment","hornet")
+    face:Spawn()
+    face:Activate()
+    face:SetNoDraw(true)
+    self:DeleteOnRemove(face)
+    self.face = face
 
-	self:DrawShadow(false)
+    self:DrawShadow(false)
     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
-	self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
     self:Face_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "step" then
+    if key == "step" then
        self:FootStepSoundCode()
 	elseif key == "attack" then
        self:MeleeAttackCode()
-	elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+    elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
        self:RangeAttackCode()
     if IsValid(self.face) then
        self.face:SetNoDraw(false)
 end
  -- Backup timer to make sure the sprites are hidden in case event doesn't run!
  timer.Simple(0.08, function()
-	if IsValid(self) then
+    if IsValid(self) then
       if IsValid(self.face) then
-	        self.face:SetNoDraw(true)
+        self.face:SetNoDraw(true)
         end
-	end
+    end
 end)
-	elseif key == "death" then
+    elseif key == "death" then
     VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-	    /*local effectdata = EffectData()
-	    effectdata:SetOrigin(self:GetPos())
-	    effectdata:SetScale(10)
-	    util.Effect("watersplash",effectdata)*/
-	    end
+        /*local effectdata = EffectData()
+        effectdata:SetOrigin(self:GetPos())
+        effectdata:SetScale(10)
+        util.Effect("watersplash",effectdata)*/
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	local ene = self:GetEnemy()
-	if IsValid(ene) then
+    local ene = self:GetEnemy()
+    if IsValid(ene) then
         projectile.Track_Enemy = ene
-	end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
-	if dmginfo:GetDamage() > 30 then
+    if dmginfo:GetDamage() > 30 then
         self.FlinchChance = 8
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
-	else
+    else
         self.FlinchChance = 16
         self.AnimTbl_Flinch = ACT_SMALL_FLINCH
     end
@@ -184,9 +184,9 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	 if hitgroup == HITGROUP_HEAD then
+    if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
-	else
+    else
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end
 end
@@ -198,12 +198,12 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFootStepSound()
-	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
+    end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
