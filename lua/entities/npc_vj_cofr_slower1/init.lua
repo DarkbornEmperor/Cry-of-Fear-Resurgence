@@ -68,7 +68,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Slower_Skin = 0
 ENT.Slower_Type = 0
-     -- 0 = Slower 1
+    -- 0 = Slower 1
     -- 1 = Crawler/Krypandenej aka Slower 2
     -- 2 = Croucher
     -- 3 = Slower 3

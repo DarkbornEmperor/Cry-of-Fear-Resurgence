@@ -66,7 +66,7 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Faceless_Type = 0
-     -- 0 = Normal Faceless
+    -- 0 = Normal Faceless
     -- 1 = Faceless Crawler
     -- 2 = Faced Faceless
     -- 3 = Twister
