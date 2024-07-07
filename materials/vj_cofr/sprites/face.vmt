@@ -1,10 +1,10 @@
 "UnlitGeneric"
 {
-	"$basetexture" "vj_cofr/sprites/face"
-	"$nolod" 1
-	"$translucent" 1
-	"$additive" "1"
-	"$nocull" "1"
-	"$vertexcolor" "1"
-	"$overbrightfactor" "0.5"
+    "$basetexture" "vj_cofr/sprites/face"
+    "$nolod" 1
+    "$translucent" 1
+    "$additive" "1"
+    "$nocull" "1"
+    "$vertexcolor" "1"
+    "$overbrightfactor" "0.5"
 }

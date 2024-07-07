@@ -1,4 +1,4 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/cof/deadvictim/gore_tex"
+    "$basetexture" "models/vj_cofr/cof/deadvictim/gore_tex"
 }

@@ -1,7 +1,7 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/cof/slower1/ogon_fullbright"
-	"$emissiveBlendEnabled" 1
+    "$basetexture" "models/vj_cofr/cof/slower1/ogon_fullbright"
+    "$emissiveBlendEnabled" 1
     "$emissiveBlendTexture" "vgui/white"
     "$emissiveBlendBaseTexture" "models/vj_cofr/cof/slower1/ogon_fullbright"
     "$emissiveBlendFlowTexture" "vgui/white"

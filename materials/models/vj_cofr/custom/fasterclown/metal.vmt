@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/custom/fasterclown/metal"
-	"$nodecal" 1
+    "$basetexture" "models/vj_cofr/custom/fasterclown/metal"
+    "$nodecal" 1
 }

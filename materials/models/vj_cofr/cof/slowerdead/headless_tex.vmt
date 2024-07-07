@@ -1,4 +1,4 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/cof/slowerdead/headless_tex"
+    "$basetexture" "models/vj_cofr/cof/slowerdead/headless_tex"
 }

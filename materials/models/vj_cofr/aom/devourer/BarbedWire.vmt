@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/devourer/BarbedWire"
-	"$alphatest" 1
+    "$basetexture" "models/vj_cofr/aom/devourer/BarbedWire"
+    "$alphatest" 1
 }

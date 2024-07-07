@@ -1,9 +1,9 @@
 {
-	"title": "[VJ] Cry of Fear Resurgence",
-	"type": "npc",
-	"tags": 
-	[
-		"fun",
-		"realism"
-	]
+    "title": "[VJ] Cry of Fear Resurgence",
+    "type": "npc",
+    "tags":
+    [
+        "fun",
+        "realism"
+    ]
 }

@@ -1,4 +1,4 @@
 "VertexlitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/weapons/grenade/m4_grenade_ammo"
+    "$basetexture" "models/vj_cofr/aom/weapons/grenade/m4_grenade_ammo"
 }

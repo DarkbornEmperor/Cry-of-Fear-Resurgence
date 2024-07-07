@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/twitcher/arm3"
-                "$additive" 1 
+    "$basetexture" "models/vj_cofr/aom/twitcher/arm3"
+                "$additive" 1
                 "$nodecal" 1
 }

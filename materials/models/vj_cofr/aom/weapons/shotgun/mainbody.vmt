@@ -1,4 +1,4 @@
 "VertexlitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/weapons/shotgun/mainbody"
+    "$basetexture" "models/vj_cofr/aom/weapons/shotgun/mainbody"
 }

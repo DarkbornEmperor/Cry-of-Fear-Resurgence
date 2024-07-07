@@ -1,4 +1,4 @@
 "VertexlitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/weapons/shotgun/framemap"
+    "$basetexture" "models/vj_cofr/aom/weapons/shotgun/framemap"
 }

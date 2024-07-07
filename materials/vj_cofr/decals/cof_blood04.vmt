@@ -1,9 +1,9 @@
 "DecalModulate"
 {
-	// Original shader: DecalBaseTimesLightmapAlphaBlend
-	"$translucent" 1
-	"$basetexture" "vj_cofr/decals/cof_blood04"
-	"$decal" 1
-	"$Size"		"255 255"
-	"$decalscale" 	0.07
+    // Original shader: DecalBaseTimesLightmapAlphaBlend
+    "$translucent" 1
+    "$basetexture" "vj_cofr/decals/cof_blood04"
+    "$decal" 1
+    "$Size"        "255 255"
+    "$decalscale"     0.07
 }

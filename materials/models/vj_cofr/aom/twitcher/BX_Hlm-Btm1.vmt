@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/vj_cofr/aom/twitcher/BX_Hlm-Btm1"
+    "$basetexture" "models/vj_cofr/aom/twitcher/BX_Hlm-Btm1"
                 "$nodecal" 1
 }
