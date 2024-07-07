@@ -89,41 +89,6 @@ function ENT:CustomOnResetEnemy()
     self.Hellhound_NextSleepT = CurTime() + math.Rand(15,45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local hellhoundClasses = {npc_vj_cofraom_hellhound = true, npc_vj_cofraomc_hellhound = true}
-local beamEffectTbl = {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0}
---
-function ENT:CustomOnMeleeAttack_BeforeChecks()
-    local friNum = 0 -- How many allies exist around the Hellhound
-    local color = Color(255, 0, 0, 255) -- The shock wave color
-    local dmg = 20 -- How much damage should the shock wave do?
-    local myPos = self:GetPos()
-    for _, v in ipairs(ents.FindInSphere(myPos, 200)) do
-        if v != self && hellhoundClasses[v:GetClass()] then
-            friNum = friNum + 1
-    end
-end
-    -- More allies = more damage and different colors
-    if friNum == 1 then
-        --color = Color(101, 133, 221)
-        dmg = 40
-    elseif friNum == 2 then
-        --color = Color(67, 85, 255)
-        dmg = 60
-    elseif friNum >= 3 then
-        --color = Color(62, 33, 211)
-        dmg = 80
-end
-
-    -- flags 0 = No fade!
-    effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
-    effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
-
-    if self.HasSounds && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
-        VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
-end
-    VJ.ApplyRadiusDamage(self, self, myPos, 200, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetSkin(2)
     corpseEnt:SetMoveType(MOVETYPE_STEP)

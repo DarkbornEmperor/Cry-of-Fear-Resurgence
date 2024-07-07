@@ -153,29 +153,27 @@ end
     /*if IsValid(ent) && ent:WaterLevel() != 3 then*/
         VJ.ApplyRadiusDamage(self,self,self:GetPos(),150,10,DMG_BURN,true,true)
 /*end*/
-        timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.FireEffect) then self.FireEffect:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
+        timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) then self.fireFX:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireSprite()
-    self.FireEffect = ents.Create("env_sprite")
-    self.FireEffect:SetKeyValue("model","vj_cofr/sprites/fire.vmt")
-    self.FireEffect:SetKeyValue("rendercolor","255 255 255")
-    self.FireEffect:SetKeyValue("GlowProxySize","1.0")
-    self.FireEffect:SetKeyValue("HDRColorScale","1.0")
-    self.FireEffect:SetKeyValue("renderfx","0")
-    self.FireEffect:SetKeyValue("rendermode","2")
-    self.FireEffect:SetKeyValue("renderamt","255")
-    self.FireEffect:SetKeyValue("disablereceiveshadows","0")
-    self.FireEffect:SetKeyValue("mindxlevel","0")
-    self.FireEffect:SetKeyValue("maxdxlevel","0")
-    self.FireEffect:SetKeyValue("framerate","15.0")
-    self.FireEffect:SetKeyValue("spawnflags","0")
-    self.FireEffect:SetPos(self:GetPos())
-    self.FireEffect:Spawn()
-    self.FireEffect:SetParent(self)
-    self.FireEffect:Fire("SetParentAttachment","fire")
-    self:DeleteOnRemove(self.FireEffect)
+    local fireFX = ents.Create("env_sprite")
+    fireFX:SetKeyValue("model","vj_cofr/sprites/fire.vmt")
+    fireFX:SetKeyValue("scale","1")
+    fireFX:SetKeyValue("GlowProxySize","2.0")
+    fireFX:SetKeyValue("renderfx","0")
+    fireFX:SetKeyValue("rendermode","2")
+    fireFX:SetKeyValue("renderamt","255")
+    fireFX:SetKeyValue("disablereceiveshadows","0")
+    fireFX:SetKeyValue("framerate","10.0")
+    fireFX:SetKeyValue("spawnflags","0")
+    fireFX:SetPos(self:GetPos())
+    fireFX:Spawn()
+    fireFX:SetParent(self)
+    fireFX:Fire("SetParentAttachment","fire")
+    self:DeleteOnRemove(fireFX)
+    self.fireFX = fireFX
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
@@ -209,7 +207,7 @@ end
 function ENT:CustomRangeAttackCode()
  local ent = self:GetEnemy()
  if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
-     VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, 100)
+    VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, 100)
     local color = Color(0, 161, 255, 255) -- The shock wave color
     local dmg = 20 -- How much damage should the shock wave do?
     local enePos = ent:GetPos()
@@ -219,23 +217,23 @@ function ENT:CustomRangeAttackCode()
     effects.BeamRingPoint(enePos, 0.3, 2, 400, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
     effects.BeamRingPoint(enePos, 0.3, 2, 200, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
 
-    self.Lightning = ents.Create("env_sprite")
-    self.Lightning:SetKeyValue("model","vj_cofr/sprites/lightning.vmt")
-    self.Lightning:SetKeyValue("scale","1")
-    self.Lightning:SetKeyValue("rendercolor","0, 161, 255, 255")
-    self.Lightning:SetKeyValue("GlowProxySize","1.0")
-    self.Lightning:SetKeyValue("HDRColorScale","1.0")
-    self.Lightning:SetKeyValue("renderfx","0")
-    self.Lightning:SetKeyValue("rendermode","2")
-    self.Lightning:SetKeyValue("renderamt","255")
-    self.Lightning:SetKeyValue("disablereceiveshadows","0")
-    self.Lightning:SetKeyValue("framerate","15.0")
-    self.Lightning:SetKeyValue("spawnflags","0")
-    self.Lightning:SetPos(enePos + ent:GetUp()*60)
-    self.Lightning:Spawn()
-    self.Lightning:Activate()
-    self.Lightning:Fire("Kill","",0.2)
-    self:DeleteOnRemove(self.Lightning)
+    local lightningFX = ents.Create("env_sprite")
+    lightningFX:SetKeyValue("model","vj_cofr/sprites/lightning.vmt")
+    lightningFX:SetKeyValue("scale","1")
+    lightningFX:SetKeyValue("rendercolor","0, 161, 255, 255")
+    lightningFX:SetKeyValue("GlowProxySize","2.0")
+    lightningFX:SetKeyValue("renderfx","0")
+    lightningFX:SetKeyValue("rendermode","2")
+    lightningFX:SetKeyValue("renderamt","255")
+    lightningFX:SetKeyValue("disablereceiveshadows","0")
+    lightningFX:SetKeyValue("framerate","10.0")
+    lightningFX:SetKeyValue("spawnflags","0")
+    lightningFX:SetPos(enePos + ent:GetUp()*60)
+    lightningFX:Spawn()
+    lightningFX:Activate()
+    lightningFX:Fire("Kill","",0.2)
+    self:DeleteOnRemove(lightningFX)
+    self.lightningFX = lightningFX
 
     VJ.EmitSound(ent, "vj_cofr/aom/davidbad/thunder_hit.wav", 90, 100) end end)
     end
@@ -274,7 +272,7 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
      if self.Addiction_OnFire then
         self.Addiction_OnFire = false
-     if IsValid(self.FireEffect) then self.FireEffect:Remove() end
+     if IsValid(self.fireFX) then self.fireFX:Remove() end
         self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
         VJ.STOPSOUND(self.Addiction_FireLoop)
         timer.Remove("VJ_COFR_Addiction_Fire")
