@@ -83,7 +83,7 @@ end
 function ENT:TranslateActivity(act)
  if act == ACT_IDLE && self.Watro_Burrowed then
         return ACT_IDLE_RELAXED
- elseif !self.Watro_Burrowed && act == ACT_IDLE then
+ elseif act == ACT_IDLE && !self.Watro_Burrowed then
         return ACT_IDLE_STIMULATED
 end
     return self.BaseClass.TranslateActivity(self,act)

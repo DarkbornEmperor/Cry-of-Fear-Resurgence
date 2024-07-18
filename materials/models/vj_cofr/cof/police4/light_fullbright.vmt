@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/police1/light_fullbright"
-                "$additive" 1
+    "$additive" 1
 }

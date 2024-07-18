@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/aom/face/Sci3(R-Leg)"
-                "$additive" 1
-                "$nodecal" 1
+    "$additive" 1
+    "$nodecal" 1
 }
