@@ -22,8 +22,6 @@ ENT.AnimTbl_RangeAttack = "vjseq_spit"
 ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true
-ENT.RangeUseAttachmentForPosID = "mouth"
 ENT.NextRangeAttackTime = 1
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -78,10 +76,13 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-    local ene = self:GetEnemy()
-    local projPos = projectile:GetPos()
-    return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(ene, projPos, 1, 1500), 1500)
+function ENT:RangeAttackProjVelocity(projectile)
+	local projPos = projectile:GetPos()
+	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetAttachment(self:LookupAttachment("range")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)

@@ -127,10 +127,9 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
     return self:GetForward()*55 + self:GetUp()*255
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-    local ene = self:GetEnemy()
-    local projPos = projectile:GetPos()
-    return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(ene, projPos, 1, 1500), 1500)
+function ENT:RangeAttackProjVelocity(projectile)
+	local projPos = projectile:GetPos()
+	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)

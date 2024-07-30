@@ -26,8 +26,6 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_carcasshead"
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true
-ENT.RangeUseAttachmentForPosID = "range"
 ENT.NextRangeAttackTime = 25
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
@@ -116,10 +114,13 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-    local ene = self:GetEnemy()
-    local projPos = projectile:GetPos()
-    return self:CalculateProjectile("Line", projPos, self:GetAimPosition(ene, projPos, 1, 700), 700)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetAttachment(self:LookupAttachment("range")).Pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
+	local projPos = projectile:GetPos()
+	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)

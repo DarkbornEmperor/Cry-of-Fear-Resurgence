@@ -24,7 +24,6 @@ ENT.NextAnyAttackTime_Melee = 1.5
 ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.MeleeAttackAnimationAllowOtherTasks = true
 ENT.WeaponReload_FindCover = false
 ENT.NextMoveRandomlyWhenShootingTime = VJ.SET(0,0.2)
 ENT.WaitForEnemyToComeOut = false

@@ -192,29 +192,31 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
+function ENT:MultipleRangeAttacks()
     if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
         self.AnimTbl_RangeAttack = {"vjseq_shoot"}
-        self.RangeAttackPos_Up = 80
         self.Screamer_HomingAttack = true
     else
         self.AnimTbl_RangeAttack = {"vjseq_attack1","vjseq_attack2"}
-        self.RangeAttackPos_Up = 20
         self.Screamer_HomingAttack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-    if self.Screamer_HomingAttack && IsValid(self:GetEnemy()) then
-        projectile.Track_Enemy = self:GetEnemy()
-        timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
-    end
+	local ene = self:GetEnemy()
+	if self.Screamer_HomingAttack && IsValid(ene) then
+		projectile.Track_Enemy = ene
+		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-    local ene = self:GetEnemy()
-    local projPos = projectile:GetPos()
-    return self:CalculateProjectile("Line", projPos, self:GetAimPosition(ene, projPos, 1, 700), 700)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetPos() + self:GetUp() * (self.Screamer_HomingAttack and 80 or 20)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
+	local projPos = projectile:GetPos()
+	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)

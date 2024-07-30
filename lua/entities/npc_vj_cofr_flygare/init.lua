@@ -28,8 +28,6 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_spit"
 ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 300
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true
-ENT.RangeUseAttachmentForPosID = "range"
 ENT.NextRangeAttackTime = 1
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
@@ -145,10 +143,13 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-    local ene = self:GetEnemy()
+function ENT:RangeAttackProjVelocity(projectile)
     local projPos = projectile:GetPos()
-    return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(ene, projPos, 1, 1500), 1500)
+    return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjSpawnPos(projectile)
+    return self:GetAttachment(self:LookupAttachment("range")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
