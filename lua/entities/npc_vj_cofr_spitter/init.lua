@@ -77,12 +77,12 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+    local projPos = projectile:GetPos()
+    return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjSpawnPos(projectile)
-	return self:GetAttachment(self:LookupAttachment("range")).Pos
+    return self:GetAttachment(self:LookupAttachment("range")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)

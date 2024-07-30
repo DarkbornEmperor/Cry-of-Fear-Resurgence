@@ -203,20 +203,20 @@ function ENT:MultipleRangeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	local ene = self:GetEnemy()
-	if self.Screamer_HomingAttack && IsValid(ene) then
-		projectile.Track_Enemy = ene
-		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
-	end
+    local ene = self:GetEnemy()
+    if self.Screamer_HomingAttack && IsValid(ene) then
+        projectile.Track_Enemy = ene
+        timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjSpawnPos(projectile)
-	return self:GetPos() + self:GetUp() * (self.Screamer_HomingAttack and 80 or 20)
+    return self:GetPos() + self:GetUp() * (self.Screamer_HomingAttack and 80 or 20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
+    local projPos = projectile:GetPos()
+    return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)

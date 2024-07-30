@@ -24,8 +24,6 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_eyeball"
 ENT.RangeDistance = 1100
 ENT.RangeToMeleeDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.RangeUseAttachmentForPos = true
-ENT.RangeUseAttachmentForPosID = "hornet"
 ENT.NextRangeAttackTime = 0
 ENT.NoChaseAfterCertainRange = true
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
@@ -167,6 +165,10 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
     if IsValid(ene) then
         projectile.Track_Enemy = ene
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjSpawnPos(projectile)
+    return self:GetAttachment(self:LookupAttachment("hornet")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
