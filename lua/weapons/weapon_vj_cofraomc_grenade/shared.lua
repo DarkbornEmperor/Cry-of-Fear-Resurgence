@@ -50,7 +50,7 @@ end
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
     if CLIENT then return end
     local grenade = ents.Create("obj_vj_cofraomc_grenade")
-    grenade:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
+    grenade:SetPos(self:GetBulletPos())
     grenade:SetAngles(self:GetOwner():GetAngles())
     grenade:SetOwner(self:GetOwner())
     grenade:Spawn()
@@ -58,6 +58,6 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 
     local phys = grenade:GetPhysicsObject()
     if IsValid(phys) then
-        phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetNW2Vector("VJ_CurBulletPos"), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
+        phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetBulletPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
     end
 end
