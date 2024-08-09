@@ -8,8 +8,8 @@ SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.6
 SWEP.NPC_CustomSpread = 2.5
-//SWEP.NPC_ReloadSound = {""}
-SWEP.NPC_ExtraFireSound    = {"vj_cofr/aom/weapons/shotgun/shotgun_pump.wav"}
+//SWEP.NPC_ReloadSound = ""
+SWEP.NPC_ExtraFireSound    = "vj_cofr/aom/weapons/shotgun/shotgun_pump.wav"
 SWEP.NPC_ExtraFireSoundTime    = 0.5
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_CanBePickedUp = false
@@ -29,12 +29,12 @@ SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 8
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Buckshot"
-SWEP.Primary.Sound = {"vj_cofr/aom/weapons/shotgun/shotgun_fire.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}
+SWEP.Primary.Sound = "vj_cofr/aom/weapons/shotgun/shotgun_fire.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/sbarrel1_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
+SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   self:SetModelScale(0.90)

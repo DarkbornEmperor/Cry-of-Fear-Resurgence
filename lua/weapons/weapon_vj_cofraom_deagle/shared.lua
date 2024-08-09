@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.5
-//SWEP.NPC_ReloadSoun = {""}
+//SWEP.NPC_ReloadSoun = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -25,12 +25,12 @@ SWEP.Primary.Damage = 40
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 7
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound = {"vj_cofr/aom/weapons/deagle/deagle_fire.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/desert_eagle_fire_distant_final.wav"}
+SWEP.Primary.Sound = "vj_cofr/aom/weapons/deagle/deagle_fire.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/desert_eagle_fire_distant_final.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
+SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   self:SetModelScale(0.75)

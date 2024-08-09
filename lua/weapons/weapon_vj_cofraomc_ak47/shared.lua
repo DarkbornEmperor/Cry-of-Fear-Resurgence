@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.08
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_HasSecondaryFire = true
 SWEP.NPC_SecondaryFireEnt = "obj_vj_cofraomc_grenade_40mm"
 SWEP.NPC_SecondaryFireSound = {"vj_cofr/aom/weapons/ak47/glauncher.wav","vj_cofr/aom/weapons/ak47/glauncher2.wav"}
@@ -29,11 +29,11 @@ SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 50
 SWEP.Primary.Ammo = "SMG1"
 SWEP.Primary.Sound = {"vj_cofr/aom/weapons/ak47/hks1.wav","vj_cofr/aom/weapons/ak47/hks2.wav","vj_cofr/aom/weapons/ak47/hks3.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/hks_distant_new.wav"}
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
+SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
     self:SetModelScale(0.7)

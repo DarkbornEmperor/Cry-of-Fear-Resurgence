@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.05
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -24,12 +24,12 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 15
 SWEP.Primary.ClipSize = 18
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = {"vj_cofr/cof/weapons/vp70/vp70_fire.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/glock_distant2.wav"}
+SWEP.Primary.Sound = "vj_cofr/cof/weapons/vp70/vp70_fire.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/glock_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
+SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   local owner = self:GetOwner()

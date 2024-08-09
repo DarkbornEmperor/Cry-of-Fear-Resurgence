@@ -7,9 +7,9 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 2.5
-SWEP.NPC_ExtraFireSound    = {"vj_cofr/cof/weapons/rifle/rifle_cock_back.wav"}
-SWEP.NPC_ExtraFireSoundTime    = 0.5
-SWEP.NPC_ReloadSound = {"vj_weapons/reload_boltaction.wav"}
+SWEP.NPC_ExtraFireSound = "vj_cofr/cof/weapons/rifle/rifle_cock_back.wav"
+SWEP.NPC_ExtraFireSoundTime = 0.5
+SWEP.NPC_ReloadSound = "vj_weapons/reload_boltaction.wav"
 SWEP.NPC_FiringDistanceScale = 2.5
 SWEP.NPC_StandingOnly = true
 SWEP.NPC_CanBePickedUp = false
@@ -30,16 +30,16 @@ SWEP.Primary.Damage = 70
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 5
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound = {"vj_cofr/cof/weapons/rifle/rifle_fire.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/sniper_fire_distant2.wav"}
+SWEP.Primary.Sound = "vj_cofr/cof/weapons/rifle/rifle_fire.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/sniper_fire_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
+SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.Primary.Sound = {"vj_cofr/cof/weapons/rifle/old/rifle_fire.wav"}
+    self.Primary.Sound = "vj_cofr/cof/weapons/rifle/old/rifle_fire.wav"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

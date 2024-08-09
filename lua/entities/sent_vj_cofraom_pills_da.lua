@@ -5,14 +5,14 @@
 --------------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base            = "sent_vj_cofraom_pills"
-ENT.Type            = "anim"
-ENT.PrintName       = "Pills (Dark Assistance)"
-ENT.Author          = "Darkborn"
-ENT.Contact         = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose         = "Provides health."
-ENT.Instructions    = "Don't change anything."
-ENT.Category        = "CoF Resurgence: AoM"
+ENT.Base = "sent_vj_cofraom_pills"
+ENT.Type = "anim"
+ENT.PrintName = "Pills (Dark Assistance)"
+ENT.Author = "Darkborn"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Purpose = "Provides health."
+ENT.Instructions = "Don't change anything."
+ENT.Category = "CoF Resurgence: AoM"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 

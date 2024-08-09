@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.35
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -24,12 +24,12 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 20 -- Damage
 SWEP.Primary.ClipSize = 17 -- Max amount of bullets per clip
 SWEP.Primary.Ammo = "Pistol" -- Ammo type
-SWEP.Primary.Sound = {"vj_cofr/aom/weapons/beretta/classic/pl_gun3.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/glock_distant2.wav"}
+SWEP.Primary.Sound = "vj_cofr/aom/weapons/beretta/classic/pl_gun3.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/glock_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
+SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
     self:SetModelScale(0.5)

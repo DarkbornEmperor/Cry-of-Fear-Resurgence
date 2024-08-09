@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.5
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -25,17 +25,17 @@ SWEP.Primary.Damage = 40
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 5
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound = {"vj_cofr/cof/weapons/revolver/revolver_fire.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/357_shot_distant_final.wav"}
+SWEP.Primary.Sound = "vj_cofr/cof/weapons/revolver/revolver_fire.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/357_shot_distant_final.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
+SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.Primary.Sound = {"vj_cofr/cof/weapons/revolver/old/revolver_fire.wav"}
+    self.Primary.Sound = "vj_cofr/cof/weapons/revolver/old/revolver_fire.wav"
 end
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofr_police" then
@@ -48,8 +48,8 @@ end
   if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrc_robert" then
         self.NPC_NextPrimaryFire = 1
         self.Primary.Damage    = 13
-        if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/old/revolver_reload.wav"} end
-        self.NPC_ReloadSound = {"vj_cofr/cof/doc_ai/revolver_reload.wav"}
+        if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then self.NPC_ReloadSound = "vj_cofr/cof/doc_ai/old/revolver_reload.wav" end
+        self.NPC_ReloadSound = "vj_cofr/cof/doc_ai/revolver_reload.wav"
         end
     end
 end

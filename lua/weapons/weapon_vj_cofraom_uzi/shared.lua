@@ -7,10 +7,10 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.07
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_uzi.mdl"
 SWEP.HoldType = "smg"
 SWEP.CoFR_HoldType = "uzi"
@@ -25,13 +25,13 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 60
 SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound = {"vj_cofr/aom/weapons/uzi/uzi_fire.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/hks_distant_new.wav"}
+SWEP.Primary.Sound = "vj_cofr/aom/weapons/uzi/uzi_fire.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
+SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   self:SetModelScale(0.6)

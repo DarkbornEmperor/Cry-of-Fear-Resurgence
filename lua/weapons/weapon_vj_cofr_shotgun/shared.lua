@@ -8,9 +8,9 @@ SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.6
 SWEP.NPC_CustomSpread = 2.5
-//SWEP.NPC_ReloadSound = {""}
-SWEP.NPC_ExtraFireSound    = {"vj_cofr/cof/weapons/shotgun/pump_seq.wav"}
-SWEP.NPC_ExtraFireSoundTime    = 0.5
+//SWEP.NPC_ReloadSound = ""
+SWEP.NPC_ExtraFireSound = "vj_cofr/cof/weapons/shotgun/pump_seq.wav"
+SWEP.NPC_ExtraFireSoundTime = 0.5
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,17 +29,17 @@ SWEP.Primary.Damage = 5
 SWEP.Primary.NumberOfShots = 6
 SWEP.Primary.ClipSize = 5
 SWEP.Primary.Ammo = "Buckshot"
-SWEP.Primary.Sound = {"vj_cofr/cof/weapons/shotgun/shoot.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}
+SWEP.Primary.Sound = "vj_cofr/cof/weapons/shotgun/shoot.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/sbarrel1_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/cof/weapons/weapon_fire_empty.wav"}
+SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.Primary.Sound = {"vj_cofr/cof/weapons/shotgun/old/shoot.wav"}
-    self.NPC_ExtraFireSound    = {"vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"}
+    self.Primary.Sound = "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
+    self.NPC_ExtraFireSound    = "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
 end
   self:SetModelScale(0.85)
   local owner = self:GetOwner()

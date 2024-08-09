@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_TimeUntilFire = 0.06
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -22,16 +22,16 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0, -170, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(3.5, -2, -0.7)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 45 -- Damage
-SWEP.Primary.ClipSize = 30 -- Max amount of bullets per clip
-SWEP.Primary.Ammo = "SMG1" -- Ammo type
-SWEP.Primary.Sound = {"vj_cofr/aom/weapons/l85/gm_expell.wav"}
-SWEP.Primary.DistantSound = {"vj_cofr/fx/distant/hks_distant_new.wav"}
+SWEP.Primary.Damage = 45
+SWEP.Primary.ClipSize = 30
+SWEP.Primary.Ammo = "SMG1"
+SWEP.Primary.Sound = "vj_cofr/aom/weapons/l85/gm_expell.wav"
+SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = {"vj_cofr/aom/weapons/dryfire.wav"}
+SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
   self:SetModelScale(0.60)

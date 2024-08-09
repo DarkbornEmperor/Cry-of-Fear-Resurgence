@@ -9,7 +9,7 @@ SWEP.Category = "Cry of Fear Resurgence"
 SWEP.NPC_NextPrimaryFire = 2.5
 SWEP.NPC_TimeUntilFire = 0.8
 SWEP.NPC_FiringDistanceScale = 0.65
-//SWEP.NPC_ReloadSound = {""}
+//SWEP.NPC_ReloadSound = ""
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -26,7 +26,7 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 1 -- Damage
 SWEP.Primary.ClipSize = 10
 SWEP.Primary.Ammo = "grenade"
-SWEP.Primary.Sound = {"vj_cofr/fx/null.wav"}
+SWEP.Primary.Sound = "vj_cofr/fx/null.wav"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.Primary.DisableBulletCode = true
 SWEP.HasDryFireSound = false

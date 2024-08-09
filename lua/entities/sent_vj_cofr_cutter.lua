@@ -5,14 +5,14 @@
 --------------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base            = "prop_vj_animatable"
-ENT.Type            = "anim"
-ENT.PrintName       = "Cutter"
-ENT.Author          = "Darkborn"
-ENT.Contact         = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose         = "Used to make simple props and animate them, since prop_dynamic doesn't work properly in Garry's Mod."
-ENT.Instructions    = "Don't change anything."
-ENT.Category        = "Cry of Fear Resurgence"
+ENT.Base = "prop_vj_animatable"
+ENT.Type = "anim"
+ENT.PrintName = "Cutter"
+ENT.Author = "Darkborn"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Purpose = "Used to make simple props and animate them, since prop_dynamic doesn't work properly in Garry's Mod."
+ENT.Instructions = "Don't change anything."
+ENT.Category = "Cry of Fear Resurgence"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 

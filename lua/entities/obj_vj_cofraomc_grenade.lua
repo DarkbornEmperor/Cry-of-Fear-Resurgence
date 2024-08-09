@@ -5,13 +5,13 @@
 --------------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Type            = "anim"
-ENT.Base            = "obj_vj_projectile_base"
-ENT.PrintName       = "Grenade"
-ENT.Author          = "Darkborn"
-ENT.Contact         = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Type = "anim"
+ENT.Base = "obj_vj_projectile_base"
+ENT.PrintName = "Grenade"
+ENT.Author = "Darkborn"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information     = "Projectile, usually used for NPCs & Weapons"
-ENT.Category        = "Projectiles"
+ENT.Category = "Projectiles"
 
 if CLIENT then
     local Name = "Grenade"
