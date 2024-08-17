@@ -30,7 +30,7 @@ if VJExists == true then
     VJ.AddNPC("Flygare","npc_vj_cofr_flygare",spawnCategory)
     VJ.AddNPC("Krypandenej","npc_vj_cofr_krypandenej",spawnCategory)
     VJ.AddNPC("Psycho","npc_vj_cofr_psycho",spawnCategory)
-     VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",spawnCategory)
+    VJ.AddNPC("Sewmo","npc_vj_cofr_sewmo",spawnCategory)
     VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",spawnCategory)
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",spawnCategory)
     VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",spawnCategory)
@@ -530,7 +530,7 @@ if VJExists == true then
                 VJ_COFR_SparkFX = "0",
 }
                 Panel:AddControl("ComboBox", vj_cofrreset_cs)
-                 Panel:AddControl( "Label", {Text = "Client-Side Options:"})
+                Panel:AddControl("Label", {Text = "Client-Side Options:"})
                 Panel:AddControl("Checkbox", {Label = "Enable GoldSrc-Style Sparks On Metal Surfaces?", Command = "VJ_COFR_SparkFX"})
                 Panel:ControlHelp("Applies ONLY to CoFR weapons!")
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
@@ -538,7 +538,7 @@ if VJExists == true then
                 Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
     return
 end
-            Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+            Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
             local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset.Options["#vjbase.menugeneral.default"] = {
                 VJ_COFR_Boss_Music = "1",
@@ -567,7 +567,7 @@ end
 }
             Panel:AddControl("ComboBox", vj_cofrreset)
             Panel:ControlHelp("Note: Only future spawned SNPCs will be affected!")
-            Panel:AddControl( "Label", {Text = "Options:"})
+            Panel:AddControl("Label", {Text = "Options:"})
             Panel:AddControl("Checkbox", {Label ="Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
             Panel:AddControl("Checkbox", {Label ="Enable Hoodie Skins For Simon?", Command ="VJ_COFR_Simon_Costumes"})
             Panel:AddControl("Checkbox", {Label ="Enable Only Original Weapons For Book Simon?", Command ="VJ_COFR_BookSimon_Normal"})
@@ -595,17 +595,17 @@ end
 end)
 -- Map Spawner Configure Menu --
          spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Map Spawner)", "CoF Resurgence (Map Spawner)", "", "", function(Panel)
-                 Panel:AddControl( "Label", {Text = "Client-Side Options:"})
+                Panel:AddControl("Label", {Text = "Client-Side Options:"})
                 Panel:AddControl("Checkbox", {Label ="Enable Music?", Command ="VJ_COFR_MapSpawner_Music"})
                 Panel:AddControl("Checkbox", {Label ="Enable Ambience?", Command ="VJ_COFR_MapSpawner_Ambience"})
-                Panel:AddControl("Slider", { Label     = "Music Volume", Command = "VJ_COFR_MapSpawner_MusicVolume", Type = "Float", Min = "10", Max = "100"})
-                Panel:AddControl("Slider", { Label     = "Ambience Volume", Command = "VJ_COFR_MapSpawner_AmbienceVolume", Type = "Float", Min = "10", Max = "100"})
+                Panel:AddControl("Slider", {Label     = "Music Volume", Command = "VJ_COFR_MapSpawner_MusicVolume", Type = "Float", Min = "10", Max = "100"})
+                Panel:AddControl("Slider", {Label     = "Ambience Volume", Command = "VJ_COFR_MapSpawner_AmbienceVolume", Type = "Float", Min = "10", Max = "100"})
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
                 Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-                Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
     return
 end
-            Panel:AddControl( "Label", {Text = "Note: Only Admins can change these settings!"})
+            Panel:AddControl("Label", {Text = "Note: Only Admins can change these settings!"})
             local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset_mapspawner.Options["#vjbase.menugeneral.default"] = {
                 VJ_COFR_MapSpawner_Music = "1",
@@ -622,18 +622,18 @@ end
                 VJ_COFR_MapSpawner_DelayMax = "3",
 }
             Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
-            Panel:AddControl( "Label", {Text = "Options:"})
+            Panel:AddControl("Label", {Text = "Options:"})
             Panel:AddControl("Checkbox", {Label = "Enable Map Spawner Processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
             Panel:AddControl("Checkbox", {Label ="Enable Bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
-            Panel:AddControl("Slider", { Label     = "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
-            Panel:AddControl("Slider", { Label     = "Min Distance They Can Spawn From Players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
-            Panel:AddControl("Slider", { Label     = "Max Distance They Can Spawn From Players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
-            Panel:AddControl("Slider", { Label     = "Min Time Between Spawns", Command = "VJ_COFR_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
-            Panel:AddControl("Slider", { Label     = "Max Time Between Spawns", Command = "VJ_COFR_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
-            Panel:AddControl("Slider", { Label     = "Max Monster Horde", Command = "VJ_COFR_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
-            Panel:AddControl("Slider", { Label     = "Chance That A Horde Will Appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
-            Panel:AddControl("Slider", { Label     = "Min Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
-            Panel:AddControl("Slider", { Label     = "Max Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
+            Panel:AddControl("Slider", {Label = "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
+            Panel:AddControl("Slider", {Label = "Min Distance They Can Spawn From Players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
+            Panel:AddControl("Slider", {Label = "Max Distance They Can Spawn From Players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
+            Panel:AddControl("Slider", {Label = "Min Time Between Spawns", Command = "VJ_COFR_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
+            Panel:AddControl("Slider", {Label = "Max Time Between Spawns", Command = "VJ_COFR_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
+            Panel:AddControl("Slider", {Label = "Max Monster Horde", Command = "VJ_COFR_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
+            Panel:AddControl("Slider", {Label = "Chance That A Horde Will Appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
+            Panel:AddControl("Slider", {Label = "Min Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
+            Panel:AddControl("Slider", {Label = "Max Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
             Panel:AddPanel(typebox)
         end)
     end)
