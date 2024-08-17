@@ -26,13 +26,13 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_small.mdl"}
+ENT.Model = "models/spitball_small.mdl"
 ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 70
 ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
-ENT.SoundTbl_OnCollide = {"vj_cofr/cof/flygare/flygare_acid_hit.wav"}
+ENT.SoundTbl_OnCollide = "vj_cofr/cof/flygare/flygare_acid_hit.wav"
 ENT.DecalTbl_DeathDecals = {"VJ_COFR_Blood_Red_Large"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)

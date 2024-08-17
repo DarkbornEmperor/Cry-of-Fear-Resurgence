@@ -28,12 +28,12 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/cof/biden_box.mdl"}
+ENT.Model = "models/vj_cofr/cof/biden_box.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
 ENT.CollideCodeWithoutRemoving = false
-ENT.SoundTbl_OnCollide = {"vj_cofr/cof/roofboss/milkme.wav"}
+ENT.SoundTbl_OnCollide = "vj_cofr/cof/roofboss/milkme.wav"
 -- Custom
 local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL

@@ -26,7 +26,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/aom/hornet.mdl"}
+ENT.Model = "models/vj_cofr/aom/hornet.mdl"
 ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE
 ENT.RemoveOnHit = false
 ENT.DoesDirectDamage = true

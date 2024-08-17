@@ -26,7 +26,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/aom/weapons/classic/grenade.mdl"}
+ENT.Model = "models/vj_cofr/aom/weapons/classic/grenade.mdl"
 ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 150
 ENT.RadiusDamage = 80

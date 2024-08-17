@@ -26,7 +26,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_small.mdl"}
+ENT.Model = "models/spitball_small.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 10
 ENT.DirectDamageType = DMG_SHOCK

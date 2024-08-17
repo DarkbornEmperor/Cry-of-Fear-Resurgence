@@ -26,12 +26,12 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_cofr/cof/hookedhead.mdl"}
+ENT.Model = "models/vj_cofr/cof/hookedhead.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
 ENT.CollideCodeWithoutRemoving = false
-ENT.SoundTbl_OnCollide = {"vj_cofr/cof/roofboss/rb_headhit.wav"}
+ENT.SoundTbl_OnCollide = "vj_cofr/cof/roofboss/rb_headhit.wav"
 ENT.DecalTbl_DeathDecals = {"VJ_COFR_Blood_Red_Large"}
 -- Custom
 local defVec = Vector(0, 0, 0)
