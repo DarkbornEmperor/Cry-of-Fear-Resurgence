@@ -45,7 +45,7 @@ local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)
 --
 function ENT:DeathEffects()
-    local selfPos = self:GetPos()
+    local myPos = self:GetPos()
 
     local spr = ents.Create("env_sprite")
     spr:SetKeyValue("model","vj_cofr/sprites/zerogxplode.vmt")
@@ -60,15 +60,19 @@ function ENT:DeathEffects()
     spr:SetKeyValue("framerate","15.0")
     spr:SetKeyValue("spawnflags","0")
     spr:SetKeyValue("scale","4")
-    spr:SetPos(selfPos + vezZ90)
+    spr:SetPos(myPos + vezZ90)
     spr:Spawn()
     spr:Fire("Kill", "", 0.9)
     timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 
+    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris"..math.random(1,3)..".wav", 80, 100)
+    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode"..math.random(3,5).."_dist.wav", 140, 100)
+    util.ScreenShake(myPos, 100, 200, 1, 2500)
+
     local expLight = ents.Create("light_dynamic")
     expLight:SetKeyValue("brightness", "4")
     expLight:SetKeyValue("distance", "300")
-    expLight:SetLocalPos(selfPos)
+    expLight:SetLocalPos(myPos)
     expLight:SetLocalAngles(self:GetAngles())
     expLight:Fire("Color", "255 150 0")
     //expLight:SetParent(self)
@@ -76,19 +80,16 @@ function ENT:DeathEffects()
     expLight:Activate()
     expLight:Fire("TurnOn", "", 0)
     expLight:Fire("Kill","",0.08)
-    util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 
-    self:SetLocalPos(selfPos + vecZ4) -- Because the entity is too close to the ground
+    self:SetLocalPos(myPos + vecZ4) -- Because the entity is too close to the ground
     local tr = util.TraceLine({
-        start = self:GetPos(),
-        endpos = self:GetPos() - vezZ100,
+        start = myPos,
+        endpos = myPos - vezZ100,
         filter = self
     })
     util.Decal(VJ.PICK(self.DecalTbl_DeathDecals), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 
     self:DoDamageCode()
     self:SetDeathVariablesTrue(nil, nil, false)
-    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris"..math.random(1,3)..".wav", 80, 100)
-    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode"..math.random(3,5).."_dist.wav", 140, 100)
     self:Remove()
 end

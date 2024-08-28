@@ -25,8 +25,6 @@ ENT.NextLeapAttackTime = 1
 ENT.LeapAttackExtraTimers = {0.6, 0.8, 1, 1.2, 1.4}
 ENT.NextAnyAttackTime_Leap = 3
 ENT.StopLeapAttackAfterFirstHit = true
-ENT.LeapAttackVelocityForward = 70
-ENT.LeapAttackVelocityUp = 200
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -83,6 +81,10 @@ function ENT:CustomOnInitialize()
     self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
     self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 30))
     self:Handcrab_CustomOnInitialize()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetLeapAttackVelocity()
+    return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
