@@ -42,7 +42,7 @@ function ENT:Devourer_CalculateTongue()
     -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
     self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024)
 
-    if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_IsHugeMonster != true then
+    if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJTag_ID_Boss != true then
         -- If the grabbed enemy is a new enemy then reset the enemy values
         if self.Devourer_CurEnt != trHitEnt then
             self:Devourer_ResetEnt()

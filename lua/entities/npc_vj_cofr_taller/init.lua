@@ -9,7 +9,7 @@ ENT.Model = "models/vj_cofr/cof/taller.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
-ENT.VJ_IsHugeMonster = true
+ENT.VJTag_ID_Boss = true
 ENT.BloodColor = "Red"
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
@@ -133,7 +133,7 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
         self.MeleeAttackDamage = 200
     end
 end
-     if self:GetSequence() == self:LookupSequence("attack") && (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_IsHugeMonster && !hitEnt.IsVJBaseSNPC_Tank) then
+     if self:GetSequence() == self:LookupSequence("attack") && (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJTag_ID_Boss && !hitEnt.IsVJBaseSNPC_Tank) then
         hitEnt:StopMoving()
         hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)
         timer.Simple(4,function() if IsValid(hitEnt) then
