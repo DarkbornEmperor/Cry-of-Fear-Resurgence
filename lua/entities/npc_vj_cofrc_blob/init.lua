@@ -40,7 +40,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 60),
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/custom/blob/final2.mp3"
 }

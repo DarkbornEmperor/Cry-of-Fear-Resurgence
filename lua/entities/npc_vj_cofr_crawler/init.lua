@@ -19,7 +19,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/slower/k_crawl1.wav",
 "vj_cofr/cof/slower/k_crawl2.wav",

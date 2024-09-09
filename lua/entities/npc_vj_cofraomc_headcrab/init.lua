@@ -8,7 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/headcrab.mdl"
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_LeapAttackDamage  = {
 "vj_cofr/aom/handcrab/classic/hc_headbite.wav"
 }

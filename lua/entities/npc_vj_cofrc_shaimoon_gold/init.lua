@@ -16,7 +16,6 @@ ENT.HasRangeAttack = false
 ENT.CanTurnWhileMoving = true
 ENT.HasSoundTrack = false
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/fx/npc_step1.wav"
 }

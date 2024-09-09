@@ -45,7 +45,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FireLoop = {
 "vj_cofr/aom/davidbad/fire_loop.wav"
 }

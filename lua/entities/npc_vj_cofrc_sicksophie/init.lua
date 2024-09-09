@@ -13,7 +13,6 @@ ENT.BeforeMeleeAttackSoundPitch = VJ.SET(120, 120)
 ENT.PainSoundPitch = VJ.SET(120, 120)
 ENT.DeathSoundPitch = VJ.SET(120, 120)
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faceless/fist_strike1.wav",
 "vj_cofr/cof/faceless/fist_strike2.wav",

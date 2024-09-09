@@ -10,7 +10,6 @@ ENT.Model = "models/vj_cofr/custom/slowerno_boss.mdl"
 ENT.StartHealth = 300
 ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/custom/abomination/watro.mp3"
 }

@@ -9,7 +9,6 @@ include("shared.lua")
 ENT.Model = {"models/vj_cofr/aom/cross.mdl","models/vj_cofr/aom/question.mdl","models/vj_cofr/aom/scream.mdl","models/vj_cofr/aom/two.mdl"}
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/pill_bottle.mdl"
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FollowPlayer = {
 "vj_cofr/aom/player_da/helpyou.wav"
 }

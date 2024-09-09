@@ -47,7 +47,6 @@ ENT.VJC_Data = {
     FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/devourer/bcl_bite3.wav",
 "vj_cofr/aom/devourer/bcl_chew1.wav",

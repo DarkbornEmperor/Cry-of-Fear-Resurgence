@@ -44,7 +44,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(12, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/lurker/ichy_bite1.wav",
 "vj_cofr/aom/lurker/ichy_bite2.wav"

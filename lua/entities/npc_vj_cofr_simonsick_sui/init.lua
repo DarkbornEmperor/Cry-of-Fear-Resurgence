@@ -45,7 +45,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/sicksimon/wheelchair_move1.wav",
 "vj_cofr/cof/sicksimon/wheelchair_move2.wav",

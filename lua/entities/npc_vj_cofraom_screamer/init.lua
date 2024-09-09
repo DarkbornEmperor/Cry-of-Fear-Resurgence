@@ -46,7 +46,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(10, 0, -3), -- The offset for the screamer when the camera is in first person
 }
     -- ====== Sound File Paths ====== --
-    -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
