@@ -79,7 +79,7 @@ ENT.Slower_Type = 0
     -- 9 = Custom Slower 10
     -- 10 = Misc Custom
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
  local Slower_Body = math.random(1,3)
  if Slower_Body == 1 then
     self.Slower_Skin = 0
@@ -110,7 +110,7 @@ end
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/custom/pedoslow.mdl" then // Already the default
         self.Slower_Type = 0
         self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
@@ -149,10 +149,10 @@ function ENT:CustomOnInitialize()
         self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Slower_CustomOnInitialize()
+    self:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -169,49 +169,46 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
  if self.Slower_Type == 3 then return end
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav")
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+function ENT:OnFlinch(dmginfo,hitgroup,status)
+ if status == "PriorExecution" then
     if dmginfo:GetDamage() > 30 then
-        self.FlinchChance = 8
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
-        self.FlinchChance = 16
         self.AnimTbl_Flinch = ACT_SMALL_FLINCH
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-     if self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then
-     if hitgroup == HITGROUP_HEAD then
-        self.AnimTbl_Death = ACT_DIE_HEADSHOT
-     else
-        self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-    end
-end
-    if self.Slower_Type == 0 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 then
-    local headsplat = math.random(1,3)
-    if headsplat == 1 && hitgroup == HITGROUP_HEAD then
-        self.AnimTbl_Death = ACT_DIEVIOLENT
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+     if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
+     if hitgroup == HITGROUP_HEAD then
+        self.AnimTbl_Death = ACT_DIE_HEADSHOT
+     else
+        self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
+    end
+end
+    if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5) then
+    local headsplat = math.random(1,3)
+    if headsplat == 1 && hitgroup == HITGROUP_HEAD then
+        self.AnimTbl_Death = ACT_DIEVIOLENT
+    end
+end
     if GetConVar("VJ_COFR_Slower_HeadGib"):GetInt() == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end
-    if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+    if status == "Initial" && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
     if self.Slower_Skin == 0 then self:SetBodygroup(0,3)
     elseif self.Slower_Skin == 1 then self:SetBodygroup(0,4)
     elseif self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
 
-    if self.HasGibDeathParticles then
+    if self.HasGibOnDeathEffects then
         local effectData = EffectData()
         effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
         effectData:SetColor(colorRed)
@@ -225,19 +222,18 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-        return true,{DeathAnim=true}
 end
     VJ_COFR_DeathCode(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup) return false end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

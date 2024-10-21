@@ -1,5 +1,5 @@
 "VertexlitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/weapons/browning/slide"
-    "$nodecal" 1
+    "$nodecal" "1"
 }

@@ -44,7 +44,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
     phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetNoDraw(true)
     self.StartSoul1 = ents.Create("env_sprite")
     self.StartSoul1:SetKeyValue("model","vj_cofr/sprites/soul_range.vmt")
@@ -66,7 +66,7 @@ function ENT:CustomOnInitialize()
     self:DeleteOnRemove(self.StartSoul1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     if IsValid(self.Track_Enemy) then -- Homing Behavior
         self.DirectDamage = 25
         local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()

@@ -1,6 +1,7 @@
 "VertexlitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/sicksimon/tex1"
-    "$alphatest" 1
-    "$nodecal" 1
+    "$alphatest" "1"
+    "$nodecal" "1"
+    "$nocull" "1"
 }

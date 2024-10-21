@@ -46,7 +46,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Spitter_CustomOnInitialize()
+function ENT:Spitter_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/flygare/flygare_alert1.wav",
     "vj_cofr/cof/flygare/flygare_alert2.wav"
@@ -63,13 +63,13 @@ function ENT:Spitter_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(15, 15, 70), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Spitter_CustomOnInitialize()
+    self:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack_range" then
         self:RangeAttackCode()
     end
@@ -81,19 +81,18 @@ function ENT:RangeAttackProjVelocity(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjSpawnPos(projectile)
-    return self:GetAttachment(self:LookupAttachment("range")).Pos
+    return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        self:DrawShadow(false)
+        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:DrawShadow(false)
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:DrawShadow(false)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)

@@ -32,7 +32,7 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
   self:SetModelScale(0.75)
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofraom_david_da" then

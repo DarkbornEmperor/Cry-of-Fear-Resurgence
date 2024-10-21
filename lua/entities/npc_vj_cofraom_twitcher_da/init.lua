@@ -16,10 +16,10 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:Twitcher_CustomOnInitialize()
+     self:Twitcher_Init()
      self:TwitcherSounds()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -56,8 +56,10 @@ function ENT:TwitcherSounds()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***

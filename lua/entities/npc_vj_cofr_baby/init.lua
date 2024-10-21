@@ -54,7 +54,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Baby_DeathFromMeleeAttack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Baby_CustomOnInitialize()
+function ENT:Baby_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/baby/b_alert1.wav",
     "vj_cofr/cof/baby/b_alert2.wav",
@@ -70,15 +70,15 @@ function ENT:Baby_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 50), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Baby_CustomOnInitialize()
+    self:Baby_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
        self:FootStepSoundCode()
     elseif key == "attack" then
@@ -86,7 +86,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
        self:SetBodygroup(0,1)
-    if self.HasGibDeathParticles then
+    if self.HasGibOnDeathEffects then
        local effectData = EffectData()
        effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
        effectData:SetColor(colorRed)
@@ -117,24 +117,25 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
     self:TakeDamage(self:GetMaxHealth(),self,self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "DeathAnim" then
     if !self.Baby_DeathFromMeleeAttack then
         self.AnimTbl_Death = ACT_DIESIMPLE
     elseif self.Baby_DeathFromMeleeAttack then
         self.AnimTbl_Death = ACT_SIGNAL1
     end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

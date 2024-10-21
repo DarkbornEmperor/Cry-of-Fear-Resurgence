@@ -48,7 +48,7 @@ ENT.EntitiesToSpawn = {
     {SpawnPosition = Vector(-50, -50, 0), Entities = entsList},
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
  if GetConVar("VJ_COFR_Boss_Spawner"):GetInt() == 0 then return end
     entsList = {
     "npc_vj_cofraom_twitcher1",

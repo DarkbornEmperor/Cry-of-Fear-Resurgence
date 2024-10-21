@@ -92,13 +92,13 @@ ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BookSimon_CustomOnInitialize()
+function ENT:BookSimon_Init()
      if self.BookSimon_Shotgun then
         self:SetShotgun()
      elseif self.BookSimon_Glock then
@@ -116,7 +116,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorBlack = Color(0, 0, 0, 255)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
     if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
     local BookSimon_Type = math.random(1,3)
     if BookSimon_Type == 1 then
@@ -172,13 +172,13 @@ end
 end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:BookSimon_CustomOnInitialize()
+    self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
-        self:CustomOnFootStepSound()
+        self:OnFootstepSound()
     elseif key == "attack" then
         self:MeleeAttackCode()
     elseif key == "death" then
@@ -431,24 +431,27 @@ end
     self:FireFX()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.45)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.45)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorBlack = Color(0, 0, 0, 255)
 --
-function ENT:CustomOnKilled(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "Finish" then
     -- Screen flash effect for all the players
     for _,v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
@@ -575,7 +578,7 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if !self:IsOnGround() then return end
     local tr = util.TraceLine({
         start = self:GetPos(),

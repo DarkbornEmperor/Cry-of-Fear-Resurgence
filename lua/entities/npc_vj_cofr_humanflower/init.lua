@@ -51,7 +51,7 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 75
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HumanFlower_CustomOnInitialize()
+function ENT:HumanFlower_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/humanflower/humanflowers.wav"
 }
@@ -60,14 +60,14 @@ function ENT:HumanFlower_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(-90, -90, 0), Vector(90, 90, 190))
-    self:HumanFlower_CustomOnInitialize()
+    self:HumanFlower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:MeleeAttackCode()
     end

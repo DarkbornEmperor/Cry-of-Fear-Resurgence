@@ -19,7 +19,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faceless/fist_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Sawrunner_CustomOnInitialize()
+function ENT:Sawrunner_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/sawrunner/sawrunner_alert10.wav",
     "vj_cofr/cof/sawrunner/sawrunner_alert20.wav",
@@ -42,7 +42,7 @@ function ENT:Sawrunner_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert() return end
+function ENT:OnAlert(ent) return end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

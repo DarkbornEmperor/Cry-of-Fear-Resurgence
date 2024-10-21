@@ -40,7 +40,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Hanger_Death = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Hanger_CustomOnInitialize()
+function ENT:Hanger_Init()
     self.SoundTbl_Death = {
     "vj_cofr/cof/hanger/hangerscream1.wav",
     "vj_cofr/cof/hanger/hangerscream2.wav",
@@ -48,15 +48,15 @@ function ENT:Hanger_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetNoDraw(true)
     self:DrawShadow(false)
     self:AddFlags(FL_NOTARGET)
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Hanger_CustomOnInitialize()
+    self:Hanger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:JumpscareDamage()
     end
@@ -66,7 +66,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
      local ent = self:GetEnemy()
      if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.GodMode = false
@@ -84,7 +84,7 @@ function ENT:JumpscareDamage()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

@@ -33,7 +33,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.FaceHead_Jumpscare = false
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:FaceHead_CustomOnInitialize()
+function ENT:FaceHead_Init()
     self.SoundTbl_FaceHeadScream = {
     "vj_cofr/cof/facehead/b_screamclose1.wav"
 }
@@ -42,16 +42,16 @@ function ENT:FaceHead_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
      self:AddFlags(FL_NOTARGET)
      self:SetNoDraw(true)
      self:DrawShadow(false)
      self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:FaceHead_CustomOnInitialize()
+     self:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:JumpscareDamage()
     end
@@ -61,7 +61,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.FaceHead_Jumpscare && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)

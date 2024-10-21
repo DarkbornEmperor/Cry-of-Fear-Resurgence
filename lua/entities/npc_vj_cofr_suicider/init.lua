@@ -69,7 +69,7 @@ ENT.Suicider_P345 = false
 ENT.Suicider_DeathSuicide = false
 ENT.Suicider_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
  if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true return end
     local Suicider_Type = math.random(1,2)
     if Suicider_Type == 1 then
@@ -79,7 +79,7 @@ function ENT:CustomOnPreInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Suicider_CustomOnInitialize()
+function ENT:Suicider_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/slower/slower_alert10.wav",
     "vj_cofr/cof/slower/slower_alert20.wav",
@@ -95,7 +95,7 @@ function ENT:Suicider_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
  if self.Suicider_Glock then
  if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
     self.SoundTbl_Glock = {
@@ -117,12 +117,12 @@ end
 end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Suicider_CustomOnInitialize()
+    self:Suicider_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "suicide" then
@@ -139,7 +139,7 @@ end
         if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
         elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
         elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
-     if self.HasGibDeathParticles && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
+     if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
         local effectData = EffectData()
         effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
         effectData:SetColor(colorRed)
@@ -200,7 +200,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("JUMP: Suicide")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !IsValid(ent) or self.Dead then return end
     local EnemyDistance = self:GetPos():Distance(ent:GetPos())
@@ -239,22 +239,34 @@ end
     self:FireFX()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
     if GetConVar("VJ_COFR_Suicider_Headshot"):GetInt() == 0 then return end
-    if hitgroup == HITGROUP_HEAD then
+    if status == "PreDamage" && hitgroup == HITGROUP_HEAD then
         dmginfo:SetDamage(self:Health())
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "DeathAnim" then
+    if self:IsMoving() then
+       self.AnimTbl_Death = ACT_DIESIMPLE
+    else
+       self.AnimTbl_Death = ACT_DIE_HEADSHOT
+end
+     if !self.Suicider_DeathSuicide then
+        self:DropGlock()
+     else
+        self.AnimTbl_Death = ACT_DIE_GUTSHOT
+    end
+end
     if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
-    if !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
-       dmginfo:SetDamage(self:Health())
+    if status == "Initial" && !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+    dmginfo:SetDamage(self:Health())
     if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
     elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
     elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
 
-    if self.HasGibDeathParticles then
+    if self.HasGibOnDeathEffects then
         local effectData = EffectData()
         effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
         effectData:SetColor(colorRed)
@@ -268,22 +280,8 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-        return true,{DeathAnim=true}
 end
     VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    if self:IsMoving() then
-       self.AnimTbl_Death = ACT_DIESIMPLE
-    else
-       self.AnimTbl_Death = ACT_DIE_HEADSHOT
-end
-     if !self.Suicider_DeathSuicide then
-        self:DropGlock()
-     else
-        self.AnimTbl_Death = ACT_DIE_GUTSHOT
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock()
@@ -306,12 +304,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup) return false end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

@@ -29,7 +29,7 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/slower/k_crawl7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/slower/slower_alert10.wav",
     "vj_cofr/cof/slower/slower_alert20.wav",

@@ -57,7 +57,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Screamer_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Screamer_CustomOnInitialize()
+function ENT:Screamer_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/screamer/con_alert1.wav",
     "vj_cofr/aom/screamer/con_alert2.wav",
@@ -79,7 +79,7 @@ function ENT:Screamer_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self.Screamer_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
     self.Screamer_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
     self.Screamer_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
@@ -126,10 +126,10 @@ function ENT:CustomOnInitialize()
     self:DrawShadow(false)
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Screamer_CustomOnInitialize()
+    self:Screamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "attack_range" or key == "attack_rangeclose" then
         if IsValid(self.soul1) then
             self.soul1:SetNoDraw(true)
@@ -218,7 +218,7 @@ function ENT:RangeAttackProjVelocity(projectile)
     return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
+function ENT:OnFlinch(dmginfo, hitgroup)
     if dmginfo:GetDamage() > 30 then
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
@@ -226,15 +226,14 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:DrawShadow(false)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)

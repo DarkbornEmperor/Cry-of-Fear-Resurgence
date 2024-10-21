@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/controller.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Screamer_CustomOnInitialize()
+function ENT:Screamer_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/screamer/classic/con_alert1.wav",
     "vj_cofr/aom/screamer/classic/con_alert2.wav",

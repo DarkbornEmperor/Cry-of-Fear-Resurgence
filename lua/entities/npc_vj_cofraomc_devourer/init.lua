@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/barnacle.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Devourer_CustomOnInitialize()
+function ENT:Devourer_Init()
     self.SoundTbl_Death = {
     "vj_cofr/aom/devourer/classic/bcl_die1.wav",
     "vj_cofr/aom/devourer/classic/bcl_die3.wav"
@@ -20,10 +20,10 @@ function ENT:Devourer_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(18,18,0),Vector(-18,-18,-50))
     self:SetSurroundingBounds(Vector(-60, -60, -60), Vector(60, 60, 40))
-    self:Devourer_CustomOnInitialize()
+    self:Devourer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local velInitial = Vector(0, 0, 2)

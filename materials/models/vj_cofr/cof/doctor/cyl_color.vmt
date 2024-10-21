@@ -1,5 +1,5 @@
 "VertexlitGeneric"
 {
     "$basetexture" "models/vj_cofr/vof/weapons/revolver/cyl_color"
-    "$nodecal" 1
+    "$nodecal" "1"
 }

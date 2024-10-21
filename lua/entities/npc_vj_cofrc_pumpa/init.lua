@@ -14,14 +14,16 @@ ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sawrunner/sawmusic2.mp3"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.45)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.45)
+    end
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***

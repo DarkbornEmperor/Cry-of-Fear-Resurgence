@@ -63,13 +63,13 @@ ENT.Sawer_EyeOpen = false
 ENT.Sawer_NextDownT = 0
 ENT.Sawer_NextFlinchT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Sawer_CustomOnInitialize()
+function ENT:Sawer_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/sawer/chainsaw_loop.wav"
 }
@@ -92,13 +92,13 @@ function ENT:Sawer_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 140))
-    self:Sawer_CustomOnInitialize()
+    self:Sawer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -125,7 +125,8 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+  if status == "PreDamage" then
      if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
         self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false)
         self.Sawer_NextFlinchT = CurTime() + self.NextFlinchTime
@@ -133,7 +134,7 @@ end
      if hitgroup == 9 && self.Sawer_EyeOpen then
         dmginfo:ScaleDamage(0.2)
      else
-           dmginfo:ScaleDamage(0)
+        dmginfo:ScaleDamage(0)
 end
      if hitgroup != 9 then
         self:SpawnBloodParticles(dmginfo,hitgroup)
@@ -162,35 +163,33 @@ end
 
         timer.Simple(animTime,function()
         if IsValid(self) && IsValid(self.Sawer_Eye) then
-           self:SetSkin(0)
-           self.Sawer_EyeOpen = false
-           self.Sawer_Eye:Remove()
-           self:RemoveFlags(FL_NOTARGET)
-           self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-           self.Sawer_NextDownT = CurTime() + math.Rand(5,10)
-            end
-        end)
+            self:SetSkin(0)
+            self.Sawer_EyeOpen = false
+            self.Sawer_Eye:Remove()
+            self:RemoveFlags(FL_NOTARGET)
+            self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+            self.Sawer_NextDownT = CurTime() + math.Rand(5,10) end end)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+    if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
+        self:SetSkin(0)
+        self.Sawer_Eye:Remove()
+        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
- if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
-    self:SetSkin(0)
-    self.Sawer_Eye:Remove()
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

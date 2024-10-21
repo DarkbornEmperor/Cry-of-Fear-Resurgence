@@ -15,7 +15,7 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.FriendsWithAllPlayerAllies = true
 ENT.HasSoundTrack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Doctor_CustomOnInitialize()
+function ENT:Doctor_Init()
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
     self.HasHealthRegeneration = true
 end
@@ -40,7 +40,7 @@ end
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
  if self.HasSounds && !self.Dead then
     if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
         self:PlaySoundSystem("GeneralSpeech", self.SoundTbl_LowHealth)
@@ -49,7 +49,7 @@ function ENT:CustomOnThink_AIEnabled()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup) return end
+function ENT:OnDamaged(dmginfo,hitgroup,status) return end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

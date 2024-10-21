@@ -2,5 +2,5 @@
 {
     "$basetexture" "models/vj_cofr/aom/face/classic/Chrome2"
     "$additive" 1
-    "$nodecal" 1
+    "$nodecal" "1"
 }

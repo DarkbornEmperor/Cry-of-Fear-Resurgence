@@ -31,7 +31,7 @@ SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
     self.Primary.Sound = "vj_cofr/cof/weapons/glock/old/glock_fire.wav"
 end

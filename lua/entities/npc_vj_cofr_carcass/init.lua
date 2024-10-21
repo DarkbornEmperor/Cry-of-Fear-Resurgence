@@ -61,13 +61,13 @@ ENT.SoundTbl_Impact = {
 }
 ENT.BreathSoundLevel = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Carcass_CustomOnInitialize()
+function ENT:Carcass_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/roofboss/rb_mouthidle1.wav",
     "vj_cofr/cof/roofboss/rb_mouthidle2.wav"
@@ -90,13 +90,13 @@ function ENT:Carcass_CustomOnInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(15, 15, 92), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Carcass_CustomOnInitialize()
+    self:Carcass_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack_range" then
         self:RangeAttackCode()
     elseif key == "stomach_open" then
@@ -124,38 +124,29 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
-    -- Make a metal ricochet effect
-    if hitgroup == 8 then
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+ -- Make a metal ricochet effect
+ if status == "PreDamage" && hitgroup == 8 then
+    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+    dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
-        rico:SetScale(5) -- Size
-        rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+        rico:SetScale(4) -- Size
+        rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
         util.Effect("VJ_COFR_Rico", rico)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    if hitgroup == 8 then
-    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-        self.Bleeds = false
-        dmginfo:ScaleDamage(0.20)
-    else
-        self.Bleeds = true
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

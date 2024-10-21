@@ -16,7 +16,7 @@ ENT.HasMeleeAttack = false
 ENT.HasLostWeaponSightAnimation = true
 ENT.HasCallForHelpAnimation = false
 ENT.HasShootWhileMoving = false
-ENT.MoveRandomlyWhenShooting = false
+ENT.Weapon_StrafeWhileFiring = false
 ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_NoSpawnMenu = true
 ENT.CanTurnWhileMoving = false
@@ -54,13 +54,13 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Doctor_NextRunT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Doctor_CustomOnInitialize()
+function ENT:Doctor_Init()
     self.SoundTbl_Pain = {
     "vj_cofr/cof/doc_ai/ouch1.wav",
     "vj_cofr/cof/doc_ai/ouch2.wav",
@@ -81,10 +81,10 @@ function ENT:Doctor_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Doctor_CustomOnInitialize()
+    self:Doctor_Init()
     self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
     local wep = math.random(1,2)
     if wep == 1 then
@@ -94,7 +94,7 @@ function ENT:CustomOnInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "death" then
@@ -109,7 +109,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponAttack()
+function ENT:OnWeaponAttack()
     if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
     if CurTime() > self.Doctor_NextRunT then
     timer.Simple(0.5, function()
@@ -137,26 +137,29 @@ function ENT:SetAnimationTranslations(wepHoldType)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.45)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.45)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:DoDropWeaponOnDeath(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "DeathAnim" then
+    self:DeathWeaponDrop(dmginfo,hitgroup)
     local activeWep = self:GetActiveWeapon()
     if IsValid(activeWep) then activeWep:Remove() end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo,hitgroup,wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo,hitgroup,wepEnt)
     wepEnt:SetModelScale(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -277,7 +280,7 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if !self:IsOnGround() then return end
     local tr = util.TraceLine({
         start = self:GetPos(),
@@ -300,7 +303,7 @@ function ENT:FootStepSoundCode(customSd)
             local sdtbl = VJ.PICK(self.SoundTbl_FootStep)
             if customTbl then sdtbl = customTbl end
             VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-            local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Event", sdtbl) end
+            local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Event", sdtbl) end
             if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
             return
         elseif self:IsMoving() && CurTime() > self.FootStepT && self:GetInternalVariable("m_flMoveWaitFinished") <= 0 then
@@ -310,13 +313,13 @@ function ENT:FootStepSoundCode(customSd)
             local curSched = self.CurrentSchedule
             if !self.DisableFootStepOnRun && ((VJ.HasValue(self.AnimTbl_Run, self:GetMovementActivity())) or (curSched != nil && curSched.MoveType == 1)) then
                 VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-                local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Run", sdtbl) end
+                local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Run", sdtbl) end
                 if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
                 self.FootStepT = CurTime() + self.FootStepTimeRun
                 return
             elseif !self.DisableFootStepOnWalk && (VJ.HasValue(self.AnimTbl_Walk, self:GetMovementActivity()) or (curSched != nil && curSched.MoveType == 0)) then
                 VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-                local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Walk", sdtbl) end
+                local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Walk", sdtbl) end
                 if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
                 self.FootStepT = CurTime() + self.FootStepTimeWalk
                 return

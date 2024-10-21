@@ -15,7 +15,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(10, 0, -30),
 }
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
 local Slower_Body = math.random(1,3)
 if Slower_Body == 1 then
     self.Slower_Skin = 0

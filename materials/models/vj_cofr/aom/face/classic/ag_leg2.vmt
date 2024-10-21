@@ -2,5 +2,5 @@
 {
     "$basetexture" "models/vj_cofr/aom/face/classic/ag_leg2"
     "$additive" 1
-    "$nodecal" 1
+    "$nodecal" "1"
 }

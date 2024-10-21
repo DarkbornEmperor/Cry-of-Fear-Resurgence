@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/children/handle"
-    "$nodecal" 1
+    "$nodecal" "1"
 }

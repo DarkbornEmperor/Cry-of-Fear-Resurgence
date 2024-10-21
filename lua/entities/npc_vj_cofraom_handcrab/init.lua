@@ -55,7 +55,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Handcrab_CustomOnInitialize()
+function ENT:Handcrab_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/handcrab/hc_alert1.wav",
     "vj_cofr/aom/handcrab/hc_alert2.wav"
@@ -76,21 +76,23 @@ function ENT:Handcrab_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
     self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 30))
-    self:Handcrab_CustomOnInitialize()
+    self:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetLeapAttackVelocity()
     return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

@@ -71,13 +71,13 @@ ENT.Addiction_FinishedIgnited = false
 ENT.Addiction_OnFire = false
 ENT.Addiction_NextChangeAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Addiction_CustomOnInitialize()
+function ENT:Addiction_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/davidbad/db_alert10.wav",
     "vj_cofr/aom/davidbad/db_alert20.wav",
@@ -96,16 +96,16 @@ function ENT:Addiction_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Addiction_CustomOnInitialize()
+    self:Addiction_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
-        self:CustomOnFootStepSound()
+        self:OnFootstepSound()
     elseif key == "attack" then
         self:MeleeAttackCode()
     elseif key == "axe_grab" then
@@ -125,7 +125,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
  if self.VJ_IsBeingControlled then return end
     self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
 end
@@ -135,7 +135,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("NOTE: Switching attacks will cause a 15/20 second delay until able to switch again.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
  local ent = self:GetEnemy()
  if self.Dead then return end
  if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
@@ -238,7 +238,8 @@ function ENT:CustomRangeAttackCode()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+if status == "PreDamage" then
    dmginfo:ScaleDamage(0.15)
    if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
    local attacker = dmginfo:GetAttacker()
@@ -259,26 +260,25 @@ end
 end
      if !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
         self:SpawnBloodParticles(dmginfo,hitgroup)
-        self:SpawnBloodDecal(dmginfo,hitgroup)
+        self:SpawnBloodDecal(dmginfo,hitgroup) end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+  if status == "Initial" then
      if self.Addiction_OnFire then
         self.Addiction_OnFire = false
      if IsValid(self.fireFX) then self.fireFX:Remove() end
         self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
         VJ.STOPSOUND(self.Addiction_FireLoop)
         timer.Remove("VJ_COFR_Addiction_Fire")
+end
+        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
@@ -410,7 +410,7 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if !self:IsOnGround() then return end
     local tr = util.TraceLine({
         start = self:GetPos(),

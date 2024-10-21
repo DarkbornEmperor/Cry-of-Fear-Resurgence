@@ -41,13 +41,13 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Hangman_CustomOnInitialize() end
+function ENT:Hangman_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(13, 13, 150), Vector(-13, -13, 10))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 180))
-    self:Hangman_CustomOnInitialize()
+    self:Hangman_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)

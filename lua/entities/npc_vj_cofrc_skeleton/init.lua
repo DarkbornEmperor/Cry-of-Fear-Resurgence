@@ -23,7 +23,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faceless/fist_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
  local voiceType = math.random(1,2)
  if voiceType == 1 then
     self.SlowerSounds = true
@@ -66,7 +66,7 @@ function ENT:Slower_CustomOnInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
     if self.SlowerSounds && math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav")
     elseif self.FacelessSounds && math.random(1,3) == 1 then

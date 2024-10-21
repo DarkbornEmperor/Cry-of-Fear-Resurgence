@@ -74,7 +74,7 @@ ENT.EntitiesToSpawn = {
     {SpawnPosition = Vector(0, 0, 0), Entities = entsList},
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
  if GetConVar("VJ_COFR_Boss_Spawner"):GetInt() == 0 then return end
     entsList = {
     "npc_vj_cofr_slower1",

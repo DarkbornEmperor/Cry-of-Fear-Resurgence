@@ -11,7 +11,7 @@ ENT.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
 -- Custom
 ENT.Spitter_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     if !self.Dead && CurTime() > self.Spitter_BlinkingT then
         self:SetSkin(1)
         timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
@@ -19,7 +19,7 @@ function ENT:CustomOnThink()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetSkin(1)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)

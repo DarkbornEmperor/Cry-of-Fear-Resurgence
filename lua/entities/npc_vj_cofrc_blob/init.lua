@@ -54,17 +54,17 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Blob_NextAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Blob_CustomOnInitialize() end
+function ENT:Blob_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(350, 350, 620), Vector(-350, -350, 0))
-    self:Blob_CustomOnInitialize()
+    self:Blob_Init()
     self.Tentacles = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,15 +83,19 @@ function ENT:CustomRangeAttackCode()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.45)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.45)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

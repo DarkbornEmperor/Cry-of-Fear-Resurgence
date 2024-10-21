@@ -16,7 +16,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(2.5, 15, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofraom_david_da" then
         self.WorldModel_CustomPositionOrigin = Vector(4, 15, -1)

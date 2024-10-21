@@ -34,22 +34,22 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Dreamer_Jumpscare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Dreamer_CustomOnInitialize()
+function ENT:Dreamer_Init()
     self.SoundTbl_DreamerScream = {
     "vj_cofr/cof/dreamer/dreamer_scream.wav",
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetNoDraw(true)
     self:DrawShadow(false)
     self:SetCollisionBounds(Vector(13, 13, 86), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Dreamer_CustomOnInitialize()
+    self:Dreamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:JumpscareDamage()
     end
@@ -59,7 +59,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.Dreamer_Jumpscare && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)

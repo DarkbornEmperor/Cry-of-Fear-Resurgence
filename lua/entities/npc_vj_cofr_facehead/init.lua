@@ -47,23 +47,23 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.FaceHead_NextFacelessSpawnT = CurTime()
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
 end
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:FaceHead_CustomOnInitialize()
+function ENT:FaceHead_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/facehead/facehead.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(30, 30, 90), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:FaceHead_CustomOnInitialize()
+    self:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply,controlEnt)
@@ -72,7 +72,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("NOTE: Summoning Faceless will cause a 20 second delay until able to spawn more and the current Faceless are dead.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
       if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.Faceless1) && !IsValid(self.Faceless2) && !IsValid(self.Faceless3) && !IsValid(self.Faceless4) && !IsValid(self.Faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
          local Faceless1 = ents.Create("npc_vj_cofr_faceless")

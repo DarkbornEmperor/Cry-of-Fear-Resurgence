@@ -26,7 +26,7 @@ ENT.SoundTbl_Spawn = {
 "vj_cofr/custom/shaimoon/damned2_ritual_2b_mono.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BookSimon_CustomOnInitialize()
+function ENT:BookSimon_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/custom/shaimoon/egyptiantalk.wav",
     "vj_cofr/custom/shaimoon/egyptiantalk2.wav",
@@ -42,7 +42,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorBlack = Color(0, 0, 0, 255)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
     -- Screen flash effect for all the players
     for _,v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
@@ -50,7 +50,7 @@ end
      self.Shaimoon_Spawn = VJ.CreateSound(self, self.SoundTbl_Spawn, 75, 100)
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:BookSimon_CustomOnInitialize()
+     self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

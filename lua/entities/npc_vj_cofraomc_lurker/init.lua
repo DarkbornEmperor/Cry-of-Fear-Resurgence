@@ -59,7 +59,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Icky_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Lurker_CustomOnInitialize()
+function ENT:Lurker_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/lurker/ichy_alert1.wav",
     "vj_cofr/aom/lurker/ichy_alert3.wav"
@@ -76,19 +76,19 @@ function ENT:Lurker_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
     self:SetSurroundingBounds(Vector(-200, -200, 0), Vector(200, 200, 90))
-    self:Lurker_CustomOnInitialize()
+    self:Lurker_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:MeleeAttackCode()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     -- Blinking system
     if !self.Dead && CurTime() > self.Icky_BlinkingT then
         self:SetSkin(4)
@@ -114,11 +114,13 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
     self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetSkin(2)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)

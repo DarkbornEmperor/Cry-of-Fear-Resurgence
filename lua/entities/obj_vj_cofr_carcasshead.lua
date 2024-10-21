@@ -47,12 +47,12 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
     phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headshoot.wav", 75, 100)
     timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100) self:DeathEffects() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     local phys = self:GetPhysicsObject()
     local trackedEnt = self.Track_Enemy
     -- Homing Behavior

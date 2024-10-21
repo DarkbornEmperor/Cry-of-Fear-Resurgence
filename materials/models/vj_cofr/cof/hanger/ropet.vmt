@@ -1,5 +1,6 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/hanger/ropet"
-    "$nodecal" 1
+    "$nodecal" "1"
+    "$nocull" "1"
 }

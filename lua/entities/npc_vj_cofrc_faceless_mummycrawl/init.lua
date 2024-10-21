@@ -16,7 +16,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Faceless_CustomOnInitialize()
+function ENT:Faceless_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/faceless/faceless_alert10.wav",
     "vj_cofr/cof/faceless/faceless_alert20.wav",

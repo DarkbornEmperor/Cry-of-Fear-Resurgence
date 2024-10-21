@@ -64,7 +64,7 @@ util.AddNetworkString("VJ_COFR_Stranger_Damage")
 local nwName = "VJ_COFR_Stranger_Controller"
 util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Stranger_CustomOnInitialize()
+function ENT:Stranger_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/stranger/st_voiceloop.wav"
 }
@@ -73,16 +73,16 @@ function ENT:Stranger_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     if math.random(1,3) == 1 then
      self.NoChaseAfterCertainRange = false
 end
      self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:Stranger_CustomOnInitialize()
+     self:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     end
@@ -137,30 +137,27 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     self:SetNW2Entity("Enemy",self:GetEnemy())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:SetRenderFX(kRenderFxFlickerSlow)
-    self:SetRenderMode(RENDERMODE_NORMAL)
-    self.DeathAnimationTime = math.Rand(0.75,1.25)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo,hitgroup)
-    if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self:GetPos():Distance(self:GetEnemy():GetPos()) < self.Stranger_DamageDistance then
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self:GetPos():Distance(self:GetEnemy():GetPos()) < self.Stranger_DamageDistance then
         net.Start("VJ_COFR_Stranger_ScreenEffect")
             net.WriteEntity(self:GetEnemy())
         net.Send(self:GetEnemy())
+
+        VJ.STOPSOUND(self.Stranger_HeartBeat)
 end
-    VJ.STOPSOUND(self.Stranger_HeartBeat)
+    if status == "Initial" then
+        self:SetRenderFX(kRenderFxFlickerSlow)
+        self:SetRenderMode(RENDERMODE_NORMAL)
+        self.DeathAnimationTime = math.Rand(0.75,1.25)
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

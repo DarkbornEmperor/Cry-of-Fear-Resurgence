@@ -57,7 +57,7 @@ ENT.BreathSoundLevel = 75
 ENT.Sawcrazy_NextRadiusDamageT = 0
 ENT.Sawcrazy_RadiusDamage = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Sawcrazy_CustomOnInitialize()
+function ENT:Sawcrazy_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/sawcrazy/dblsawloop.wav"
 }
@@ -72,16 +72,16 @@ function ENT:Sawcrazy_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
  if GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 1 then
     self.VJTag_ID_Danger = true
 end
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Sawcrazy_CustomOnInitialize()
+    self:Sawcrazy_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -98,7 +98,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     if self.Dead or GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 0 then return end
     if self.Sawcrazy_NextRadiusDamageT < CurTime() then
     for _,v in ipairs(ents.FindInSphere(self:GetPos(),60)) do
@@ -120,20 +120,24 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.30)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.30)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

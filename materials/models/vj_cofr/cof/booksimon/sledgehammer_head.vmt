@@ -1,5 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/weapons/sledgehammer/w_sledge_head"
-    "$nodecal" 1
+    "$nodecal" "1"
 }

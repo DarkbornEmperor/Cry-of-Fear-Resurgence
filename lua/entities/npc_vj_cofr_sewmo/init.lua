@@ -55,7 +55,7 @@ ENT.SoundTbl_Impact = {
 ENT.Sewmo_WireBroken = false
 ENT.Sewmo_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Sewmo_CustomOnInitialize()
+function ENT:Sewmo_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/sewmo/sewmo_alert10.wav",
     "vj_cofr/cof/sewmo/sewmo_alert20.wav",
@@ -83,13 +83,13 @@ function ENT:Sewmo_CustomOnInitialize()
     end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 74), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Sewmo_CustomOnInitialize()
+    self:Sewmo_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -111,7 +111,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function ENT:CustomOnThink_AIEnabled()
+/*function ENT:OnThinkActive()
     if !IsValid(self:GetEnemy()) or !self:Visible(self:GetEnemy()) or self.Dead or !self.Sewmo_Sleep then return end
     if self.Sewmo_Sleep && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
         self.Sewmo_Sleep = false
@@ -155,9 +155,9 @@ function ENT:MultipleMeleeAttacks()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
  if self.Sewmo_WireBroken or self.Dead then return end
-   if self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
+   if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
      if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math.random(1,5) == 1 then
             self.Sewmo_WireBroken = true
             self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
@@ -165,36 +165,37 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+function ENT:OnFlinch(dmginfo,hitgroup,status)
+ if status == "PriorExecution" then
     if dmginfo:GetDamage() > 30 then
-        self.FlinchChance = 8
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
-        self.FlinchChance = 16
         self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 end
-    -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
-    return self:GetActivity() != ACT_SIGNAL1
+        -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
+        return self:GetActivity() != ACT_SIGNAL1
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-     if hitgroup == HITGROUP_HEAD then
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "DeathAnim" then
+    if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
     else
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

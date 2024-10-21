@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/aom/twitcher/classic/girl"
+    "$nocull" "1"
 }

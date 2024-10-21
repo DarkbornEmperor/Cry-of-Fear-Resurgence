@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/slowerno.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/slower3/slower_alert10.wav",
     "vj_cofr/cof/slower3/slower_alert20.wav",
@@ -28,7 +28,7 @@ function ENT:Slower_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/slowerno/headdy.wav")
     end

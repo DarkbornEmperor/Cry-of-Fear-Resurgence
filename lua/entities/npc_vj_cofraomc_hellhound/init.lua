@@ -15,11 +15,11 @@ ENT.Hellhound_BlinkingT = 0
 ENT.Hellhound_NextSleepT = 0
 ENT.Hellhound_Sleeping = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
      self.Hellhound_NextSleepT = CurTime() + math.Rand(0,15)
      self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:Hellhound_CustomOnInitialize()
+     self:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defIdle = {ACT_IDLE,ACT_IDLE,ACT_IDLE,ACT_IDLE,ACT_IDLE_PACKAGE}
@@ -42,7 +42,7 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     -- Blinking
     if !self.Dead && CurTime() > self.Hellhound_BlinkingT && !self.Hellhound_Sleeping then
         self:SetSkin(1)
@@ -53,7 +53,7 @@ function ENT:CustomOnThink()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     if self.VJ_IsBeingControlled then return end
     -- Sleep system
     if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
@@ -74,7 +74,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local alertAnims = {"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}
 --
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
     if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
         if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
         self.Hellhound_Sleeping = false
@@ -89,13 +89,13 @@ function ENT:OnResetEnemy()
     self.Hellhound_NextSleepT = CurTime() + math.Rand(15,45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetSkin(2)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

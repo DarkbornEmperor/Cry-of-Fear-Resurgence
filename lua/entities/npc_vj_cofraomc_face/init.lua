@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/agrunt.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Face_CustomOnInitialize()
+function ENT:Face_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/face/classic/ag_alert1.wav",
     "vj_cofr/aom/face/classic/ag_alert2.wav",

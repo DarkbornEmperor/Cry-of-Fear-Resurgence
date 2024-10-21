@@ -71,21 +71,21 @@ ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_PullingEnt = 0
 ENT.Devourer_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Devourer_CustomOnInitialize()
+function ENT:Devourer_Init()
     self.SoundTbl_Death = {
     "vj_cofr/aom/devourer/bcl_die1.wav",
     "vj_cofr/aom/devourer/bcl_die3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(25,25,0),Vector(-25,-25,39))
     self:SetSurroundingBounds(Vector(-60, -60, -20), Vector(60, 60, 40))
-    self:Devourer_CustomOnInitialize()
+    self:Devourer_Init()
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:MeleeAttackCode()
     end
@@ -156,7 +156,7 @@ function ENT:TranslateActivity(act)
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     if self.Dead then return end
     self.Devourer_PullingEnt = self:Devourer_CalculateTongue()
 end
@@ -172,19 +172,15 @@ end
     return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo,hitgroup)
-    self:Devourer_ResetEnt()
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        self:SetPos(self:GetPos() + self:GetUp()*-4)
+        self:Devourer_ResetEnt()
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:SetPos(self:GetPos() + self:GetUp()*-4)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetPoseParameter("tongue_height", 1)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
     VJ_COFR_ApplyCorpse(self,corpseEnt)

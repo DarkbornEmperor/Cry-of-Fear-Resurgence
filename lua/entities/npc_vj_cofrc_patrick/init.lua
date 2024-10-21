@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/custom/patrick.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Psycho_CustomOnInitialize()
+function ENT:Psycho_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/custom/patrick/patrick_scream.wav"
 }

@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/citalopram.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CrazyRunner_CustomOnInitialize()
+function ENT:CrazyRunner_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/rcrazy/rc_alert1.wav",
     "vj_cofr/cof/rcrazy/rc_alert2.wav",
@@ -16,7 +16,7 @@ function ENT:CrazyRunner_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/citalopram/citalopramscream.wav")
     end

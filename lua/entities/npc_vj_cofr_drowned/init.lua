@@ -74,7 +74,7 @@ util.AddNetworkString("VJ_COFR_Drowned_Damage")
 local nwName = "VJ_COFR_Drowned_Controller"
 util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Drowned_CustomOnInitialize()
+function ENT:Drowned_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/crazylady/lady_alert10.wav",
     "vj_cofr/cof/crazylady/lady_alert20.wav",
@@ -98,16 +98,16 @@ function ENT:Drowned_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
  if math.random(1,3) == 1 then
     self.NoChaseAfterCertainRange = false
 end
     self:SetCollisionBounds(Vector(13, 13, 78), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Drowned_CustomOnInitialize()
+    self:Drowned_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:MeleeAttackCode()
     elseif key == "attack_range" then
@@ -186,7 +186,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     if !IsValid(self:GetEnemy()) or self.Dead or self.Drowned_Baby then return end
     if !self.Drowned_Baby && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Drowned_Baby = true
@@ -195,11 +195,13 @@ function ENT:CustomOnThink_AIEnabled()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

@@ -55,7 +55,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Watro_Burrowed = true
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Watro_CustomOnInitialize()
+function ENT:Watro_Init()
     if self.Watro_Burrowed then
         self.HasMeleeAttack = false
         self:DrawShadow(false)
@@ -63,13 +63,13 @@ function ENT:Watro_CustomOnInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 160))
-    self:Watro_CustomOnInitialize()
+    self:Watro_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
         self:MeleeAttackCode()
     end
@@ -88,7 +88,7 @@ end
     return self.BaseClass.TranslateActivity(self,act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -105,11 +105,14 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    dmginfo:ScaleDamage(0.45)
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.45)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
        self.SoundTbl_Death = {
        "vj_cofr/fx/out_water.wav"
@@ -119,15 +122,13 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
        "vj_cofr/fx/bodysplat.wav"
 }
 end
-    VJ_COFR_DeathCode(self)
+        self:DrawShadow(false)
+        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        VJ_COFR_DeathCode(self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self:DrawShadow(false)
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:DrawShadow(false)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
     VJ_COFR_ApplyCorpse(self,corpseEnt)

@@ -1,5 +1,5 @@
 "VertexlitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/doctor/m2f"
-    "$nodecal" 1
+    "$nodecal" "1"
 }

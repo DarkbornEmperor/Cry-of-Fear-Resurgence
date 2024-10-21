@@ -72,7 +72,7 @@ ENT.Faceless_Type = 0
     -- 4 = Twister Valve
     -- 5 = Custom
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Faceless_CustomOnInitialize()
+function ENT:Faceless_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/faceless/faceless_alert10.wav",
     "vj_cofr/cof/faceless/faceless_alert20.wav",
@@ -92,7 +92,7 @@ function ENT:Faceless_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" then // Already the default
         self.Faceless_Type = 0
     elseif self:GetModel() == "models/vj_cofr/cof/faceless2.mdl" then
@@ -108,10 +108,10 @@ function ENT:CustomOnInitialize()
         self.AnimTbl_MeleeAttack = {"vjseq_attack2"}
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Faceless_CustomOnInitialize()
+    self:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -128,7 +128,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/faceless/psyksjuk.wav")
     end
@@ -136,39 +136,33 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
-    -- Make a metal ricochet effect
-    if self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+ -- Make a metal ricochet effect
+ if status == "PreDamage" && self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
+    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+    dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
-        rico:SetScale(5) -- Size
-        rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+        rico:SetScale(4) -- Size
+        rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
         util.Effect("VJ_COFR_Rico", rico)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    if self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
-    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-        self.Bleeds = false
-        dmginfo:ScaleDamage(0.20)
-    else
-        self.Bleeds = true
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

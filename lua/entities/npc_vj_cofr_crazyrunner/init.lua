@@ -59,7 +59,7 @@ ENT.CrazyRunner_Type = 0
     -- 2 = Dreamer (Runner)
     -- 3 = CrazyruMpel
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CrazyRunner_CustomOnInitialize()
+function ENT:CrazyRunner_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/rcrazy/rc_alert1.wav",
     "vj_cofr/cof/rcrazy/rc_alert2.wav",
@@ -67,7 +67,7 @@ function ENT:CrazyRunner_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" then // Already the default
         self.CrazyRunner_Type = 0
     elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" then
@@ -78,10 +78,10 @@ function ENT:CustomOnInitialize()
         self.CrazyRunner_Type = 3
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:CrazyRunner_CustomOnInitialize()
+    self:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -98,30 +98,31 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/rcrazy/screamloud.wav")
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-     if hitgroup == HITGROUP_HEAD then
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "DeathAnim" then
+    if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
     else
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

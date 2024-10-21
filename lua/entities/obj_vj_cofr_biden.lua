@@ -48,12 +48,12 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
     phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:ResetSequence("idle")
     timer.Simple(10, function() if IsValid(self) then self:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     local phys = self:GetPhysicsObject()
     -- Homing Behavior
     if IsValid(self.Track_Enemy) then

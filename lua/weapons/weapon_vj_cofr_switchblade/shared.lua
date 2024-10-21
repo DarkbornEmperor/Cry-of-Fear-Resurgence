@@ -15,7 +15,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0, -180, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-2, -3.5, 0.45)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
   self:SetModelScale(0.65)
   if math.random(1,2) == 1 then
         self.Primary.Damage = 9

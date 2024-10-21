@@ -12,7 +12,7 @@ ENT.CanTurnWhileStationary = false
 ENT.HasHitGroupFlinching = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE
  ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/slower/slower_alert10.wav",
     "vj_cofr/cof/slower/slower_alert20.wav",
@@ -34,7 +34,7 @@ function ENT:Slower_CustomOnInitialize()
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

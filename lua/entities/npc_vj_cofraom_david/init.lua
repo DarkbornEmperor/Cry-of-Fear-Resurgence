@@ -25,8 +25,8 @@ ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.Weapon_FindCoverOnReload = false
-ENT.NextMoveRandomlyWhenShootingTime = VJ.SET(0,0.2)
-ENT.WaitForEnemyToComeOut = false
+ENT.Weapon_WaitOnOcclusionTime = VJ.SET(0,0.2)
+ENT.Weapon_WaitOnOcclusion = false
 ENT.HasCallForHelpAnimation = false
 ENT.Weapon_NoSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
@@ -186,13 +186,13 @@ ENT.WeaponsList_AoMC_Cont = {
     },
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if math.random(1,3) == 1 then
         self.WeaponInventory_MeleeList = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:David_CustomOnInitialize()
+function ENT:David_Init()
  if !self.DisableWeapons && self.Human_Type == 0 then
  if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
@@ -221,7 +221,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DavidClassic_CustomOnInitialize()
+function ENT:DavidClassic_Init()
  if !self.DisableWeapons && self.Human_Type == 3 then
  if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
@@ -253,7 +253,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Simon_CustomOnInitialize()
+function ENT:Simon_Init()
  if !self.DisableWeapons then
  if !self.WeaponInventory_MeleeList && self.Human_Type == 1 then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
@@ -329,7 +329,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Police_CustomOnInitialize()
+function ENT:Police_Init()
  if !self.DisableWeapons then
  if !self.WeaponInventory_MeleeList && self.Human_Type == 2 then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
@@ -379,7 +379,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
  if math.random(1,5) == 1 then self.IsMedicSNPC = true end
  if GetConVar("VJ_COFR_Human_ReloadCover"):GetInt() == 1 then
     self.Weapon_FindCoverOnReload = true
@@ -445,16 +445,16 @@ end
     end
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:David_CustomOnInitialize()
-    self:Simon_CustomOnInitialize()
-    self:Police_CustomOnInitialize()
-    self:DavidClassic_CustomOnInitialize()
+    self:David_Init()
+    self:Simon_Init()
+    self:Police_Init()
+    self:DavidClassic_Init()
     self:AssistorFlashlight()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" or (key == "melee_weapon" && IsValid(self:GetActiveWeapon()) && self:GetActiveWeapon().IsMeleeWeapon) then
@@ -483,13 +483,15 @@ function ENT:TranslateActivity(act)
         end
     end
 end
-    if act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
+    if act == ACT_IDLE && !self.AnimationTranslations[ACT_IDLE] then
+        return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
+    elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
         return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
 end
     return self.BaseClass.TranslateActivity(self,act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
      local controller = self.VJ_TheController
      if IsValid(controller) then
      if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then
@@ -506,16 +508,16 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
  if self.IsMedicSNPC && !self:IsBusy() && self.Medic_Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-    self:CustomOnMedic_BeforeHeal()
+    self:OnMedicBehavior()
      self:VJ_ACT_PLAYACTIVITY("vjges_heal",true,false,false)
  if IsValid(self:GetEnemy()) then
     self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end
     timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
     local CurHP = self:Health()
     self:SetHealth(math.Clamp(CurHP + self.Medic_HealthAmount, CurHP, self:GetMaxHealth()))
-    self:CustomOnMedic_OnHeal()
+    self:OnMedicBehavior()
     self:PlaySoundSystem("GeneralSpeech",self.SoundTbl_MedicReceiveHeal)
     VJ.CreateSound(self,self.SoundTbl_MedicAfterHeal,75,100)
     self:RemoveAllDecals()
@@ -558,31 +560,33 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_BeforeHeal()
+function ENT:OnMedicBehavior(status,statusData)
+ if status == "BeforeHeal" then
     if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(true) end
     local att = self:GetAttachment(self:LookupAttachment("rhand"))
-    self.HealItem = ents.Create("prop_vj_animatable")
-    self.HealItem:SetModel(self.Medic_SpawnPropOnHealModel)
-    self.HealItem:SetPos(att.Pos)
-    self.HealItem:SetAngles(att.Ang)
-    self.HealItem:SetParent(self)
-    self.HealItem:Fire("SetParentAttachment","rhand")
-    self.HealItem:Spawn()
-    //self.HealItem:AddEffects(EF_BONEMERGE)
-    self.HealItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-    self:DeleteOnRemove(self.HealItem)
-    //SafeRemoveEntityDelayed(self.HealItem,1)
+    self.healItem = ents.Create("prop_vj_animatable")
+    self.healItem:SetModel(self.Medic_SpawnPropOnHealModel)
+    self.healItem:SetPos(att.Pos)
+    self.healItem:SetAngles(att.Ang)
+    self.healItem:SetParent(self)
+    self.healItem:Fire("SetParentAttachment","rhand")
+    self.healItem:Spawn()
+    //self.healItem:AddEffects(EF_BONEMERGE)
+    self.healItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+    self:DeleteOnRemove(self.healItem)
+    //SafeRemoveEntityDelayed(self.healItem,1)
+end
+ if status == "OnHeal" then
+    timer.Simple(0.1,function()
+        if IsValid(self) then
+        SafeRemoveEntity(self.healItem)
+            if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end
+            end
+        end)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_OnHeal(ent)
-    timer.Simple(0.1,function()
-    if IsValid(self) then
-    SafeRemoveEntity(self.HealItem)
-        if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end
-    end
-end) return true end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
     if self.Human_Type == 1 && math.random(1,2) == 1 then
     if ent:GetClass() == "npc_vj_cofr_purnell" then
         self:PlaySoundSystem("Alert", {"vj_cofr/cof/simon/simonbossangry.wav"})
@@ -607,21 +611,21 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponAttack()
+function ENT:OnWeaponAttack()
  if self.VJ_IsBeingControlled then return end
  local wep = self.CurrentWeaponEntity
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
- if self.MoveRandomlyWhenShooting && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.DoingWeaponAttack && CurTime() > self.NextMoveRandomlyWhenShootingT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
+ if self.Weapon_StrafeWhileFiring && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.DoingWeaponAttack && CurTime() > self.NextWeaponStrafeWhileFiringT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
  timer.Simple(0,function()
     local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 250), true, "0111"))
     if moveCheck then
     self:StopMoving()
-    self.NextMoveRandomlyWhenShootingT = CurTime() + math.Rand(self.NextMoveRandomlyWhenShootingTime.a, self.NextMoveRandomlyWhenShootingTime.b)
+    self.NextWeaponStrafeWhileFiringT = CurTime() + math.Rand(self.Weapon_StrafeWhileFiringDelay.a, self.Weapon_StrafeWhileFiringDelay.b)
     self:SetLastPosition(moveCheck)
     self:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMoveRandomlyWhenShooting()
+function ENT:OnWeaponStrafeWhileFiring()
   if self.VJ_IsBeingControlled then self.CoFR_Crouching = false return end
      if math.random(1,2) == 1 && !self.CoFR_Crouching then
         self.CoFR_Crouching = true
@@ -630,7 +634,7 @@ function ENT:CustomOnMoveRandomlyWhenShooting()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponReload()
+function ENT:OnWeaponReload()
  //if self.Weapon_FindCoverOnReload then self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
  if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
  timer.Simple(0,function()
@@ -810,22 +814,23 @@ end
     self.AnimationTranslations[ACT_RELOAD_LOW] = defReload
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "DeathAnim" then
+ if hitgroup == HITGROUP_HEAD then
+    self.AnimTbl_Death = ACT_DIE_HEADSHOT
+else
+    self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-     if hitgroup == HITGROUP_HEAD then
-        self.AnimTbl_Death = ACT_DIE_HEADSHOT
-     else
-        self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
-end
-    self:DoDropWeaponOnDeath(dmginfo,hitgroup)
+    self:DeathWeaponDrop(dmginfo,hitgroup)
     local activeWep = self:GetActiveWeapon()
     if IsValid(activeWep) then activeWep:Remove() end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
  if self.Human_Type == 2 or self.Human_Type == 0 then
  if self.Human_Type == 2 then corpseEnt:SetBodygroup(0,0) end
     corpseEnt:SetSkin(0)
@@ -834,7 +839,7 @@ end
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo,hitgroup,wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo,hitgroup,wepEnt)
     wepEnt:SetModelScale(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -958,7 +963,7 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if !self:IsOnGround() then return end
     local tr = util.TraceLine({
         start = self:GetPos(),
@@ -981,7 +986,7 @@ function ENT:FootStepSoundCode(customSd)
             local sdtbl = VJ.PICK(self.SoundTbl_FootStep)
             if customTbl then sdtbl = customTbl end
             VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-            local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Event", sdtbl) end
+            local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Event", sdtbl) end
             if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
             return
         elseif self:IsMoving() && CurTime() > self.FootStepT && self:GetInternalVariable("m_flMoveWaitFinished") <= 0 then
@@ -991,13 +996,13 @@ function ENT:FootStepSoundCode(customSd)
             local curSched = self.CurrentSchedule
             if !self.DisableFootStepOnRun && ((VJ.HasValue(self.AnimTbl_Run, self:GetMovementActivity())) or (curSched != nil && curSched.MoveType == 1)) then
                 VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-                local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Run", sdtbl) end
+                local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Run", sdtbl) end
                 if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
                 self.FootStepT = CurTime() + self.FootStepTimeRun
                 return
             elseif !self.DisableFootStepOnWalk && (VJ.HasValue(self.AnimTbl_Walk, self:GetMovementActivity()) or (curSched != nil && curSched.MoveType == 0)) then
                 VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-                local funcCustom = self.CustomOnFootStepSound; if funcCustom then funcCustom(self, "Walk", sdtbl) end
+                local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Walk", sdtbl) end
                 if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
                 self.FootStepT = CurTime() + self.FootStepTimeWalk
                 return

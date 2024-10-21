@@ -1,6 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/custom/sicksophie/hair_inside"
-    //"$translucent" 1
-    "$alphatest" 1
+    "$alphatest" "1"
 }

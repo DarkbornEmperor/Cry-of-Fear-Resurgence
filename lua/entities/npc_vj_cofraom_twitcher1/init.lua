@@ -65,7 +65,7 @@ ENT.SoundTbl_Impact = {
 ENT.Twitcher_Invisible = false
 ENT.Twitcher_Transparent = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if self:GetClass() == "npc_vj_cofraom_twitcher1" then
         self.Model = {
         "models/vj_cofr/aom/zombie.mdl",
@@ -135,7 +135,7 @@ function ENT:CustomOnPreInitialize()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Twitcher_CustomOnInitialize()
+function ENT:Twitcher_Init()
    if self:GetClass() == "npc_vj_cofraom_twitcher1"
    or self:GetClass() == "npc_vj_cofraom_twitcher2"
    or self:GetClass() == "npc_vj_cofraom_twitcher1_hd"
@@ -237,7 +237,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
     or self:GetModel() == "models/vj_cofr/aom/zombie2_1.mdl"
     or self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl"
@@ -264,11 +264,11 @@ function ENT:CustomOnInitialize()
        self:SetBodygroup(0,math.random(0,10))
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Twitcher_CustomOnInitialize()
+    self:Twitcher_Init()
     self:TwitcherSounds()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "attack" then
@@ -285,42 +285,43 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:OnAlert(ent)
     if math.random(1,3) == 1 && self.Twitcher_Invisible then
         self:PlaySoundSystem("Alert", {"vj_cofr/aom/twitcher/skuggfa.wav"})
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     -- Remove decals for Transparent & Invisible Twitchers
     if self.Twitcher_Invisible or self.Twitcher_Transparent then
         self:RemoveAllDecals()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+function ENT:OnFlinch(dmginfo,hitgroup,status)
+ if status == "PriorExecution" then
     if dmginfo:GetDamage() > 30 then
-        self.FlinchChance = 8
-        self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+        self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
-        self.FlinchChance = 16
-        self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+        self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    VJ_COFR_DeathCode(self)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "DeathAnim" then
     if hitgroup == HITGROUP_HEAD then
-        self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+        self.AnimTbl_Death = ACT_DIE_HEADSHOT
     else
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end
 end
+    if status == "Initial" then
+        VJ_COFR_DeathCode(self)
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
  if self.Twitcher_Invisible or (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
     corpseEnt:DrawShadow(false)
  elseif self.Twitcher_Transparent then
@@ -331,7 +332,7 @@ end
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end

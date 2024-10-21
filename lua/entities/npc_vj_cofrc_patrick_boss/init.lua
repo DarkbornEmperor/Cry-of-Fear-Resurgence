@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/custom/saw_bateman.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Sawrunner_CustomOnInitialize()
+function ENT:Sawrunner_Init()
     self.SoundTbl_Breath = {
     "vj_cofr/cof/sawer/chainsaw_loop.wav"
 }
@@ -26,7 +26,7 @@ function ENT:Sawrunner_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert() return end
+function ENT:OnAlert(ent) return end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

@@ -18,7 +18,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/faceless/fist_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Slower_CustomOnInitialize()
+function ENT:Slower_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/cof/slower3/slower_alert10.wav",
     "vj_cofr/cof/slower3/slower_alert20.wav",
@@ -38,7 +38,7 @@ function ENT:Slower_CustomOnInitialize()
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert() return end
+function ENT:OnAlert(ent) return end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

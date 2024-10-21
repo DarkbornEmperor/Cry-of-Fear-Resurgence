@@ -43,7 +43,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
     phys:SetBuoyancyRatio(0)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
     self:SetNoDraw(true)
     self.Scale = math.Rand(0.5,1.15)
     local idleSprite = ents.Create("env_sprite")
