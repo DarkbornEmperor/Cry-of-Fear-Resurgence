@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/simon/moddb/hoodie_moddb"
+    "$nocull" "1"
 }

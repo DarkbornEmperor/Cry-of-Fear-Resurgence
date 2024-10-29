@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/simon/gamebanana/hoodie_gamebanana"
+    "$nocull" "1"
 }
