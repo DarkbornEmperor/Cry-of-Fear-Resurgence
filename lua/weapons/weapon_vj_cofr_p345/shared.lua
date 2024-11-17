@@ -28,6 +28,7 @@ SWEP.Primary.Sound = "vj_cofr/cof/weapons/p345/p345_fire.wav"
 SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,8 +53,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects(owner)
-    self.PrimaryEffects_MuzzleFlash = false
+function SWEP:PrimaryAttackEffects(owner)
     muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
@@ -71,21 +71,23 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill","",0.08)
-    return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-  if status == "Initial" then
-  local owner = self:GetOwner()
-  if owner:GetClass() == "npc_vj_cofr_purnell" then return end
+    if status == "Initial" then
+    local owner = self:GetOwner()
+    if owner:GetClass() == "npc_vj_cofr_purnell" then return end
     local Brt = math.random(1,3)
     local Num = 0.35
-    if Brt == 1 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
-    self.NPC_NextPrimaryFire = math.Rand(1.25,1.55)
-    elseif Brt == 2 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3}
-    self.NPC_NextPrimaryFire = math.Rand(1.65,1.85)
-    elseif Brt == 3 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4}
-    self.NPC_NextPrimaryFire = math.Rand(2.05,2.25)
-    end
+    if Brt == 1 then
+      self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
+        self.NPC_NextPrimaryFire = math.Rand(1.25,1.55)
+    elseif Brt == 2 then
+      self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3}
+        self.NPC_NextPrimaryFire = math.Rand(1.65,1.85)
+    elseif Brt == 3 then
+      self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4}
+        self.NPC_NextPrimaryFire = math.Rand(2.05,2.25)
+        end
     end
 end

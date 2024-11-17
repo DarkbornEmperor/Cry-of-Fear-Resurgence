@@ -34,6 +34,7 @@ SWEP.Primary.Sound = "vj_cofr/cof/weapons/rifle/rifle_fire.wav"
 SWEP.Primary.DistantSound = "vj_cofr/fx/distant/sniper_fire_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +44,7 @@ function SWEP:Init()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects(owner)
+function SWEP:PrimaryAttackEffects(owner)
     self.PrimaryEffects_MuzzleFlash = false
     muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")

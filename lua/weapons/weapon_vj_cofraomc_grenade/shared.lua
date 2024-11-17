@@ -28,6 +28,7 @@ SWEP.Primary.ClipSize = 10
 SWEP.Primary.Ammo = "grenade"
 SWEP.Primary.Sound = "vj_cofr/fx/null.wav"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.Primary.DisableBulletCode = true
 SWEP.HasDryFireSound = false
 SWEP.PrimaryEffects_SpawnMuzzleFlash = false

@@ -32,6 +32,7 @@ SWEP.Primary.Sound = "vj_cofr/aom/weapons/shotgun/classic/sbarrel1.wav"
 SWEP.Primary.DistantSound = "vj_cofr/fx/distant/sbarrel1_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -39,8 +40,7 @@ function SWEP:Init()
     self:SetModelScale(0.85)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects(owner)
-    self.PrimaryEffects_MuzzleFlash = false
+function SWEP:PrimaryAttackEffects(owner)
     muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
@@ -58,5 +58,4 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill","",0.08)
-    return true
 end

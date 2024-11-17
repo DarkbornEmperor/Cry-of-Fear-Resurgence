@@ -29,11 +29,11 @@ SWEP.Primary.Sound = "vj_cofr/cof/weapons/ak47/shoot.wav"
 SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
+SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects(owner)
-    self.PrimaryEffects_MuzzleFlash = false
+function SWEP:PrimaryAttackEffects(owner)
     muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
@@ -51,17 +51,18 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill","",0.08)
-    return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
     if status == "Initial" then
     local Brt = math.random(1,2)
     local Num = 0.05
-    if Brt == 1 then self.NPC_TimeUntilFireExtraTimers = {}
-    self.NPC_NextPrimaryFire = math.Rand(0.7,0.9)
-    elseif Brt == 2 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
-    self.NPC_NextPrimaryFire = math.Rand(1,1.2)
+    if Brt == 1 then
+        self.NPC_TimeUntilFireExtraTimers = {}
+        self.NPC_NextPrimaryFire = math.Rand(0.7,0.9)
+    elseif Brt == 2 then
+        self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
+        self.NPC_NextPrimaryFire = math.Rand(1,1.2)
         end
     end
 end
