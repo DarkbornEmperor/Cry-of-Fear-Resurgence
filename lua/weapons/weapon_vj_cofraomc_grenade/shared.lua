@@ -37,17 +37,18 @@ function SWEP:Init()
     self:SetModelScale(0.5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomBulletSpawnPosition()
+function SWEP:OnGetBulletPos()
     local owner = self:GetOwner()
 
     return owner:GetPos() + owner:GetUp() + Vector(0,0,50)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
-    return false
+function SWEP:PrimaryAttackEffects(owner)
+    return
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_BeforeShoot()
+function SWEP:OnPrimaryAttack(status,statusData)
+    if status == "Initial" then
     if CLIENT then return end
     local grenade = ents.Create("obj_vj_cofraomc_grenade")
     grenade:SetPos(self:GetBulletPos())
@@ -59,5 +60,6 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
     local phys = grenade:GetPhysicsObject()
     if IsValid(phys) then
         phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetBulletPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
+    end
     end
 end

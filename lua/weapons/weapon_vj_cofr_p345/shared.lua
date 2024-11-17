@@ -74,7 +74,8 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
     return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_BeforeShoot()
+function SWEP:OnPrimaryAttack(status,statusData)
+  if status == "Initial" then
   local owner = self:GetOwner()
   if owner:GetClass() == "npc_vj_cofr_purnell" then return end
     local Brt = math.random(1,3)
@@ -85,5 +86,6 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
     self.NPC_NextPrimaryFire = math.Rand(1.65,1.85)
     elseif Brt == 3 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4}
     self.NPC_NextPrimaryFire = math.Rand(2.05,2.25)
+    end
     end
 end

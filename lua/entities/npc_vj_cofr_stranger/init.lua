@@ -98,7 +98,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
         net.WriteEntity(opt3)
         net.Send(ply)
 
-    function self.VJ_TheControllerEntity:CustomOnStopControlling()
+    function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start(nwName)
             net.WriteBool(true)
             net.WriteEntity(opt1)

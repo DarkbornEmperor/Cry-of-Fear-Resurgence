@@ -716,8 +716,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_DeathCode(ent)
- //ent.Bleeds = false
- //ent:SetSolid(SOLID_NONE)
+ ent.HasBloodPool = false
  ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
  if GetConVar("VJ_COFR_DropAmmo"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
  ent.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}

@@ -67,7 +67,8 @@ function SWEP:CustomOnPrimaryAttackEffects(owner)
     return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_BeforeShoot()
+function SWEP:OnPrimaryAttack(status,statusData)
+    if status == "Initial" then
     local Brt = math.random(1,8)
     local Num = 0.09
     if Brt == 1 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
@@ -86,5 +87,6 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
     self.NPC_NextPrimaryFire = math.Rand(1.45,1.55)
     elseif Brt == 8 then self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5,Num*6,Num*7,Num*8,Num*9}
     self.NPC_NextPrimaryFire = math.Rand(1.55,1.85)
+    end
     end
 end
