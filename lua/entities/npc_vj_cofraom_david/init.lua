@@ -617,7 +617,7 @@ function ENT:OnWeaponAttack()
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
  if self.Weapon_StrafeWhileFiring && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.DoingWeaponAttack && CurTime() > self.NextWeaponStrafeWhileFiringT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
  timer.Simple(0,function()
-    local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 250), true, "0111"))
+    local moveCheck = VJ.PICK(self:TraceDirections("Quick", math.random(150, 250), true, false, 8, true))
     if moveCheck then
     self:StopMoving()
     self.NextWeaponStrafeWhileFiringT = CurTime() + math.Rand(self.Weapon_StrafeWhileFiringDelay.a, self.Weapon_StrafeWhileFiringDelay.b)
@@ -638,7 +638,7 @@ function ENT:OnWeaponReload()
  //if self.Weapon_FindCoverOnReload then self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
  if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
  timer.Simple(0,function()
-    local moveCheck = VJ.PICK(self:VJ_CheckAllFourSides(math.random(150, 400), true, "0111"))
+    local moveCheck = VJ.PICK(self:TraceDirections("Quick", math.random(150, 400), true, false, 8, true))
     if moveCheck then
     self:StopMoving()
     self:SetLastPosition(moveCheck)
