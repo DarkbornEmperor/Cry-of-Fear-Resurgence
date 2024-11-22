@@ -44,10 +44,6 @@ function SWEP:OnGetBulletPos()
     return owner:GetPos() + owner:GetUp() + Vector(0,0,50)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:PrimaryAttackEffects(owner)
-    return
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
     if status == "Initial" then
     if CLIENT then return end
@@ -61,6 +57,14 @@ function SWEP:OnPrimaryAttack(status,statusData)
     local phys = grenade:GetPhysicsObject()
     if IsValid(phys) then
         phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetBulletPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
+        end
     end
-    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_Reload()
+    local owner = self:GetOwner()
+    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
+    owner.NextChaseTime = 0
+    self:OnReload("Start")
+    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
 end

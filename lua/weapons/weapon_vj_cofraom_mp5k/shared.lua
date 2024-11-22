@@ -91,3 +91,11 @@ function SWEP:OnPrimaryAttack(status,statusData)
         end
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_Reload()
+    local owner = self:GetOwner()
+    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
+    owner.NextChaseTime = 0
+    self:OnReload("Start")
+    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+end

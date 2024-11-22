@@ -46,3 +46,11 @@ function SWEP:PrimaryAttack(UseAlt)    -- Heavily modified PrimaryAttack functio
         self.NextMeleeAnimT = CurTime() + VJ.AnimDuration(owner,owner.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1])
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_Reload()
+    local owner = self:GetOwner()
+    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
+    owner.NextChaseTime = 0
+    self:OnReload("Start")
+    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+end

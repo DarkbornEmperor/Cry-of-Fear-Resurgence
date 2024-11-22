@@ -45,7 +45,6 @@ function SWEP:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
-    self.PrimaryEffects_MuzzleFlash = false
     muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
@@ -65,7 +64,14 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:Fire("Kill","",0.08)
     timer.Simple(0.85, function() if IsValid(self) && IsValid(owner) then
         VJ.EmitSound(owner, "vj_cofr/cof/weapons/rifle/rifle_cock_forward.wav", self.NPC_ExtraFireSoundLevel, math.Rand(self.NPC_ExtraFireSoundPitch.a, self.NPC_ExtraFireSoundPitch.b))
-    end
-end)
-    return true
+        end
+    end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_Reload()
+    local owner = self:GetOwner()
+    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
+    owner.NextChaseTime = 0
+    self:OnReload("Start")
+    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
 end
