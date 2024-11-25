@@ -38,7 +38,7 @@ function SWEP:PrimaryAttack(UseAlt)    -- Heavily modified PrimaryAttack functio
 
     if isNPC && !owner.VJ_IsBeingControlled && !IsValid(owner:GetEnemy()) then return end -- If the NPC owner isn't being controlled and doesn't have an enemy, then return end
     if (!self:CanPrimaryAttack()) then return end
-    if self:OnPrimaryAttack() == true then return end
+    if self:OnPrimaryAttack("Initial") == true then return end
 
     -- Melee Gesture
     if owner.IsVJBaseSNPC_Human && !owner.DisableWeaponFiringGesture && CurTime() > self.NextMeleeAnimT then
