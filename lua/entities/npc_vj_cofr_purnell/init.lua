@@ -114,7 +114,7 @@ function ENT:OnWeaponAttack()
     if CurTime() > self.Doctor_NextRunT then
     timer.Simple(0.5, function()
         if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
-        self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
+        self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
     end
 end)
         self.Doctor_NextRunT = CurTime() + math.Rand(12,18)

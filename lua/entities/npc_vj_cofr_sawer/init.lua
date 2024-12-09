@@ -128,7 +128,7 @@ end
 function ENT:OnDamaged(dmginfo,hitgroup,status)
   if status == "PreDamage" then
      if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
-        self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH,true,false,false)
+        self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
         self.Sawer_NextFlinchT = CurTime() + self.NextFlinchTime
 end
      if hitgroup == 9 && self.Sawer_EyeOpen then
@@ -143,7 +143,7 @@ end
 end
      if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
      local animTime = VJ.AnimDuration(self,ACT_COWER)
-        self:VJ_ACT_PLAYACTIVITY(ACT_COWER,true,false,false)
+        self:PlayAnim(ACT_COWER,true,false,false)
         VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
         self:SetSkin(1)
         self.Sawer_EyeOpen = true

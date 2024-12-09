@@ -115,7 +115,7 @@ end
     if !IsValid(self:GetEnemy()) or !self:Visible(self:GetEnemy()) or self.Dead or !self.Sewmo_Sleep then return end
     if self.Sewmo_Sleep && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
         self.Sewmo_Sleep = false
-        self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
+        self:PlayAnim(ACT_SIGNAL2,true,false,false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         self.AnimTbl_IdleStand = {ACT_IDLE}
         self.HasMeleeAttack = true
@@ -160,7 +160,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
    if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
      if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math.random(1,5) == 1 then
             self.Sewmo_WireBroken = true
-            self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+            self:PlayAnim(ACT_SIGNAL1,true,false,false)
         end
     end
 end

@@ -64,7 +64,7 @@ end
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.FaceHead_Jumpscare && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-        self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+        self:PlayAnim(ACT_SIGNAL1,true,false,true)
         self.FaceHead_Scream = VJ.CreateSound(self,self.SoundTbl_FaceHeadScream,75,100)
         self.FaceHead_Jumpscare = true
         VJ.STOPSOUND(self.CurrentAlertSound)

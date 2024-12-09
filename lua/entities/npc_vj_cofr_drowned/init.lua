@@ -191,7 +191,7 @@ function ENT:OnThinkActive()
     if !self.Drowned_Baby && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Drowned_Baby = true
         self.HasMeleeAttack = true
-        self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
+        self:PlayAnim(ACT_SIGNAL2,true,false,false)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

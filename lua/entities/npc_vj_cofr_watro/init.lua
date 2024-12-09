@@ -97,7 +97,7 @@ function ENT:OnThinkActive()
         VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
 end
         self.Watro_Burrowed = false
-        self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+        self:PlayAnim(ACT_SIGNAL1,true,false,false)
         self.HasMeleeAttack = true
         self:DrawShadow(true)
         self.CallForHelp = true

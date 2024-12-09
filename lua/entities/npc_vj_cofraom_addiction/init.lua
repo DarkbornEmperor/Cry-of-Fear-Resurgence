@@ -139,7 +139,7 @@ function ENT:OnThinkActive()
  local ent = self:GetEnemy()
  if self.Dead then return end
  if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-    self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+    self:PlayAnim(ACT_SIGNAL1,true,false,false)
     self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
 end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end

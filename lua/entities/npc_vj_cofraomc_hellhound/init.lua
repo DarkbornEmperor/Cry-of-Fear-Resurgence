@@ -59,13 +59,13 @@ function ENT:OnThinkActive()
     if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
         local sleepTime = math.Rand(15,30) -- How long it should sleep
         self.Hellhound_Sleeping = true
-        self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
+        self:PlayAnim(ACT_CROUCH, true, false, false)
         self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
         timer.Simple(7, function() if IsValid(self) && self.Hellhound_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
         timer.Simple(sleepTime, function() -- Reset after sleepTime expires
             if IsValid(self) && self.Hellhound_Sleeping == true then
                 self.Hellhound_Sleeping = false
-                self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false)
+                self:PlayAnim(ACT_STAND, true, false, false)
                 self.Hellhound_NextSleepT = CurTime() + math.Rand(15, 45)
             end
         end)
@@ -78,10 +78,10 @@ function ENT:OnAlert(ent)
     if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
         if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
         self.Hellhound_Sleeping = false
-        self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
+        self:PlayAnim(ACT_HOP, true, false, false)
         self.Hellhound_NextSleepT = CurTime() + 20
     elseif math.random(1,2) == 1 then -- Random alert animation
-        self:VJ_ACT_PLAYACTIVITY(alertAnims, true, false, true)
+        self:PlayAnim(alertAnims, true, false, true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -511,9 +511,9 @@ end
 function ENT:OnThinkActive()
  if self.IsMedicSNPC && !self:IsBusy() && self.Medic_Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
     self:OnMedicBehavior()
-     self:VJ_ACT_PLAYACTIVITY("vjges_heal",true,false,false)
+     self:PlayAnim("vjges_heal",true,false,false)
  if IsValid(self:GetEnemy()) then
-    self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end
+    self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end
     timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
     local CurHP = self:Health()
     self:SetHealth(math.Clamp(CurHP + self.Medic_HealthAmount, CurHP, self:GetMaxHealth()))
@@ -622,7 +622,7 @@ function ENT:OnWeaponAttack()
     self:StopMoving()
     self.NextWeaponStrafeWhileFiringT = CurTime() + math.Rand(self.Weapon_StrafeWhileFiringDelay.a, self.Weapon_StrafeWhileFiringDelay.b)
     self:SetLastPosition(moveCheck)
-    self:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end) end
+    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponStrafeWhileFiring()
@@ -635,14 +635,14 @@ function ENT:OnWeaponStrafeWhileFiring()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponReload()
- //if self.Weapon_FindCoverOnReload then self:VJ_TASK_COVER_FROM_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
+ //if self.Weapon_FindCoverOnReload then self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
  if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) == true then return end
  timer.Simple(0,function()
     local moveCheck = VJ.PICK(self:TraceDirections("Quick", math.random(150, 400), true, false, 8, true))
     if moveCheck then
     self:StopMoving()
     self:SetLastPosition(moveCheck)
-    self:VJ_TASK_GOTO_LASTPOS(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end)
+    self:SCHEDULE_GOTO_POSITION(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(h)

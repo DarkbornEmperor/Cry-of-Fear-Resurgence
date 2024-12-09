@@ -62,7 +62,7 @@ end
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.Dreamer_Jumpscare && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-        self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
+        self:PlayAnim(ACT_SIGNAL1,true,false,true)
         self.Dreamer_Scream = VJ.CreateSound(self,self.SoundTbl_DreamerScream,75,100)
         self.Dreamer_Jumpscare = true
         self.CallForHelp = true
