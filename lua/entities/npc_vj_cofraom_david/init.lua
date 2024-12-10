@@ -380,7 +380,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if math.random(1,5) == 1 then self.IsMedicSNPC = true end
+ if math.random(1,5) == 1 then self.IsMedic = true end
  if GetConVar("VJ_COFR_Human_ReloadCover"):GetInt() == 1 then
     self.Weapon_FindCoverOnReload = true
 end
@@ -509,7 +509,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if self.IsMedicSNPC && !self:IsBusy() && self.Medic_Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+ if self.IsMedic && !self:IsBusy() && self.Medic_Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
     self:OnMedicBehavior()
      self:PlayAnim("vjges_heal",true,false,false)
  if IsValid(self:GetEnemy()) then
