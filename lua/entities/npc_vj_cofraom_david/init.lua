@@ -472,8 +472,8 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.CoFR_Crouching && self.HasShootWhileMoving && IsValid(self:GetEnemy()) then
-    if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving == true && self:IsAbleToShootWeapon(true, false) == true then
+    if self.CoFR_Crouching && self.Weapon_CanFireWhileMoving && IsValid(self:GetEnemy()) then
+    if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving == true && self:CanFireWeapon(true, false) == true then
         self.DoingWeaponAttack = true
         self.DoingWeaponAttack_Standing = false
     if act == ACT_WALK then
