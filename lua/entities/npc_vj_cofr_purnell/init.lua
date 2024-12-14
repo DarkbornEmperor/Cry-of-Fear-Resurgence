@@ -39,6 +39,9 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
+ENT.SoundTbl_FootStep = {
+"common/null.wav"
+}
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/doc_ai/doctorbattle.mp3",
 "vj_cofr/cof/doc_ai/doctorbattle2.mp3"
@@ -292,39 +295,6 @@ function ENT:OnFootstepSound()
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:FootStepSoundCode(customSd)
-    if self.HasSounds == false or self.HasFootStepSound == false or self.MovementType == VJ_MOVETYPE_STATIONARY then return end
-    if self:IsOnGround() && self:GetGroundEntity() != NULL then
-        if self.DisableFootStepSoundTimer then
-            local customTbl = VJ.PICK(customSd)
-            local sdtbl = VJ.PICK(self.SoundTbl_FootStep)
-            if customTbl then sdtbl = customTbl end
-            VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-            local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Event", sdtbl) end
-            if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
-            return
-        elseif self:IsMoving() && CurTime() > self.FootStepT && self:GetInternalVariable("m_flMoveWaitFinished") <= 0 then
-            local customTbl = VJ.PICK(customSd)
-            local sdtbl = VJ.PICK(self.SoundTbl_FootStep)
-            if customTbl then sdtbl = customTbl end
-            local curSched = self.CurrentSchedule
-            if !self.DisableFootStepOnRun && ((VJ.HasValue(self.AnimTbl_Run, self:GetMovementActivity())) or (curSched != nil && curSched.MoveType == 1)) then
-                VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-                local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Run", sdtbl) end
-                if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
-                self.FootStepT = CurTime() + self.FootStepTimeRun
-                return
-            elseif !self.DisableFootStepOnWalk && (VJ.HasValue(self.AnimTbl_Walk, self:GetMovementActivity()) or (curSched != nil && curSched.MoveType == 0)) then
-                VJ.EmitSound(self, sdtbl, self.FootStepSoundLevel, self:VJ_DecideSoundPitch(self.FootStepPitch.a, self.FootStepPitch.b))
-                local funcCustom = self.OnFootstepSound; if funcCustom then funcCustom(self, "Walk", sdtbl) end
-                if self.HasWorldShakeOnMove then util.ScreenShake(self:GetPos(), self.WorldShakeOnMoveAmplitude or 10, self.WorldShakeOnMoveFrequency or 100, self.WorldShakeOnMoveDuration or 0.4, self.WorldShakeOnMoveRadius or 1000) end -- !!!!!!!!!!!!!! DO NOT USE THESE !!!!!!!!!!!!!! [Backwards Compatibility!]
-                self.FootStepT = CurTime() + self.FootStepTimeWalk
-                return
-            end
-        end
     end
 end
 /*-----------------------------------------------
