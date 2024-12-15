@@ -56,6 +56,7 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Screamer_HomingAttack = false -- false = Regular, true = Homing
+ENT.Screamer_NumFired = 0 -- Used to make sure range attack sound only plays once
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Screamer_Init()
     self.SoundTbl_Alert = {
@@ -139,7 +140,7 @@ end
 end
         self.Screamer_HomingAttack = key == "attack_rangeclose"
         self:RangeAttackCode()
-    elseif key == "sprite" && self.AttackType == VJ.ATTACK_TYPE_RANGE && !self.Screamer_HomingAttack then
+    elseif key == "sprite" && !self.Screamer_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
         if IsValid(self.soul1) then
             self.soul1:SetNoDraw(false)
 end
@@ -201,12 +202,21 @@ function ENT:MultipleRangeAttacks()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
+	self.Screamer_NumFired = 0
+	self.HasRangeAttackSound = true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-    local ene = self:GetEnemy()
-    if self.Screamer_HomingAttack && IsValid(ene) then
-        projectile.Track_Enemy = ene
-        timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
-    end
+ local ene = self:GetEnemy()
+ if self.Screamer_HomingAttack && IsValid(ene) then
+    projectile.Track_Enemy = ene
+    timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
+end
+	if self.Screamer_NumFired < 1 then
+		self.Screamer_NumFired = self.Screamer_NumFired + 1
+		self.HasRangeAttackSound = false
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjSpawnPos(projectile)
