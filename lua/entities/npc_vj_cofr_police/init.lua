@@ -13,6 +13,8 @@ ENT.Medic_HealthAmount = 50
 ENT.SoundTbl_MedicAfterHeal = {
 "vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 }
+-- Custom
+ENT.Human_Type = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
      if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end

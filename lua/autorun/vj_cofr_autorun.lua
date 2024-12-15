@@ -634,7 +634,6 @@ end
             Panel:AddControl("Slider", {Label = "Chance That A Horde Will Appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
             Panel:AddControl("Slider", {Label = "Min Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
             Panel:AddControl("Slider", {Label = "Max Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
-            Panel:AddPanel(typebox)
         end)
     end)
 end

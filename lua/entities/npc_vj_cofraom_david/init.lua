@@ -190,8 +190,14 @@ ENT.WeaponsList_AoMC_Cont = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if math.random(1,3) == 1 then
-        self.WeaponInventory_MeleeList = false
+    if math.random(1,2) == 1 && self.Human_Type == 0 then
+        self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_AOMDC})
+    elseif math.random(1,2) == 1 && self.Human_Type == 3 then
+        self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_AOMC})
+    elseif math.random(1,2) == 1 && self.Human_Type == 1 then
+        self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
+    elseif math.random(1,2) == 1 && self.Human_Type == 2 then
+        self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -202,7 +208,6 @@ function ENT:David_Init()
     end
 end
  if self.Human_Type == 0 then
-    self.WeaponInventory_MeleeList = {"weapon_vj_cofraom_knife","weapon_vj_cofraom_hammer","weapon_vj_cofraom_axe","weapon_vj_cofraom_spear"}
     self.SoundTbl_Breath = {
     "vj_cofr/aom/david/breathe1.wav",
     "vj_cofr/aom/david/breathe2.wav"
@@ -231,7 +236,6 @@ function ENT:DavidClassic_Init()
     end
 end
  if self.Human_Type == 3 then
-    self.WeaponInventory_MeleeList = {"weapon_vj_cofraomc_knife"}
     self.SoundTbl_Breath = {
     "vj_cofr/aom/david/breathe1.wav",
     "vj_cofr/aom/david/breathe2.wav"
@@ -257,13 +261,12 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Simon_Init()
- if !self.DisableWeapons then
- if !self.WeaponInventory_MeleeList && self.Human_Type == 1 then
+ if !self.DisableWeapons && self.Human_Type == 1 then
+ if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
     end
 end
  if self.Human_Type == 1 then
-    self.WeaponInventory_MeleeList = {"weapon_vj_cofr_switchblade","weapon_vj_cofr_nightstick","weapon_vj_cofr_sledgehammer","weapon_vj_cofr_branch","weapon_vj_cofraom_axe","weapon_vj_cofr_pickaxe","weapon_vj_cofr_shovel","weapon_vj_cofr_stone"}
     self.SoundTbl_Breath = {
     "vj_cofr/cof/simon/breathing.wav"
 }
@@ -339,7 +342,6 @@ function ENT:Police_Init()
     end
 end
  if self.Human_Type == 2 then
-    self.WeaponInventory_MeleeList = {"weapon_vj_cofr_switchblade","weapon_vj_cofr_nightstick","weapon_vj_cofr_sledgehammer","weapon_vj_cofr_branch","weapon_vj_cofraom_axe","weapon_vj_cofr_pickaxe","weapon_vj_cofr_shovel","weapon_vj_cofr_stone"}
     self.SoundTbl_BeforeMeleeAttack = {
     "vj_cofr/cof/police/Swing1.wav",
     "vj_cofr/cof/police/Swing2.wav",
@@ -392,15 +394,23 @@ end
 end
   if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_da.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/cross.mdl" or self:GetModel() == "models/vj_cofr/aom/question.mdl" or self:GetModel() == "models/vj_cofr/aom/scream.mdl" or self:GetModel() == "models/vj_cofr/aom/two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
      self.Human_Type = 0
+     self:David_Init()
   elseif self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_beta.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/custom/roderick.mdl" then
      self.Human_Type = 1
+     self:Simon_Init()
   elseif self:GetModel() == "models/vj_cofr/cof/police1.mdl" or self:GetModel() == "models/vj_cofr/cof/police2.mdl" or self:GetModel() == "models/vj_cofr/cof/police3.mdl" or self:GetModel() == "models/vj_cofr/cof/police4.mdl" then
      self.Human_Type = 2
+     self:Police_Init()
+  elseif self:GetModel() == "models/vj_cofr/aom/classic/david.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_old.mdl" then
+     self.Human_Type = 3
+     self:DavidClassic_Init()
 end
     self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
     self.NextWeaponSwitchT = CurTime() + math.Rand(2,4)
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:AssistorFlashlight()
 
- if self.WeaponInventory_MeleeList then
+ if !self.WeaponInventory_MeleeList then return end
  if self.Human_Type == 0 then
     for _,category in pairs(self.WeaponsList_AoMDC) do
         for _,wep in pairs(category) do
@@ -446,13 +456,6 @@ end
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Far"]),true)
         end
     end
-end
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:David_Init()
-    self:Simon_Init()
-    self:Police_Init()
-    self:DavidClassic_Init()
-    self:AssistorFlashlight()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight() end

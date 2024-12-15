@@ -21,30 +21,31 @@ SWEP.MeleeWeaponSound_Miss = false
 SWEP.NextMeleeAnimT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-    if status == "Initial" then
+   if status == "Initial" then
    local owner = self:GetOwner()
    if !owner.IsCoFRHuman then return end
      if CurTime() > owner.CoFR_NextMeleeSoundT then
         owner:PlaySoundSystem("BeforeMeleeAttack",owner.SoundTbl_BeforeMeleeAttack)
         owner.CoFR_NextMeleeSoundT = CurTime() + VJ.AnimDuration(owner,owner.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1])
-     end
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttack(UseAlt)    -- Heavily modified PrimaryAttack function to have melee weapons work better and more fluid
-    self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
-    local owner = self:GetOwner()
-    local isNPC = owner:IsNPC()
+ self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+ local owner = self:GetOwner()
+ local isNPC = owner:IsNPC()
 
-    if isNPC && !owner.VJ_IsBeingControlled && !IsValid(owner:GetEnemy()) then return end -- If the NPC owner isn't being controlled and doesn't have an enemy, then return end
-    if (!self:CanPrimaryAttack()) then return end
-    if self:OnPrimaryAttack("Initial") == true then return end
+ if isNPC && !owner.VJ_IsBeingControlled && !IsValid(owner:GetEnemy()) then return end -- If the NPC owner isn't being controlled and doesn't have an enemy, then return end
+ if (!self:CanPrimaryAttack()) then return end
+ if self:OnPrimaryAttack("Initial") == true then return end
 
-    -- Melee Gesture
-    if owner.IsVJBaseSNPC_Human && !owner.DisableWeaponFiringGesture && CurTime() > self.NextMeleeAnimT then
-        owner:PlayAnim(owner:TranslateActivity(VJ.PICK(owner.AnimTbl_WeaponAttackFiringGesture)), false, false, false, 0, {AlwaysUseGesture=true})
-        self.NextMeleeAnimT = CurTime() + VJ.AnimDuration(owner,owner.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1])
-    end
+ -- Melee Gesture
+ if owner.IsVJBaseSNPC_Human && !owner.DisableWeaponFiringGesture && CurTime() > self.NextMeleeAnimT then
+    owner:PlayAnim(owner:TranslateActivity(VJ.PICK(owner.AnimTbl_WeaponAttackFiringGesture)), false, false, false, 0, {AlwaysUseGesture=true})
+    self.NextMeleeAnimT = CurTime() + VJ.AnimDuration(owner,owner.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1])
+end
+    self:OnPrimaryAttack("PostFire")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
