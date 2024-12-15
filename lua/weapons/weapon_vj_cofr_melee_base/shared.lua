@@ -48,6 +48,11 @@ end
     self:OnPrimaryAttack("PostFire")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:GetBulletPos()
+    local owner = self:GetOwner()
+    return owner:EyePos()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
     local owner = self:GetOwner()
     owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
