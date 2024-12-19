@@ -30,9 +30,8 @@ ENT.Model = "models/vj_cofr/cof/hookedhead.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
-ENT.CollideCodeWithoutRemoving = false
 ENT.SoundTbl_OnCollide = "vj_cofr/cof/roofboss/rb_headhit.wav"
-ENT.DecalTbl_DeathDecals = {"VJ_COFR_Blood_Red_Large"}
+ENT.CollisionDecals = "VJ_COFR_Blood_Red_Large"
 -- Custom
 local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
@@ -49,7 +48,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headshoot.wav", 75, 100)
-    timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100) self:DeathEffects() end end)
+    timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100) self:OnDestroy() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
@@ -74,13 +73,13 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage(dmginfo)
+function ENT:OnDamaged(dmginfo)
     VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100)
-    self:DeathEffects()
+    self:OnDestroy()
     self:Remove()
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:OnDestroy(data,phys)
     self.Scale = math.Rand(0.5,1.15)
     local spr = ents.Create("env_sprite")
     spr:SetKeyValue("model","vj_cofr/sprites/spitsplat_red.vmt")

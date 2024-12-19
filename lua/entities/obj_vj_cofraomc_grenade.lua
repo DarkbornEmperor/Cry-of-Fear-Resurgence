@@ -25,12 +25,12 @@ end
 if !SERVER then return end
 
 ENT.Model = "models/vj_cofr/aom/weapons/classic/w_grenade.mdl"
-ENT.DecalTbl_DeathDecals = {"VJ_COFR_Scorch"}
+ENT.CollisionDecals = "VJ_COFR_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/weapons/grenade/grenade_hit1.wav","vj_cofr/aom/weapons/grenade/grenade_hit2.wav","vj_cofr/aom/weapons/grenade/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
+function ENT:OnCollision(data,phys)
     local getVel = phys:GetVelocity()
     local curVelSpeed = getVel:Length()
     phys:SetVelocity(getVel * 0.5)
@@ -44,7 +44,7 @@ local vezZ90 = Vector(0, 0, 90)
 local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)
 --
-function ENT:DeathEffects()
+function ENT:OnDestroy()
     local myPos = self:GetPos()
 
     local spr = ents.Create("env_sprite")
@@ -87,9 +87,8 @@ function ENT:DeathEffects()
         endpos = myPos - vezZ100,
         filter = self
     })
-    util.Decal(VJ.PICK(self.DecalTbl_DeathDecals), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+    util.Decal(VJ.PICK(self.CollisionDecals), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 
-    self:DoDamageCode()
-    self:SetDeathVariablesTrue(nil, nil, false)
+    self:DealDamage()
     self:Remove()
 end

@@ -32,7 +32,6 @@ ENT.Model = "models/vj_cofr/cof/biden_box.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
-ENT.CollideCodeWithoutRemoving = false
 ENT.SoundTbl_OnCollide = "vj_cofr/cof/roofboss/milkme.wav"
 -- Custom
 local defVec = Vector(0, 0, 0)
@@ -74,6 +73,6 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage(dmginfo)
+function ENT:OnDamaged(dmginfo)
     self:Remove()
 end

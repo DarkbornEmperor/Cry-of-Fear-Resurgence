@@ -33,20 +33,18 @@ ENT.RadiusDamage = 80
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90
-ENT.DecalTbl_DeathDecals = {"VJ_COFR_Scorch"}
+ENT.CollisionDecals = "VJ_COFR_Scorch"
 ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-    phys:Wake()
-    phys:SetMass(1)
-    phys:EnableGravity(true)
-    phys:EnableDrag(false)
-    phys:SetBuoyancyRatio(0)
-    phys:AddAngleVelocity(Vector(0,math.random(300,400),0))
+function ENT:InitPhys()
+    local phys = self:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:AddAngleVelocity(Vector(0, math.random(300, 400), 0))
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data, phys)
+function ENT:OnDestroy(data, phys)
     local selfPos = self:GetPos()
 
     local spr = ents.Create("env_sprite")

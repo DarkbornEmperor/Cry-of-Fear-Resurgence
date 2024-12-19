@@ -27,12 +27,10 @@ end
 if !SERVER then return end
 
 ENT.Model = "models/vj_cofr/aom/hornet.mdl"
-ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE
-ENT.RemoveOnHit = false
+ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 6
 ENT.DirectDamageType = DMG_SLASH
-ENT.CollideCodeWithoutRemoving = true
 ENT.SoundTbl_Idle = {"vj_cofr/aom/eyeball/ag_buzz1.wav","vj_cofr/aom/eyeball/ag_buzz2.wav","vj_cofr/aom/eyeball/ag_buzz3.wav"}
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/ag_hornethit1.wav","vj_cofr/aom/eyeball/ag_hornethit2.wav","vj_cofr/aom/eyeball/ag_hornethit3.wav"}
 ENT.IdleSoundPitch = VJ_Set(100, 100)
@@ -42,14 +40,6 @@ ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-    phys:Wake()
-    phys:SetMass(1)
-    phys:SetBuoyancyRatio(0)
-    phys:EnableDrag(false)
-    phys:EnableGravity(false)
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
   timer.Simple(5, function() if IsValid(self) then
@@ -61,24 +51,24 @@ end)
   if self.Eyeball_Classic then self.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/classic/ag_hornethit1.wav","vj_cofr/aom/eyeball/classic/ag_hornethit2.wav","vj_cofr/aom/eyeball/classic/ag_hornethit3.wav"} end
   if math.random(1,3) == 1 then
     self:SetNoDraw(true)
-    self.IdleEffect = ents.Create("env_sprite")
-    self.IdleEffect:SetKeyValue("model","vj_cofr/sprites/eyeball.vmt")
-    self.IdleEffect:SetKeyValue("rendercolor","255 255 255")
-    self.IdleEffect:SetKeyValue("GlowProxySize","1.0")
-    self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-    self.IdleEffect:SetKeyValue("renderfx","0")
-    self.IdleEffect:SetKeyValue("rendermode","2")
-    self.IdleEffect:SetKeyValue("renderamt","255")
-    self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-    self.IdleEffect:SetKeyValue("mindxlevel","0")
-    self.IdleEffect:SetKeyValue("maxdxlevel","0")
-    self.IdleEffect:SetKeyValue("framerate","5.0")
-    self.IdleEffect:SetKeyValue("spawnflags","0")
-    self.IdleEffect:SetKeyValue("scale","0.2")
-    self.IdleEffect:SetPos(self:GetPos())
-    self.IdleEffect:Spawn()
-    self.IdleEffect:SetParent(self)
-    self:DeleteOnRemove(self.IdleEffect)
+    local eyeballSpr = ents.Create("env_sprite")
+    eyeballSpr:SetKeyValue("model","vj_cofr/sprites/eyeball.vmt")
+    eyeballSpr:SetKeyValue("rendercolor","255 255 255")
+    eyeballSpr:SetKeyValue("GlowProxySize","1.0")
+    eyeballSpr:SetKeyValue("HDRColorScale","1.0")
+    eyeballSpr:SetKeyValue("renderfx","0")
+    eyeballSpr:SetKeyValue("rendermode","2")
+    eyeballSpr:SetKeyValue("renderamt","255")
+    eyeballSpr:SetKeyValue("disablereceiveshadows","0")
+    eyeballSpr:SetKeyValue("mindxlevel","0")
+    eyeballSpr:SetKeyValue("maxdxlevel","0")
+    eyeballSpr:SetKeyValue("framerate","5.0")
+    eyeballSpr:SetKeyValue("spawnflags","0")
+    eyeballSpr:SetKeyValue("scale","0.2")
+    eyeballSpr:SetPos(self:GetPos())
+    eyeballSpr:Spawn()
+    eyeballSpr:SetParent(self)
+    self:DeleteOnRemove(eyeballSpr)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -104,17 +94,15 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:OnCollision(data,phys)
     local lastVel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
     local newVel = phys:GetVelocity():GetNormal()
     lastVel = math.max(newVel:Length(), lastVel)
     phys:SetVelocity(newVel * lastVel * 0.3)
     self:SetAngles(self:GetVelocity():GetNormal():Angle())
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitEnt)
-    if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
-        self:SetDeathVariablesTrue(data, phys)
-        self:Remove()
+
+    -- Remove if it's a living being
+    if data.HitEntity.VJTag_IsLiving then
+        self.CollisionBehavior = VJ.PROJ_COLLISION_REMOVE
     end
 end
