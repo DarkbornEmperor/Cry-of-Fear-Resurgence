@@ -49,6 +49,9 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
+ENT.SoundTbl_FootStep = {
+"common/null.wav"
+}
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
 }
@@ -178,7 +181,6 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
-        self:OnFootstepSound()
     elseif key == "attack" then
         self:MeleeAttackCode()
     elseif key == "death" then

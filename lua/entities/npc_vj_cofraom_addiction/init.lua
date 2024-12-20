@@ -45,6 +45,9 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
+ENT.SoundTbl_FootStep = {
+"common/null.wav"
+}
 ENT.SoundTbl_FireLoop = {
 "vj_cofr/aom/davidbad/fire_loop.wav"
 }
@@ -105,7 +108,6 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
-        self:OnFootstepSound()
     elseif key == "attack" then
         self:MeleeAttackCode()
     elseif key == "axe_grab" then

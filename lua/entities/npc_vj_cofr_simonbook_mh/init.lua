@@ -37,6 +37,9 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
+ENT.SoundTbl_FootStep = {
+"common/null.wav"
+}
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
 }
@@ -70,21 +73,20 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
-    self:FootStepSoundCode()
-    self:OnFootstepSound()
+        self:FootStepSoundCode()
     elseif key == "attack" then
-    self:MeleeAttackCode()
+        self:MeleeAttackCode()
     elseif key == "death_hammer" then
-    VJ.EmitSound(self, "vj_cofr/cof/booksimon/sledgehammer_hit.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/booksimon/sledgehammer_hit.wav", 75, 100)
     elseif key == "death" then
-    VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    /*local effectdata = EffectData()
-    effectdata:SetOrigin(self:GetPos())
-    effectdata:SetScale(10)
-    util.Effect("watersplash",effectdata)*/
-    end
+        /*local effectdata = EffectData()
+        effectdata:SetOrigin(self:GetPos())
+        effectdata:SetScale(10)
+        util.Effect("watersplash",effectdata)*/
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
