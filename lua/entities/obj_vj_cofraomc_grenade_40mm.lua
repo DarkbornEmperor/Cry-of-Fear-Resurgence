@@ -27,6 +27,7 @@ end
 if !SERVER then return end
 
 ENT.Model = "models/vj_cofr/aom/weapons/classic/grenade.mdl"
+ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
 ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 150
 ENT.RadiusDamage = 80
