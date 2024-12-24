@@ -41,10 +41,10 @@ ENT.SoundTbl_FootStep = {
 "common/null.wav"
 }
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
+"vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/cof/booksimon/sledgehammer_swing.wav"
+"vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
 }
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/booksimon/fucked2.mp3"
@@ -66,7 +66,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorBlack = Color(0, 0, 0, 255)
+--
 function ENT:Init()
+    -- Screen flash effect for all the players
+    for _,v in ipairs(player.GetHumans()) do
+        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:BookSimon_Init()
 end
@@ -77,7 +83,7 @@ function ENT:OnInput(key,activator,caller,data)
     elseif key == "attack" then
         self:MeleeAttackCode()
     elseif key == "death_hammer" then
-        VJ.EmitSound(self, "vj_cofr/cof/booksimon/sledgehammer_hit.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hit.wav", 75, 100)
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -96,7 +102,15 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorBlack = Color(0, 0, 0, 255)
+--
 function ENT:OnDeath(dmginfo,hitgroup,status)
+ if status == "Finish" then
+    -- Screen flash effect for all the players
+    for _,v in ipairs(player.GetHumans()) do
+        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+    end
+end
     if status == "Initial" then
         VJ_COFR_DeathCode(self)
     end
