@@ -56,17 +56,18 @@ ENT.VJC_Data = {
 ENT.SoundTbl_FootStep = {
 "common/null.wav"
 }
-/*
-ENT.SoundTbl_MedicBeforeHeal = {
-"vj_cofr/aom/pills/pills_pickup.wav"
+ENT.SoundTbl_MeleeAttack = {
+"common/null.wav"
 }
-*/
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/weapons/melee_hit.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/cof/weapons/melee_swing.wav"
 }
+/*ENT.SoundTbl_MedicBeforeHeal = {
+"vj_cofr/aom/pills/pills_pickup.wav"
+}*/
 ENT.SoundTbl_MedicAfterHeal = {
 "vj_cofr/aom/pills/pills_use.wav"
 }
