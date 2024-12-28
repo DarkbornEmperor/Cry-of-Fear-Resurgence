@@ -357,8 +357,8 @@ function ENT:CustomRangeAttackCode()
  local ene = self:GetEnemy()
  if IsValid(self) && IsValid(self:GetEnemy()) then
  if self.BookSimon_Shotgun then
-    VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-    VJ.EmitSound(self, {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+    VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/sbarrel1_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
     timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
     self:FireBullets({
         Attacker = self,
@@ -368,7 +368,7 @@ function ENT:CustomRangeAttackCode()
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
-        Damage = 5,
+        Damage = self:ScaleByDifficulty(5),
         Force = 1,
         AmmoType = "Buckshot",
         Distance = 2048,
@@ -376,8 +376,8 @@ function ENT:CustomRangeAttackCode()
      })
 
  elseif self.BookSimon_Glock then
-    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-    VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
         Num = 1,
@@ -386,7 +386,7 @@ function ENT:CustomRangeAttackCode()
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
-        Damage = 13,
+        Damage = self:ScaleByDifficulty(13),
         Force = 5,
         AmmoType = "Pistol",
         Distance = 2048,
@@ -394,8 +394,8 @@ function ENT:CustomRangeAttackCode()
      })
 
  elseif self.BookSimon_TMP then
-    VJ.EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-    VJ.EmitSound(self, {"vj_cofr/fx/distant/hks_distant_new.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+    VJ.EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/hks_distant_new.wav"}, 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
         Num = 1,
@@ -404,7 +404,7 @@ function ENT:CustomRangeAttackCode()
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
-        Damage = 7,
+        Damage = self:ScaleByDifficulty(7),
         Force = 5,
         AmmoType = "SMG1",
         Distance = 2048,
@@ -412,8 +412,8 @@ function ENT:CustomRangeAttackCode()
      })
 
  elseif self.BookSimon_M16 then
-    VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
-    VJ.EmitSound(self, {"vj_cofr/fx/distant/hks_distant_new.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+    VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+    VJ.EmitSound(self, {"vj_cofr/fx/distant/hks_distant_new.wav"}, 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
         Num = 1,
@@ -422,7 +422,7 @@ function ENT:CustomRangeAttackCode()
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
-        Damage = 16,
+        Damage = self:ScaleByDifficulty(16),
         Force = 5,
         AmmoType = "SMG1",
         Distance = 2048,
@@ -588,10 +588,10 @@ function ENT:OnFootstepSound()
         filter = {self}
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

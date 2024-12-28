@@ -166,6 +166,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
+ local curAct = self:GetSequenceActivity(self:GetIdealSequence())
  if status == "PriorExecution" then
     if dmginfo:GetDamage() > 30 then
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
@@ -173,7 +174,7 @@ function ENT:OnFlinch(dmginfo,hitgroup,status)
         self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 end
         -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
-        return self:GetActivity() != ACT_SIGNAL1
+        return curAct == ACT_SIGNAL1
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -197,7 +198,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

@@ -171,7 +171,7 @@ function ENT:CustomRangeAttackCode()
 end
     if self:GetPos():Distance(ent:GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
     if CurTime() > self.Drowned_NextEnemyDamageT then
-    if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:VJ_DecideSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
+    if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
     if ent:IsPlayer() then
         net.Start("VJ_COFR_Drowned_ScreenEffect")
             net.WriteEntity(ent)
