@@ -88,7 +88,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "suicide" then
-        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
         VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
