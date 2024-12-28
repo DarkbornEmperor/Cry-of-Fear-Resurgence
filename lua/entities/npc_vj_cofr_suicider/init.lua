@@ -126,11 +126,11 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
     elseif key == "suicide" then
-        VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
+        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     if self.Suicider_Glock then
-        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
     elseif self.Suicider_P345 then
-        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
 end
         self:FireFX()
         self:DropGlock()
@@ -216,11 +216,11 @@ function ENT:CustomRangeAttackCode()
   local ene = self:GetEnemy()
   if IsValid(self) && IsValid(self:GetEnemy()) then
     if self.Suicider_Glock then
-        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
     elseif self.Suicider_P345 then
-        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
 end
-    VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
+    VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
     Attacker = self,
     Num = 1,
