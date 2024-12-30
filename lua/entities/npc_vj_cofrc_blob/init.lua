@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/custom/blob.mdl"
 ENT.StartHealth = 2000
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
-ENT.BloodColor = "Red"
+ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.CustomBlood_Particle = {"vj_cofr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_COFR_Blood_Red"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
