@@ -36,7 +36,6 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIE_HEADSHOT
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.GibOnDeathFilter = false
     -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
