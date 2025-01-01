@@ -36,7 +36,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIE_HEADSHOT
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.GibOnDeathDamagesTable = {"All"}
+ENT.GibOnDeathFilter = false
     -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
@@ -301,8 +301,6 @@ function ENT:DropGlock()
        P345:Activate()
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup) return false end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)

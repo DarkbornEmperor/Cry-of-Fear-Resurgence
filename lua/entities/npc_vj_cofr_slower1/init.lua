@@ -35,7 +35,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
-ENT.GibOnDeathDamagesTable = {"All"}
+ENT.GibOnDeathFilter = false
     -- ====== Controller Data ====== --
 ENT.VJC_Data = {
     CameraMode = 1,
@@ -230,8 +230,6 @@ function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup) return false end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
