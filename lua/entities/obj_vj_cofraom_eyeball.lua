@@ -13,7 +13,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information = "Projectile, usually used for NPCs & Weapons"
 ENT.Category = "Projectiles"
 
-ENT.VJTag_ID_Danger = true
+ENT.VJ_ID_Danger = true
 
 if CLIENT then
     local Name = "Eyeball"
@@ -102,7 +102,7 @@ function ENT:OnCollision(data,phys)
     self:SetAngles(self:GetVelocity():GetNormal():Angle())
 
     -- Remove if it's a living being
-    if data.HitEntity.VJTag_IsLiving then
+    if data.HitEntity.VJ_ID_Living then
         self.CollisionBehavior = VJ.PROJ_COLLISION_REMOVE
     end
 end

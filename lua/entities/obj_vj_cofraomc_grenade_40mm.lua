@@ -13,7 +13,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information = "Projectile, usually used for NPCs & Weapons"
 ENT.Category = "Projectiles"
 
-ENT.VJTag_ID_Danger = true
+ENT.VJ_ID_Danger = true
 
 if CLIENT then
     local Name = "40mm Grenade"

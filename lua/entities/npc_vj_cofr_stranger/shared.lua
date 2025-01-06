@@ -35,7 +35,7 @@ end
                     closestDist = dist
     end
 end
-            if ply.VJTag_IsControllingNPC then return end
+            if ply.VJ_IsControllingNPC then return end
             if !IsValid(stranger) then return end
             local dist = ply:GetPos():Distance(stranger:GetPos())
             local enemy = stranger:GetNW2Entity("Enemy")
@@ -45,7 +45,7 @@ end
                     hook.Remove("RenderScreenspaceEffects",hookName)
     return
 end
-                if !ply:Alive() or (ply.VJTag_IsControllingNPC && ply.VJCE_NPC == stranger) then return end
+                if !ply:Alive() or (ply.VJ_IsControllingNPC && ply.VJCE_NPC == stranger) then return end
                 local tab = {
                     ["$pp_colour_addr"] = 0,
                     ["$pp_colour_addg"] = 0,
