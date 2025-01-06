@@ -26,7 +26,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/spitball_small.mdl"
+ENT.Model = "models/vj_base/projectiles/spit_acid_small.mdl"
 ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
 ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 70
