@@ -805,8 +805,10 @@ end
     self.AnimationTranslations[ACT_IDLE] = defIdleAim
     self.AnimationTranslations[ACT_IDLE_ANGRY] = defIdleAim
     self.AnimationTranslations[ACT_WALK] = defWalkAim
+    self.AnimationTranslations[ACT_WALK_AGITATED] = defWalkAim
     self.AnimationTranslations[ACT_WALK_AIM] = defWalkAim
     self.AnimationTranslations[ACT_RUN] = defRunAim
+    self.AnimationTranslations[ACT_RUN_AGITATED] = defRunAim
     self.AnimationTranslations[ACT_RUN_AIM] = defRunAim
     self.AnimationTranslations[ACT_RANGE_ATTACK1] = defIdleAim
     self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = defCrouch
