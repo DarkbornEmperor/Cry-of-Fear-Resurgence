@@ -34,7 +34,7 @@ ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
 ENT.SoundTbl_OnCollide = "vj_cofr/cof/flygare/flygare_acid_hit.wav"
-ENT.CollisionDecals = "VJ_COFR_Blood_Red_Large"
+ENT.CollisionDecal = "VJ_COFR_Blood_Red_Large"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetNoDraw(true)

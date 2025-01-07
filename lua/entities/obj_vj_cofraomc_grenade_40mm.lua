@@ -34,7 +34,7 @@ ENT.RadiusDamage = 80
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90
-ENT.CollisionDecals = "VJ_COFR_Scorch"
+ENT.CollisionDecal = "VJ_COFR_Scorch"
 ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

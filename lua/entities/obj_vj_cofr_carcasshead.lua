@@ -31,7 +31,7 @@ ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
 ENT.SoundTbl_OnCollide = "vj_cofr/cof/roofboss/rb_headhit.wav"
-ENT.CollisionDecals = "VJ_COFR_Blood_Red_Large"
+ENT.CollisionDecal = "VJ_COFR_Blood_Red_Large"
 -- Custom
 local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL

@@ -25,7 +25,7 @@ end
 if !SERVER then return end
 
 ENT.Model = "models/vj_cofr/aom/weapons/classic/w_grenade.mdl"
-ENT.CollisionDecals = "VJ_COFR_Scorch"
+ENT.CollisionDecal = "VJ_COFR_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/weapons/grenade/grenade_hit1.wav","vj_cofr/aom/weapons/grenade/grenade_hit2.wav","vj_cofr/aom/weapons/grenade/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
@@ -87,7 +87,7 @@ function ENT:OnDestroy()
         endpos = myPos - vezZ100,
         filter = self
     })
-    util.Decal(VJ.PICK(self.CollisionDecals), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+    util.Decal(VJ.PICK(self.CollisionDecal), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 
     self:DealDamage()
     self:Remove()

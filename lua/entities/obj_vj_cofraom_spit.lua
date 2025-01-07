@@ -35,7 +35,7 @@ ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
 ENT.SoundTbl_Idle = {"vj_cofr/aom/spitter/bc_acid1.wav","vj_cofr/aom/spitter/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/spitter/bc_spithit1.wav","vj_cofr/aom/spitter/bc_spithit2.wav","vj_cofr/aom/spitter/bc_spithit3.wav"}
-ENT.CollisionDecals = "VJ_COFR_Spit"
+ENT.CollisionDecal = "VJ_COFR_Spit"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetNoDraw(true)
