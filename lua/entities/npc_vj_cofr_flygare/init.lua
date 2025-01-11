@@ -112,22 +112,22 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if act == ACT_FLY then
-    if self.AA_CurrentMovePosDir then
-    local moveDir = self.AA_CurrentMovePosDir:GetNormal()
-    -- Up-down
-    local dotUp = moveDir:Dot(self:GetUp())
-    if dotUp > 0.60 then
-        return self.Flygare_FlyAnim_Up
-    elseif dotUp < -0.60 then
-        return self.Flygare_FlyAnim_Down
+ if act == ACT_FLY then
+ if self.AA_CurrentMovePosDir then
+ local moveDir = self.AA_CurrentMovePosDir:GetNormal()
+ -- Up-down
+ local dotUp = moveDir:Dot(self:GetUp())
+ if dotUp > 0.60 then
+    return self.Flygare_FlyAnim_Up
+ elseif dotUp < -0.60 then
+    return self.Flygare_FlyAnim_Down
 end
-    -- Forward-backward
-    local dotForward = moveDir:Dot(self:GetForward())
-    if dotForward > 0.5 then
-        return self.Flygare_FlyAnim_Forward
-    elseif dotForward < -0.5 then
-        return self.Flygare_FlyAnim_Backward
+ -- Forward-backward
+ local dotForward = moveDir:Dot(self:GetForward())
+ if dotForward > 0.5 then
+    return self.Flygare_FlyAnim_Forward
+ elseif dotForward < -0.5 then
+    return self.Flygare_FlyAnim_Backward
 end
     -- Right-left
     local dotRight = moveDir:Dot(self:GetRight())
@@ -137,7 +137,7 @@ end
         return self.Flygare_FlyAnim_Left
     end
 end
-        return self.Flygare_FlyAnim_Up -- Fallback animation
+    return self.Flygare_FlyAnim_Up -- Fallback animation
 end
     return self.BaseClass.TranslateActivity(self, act)
 end

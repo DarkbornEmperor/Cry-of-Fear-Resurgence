@@ -25,19 +25,19 @@ end
 local defIdle = {ACT_IDLE,ACT_IDLE,ACT_IDLE,ACT_IDLE,ACT_IDLE_PACKAGE}
 --
 function ENT:TranslateActivity(act)
-    if act == ACT_IDLE then
-    -- Sleeping
-    if self.Hellhound_Sleeping then
-        return ACT_CROUCHIDLE
-    -- Barking
-    elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
-        return ACT_IDLE_ANGRY
+ if act == ACT_IDLE then
+ -- Sleeping
+ if self.Hellhound_Sleeping then
+    return ACT_CROUCHIDLE
+ -- Barking
+ elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+    return ACT_IDLE_ANGRY
 end
-    -- Default idle
-        return self:ResolveAnimation(defIdle)
-    -- Limp Walking
-    elseif act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
-        return ACT_WALK_HURT
+ -- Default idle
+    return self:ResolveAnimation(defIdle)
+ -- Limp Walking
+ elseif act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
+    return ACT_WALK_HURT
 end
     return self.BaseClass.TranslateActivity(self, act)
 end

@@ -150,9 +150,9 @@ function ENT:Devourer_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if act == ACT_IDLE then
-        return (self.Devourer_PullingEnt and ACT_BARNACLE_PULL) or ACT_IDLE
-    end
+ if act == ACT_IDLE then
+    return (self.Devourer_PullingEnt and ACT_BARNACLE_PULL) or ACT_IDLE
+end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -322,28 +322,28 @@ function ENT:FireFX()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if self.BookSimon_Glock then
+    if self.BookSimon_Glock then
     if act == ACT_IDLE then
         return ACT_IDLE_STEALTH
     elseif act == ACT_RUN or act == ACT_WALK then
         return ACT_WALK_STEALTH
     end
 end
- if self.BookSimon_TMP then
+    if self.BookSimon_TMP then
     if act == ACT_IDLE then
         return ACT_IDLE_HURT
     elseif act == ACT_RUN or act == ACT_WALK then
         return ACT_WALK_HURT
     end
 end
- if self.BookSimon_Sledgehammer then
+    if self.BookSimon_Sledgehammer then
     if act == ACT_IDLE then
         return ACT_IDLE_STIMULATED
     elseif act == ACT_RUN or act == ACT_WALK then
         return ACT_RUN_STIMULATED
     end
 end
- if self.BookSimon_SledgehammerFlare then
+    if self.BookSimon_SledgehammerFlare then
     if act == ACT_IDLE then
         return ACT_IDLE_RELAXED
     elseif act == ACT_RUN or act == ACT_WALK then

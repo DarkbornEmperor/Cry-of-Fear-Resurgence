@@ -490,10 +490,10 @@ function ENT:TranslateActivity(act)
         end
     end
 end
-    if act == ACT_IDLE && !self.AnimationTranslations[ACT_IDLE] then
-        return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
-    elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
-        return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
+ if act == ACT_IDLE && !self.AnimationTranslations[ACT_IDLE] then
+    return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
+ elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
+    return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
 end
     return self.BaseClass.TranslateActivity(self,act)
 end
