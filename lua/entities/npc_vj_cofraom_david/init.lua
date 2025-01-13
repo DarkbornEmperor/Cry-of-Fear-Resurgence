@@ -331,7 +331,7 @@ end
         self:SetSkin(math.random(0,13))
 end
     if self:GetSkin() == 8 && math.random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
-        self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/simon/hellokitty.wav"})
+        self:PlaySoundSystem("Speech", {"vj_cofr/cof/simon/hellokitty.wav"})
         end
     end
 end
@@ -525,7 +525,7 @@ function ENT:OnThinkActive()
     local CurHP = self:Health()
     self:SetHealth(math.Clamp(CurHP + self.Medic_HealthAmount, CurHP, self:GetMaxHealth()))
     self:OnMedicBehavior()
-    self:PlaySoundSystem("GeneralSpeech",self.SoundTbl_MedicReceiveHeal)
+    self:PlaySoundSystem("Speech",self.SoundTbl_MedicReceiveHeal)
     VJ.CreateSound(self,self.SoundTbl_MedicAfterHeal,75,100)
     self:RemoveAllDecals()
     end
@@ -534,14 +534,14 @@ end)
 end
  if self.HasSounds && !self.Dead then
     if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
-        self:PlaySoundSystem("GeneralSpeech", self.SoundTbl_LowHealth)
+        self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
         self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)
     end
 end
  if self.Human_Type == 1 && IsValid(self:GetActiveWeapon()) then
     local wep = self:GetActiveWeapon()
-    if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/weapons/famas/french4.wav"}) self.Simon_French = true
-    elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("GeneralSpeech", {"vj_cofr/cof/weapons/branch/branch_first_get.wav"}) self.Simon_Branch = true end
+    if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/famas/french4.wav"}) self.Simon_French = true
+    elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/branch/branch_first_get.wav"}) self.Simon_Branch = true end
 end
  if !self.WeaponInventory_MeleeList or self.DisableWeapons or !IsValid(self:GetActiveWeapon()) then return end
     local ent = self:GetEnemy()
