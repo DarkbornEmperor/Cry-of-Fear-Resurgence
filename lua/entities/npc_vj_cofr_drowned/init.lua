@@ -158,7 +158,7 @@ function ENT:Drowned_Damage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-    if GetConVar("vj_npc_norange"):GetInt() == 1 or self.Dead then return end
+    if GetConVar("vj_npc_range"):GetInt() == 0 or self.Dead then return end
     local ent = self:GetEnemy()
     local cont = self.VJ_TheController
     if IsValid(cont) then
