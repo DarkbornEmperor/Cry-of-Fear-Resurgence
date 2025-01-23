@@ -526,7 +526,7 @@ if VJExists == true then
          hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_COFR", function()
          spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Main)", "CoF Resurgence (Main)", "", "", function(Panel)
             local vj_cofrreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_cofrreset_cs.Options["#vjbase.menugeneral.default"] = {
+            vj_cofrreset_cs.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_COFR_SparkFX = "0",
 }
                 Panel:AddControl("ComboBox", vj_cofrreset_cs)
@@ -540,7 +540,7 @@ if VJExists == true then
 end
             Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
             local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_cofrreset.Options["#vjbase.menugeneral.default"] = {
+            vj_cofrreset.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_COFR_Boss_Music = "1",
                 VJ_COFR_Simon_Costumes = "0",
                 VJ_COFR_BookSimon_Normal = "1",
@@ -607,7 +607,7 @@ end)
 end
             Panel:AddControl("Label", {Text = "Note: Only Admins can change these settings!"})
             local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_cofrreset_mapspawner.Options["#vjbase.menugeneral.default"] = {
+            vj_cofrreset_mapspawner.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_COFR_MapSpawner_Music = "1",
                 VJ_COFR_MapSpawner_Enabled = "1",
                 VJ_COFR_MapSpawner_Boss = "0",
