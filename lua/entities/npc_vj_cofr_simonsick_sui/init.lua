@@ -130,6 +130,10 @@ function ENT:FireFX()
     //self:DeleteOnRemove(Light)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoImpactEffect(tr,damageType)
+    return VJ.COFR_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
   local ene = self:GetEnemy()
   if IsValid(self) && IsValid(self:GetEnemy()) then

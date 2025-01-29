@@ -234,21 +234,22 @@ if VJExists == true then
     game.AddDecal("VJ_COFR_Spit",{"vj_cofr/decals/cof_spit01","vj_cofr/decals/cof_spit02"})
     game.AddDecal("VJ_COFR_Scorch_Small", {"vj_cofr/decals/smscorch1", "vj_cofr/decals/smscorch2", "vj_cofr/decals/smscorch3"})
     game.AddDecal("VJ_COFR_Scorch", {"vj_cofr/decals/scorch1", "vj_cofr/decals/scorch2", "vj_cofr/decals/scorch3"})
+    game.AddDecal("VJ_COFR_Impact", {"vj_cofr/decals/shot1", "vj_cofr/decals/shot2", "vj_cofr/decals/shot3", "vj_cofr/decals/shot4", "vj_cofr/decals/shot5"})
 
     -- Particles --
     VJ.AddParticle("particles/vj_cofr_blood.pcf", {
     "vj_cofr_blood_red",
     "vj_cofr_blood_red_large",
-    "vj_cofr_blood_boob_red",
+    "vj_cofr_blood_boob_red"
 })
     VJ.AddParticle("particles/vj_cofr_flare_sparks.pcf", {
-    "vj_cofr_flare_sparks",
+    "vj_cofr_flare_sparks"
 })
     VJ.AddParticle("particles/vj_cofr_flare_trail.pcf", {
-    "vj_cofr_flare_trail",
+    "vj_cofr_flare_trail"
 })
     VJ.AddParticle("particles/vj_cofr_weaponparticles.pcf", {
-    "vj_cofr_muzzle",
+    "vj_cofr_muzzle"
 })
     -- Precache Models -- No need for precache due to being GoldSrc and other bugs
     /*util.PrecacheModel("models/vj_cofr/cof/policedead.mdl")
@@ -712,6 +713,28 @@ end
             ply:ScreenFade(SCREENFADE.IN, colorRed, 0.25, 0)
         end)
     end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local excludedMats = {
+    [MAT_ANTLION] = true,
+    [MAT_ALIENFLESH] = true,
+    [MAT_BLOODYFLESH] = true,
+    [MAT_FLESH] = true,
+}
+function VJ.COFR_Effect_Impact(tr)
+    if !excludedMats[tr.MatType] then
+        local effectData = EffectData()
+        effectData:SetEntity(tr.Entity)
+        effectData:SetStart(tr.StartPos)
+        effectData:SetOrigin(tr.HitPos)
+        effectData:SetNormal(tr.HitNormal)
+        effectData:SetHitBox(tr.HitBox)
+        effectData:SetSurfaceProp(tr.SurfaceProps)
+        effectData:SetFlags(1)
+        util.Effect("Impact_GMOD", effectData)
+        util.Decal("VJ_COFR_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+        return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_DeathCode(ent)

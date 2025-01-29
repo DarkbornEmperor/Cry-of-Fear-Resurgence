@@ -195,6 +195,10 @@ function ENT:FireFX()
     //self:DeleteOnRemove(Light)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoImpactEffect(tr,damageType)
+    return VJ.COFR_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("JUMP: Suicide")
 end

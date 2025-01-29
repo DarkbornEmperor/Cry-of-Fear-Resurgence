@@ -322,6 +322,10 @@ function ENT:FireFX()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoImpactEffect(tr,damageType)
+    return VJ.COFR_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if self.BookSimon_Glock then
     if act == ACT_IDLE then

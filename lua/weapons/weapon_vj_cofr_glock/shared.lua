@@ -44,6 +44,10 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:DoImpactEffect(tr,damageType)
+    return VJ.COFR_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")

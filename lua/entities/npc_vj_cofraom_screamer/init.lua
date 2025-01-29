@@ -203,8 +203,8 @@ function ENT:MultipleRangeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
-	self.Screamer_NumFired = 0
-	self.HasRangeAttackSound = true
+    self.Screamer_NumFired = 0
+    self.HasRangeAttackSound = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
@@ -213,10 +213,10 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
     projectile.Track_Enemy = ene
     timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 end
-	if self.Screamer_NumFired < 1 then
-		self.Screamer_NumFired = self.Screamer_NumFired + 1
-		self.HasRangeAttackSound = false
-	end
+    if self.Screamer_NumFired < 1 then
+        self.Screamer_NumFired = self.Screamer_NumFired + 1
+        self.HasRangeAttackSound = false
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjSpawnPos(projectile)

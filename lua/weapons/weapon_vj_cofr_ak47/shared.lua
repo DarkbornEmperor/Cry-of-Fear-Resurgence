@@ -53,6 +53,10 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:Fire("Kill","",0.08)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:DoImpactEffect(tr,damageType)
+    return VJ.COFR_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
     if status == "Initial" then
     local Brt = math.random(1,2)
