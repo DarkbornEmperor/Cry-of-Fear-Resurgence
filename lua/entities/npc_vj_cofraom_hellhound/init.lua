@@ -136,7 +136,7 @@ end
 function ENT:OnFlinch(dmginfo,hitgroup,status)
     if status == "PriorExecution" then
         -- Hellhound shouldn't have its sonic attack interrupted by a flinch animation!
-        return self.CurrentAttackAnimationTime > CurTime()
+        return self.AttackAnimTime > CurTime()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

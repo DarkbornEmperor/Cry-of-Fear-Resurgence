@@ -520,7 +520,7 @@ function ENT:OnThinkActive()
     self:OnMedicBehavior()
      self:PlayAnim("vjges_heal",true,false,false)
  if IsValid(self:GetEnemy()) then
-    self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end
+    self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.FACE_ENEMY} end) end
     timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
     local CurHP = self:Health()
     self:SetHealth(math.Clamp(CurHP + self.Medic_HealthAmount, CurHP, self:GetMaxHealth()))
@@ -548,7 +548,7 @@ end
     local dist = self.NearestPointToEnemyDistance
     if IsValid(ent) && !self.VJ_IsBeingControlled then
         local wep = self:GetActiveWeapon()
-        if self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_MELEE then return end
+        if self.WeaponInventoryStatus == VJ.WEP_INVENTORY_MELEE then return end
         local selectType = false
         if dist > 2200 then
             selectType = "Far"
@@ -629,7 +629,7 @@ function ENT:OnWeaponAttack()
     self:StopMoving()
     self.NextWeaponStrafeWhileFiringT = CurTime() + math.Rand(self.Weapon_StrafeWhileFiringDelay.a, self.Weapon_StrafeWhileFiringDelay.b)
     self:SetLastPosition(moveCheck)
-    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end) end
+    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.FACE_ENEMY} end) end end) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponStrafeWhileFiring()
@@ -649,7 +649,7 @@ function ENT:OnWeaponReload()
     if moveCheck then
     self:StopMoving()
     self:SetLastPosition(moveCheck)
-    self:SCHEDULE_GOTO_POSITION(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.NPC_FACE_ENEMY} end) end end)
+    self:SCHEDULE_GOTO_POSITION(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.FaceData = {Type = VJ.FACE_ENEMY} end) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(h)
