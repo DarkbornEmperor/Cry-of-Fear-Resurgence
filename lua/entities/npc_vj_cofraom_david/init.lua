@@ -480,9 +480,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if self.CoFR_Crouching && self.Weapon_CanFireWhileMoving && IsValid(self:GetEnemy()) then
-    if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving == true && self:CanFireWeapon(true, false) == true then
-        self.DoingWeaponAttack = true
-        self.DoingWeaponAttack_Standing = false
+    if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
+        self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     if act == ACT_WALK then
         return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
     elseif act == ACT_RUN then
@@ -622,7 +621,7 @@ function ENT:OnWeaponAttack()
  if self.VJ_IsBeingControlled then return end
  local wep = self.CurrentWeaponEntity
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
- if self.Weapon_StrafeWhileFiring && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.DoingWeaponAttack && CurTime() > self.NextWeaponStrafeWhileFiringT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
+ if self.Weapon_StrafeWhileFiring && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeWhileFiringT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
  timer.Simple(0,function()
     local moveCheck = VJ.PICK(self:TraceDirections("Quick", math.random(150, 250), true, false, 8, true))
     if moveCheck then
