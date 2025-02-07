@@ -605,7 +605,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
- if IsValid(self:GetActiveWeapon()) && !self.CurrentWeaponEntity.IsMeleeWeapon then
+ if IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
     self.MeleeAttackDamage = 15
     self.MeleeAttackDamageType = DMG_CLUB
     self.SoundTbl_MeleeAttackExtra = {
@@ -619,11 +619,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
  if self.VJ_IsBeingControlled then return end
- local wep = self.CurrentWeaponEntity
+ local wep = self.WeaponEntity
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
  if self.Weapon_StrafeWhileFiring && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeWhileFiringT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
  timer.Simple(0,function()
-    local moveCheck = VJ.PICK(self:TraceDirections("Quick", math.random(150, 250), true, false, 8, true))
+    local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math.random(150, 250), true, false, 8, true))
     if moveCheck then
     self:StopMoving()
     self.NextWeaponStrafeWhileFiringT = CurTime() + math.Rand(self.Weapon_StrafeWhileFiringDelay.a, self.Weapon_StrafeWhileFiringDelay.b)
@@ -644,7 +644,7 @@ function ENT:OnWeaponReload()
  //if self.Weapon_FindCoverOnReload then self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
  if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) then return end
  timer.Simple(0,function()
-    local moveCheck = VJ.PICK(self:TraceDirections("Quick", math.random(150, 400), true, false, 8, true))
+    local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math.random(150, 400), true, false, 8, true))
     if moveCheck then
     self:StopMoving()
     self:SetLastPosition(moveCheck)
