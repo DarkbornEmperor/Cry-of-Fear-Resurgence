@@ -31,7 +31,7 @@ ENT.HasCallForHelpAnimation = false
 ENT.Weapon_NoSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_SpawnPropOnHeal = false
-ENT.Medic_HealthAmount = 15
+ENT.Medic_HealAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = "vjges_heal"
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl"
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
@@ -522,7 +522,7 @@ function ENT:OnThinkActive()
     self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end) end
     timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
     local CurHP = self:Health()
-    self:SetHealth(math.Clamp(CurHP + self.Medic_HealthAmount, CurHP, self:GetMaxHealth()))
+    self:SetHealth(math.Clamp(CurHP + self.Medic_HealAmount, CurHP, self:GetMaxHealth()))
     self:OnMedicBehavior()
     self:PlaySoundSystem("Speech",self.SoundTbl_MedicReceiveHeal)
     VJ.CreateSound(self,self.SoundTbl_MedicAfterHeal,75,100)
