@@ -28,7 +28,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationTime = 8
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -150),
     FirstP_Bone = "joint2",

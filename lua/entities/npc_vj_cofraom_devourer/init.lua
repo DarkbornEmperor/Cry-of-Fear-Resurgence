@@ -41,7 +41,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "bone01",
     FirstP_Offset = Vector(0, 0, -44),
     FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view

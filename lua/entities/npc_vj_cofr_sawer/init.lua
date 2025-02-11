@@ -30,7 +30,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -80),
     FirstP_Bone = "Bip01 Head",
@@ -100,7 +100,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
-        self:FootStepSoundCode()
+        self:PlayFootstepSound()
     elseif key == "attack" then
         self:MeleeAttackCode()
     elseif key == "death" then
@@ -138,7 +138,7 @@ end
 end
      if hitgroup != 9 then
         self:SpawnBloodParticles(dmginfo,hitgroup)
-        self:SpawnBloodDecal(dmginfo,hitgroup)
+        self:SpawnBloodDecals(dmginfo,hitgroup)
         self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 end
      if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then

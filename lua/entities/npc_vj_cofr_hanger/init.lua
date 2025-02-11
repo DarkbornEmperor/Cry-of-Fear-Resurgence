@@ -22,7 +22,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -40),
     FirstP_Bone = "Bip01 Head",

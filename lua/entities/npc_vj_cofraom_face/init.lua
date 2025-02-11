@@ -47,7 +47,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60),
     FirstP_Bone = "Bip01 Head",
@@ -131,7 +131,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
-       self:FootStepSoundCode()
+       self:PlayFootstepSound()
     elseif key == "attack" then
        self:MeleeAttackCode()
     elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then

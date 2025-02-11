@@ -38,7 +38,7 @@ ENT.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
 ENT.PainSoundPitch = VJ.SET(80, 80)
 ENT.DeathSoundPitch = VJ.SET(80, 80)
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",

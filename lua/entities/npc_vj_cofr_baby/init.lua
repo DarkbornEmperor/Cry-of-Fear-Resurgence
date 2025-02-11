@@ -29,7 +29,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -40),
     FirstP_Bone = "Bip01 Head",
@@ -80,7 +80,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
-       self:FootStepSoundCode()
+       self:PlayFootstepSound()
     elseif key == "attack" then
        self:MeleeAttackCode()
        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
