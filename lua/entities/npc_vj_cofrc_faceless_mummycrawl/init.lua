@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/custom/facelessmummy2.mdl"
 ENT.CanFlinch = 0
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, 5),
     FirstP_Bone = "Bip01 Head",

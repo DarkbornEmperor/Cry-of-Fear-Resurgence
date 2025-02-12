@@ -12,7 +12,7 @@ ENT.MeleeAttackDamage = 24
 ENT.HasHitGroupFlinching = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(45, 20, -15),
     FirstP_Bone = "Bip01 Head",

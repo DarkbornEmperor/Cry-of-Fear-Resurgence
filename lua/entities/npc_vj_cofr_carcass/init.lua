@@ -27,10 +27,9 @@ ENT.RangeDistance = 2048
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 25
-ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance"
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -41,7 +40,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(20, 25, -60),
     FirstP_Bone = "joint11",
@@ -98,7 +97,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
     if key == "attack_range" then
-        self:RangeAttackCode()
+        self:ExecuteRangeAttack()
     elseif key == "stomach_open" then
         VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 75, 100)
     elseif key == "stomach_close" then

@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cof/upper.mdl"
 ENT.MeleeAttackDamage = 14
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Pelvis",

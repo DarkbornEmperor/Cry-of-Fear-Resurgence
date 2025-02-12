@@ -30,7 +30,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
@@ -81,7 +81,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "death_hammer" then
         VJ.EmitSound(self, "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hit.wav", 75, 100)
     elseif key == "death" then

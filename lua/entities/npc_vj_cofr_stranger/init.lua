@@ -22,10 +22,9 @@ ENT.RangeDistance = 500
 ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.NextRangeAttackTime = 0.5
-ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = 300
-ENT.NoChaseAfterCertainRange_CloseDistance = 1
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = 300
+ENT.LimitChaseDistance_Min = 1
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -33,7 +32,7 @@ ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60),
     FirstP_Bone = "Bip01 Head",
@@ -75,7 +74,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     if math.random(1,3) == 1 then
-     self.NoChaseAfterCertainRange = false
+     self.LimitChaseDistance = false
 end
      self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))

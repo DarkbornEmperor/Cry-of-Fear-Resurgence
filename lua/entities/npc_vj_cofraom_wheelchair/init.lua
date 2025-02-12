@@ -30,7 +30,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
@@ -66,7 +66,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("mouth")).Pos,self:GetAngles())
     end
 end

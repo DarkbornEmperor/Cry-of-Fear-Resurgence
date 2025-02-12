@@ -32,7 +32,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
@@ -93,7 +93,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "barbedwire_break" then
         VJ.EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
         self:RemoveAllDecals()
@@ -124,15 +124,15 @@ end
     end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     if self:GetBodygroup(0) == 0 then
         self.AnimTbl_MeleeAttack = "vjseq_attack1"
         self.MeleeAttackDistance = 50
         self.MeleeAttackDamageDistance = 75
         self.MeleeAttackDamage = 16
-        self.SoundTbl_MeleeAttackMiss = {
+        self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/cof/sewmo/tunga_miss.wav"
-}
+
         self.SoundTbl_MeleeAttackExtra = {
         "vj_cofr/cof/sewmo/tunga_strike1.wav",
         "vj_cofr/cof/sewmo/tunga_strike2.wav"

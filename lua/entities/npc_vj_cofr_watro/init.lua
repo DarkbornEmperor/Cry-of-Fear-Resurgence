@@ -31,7 +31,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -120),
     FirstP_Bone = "joint8",
@@ -71,7 +71,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
     if key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

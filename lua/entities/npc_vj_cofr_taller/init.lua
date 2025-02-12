@@ -37,7 +37,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(10, 25, -120),
     FirstP_Bone = "Bip01 Head",
@@ -79,7 +79,7 @@ function ENT:OnInput(key,activator,caller,data)
         self:PlayFootstepSound()
         util.ScreenShake(self:GetPos(),10,100,0.4,300)
     elseif key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end
@@ -95,30 +95,29 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     local attack = math.random(1,2)
     if attack == 1 then
         self.AnimTbl_MeleeAttack = "vjseq_attack"
         self.MeleeAttackDamage = 60
         self.SlowPlayerOnMeleeAttack = true
         self.HasMeleeAttackKnockBack = true
-        self.SoundTbl_MeleeAttackMiss = {
+        self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/cof/taller/taller_swing.wav"
-}
-        self.SoundTbl_MeleeAttackExtra = {
+
+        self.SoundTbl_MeleeAttackExtra =
         "vj_cofr/cof/taller/taller_player_punch.wav"
-}
+
     elseif attack == 2 then
         self.AnimTbl_MeleeAttack = "vjseq_stamp"
         self.MeleeAttackDamage = 200
         self.SlowPlayerOnMeleeAttack = false
         self.HasMeleeAttackKnockBack = false
-        self.SoundTbl_MeleeAttackMiss = {
+        self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/cof/taller/taller_wall_punch.wav"
-}
-        self.SoundTbl_MeleeAttackExtra = {
+
+        self.SoundTbl_MeleeAttackExtra =
         "vj_cofr/cof/taller/taller_stamp.wav"
-}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

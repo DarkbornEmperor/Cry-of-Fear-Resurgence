@@ -38,7 +38,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip02 Head",
@@ -109,7 +109,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "axe_grab" then
         if self:GetBodygroup(0) == 0 then self:SetBodygroup(0,1)
         elseif self:GetBodygroup(0) == 1 then self:SetBodygroup(0,0) end
@@ -177,7 +177,7 @@ function ENT:FireSprite()
     self.fireFX = fireFX
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     if self:GetBodygroup(0) == 0 then
         self.AnimTbl_MeleeAttack = "vjseq_attack"
         self.MeleeAttackDamage = 20
@@ -191,12 +191,11 @@ function ENT:MultipleMeleeAttacks()
         self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
         self.MeleeAttackDamage = 35
         self.HasMeleeAttackMissSounds = true
-        self.SoundTbl_MeleeAttackExtra = {
+        self.SoundTbl_MeleeAttackExtra =
         "vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
-}
-        self.SoundTbl_MeleeAttackMiss = {
+
+        self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/aom/weapons/axe/Axe_swing.wav"
-}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

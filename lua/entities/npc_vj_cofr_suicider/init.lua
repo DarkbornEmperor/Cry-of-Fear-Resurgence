@@ -23,10 +23,9 @@ ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.NextRangeAttackTime = 0.5
 ENT.NextRangeAttackTime_DoRand = 0.1
-ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = 250
-ENT.NoChaseAfterCertainRange_CloseDistance = 200
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = 250
+ENT.LimitChaseDistance_Min = 200
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
@@ -37,7 +36,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIE_HEADSHOT
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
@@ -112,7 +111,7 @@ end
 }
 end
  if math.random(1,3) == 1 then
-    self.NoChaseAfterCertainRange = false
+    self.LimitChaseDistance = false
 end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))

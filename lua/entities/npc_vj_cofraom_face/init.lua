@@ -25,10 +25,9 @@ ENT.RangeDistance = 1100
 ENT.RangeToMeleeDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 0
-ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance"
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -47,7 +46,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60),
     FirstP_Bone = "Bip01 Head",
@@ -133,9 +132,9 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
        self:PlayFootstepSound()
     elseif key == "attack" then
-       self:MeleeAttackCode()
+       self:ExecuteMeleeAttack()
     elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
-       self:RangeAttackCode()
+       self:ExecuteRangeAttack()
     if IsValid(self.face) then
        self.face:SetNoDraw(false)
 end

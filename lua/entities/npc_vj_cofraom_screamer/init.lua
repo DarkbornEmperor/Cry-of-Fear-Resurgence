@@ -24,10 +24,9 @@ ENT.RangeToMeleeDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
 ENT.NextRangeAttackTime_DoRand = 4
-ENT.NoChaseAfterCertainRange = true
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance"
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance"
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -39,7 +38,7 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60), -- The offset for the screamer when the camera is in third person
     FirstP_Bone = "bip01 neck",
@@ -139,7 +138,7 @@ end
             self.soul2:SetNoDraw(true)
 end
         self.Screamer_HomingAttack = key == "attack_rangeclose"
-        self:RangeAttackCode()
+        self:ExecuteRangeAttack()
     elseif key == "sprite" && !self.Screamer_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
         if IsValid(self.soul1) then
             self.soul1:SetNoDraw(false)

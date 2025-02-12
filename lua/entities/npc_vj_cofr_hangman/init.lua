@@ -25,7 +25,7 @@ ENT.DisableMeleeAttackAnimation = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -150),
     FirstP_Bone = "huvud2",

@@ -27,10 +27,9 @@ ENT.RangeAttackAnimationFaceEnemy = false
 ENT.NextRangeAttackTime = 0
 ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
-ENT.NoChaseAfterCertainRange = false
-ENT.NoChaseAfterCertainRange_FarDistance = 600
-ENT.NoChaseAfterCertainRange_CloseDistance = 1
-ENT.NoChaseAfterCertainRange_Type = "Regular"
+ENT.LimitChaseDistance = false
+ENT.LimitChaseDistance_Max = 600
+ENT.LimitChaseDistance_Min = 1
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -42,7 +41,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
@@ -182,7 +181,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "attack" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -199,7 +198,7 @@ function ENT:SetShotgun()
     self:SetBodygroup(0,1)
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
-    self.NoChaseAfterCertainRange = true
+    self.LimitChaseDistance = true
     self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.5
     self.NextAnyAttackTime_Range = 1
@@ -210,7 +209,7 @@ function ENT:SetTMP()
     self:SetBodygroup(1,1)
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
-    self.NoChaseAfterCertainRange = true
+    self.LimitChaseDistance = true
     self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.09
     self.RangeAttackReps = 10
@@ -221,7 +220,7 @@ function ENT:SetGlock()
     self:SetBodygroup(0,3)
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
-    self.NoChaseAfterCertainRange = true
+    self.LimitChaseDistance = true
     self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.1
     self.NextAnyAttackTime_Range = 0.6
@@ -231,7 +230,7 @@ function ENT:SetM16()
     self:SetBodygroup(0,4)
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
-    self.NoChaseAfterCertainRange = true
+    self.LimitChaseDistance = true
     self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.05
     self.RangeAttackReps = 3

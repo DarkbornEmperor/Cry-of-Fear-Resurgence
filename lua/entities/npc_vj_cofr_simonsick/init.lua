@@ -30,7 +30,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -60),
     FirstP_Bone = "Bip01 Head",
@@ -78,7 +78,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "prepare_range" then
         self:LiftProps()
     elseif key == "attack_range" then
-        self:RangeAttackCode()
+        self:ExecuteRangeAttack()
 end
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
