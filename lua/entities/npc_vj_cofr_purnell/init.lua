@@ -23,7 +23,7 @@ ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
@@ -32,7 +32,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",

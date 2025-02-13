@@ -11,7 +11,7 @@ ENT.StartHealth = 200
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 ENT.HasSoundTrack = false
 -- Custom
 ENT.CoFR_NextLowHPSoundT = 0

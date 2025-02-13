@@ -30,7 +30,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -80),
     FirstP_Bone = "Bip01 Head",

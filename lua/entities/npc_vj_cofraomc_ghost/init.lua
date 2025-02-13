@@ -25,7 +25,7 @@ ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -40),
     FirstP_Bone = "Bip01 Head",

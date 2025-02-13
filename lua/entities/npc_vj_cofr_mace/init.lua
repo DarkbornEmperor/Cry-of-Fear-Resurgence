@@ -24,7 +24,7 @@ ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HideOnUnknownDamage = false
-ENT.CanFlinch = 2
+ENT.CanFlinch = "DamageTypes"
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
 ENT.FlinchChance = 2
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -35,7 +35,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, -70),
     FirstP_Bone = "Bip01 Head",
@@ -91,7 +91,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
  if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
-    self.CanFlinch = 1
+    self.CanFlinch = true
     self.FlinchChance = 16
 end
     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))

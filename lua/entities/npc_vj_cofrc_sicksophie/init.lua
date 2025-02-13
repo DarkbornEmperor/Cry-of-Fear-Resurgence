@@ -7,7 +7,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/custom/sicksophie.mdl"
-ENT.CanFlinch = 0
+ENT.CanFlinch = false
 ENT.AlertSoundPitch = VJ.SET(120, 120)
 ENT.BeforeMeleeAttackSoundPitch = VJ.SET(120, 120)
 ENT.PainSoundPitch = VJ.SET(120, 120)

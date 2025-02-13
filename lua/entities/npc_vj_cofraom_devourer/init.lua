@@ -33,7 +33,7 @@ ENT.CallForBackUpOnDamage = false
 ENT.CallForHelp = false
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -41,7 +41,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "bone01",
     FirstP_Offset = Vector(0, 0, -44),
     FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view

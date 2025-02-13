@@ -7,9 +7,9 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/faceless2.mdl"
-ENT.CanFlinch = 0
+ENT.CanFlinch = false
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 1,
     ThirdP_Offset = Vector(30, 25, 5),
     FirstP_Bone = "Bip01 Head",
