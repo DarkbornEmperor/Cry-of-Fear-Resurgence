@@ -203,7 +203,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
     self.Screamer_NumFired = 0
-    self.HasRangeAttackSound = true
+    self.HasRangeAttackSounds = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
@@ -214,7 +214,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 end
     if self.Screamer_NumFired < 1 then
         self.Screamer_NumFired = self.Screamer_NumFired + 1
-        self.HasRangeAttackSound = false
+        self.HasRangeAttackSounds = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
