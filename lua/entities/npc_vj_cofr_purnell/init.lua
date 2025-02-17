@@ -15,10 +15,10 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasLostWeaponSightAnimation = true
 ENT.HasCallForHelpAnimation = false
-ENT.Weapon_CanFireWhileMoving = false
-ENT.Weapon_StrafeWhileFiring = false
+ENT.Weapon_CanMoveFire = false
+ENT.Weapon_Strafe = false
 ENT.DisableWeaponFiringGesture = true
-ENT.Weapon_NoSpawnMenu = true
+ENT.Weapon_IgnoreSpawnMenu = true
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.GeneralSoundPitch1 = 100
@@ -291,10 +291,10 @@ function ENT:OnFootstepSound()
         filter = {self}
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

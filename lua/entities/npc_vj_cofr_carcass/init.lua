@@ -22,9 +22,9 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_attack"
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofr_carcasshead"
-ENT.RangeDistance = 2048
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackProjectiles = "obj_vj_cofr_carcasshead"
+ENT.RangeAttackMaxDistance = 2048
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 25
 ENT.LimitChaseDistance = true
@@ -83,7 +83,7 @@ function ENT:Carcass_Init()
     "vj_cofr/cof/roofboss/rb_death.wav"
 }
     if GetConVar("VJ_COFR_JoeBiden"):GetInt() == 1 then
-        self.RangeAttackEntityToSpawn = "obj_vj_cofr_biden"
+        self.RangeAttackProjectiles = "obj_vj_cofr_biden"
         self:SetNoDraw(true)
         self:DrawShadow(false)
     end

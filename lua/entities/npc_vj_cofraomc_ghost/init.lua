@@ -13,11 +13,11 @@ ENT.NextMeleeAttackTime = 0
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.MeleeAttackBleedEnemy = false
-ENT.SlowPlayerOnMeleeAttack = false
+ENT.MeleeAttackPlayerSpeed = false
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_zapattack1"
-ENT.RangeDistance = 1020
-ENT.RangeToMeleeDistance = 100
+ENT.RangeAttackMaxDistance = 1020
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
 ENT.DisableDefaultRangeAttackCode = true
@@ -176,7 +176,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

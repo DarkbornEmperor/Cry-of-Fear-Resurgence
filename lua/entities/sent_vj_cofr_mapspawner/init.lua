@@ -510,7 +510,7 @@ function ENT:SpawnMonster(ent,pos,isMob)
     table_insert(self.tbl_SpawnedNPCs,Monster)
     if isMob then
         Monster.SightAngle = 360
-        Monster.FindEnemy_CanSeeThroughWalls = true
+        Monster.EnemyXRayDetection = true
         Monster:DrawShadow(false)
         timer.Simple(0,function()
             if IsValid(Monster) then
@@ -539,7 +539,7 @@ function ENT:SpawnBossMonster(ent,pos)
     Boss:SetAngles(Angle(0,math.random(0,360),0))
     Boss:Spawn()
     Boss.SightAngle = 360
-    Boss.FindEnemy_CanSeeThroughWalls = true
+    Boss.EnemyXRayDetection = true
     Boss.CallForHelp = false
     Boss.HasSoundTrack = false
     table_insert(self.tbl_SpawnedBossMonster,Boss)

@@ -21,9 +21,9 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.HasMeleeAttackKnockBack = true
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_range"
-ENT.RangeAttackEntityToSpawn = "obj_vj_cofraom_spit"
-ENT.RangeDistance = 784
-ENT.RangeToMeleeDistance = 250
+ENT.RangeAttackProjectiles = "obj_vj_cofraom_spit"
+ENT.RangeAttackMaxDistance = 784
+ENT.RangeAttackMinDistance = 250
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1
 ENT.LimitChaseDistance = "OnlyRange"
@@ -153,7 +153,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

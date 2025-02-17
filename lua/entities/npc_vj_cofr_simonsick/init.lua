@@ -17,11 +17,10 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = {"vjseq_bossmove1","vjseq_bossmove2"}
-ENT.RangeDistance = 1500
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackMaxDistance = 1500
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 10
-ENT.NextRangeAttackTime_DoRand = 15
+ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ENT.HasDeathAnimation = true
@@ -176,7 +175,7 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
         self.Props[#self.Props + 1] = Prop2 -- Register the Props
         self.Prop2 = Prop2
 
-        self.SickSimon_NextPropT = CurTime() + self.NextRangeAttackTime or self.NextRangeAttackTime_DoRand
+        self.SickSimon_NextPropT = CurTime() + self.NextRangeAttackTime
 
         SafeRemoveEntityDelayed(self.Prop,15)
         SafeRemoveEntityDelayed(self.Prop2,15)

@@ -19,16 +19,15 @@ ENT.PoseParameterLooking_InvertPitch = true
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_vjges_shoot_crowbar"
 ENT.TimeUntilMeleeAttackDamage = false
-//ENT.NextMeleeAttackTime_DoRand = 0.25
 ENT.NextAnyAttackTime_Melee = 1.5
 ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.Weapon_FindCoverOnReload = false
-ENT.Weapon_WaitOnOcclusionTime = VJ.SET(0,0.2)
-ENT.Weapon_WaitOnOcclusion = false
+ENT.Weapon_OcclusionDelayTime = VJ.SET(0,0.2)
+ENT.Weapon_OcclusionDelay = false
 ENT.HasCallForHelpAnimation = false
-ENT.Weapon_NoSpawnMenu = true
+ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_SpawnPropOnHeal = false
 ENT.Medic_HealAmount = 15
@@ -203,7 +202,7 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:David_Init()
- if !self.DisableWeapons && self.Human_Type == 0 then
+ if !self.Weapon_Disabled && self.Human_Type == 0 then
  if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
     end
@@ -231,7 +230,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DavidClassic_Init()
- if !self.DisableWeapons && self.Human_Type == 3 then
+ if !self.Weapon_Disabled && self.Human_Type == 3 then
  if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
     end
@@ -262,7 +261,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Simon_Init()
- if !self.DisableWeapons && self.Human_Type == 1 then
+ if !self.Weapon_Disabled && self.Human_Type == 1 then
  if !self.WeaponInventory_MeleeList then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
     end
@@ -337,7 +336,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Police_Init()
- if !self.DisableWeapons then
+ if !self.Weapon_Disabled then
  if !self.WeaponInventory_MeleeList && self.Human_Type == 2 then
      self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
     end
@@ -479,7 +478,7 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.CoFR_Crouching && self.Weapon_CanFireWhileMoving && IsValid(self:GetEnemy()) then
+    if self.CoFR_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) then
     if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     if act == ACT_WALK then
@@ -542,7 +541,7 @@ end
     if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/famas/french4.wav"}) self.Simon_French = true
     elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/branch/branch_first_get.wav"}) self.Simon_Branch = true end
 end
- if !self.WeaponInventory_MeleeList or self.DisableWeapons or !IsValid(self:GetActiveWeapon()) then return end
+ if !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
     local ent = self:GetEnemy()
     local dist = self.NearestPointToEnemyDistance
     if IsValid(ent) && !self.VJ_IsBeingControlled then
@@ -621,17 +620,17 @@ function ENT:OnWeaponAttack()
  if self.VJ_IsBeingControlled then return end
  local wep = self.WeaponEntity
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
- if self.Weapon_StrafeWhileFiring && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeWhileFiringT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
+ if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
  timer.Simple(0,function()
     local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math.random(150, 250), true, false, 8, true))
     if moveCheck then
     self:StopMoving()
-    self.NextWeaponStrafeWhileFiringT = CurTime() + math.Rand(self.Weapon_StrafeWhileFiringDelay.a, self.Weapon_StrafeWhileFiringDelay.b)
+    self.NextWeaponStrafeT = CurTime() + math.Rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
     self:SetLastPosition(moveCheck)
     self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end) end end) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnWeaponStrafeWhileFiring()
+function ENT:OnWeaponStrafe()
   if self.VJ_IsBeingControlled then self.CoFR_Crouching = false return end
      if math.random(1,2) == 1 && !self.CoFR_Crouching then
         self.CoFR_Crouching = true
@@ -979,10 +978,10 @@ function ENT:OnFootstepSound()
         filter = {self}
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

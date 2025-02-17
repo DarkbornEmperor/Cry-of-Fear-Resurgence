@@ -18,11 +18,10 @@ ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
-ENT.RangeDistance = 2000
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackMaxDistance = 2000
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
-ENT.NextRangeAttackTime = 0.5
-ENT.NextRangeAttackTime_DoRand = 0.1
+ENT.NextRangeAttackTime = VJ.PICK(0.5,0.1)
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 250
 ENT.LimitChaseDistance_Min = 200
@@ -311,7 +310,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

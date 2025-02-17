@@ -19,10 +19,10 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 55
 ENT.MeleeAttackDamageDistance = 85
 ENT.MeleeAttackDamageType = DMG_CRUSH
-ENT.SlowPlayerOnMeleeAttack = false
-ENT.SlowPlayerOnMeleeAttack_WalkSpeed = 0.001
-ENT.SlowPlayerOnMeleeAttack_RunSpeed = 0.001
-ENT.SlowPlayerOnMeleeAttackTime = 4
+ENT.MeleeAttackPlayerSpeed = false
+ENT.MeleeAttackPlayerSpeedWalk = 0.001
+ENT.MeleeAttackPlayerSpeedRun = 0.001
+ENT.MeleeAttackPlayerSpeedTime = 4
 ENT.HasMeleeAttackSlowPlayerSound = false
 ENT.HasMeleeAttackKnockBack = false
 ENT.DisableFootStepSoundTimer = true
@@ -100,7 +100,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     if attack == 1 then
         self.AnimTbl_MeleeAttack = "vjseq_attack"
         self.MeleeAttackDamage = 60
-        self.SlowPlayerOnMeleeAttack = true
+        self.MeleeAttackPlayerSpeed = true
         self.HasMeleeAttackKnockBack = true
         self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/cof/taller/taller_swing.wav"
@@ -111,7 +111,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     elseif attack == 2 then
         self.AnimTbl_MeleeAttack = "vjseq_stamp"
         self.MeleeAttackDamage = 200
-        self.SlowPlayerOnMeleeAttack = false
+        self.MeleeAttackPlayerSpeed = false
         self.HasMeleeAttackKnockBack = false
         self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/cof/taller/taller_wall_punch.wav"
@@ -165,7 +165,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------
