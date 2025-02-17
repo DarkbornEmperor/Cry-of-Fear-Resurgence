@@ -44,9 +44,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
-"common/null.wav"
-}
+ENT.SoundTbl_FootStep = "common/null.wav"
 ENT.SoundTbl_FireLoop = {
 "vj_cofr/aom/davidbad/fire_loop.wav"
 }

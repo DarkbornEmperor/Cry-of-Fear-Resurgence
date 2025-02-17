@@ -39,9 +39,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
-"common/null.wav"
-}
+ENT.SoundTbl_FootStep = "common/null.wav"
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/doc_ai/doctorbattle.mp3",
 "vj_cofr/cof/doc_ai/doctorbattle2.mp3"
