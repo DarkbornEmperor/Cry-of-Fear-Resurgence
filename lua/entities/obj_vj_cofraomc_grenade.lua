@@ -10,7 +10,6 @@ ENT.Base = "obj_vj_grenade"
 ENT.PrintName = "Grenade"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information = "Projectile, usually used for NPCs & Weapons"
 ENT.Category = "Projectiles"
 
 if CLIENT then
