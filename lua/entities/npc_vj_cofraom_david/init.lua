@@ -65,7 +65,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 /*ENT.SoundTbl_MedicBeforeHeal = {
 "vj_cofr/aom/pills/pills_pickup.wav"
 }*/
-ENT.SoundTbl_MedicAfterHeal = {
+ENT.SoundTbl_MedicOnHeal = {
 "vj_cofr/aom/pills/pills_use.wav"
 }
 ENT.SoundTbl_Impact = {
@@ -522,7 +522,7 @@ function ENT:OnThinkActive()
     self:SetHealth(math.Clamp(CurHP + self.Medic_HealAmount, CurHP, self:GetMaxHealth()))
     self:OnMedicBehavior()
     self:PlaySoundSystem("Speech",self.SoundTbl_MedicReceiveHeal)
-    VJ.CreateSound(self,self.SoundTbl_MedicAfterHeal,75,100)
+    VJ.CreateSound(self,self.SoundTbl_MedicOnHeal,75,100)
     self:RemoveAllDecals()
     end
 end)

@@ -10,8 +10,8 @@ ENT.Type             = "ai"
 ENT.PrintName         = "Tentacle"
 ENT.Author             = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose = "Used to make simple props and animate them, since prop_dynamic doesn't work properly in Garry's Mod."
-ENT.Instructions     = "Don't change anything."
+
+
 ENT.Category = "Cry of Fear Resurgence"
 
 ENT.Spawnable = true

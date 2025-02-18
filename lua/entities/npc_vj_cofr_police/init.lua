@@ -10,7 +10,7 @@ ENT.Model = {"models/vj_cofr/cof/police1.mdl","models/vj_cofr/cof/police2.mdl","
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/w_syringe.mdl"
 ENT.Medic_HealAmount = 50
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_MedicAfterHeal = {
+ENT.SoundTbl_MedicOnHeal = {
 "vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 }
 -- Custom

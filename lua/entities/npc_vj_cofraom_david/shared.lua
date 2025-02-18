@@ -3,8 +3,6 @@ ENT.Type = "ai"
 ENT.PrintName = "David Leatherhoff"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose = "Spawn it and fight with it!"
-ENT.Instructions = "Click on the spawnicon to spawn it."
 ENT.Category = "Cry of Fear Resurgence"
 
 ENT.IsCoFRHuman = true
