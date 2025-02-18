@@ -13,8 +13,8 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,

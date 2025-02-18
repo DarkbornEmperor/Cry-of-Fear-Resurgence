@@ -19,8 +19,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_SIGNAL1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,

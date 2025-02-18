@@ -26,8 +26,8 @@ ENT.LeapAttackExtraTimers = {0.6, 0.8, 1, 1.2, 1.4}
 ENT.NextAnyAttackTime_Leap = 3
 ENT.LeapAttackStopOnHit = true
 ENT.DisableFootStepSoundTimer = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH

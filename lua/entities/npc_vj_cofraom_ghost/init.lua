@@ -26,8 +26,8 @@ ENT.MeleeAttackBleedEnemyDamage = 5
 ENT.MeleeAttackBleedEnemyTime = 2
 ENT.MeleeAttackBleedEnemyReps = 5
 ENT.DisableFootStepSoundTimer = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH

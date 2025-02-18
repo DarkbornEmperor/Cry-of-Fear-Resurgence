@@ -20,8 +20,8 @@ ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 ENT.DisableFootStepSoundTimer = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH

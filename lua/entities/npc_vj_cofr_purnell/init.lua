@@ -21,8 +21,8 @@ ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HideOnUnknownDamage = false

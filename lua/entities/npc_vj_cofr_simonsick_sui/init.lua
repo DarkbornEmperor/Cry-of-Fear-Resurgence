@@ -28,8 +28,8 @@ ENT.LimitChaseDistance_Max = 600
 ENT.LimitChaseDistance_Min = 1
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1

@@ -23,8 +23,8 @@ ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE

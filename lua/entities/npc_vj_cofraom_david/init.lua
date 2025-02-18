@@ -37,8 +37,8 @@ ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 //ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
 ENT.Weapon_SecondaryFireTime = 0.05
 ENT.DisableFootStepSoundTimer = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HasExtraMeleeAttackSounds = true
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true

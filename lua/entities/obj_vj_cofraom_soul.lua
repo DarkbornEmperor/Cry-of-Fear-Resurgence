@@ -50,19 +50,25 @@ function ENT:Init()
     soulSpr:SetPos(self:GetPos())
     soulSpr:Spawn()
     soulSpr:SetParent(self)
+    self.GlowSprite = soulSpr
     self:DeleteOnRemove(soulSpr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-    if IsValid(self.Track_Enemy) then -- Homing Behavior
+    local trackedEnt = self.Track_Enemy
+    -- Homing Behavior
+    if IsValid(trackedEnt) then
         self.DirectDamage = 25
-        local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+        if IsValid(self.GlowSprite) then
+            self.GlowSprite:SetKeyValue("scale", "1.5")
+end
+        local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
         if self:VisibleVec(pos) or self.Track_Position == defVec then
             self.Track_Position = pos
 end
         local phys = self:GetPhysicsObject()
         if IsValid(phys) then
-            phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
         end
     end
 end

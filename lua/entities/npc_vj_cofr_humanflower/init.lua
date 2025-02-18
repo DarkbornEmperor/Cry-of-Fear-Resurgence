@@ -22,8 +22,8 @@ ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 130
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.HasMeleeAttackKnockBack = true
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
+
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationTime = 8
 ENT.HasExtraMeleeAttackSounds = true
