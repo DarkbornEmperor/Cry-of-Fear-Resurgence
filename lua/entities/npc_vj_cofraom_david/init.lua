@@ -477,7 +477,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if self.CoFR_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) then
-    if (self.EnemyData.IsVisible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
+    if (self.EnemyData.Visible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     if act == ACT_WALK then
         return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
@@ -541,7 +541,7 @@ end
 end
  if !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
     local ent = self:GetEnemy()
-    local dist = self.NearestPointToEnemyDistance
+    local dist = self.EnemyData.DistanceNearest
     if IsValid(ent) && !self.VJ_IsBeingControlled then
         local wep = self:GetActiveWeapon()
         if self.WeaponInventoryStatus == VJ.WEP_INVENTORY_MELEE then return end
@@ -618,7 +618,7 @@ function ENT:OnWeaponAttack()
  if self.VJ_IsBeingControlled then return end
  local wep = self.WeaponEntity
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
- if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeSinceAcquired) > 2 then
+ if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeAcquired) > 2 then
  timer.Simple(0,function()
     local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math.random(150, 250), true, false, 8, true))
     if moveCheck then
