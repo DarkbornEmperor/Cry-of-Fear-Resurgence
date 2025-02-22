@@ -21,7 +21,7 @@ ENT.MeleeAttackDamageType = DMG_SONIC
 ENT.MeleeAttackDSP = 34
 ENT.MeleeAttackDSPLimit = false
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
@@ -134,14 +134,14 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
-    if status == "PriorExecution" then
+    if status == "Init" then
         -- Hellhound shouldn't have its sonic attack interrupted by a flinch animation!
         return self.AttackAnimTime > CurTime()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

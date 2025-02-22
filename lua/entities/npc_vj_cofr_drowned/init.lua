@@ -29,7 +29,7 @@ ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 500
 ENT.LimitChaseDistance_Min = 200
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
@@ -195,7 +195,7 @@ function ENT:OnThinkActive()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

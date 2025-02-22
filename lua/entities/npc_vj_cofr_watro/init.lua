@@ -23,7 +23,7 @@ ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -112,7 +112,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" then
+    if status == "Init" then
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
        self.SoundTbl_Death = {
        "vj_cofr/fx/out_water.wav"

@@ -21,7 +21,7 @@ SWEP.MeleeWeaponSound_Miss = false
 SWEP.NextMeleeAnimT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-   if status == "Initial" then
+   if status == "Init" then
    local owner = self:GetOwner()
    if !owner.IsCoFRHuman then return end
      if CurTime() > owner.CoFR_NextMeleeSoundT then

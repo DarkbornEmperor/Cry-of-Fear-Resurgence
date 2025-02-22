@@ -21,7 +21,7 @@ ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -150,7 +150,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
     local activeWep = self:GetActiveWeapon()
     if IsValid(activeWep) then activeWep:Remove() end
 end
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

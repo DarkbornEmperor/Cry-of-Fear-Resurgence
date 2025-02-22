@@ -27,7 +27,7 @@ ENT.LimitChaseDistance_Max = 250
 ENT.LimitChaseDistance_Min = 200
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
@@ -261,7 +261,7 @@ end
     end
 end
     if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
-    if status == "Initial" && !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+    if status == "Init" && !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
     dmginfo:SetDamage(self:Health())
     if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
     elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)

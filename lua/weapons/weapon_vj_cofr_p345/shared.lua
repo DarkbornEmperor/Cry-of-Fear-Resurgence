@@ -81,7 +81,7 @@ function SWEP:PrimaryAttackEffects(owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-    if status == "Initial" then
+    if status == "Init" then
     local owner = self:GetOwner()
     if owner:GetClass() == "npc_vj_cofr_purnell" then return end
     local Brt = math.random(1,3)

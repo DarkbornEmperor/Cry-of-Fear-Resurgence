@@ -26,7 +26,7 @@ ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 300
 ENT.LimitChaseDistance_Min = 1
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
@@ -148,7 +148,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
 
         VJ.STOPSOUND(self.Stranger_HeartBeat)
 end
-    if status == "Initial" then
+    if status == "Init" then
         self:SetRenderFX(kRenderFxFlickerSlow)
         self:SetRenderMode(RENDERMODE_NORMAL)
         self.DeathAnimationTime = math.Rand(0.75,1.25)

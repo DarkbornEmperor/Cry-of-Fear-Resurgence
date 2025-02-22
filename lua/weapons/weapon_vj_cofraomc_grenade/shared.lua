@@ -45,7 +45,7 @@ function SWEP:OnGetBulletPos()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-    if status == "Initial" then
+    if status == "Init" then
     if CLIENT then return end
     local grenade = ents.Create("obj_vj_cofraomc_grenade")
     grenade:SetPos(self:GetBulletPos())

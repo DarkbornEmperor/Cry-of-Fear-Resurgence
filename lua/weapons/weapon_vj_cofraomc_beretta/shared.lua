@@ -61,7 +61,7 @@ function SWEP:PrimaryAttackEffects(owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-    if status == "Initial" then
+    if status == "Init" then
     local Brt = math.random(1,3)
     local Num = 0.35
     if Brt == 1 then

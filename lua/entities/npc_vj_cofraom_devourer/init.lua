@@ -31,7 +31,7 @@ ENT.BringFriendsOnDeath = false
 ENT.AlertFriendsOnDeath = true
 ENT.CallForBackUpOnDamage = false
 ENT.CallForHelp = false
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -62,7 +62,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Devourer_LastHeight = 180
@@ -173,7 +173,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" then
+    if status == "Init" then
         self:SetPos(self:GetPos() + self:GetUp()*-4)
         self:Devourer_ResetEnt()
         VJ_COFR_DeathCode(self)

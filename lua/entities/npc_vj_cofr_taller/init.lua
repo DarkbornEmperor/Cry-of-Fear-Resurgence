@@ -26,7 +26,7 @@ ENT.MeleeAttackPlayerSpeedTime = 4
 ENT.HasMeleeAttackPlayerSpeedSounds = false
 ENT.HasMeleeAttackKnockBack = false
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
@@ -153,7 +153,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

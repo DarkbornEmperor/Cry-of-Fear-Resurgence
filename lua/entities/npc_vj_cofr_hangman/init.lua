@@ -22,7 +22,7 @@ ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.DisableMeleeAttackAnimation = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {

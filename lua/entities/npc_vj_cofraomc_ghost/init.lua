@@ -164,7 +164,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE}
     end
 end
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

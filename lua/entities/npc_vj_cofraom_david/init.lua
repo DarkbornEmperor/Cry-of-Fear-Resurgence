@@ -37,7 +37,7 @@ ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 //ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
 ENT.Weapon_SecondaryFireTime = 0.05
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HasExtraMeleeAttackSounds = true
 ENT.HideOnUnknownDamage = false
@@ -830,7 +830,7 @@ end
     local activeWep = self:GetActiveWeapon()
     if IsValid(activeWep) then activeWep:Remove() end
 end
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

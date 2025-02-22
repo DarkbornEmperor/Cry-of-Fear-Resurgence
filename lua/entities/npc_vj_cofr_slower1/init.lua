@@ -19,7 +19,7 @@ ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
@@ -176,7 +176,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
- if status == "PriorExecution" then
+ if status == "Init" then
     if dmginfo:GetDamage() > 30 then
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
@@ -188,7 +188,7 @@ end
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Initial" then
+ if status == "Init" then
     VJ_COFR_DeathCode(self)
 end
      if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
@@ -205,7 +205,7 @@ end
     end
 end
     if GetConVar("VJ_COFR_Slower_HeadGib"):GetInt() == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end
-    if status == "Initial" && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+    if status == "Init" && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
     if self.Slower_Skin == 0 then self:SetBodygroup(0,3)
     elseif self.Slower_Skin == 1 then self:SetBodygroup(0,4)
     elseif self.Slower_Skin == 2 then self:SetBodygroup(0,5) end

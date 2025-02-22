@@ -21,7 +21,7 @@ ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = "DamageTypes"
@@ -136,7 +136,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
         dmginfo:ScaleDamage(0)
     end
 end
-     if status == "Initial" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
+     if status == "Init" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
         self:SpawnBloodParticles(dmginfo,hitgroup)
         self:SpawnBloodDecals(dmginfo,hitgroup)
         self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
@@ -144,7 +144,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

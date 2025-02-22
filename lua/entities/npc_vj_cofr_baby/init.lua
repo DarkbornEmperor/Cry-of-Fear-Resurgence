@@ -19,7 +19,7 @@ ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.CanFlinch = true
@@ -125,7 +125,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
         self.AnimTbl_Death = ACT_SIGNAL1
     end
 end
-    if status == "Initial" then
+    if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end

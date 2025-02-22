@@ -27,7 +27,7 @@ ENT.RangeAttackAngleRadius = 180
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 
 ENT.HideOnUnknownDamage = false
 ENT.HasDeathAnimation = true
@@ -264,7 +264,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-  if status == "Initial" then
+  if status == "Init" then
      if self.Addiction_OnFire then
         self.Addiction_OnFire = false
      if IsValid(self.fireFX) then self.fireFX:Remove() end

@@ -58,7 +58,7 @@ function SWEP:DoImpactEffect(tr,damageType)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status,statusData)
-    if status == "Initial" then
+    if status == "Init" then
     local Brt = math.random(1,8)
     local Num = 0.09
     if Brt == 1 then
