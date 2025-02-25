@@ -40,7 +40,7 @@ ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 
 ENT.HasExtraMeleeAttackSounds = true
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"

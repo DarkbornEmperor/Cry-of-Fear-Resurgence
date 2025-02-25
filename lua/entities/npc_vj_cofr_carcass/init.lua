@@ -33,7 +33,7 @@ ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE

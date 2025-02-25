@@ -23,7 +23,7 @@ ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = "DamageTypes"
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
 ENT.FlinchChance = 2

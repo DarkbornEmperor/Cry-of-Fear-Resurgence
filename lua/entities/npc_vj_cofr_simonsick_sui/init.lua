@@ -30,7 +30,7 @@ ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"

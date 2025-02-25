@@ -33,7 +33,7 @@ ENT.LimitChaseDistance_Min = 1
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"

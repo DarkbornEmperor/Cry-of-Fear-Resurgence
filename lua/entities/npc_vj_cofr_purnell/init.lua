@@ -25,7 +25,7 @@ ENT.MainSoundPitch = 100
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"

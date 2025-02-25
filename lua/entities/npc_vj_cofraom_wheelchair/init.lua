@@ -22,7 +22,7 @@ ENT.MeleeAttackDamageDistance = 50
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 
-ENT.HideOnUnknownDamage = false
+ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
