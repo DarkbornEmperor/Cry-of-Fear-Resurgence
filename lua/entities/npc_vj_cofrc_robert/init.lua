@@ -8,16 +8,18 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/custom/robert.mdl"
 ENT.StartHealth = 200
-ENT.HasHealthRegeneration = true
-ENT.HealthRegenerationAmount = 2
-ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
+ENT.HealthRegenParams = {
+    Enabled = true,
+    Amount = 2,
+    Delay = VJ.SET(0.5,0.5),
+}
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.HasSoundTrack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_Init()
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
-    self.HasHealthRegeneration = true
+    self.HealthRegenParams.Enabled = true
 end
     self.SoundTbl_Pain = {
     "vj_cofr/cof/doctor/Pain1.wav",

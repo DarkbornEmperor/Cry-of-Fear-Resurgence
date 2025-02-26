@@ -7,8 +7,11 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/david.mdl"
 ENT.StartHealth = 200
-ENT.HealthRegenerationAmount = 2
-ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
+ENT.HealthRegenParams = {
+    Enabled = false,
+    Amount = 2,
+    Delay = VJ.SET(0.5,0.5),
+}
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
@@ -388,7 +391,7 @@ function ENT:Init()
     self.Weapon_FindCoverOnReload = true
 end
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
-    self.HasHealthRegeneration = true
+    self.HealthRegenParams.Enabled = true
 end
   if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_da.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/cross.mdl" or self:GetModel() == "models/vj_cofr/aom/question.mdl" or self:GetModel() == "models/vj_cofr/aom/scream.mdl" or self:GetModel() == "models/vj_cofr/aom/two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
      self.Human_Type = 0
@@ -477,7 +480,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if self.CoFR_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) then
-    if (self.EnemyData.Visible or (self.EnemyData.LastVisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
+    if (self.EnemyData.Visible or (self.EnemyData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     if act == ACT_WALK then
         return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
@@ -512,7 +515,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if self.IsMedic && !self:IsBusy() && self.Medic_Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+ if self.IsMedic && !self:IsBusy() && self.MedicData.Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
     self:OnMedicBehavior()
      self:PlayAnim("vjges_heal",true,false,false)
  if IsValid(self:GetEnemy()) then
