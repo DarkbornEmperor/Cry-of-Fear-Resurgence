@@ -11,9 +11,6 @@ ENT.PrintName = "Random Monster Spawner (Single)"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Cry of Fear Resurgence"
-
-ENT.Spawnable = false
-ENT.AdminSpawnable = false
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 

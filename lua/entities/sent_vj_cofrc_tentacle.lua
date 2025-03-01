@@ -5,16 +5,15 @@
 --------------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base             = "base_entity"
-ENT.Type             = "ai"
-ENT.PrintName         = "Tentacle"
-ENT.Author             = "Darkborn"
+ENT.Base = "base_entity"
+ENT.Type = "ai"
+ENT.PrintName = "Tentacle"
+ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 
 ENT.Category = "Cry of Fear Resurgence"
 
 ENT.Spawnable = true
-ENT.AdminOnly = false
 
 function ENT:Draw() self:DrawModel() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
