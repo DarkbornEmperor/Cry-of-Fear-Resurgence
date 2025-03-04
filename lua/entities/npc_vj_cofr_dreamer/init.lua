@@ -14,7 +14,6 @@ ENT.CallForHelp = false
 ENT.SightAngle = 180
 ENT.HasMeleeAttack = false
 ENT.MainSoundPitch = 100
-
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,

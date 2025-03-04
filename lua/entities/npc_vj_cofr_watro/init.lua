@@ -24,7 +24,6 @@ ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
 ENT.MainSoundPitch = 100
-
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE

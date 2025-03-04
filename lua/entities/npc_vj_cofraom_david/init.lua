@@ -41,7 +41,6 @@ ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 ENT.Weapon_SecondaryFireTime = 0.05
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true

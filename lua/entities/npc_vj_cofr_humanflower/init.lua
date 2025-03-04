@@ -23,7 +23,6 @@ ENT.MeleeAttackDamageDistance = 130
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.HasMeleeAttackKnockBack = true
 ENT.MainSoundPitch = 100
-
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationTime = 8
 ENT.HasExtraMeleeAttackSounds = true

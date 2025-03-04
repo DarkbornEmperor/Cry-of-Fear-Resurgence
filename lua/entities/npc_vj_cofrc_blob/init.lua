@@ -15,14 +15,12 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackMaxDistance = 3000
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = VJ.PICK(5,10)
 ENT.MainSoundPitch = 100
-
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
@@ -67,18 +65,21 @@ function ENT:Init()
     self.Tentacles = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-    local ent = self:GetEnemy()
-    if (IsValid(ent) && ent:IsOnGround()) or self.VJ_IsBeingControlled then
-        local Tentacle = ents.Create("sent_vj_cofrc_tentacle")
-        Tentacle:SetPos(ent:GetPos() + self:GetForward()*-30 + self:GetUp()*-40 + self:GetRight()*math.random(30,-30))
-        Tentacle:SetAngles(self:GetAngles())
-        Tentacle.Assignee = self
-        Tentacle.VJ_NPC_Class = self.VJ_NPC_Class
-        Tentacle:Spawn()
-        self.Tentacles[#self.Tentacles + 1] = Tentacle -- Register the Tentacles
-        self.Tentacle = Tentacle
-        SafeRemoveEntityDelayed(self.Tentacle,25)
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+ if status == "Init" then
+ local ent = self:GetEnemy()
+ if (IsValid(ent) && ent:IsOnGround()) or self.VJ_IsBeingControlled then
+    local Tentacle = ents.Create("sent_vj_cofrc_tentacle")
+    Tentacle:SetPos(ent:GetPos() + self:GetForward()*-30 + self:GetUp()*-40 + self:GetRight()*math.random(30,-30))
+    Tentacle:SetAngles(self:GetAngles())
+    Tentacle.Assignee = self
+    Tentacle.VJ_NPC_Class = self.VJ_NPC_Class
+    Tentacle:Spawn()
+    self.Tentacles[#self.Tentacles + 1] = Tentacle -- Register the Tentacles
+    self.Tentacle = Tentacle
+    SafeRemoveEntityDelayed(self.Tentacle,25)
+end
+        return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

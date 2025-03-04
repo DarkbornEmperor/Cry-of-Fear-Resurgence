@@ -28,7 +28,6 @@ ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -190,22 +189,22 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleRangeAttacks()
-    if (math.random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
-        self.AnimTbl_RangeAttack = {"vjseq_shoot"}
-        self.Screamer_HomingAttack = true
-    else
-        self.AnimTbl_RangeAttack = {"vjseq_attack1","vjseq_attack2"}
-        self.Screamer_HomingAttack = false
+function ENT:OnRangeAttack(status,enemy)
+ if status == "Init" then
+ if (math.random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
+    self.AnimTbl_RangeAttack = {"vjseq_shoot"}
+    self.Screamer_HomingAttack = true
+ else
+    self.AnimTbl_RangeAttack = {"vjseq_attack1","vjseq_attack2"}
+    self.Screamer_HomingAttack = false
+end
+        self.Screamer_NumFired = 0
+        self.HasRangeAttackSounds = true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
-    self.Screamer_NumFired = 0
-    self.HasRangeAttackSounds = true
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+ if status == "PostProjSpawn" then
  local ene = self:GetEnemy()
  if self.Screamer_HomingAttack && IsValid(ene) then
     projectile.Track_Enemy = ene
@@ -213,7 +212,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 end
     if self.Screamer_NumFired < 1 then
         self.Screamer_NumFired = self.Screamer_NumFired + 1
-        self.HasRangeAttackSounds = false
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

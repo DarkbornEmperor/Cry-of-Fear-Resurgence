@@ -14,22 +14,17 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 2600
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
-ENT.NextRangeAttackTime = 0
-ENT.NextAnyAttackTime_Range = 0.6
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 600
 ENT.LimitChaseDistance_Min = 1
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -87,7 +82,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "suicide" then
-        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
         VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
@@ -133,10 +128,17 @@ function ENT:DoImpactEffect(tr,damageType)
     return VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttack(status,enemy)
+    if status == "Init" then
+        self.NextRangeAttackTime = self.NextRangeAttackTime = (math.random(2) == 1 and 0 or 0.6)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+  if status == "Init" then
   local ene = self:GetEnemy()
   if IsValid(self) && IsValid(self:GetEnemy()) then
-  VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+  VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
   VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
     Attacker = self,
@@ -154,6 +156,8 @@ function ENT:CustomRangeAttackCode()
  })
 end
     self:FireFX()
+        return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)

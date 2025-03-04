@@ -15,14 +15,12 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = {"vjseq_bossmove1","vjseq_bossmove2"}
 ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.MainSoundPitch = 100
-
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -154,7 +152,8 @@ function ENT:LiftProps()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
+function ENT:OnRangeAttack(status,enemy)
+     if status == "Init" then
      local ent = self:GetEnemy()
      if IsValid(ent) && self:Visible(ent) && CurTime() > self.SickSimon_NextPropT /*&& !IsValid(self.Prop) && !IsValid(self.Prop2)*/ then
         local Prop = ents.Create("prop_physics")
@@ -179,17 +178,21 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
 
         SafeRemoveEntityDelayed(self.Prop,15)
         SafeRemoveEntityDelayed(self.Prop2,15)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+     if status == "Init" then
      local ent = self:GetEnemy()
      for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
      local PropPhysics = v:GetPhysicsObject()
      if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then
         PropPhysics:EnableGravity(true)
         PropPhysics:SetVelocity((ent:GetPos() + ent:OBBCenter() - v:GetPos())*8 + v:GetUp()*200)
-        end
+    end
+end
+        return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

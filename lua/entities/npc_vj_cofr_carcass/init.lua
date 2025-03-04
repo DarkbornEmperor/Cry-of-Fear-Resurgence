@@ -32,7 +32,6 @@ ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -105,10 +104,12 @@ function ENT:OnInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+    if status == "PostProjSpawn" then
     local ene = self:GetEnemy()
     if IsValid(ene) then
         projectile.Track_Enemy = ene
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

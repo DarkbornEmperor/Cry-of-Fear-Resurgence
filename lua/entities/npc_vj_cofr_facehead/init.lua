@@ -23,7 +23,6 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.DisableMeleeAttackAnimation = true
 ENT.MainSoundPitch = 100
-
 ENT.HasSoundTrack = true
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {

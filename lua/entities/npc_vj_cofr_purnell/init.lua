@@ -22,7 +22,6 @@ ENT.Weapon_IgnoreSpawnMenu = true
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.DamageResponse = "OnlySearch"

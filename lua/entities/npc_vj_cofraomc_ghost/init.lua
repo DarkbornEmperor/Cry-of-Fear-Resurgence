@@ -20,7 +20,6 @@ ENT.RangeAttackMaxDistance = 1020
 ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
-ENT.DisableDefaultRangeAttackCode = true
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
@@ -81,7 +80,8 @@ function ENT:Ghost_DoElecEffect(sp, hp, hn, a, t)
     util.Effect("VJ_COFR_Electric_Charge", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_AfterStartTimer()
+function ENT:OnRangeAttack(status,enemy)
+    if status == "PostInit" then
     if self.CurrentBeforeRangeAttackSound then self.CurrentBeforeRangeAttackSound:ChangePitch(90 + 90, 1.2) end
     local myPos = self:GetPos()
     -- Tsakh --------------------------
@@ -101,10 +101,10 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
                     endpos = tsakhLocations[i],
                     filter = self
                 })
-                if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
-            end
-        end)
-    end
+            if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
+        end
+    end)
+end
     -- Ach --------------------------
     local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
     local achLocations = {
@@ -123,37 +123,41 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
                     filter = self
                 })
                 if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
-            end
-        end)
+                end
+            end)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-    local startpos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
-    local tr = util.TraceLine({
-        start = startpos,
-        endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
-        filter = self
-    })
-    local hitpos = tr.HitPos
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+    if status == "Init" then
+        local startpos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
+        local tr = util.TraceLine({
+            start = startpos,
+            endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
+            filter = self
+        })
+        local hitpos = tr.HitPos
 
-    local elec = EffectData()
-    elec:SetStart(startpos)
-    elec:SetOrigin(hitpos)
-    elec:SetEntity(self)
-    elec:SetAttachment(1)
-    util.Effect("VJ_COFR_Electric",elec)
+        local elec = EffectData()
+        elec:SetStart(startpos)
+        elec:SetOrigin(hitpos)
+        elec:SetEntity(self)
+        elec:SetAttachment(1)
+        util.Effect("VJ_COFR_Electric",elec)
 
-    elec = EffectData()
-    elec:SetStart(startpos)
-    elec:SetOrigin(hitpos)
-    elec:SetEntity(self)
-    elec:SetAttachment(2)
-    util.Effect("VJ_COFR_Electric",elec)
+        elec = EffectData()
+        elec:SetStart(startpos)
+        elec:SetOrigin(hitpos)
+        elec:SetEntity(self)
+        elec:SetAttachment(2)
+        util.Effect("VJ_COFR_Electric",elec)
 
-    VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
+        VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 
-    VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b))
+        VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch))
+        return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)

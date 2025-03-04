@@ -21,7 +21,6 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1

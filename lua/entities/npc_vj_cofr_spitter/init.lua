@@ -24,7 +24,6 @@ ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1
 ENT.MainSoundPitch = 100
-
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE

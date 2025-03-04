@@ -14,9 +14,7 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 500
 ENT.RangeAttackMinDistance = 1
@@ -27,7 +25,6 @@ ENT.LimitChaseDistance_Max = 300
 ENT.LimitChaseDistance_Min = 1
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -115,7 +112,8 @@ function ENT:Stranger_Damage()
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+    if status == "Init" then
     if GetConVar("vj_npc_range"):GetInt() == 0 or self.Dead then return end
     local ent = self:GetEnemy()
     local cont = self.VJ_TheController
@@ -129,10 +127,12 @@ function ENT:CustomRangeAttackCode()
 end
     if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
     if CurTime() > self.Stranger_NextEnemyDamageT then
-    if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
+    if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
         ent:TakeDamage(10,self,self)
         self:Stranger_Damage()
         self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
+end
+        return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

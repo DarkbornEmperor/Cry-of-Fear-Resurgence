@@ -19,7 +19,6 @@ ENT.MeleeAttackDamage = 14
 ENT.MeleeAttackDistance = 25
 ENT.MeleeAttackDamageDistance = 50
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = "vjseq_point"
 ENT.RangeAttackMaxDistance = 500
 ENT.RangeAttackMinDistance = 200
@@ -30,7 +29,6 @@ ENT.LimitChaseDistance_Max = 500
 ENT.LimitChaseDistance_Min = 200
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -156,7 +154,8 @@ function ENT:Drowned_Damage()
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+    if status == "Init" then
     if GetConVar("vj_npc_range"):GetInt() == 0 or self.Dead then return end
     local ent = self:GetEnemy()
     local cont = self.VJ_TheController
@@ -170,7 +169,7 @@ function ENT:CustomRangeAttackCode()
 end
     if self:GetPos():Distance(ent:GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
     if CurTime() > self.Drowned_NextEnemyDamageT then
-    if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b)) end
+    if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
     if ent:IsPlayer() then
         net.Start("VJ_COFR_Drowned_ScreenEffect")
             net.WriteEntity(ent)
@@ -179,9 +178,9 @@ end
     timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
         if ent.IsVJBaseSNPC_Human then ent:TakeDamage(ent:Health(),self,self) elseif ent:IsPlayer() then ent:TakeDamage(ent:Health()+ent:Armor(),self,self) else ent:TakeDamage(200,self,self) end
         self:Drowned_Damage()
-        self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
-            end
-        end)
+        self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime end end)
+end
+        return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

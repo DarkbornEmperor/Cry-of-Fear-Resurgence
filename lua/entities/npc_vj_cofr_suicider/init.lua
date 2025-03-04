@@ -14,21 +14,17 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 2000
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
-ENT.NextRangeAttackTime = VJ.PICK(0.5,0.1)
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 250
 ENT.LimitChaseDistance_Min = 200
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -125,9 +121,9 @@ function ENT:OnInput(key,activator,caller,data)
     elseif key == "suicide" then
         VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     if self.Suicider_Glock then
-        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     elseif self.Suicider_P345 then
-        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
 end
         self:FireFX()
         self:DropGlock()
@@ -213,13 +209,20 @@ function ENT:OnThinkActive()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttack(status,enemy)
+    if status == "Init" then
+        self.NextRangeAttackTime = (math.random(2) == 1 and 0.1 or 0.5)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+  if status == "Init" then
   local ene = self:GetEnemy()
   if IsValid(self) && IsValid(self:GetEnemy()) then
     if self.Suicider_Glock then
-        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     elseif self.Suicider_P345 then
-        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
 end
     VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
@@ -237,7 +240,9 @@ end
     HullSize = 1
  })
 end
-    self:FireFX()
+        self:FireFX()
+        return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)

@@ -32,7 +32,6 @@ ENT.AlertFriendsOnDeath = true
 ENT.CallForBackUpOnDamage = false
 ENT.CallForHelp = false
 ENT.MainSoundPitch = 100
-
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
@@ -61,9 +60,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-
 ENT.MainSoundPitch = 100
-
 -- Custom
 ENT.Devourer_LastHeight = 180
 ENT.Devourer_CurEnt = NULL

@@ -20,9 +20,7 @@ ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.NextRangeAttackTime = 0
 ENT.RangeAttackMaxDistance = 2000
@@ -32,7 +30,6 @@ ENT.LimitChaseDistance_Max = 600
 ENT.LimitChaseDistance_Min = 1
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -355,11 +352,12 @@ end
     return self.BaseClass.TranslateActivity(self,act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+ if status == "Init" then
  local ene = self:GetEnemy()
  if IsValid(self) && IsValid(self:GetEnemy()) then
  if self.BookSimon_Shotgun then
-    VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+    VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     VJ.EmitSound(self, "vj_cofr/fx/distant/sbarrel1_distant2.wav", 140, self:GetSoundPitch(100, 110))
     timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
     self:FireBullets({
@@ -378,7 +376,7 @@ function ENT:CustomRangeAttackCode()
      })
 
  elseif self.BookSimon_Glock then
-    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
@@ -396,7 +394,7 @@ function ENT:CustomRangeAttackCode()
      })
 
  elseif self.BookSimon_TMP then
-    VJ.EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+    VJ.EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
@@ -414,7 +412,7 @@ function ENT:CustomRangeAttackCode()
      })
 
  elseif self.BookSimon_M16 then
-    VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch.a, self.RangeAttackPitch.b), 1, CHAN_WEAPON)
+    VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
@@ -432,7 +430,9 @@ function ENT:CustomRangeAttackCode()
      })
     end
 end
-    self:FireFX()
+        self:FireFX()
+        return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)

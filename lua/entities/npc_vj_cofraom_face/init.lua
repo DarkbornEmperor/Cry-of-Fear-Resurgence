@@ -30,7 +30,6 @@ ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -158,10 +157,12 @@ end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+    if status == "PostProjSpawn" then
     local ene = self:GetEnemy()
     if IsValid(ene) then
         projectile.Track_Enemy = ene
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

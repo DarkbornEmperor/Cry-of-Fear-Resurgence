@@ -17,9 +17,7 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.DisableRangeAttackAnimation = true
-ENT.RangeAttackAnimationStopMovement = false
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 60
@@ -28,7 +26,6 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -201,7 +198,8 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
     return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:OnRangeAttackExecute(status,enemy,projectile)
+ if status == "Init" then
  local ent = self:GetEnemy()
  if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
     VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, 100)
@@ -234,6 +232,8 @@ function ENT:CustomRangeAttackCode()
 
     VJ.EmitSound(ent, "vj_cofr/aom/davidbad/thunder_hit.wav", 90, 100) end end)
     end
+end
+    return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
