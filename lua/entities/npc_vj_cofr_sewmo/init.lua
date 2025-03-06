@@ -123,7 +123,8 @@ end
     end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+function ENT:OnMeleeAttack(status,enemy)
+    if status == "Init" then
     if self:GetBodygroup(0) == 0 then
         self.AnimTbl_MeleeAttack = "vjseq_attack1"
         self.MeleeAttackDistance = 50
@@ -151,6 +152,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
         "vj_cofr/cof/sewmo/claw_strike2.wav",
         "vj_cofr/cof/sewmo/claw_strike3.wav"
 }
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

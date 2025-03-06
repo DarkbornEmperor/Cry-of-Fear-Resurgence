@@ -594,25 +594,27 @@ end
 function ENT:OnAlert(ent)
     if self.Human_Type == 1 && math.random(1,2) == 1 then
     if ent:GetClass() == "npc_vj_cofr_purnell" then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/simon/simonbossangry.wav"})
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simonbossangry.wav")
     elseif ent:GetClass() == "npc_vj_cofr_carcass" then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/simon/simon32.wav"})
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simon32.wav")
     elseif ent:GetClass() == "npc_vj_cofr_mace" then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cof/simon/sub3.wav"})
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/sub3.wav")
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
- if IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
-    self.MeleeAttackDamage = 15
-    self.MeleeAttackDamageType = DMG_CLUB
-    self.SoundTbl_MeleeAttackExtra = {
-    "vj_cofr/cof/weapons/melee_hit.wav"
+function ENT:OnMeleeAttack(status,enemy)
+    if status == "Init" then
+    if IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
+        self.MeleeAttackDamage = 15
+        self.MeleeAttackDamageType = DMG_CLUB
+        self.SoundTbl_MeleeAttackExtra = {
+        "vj_cofr/cof/weapons/melee_hit.wav"
 }
-    self.SoundTbl_MeleeAttackMiss = {
-    "vj_cofr/cof/weapons/melee_swing.wav"
+        self.SoundTbl_MeleeAttackMiss = {
+        "vj_cofr/cof/weapons/melee_swing.wav"
 }
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

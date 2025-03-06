@@ -171,7 +171,8 @@ function ENT:FireSprite()
     self.fireFX = fireFX
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+function ENT:OnMeleeAttack(status,enemy)
+    if status == "Init" then
     if self:GetBodygroup(0) == 0 then
         self.AnimTbl_MeleeAttack = "vjseq_attack"
         self.MeleeAttackDamage = 20
@@ -190,6 +191,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
 
         self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/aom/weapons/axe/Axe_swing.wav"
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

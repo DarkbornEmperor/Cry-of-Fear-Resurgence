@@ -158,7 +158,7 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
-    if status == "PostProjSpawn" then
+    if status == "PostSpawn" then
     local ene = self:GetEnemy()
     if IsValid(ene) then
         projectile.Track_Enemy = ene

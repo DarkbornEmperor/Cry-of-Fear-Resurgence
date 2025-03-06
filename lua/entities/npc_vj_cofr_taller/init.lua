@@ -94,7 +94,8 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+function ENT:OnMeleeAttack(status,enemy)
+    if status == "Init" then
     local attack = math.random(1,2)
     if attack == 1 then
         self.AnimTbl_MeleeAttack = "vjseq_attack"
@@ -117,6 +118,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
 
         self.SoundTbl_MeleeAttackExtra =
         "vj_cofr/cof/taller/taller_stamp.wav"
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
