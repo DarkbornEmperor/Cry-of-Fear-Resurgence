@@ -67,7 +67,7 @@ function ENT:OnInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp) return end
+function ENT:OnMeleeAttackExecute(status,ent,isProp) end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_DoElecEffect(sp, hp, hn, a, t)
     local elec = EffectData()

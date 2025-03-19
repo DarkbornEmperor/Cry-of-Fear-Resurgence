@@ -158,15 +158,15 @@ function ENT:OnThinkActive()
     self.Devourer_PullingEnt = self:Devourer_CalculateTongue()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-    if hitEnt.IsVJBaseSNPC_Human then
-    if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = hitEnt:Health() + 10
+function ENT:OnMeleeAttackExecute(status,ent,isProp)
+    if status == "PreDamage" then
+    if ent.IsVJBaseSNPC_Human then
+    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+        self.MeleeAttackDamage = ent:Health() + 10
     else
-        self.MeleeAttackDamage = 200
+        self.MeleeAttackDamage = 200 end
+        end
     end
-end
-    return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)

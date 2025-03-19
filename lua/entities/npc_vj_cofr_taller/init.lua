@@ -122,25 +122,24 @@ function ENT:OnMeleeAttack(status,enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
- if self:GetSequence() == self:LookupSequence("stamp") then
-    if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = hitEnt:Health() + 10
-    elseif hitEnt:IsPlayer() then
-        self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+function ENT:OnMeleeAttackExecute(status,ent,isProp)
+    if status == "PreDamage" then
+    if self:GetSequence() == self:LookupSequence("stamp") then
+    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+        self.MeleeAttackDamage = ent:Health() + 10
+    elseif ent:IsPlayer() then
+        self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
     else
         self.MeleeAttackDamage = 200
     end
 end
-     if self:GetSequence() == self:LookupSequence("attack") && (hitEnt.IsVJBaseSNPC && hitEnt.MovementType == VJ_MOVETYPE_GROUND && !hitEnt.VJ_ID_Boss && !hitEnt.IsVJBaseSNPC_Tank) then
-        hitEnt:StopMoving()
-        hitEnt:SetState(VJ_STATE_ONLY_ANIMATION)
-        timer.Simple(4,function() if IsValid(hitEnt) then
-        hitEnt:SetState()
+     if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
+        ent:StopMoving()
+        ent:SetState(VJ_STATE_ONLY_ANIMATION)
+        timer.Simple(4,function() if IsValid(ent) then
+        ent:SetState() end end)
         end
-    end)
-end
-    return false
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(hitEnt)

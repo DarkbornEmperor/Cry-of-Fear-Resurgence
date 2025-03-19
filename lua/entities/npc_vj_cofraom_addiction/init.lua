@@ -195,9 +195,10 @@ function ENT:OnMeleeAttack(status,enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-    if self.Addiction_OnFire then hitEnt:Ignite(4) end
-    return false
+function ENT:OnMeleeAttackExecute(status,ent,isProp)
+    if status == "PreDamage" then
+    if self.Addiction_OnFire then ent:Ignite(4) end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)

@@ -126,13 +126,15 @@ function ENT:OnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt,isProp)
-    if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = hitEnt:Health() + 10
-    elseif hitEnt:IsPlayer() then
-        self.MeleeAttackDamage = hitEnt:Health() + hitEnt:Armor() + 10
+function ENT:OnMeleeAttackExecute(status,ent,isProp)
+    if status == "PreDamage" then
+    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+        self.MeleeAttackDamage = ent:Health() + 10
+    elseif ent:IsPlayer() then
+        self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
     else
         self.MeleeAttackDamage = 200
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
