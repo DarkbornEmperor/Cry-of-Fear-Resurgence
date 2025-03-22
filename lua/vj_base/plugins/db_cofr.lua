@@ -524,21 +524,21 @@
 -- Main Configure Menu --
       if CLIENT then
          hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_COFR", function()
-         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Main)", "CoF Resurgence (Main)", "", "", function(Panel)
+         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - General", "CoFR - General", "", "", function(panel)
             local vj_cofrreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset_cs.Options["#vjbase.menu.general.reset.everything"] = {
-                VJ_COFR_SparkFX = "0",
+                VJ_COFR_SparkFX = "0"
 }
-                Panel:AddControl("ComboBox", vj_cofrreset_cs)
-                Panel:AddControl("Label", {Text = "Client-Side Options:"})
-                Panel:AddControl("Checkbox", {Label = "Enable GoldSrc-Style Sparks On Metal Surfaces?", Command = "VJ_COFR_SparkFX"})
-                Panel:ControlHelp("Applies ONLY to CoFR weapons!")
+                panel:AddControl("ComboBox", vj_cofrreset_cs)
+                panel:Help("Client-Side Options:")
+                panel:CheckBox("Enable GoldSrc-Style Sparks On Metal Surfaces?","VJ_COFR_SparkFX")
+                panel:ControlHelp("Applies ONLY to CoFR weapons!")
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
+                panel:Help("#vjbase.menu.general.admin.not")
+                panel:Help("#vjbase.menu.general.admin.only")
     return
 end
-            Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
+            panel:Help("#vjbase.menu.general.admin.only")
             local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_COFR_Boss_Music = "1",
@@ -563,49 +563,49 @@ end
                 VJ_COFR_Human_ReloadCover = "0",
                 VJ_COFR_Human_ReloadRun = "1",
                 VJ_COFR_Boss_Spawner = "0",
-                VJ_COFR_JoeBiden = "0",
+                VJ_COFR_JoeBiden = "0"
 }
-            Panel:AddControl("ComboBox", vj_cofrreset)
-            Panel:ControlHelp("Note: Only future spawned SNPCs will be affected!")
-            Panel:AddControl("Label", {Text = "Options:"})
-            Panel:AddControl("Checkbox", {Label = "Enable Boss Music?", Command ="VJ_COFR_Boss_Music"})
-            Panel:AddControl("Checkbox", {Label = "Enable Hoodie Skins For Simon?", Command ="VJ_COFR_Simon_Costumes"})
-            Panel:AddControl("Checkbox", {Label = "Enable Only Original Weapons For Book Simon?", Command ="VJ_COFR_BookSimon_Normal"})
-            Panel:AddControl("Checkbox", {Label = "Enable Transparent/Invisible Twitchers?", Command ="VJ_COFR_Twitcher_Invisible"})
-            Panel:AddControl("Checkbox", {Label = "Enable Random Sounds For Twitchers?", Command ="VJ_COFR_Twitcher_RandomSounds"})
-            Panel:AddControl("Checkbox", {Label = "Enable Original Damage Method For The Addiction?", Command ="VJ_COFR_Addiction_SelfDamage"})
-            Panel:AddControl("Checkbox", {Label = "Enable Original Damage Method For Mace?", Command ="VJ_COFR_Mace_Damage"})
-            Panel:AddControl("Checkbox", {Label = "Enable Radius Damage For Sawcrazy?", Command ="VJ_COFR_Sawcrazy_RadiusDamage"})
-            Panel:AddControl("Checkbox", {Label = "Enable The Face To Summon Faceless?", Command ="VJ_COFR_FaceHead_SummonFaceless"})
-            Panel:AddControl("Checkbox", {Label = "Enable Head Gibbing For Slowers?", Command ="VJ_COFR_Slower_HeadGib"})
-            Panel:AddControl("Checkbox", {Label = "Enable Suiciders Dropping Glocks/P345s On Death?", Command ="VJ_COFR_Suicider_DropGlock"})
-            Panel:AddControl("Checkbox", {Label = "Enable SNPCs Dropping Items On Death?", Command ="VJ_COFR_DropAmmo"})
-            Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death For Suicider?", Command ="VJ_COFR_Suicider_Headshot"})
-            Panel:AddControl("Checkbox", {Label = "Enable Ghost's Tinnitus Sound After Being Hit?", Command ="VJ_COFR_Ghost_SlowSound"})
-            Panel:AddControl("Checkbox", {Label = "Enable Flashlight For Assistor & Police Officers?", Command ="VJ_COFR_Assistor_Flashlight"})
-            Panel:AddControl("Checkbox", {Label = "Enable P345 For Suiciders?", Command ="VJ_COFR_Suicider_ExtraPistol"})
-            Panel:AddControl("Checkbox", {Label = "Enable Updated Glock Sound For Suiciders & Book Simon?", Command ="VJ_COFR_Suicider_NewSound"})
-            Panel:AddControl("Checkbox", {Label = "Enable Old Weapon Sounds?", Command ="VJ_COFR_OldWepSounds"})
-            Panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
-            Panel:AddControl("Checkbox", {Label = "Enable Human SNPCs Having HP Regen?", Command ="VJ_COFR_Human_Regen"})
-            Panel:AddControl("Checkbox", {Label = "Enable Human SNPCs Finding Cover To Reload?", Command ="VJ_COFR_Human_ReloadCover"})
-            Panel:AddControl("Checkbox", {Label = "Enable SNPCs Moving While Reloading?", Command ="VJ_COFR_Human_ReloadRun"})
-            Panel:AddControl("Checkbox", {Label = "Enable Bosses Spawning From Spawners?", Command ="VJ_COFR_Boss_Spawner"})
-            Panel:AddControl("Checkbox", {Label = "Enable Joe Biden Mode For Carcass?", Command ="VJ_COFR_JoeBiden"})
+            panel:AddControl("ComboBox", vj_cofrreset)
+            panel:ControlHelp("Note: Only future spawned SNPCs will be affected!")
+            panel:Help("Options:")
+            panel:CheckBox("Enable Boss Music?","VJ_COFR_Boss_Music")
+            panel:CheckBox("Enable Hoodie Skins For Simon?","VJ_COFR_Simon_Costumes")
+            panel:CheckBox("Enable Only Original Weapons For Book Simon?","VJ_COFR_BookSimon_Normal")
+            panel:CheckBox("Enable Transparent/Invisible Twitchers?","VJ_COFR_Twitcher_Invisible")
+            panel:CheckBox("Enable Random Sounds For Twitchers?","VJ_COFR_Twitcher_RandomSounds")
+            panel:CheckBox("Enable Original Damage Method For The Addiction?","VJ_COFR_Addiction_SelfDamage")
+            panel:CheckBox("Enable Original Damage Method For Mace?","VJ_COFR_Mace_Damage")
+            panel:CheckBox("Enable Radius Damage For Sawcrazy?","VJ_COFR_Sawcrazy_RadiusDamage")
+            panel:CheckBox("Enable The Face To Summon Faceless?","VJ_COFR_FaceHead_SummonFaceless")
+            panel:CheckBox("Enable Head Gibbing For Slowers?","VJ_COFR_Slower_HeadGib")
+            panel:CheckBox("Enable Suiciders Dropping Glocks/P345s On Death?","VJ_COFR_Suicider_DropGlock")
+            panel:CheckBox("Enable SNPCs Dropping Items On Death?","VJ_COFR_DropAmmo")
+            panel:CheckBox("Enable Instant Headshot Death For Suicider?","VJ_COFR_Suicider_Headshot")
+            panel:CheckBox("Enable Ghost's Tinnitus Sound After Being Hit?","VJ_COFR_Ghost_SlowSound")
+            panel:CheckBox("Enable Flashlight For Assistor & Police Officers?","VJ_COFR_Assistor_Flashlight")
+            panel:CheckBox("Enable P345 For Suiciders?","VJ_COFR_Suicider_ExtraPistol")
+            panel:CheckBox("Enable Updated Glock Sound For Suiciders & Book Simon?","VJ_COFR_Suicider_NewSound")
+            panel:CheckBox("Enable Old Weapon Sounds?","VJ_COFR_OldWepSounds")
+            panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
+            panel:CheckBox("Enable Human SNPCs Having HP Regen?","VJ_COFR_Human_Regen")
+            panel:CheckBox("Enable Human SNPCs Finding Cover To Reload?","VJ_COFR_Human_ReloadCover")
+            panel:CheckBox("Enable SNPCs Moving While Reloading?","VJ_COFR_Human_ReloadRun")
+            panel:CheckBox("Enable Bosses Spawning From Spawners?","VJ_COFR_Boss_Spawner")
+            panel:CheckBox("Enable Joe Biden Mode For Carcass?","VJ_COFR_JoeBiden")
 end)
 -- Map Spawner Configure Menu --
-         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoF Resurgence (Map Spawner)", "CoF Resurgence (Map Spawner)", "", "", function(Panel)
-                Panel:AddControl("Label", {Text = "Client-Side Options:"})
-                Panel:AddControl("Checkbox", {Label = "Enable Music?", Command ="VJ_COFR_MapSpawner_Music"})
-                Panel:AddControl("Checkbox", {Label = "Enable Ambience?", Command ="VJ_COFR_MapSpawner_Ambience"})
-                Panel:AddControl("Slider", {Label = "Music Volume", Command = "VJ_COFR_MapSpawner_MusicVolume", Type = "Float", Min = "10", Max = "100"})
-                Panel:AddControl("Slider", {Label = "Ambience Volume", Command = "VJ_COFR_MapSpawner_AmbienceVolume", Type = "Float", Min = "10", Max = "100"})
+         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - Map Spawner", "CoFR - Map Spawner", "", "", function(panel)
+                panel:Help("Client-Side Options:")
+                panel:CheckBox("Enable Music?","VJ_COFR_MapSpawner_Music")
+                panel:CheckBox("Enable Ambience?","VJ_COFR_MapSpawner_Ambience")
+                panel:NumSlider("Music Volume","VJ_COFR_MapSpawner_MusicVolume",10,100,2)
+                panel:NumSlider("Ambience Volume","VJ_COFR_MapSpawner_AmbienceVolume",10,100,2)
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
+                panel:Help("#vjbase.menu.general.admin.not")
+                panel:Help("#vjbase.menu.general.admin.only")
     return
 end
-            Panel:AddControl("Label", {Text = "Note: Only Admins can change these settings!"})
+            panel:Help("Note: Only Admins can change these settings!")
             local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset_mapspawner.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_COFR_MapSpawner_Music = "1",
@@ -619,21 +619,21 @@ end
                 VJ_COFR_MapSpawner_HordeCooldownMin = "120",
                 VJ_COFR_MapSpawner_HordeCooldownMax = "180",
                 VJ_COFR_MapSpawner_DelayMin = "0.85",
-                VJ_COFR_MapSpawner_DelayMax = "3",
+                VJ_COFR_MapSpawner_DelayMax = "3"
 }
-            Panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
-            Panel:AddControl("Label", {Text = "Options:"})
-            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner Processing?", Command = "VJ_COFR_MapSpawner_Enabled"})
-            Panel:AddControl("Checkbox", {Label = "Enable Bosses?", Command ="VJ_COFR_MapSpawner_Boss"})
-            Panel:AddControl("Slider", {Label = "Max Monsters", Command = "VJ_COFR_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
-            Panel:AddControl("Slider", {Label = "Min Distance They Can Spawn From Players", Command = "VJ_COFR_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
-            Panel:AddControl("Slider", {Label = "Max Distance They Can Spawn From Players", Command = "VJ_COFR_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
-            Panel:AddControl("Slider", {Label = "Min Time Between Spawns", Command = "VJ_COFR_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
-            Panel:AddControl("Slider", {Label = "Max Time Between Spawns", Command = "VJ_COFR_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
-            Panel:AddControl("Slider", {Label = "Max Monster Horde", Command = "VJ_COFR_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
-            Panel:AddControl("Slider", {Label = "Chance That A Horde Will Appear", Command = "VJ_COFR_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
-            Panel:AddControl("Slider", {Label = "Min Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
-            Panel:AddControl("Slider", {Label = "Max Cooldown Time For Horde Spawns", Command = "VJ_COFR_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
+            panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
+            panel:Help("Options:")
+            panel:CheckBox("Enable Map Spawner Processing?","VJ_COFR_MapSpawner_Enabled")
+            panel:CheckBox("Enable Bosses?","VJ_COFR_MapSpawner_Boss")
+            panel:NumSlider("Max Monsters","VJ_COFR_MapSpawner_MaxMon","5","400",2)
+            panel:NumSlider("Min Distance They Can Spawn From Players","VJ_COFR_MapSpawner_SpawnMin","150","30000",2)
+            panel:NumSlider("Max Distance They Can Spawn From Players","VJ_COFR_MapSpawner_SpawnMax","150","30000",2)
+            panel:NumSlider("Min Time Between Spawns","VJ_COFR_MapSpawner_DelayMin",0.1,15,2)
+            panel:NumSlider("Max Time Between Spawns","VJ_COFR_MapSpawner_DelayMax",0.2,15,2)
+            panel:NumSlider("Max Monster Horde","VJ_COFR_MapSpawner_HordeCount",5,400,2)
+            panel:NumSlider("Chance That A Horde Will Appear","VJ_COFR_MapSpawner_HordeChance",1,500,2)
+            panel:NumSlider("Min Cooldown Time For Horde Spawns","VJ_COFR_MapSpawner_HordeCooldownMin",1,800,2)
+            panel:NumSlider("Max Cooldown Time For Horde Spawns","VJ_COFR_MapSpawner_HordeCooldownMax",1,800,2)
         end)
     end)
 end
