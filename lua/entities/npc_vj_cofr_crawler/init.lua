@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cof/crawler.mdl"
 ENT.StartHealth = 80
 ENT.MeleeAttackDamage = 24
-ENT.HasHitGroupFlinching = false
+ENT.FlinchHitGroupMap = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
