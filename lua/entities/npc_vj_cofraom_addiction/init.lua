@@ -267,13 +267,13 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-  if status == "Init" then
-     if self.Addiction_OnFire then
-        self.Addiction_OnFire = false
-     if IsValid(self.fireFX) then self.fireFX:Remove() end
-        self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
-        VJ.STOPSOUND(self.Addiction_FireLoop)
-        timer.Remove("VJ_COFR_Addiction_Fire")
+ if status == "Init" then
+ if self.Addiction_OnFire then
+    self.Addiction_OnFire = false
+ if IsValid(self.fireFX) then self.fireFX:Remove() end
+    self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
+    VJ.STOPSOUND(self.Addiction_FireLoop)
+    timer.Remove("VJ_COFR_Addiction_Fire")
 end
         VJ_COFR_DeathCode(self)
     end

@@ -130,7 +130,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status,enemy)
     if status == "Init" then
-        self.NextRangeAttackTime = self.NextRangeAttackTime = (math.random(2) == 1 and 0 or 0.6)
+        self.NextRangeAttackTime = (math.random(2) == 1 and 0 or 0.6)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
