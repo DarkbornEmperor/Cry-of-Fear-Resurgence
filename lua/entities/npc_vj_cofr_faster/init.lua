@@ -18,14 +18,14 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 14
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -34,18 +34,18 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/cof/faster/faster_step.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faster/faster_hit1.wav",
 "vj_cofr/cof/faster/faster_hit2.wav",
 "vj_cofr/cof/faster/faster_hit3.wav",
 "vj_cofr/cof/faster/faster_hit4.wav"
 }
-ENT.SoundTbl_MeleeAttackMiss = {
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/faster/faster_miss.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -61,35 +61,34 @@ ENT.Faster_Type = 0
     -- 2 = Out of It
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_Init()
-if self.Faster_Type == 1 then
-   self.AlertSoundPitch = VJ.SET(80, 80)
-   self.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
-   self.PainSoundPitch = VJ.SET(80, 80)
-   self.DeathSoundPitch = VJ.SET(80, 80)
+ if self.Faster_Type == 1 then
+    self.AlertSoundPitch = VJ.SET(80, 80)
+    self.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
+    self.PainSoundPitch = VJ.SET(80, 80)
+    self.DeathSoundPitch = VJ.SET(80, 80)
 end
     self.SoundTbl_Alert = {
     "vj_cofr/cof/faster/faster_alert1.wav",
     "vj_cofr/cof/faster/faster_alert2.wav"
 }
-    self.SoundTbl_BeforeMeleeAttack = {
+    self.SoundTbl_BeforeMeleeAttack =
     "vj_cofr/cof/faster/faster_attack.wav"
-}
-    self.SoundTbl_Pain = {
+
+    self.SoundTbl_Pain =
     "vj_cofr/cof/faster/faster_pain.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/faster/faster_death.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/faster_hh.mdl" then // Already the default
-        self.Faster_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/cof/faster2.mdl" or self:GetModel() == "models/vj_cofr/custom/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/faster2.mdl" then
-        self.Faster_Type = 1
-        self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
-        self.Faster_Type = 2
+ if self:GetModel() == "models/vj_cofr/cof/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/faster_hh.mdl" then // Already the default
+    self.Faster_Type = 0
+ elseif self:GetModel() == "models/vj_cofr/cof/faster2.mdl" or self:GetModel() == "models/vj_cofr/custom/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/faster2.mdl" then
+    self.Faster_Type = 1
+    self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
+ elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
+    self.Faster_Type = 2
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Faster_Init()
@@ -126,8 +125,8 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- -- Make a metal ricochet effect
- if status == "PreDamage" && (hitgroup == 8 or self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD) then
+    -- Make a metal ricochet effect
+    if status == "PreDamage" && (hitgroup == 8 or self.Faster_Type == 1 && hitgroup == HITGROUP_HEAD) then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then

@@ -18,9 +18,8 @@ ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faster/faster_hit3.wav",
 "vj_cofr/cof/faster/faster_hit4.wav"
 }
-ENT.SoundTbl_SoundTrack = {
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/custom/facelessboss/sound3.mp3"
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then

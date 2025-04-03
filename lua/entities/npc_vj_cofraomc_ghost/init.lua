@@ -23,6 +23,7 @@ ENT.NextRangeAttackTime = 3
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
+ENT.RangeAttackPitch = VJ.SET(130, 160)
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -31,14 +32,11 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_BeforeRangeAttack = {
+ENT.SoundTbl_BeforeRangeAttack =
 "vj_cofr/aom/ghost/classic/zap4.wav"
-}
-ENT.SoundTbl_RangeAttack = {
-"vj_cofr/aom/ghost/classic/hw_shoot1.wav"
-}
 
-ENT.RangeAttackPitch = VJ.SET(130, 160)
+ENT.SoundTbl_RangeAttack =
+"vj_cofr/aom/ghost/classic/hw_shoot1.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit() return end
 ---------------------------------------------------------------------------------------------------------------------------------------------

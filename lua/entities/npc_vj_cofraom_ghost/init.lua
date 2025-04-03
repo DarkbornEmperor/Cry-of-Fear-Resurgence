@@ -25,8 +25,6 @@ ENT.MeleeAttackBleedEnemyChance = 1
 ENT.MeleeAttackBleedEnemyDamage = 5
 ENT.MeleeAttackBleedEnemyTime = 2
 ENT.MeleeAttackBleedEnemyReps = 5
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -40,6 +38,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -48,9 +48,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/twitcher/claw_strike1.wav",
 "vj_cofr/aom/twitcher/claw_strike2.wav",
@@ -60,9 +60,9 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_cofr/aom/twitcher/claw_miss1.wav",
 "vj_cofr/aom/twitcher/claw_miss2.wav"
 }
-ENT.SoundTbl_Tinnitus = {
+ENT.SoundTbl_Tinnitus =
 "vj_cofr/aom/ghost/ear_ringing.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -116,15 +116,15 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status,ent,isProp)
- if status == "PreDamage" then
- if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
-    self.Ghost_Tinnitus = true
- if self.HasSounds then
-    self.Ghost_TinnitusSound = CreateSound(ent,self.SoundTbl_Tinnitus)
-    self.Ghost_TinnitusSound:Play()
-    self.Ghost_TinnitusSound:SetSoundLevel(100)
-    hook.Add("Think","VJ_COFR_GhostTinnitus",function()
-    if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think","VJ_COFR_GhostTinnitus")
+    if status == "PreDamage" then
+    if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
+        self.Ghost_Tinnitus = true
+    if self.HasSounds then
+        self.Ghost_TinnitusSound = CreateSound(ent,self.SoundTbl_Tinnitus)
+        self.Ghost_TinnitusSound:Play()
+        self.Ghost_TinnitusSound:SetSoundLevel(100)
+        hook.Add("Think","VJ_COFR_GhostTinnitus",function()
+        if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think","VJ_COFR_GhostTinnitus")
         end
     end)
 end

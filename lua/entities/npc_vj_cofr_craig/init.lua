@@ -12,15 +12,12 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
-//ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -30,6 +27,9 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -38,18 +38,18 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_MeleeAttackExtra = {
+
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/craig/chainsawed.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
-}
-ENT.SoundTbl_SoundTrack = {
+
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/craig/cof_gayviolin_s3.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -58,8 +58,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 75
--- Custom
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -79,12 +77,11 @@ function ENT:Craig_Init()
     "vj_cofr/cof/craig/attack1.wav",
     "vj_cofr/cof/craig/attack2.wav"
 }
-    self.SoundTbl_Pain = {
+    self.SoundTbl_Pain =
     "vj_cofr/cof/craig/pain1.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/craig/death.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

@@ -52,7 +52,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if self.HasSounds && !self.Dead then
+    if self.HasSounds && !self.Dead then
     if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
         self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
         self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)

@@ -18,13 +18,13 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -33,16 +33,16 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/crazylady/knife_hitbody1.wav",
 "vj_cofr/cof/crazylady/knife_hitbody2.wav"
 }
-ENT.SoundTbl_MeleeAttackMiss = {
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/crazylady/knife_swing.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -67,14 +67,14 @@ function ENT:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" then // Already the default
-        self.CrazyRunner_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" then
-        self.CrazyRunner_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
-        self.CrazyRunner_Type = 2
-    elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
-        self.CrazyRunner_Type = 3
+ if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" then // Already the default
+    self.CrazyRunner_Type = 0
+ elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" then
+    self.CrazyRunner_Type = 1
+ elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
+    self.CrazyRunner_Type = 2
+ elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
+    self.CrazyRunner_Type = 3
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:CrazyRunner_Init()

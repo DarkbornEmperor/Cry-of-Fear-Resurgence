@@ -13,7 +13,7 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CallForHelp = false
 ENT.CanTurnWhileStationary = false
-ENT.SightAngle = 180
+ENT.SightAngle = 360
 ENT.HasMeleeAttack = false
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -67,7 +67,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
      local ent = self:GetEnemy()
-     if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+     if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.GodMode = false
         self:TakeDamage(self:GetMaxHealth(),self,self)
         self.Hanger_Death = true
@@ -78,7 +78,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:JumpscareDamage()
     local ent = self:GetEnemy()
-    if IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 60 then
+    if IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 then
         ent:TakeDamage(10,self,self)
     end
 end

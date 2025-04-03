@@ -18,8 +18,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -34,6 +32,9 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -42,15 +43,15 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_MeleeAttackExtra = {
+
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
-}
+
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/sawrunner/sawmusic.mp3",
 "vj_cofr/cof/sawrunner/sawmusic2.mp3"
@@ -63,9 +64,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 75
--- Custom
-ENT.Sawrunner_NextSpecialAlertT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -74,9 +72,9 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/sawer/chainsaw_loop.wav"
-}
+
     self.SoundTbl_Alert = {
     "vj_cofr/cof/sawrunner/sawrunner_alert10.wav",
     "vj_cofr/cof/sawrunner/sawrunner_alert20.wav",

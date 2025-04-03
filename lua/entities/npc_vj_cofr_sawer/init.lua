@@ -19,8 +19,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -28,6 +26,9 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -36,18 +37,18 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_MeleeAttackExtra = {
+
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
-}
-ENT.SoundTbl_SoundTrack = {
+
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/sawer/sawersong.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -56,7 +57,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawer_EyeOpen = false
 ENT.Sawer_NextDownT = 0
@@ -69,9 +69,9 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawer_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/sawer/chainsaw_loop.wav"
-}
+
     self.SoundTbl_Alert = {
     "vj_cofr/cof/sawer/sawer_alert10.wav",
     "vj_cofr/cof/sawer/sawer_alert20.wav",
@@ -127,20 +127,20 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
-  if status == "PreDamage" then
-     if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
-        self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
-        self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
+ if status == "PreDamage" then
+ if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
+    self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
+    self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
 end
-     if hitgroup == 9 && self.Sawer_EyeOpen then
-        dmginfo:ScaleDamage(0.2)
-     else
-        dmginfo:ScaleDamage(0)
+ if hitgroup == 9 && self.Sawer_EyeOpen then
+    dmginfo:ScaleDamage(0.2)
+ else
+    dmginfo:ScaleDamage(0)
 end
-     if hitgroup != 9 then
-        self:SpawnBloodParticles(dmginfo,hitgroup)
-        self:SpawnBloodDecals(dmginfo,hitgroup)
-        self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
+ if hitgroup != 9 then
+    self:SpawnBloodParticles(dmginfo,hitgroup)
+    self:SpawnBloodDecals(dmginfo,hitgroup)
+    self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 end
      if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
      local animTime = VJ.AnimDuration(self,ACT_COWER)
@@ -162,24 +162,24 @@ end
         table.insert(self.VJ_AddCertainEntityAsFriendly, self.Sawer_Eye)
         self:DeleteOnRemove(self.Sawer_Eye)
 
-        timer.Simple(animTime,function()
-        if IsValid(self) && IsValid(self.Sawer_Eye) then
-            self:SetSkin(0)
-            self.Sawer_EyeOpen = false
-            self.Sawer_Eye:Remove()
-            self:RemoveFlags(FL_NOTARGET)
-            self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-            self.Sawer_NextDownT = CurTime() + math.Rand(5,10) end end)
+    timer.Simple(animTime,function()
+    if IsValid(self) && IsValid(self.Sawer_Eye) then
+        self:SetSkin(0)
+        self.Sawer_EyeOpen = false
+        self.Sawer_Eye:Remove()
+        self:RemoveFlags(FL_NOTARGET)
+        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        self.Sawer_NextDownT = CurTime() + math.Rand(5,10) end end)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Init" then
-    if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
-        self:SetSkin(0)
-        self.Sawer_Eye:Remove()
-        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+ if status == "Init" then
+ if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
+    self:SetSkin(0)
+    self.Sawer_Eye:Remove()
+    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
         VJ_COFR_DeathCode(self)
     end

@@ -32,8 +32,8 @@ function ENT:TwitcherSounds()
     "vj_cofr/aom/twitcher/zo_pain1.wav",
     "vj_cofr/aom/twitcher/zo_pain2.wav"
 }
-    local Twitcher_Sounds = math.random(1,2)
-    if Twitcher_Sounds == 1 then
+ local Twitcher_Sounds = math.random(1,2)
+ if Twitcher_Sounds == 1 then
     self.SoundTbl_Alert = {
     "vj_cofr/aom/twitcher/zo_alert10.wav",
     "vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -43,7 +43,7 @@ function ENT:TwitcherSounds()
     "vj_cofr/aom/twitcher/zo_attack1.wav",
     "vj_cofr/aom/twitcher/zo_attack2.wav"
 }
-    elseif Twitcher_Sounds == 2 then
+ elseif Twitcher_Sounds == 2 then
     self.SoundTbl_Alert = {
     "vj_cofr/aom/twitcher2/zo_alert10.wav",
     "vj_cofr/aom/twitcher2/zo_alert20.wav",

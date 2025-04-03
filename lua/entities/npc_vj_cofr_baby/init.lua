@@ -18,8 +18,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -27,6 +25,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -35,13 +35,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-/*ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/baby/b_attack1.wav",
-"vj_cofr/cof/baby/b_attack2.wav"
-}*/
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -109,11 +105,13 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeChecks()
- if self.Dead then return end
-    self:SetGroundEntity(NULL)
-    self.Baby_DeathFromMeleeAttack = true
-    self:TakeDamage(self:GetMaxHealth(),self,self)
+function ENT:OnMeleeAttackExecute(status,ent,isProp)
+    if status == "PreDanage" then
+    if self.Dead then return end
+        self:SetGroundEntity(NULL)
+        self.Baby_DeathFromMeleeAttack = true
+        self:TakeDamage(self:GetMaxHealth(),self,self)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)

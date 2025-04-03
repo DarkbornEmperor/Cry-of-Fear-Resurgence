@@ -25,8 +25,6 @@ ENT.MeleeAttackDamage = 35
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
 ENT.MeleeAttackDistance = 50
 ENT.MeleeAttackDamageDistance = 120
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
@@ -35,6 +33,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_HOVER,ACT_DIEVIOLENT,ACT_DIESIMPLE}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,

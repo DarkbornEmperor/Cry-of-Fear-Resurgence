@@ -19,8 +19,6 @@ ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -28,6 +26,8 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -37,15 +37,15 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
-ENT.SoundTbl_MeleeAttackExtra = {
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
-}
-ENT.SoundTbl_SoundTrack = {
+
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/booksimon/fucked2.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -66,9 +66,9 @@ function ENT:BookSimon_Init() end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
-    -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
-        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+ -- Screen flash effect for all the players
+ for _,v in ipairs(player.GetHumans()) do
+    v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:BookSimon_Init()

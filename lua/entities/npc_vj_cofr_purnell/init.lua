@@ -20,8 +20,6 @@ ENT.Weapon_Strafe = false
 ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.CanTurnWhileMoving = false
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.DamageResponse = "OnlySearch"
@@ -30,6 +28,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -88,9 +88,9 @@ function ENT:Init()
     self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
     local wep = math.random(1,2)
     if wep == 1 then
-    self:Give("weapon_vj_cofr_revolver")
+        self:Give("weapon_vj_cofr_revolver")
     elseif wep == 2 then
-    self:Give("weapon_vj_cofr_p345")
+        self:Give("weapon_vj_cofr_p345")
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ function ENT:OnWeaponAttack()
     if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
     if CurTime() > self.Doctor_NextRunT then
     timer.Simple(0.5, function()
-        if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
+    if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
         self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
     end
 end)
@@ -122,18 +122,18 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(wepHoldType)
- if wepHoldType == "pistol" or wepHoldType == "revolver" then
-    self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
-    self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
-    self.AnimationTranslations[ACT_WALK] = ACT_WALK
-    self.AnimationTranslations[ACT_RUN] = ACT_RUN
-    self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM
-    self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM
-    self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_IDLE_ANGRY
-    self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK1_LOW
-    self.AnimationTranslations[ACT_RELOAD] = ACT_CROUCHIDLE
-    self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_CROUCHIDLE
-    self.AnimationTranslations[ACT_COVER_LOW] = ACT_CROUCHIDLE
+    if wepHoldType == "pistol" or wepHoldType == "revolver" then
+        self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
+        self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
+        self.AnimationTranslations[ACT_WALK] = ACT_WALK
+        self.AnimationTranslations[ACT_RUN] = ACT_RUN
+        self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM
+        self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM
+        self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_IDLE_ANGRY
+        self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK1_LOW
+        self.AnimationTranslations[ACT_RELOAD] = ACT_CROUCHIDLE
+        self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_CROUCHIDLE
+        self.AnimationTranslations[ACT_COVER_LOW] = ACT_CROUCHIDLE
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -14,8 +14,6 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -29,6 +27,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -37,9 +37,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -93,7 +93,7 @@ function ENT:OnInput(key,activator,caller,data)
     elseif key == "attack" then
         self:ExecuteMeleeAttack()
     elseif key == "barbedwire_break" then
-        VJ.EmitSound(self,"vj_cofr/cof/sewmo/break_free.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/sewmo/break_free.wav", 75, 100)
         self:RemoveAllDecals()
         if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
         if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end
@@ -140,7 +140,7 @@ function ENT:OnMeleeAttack(status,enemy)
         self.AnimTbl_MeleeAttack = "vjseq_attack2"
         self.MeleeAttackDistance = 30
         self.MeleeAttackDamageDistance = 60
-        self.MeleeAttackDamage = 20
+        self.MeleeAttackDamage = 24
         self.SoundTbl_MeleeAttackMiss = {
         "vj_cofr/cof/sewmo/claw_miss1.wav",
         "vj_cofr/cof/sewmo/claw_miss2.wav",
@@ -156,11 +156,11 @@ function ENT:OnMeleeAttack(status,enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- if self.Sewmo_WireBroken or self.Dead then return end
-   if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
-     if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math.random(1,5) == 1 then
-            self.Sewmo_WireBroken = true
-            self:PlayAnim(ACT_SIGNAL1,true,false,false)
+    if self.Sewmo_WireBroken or self.Dead then return end
+    if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
+    if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math.random(1,5) == 1 then
+        self.Sewmo_WireBroken = true
+        self:PlayAnim(ACT_SIGNAL1,true,false,false)
         end
     end
 end
@@ -168,10 +168,10 @@ end
 function ENT:OnFlinch(dmginfo,hitgroup,status)
  local curAct = self:GetSequenceActivity(self:GetIdealSequence())
  if status == "Init" then
-    if dmginfo:GetDamage() > 30 then
-        self.AnimTbl_Flinch = ACT_BIG_FLINCH
-    else
-        self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+ if dmginfo:GetDamage() > 30 then
+    self.AnimTbl_Flinch = ACT_BIG_FLINCH
+ else
+    self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 end
         -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
         return curAct == ACT_SIGNAL1

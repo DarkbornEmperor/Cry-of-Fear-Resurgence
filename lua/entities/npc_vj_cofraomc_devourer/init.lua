@@ -29,48 +29,48 @@ end
 local velInitial = Vector(0, 0, 2)
 --
 function ENT:Devourer_CalculateTongue()
-    local myPos = self:GetPos()
-    local myUpPos = self:GetUp()
-    local tr = util.TraceLine({
-        start = myPos,
-        endpos = myPos + myUpPos * -self.Devourer_LastHeight,
-        filter = self
-    })
-    local trHitEnt = tr.Entity
-    local trHitPos = tr.HitPos
-    local height = myPos:Distance(trHitPos)
-    -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
-    self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024)
+ local myPos = self:GetPos()
+ local myUpPos = self:GetUp()
+ local tr = util.TraceLine({
+    start = myPos,
+    endpos = myPos + myUpPos * -self.Devourer_LastHeight,
+    filter = self
+})
+ local trHitEnt = tr.Entity
+ local trHitPos = tr.HitPos
+ local height = myPos:Distance(trHitPos)
+ -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
+ self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024)
 
-    if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_ID_Boss != true then
-        -- If the grabbed enemy is a new enemy then reset the enemy values
-        if self.Devourer_CurEnt != trHitEnt then
-            self:Devourer_ResetEnt()
-            self.Devourer_CurEntMoveType = trHitEnt:GetMoveType()
+ if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_ID_Boss != true then
+ -- If the grabbed enemy is a new enemy then reset the enemy values
+ if self.Devourer_CurEnt != trHitEnt then
+    self:Devourer_ResetEnt()
+    self.Devourer_CurEntMoveType = trHitEnt:GetMoveType()
 end
-        self.Devourer_CurEnt = trHitEnt
-        trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
-        if trHitEnt:IsNPC() then
-            trHitEnt:StopMoving()
-            trHitEnt:SetVelocity(velInitial)
-            trHitEnt:SetMoveType(MOVETYPE_FLY)
-        elseif trHitEnt:IsPlayer() then
-            trHitEnt:SetMoveType(MOVETYPE_NONE)
-            //trHitEnt:AddFlags(FL_ATCONTROLS)
+ self.Devourer_CurEnt = trHitEnt
+ trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
+ if trHitEnt:IsNPC() then
+    trHitEnt:StopMoving()
+    trHitEnt:SetVelocity(velInitial)
+    trHitEnt:SetMoveType(MOVETYPE_FLY)
+ elseif trHitEnt:IsPlayer() then
+    trHitEnt:SetMoveType(MOVETYPE_NONE)
+    //trHitEnt:AddFlags(FL_ATCONTROLS)
 end
-        trHitEnt:SetGroundEntity(NULL)
-        -- Make it pull the enemy up
-        if height >= 50 then
-            trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
-            if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
-                VJ.EmitSound(self, "vj_cofr/aom/devourer/classic/bcl_alert2.wav")
-                self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
+    trHitEnt:SetGroundEntity(NULL)
+    -- Make it pull the enemy up
+    if height >= 50 then
+        trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
+    if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
+        VJ.EmitSound(self, "vj_cofr/aom/devourer/classic/bcl_alert2.wav")
+        self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
     end
 end
-        self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 125))
-        return true
-    else
-        self:Devourer_ResetEnt()
+    self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 125))
+    return true
+ else
+    self:Devourer_ResetEnt()
 end
     self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 193))
     return false

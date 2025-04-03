@@ -27,14 +27,14 @@ ENT.NextRangeAttackTime = 15
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 500
 ENT.LimitChaseDistance_Min = 200
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -47,9 +47,9 @@ ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/crazylady/knife_hitbody1.wav",
 "vj_cofr/cof/crazylady/knife_hitbody2.wav"
 }
-ENT.SoundTbl_MeleeAttackMiss = {
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/crazylady/knife_swing.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -58,9 +58,9 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.SoundTbl_Drowned_Suicide = {
+ENT.SoundTbl_Drowned_Suicide =
 "vj_cofr/cof/crazylady/suicide_attempt.wav"
-}
+
 -- Custom
 ENT.Drowned_Baby = false
 ENT.Drowned_DamageDistance = 500
@@ -128,22 +128,21 @@ end
 function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("JUMP: Baby Burst")
     local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
-    net.Start(nwName)
+        net.Start(nwName)
         net.WriteBool(false)
         net.WriteEntity(opt1)
         net.WriteString(opt2)
         net.WriteEntity(ply)
         net.WriteEntity(opt3)
         net.Send(ply)
-
     function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start(nwName)
-            net.WriteBool(true)
-            net.WriteEntity(opt1)
-            net.WriteString(opt2)
-            net.WriteEntity(ply)
-            net.WriteEntity(opt3)
-            net.Send(ply)
+        net.WriteBool(true)
+        net.WriteEntity(opt1)
+        net.WriteString(opt2)
+        net.WriteEntity(ply)
+        net.WriteEntity(opt3)
+        net.Send(ply)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -167,18 +166,18 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
         end
     end
 end
-    if self:GetPos():Distance(ent:GetPos()) > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
-    if CurTime() > self.Drowned_NextEnemyDamageT then
-    if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
-    if ent:IsPlayer() then
-        net.Start("VJ_COFR_Drowned_ScreenEffect")
-            net.WriteEntity(ent)
-        net.Send(ent)
+ if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
+ if CurTime() > self.Drowned_NextEnemyDamageT then
+ if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
+ if ent:IsPlayer() then
+    net.Start("VJ_COFR_Drowned_ScreenEffect")
+    net.WriteEntity(ent)
+    net.Send(ent)
 end
     timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
-        if ent.IsVJBaseSNPC_Human then ent:TakeDamage(ent:Health(),self,self) elseif ent:IsPlayer() then ent:TakeDamage(ent:Health()+ent:Armor(),self,self) else ent:TakeDamage(200,self,self) end
-        self:Drowned_Damage()
-        self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime end end)
+    if ent.IsVJBaseSNPC_Human then ent:TakeDamage(ent:Health(),self,self) elseif ent:IsPlayer() then ent:TakeDamage(ent:Health()+ent:Armor(),self,self) else ent:TakeDamage(200,self,self) end
+    self:Drowned_Damage()
+    self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime end end)
 end
         return true
     end
@@ -186,7 +185,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if !IsValid(self:GetEnemy()) or self.Dead or self.Drowned_Baby then return end
-    if !self.Drowned_Baby && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 70 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    if !self.Drowned_Baby && self.EnemyData.Distance < 70 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Drowned_Baby = true
         self.HasMeleeAttack = true
         self:PlayAnim(ACT_SIGNAL2,true,false,false)

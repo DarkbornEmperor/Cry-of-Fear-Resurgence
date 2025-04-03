@@ -23,11 +23,12 @@ ENT.NextRangeAttackTime = 0.5
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 300
 ENT.LimitChaseDistance_Min = 1
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -36,9 +37,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -47,10 +48,9 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.SoundTbl_Stranger_HeartBeat = {
+ENT.SoundTbl_Stranger_HeartBeat =
 "vj_cofr/cof/stranger/st_hearbeat.wav"
-}
-ENT.BreathSoundLevel = 75
+
 -- Custom
 ENT.Stranger_DamageDistance = 500
 ENT.Stranger_NextEnemyDamageT = 0
@@ -61,17 +61,16 @@ local nwName = "VJ_COFR_Stranger_Controller"
 util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/stranger/st_voiceloop.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/stranger/st_death.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if math.random(1,3) == 1 then
-     self.LimitChaseDistance = false
+ if math.random(1,3) == 1 then
+    self.LimitChaseDistance = false
 end
      self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
@@ -86,22 +85,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply,controlEnt)
     local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
-    net.Start(nwName)
+        net.Start(nwName)
         net.WriteBool(false)
         net.WriteEntity(opt1)
         net.WriteString(opt2)
         net.WriteEntity(ply)
         net.WriteEntity(opt3)
         net.Send(ply)
-
     function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start(nwName)
-            net.WriteBool(true)
-            net.WriteEntity(opt1)
-            net.WriteString(opt2)
-            net.WriteEntity(ply)
-            net.WriteEntity(opt3)
-            net.Send(ply)
+        net.WriteBool(true)
+        net.WriteEntity(opt1)
+        net.WriteString(opt2)
+        net.WriteEntity(ply)
+        net.WriteEntity(opt3)
+        net.Send(ply)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -125,12 +123,12 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
         end
     end
 end
-    if self:GetPos():Distance(ent:GetPos()) > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
-    if CurTime() > self.Stranger_NextEnemyDamageT then
-    if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
-        ent:TakeDamage(10,self,self)
-        self:Stranger_Damage()
-        self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
+ if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
+ if CurTime() > self.Stranger_NextEnemyDamageT then
+ if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
+    ent:TakeDamage(10,self,self)
+    self:Stranger_Damage()
+    self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
 end
         return true
     end
@@ -141,12 +139,11 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self:GetPos():Distance(self:GetEnemy():GetPos()) < self.Stranger_DamageDistance then
-        net.Start("VJ_COFR_Stranger_ScreenEffect")
-            net.WriteEntity(self:GetEnemy())
-        net.Send(self:GetEnemy())
-
-        VJ.STOPSOUND(self.Stranger_HeartBeat)
+ if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self:GetPos():Distance(self:GetEnemy():GetPos()) < self.Stranger_DamageDistance then
+    net.Start("VJ_COFR_Stranger_ScreenEffect")
+    net.WriteEntity(self:GetEnemy())
+    net.Send(self:GetEnemy())
+    VJ.STOPSOUND(self.Stranger_HeartBeat)
 end
     if status == "Init" then
         self:SetRenderFX(kRenderFxFlickerSlow)

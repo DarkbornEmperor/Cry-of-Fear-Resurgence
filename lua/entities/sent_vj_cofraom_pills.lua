@@ -36,9 +36,9 @@ function ENT:PhysicsCollide(data,physobj)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Use(ply,caller)
-    if IsValid(ply) && ply:IsPlayer() then
-       ply:PickupObject(self)
-       self:EmitSound("vj_cofr/aom/pills/pills_pickup.wav",75,100)
+ if IsValid(ply) && ply:IsPlayer() then
+    ply:PickupObject(self)
+    self:EmitSound("vj_cofr/aom/pills/pills_pickup.wav",75,100)
 end
     local hp,maxhp = ply:Health(),ply:GetMaxHealth()
     if hp >= maxhp then return end

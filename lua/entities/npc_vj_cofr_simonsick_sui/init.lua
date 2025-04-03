@@ -23,14 +23,15 @@ ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 600
 ENT.LimitChaseDistance_Min = 1
 ENT.CanTurnWhileMoving = false
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.RangeAttackSoundLevel = 90
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -44,12 +45,12 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/cof/sicksimon/wheelchair_move2.wav",
 "vj_cofr/cof/sicksimon/wheelchair_move3.wav"
 }
-ENT.SoundTbl_Browning = {
+ENT.SoundTbl_Browning =
 "vj_cofr/cof/weapons/browning/browning_fire.wav"
-}
-ENT.SoundTbl_SoundTrack = {
+
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/booksimon/ending5.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -58,7 +59,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.RangeAttackSoundLevel = 90
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -70,9 +70,9 @@ function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.SoundTbl_Browning = {
+    self.SoundTbl_Browning =
     "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
-}
+
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:SickSimon_Init()
@@ -83,7 +83,7 @@ function ENT:OnInput(key,activator,caller,data)
         self:PlayFootstepSound()
     elseif key == "suicide" then
         VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-        VJ.EmitSound(self, {"vj_cofr/fx/distant/glock_distant2.wav"}, 140, self:GetSoundPitch(100, 110))
+        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
         self:FireFX()
@@ -155,7 +155,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     HullSize = 1
  })
 end
-    self:FireFX()
+        self:FireFX()
         return true
     end
 end
@@ -163,8 +163,8 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- -- Make a metal ricochet effect
- if status == "PreDamage" && hitgroup == 8 then
+    -- Make a metal ricochet effect
+    if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then

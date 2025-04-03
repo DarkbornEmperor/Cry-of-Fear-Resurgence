@@ -18,14 +18,15 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -34,15 +35,15 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_MeleeAttackExtra = {
+
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -51,24 +52,22 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 75
 -- Custom
 ENT.Sawcrazy_NextRadiusDamageT = 0
 ENT.Sawcrazy_RadiusDamage = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/sawcrazy/dblsawloop.wav"
-}
-    self.SoundTbl_Alert = {
+
+    self.SoundTbl_Alert =
     "vj_cofr/cof/sawcrazy/random2.wav"
-}
-    self.SoundTbl_BeforeMeleeAttack = {
+
+    self.SoundTbl_BeforeMeleeAttack =
     "vj_cofr/cof/sawcrazy/random1.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/sawcrazy/death.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -102,9 +101,8 @@ function ENT:OnThinkActive()
     if self.Sawcrazy_NextRadiusDamageT < CurTime() then
     for _,v in ipairs(ents.FindInSphere(self:GetPos(),60)) do
     if v != self && IsValid(v) && self:Visible(v) then
-        if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(),self,self) elseif v:IsPlayer() then v:TakeDamage(v:Health()+v:Armor(),self,self) else v:TakeDamage(200,self,self) end
-            self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5
-            end
+    if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(),self,self) elseif v:IsPlayer() then v:TakeDamage(v:Health()+v:Armor(),self,self) else v:TakeDamage(200,self,self) end
+        self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5 end
         end
     end
 end

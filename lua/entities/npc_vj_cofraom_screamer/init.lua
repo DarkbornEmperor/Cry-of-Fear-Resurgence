@@ -26,8 +26,6 @@ ENT.NextRangeAttackTime = VJ.PICK(3,4)
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -35,12 +33,14 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
-    ThirdP_Offset = Vector(30, 25, -60), -- The offset for the screamer when the camera is in third person
+    ThirdP_Offset = Vector(30, 25, -60),
     FirstP_Bone = "bip01 neck",
-    FirstP_Offset = Vector(10, 0, -3), -- The offset for the screamer when the camera is in first person
+    FirstP_Offset = Vector(10, 0, -3),
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_Impact = {
@@ -128,32 +128,30 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
-    if key == "attack_range" or key == "attack_rangeclose" then
-        if IsValid(self.soul1) then
-            self.soul1:SetNoDraw(true)
+ if key == "attack_range" or key == "attack_rangeclose" then
+ if IsValid(self.soul1) then
+    self.soul1:SetNoDraw(true)
 end
-        if IsValid(self.soul2) then
-            self.soul2:SetNoDraw(true)
+ if IsValid(self.soul2) then
+    self.soul2:SetNoDraw(true)
 end
-        self.Screamer_HomingAttack = key == "attack_rangeclose"
-        self:ExecuteRangeAttack()
-    elseif key == "sprite" && !self.Screamer_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
-        if IsValid(self.soul1) then
-            self.soul1:SetNoDraw(false)
+ self.Screamer_HomingAttack = key == "attack_rangeclose"
+ self:ExecuteRangeAttack()
+ elseif key == "sprite" && !self.Screamer_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+ if IsValid(self.soul1) then
+    self.soul1:SetNoDraw(false)
 end
-        if IsValid(self.soul2) then
-            self.soul2:SetNoDraw(false)
+ if IsValid(self.soul2) then
+    self.soul2:SetNoDraw(false)
 end
-        -- Backup timer to make sure the sprites are hidden in case event doesn't run!
-        timer.Simple(2, function()
-            if IsValid(self) then
-                if IsValid(self.soul1) then
-                    self.soul1:SetNoDraw(true)
+ -- Backup timer to make sure the sprites are hidden in case event doesn't run!
+ timer.Simple(2, function()
+ if IsValid(self) then
+ if IsValid(self.soul1) then
+    self.soul1:SetNoDraw(true)
 end
-                if IsValid(self.soul2) then
-                    self.soul2:SetNoDraw(true)
-                end
-            end
+    if IsValid(self.soul2) then
+        self.soul2:SetNoDraw(true) end end
         end)
     end
 end
@@ -192,7 +190,7 @@ end
 function ENT:OnRangeAttack(status,enemy)
  if status == "Init" then
  if (math.random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
-    self.AnimTbl_RangeAttack = {"vjseq_shoot"}
+    self.AnimTbl_RangeAttack = "vjseq_shoot"
     self.Screamer_HomingAttack = true
  else
     self.AnimTbl_RangeAttack = {"vjseq_attack1","vjseq_attack2"}

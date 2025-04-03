@@ -28,8 +28,6 @@ ENT.RangeAttackMinDistance = 1
 ENT.LimitChaseDistance = false
 ENT.LimitChaseDistance_Max = 600
 ENT.LimitChaseDistance_Min = 1
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -37,6 +35,10 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
+ENT.RangeAttackSoundLevel = 90
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -46,27 +48,27 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
-ENT.SoundTbl_MeleeAttackExtra = {
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/booksimon/sledgehammer_swing.wav"
-}
-ENT.SoundTbl_Glock = {
+
+ENT.SoundTbl_Glock =
 "vj_cofr/cof/suicider/suicider_glock_fire.wav"
-}
-ENT.SoundTbl_Shotgun = {
+
+ENT.SoundTbl_Shotgun =
 "vj_cofr/cof/weapons/shotgun/shoot.wav"
-}
-ENT.SoundTbl_ShotgunPump = {
+
+ENT.SoundTbl_ShotgunPump =
 "vj_cofr/cof/weapons/shotgun/pump_seq.wav"
-}
-ENT.SoundTbl_TMP = {
+
+ENT.SoundTbl_TMP =
 "vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
-}
-ENT.SoundTbl_M16 = {
+
+ENT.SoundTbl_M16 =
 "vj_cofr/cof/weapons/m16/m16_fire.wav"
-}
+
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/cof/booksimon/ending5.mp3",
 "vj_cofr/cof/booksimon/fucked.mp3",
@@ -79,8 +81,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 75
-ENT.RangeAttackSoundLevel = 90
 -- Custom
 ENT.BookSimon_Shotgun = false
 ENT.BookSimon_Glock = false
@@ -96,17 +96,17 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_Init()
-     if self.BookSimon_Shotgun then
+    if self.BookSimon_Shotgun then
         self:SetShotgun()
-     elseif self.BookSimon_Glock then
+    elseif self.BookSimon_Glock then
         self:SetGlock()
-     elseif self.BookSimon_TMP then
+    elseif self.BookSimon_TMP then
         self:SetTMP()
-     elseif self.BookSimon_M16 then
+    elseif self.BookSimon_M16 then
         self:SetM16()
-     elseif self.BookSimon_Sledgehammer then
+    elseif self.BookSimon_Sledgehammer then
         self:SetSledgehammer()
-     elseif self.BookSimon_SledgehammerFlare then
+    elseif self.BookSimon_SledgehammerFlare then
         self:SetSledgehammerFlare()
     end
 end
@@ -163,9 +163,9 @@ end
     "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
 }
 end
-    -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
-        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+ -- Screen flash effect for all the players
+ for _,v in ipairs(player.GetHumans()) do
+    v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
 end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
@@ -247,9 +247,9 @@ function ENT:SetSledgehammerFlare()
     self.HasMeleeAttack = true
     self.HasRangeAttack = false
     self.Flare_Ignite = VJ.CreateSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/booksimon/flare_burn.wav"
-}
+
     local FlareLight = ents.Create("light_dynamic")
     FlareLight:SetKeyValue("brightness", "1")
     FlareLight:SetKeyValue("distance", "500")
@@ -298,19 +298,19 @@ function ENT:FireFX()
     Light:Fire("Kill","",0.07)
     //self:DeleteOnRemove(Light)
 
-     if self.BookSimon_Shotgun then
+    if self.BookSimon_Shotgun then
         muz:Fire("SetParentAttachment","shotgun_muzzle")
         Light:SetPos(self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos)
 
-     elseif self.BookSimon_Glock then
+    elseif self.BookSimon_Glock then
         muz:Fire("SetParentAttachment","pistol_muzzle")
         Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
 
-     elseif self.BookSimon_TMP then
+    elseif self.BookSimon_TMP then
         muz:Fire("SetParentAttachment","tmp_muzzle")
         Light:SetPos(self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos)
 
-     elseif self.BookSimon_M16 then
+    elseif self.BookSimon_M16 then
         muz:Fire("SetParentAttachment","m16_muzzle")
         Light:SetPos(self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos)
     end
@@ -444,7 +444,7 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Finish" then
+    if status == "Finish" then
     -- Screen flash effect for all the players
     for _,v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)

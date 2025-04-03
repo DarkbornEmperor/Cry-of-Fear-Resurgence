@@ -37,9 +37,8 @@ function ENT:Sawrunner_Init()
     "vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
     "vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
 }
-    self.SoundTbl_SoundTrack = {
+    self.SoundTbl_SoundTrack =
     "vj_cofr/custom/themummy/forestpound.mp3"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent) return end

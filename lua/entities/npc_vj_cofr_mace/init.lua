@@ -20,8 +20,6 @@ ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 ENT.MeleeAttackDamageType = DMG_CLUB
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = "DamageTypes"
 ENT.FlinchDamageTypes = {DMG_BLAST,DMG_SHOCK}
@@ -33,6 +31,8 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -41,18 +41,18 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_MeleeAttackExtra = {
+
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/sewer/mace_hitflesh.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/sewer/mace_swing.wav"
-}
-ENT.SoundTbl_SoundTrack = {
+
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/sewer/sewer_boss.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -69,9 +69,8 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Mace_Init()
-    self.SoundTbl_Alert = {
+    self.SoundTbl_Alert =
     "vj_cofr/cof/sewer/mace_scream.wav"
-}
 /*
     self.SoundTbl_BeforeMeleeAttack = {
     "vj_cofr/cof/slower/slower_attack1.wav",
@@ -128,7 +127,7 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- if status == "PreDamage" then
+    if status == "PreDamage" then
     dmginfo:ScaleDamage(0.2)
     if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then return end
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then

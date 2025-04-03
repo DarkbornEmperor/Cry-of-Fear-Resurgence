@@ -20,8 +20,6 @@ ENT.MeleeAttackDistance = 100
 ENT.MeleeAttackDamageType = DMG_SONIC
 ENT.MeleeAttackDSP = 34
 ENT.MeleeAttackDSPLimit = false
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -30,6 +28,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -38,9 +38,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -106,28 +106,28 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
     local dmg = 20 -- How much damage should the shock wave do?
     local myPos = self:GetPos()
     for _, v in ipairs(ents.FindInSphere(myPos, 200)) do
-        if v != self && hellhoundClasses[v:GetClass()] then
-            friNum = friNum + 1
+    if v != self && hellhoundClasses[v:GetClass()] then
+        friNum = friNum + 1
     end
 end
-    -- More allies = more damage and different colors
-    if friNum == 1 then
-        --color = Color(101, 133, 221)
-        dmg = 40
-    elseif friNum == 2 then
-        --color = Color(67, 85, 255)
-        dmg = 60
-    elseif friNum >= 3 then
-        --color = Color(62, 33, 211)
-        dmg = 80
+  -- More allies = more damage and different colors
+ if friNum == 1 then
+    --color = Color(101, 133, 221)
+    dmg = 40
+ elseif friNum == 2 then
+    --color = Color(67, 85, 255)
+     dmg = 60
+ elseif friNum >= 3 then
+    --color = Color(62, 33, 211)
+    dmg = 80
 end
 
-    -- flags 0 = No fade!
-    effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
-    effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
+ -- flags 0 = No fade!
+ effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
+ effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
 
-    if self.HasSounds && self.HasMeleeAttackSounds then
-        VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
+ if self.HasSounds && self.HasMeleeAttackSounds then
+    VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav","vj_cofr/aom/hellhound/he_blast2.wav","vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
 end
     VJ.ApplyRadiusDamage(self, self, myPos, 200, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end

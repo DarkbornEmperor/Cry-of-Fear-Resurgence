@@ -9,21 +9,21 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/custom/saw_bateman.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/sawer/chainsaw_loop.wav"
-}
-    self.SoundTbl_Alert = {
+
+    self.SoundTbl_Alert =
     "vj_cofr/custom/patrick/patrick_scream.wav"
-}
-    self.SoundTbl_BeforeMeleeAttack = {
+
+    self.SoundTbl_BeforeMeleeAttack =
     "vj_cofr/custom/patrick/patrick_attack.wav"
-}
-    self.SoundTbl_Pain = {
+
+    self.SoundTbl_Pain =
     "vj_cofr/custom/patrick/patrick_scream.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/custom/patrick/patrick_scream.wav"
-}
+
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent) return end

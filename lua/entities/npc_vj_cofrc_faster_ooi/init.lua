@@ -8,9 +8,9 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/custom/faster_ooi.mdl"
      -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faceless/fist_strike1.wav",
 "vj_cofr/cof/faceless/fist_strike2.wav",

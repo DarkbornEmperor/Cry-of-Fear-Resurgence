@@ -39,13 +39,15 @@ ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl"
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 //ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
 ENT.Weapon_SecondaryFireTime = 0.05
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 40
+ENT.DefaultSoundTbl_MeleeAttack = false
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -55,21 +57,21 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttack =
 "common/null.wav"
-}
-ENT.SoundTbl_MeleeAttackExtra = {
+
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/weapons/melee_hit.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/weapons/melee_swing.wav"
-}
+
 /*ENT.SoundTbl_MedicBeforeHeal = {
 "vj_cofr/aom/pills/pills_pickup.wav"
 }*/
-ENT.SoundTbl_MedicOnHeal = {
+ENT.SoundTbl_MedicOnHeal =
 "vj_cofr/aom/pills/pills_use.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -78,8 +80,6 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 40
-ENT.DefaultSoundTbl_MeleeAttack = false
 -- Custom
 ENT.Simon_French = false
 ENT.Simon_Branch = false
@@ -95,7 +95,7 @@ ENT.Human_Type = 0
     -- 3 = David (Classic)
 ENT.WeaponsList_AoMDC = {
     ["Close"] = {
-        "weapon_vj_cofraom_shotgun",
+        "weapon_vj_cofraom_shotgun"
     },
     ["Normal"] = {
         "weapon_vj_cofraom_beretta",
@@ -107,26 +107,26 @@ ENT.WeaponsList_AoMDC = {
         "weapon_vj_cofraom_uzi"
     },
     ["Far"] = {
-        "weapon_vj_cofraom_l85",
+        "weapon_vj_cofraom_l85"
     },
 }
 ENT.WeaponsList_AoMC = {
     ["Close"] = {
-        "weapon_vj_cofraomc_shotgun",
+        "weapon_vj_cofraomc_shotgun"
     },
     ["Normal"] = {
         "weapon_vj_cofraomc_beretta",
         "weapon_vj_cofraomc_deagle",
         "weapon_vj_cofraomc_ak47",
-        "weapon_vj_cofraomc_grenade",
+        "weapon_vj_cofraomc_grenade"
     },
     ["Far"] = {
-        "weapon_vj_cofraomc_ak47",
+        "weapon_vj_cofraomc_ak47"
     },
 }
 ENT.WeaponsList_CoF = {
     ["Close"] = {
-        "weapon_vj_cofr_shotgun",
+        "weapon_vj_cofr_shotgun"
     },
     ["Normal"] = {
         "weapon_vj_cofr_glock",
@@ -141,10 +141,10 @@ ENT.WeaponsList_CoF = {
         "weapon_vj_cofr_m16",
         "weapon_vj_cofr_famas",
         "weapon_vj_cofr_g43",
-        "weapon_vj_cofr_ak47",
+        "weapon_vj_cofr_ak47"
     },
     ["Far"] = {
-        "weapon_vj_cofr_rifle",
+        "weapon_vj_cofr_rifle"
     },
 }
 ENT.WeaponsList_CoF_Cont = {
@@ -163,7 +163,7 @@ ENT.WeaponsList_CoF_Cont = {
         "weapon_vj_cofr_famas",
         "weapon_vj_cofr_g43",
         "weapon_vj_cofr_ak47",
-        "weapon_vj_cofr_rifle",
+        "weapon_vj_cofr_rifle"
     },
 }
 ENT.WeaponsList_AoMDC_Cont = {
@@ -176,7 +176,7 @@ ENT.WeaponsList_AoMDC_Cont = {
         "weapon_vj_cofraom_shotgun",
         "weapon_vj_cofraom_mp5k",
         "weapon_vj_cofraom_uzi",
-        "weapon_vj_cofraom_l85",
+        "weapon_vj_cofraom_l85"
     },
 }
 ENT.WeaponsList_AoMC_Cont = {
@@ -185,7 +185,7 @@ ENT.WeaponsList_AoMC_Cont = {
         "weapon_vj_cofraomc_deagle",
         "weapon_vj_cofraomc_ak47",
         "weapon_vj_cofraomc_grenade",
-        "weapon_vj_cofraomc_shotgun",
+        "weapon_vj_cofraomc_shotgun"
     },
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -202,9 +202,9 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:David_Init()
- if !self.Weapon_Disabled && self.Human_Type == 0 then
- if !self.WeaponInventory_MeleeList then
-     self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
+    if !self.Weapon_Disabled && self.Human_Type == 0 then
+    if !self.WeaponInventory_MeleeList then
+        self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
     end
 end
  if self.Human_Type == 0 then
@@ -230,9 +230,9 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DavidClassic_Init()
- if !self.Weapon_Disabled && self.Human_Type == 3 then
- if !self.WeaponInventory_MeleeList then
-     self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
+    if !self.Weapon_Disabled && self.Human_Type == 3 then
+    if !self.WeaponInventory_MeleeList then
+        self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
     end
 end
  if self.Human_Type == 3 then
@@ -261,15 +261,15 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Simon_Init()
- if !self.Weapon_Disabled && self.Human_Type == 1 then
- if !self.WeaponInventory_MeleeList then
-     self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
+    if !self.Weapon_Disabled && self.Human_Type == 1 then
+    if !self.WeaponInventory_MeleeList then
+        self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
     end
 end
  if self.Human_Type == 1 then
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/simon/breathing.wav"
-}
+
     self.SoundTbl_BeforeMeleeAttack = {
     "vj_cofr/cof/simon/Swing1.wav",
     "vj_cofr/cof/simon/Swing2.wav",
@@ -326,8 +326,8 @@ end
     "vj_cofr/cof/simon/death6.wav",
     "vj_cofr/cof/simon/death7.wav"
 }
-    if GetConVar("VJ_COFR_Simon_Costumes"):GetInt() == 1 then
-        self:SetSkin(math.random(0,13))
+ if GetConVar("VJ_COFR_Simon_Costumes"):GetInt() == 1 then
+    self:SetSkin(math.random(0,13))
 end
     if self:GetSkin() == 8 && math.random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
         self:PlaySoundSystem("Speech", {"vj_cofr/cof/simon/hellokitty.wav"})
@@ -336,9 +336,9 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Police_Init()
- if !self.Weapon_Disabled then
- if !self.WeaponInventory_MeleeList && self.Human_Type == 2 then
-     self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
+    if !self.Weapon_Disabled then
+    if !self.WeaponInventory_MeleeList && self.Human_Type == 2 then
+        self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
     end
 end
  if self.Human_Type == 2 then
@@ -410,49 +410,49 @@ end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:AssistorFlashlight()
 
- if !self.WeaponInventory_MeleeList then return end
- if self.Human_Type == 0 then
+    if !self.WeaponInventory_MeleeList then return end
+    if self.Human_Type == 0 then
     for _,category in pairs(self.WeaponsList_AoMDC) do
-        for _,wep in pairs(category) do
-            self:Give(wep)
+    for _,wep in pairs(category) do
+        self:Give(wep)
     end
 end
-     local wepList = math.random(1,3)
-     if wepList == 1 then
+    local wepList = math.random(1,3)
+    if wepList == 1 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Normal"]),true)
-     elseif wepList == 2 then
+    elseif wepList == 2 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Close"]),true)
-     elseif wepList == 3 then
+    elseif wepList == 3 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Far"]),true)
     end
 end
- if self.Human_Type == 1 or self.Human_Type == 2 then
+    if self.Human_Type == 1 or self.Human_Type == 2 then
     for _,category in pairs(self.WeaponsList_CoF) do
-        for _,wep in pairs(category) do
-            self:Give(wep)
+    for _,wep in pairs(category) do
+        self:Give(wep)
     end
 end
-     local wepList = math.random(1,3)
-     if wepList == 1 then
+    local wepList = math.random(1,3)
+    if wepList == 1 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Normal"]),true)
-     elseif wepList == 2 then
+    elseif wepList == 2 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Close"]),true)
-     elseif wepList == 3 then
+    elseif wepList == 3 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Far"]),true)
     end
 end
- if self.Human_Type == 3 then
+    if self.Human_Type == 3 then
     for _,category in pairs(self.WeaponsList_AoMC) do
-        for _,wep in pairs(category) do
-            self:Give(wep)
+    for _,wep in pairs(category) do
+        self:Give(wep)
     end
 end
-     local wepList = math.random(1,3)
-     if wepList == 1 then
+    local wepList = math.random(1,3)
+    if wepList == 1 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]),true)
-     elseif wepList == 2 then
+    elseif wepList == 2 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Close"]),true)
-     elseif wepList == 3 then
+    elseif wepList == 3 then
         self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Far"]),true)
         end
     end
@@ -497,13 +497,13 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-     local controller = self.VJ_TheController
-     if IsValid(controller) then
-     if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then
-     if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]),true) end
-     if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]),true) end
-     if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]),true) end
-        self.CoFR_NextWepSwitchT = CurTime() + 1
+ local controller = self.VJ_TheController
+ if IsValid(controller) then
+ if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then
+ if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]),true) end
+ if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]),true) end
+ if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]),true) end
+    self.CoFR_NextWepSwitchT = CurTime() + 1
 end
     /*if controller:KeyDown(IN_DUCK) && !self.CoFR_Crouching then
         self.CoFR_Crouching = true
@@ -514,23 +514,23 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if self.IsMedic && !self:IsBusy() && self.MedicData.Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-    self:OnMedicBehavior()
-     self:PlayAnim("vjges_heal",true,false,false)
- if IsValid(self:GetEnemy()) then
-    self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end) end
-    timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
-    local CurHP = self:Health()
-    self:SetHealth(math.Clamp(CurHP + self.Medic_HealAmount, CurHP, self:GetMaxHealth()))
-    self:OnMedicBehavior()
-    self:PlaySoundSystem("Speech",self.SoundTbl_MedicReceiveHeal)
-    VJ.CreateSound(self,self.SoundTbl_MedicOnHeal,75,100)
-    self:RemoveAllDecals()
+    if self.IsMedic && !self:IsBusy() && self.MedicData.Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+        self:OnMedicBehavior()
+        self:PlayAnim("vjges_heal",true,false,false)
+    if IsValid(self:GetEnemy()) then
+        self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end) end
+        timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
+        local CurHP = self:Health()
+        self:SetHealth(math.Clamp(CurHP + self.Medic_HealAmount, CurHP, self:GetMaxHealth()))
+        self:OnMedicBehavior()
+        self:PlaySoundSystem("Speech",self.SoundTbl_MedicReceiveHeal)
+        VJ.CreateSound(self,self.SoundTbl_MedicOnHeal,75,100)
+        self:RemoveAllDecals()
     end
 end)
     self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
 end
- if self.HasSounds && !self.Dead then
+    if self.HasSounds && !self.Dead then
     if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
         self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
         self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)
@@ -542,25 +542,25 @@ end
     elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/branch/branch_first_get.wav"}) self.Simon_Branch = true end
 end
  if !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
-    local ent = self:GetEnemy()
-    local dist = self.EnemyData.DistanceNearest
-    if IsValid(ent) && !self.VJ_IsBeingControlled then
-        local wep = self:GetActiveWeapon()
-        if self.WeaponInventoryStatus == VJ.WEP_INVENTORY_MELEE then return end
-        local selectType = false
-        if dist > 2200 then
-            selectType = "Far"
-        elseif dist <= 2200 && dist > 650 then
-            selectType = "Normal"
-        else
-            selectType = "Close"
+ local ent = self:GetEnemy()
+ local dist = self.EnemyData.DistanceNearest
+ if IsValid(ent) && !self.VJ_IsBeingControlled then
+ local wep = self:GetActiveWeapon()
+ if self.WeaponInventoryStatus == VJ.WEP_INVENTORY_MELEE then return end
+ local selectType = false
+ if dist > 2200 then
+    selectType = "Far"
+ elseif dist <= 2200 && dist > 650 then
+    selectType = "Normal"
+ else
+    selectType = "Close"
 end
-        if selectType && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math.random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() *0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
-        if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC[selectType]),true) end
-        if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]),true) end
-        if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC[selectType]),true) end
-            wep = self:GetActiveWeapon()
-            self.NextWeaponSwitchT = CurTime() + math.Rand(6,math.Round(math.Clamp(wep:Clip1() *0.5,1,wep:Clip1())))
+    if selectType && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math.random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() *0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
+    if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC[selectType]),true) end
+    if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]),true) end
+    if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC[selectType]),true) end
+        wep = self:GetActiveWeapon()
+        self.NextWeaponSwitchT = CurTime() + math.Rand(6,math.Round(math.Clamp(wep:Clip1() *0.5,1,wep:Clip1())))
         end
     end
 end
@@ -581,12 +581,11 @@ function ENT:OnMedicBehavior(status,statusData)
     self:DeleteOnRemove(self.healItem)
     //SafeRemoveEntityDelayed(self.healItem,1)
 end
- if status == "OnHeal" then
+    if status == "OnHeal" then
     timer.Simple(0.1,function()
-        if IsValid(self) then
+    if IsValid(self) then
         SafeRemoveEntity(self.healItem)
-            if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end
-            end
+        if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end end
         end)
     end
 end
@@ -608,12 +607,11 @@ function ENT:OnMeleeAttack(status,enemy)
     if IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
         self.MeleeAttackDamage = 15
         self.MeleeAttackDamageType = DMG_CLUB
-        self.SoundTbl_MeleeAttackExtra = {
+        self.SoundTbl_MeleeAttackExtra =
         "vj_cofr/cof/weapons/melee_hit.wav"
-}
-        self.SoundTbl_MeleeAttackMiss = {
+
+        self.SoundTbl_MeleeAttackMiss =
         "vj_cofr/cof/weapons/melee_swing.wav"
-}
         end
     end
 end
@@ -653,155 +651,154 @@ function ENT:OnWeaponReload()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(h)
-    local defIdleAim = ACT_IDLE -- ACT_IDLE_ANGRY
-    local defWalkAim = ACT_WALK
-    local defRunAim = ACT_RUN
-    local defFire = ACT_RANGE_ATTACK1
-    local defCrouch = ACT_RANGE_ATTACK1_LOW
-    local defCrawl = ACT_RUN_CROUCH
-    local defReload = ACT_RELOAD
+ local defIdleAim = ACT_IDLE -- ACT_IDLE_ANGRY
+ local defWalkAim = ACT_WALK
+ local defRunAim = ACT_RUN
+ local defFire = ACT_RANGE_ATTACK1
+ local defCrouch = ACT_RANGE_ATTACK1_LOW
+ local defCrawl = ACT_RUN_CROUCH
+ local defReload = ACT_RELOAD
 
-    if self:GetActiveWeapon().CoFR_HoldType then -- Allow for more than default hold types
-        h = self:GetActiveWeapon().CoFR_HoldType
+ if self:GetActiveWeapon().CoFR_HoldType then -- Allow for more than default hold types
+    h = self:GetActiveWeapon().CoFR_HoldType
 end
-    if h == "crossbow" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_bow")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_bow")
-        defRunAim = VJ.SequenceToActivity(self,"run_bow")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_bow")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_bow")
-        defFire = "vjges_shoot_bow"
-        defReload = "vjges_reload_bow"
-    elseif h == "melee" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_crowbar")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_crowbar")
-        defRunAim = VJ.SequenceToActivity(self,"run_crowbar")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_crowbar")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_crowbar")
-        defFire = "vjges_shoot_crowbar_melee"
-        defReload = "vjges_reload_crowbar"
-    elseif h == "ar2" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_gauss")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_gauss")
-        defRunAim = VJ.SequenceToActivity(self,"run_gauss")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_gauss")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_gauss")
-        defFire = "vjges_shoot_gauss"
-        defReload = "vjges_reload_gauss"
-    elseif h == "physgun" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_hive")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_hive")
-        defRunAim = VJ.SequenceToActivity(self,"run_hive")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_hive")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_hive")
-        defFire = "vjges_shoot_hive"
-        defReload = "vjges_reload_hive"
-    elseif h == "smg" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_mp5")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_mp5")
-        defRunAim = VJ.SequenceToActivity(self,"run_mp5")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_mp5")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_mp5")
-        defFire = "vjges_shoot_mp5"
-        defReload = "vjges_reload_mp5"
-    elseif h == "pistol" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_onehanded")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_onehanded")
-        defRunAim = VJ.SequenceToActivity(self,"run_onehanded")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_onehanded")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_onehanded")
-        defFire = "vjges_shoot_onehanded"
-        defReload = "vjges_reload_onehanded"
-    elseif h == "revolver" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_python")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_python")
-        defRunAim = VJ.SequenceToActivity(self,"run_python")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_python")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_python")
-        defFire = "vjges_shoot_python"
-        defReload = "vjges_reload_python"
-    elseif h == "rpg" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_rpg")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_rpg")
-        defRunAim = VJ.SequenceToActivity(self,"run_rpg")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_rpg")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_rpg")
-        defFire = "vjges_shoot_rpg"
-        defReload = "vjges_reload_rpg"
-    elseif h == "shotgun" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_shotgun")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_shotgun")
-        defRunAim = VJ.SequenceToActivity(self,"run_shotgun")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_shotgun")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_shotgun")
-        defFire = "vjges_shoot_shotgun"
-        defReload = "vjges_reload_shotgun"
-    elseif h == "slam" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_squeak")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_squeak")
-        defRunAim = VJ.SequenceToActivity(self,"run_squeak")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_squeak")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_squeak")
-        defFire = "vjges_shoot_squeak"
-        defReload = "vjges_reload_squeak"
-    elseif h == "grenade" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_gren")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_gren")
-        defRunAim = VJ.SequenceToActivity(self,"run_gren")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_gren")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_gren")
-        defFire = "vjges_shoot_gren"
-        defReload = "vjges_reload_onehanded" //vjges_reload_gren
-    elseif h == "saw" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_saw")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_saw")
-        defRunAim = VJ.SequenceToActivity(self,"run_saw")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_saw")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_saw")
-        defFire = "vjges_shoot_saw"
-        defReload = "vjges_reload_saw"
-    elseif h == "sniper" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_sniper")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_sniper")
-        defRunAim = VJ.SequenceToActivity(self,"run_sniper")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_sniper")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_sniper")
-        defFire = "vjges_shoot_sniper"
-        defReload = "vjges_reload_sniper"
-    elseif h == "m16" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_m16")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_m16")
-        defRunAim = VJ.SequenceToActivity(self,"run_m16")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_m16")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_m16")
-        defFire = "vjges_shoot_m16"
-        defReload = "vjges_reload_m16"
-    elseif h == "shockrifle" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_m16")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_m16")
-        defRunAim = VJ.SequenceToActivity(self,"run_m16")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_m16")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_m16")
-        defFire = "vjges_shoot_m16"
-        defReload = "vjges_reload_null"
-    elseif h == "minigun" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_minigun")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_minigun")
-        defRunAim = VJ.SequenceToActivity(self,"run_minigun")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_minigun")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_minigun")
-        defFire = "vjges_shoot_minigun"
-        defReload = "vjges_reload_minigun"
-    elseif h == "uzi" then
-        defIdleAim = VJ.SequenceToActivity(self,"aim_hive")
-        defWalkAim = VJ.SequenceToActivity(self,"walk_hive")
-        defRunAim = VJ.SequenceToActivity(self,"run_hive")
-        defCrouch = VJ.SequenceToActivity(self,"crouch_hive")
-        defCrawl = VJ.SequenceToActivity(self,"crawl_hive")
-        defFire = "vjges_shoot_hive"
-        defReload = "vjges_reload_uzis_right"
+ if h == "crossbow" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_bow")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_bow")
+    defRunAim = VJ.SequenceToActivity(self,"run_bow")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_bow")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_bow")
+    defFire = "vjges_shoot_bow"
+    defReload = "vjges_reload_bow"
+ elseif h == "melee" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_crowbar")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_crowbar")
+    defRunAim = VJ.SequenceToActivity(self,"run_crowbar")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_crowbar")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_crowbar")
+    defFire = "vjges_shoot_crowbar_melee"
+    defReload = "vjges_reload_crowbar"
+ elseif h == "ar2" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_gauss")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_gauss")
+    defRunAim = VJ.SequenceToActivity(self,"run_gauss")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_gauss")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_gauss")
+    defFire = "vjges_shoot_gauss"
+    defReload = "vjges_reload_gauss"
+ elseif h == "physgun" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_hive")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_hive")
+    defRunAim = VJ.SequenceToActivity(self,"run_hive")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_hive")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_hive")
+    defFire = "vjges_shoot_hive"
+    defReload = "vjges_reload_hive"
+ elseif h == "smg" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_mp5")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_mp5")
+    defRunAim = VJ.SequenceToActivity(self,"run_mp5")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_mp5")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_mp5")
+    defFire = "vjges_shoot_mp5"
+    defReload = "vjges_reload_mp5"
+ elseif h == "pistol" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_onehanded")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_onehanded")
+    defRunAim = VJ.SequenceToActivity(self,"run_onehanded")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_onehanded")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_onehanded")
+    defFire = "vjges_shoot_onehanded"
+    defReload = "vjges_reload_onehanded"
+ elseif h == "revolver" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_python")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_python")
+    defRunAim = VJ.SequenceToActivity(self,"run_python")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_python")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_python")
+    defFire = "vjges_shoot_python"
+    defReload = "vjges_reload_python"
+ elseif h == "rpg" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_rpg")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_rpg")
+    defRunAim = VJ.SequenceToActivity(self,"run_rpg")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_rpg")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_rpg")
+    defFire = "vjges_shoot_rpg"
+    defReload = "vjges_reload_rpg"
+ elseif h == "shotgun" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_shotgun")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_shotgun")
+    defRunAim = VJ.SequenceToActivity(self,"run_shotgun")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_shotgun")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_shotgun")
+    defFire = "vjges_shoot_shotgun"
+    defReload = "vjges_reload_shotgun"
+ elseif h == "slam" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_squeak")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_squeak")
+    defRunAim = VJ.SequenceToActivity(self,"run_squeak")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_squeak")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_squeak")
+    defFire = "vjges_shoot_squeak"
+    defReload = "vjges_reload_squeak"
+ elseif h == "grenade" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_gren")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_gren")
+    defRunAim = VJ.SequenceToActivity(self,"run_gren")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_gren")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_gren")
+    defFire = "vjges_shoot_gren"
+    defReload = "vjges_reload_onehanded" //vjges_reload_gren
+ elseif h == "saw" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_saw")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_saw")
+    defRunAim = VJ.SequenceToActivity(self,"run_saw")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_saw")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_saw")
+    defFire = "vjges_shoot_saw"
+    defReload = "vjges_reload_saw"
+ elseif h == "sniper" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_sniper")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_sniper")
+    defRunAim = VJ.SequenceToActivity(self,"run_sniper")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_sniper")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_sniper")
+    defFire = "vjges_shoot_sniper"
+    defReload = "vjges_reload_sniper"
+ elseif h == "m16" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_m16")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_m16")
+    defRunAim = VJ.SequenceToActivity(self,"run_m16")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_m16")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_m16")
+    defFire = "vjges_shoot_m16"
+    defReload = "vjges_reload_m16"
+ elseif h == "shockrifle" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_m16")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_m16")
+    defRunAim = VJ.SequenceToActivity(self,"run_m16")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_m16")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_m16")
+    defFire = "vjges_shoot_m16"
+    defReload = "vjges_reload_null"
+ elseif h == "minigun" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_minigun")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_minigun")
+    defRunAim = VJ.SequenceToActivity(self,"run_minigun")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_minigun")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_minigun")
+    defFire = "vjges_shoot_minigun"
+    defReload = "vjges_reload_minigun"
+ elseif h == "uzi" then
+    defIdleAim = VJ.SequenceToActivity(self,"aim_hive")
+    defWalkAim = VJ.SequenceToActivity(self,"walk_hive")
+    defRunAim = VJ.SequenceToActivity(self,"run_hive")
+    defCrouch = VJ.SequenceToActivity(self,"crouch_hive")
+    defCrawl = VJ.SequenceToActivity(self,"crawl_hive")
+    defFire = "vjges_shoot_hive"
+    defReload = "vjges_reload_uzis_right"
 end
-
     self.AnimationTranslations[ACT_IDLE] = defIdleAim
     self.AnimationTranslations[ACT_IDLE_ANGRY] = defIdleAim
     self.AnimationTranslations[ACT_WALK] = defWalkAim

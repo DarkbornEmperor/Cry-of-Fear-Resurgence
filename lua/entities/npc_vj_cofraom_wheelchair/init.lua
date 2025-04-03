@@ -19,8 +19,6 @@ ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 30
 ENT.MeleeAttackDistance = 25
 ENT.MeleeAttackDamageDistance = 50
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -28,6 +26,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -42,9 +42,9 @@ ENT.SoundTbl_FootStep = {
 "vj_cofr/aom/wheelchair/wheel03.wav",
 "vj_cofr/aom/wheelchair/wheel04.wav"
 }
-ENT.SoundTbl_BeforeMeleeAttack = {
+ENT.SoundTbl_BeforeMeleeAttack =
 "vj_cofr/aom/wheelchair/wcm_squirt.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -73,8 +73,8 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- -- Make a metal ricochet effect
- if status == "PreDamage" && hitgroup == 8 then
+    -- Make a metal ricochet effect
+    if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then

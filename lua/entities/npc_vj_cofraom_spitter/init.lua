@@ -29,8 +29,6 @@ ENT.NextRangeAttackTime = 1
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -39,6 +37,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -47,9 +47,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/spitter/bc_bite1.wav",
 "vj_cofr/aom/spitter/bc_bite2.wav",
@@ -90,9 +90,9 @@ function ENT:Spitter_Init()
     "vj_cofr/aom/spitter/bc_die2.wav",
     "vj_cofr/aom/spitter/bc_die3.wav"
 }
- if self:GetModel() == "models/vj_cofr/aom/bullsquidhd.mdl" then
-      self.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
-   end
+    if self:GetModel() == "models/vj_cofr/aom/bullsquidhd.mdl" then
+        self.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

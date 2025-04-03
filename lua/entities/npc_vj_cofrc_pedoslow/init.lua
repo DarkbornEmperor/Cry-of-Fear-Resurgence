@@ -9,8 +9,8 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/custom/pedoslow.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
-local Slower_Body = 1
-if Slower_Body == 1 then
+ local Slower_Body = 1
+ if Slower_Body == 1 then
     self.Slower_Skin = 2
     self:SetBodygroup(0,2)
 end

@@ -25,8 +25,6 @@ ENT.NextLeapAttackTime = 1
 ENT.LeapAttackExtraTimers = {0.6, 0.8, 1, 1.2, 1.4}
 ENT.NextAnyAttackTime_Leap = 3
 ENT.LeapAttackStopOnHit = true
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -34,6 +32,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -42,9 +42,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_LeapAttackDamage  = {
+ENT.SoundTbl_LeapAttackDamage  =
 "vj_cofr/aom/handcrab/hc_headbite.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",

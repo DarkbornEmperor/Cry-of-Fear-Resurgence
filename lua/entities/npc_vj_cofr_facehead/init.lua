@@ -12,7 +12,7 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
-ENT.SightAngle = 180
+ENT.SightAngle = 360
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
@@ -22,8 +22,9 @@ ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.DisableMeleeAttackAnimation = true
-ENT.MainSoundPitch = 100
 ENT.HasSoundTrack = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -32,9 +33,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(10, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_SoundTrack = {
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/facehead/sirensfromhell2.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -53,9 +54,8 @@ function ENT:PreInit()
 end
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FaceHead_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/facehead/facehead.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

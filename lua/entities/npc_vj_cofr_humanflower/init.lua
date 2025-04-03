@@ -12,7 +12,7 @@ ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
-ENT.SightAngle = 180
+ENT.SightAngle = 360
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_smash"
 ENT.TimeUntilMeleeAttackDamage = false
@@ -22,10 +22,11 @@ ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 130
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.HasMeleeAttackKnockBack = true
-ENT.MainSoundPitch = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationTime = 8
 ENT.HasExtraMeleeAttackSounds = true
+ENT.MainSoundPitch = 100
+ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -34,12 +35,12 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_MeleeAttackExtra = {
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/watro/watro_hit.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/watro/watro_swing.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -48,15 +49,13 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-ENT.BreathSoundLevel = 75
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HumanFlower_Init()
-    self.SoundTbl_Breath = {
+    self.SoundTbl_Breath =
     "vj_cofr/cof/humanflower/humanflowers.wav"
-}
-    self.SoundTbl_BeforeMeleeAttack = {
+
+    self.SoundTbl_BeforeMeleeAttack =
     "vj_cofr/cof/humanflower/flowerstrike.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

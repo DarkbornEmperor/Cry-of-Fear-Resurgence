@@ -38,12 +38,11 @@ local sdHit = {
 "vj_cofr/fx/flesh6.wav",
 "vj_cofr/fx/flesh7.wav"
 }
-local sdBreak = {
+local sdBreak =
 "vj_cofr/fx/bodysplat.wav"
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
-  if !IsValid(self.Assignee) then
+ if !IsValid(self.Assignee) then
     self:SetPos(self:GetPos() + self:GetUp()*-40)
 end
     self:SetModel("models/vj_cofr/custom/tentacleboss.mdl")
@@ -58,7 +57,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
-  if CurTime() > self.Tentacle_NextDamageT then
+ if CurTime() > self.Tentacle_NextDamageT then
     VJ.ApplyRadiusDamage(self, self, self:GetPos(), 50, 10, DMG_NEVERGIB, true, true)
     self.Tentacle_NextDamageT = CurTime() + 1
 end

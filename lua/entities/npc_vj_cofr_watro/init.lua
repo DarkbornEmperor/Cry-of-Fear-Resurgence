@@ -15,7 +15,7 @@ ENT.CanTurnWhileStationary = false
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
-ENT.SightAngle = 180
+ENT.SightAngle = 360
 ENT.HasMeleeAttack = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
@@ -23,12 +23,12 @@ ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
 ENT.MeleeAttackDamageAngleRadius = 90
-ENT.MainSoundPitch = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -37,12 +37,12 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_MeleeAttackExtra = {
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/watro/watro_hit.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/watro/watro_swing.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -88,12 +88,12 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    local ent = self:GetEnemy()
-    if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
-    else
-        VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
+ local ent = self:GetEnemy()
+ if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+ if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
+ else
+    VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
 end
         self.Watro_Burrowed = false
         self:PlayAnim(ACT_SIGNAL1,true,false,false)
@@ -111,15 +111,13 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Init" then
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-       self.SoundTbl_Death = {
-       "vj_cofr/fx/out_water.wav"
-}
-    else
-       self.SoundTbl_Death = {
-       "vj_cofr/fx/bodysplat.wav"
-}
+ if status == "Init" then
+ if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    self.SoundTbl_Death =
+    "vj_cofr/fx/out_water.wav"
+ else
+    self.SoundTbl_Death = {
+    "vj_cofr/fx/bodysplat.wav"
 end
         self:DrawShadow(false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)

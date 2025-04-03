@@ -23,11 +23,11 @@ ENT.RangeAttackProjectiles = "obj_vj_cofr_spit"
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1
-ENT.MainSoundPitch = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -54,12 +54,11 @@ function ENT:Spitter_Init()
     "vj_cofr/cof/flygare/flygare_attack1.wav",
     "vj_cofr/cof/flygare/flygare_attack2.wav"
 }
-    self.SoundTbl_Pain = {
+    self.SoundTbl_Pain =
     "vj_cofr/cof/flygare/flygare_pain.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/flygare/flygare_death.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

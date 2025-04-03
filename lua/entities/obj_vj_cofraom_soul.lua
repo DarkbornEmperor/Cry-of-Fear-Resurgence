@@ -54,20 +54,20 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-    local trackedEnt = self.Track_Enemy
-    -- Homing Behavior
-    if IsValid(trackedEnt) then
-        self.DirectDamage = 25
-        if IsValid(self.GlowSprite) then
-            self.GlowSprite:SetKeyValue("scale", "1.5")
+ local trackedEnt = self.Track_Enemy
+ -- Homing Behavior
+ if IsValid(trackedEnt) then
+    self.DirectDamage = 25
+ if IsValid(self.GlowSprite) then
+    self.GlowSprite:SetKeyValue("scale", "1.5")
 end
-        local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
-        if self:VisibleVec(pos) or self.Track_Position == defVec then
-            self.Track_Position = pos
+ local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
+ if self:VisibleVec(pos) or self.Track_Position == defVec then
+    self.Track_Position = pos
 end
-        local phys = self:GetPhysicsObject()
-        if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
+    local phys = self:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
         end
     end
 end

@@ -16,14 +16,14 @@ ENT.ControllerParams = {
 }
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
-local Slower_Body = math.random(1,3)
-if Slower_Body == 1 then
+ local Slower_Body = math.random(1,3)
+ if Slower_Body == 1 then
     self.Slower_Skin = 0
     self:SetBodygroup(0,0)
-elseif Slower_Body == 2 then
+ elseif Slower_Body == 2 then
     self.Slower_Skin = 1
     self:SetBodygroup(0,1)
-elseif Slower_Body == 3 then
+ elseif Slower_Body == 3 then
     self.Slower_Skin = 2
     self:SetBodygroup(0,2)
 end

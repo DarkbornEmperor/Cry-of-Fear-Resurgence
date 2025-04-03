@@ -16,18 +16,17 @@ ENT.HasRangeAttack = false
 ENT.CanTurnWhileMoving = true
 ENT.HasSoundTrack = false
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faster/faster_hit1.wav",
 "vj_cofr/cof/faster/faster_hit2.wav",
 "vj_cofr/cof/faster/faster_hit3.wav",
 "vj_cofr/cof/faster/faster_hit4.wav"
 }
-ENT.SoundTbl_MeleeAttackMiss = {
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/faster/faster_miss.wav"
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_Init() return end
 ---------------------------------------------------------------------------------------------------------------------------------------------

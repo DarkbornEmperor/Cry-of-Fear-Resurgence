@@ -20,12 +20,12 @@ ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
-ENT.MainSoundPitch = 100
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -34,9 +34,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_SoundTrack = {
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/cof/sicksimon/bossmusic.mp3"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -72,10 +72,10 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "prepare_range" then
-        self:LiftProps()
-    elseif key == "attack_range" then
-        self:ExecuteRangeAttack()
+ if key == "prepare_range" then
+    self:LiftProps()
+ elseif key == "attack_range" then
+    self:ExecuteRangeAttack()
 end
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
@@ -96,7 +96,7 @@ function ENT:OnThinkActive()
     end
 end
     if !IsValid(ent) or self.Dead then return end
-      if IsValid(ent) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    if IsValid(ent) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         local Twister1 = ents.Create("npc_vj_cofr_faceless_twister")
         Twister1:SetPos(self:GetPos() + self:GetRight()*40 + self:GetUp()*10)
         Twister1:SetAngles(self:GetAngles())
@@ -199,8 +199,8 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- -- Make a metal ricochet effect
- if status == "PreDamage" && hitgroup == 8 then
+    -- Make a metal ricochet effect
+    if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then
@@ -226,14 +226,14 @@ function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-      -- If the NPC was removed, then remove its children as well, but not when it's killed!
+    -- If the NPC was removed, then remove its children as well, but not when it's killed!
     if !self.Dead then
-        for _, v in pairs(self.Twisters) do
-            if IsValid(v) then v:Remove() end
+    for _, v in pairs(self.Twisters) do
+        if IsValid(v) then v:Remove() end
     end
 end
-        for _, v in pairs(self.Props) do
-            if IsValid(v) then v:Remove() end
+    for _, v in pairs(self.Props) do
+        if IsValid(v) then v:Remove() end
     end
 end
 /*-----------------------------------------------

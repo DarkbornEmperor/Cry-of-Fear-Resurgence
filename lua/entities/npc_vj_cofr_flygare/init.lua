@@ -32,8 +32,6 @@ ENT.NextRangeAttackTime = 1
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -42,6 +40,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -50,12 +50,12 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_MeleeAttackExtra = {
+ENT.SoundTbl_MeleeAttackExtra =
 "vj_cofr/cof/flygare/flygare_slice.wav"
-}
-ENT.SoundTbl_MeleeAttackMiss = {
+
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/flygare/flygare_slash.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -78,12 +78,11 @@ function ENT:Flygare_Init()
     "vj_cofr/cof/flygare/flygare_attack1.wav",
     "vj_cofr/cof/flygare/flygare_attack2.wav"
 }
-    self.SoundTbl_Pain = {
+    self.SoundTbl_Pain =
     "vj_cofr/cof/flygare/flygare_pain.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/flygare/flygare_death.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -152,8 +151,8 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- -- Make a metal ricochet effect
- if status == "PreDamage" && hitgroup == 8 then
+    -- Make a metal ricochet effect
+    if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then

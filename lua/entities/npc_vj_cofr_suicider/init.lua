@@ -38,15 +38,15 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
-ENT.SoundTbl_Glock = {
+
+ENT.SoundTbl_Glock =
 "vj_cofr/cof/suicider/suicider_glock_fire.wav"
-}
-ENT.SoundTbl_P345 = {
+
+ENT.SoundTbl_P345 =
 "vj_cofr/cof/weapons/p345/p345_fire.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -91,19 +91,17 @@ end
 function ENT:Init()
  if self.Suicider_Glock then
  if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
-    self.SoundTbl_Glock = {
+    self.SoundTbl_Glock =
     "vj_cofr/cof/weapons/glock/glock_fire.wav"
-}
+
  elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.SoundTbl_Glock = {
-    "vj_cofr/cof/weapons/glock/old/glock_fire.wav"
-}
+        self.SoundTbl_Glock =
+        "vj_cofr/cof/weapons/glock/old/glock_fire.wav"
     end
 end
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 && self.Suicider_P345 then
-    self.SoundTbl_P345 = {
+    self.SoundTbl_P345 =
     "vj_cofr/cof/weapons/p345/old/p345_fire.wav"
-}
 end
  if math.random(1,3) == 1 then
     self.LimitChaseDistance = false
@@ -200,8 +198,8 @@ end
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !IsValid(ent) or self.Dead then return end
-    local EnemyDistance = self:GetPos():Distance(ent:GetPos())
-    if EnemyDistance <= 100 && ent:Visible(self) && !self.Suicider_DeathSuicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local eneDist = self.EnemyData.Distance
+    if eneDist < 100 && ent:Visible(self) && !self.Suicider_DeathSuicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Suicider_DeathSuicide = true
         self.Bleeds = false
         self:TakeDamage(self:GetMaxHealth(),self,self)
@@ -216,13 +214,13 @@ function ENT:OnRangeAttack(status,enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
-  if status == "Init" then
-  local ene = self:GetEnemy()
-  if IsValid(self) && IsValid(self:GetEnemy()) then
-    if self.Suicider_Glock then
-        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-    elseif self.Suicider_P345 then
-        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+ if status == "Init" then
+ local ene = self:GetEnemy()
+ if IsValid(self) && IsValid(self:GetEnemy()) then
+ if self.Suicider_Glock then
+    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+ elseif self.Suicider_P345 then
+    VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
 end
     VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({

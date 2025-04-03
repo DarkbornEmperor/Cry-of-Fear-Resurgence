@@ -20,7 +20,6 @@ ENT.RangeAttackMaxDistance = 3000
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = VJ.PICK(5,10)
-ENT.MainSoundPitch = 100
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
@@ -29,6 +28,7 @@ ENT.AnimTbl_Death = ACT_SMALL_FLINCH
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 ENT.HasSoundTrack = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -37,9 +37,8 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 60),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_SoundTrack = {
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/custom/blob/final2.mp3"
-}
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",

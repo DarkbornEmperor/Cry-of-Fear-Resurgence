@@ -10,9 +10,8 @@ ENT.Model = "models/vj_cofr/custom/slowerno_boss.mdl"
 ENT.StartHealth = 300
 ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_SoundTrack = {
+ENT.SoundTbl_SoundTrack =
 "vj_cofr/custom/abomination/watro.mp3"
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then

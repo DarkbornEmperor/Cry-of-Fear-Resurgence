@@ -28,8 +28,6 @@ ENT.NextRangeAttackTime = 0
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -43,6 +41,8 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -51,9 +51,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
        -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/aom/twitcher/claw_strike1.wav",
 "vj_cofr/aom/twitcher/claw_strike2.wav",
@@ -127,19 +127,19 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "step" then
-       self:PlayFootstepSound()
-    elseif key == "attack" then
-       self:ExecuteMeleeAttack()
-    elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
-       self:ExecuteRangeAttack()
-    if IsValid(self.face) then
-       self.face:SetNoDraw(false)
+ if key == "step" then
+    self:PlayFootstepSound()
+ elseif key == "attack" then
+    self:ExecuteMeleeAttack()
+ elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+    self:ExecuteRangeAttack()
+ if IsValid(self.face) then
+    self.face:SetNoDraw(false)
 end
- -- Backup timer to make sure the sprites are hidden in case event doesn't run!
- timer.Simple(0.08, function()
+    -- Backup timer to make sure the sprites are hidden in case event doesn't run!
+    timer.Simple(0.08, function()
     if IsValid(self) then
-      if IsValid(self.face) then
+    if IsValid(self.face) then
         self.face:SetNoDraw(true)
         end
     end

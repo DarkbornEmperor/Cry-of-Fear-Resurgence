@@ -19,12 +19,11 @@ ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faster/faster_hit3.wav",
 "vj_cofr/cof/faster/faster_hit4.wav"
 }
-ENT.SoundTbl_MeleeAttackMiss = {
+ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/faster/faster_miss.wav"
-}
-ENT.SoundTbl_Spawn = {
+
+ENT.SoundTbl_Spawn =
 "vj_cofr/custom/shaimoon/damned2_ritual_2b_mono.wav"
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_Init()
     self.SoundTbl_Alert = {
@@ -32,12 +31,11 @@ function ENT:BookSimon_Init()
     "vj_cofr/custom/shaimoon/egyptiantalk2.wav",
     "vj_cofr/custom/shaimoon/egyptiantalk3.wav"
 }
-    self.SoundTbl_Death = {
+    self.SoundTbl_Death =
     "vj_cofr/custom/shaimoon/shaimoonsdeath.wav"
-}
-    self.SoundTbl_SoundTrack = {
+
+    self.SoundTbl_SoundTrack =
     "vj_cofr/custom/shaimoon/ruMpel4.mp3"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorBlack = Color(0, 0, 0, 255)

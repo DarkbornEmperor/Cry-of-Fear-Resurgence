@@ -24,8 +24,6 @@ ENT.RangeAttackMinDistance = 60
 ENT.RangeAttackAngleRadius = 180
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -33,6 +31,8 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -42,15 +42,15 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
-ENT.SoundTbl_FireLoop = {
+ENT.SoundTbl_FireLoop =
 "vj_cofr/aom/davidbad/fire_loop.wav"
-}
-ENT.SoundTbl_FireIgnite = {
+
+ENT.SoundTbl_FireIgnite =
 "vj_cofr/aom/davidbad/fire_ignite.wav"
-}
-ENT.SoundTbl_FireOff = {
+
+ENT.SoundTbl_FireOff =
 "vj_cofr/aom/davidbad/fire_off.wav"
-}
+
 ENT.SoundTbl_SoundTrack = {
 "vj_cofr/aom/davidbad/sickness.mp3",
 "vj_cofr/aom/davidbad/4motherkill.wav"
@@ -80,9 +80,9 @@ function ENT:Addiction_Init()
     "vj_cofr/aom/davidbad/db_alert20.wav",
     "vj_cofr/aom/davidbad/db_alert30.wav"
 }
-    self.SoundTbl_BeforeMeleeAttack = {
+    self.SoundTbl_BeforeMeleeAttack =
     "vj_cofr/aom/davidbad/david_attack.wav"
-}
+
     self.SoundTbl_Pain = {
     "vj_cofr/aom/davidbad/db_pain1.wav",
     "vj_cofr/aom/davidbad/db_pain2.wav"
@@ -196,7 +196,7 @@ function ENT:OnMeleeAttack(status,enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status,ent,isProp)
-    if status == "PreDamage" then
+   if status == "PreDamage" then
     if self.Addiction_OnFire then ent:Ignite(4) end
     end
 end
@@ -240,22 +240,22 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
-if status == "PreDamage" then
-   dmginfo:ScaleDamage(0.15)
-   if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
-   local attacker = dmginfo:GetAttacker()
-   if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
-       dmginfo:ScaleDamage(1.50)
-   else
-       dmginfo:ScaleDamage(0.00)
+ if status == "PreDamage" then
+ dmginfo:ScaleDamage(0.15)
+ if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
+ local attacker = dmginfo:GetAttacker()
+ if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
+    dmginfo:ScaleDamage(1.50)
+ else
+    dmginfo:ScaleDamage(0.00)
 
-   if IsValid(attacker) && (attacker:IsNPC() or attacker:IsPlayer()) && attacker:GetClass() != "npc_stalker" then
-       attacker:TakeDamage(10,self,self)
-       VJ.DamageSpecialEnts(self,attacker,dmginfo)
+ if IsValid(attacker) && (attacker:IsNPC() or attacker:IsPlayer()) && attacker:GetClass() != "npc_stalker" then
+    attacker:TakeDamage(10,self,self)
+    VJ.DamageSpecialEnts(self,attacker,dmginfo)
 end
-   if attacker:IsPlayer() then
+    if attacker:IsPlayer() then
         net.Start("VJ_COFR_Addiction_ScreenEffect")
-            net.WriteEntity(attacker)
+        net.WriteEntity(attacker)
         net.Send(attacker)
     end
 end

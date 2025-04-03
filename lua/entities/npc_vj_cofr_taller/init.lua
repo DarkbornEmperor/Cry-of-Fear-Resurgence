@@ -13,7 +13,6 @@ ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
-//ENT.TurningSpeed = 10
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 55
@@ -25,8 +24,6 @@ ENT.MeleeAttackPlayerSpeedRun = 0.001
 ENT.MeleeAttackPlayerSpeedTime = 4
 ENT.HasMeleeAttackPlayerSpeedSounds = false
 ENT.HasMeleeAttackKnockBack = false
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -35,6 +32,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -43,9 +42,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/cof/taller/taller_step.wav"
-}
+
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
 "vj_cofr/fx/flesh2.wav",
@@ -56,15 +55,14 @@ ENT.SoundTbl_Impact = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Taller_Init()
-    self.SoundTbl_Alert = {
+    self.SoundTbl_Alert =
     "vj_cofr/cof/taller/taller_alert.wav"
-}
-    self.SoundTbl_Pain = {
+
+    self.SoundTbl_Pain =
     "vj_cofr/cof/taller/taller_pain.wav"
-}
-    self.SoundTbl_Death = {
+
+    self.SoundTbl_Death =
     "vj_cofr/cof/taller/taller_die.wav"
-}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

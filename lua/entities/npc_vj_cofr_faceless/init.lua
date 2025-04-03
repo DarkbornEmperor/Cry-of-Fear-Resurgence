@@ -19,8 +19,6 @@ ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -33,6 +31,8 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -41,9 +41,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
+ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
-}
+
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_cofr/cof/faceless/fist_strike1.wav",
 "vj_cofr/cof/faceless/fist_strike2.wav",
@@ -91,19 +91,19 @@ function ENT:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" then // Already the default
-        self.Faceless_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless2.mdl" then
-        self.Faceless_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless3.mdl" then
-        self.Faceless_Type = 2
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister.mdl" then
-        self.Faceless_Type = 3
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless_twisterv.mdl" then
-        self.Faceless_Type = 4
-    elseif self:GetModel() == "models/vj_cofr/custom/faceless_boss.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_claw.mdl" then
-        self.Faceless_Type = 5
-        self.AnimTbl_MeleeAttack = {"vjseq_attack2"}
+ if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" then // Already the default
+    self.Faceless_Type = 0
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless2.mdl" then
+    self.Faceless_Type = 1
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless3.mdl" then
+    self.Faceless_Type = 2
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister.mdl" then
+    self.Faceless_Type = 3
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless_twisterv.mdl" then
+    self.Faceless_Type = 4
+ elseif self:GetModel() == "models/vj_cofr/custom/faceless_boss.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_claw.mdl" then
+    self.Faceless_Type = 5
+    self.AnimTbl_MeleeAttack = "vjseq_attack2"
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Faceless_Init()
@@ -135,8 +135,8 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- -- Make a metal ricochet effect
- if status == "PreDamage" && self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
+    -- Make a metal ricochet effect
+    if status == "PreDamage" && self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then
