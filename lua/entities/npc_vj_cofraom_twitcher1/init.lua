@@ -20,10 +20,10 @@ ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {
-{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM},
-{HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM},
-{HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG},
-{HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}
+    {HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM},
+    {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM},
+    {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG},
+    {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}
 }
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -197,14 +197,14 @@ function ENT:TwitcherSounds()
    or self:GetClass() == "npc_vj_cofraom_twitcher4"
    or self:GetClass() == "npc_vj_cofraom_twitcher2_hd"
    or self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
-    self.SoundTbl_Alert = {
-    "vj_cofr/aom/twitcher2/zo_alert10.wav",
-    "vj_cofr/aom/twitcher2/zo_alert20.wav",
-    "vj_cofr/aom/twitcher2/zo_alert30.wav"
+        self.SoundTbl_Alert = {
+        "vj_cofr/aom/twitcher2/zo_alert10.wav",
+        "vj_cofr/aom/twitcher2/zo_alert20.wav",
+        "vj_cofr/aom/twitcher2/zo_alert30.wav"
 }
-    self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/aom/twitcher2/zo_attack1.wav",
-    "vj_cofr/aom/twitcher2/zo_attack2.wav"
+        self.SoundTbl_BeforeMeleeAttack = {
+        "vj_cofr/aom/twitcher2/zo_attack1.wav",
+        "vj_cofr/aom/twitcher2/zo_attack2.wav"
 }
     end
 end

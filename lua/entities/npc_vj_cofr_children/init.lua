@@ -22,10 +22,10 @@ ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {
-{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM},
-{HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM},
-{HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG},
-{HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}
+    {HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM},
+    {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM},
+    {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG},
+    {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}
 }
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -103,7 +103,7 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
- if status == "Init" then
+    if status == "Init" then
     if dmginfo:GetDamage() > 30 then
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
@@ -113,7 +113,7 @@ function ENT:OnFlinch(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "DeathAnim" then
+    if status == "DeathAnim" then
     if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
     else
