@@ -483,7 +483,7 @@ function ENT:PickMonster(tbl)
     local ent = false
     for _,v in RandomPairs(tbl) do
     if !useMax then
-    f math.random(1,v.chance) == 1 then
+    if math.random(1,v.chance) == 1 then
         ent = v.class
     break
 end
