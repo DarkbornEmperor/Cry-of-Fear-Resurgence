@@ -48,7 +48,7 @@ if status == "Init" && dmginfo:GetDamagePosition() != vec then
     util.Effect("VJ_COFR_Rico", rico)
 end
  if status == "Predamage" then
-    dmginfo:ScaleDamage(0.45)
+    dmginfo:ScaleDamage(0.5)
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     end
 end

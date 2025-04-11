@@ -43,6 +43,7 @@
 
     -- Bosses --
     VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",spawnCategory)
+    VJ.AddNPC("Book Simon (Beta)","npc_vj_cofr_simonbook_beta",spawnCategory)
     VJ.AddNPC("Book Simon (Manhunt)","npc_vj_cofr_simonbook_mh",spawnCategory)
     VJ.AddNPC("Carcass","npc_vj_cofr_carcass",spawnCategory)
     VJ.AddNPC("Craig","npc_vj_cofr_craig",spawnCategory)

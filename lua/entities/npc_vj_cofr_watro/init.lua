@@ -106,7 +106,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
     if status == "PreDamage" then
-        dmginfo:ScaleDamage(0.45)
+        dmginfo:ScaleDamage(0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
     self.SoundTbl_Death =
     "vj_cofr/fx/out_water.wav"
  else
-    self.SoundTbl_Death = {
+    self.SoundTbl_Death =
     "vj_cofr/fx/bodysplat.wav"
 end
         self:DrawShadow(false)

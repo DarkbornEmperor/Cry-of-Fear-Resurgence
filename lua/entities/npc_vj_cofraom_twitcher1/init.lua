@@ -284,7 +284,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if math.random(1,3) == 1 && self.Twitcher_Invisible then
-        self:PlaySoundSystem("Alert", "vj_cofr/aom/twitcher/skuggfa.wav"}
+        self:PlaySoundSystem("Alert", "vj_cofr/aom/twitcher/skuggfa.wav")
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
