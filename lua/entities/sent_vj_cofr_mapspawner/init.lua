@@ -107,9 +107,9 @@ local AmbientSounds = {
     "vj_cofr/cof/slowerno/headdy.wav",
     "vj_cofr/cof/upper/sickscream.wav",
     "vj_cofr/cof/dreamer/dreamer_scream.wav",
-    "vj_cofr/cof/dreamer/gaycry.wav",
-    "vj_cofr/cof/dreamer/doorscream.wav",
-    "vj_cofr/cof/dreamer/stepsinhall.wav",
+    "vj_cofr/cof/mapspawner/gaycry.wav",
+    "vj_cofr/cof/mapspawner/doorscream.wav",
+    "vj_cofr/cof/mapspawner/stepsinhall.wav",
 }
 
 local MusicList = {

@@ -202,8 +202,8 @@ function ENT:OnThinkActive()
     if eneDist < 100 && ent:Visible(self) && !self.Suicider_DeathSuicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Suicider_DeathSuicide = true
         self.Bleeds = false
+        self.HasDeathSounds = false
         self:TakeDamage(self:GetMaxHealth(),self,self)
-        self.Bleeds = true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -252,38 +252,39 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
  if status == "DeathAnim" then
-    if self:IsMoving() then
-       self.AnimTbl_Death = ACT_DIESIMPLE
-    else
-       self.AnimTbl_Death = ACT_DIE_HEADSHOT
+ if self:IsMoving() then
+    self.AnimTbl_Death = ACT_DIESIMPLE
+ else
+    self.AnimTbl_Death = ACT_DIE_HEADSHOT
 end
-     if !self.Suicider_DeathSuicide then
+    if !self.Suicider_DeathSuicide then
         self:DropGlock()
-     else
+    else
         self.AnimTbl_Death = ACT_DIE_GUTSHOT
     end
 end
-    if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
-    if status == "Init" && !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+ if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
+ if status == "Init" && !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+    self.HasDeathSounds = false
     dmginfo:SetDamage(self:Health())
-    if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
-    elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
-    elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
+ if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
+ elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
+ elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
 
-    if self.HasGibOnDeathEffects then
-        local effectData = EffectData()
-        effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
-        effectData:SetColor(colorRed)
-        effectData:SetScale(25)
-        util.Effect("VJ_Blood1", effectData)
-        effectData:SetScale(5)
-        effectData:SetFlags(3)
-        effectData:SetColor(0)
-        util.Effect("bloodspray", effectData)
-        util.Effect("bloodspray", effectData)
+ if self.HasGibOnDeathEffects then
+    local effectData = EffectData()
+    effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+    effectData:SetColor(colorRed)
+    effectData:SetScale(25)
+    util.Effect("VJ_Blood1", effectData)
+    effectData:SetScale(5)
+    effectData:SetFlags(3)
+    effectData:SetColor(0)
+    util.Effect("bloodspray", effectData)
+    util.Effect("bloodspray", effectData)
 end
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+    VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
+    ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
 end
     VJ_COFR_DeathCode(self)
 end

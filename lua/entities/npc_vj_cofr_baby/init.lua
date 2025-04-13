@@ -106,8 +106,9 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status,ent,isProp)
-    if status == "PreDanage" then
+    if status == "Init" then
     if self.Dead then return end
+        self.HasDeathSounds = false
         self:SetGroundEntity(NULL)
         self.Baby_DeathFromMeleeAttack = true
         self:TakeDamage(self:GetMaxHealth(),self,self)

@@ -189,10 +189,10 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
  if status == "Init" then
     VJ_COFR_DeathCode(self)
 end
-     if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
-     if hitgroup == HITGROUP_HEAD then
+    if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
+    if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
-     else
+    else
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end
 end
@@ -203,6 +203,7 @@ end
 end
  if GetConVar("VJ_COFR_Slower_HeadGib"):GetInt() == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end
  if status == "Init" && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+    self.HasDeathSounds = false
  if self.Slower_Skin == 0 then self:SetBodygroup(0,3)
  elseif self.Slower_Skin == 1 then self:SetBodygroup(0,4)
  elseif self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
