@@ -159,7 +159,7 @@ end
         self.Sawer_Eye:SetNoDraw(true)
         self.Sawer_Eye:DrawShadow(false)
         self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
-        table.insert(self.VJ_AddCertainEntityAsFriendly, self.Sawer_Eye)
+        self:SetRelationshipMemory(self.Sawer_Eye, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
         self:DeleteOnRemove(self.Sawer_Eye)
 
     timer.Simple(animTime,function()
