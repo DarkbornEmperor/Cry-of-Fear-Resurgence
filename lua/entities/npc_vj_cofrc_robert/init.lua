@@ -16,6 +16,8 @@ ENT.HealthRegenParams = {
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.HasSoundTrack = false
+-- Custom
+ENT.CoFR_NextLowHPSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_Init()
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
@@ -31,6 +33,13 @@ end
     "vj_cofr/cof/doctor/Pain7.wav",
     "vj_cofr/cof/doctor/Pain8.wav"
 }
+    self.SoundTbl_LowHealth = {
+    "vj_cofr/cof/doctor/lhealth1.wav",
+    "vj_cofr/cof/doctor/lhealth2.wav",
+    "vj_cofr/cof/doctor/lhealth3.wav",
+    "vj_cofr/cof/doctor/lhealth4.wav",
+    "vj_cofr/cof/doctor/lhealth5.wav"
+}
     self.SoundTbl_Death = {
     "vj_cofr/cof/doctor/death1.wav",
     "vj_cofr/cof/doctor/death2.wav",
@@ -43,7 +52,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if self.HasSounds && !self.Dead then
+    if self.HasSounds && !self.Dead then
     if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
         self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
         self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)
