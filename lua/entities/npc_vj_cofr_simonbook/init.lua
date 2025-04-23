@@ -49,10 +49,10 @@ ENT.ControllerParams = {
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
 ENT.SoundTbl_MeleeAttackExtra =
-"vj_cofr/cof/booksimon/sledgehammer_hitbody.wav"
+"vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/booksimon/sledgehammer_swing.wav"
+"vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
 
 ENT.SoundTbl_Glock =
 "vj_cofr/cof/suicider/suicider_glock_fire.wav"
