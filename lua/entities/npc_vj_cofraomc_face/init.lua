@@ -35,14 +35,10 @@ function ENT:Face_Init()
     "vj_cofr/aom/face/classic/ag_die4.wav",
     "vj_cofr/aom/face/classic/ag_die5.wav"
 }
- /*if math.random(1,3) == 1 then
-    self:SetRenderFX(kRenderFxDistort)
-    self:SetRenderMode(RENDERMODE_TRANSADD)
+    /*if math.random(1,3) == 1 then
+        self:SetRenderFX(kRenderFxDistort)
+        self:SetRenderMode(RENDERMODE_TRANSADD)
     end*/
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
-    projectile.Eyeball_Classic = true
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

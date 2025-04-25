@@ -125,7 +125,7 @@ end
     if height >= 50 then
         trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
     if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
-        VJ.EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_alert2.wav")
+        VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
         self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
     end
 end

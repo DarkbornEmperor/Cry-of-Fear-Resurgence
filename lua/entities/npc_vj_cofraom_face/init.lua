@@ -157,6 +157,9 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
+ if status == "PreSpawn" && self:GetClass() == "npc_vj_cofraomc_face" then
+    projectile.Eyeball_Classic = true
+end
     if status == "PostSpawn" then
     local ene = self:GetEnemy()
     if IsValid(ene) then
