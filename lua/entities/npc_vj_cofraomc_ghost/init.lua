@@ -65,91 +65,93 @@ function ENT:OnInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp) end
+function ENT:OnMeleeAttackExecute(status,ent,isProp) return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Ghost_DoElecEffect(sp, hp, hn, a, t)
+function ENT:Ghost_DoElecEffect(startPos, hitPos, hitNormal, attachment, timeDecrease)
     local elec = EffectData()
-    elec:SetStart(sp)
-    elec:SetOrigin(hp)
-    elec:SetNormal(hn)
+    elec:SetStart(startPos)
+    elec:SetOrigin(hitPos)
+    elec:SetNormal(hitNormal)
     elec:SetEntity(self)
-    elec:SetAttachment(a)
-    elec:SetScale(2.2 - t)
+    elec:SetAttachment(attachment)
+    elec:SetScale(2.2 - timeDecrease)
     util.Effect("VJ_COFR_Electric_Charge", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttack(status,enemy)
-    if status == "PostInit" then
-    if self.CurrentBeforeRangeAttackSound then self.CurrentBeforeRangeAttackSound:ChangePitch(90 + 90, 1.2) end
+function ENT:OnRangeAttack(status, enemy)
+ if status == "PostInit" then
+ -- Slowly fade the pitch to be higher like the original game
+ if self.CurrentSpeechSound then
+    self.CurrentSpeechSound:ChangePitch(90 + 90, 1.2)
+end
+
     local myPos = self:GetPos()
-    -- Tsakh --------------------------
-    local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
-    local tsakhLocations = {
-        myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200,
-        myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
-        myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
-        myPos + self:GetRight()*math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
-    }
+    local myForward = self:GetForward()
+    local myRight = self:GetRight()
+    local myUp = self:GetUp()
+
+ -- Tsakh --------------------------
+ local tsakhSpawn = myPos + myUp*45 + myRight*20
+ local tsakhLocations = {
+    myPos + myRight*math.Rand(150, 500) + myUp*-200,
+    myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+    myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+    myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+}
     for i = 1, 4 do
-        local randt = math.Rand(0, 0.6)
-        timer.Simple(randt,function()
-            if IsValid(self) then
-                local tr = util.TraceLine({
-                    start = tsakhSpawn,
-                    endpos = tsakhLocations[i],
-                    filter = self
-                })
-            if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
+    local randTime = math.Rand(0, 0.6)
+    timer.Simple(randTime, function()
+    if IsValid(self) then
+    local tr = util.TraceLine({
+        start = tsakhSpawn,
+        endpos = tsakhLocations[i],
+        filter = self
+    })
+        if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randTime) end
         end
     end)
 end
-    -- Ach --------------------------
-    local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
-    local achLocations = {
-        myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200,
-        myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
-        myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
-        myPos + self:GetRight()*-math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
-    }
+ -- Ach --------------------------
+ local achSpawn = myPos + myUp*45 + myRight*-20
+ local achLocations = {
+    myPos + myRight*-math.Rand(150, 500) + myUp*-200,
+    myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+    myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+    myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+}
     for i = 1, 4 do
-        local randt = math.Rand(0, 0.6)
-        timer.Simple(randt,function()
-            if IsValid(self) then
-                local tr = util.TraceLine({
-                    start = achSpawn,
-                    endpos = achLocations[i],
-                    filter = self
-                })
-                if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
-                end
-            end)
+    local randTime = math.Rand(0, 0.6)
+    timer.Simple(randTime, function()
+    if IsValid(self) then
+    local tr = util.TraceLine({
+        start = achSpawn,
+        endpos = achLocations[i],
+        filter = self
+    })
+        if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 2, randTime) end end end)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
     if status == "Init" then
-        local startpos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
-        local tr = util.TraceLine({
-            start = startpos,
-            endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
-            filter = self
-        })
-        local hitpos = tr.HitPos
+    local startPos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
+    local tr = util.TraceLine({
+        start = startPos,
+        endpos = self:GetAimPosition(enemy, startPos, 0),
+        filter = self
+    })
+        local hitPos = tr.HitPos
 
+        -- Fire 2 electric beams at the enemy
         local elec = EffectData()
-        elec:SetStart(startpos)
-        elec:SetOrigin(hitpos)
+        elec:SetStart(startPos)
+        elec:SetOrigin(hitPos)
         elec:SetEntity(self)
         elec:SetAttachment(1)
-        util.Effect("VJ_COFR_Electric",elec)
-
-        elec = EffectData()
-        elec:SetStart(startpos)
-        elec:SetOrigin(hitpos)
-        elec:SetEntity(self)
+        util.Effect("VJ_COFR_Electric", elec)
         elec:SetAttachment(2)
-        util.Effect("VJ_COFR_Electric",elec)
+        util.Effect("VJ_COFR_Electric", elec)
 
         VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 
@@ -159,7 +161,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "DeathAnim" then
+    if status == "DeathAnim" then
     if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
     else

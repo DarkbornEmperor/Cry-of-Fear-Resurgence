@@ -125,8 +125,8 @@ function ENT:MeleeAttackKnockbackVelocity(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 1500)
+ local projPos = projectile:GetPos()
+    return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projPos, 1, 10)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
