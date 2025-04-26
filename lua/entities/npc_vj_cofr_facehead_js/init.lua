@@ -75,7 +75,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:JumpscareDamage()
     local ent = self:GetEnemy()
-    if IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 then
+    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self,ent) < 60 then
         ent:TakeDamage(10,self,self)
     end
 end

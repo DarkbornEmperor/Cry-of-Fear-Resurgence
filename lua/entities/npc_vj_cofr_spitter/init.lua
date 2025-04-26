@@ -20,6 +20,7 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_spit"
 ENT.RangeAttackProjectiles = "obj_vj_cofr_spit"
+ENT.RangeAttackMaxDistance = 784
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1
@@ -75,7 +76,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
     local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projPos, 1, 1500)
+    return VJ.CalculateTrajectory(self, self:GetEnemy(), "CurveOld", projPos, 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)

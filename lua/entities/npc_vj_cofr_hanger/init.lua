@@ -66,19 +66,19 @@ function ENT:Controller_Initialize(ply,controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-     local ent = self:GetEnemy()
-     if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local ent = self:GetEnemy()
+    if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.GodMode = false
         self:TakeDamage(self:GetMaxHealth(),self,self)
         self.Hanger_Death = true
         self.CallForHelp = true
-        timer.Simple(0.3,function() if IsValid(self) then self:SetNoDraw(false) self:DrawShadow(true) end end)
+        timer.Simple(0.1,function() if IsValid(self) then self:SetNoDraw(false) self:DrawShadow(true) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:JumpscareDamage()
     local ent = self:GetEnemy()
-    if IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 then
+    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self,ent) < 60 then
         ent:TakeDamage(10,self,self)
     end
 end
