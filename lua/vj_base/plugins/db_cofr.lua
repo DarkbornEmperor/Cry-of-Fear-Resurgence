@@ -738,25 +738,21 @@ function VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_DeathCode(ent)
- ent.HasBloodPool = false
- ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
- if GetConVar("VJ_COFR_DropAmmo"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
- ent.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
- local pickedAmmoType = VJ.PICK(ent.DropCoFAmmo)
- if pickedAmmoType != false then
+    ent.HasBloodPool = false
+    ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
+    if GetConVar("VJ_COFR_DropAmmo"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
+        ent.DropCoFAmmo = {"weapon_cof_syringe","ent_cof_glock_ammo","ent_cof_g43_ammo","ent_cof_m16_ammo","ent_cof_p345_ammo","ent_cof_revolver_ammo","ent_cof_rifle_ammo","ent_cof_shotgun_ammo","ent_cof_tmp_ammo","ent_cof_vp70_ammo"}
+    local pickedAmmoType = VJ.PICK(ent.DropCoFAmmo)
+    if pickedAmmoType != false then
     local AmmoDrop = ents.Create(pickedAmmoType)
-       AmmoDrop:SetPos(ent:GetPos() + ent:OBBCenter())
-       AmmoDrop:SetLocalAngles(ent:GetAngles())
-       AmmoDrop:Spawn()
-       AmmoDrop:Activate()
-       local phys = AmmoDrop:GetPhysicsObject()
-       if IsValid(phys) then
-       local dmgForce = (ent.SavedDmgInfo.force / 40)
-       if ent.DeathAnimationCodeRan then
-       dmgForce = ent:GetMoveVelocity() == defPos
-end
-            phys:SetMass(1)
-            phys:ApplyForceCenter(dmgForce)
+        AmmoDrop:SetPos(ent:GetPos() + ent:OBBCenter())
+        AmmoDrop:SetLocalAngles(ent:GetAngles())
+        AmmoDrop:Spawn()
+        AmmoDrop:Activate()
+    local phys = AmmoDrop:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:SetMass(1)
+        phys:ApplyForceCenter(Vector(0,0,0))
         end
     end
 end
