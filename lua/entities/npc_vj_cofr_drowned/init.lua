@@ -155,7 +155,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
     if status == "Init" then
-    if GetConVar("vj_npc_range"):GetInt() == 0 or self.Dead then return end
     local ent = self:GetEnemy()
     local cont = self.VJ_TheController
     if IsValid(cont) then
@@ -177,7 +176,7 @@ end
     timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
     if ent.IsVJBaseSNPC_Human then ent:TakeDamage(ent:Health(),self,self) elseif ent:IsPlayer() then ent:TakeDamage(ent:Health()+ent:Armor(),self,self) else ent:TakeDamage(200,self,self) end
     self:Drowned_Damage()
-    self.Drowned_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime end end)
+    self.Drowned_NextEnemyDamageT = CurTime() + 5 end end)
 end
         return true
     end

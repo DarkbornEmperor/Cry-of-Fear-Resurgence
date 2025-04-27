@@ -112,7 +112,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
     if status == "Init" then
-    if GetConVar("vj_npc_range"):GetInt() == 0 or self.Dead then return end
     local ent = self:GetEnemy()
     local cont = self.VJ_TheController
     if IsValid(cont) then
