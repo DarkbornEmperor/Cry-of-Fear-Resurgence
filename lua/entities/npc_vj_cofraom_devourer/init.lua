@@ -89,13 +89,15 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local velInitial = Vector(0, 0, 2)
+local offset = 200
+local offsetPulling = 125
 --
 function ENT:Devourer_CalculateTongue()
  local myPos = self:GetPos()
  local myUpPos = self:GetUp()
  local tr = util.TraceLine({
     start = myPos,
-    endpos = myPos + myUpPos * -self.Devourer_LastHeight,
+    endpos = myPos - myUpPos * self.Devourer_LastHeight,
     filter = self
 })
  local trHitEnt = tr.Entity
@@ -120,21 +122,25 @@ end
     trHitEnt:SetMoveType(MOVETYPE_NONE)
     //trHitEnt:AddFlags(FL_ATCONTROLS)
 end
-    trHitEnt:SetGroundEntity(NULL)
-    -- Make it pull the enemy up
-    if height >= 50 then
-        trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
-    if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
-        VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
+ trHitEnt:SetGroundEntity(NULL)
+ -- Make it pull the enemy up
+ if height >= 50 then
+    trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
+ if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
+ if self:GetClass() == "npc_vj_cofraomc_devourer" then
+    VJ.EmitSound(self, "vj_cofr/aom/devourer/classic/bcl_alert2.wav")
+ else
+    VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
+end
         self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
     end
 end
-    self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 125))
+    self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offsetPulling)
     return true
  else
     self:Devourer_ResetEnt()
 end
-    self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 193))
+    self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offset)
     return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
