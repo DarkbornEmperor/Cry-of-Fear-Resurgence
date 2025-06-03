@@ -66,9 +66,9 @@ ENT.SoundTbl_MeleeAttackExtra =
 ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/weapons/melee_swing.wav"
 
-/*ENT.SoundTbl_MedicBeforeHeal = {
-"vj_cofr/aom/pills/pills_pickup.wav"
-}*/
+/*ENT.SoundTbl_MedicBeforeHeal =
+"vj_cofr/aom/pills/pills_pickup.wav"*/
+
 ENT.SoundTbl_MedicOnHeal =
 "vj_cofr/aom/pills/pills_use.wav"
 
@@ -463,7 +463,7 @@ function ENT:AssistorFlashlight() end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" or (key == "melee_weapon" && IsValid(self:GetActiveWeapon()) && self:GetActiveWeapon().IsMeleeWeapon) then
+    elseif key == "attack" or (key == "melee_weapon" && IsValid(self:GetActiveWeapon()) && self:GetActiveWeapon().IsMeleeWeapon) && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_SPECIAL_ATTACK1 then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
