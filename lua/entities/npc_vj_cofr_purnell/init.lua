@@ -27,6 +27,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.DropDeathLoot = false
 ENT.HasSoundTrack = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
