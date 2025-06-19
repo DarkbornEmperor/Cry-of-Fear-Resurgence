@@ -196,7 +196,7 @@ end
         self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE,ACT_DIE_GUTSHOT}
     end
 end
-    if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5) then
+    if status == "DeathAnim" && VJ.AnimExists(self,ACT_DIEVIOLENT) then
     if math.random(1,3) == 1 && hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIEVIOLENT
     end
