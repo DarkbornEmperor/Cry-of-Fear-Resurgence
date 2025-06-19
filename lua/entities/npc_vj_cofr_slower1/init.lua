@@ -126,7 +126,7 @@ function ENT:Init()
  elseif self:GetModel() == "models/vj_cofr/cof/slower10.mdl" then
     self.Slower_Type = 5
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
- elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" or self:GetModel() == "models/vj_cofr/custom/slower102.mdl" then
     self.Slower_Type = 6
     self.AnimTbl_MeleeAttack = "vjseq_attack"
  elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
@@ -175,7 +175,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
  if status == "Init" then
-    if dmginfo:GetDamage() > 30 then
+    if dmginfo:GetDamage() > 30 && VJ.AnimExists(self,ACT_BIG_FLINCH) then
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else
         self.AnimTbl_Flinch = ACT_SMALL_FLINCH
