@@ -110,10 +110,10 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status,ent,isProp)
-    if status == "PreDamage" && GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 1 then
+    if status == "PreDamage" then
     if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
         self.Ghost_Tinnitus = true
-    if self.HasSounds then
+    if self.HasSounds && GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 1 then
         self.Ghost_TinnitusSound = CreateSound(ent,self.SoundTbl_Tinnitus)
         self.Ghost_TinnitusSound:Play()
         self.Ghost_TinnitusSound:SetSoundLevel(100)
