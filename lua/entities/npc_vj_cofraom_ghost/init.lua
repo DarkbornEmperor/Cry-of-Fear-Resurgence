@@ -75,12 +75,6 @@ ENT.SoundTbl_Impact = {
 ENT.Ghost_Tinnitus = false
 ENT.Ghost_NextTinnitusSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:PreInit()
-    if GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 0 then
-        self.MeleeAttackPlayerSpeed = false
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/ghost/slv_alert2.wav",
@@ -116,7 +110,7 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status,ent,isProp)
-    if status == "PreDamage" then
+    if status == "PreDamage" && GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 1 then
     if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
         self.Ghost_Tinnitus = true
     if self.HasSounds then
