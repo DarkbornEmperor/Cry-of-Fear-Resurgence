@@ -2,7 +2,7 @@
 {
     "$basetexture" "models/vj_cofr/aom/spitter/classic/bullchicken2"
     "$envmap" "models/vj_cofr/aom/spitter/classic/bullchicken1_chrome"
-    "$color2" "[0 0.08 0.12]"
+    "$color2" "[0.08 0 0]"
     "$envmapmode" 1
     "$multipass" 1
     "$nodecal" "1"

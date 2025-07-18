@@ -2,7 +2,7 @@
 {
     "$basetexture" "models/vj_cofr/custom/shaimoon_gold/glove_256"
     "$envmap" "models/vj_cofr/custom/shaimoon_gold/shaimoon_gold"
-    "$color2" "[0 0.08 0.12]"
+    "$color2" "[0.08 0.12 0]"
     "$envmapmode" 1
     "$multipass" 1
     "$opaque" 1
@@ -10,8 +10,8 @@
 
     "VertexLitGeneric_HDR_DX9"
     {
-        "$envmaptint" "[.2 .2 .2]"
-        "$envmapcontrast" .5
-        "$envmapsaturation" 1
+        "$envmaptint" "[.15 .15 .15]"
+        "$envmapcontrast" .8
+        "$envmapsaturation" 1.5
     }
 }
