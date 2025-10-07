@@ -33,8 +33,8 @@
     VJ.AddNPC("Slower 1","npc_vj_cofr_slower1",spawnCategory)
     VJ.AddNPC("Slower 3","npc_vj_cofr_slower3",spawnCategory)
     VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",spawnCategory)
-    VJ.AddNPC("Slower 10","npc_vj_cofr_slower10",spawnCategory)
-    VJ.AddNPC("Slower 10-2","npc_vj_cofr_slower102",spawnCategory)
+    VJ.AddNPC("Slower Ten","npc_vj_cofr_slower10",spawnCategory)
+    VJ.AddNPC("Slower Ten 2","npc_vj_cofr_slower102",spawnCategory)
     VJ.AddNPC("Spitter","npc_vj_cofr_spitter",spawnCategory)
     VJ.AddNPC("Stranger","npc_vj_cofr_stranger",spawnCategory)
     VJ.AddNPC("Suicider","npc_vj_cofr_suicider",spawnCategory)
@@ -74,7 +74,7 @@
     VJ.AddNPC("The Face (Jumpscare)","npc_vj_cofr_facehead_js",spawnCategory)
     VJ.AddNPC("Watro","npc_vj_cofr_watro",spawnCategory)
 
-    -- Apparitions --
+    -- Apparitions/Scenery --
     VJ.AddNPC("Blacker","sent_vj_cofr_blacker",spawnCategory)
     VJ.AddNPC("Corpse","sent_vj_cofr_corpse",spawnCategory)
     VJ.AddNPC("Corpse (Hanging)","sent_vj_cofr_corpse_hanging",spawnCategory)
