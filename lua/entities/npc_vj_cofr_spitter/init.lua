@@ -63,6 +63,15 @@ function ENT:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+ /*if VJ_CVAR_AI_ENABLED then
+ timer.Simple(0, function()
+    self:PlayAnim(ACT_COWER,true,false)
+    self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+end)
+    timer.Simple(VJ.AnimDuration(self,ACT_COWER), function() if IsValid(self) then
+        self:SetState() end
+    end)
+end*/
     self:SetCollisionBounds(Vector(15, 15, 70), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Spitter_Init()

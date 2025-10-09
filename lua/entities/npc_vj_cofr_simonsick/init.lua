@@ -24,7 +24,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.HasSoundTrack = true
+ENT.HasSoundTrack = false
 ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
@@ -69,6 +69,13 @@ function ENT:Init()
     self:SickSimon_Init()
     self.Twisters = {}
     self.Props = {}
+
+    if GetConVar("vj_npc_snd_track"):GetInt() == 0 or GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then return end
+        self.SickSimon_Intro = VJ.CreateSound(self, "vj_cofr/cof/sicksimon/bossstart.mp3", 100, 100)
+    timer.Create("VJ_SickSimon_Intro"..self:EntIndex(), 15, 1, function() if IsValid(self) then
+        if GetConVar("vj_npc_snd_track"):GetInt() == 1 && GetConVar("VJ_COFR_Boss_Music"):GetInt() == 1 then self.HasSoundTrack = true self:StartSoundTrack() end
+        end
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
@@ -232,9 +239,11 @@ function ENT:CustomOnRemove()
         if IsValid(v) then v:Remove() end
     end
 end
-    for _, v in pairs(self.Props) do
-        if IsValid(v) then v:Remove() end
-    end
+ for _, v in pairs(self.Props) do
+    if IsValid(v) then v:Remove() end
+end
+    timer.Remove("VJ_SickSimon_Intro"..self:EntIndex())
+    VJ.STOPSOUND(self.SickSimon_Intro)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
