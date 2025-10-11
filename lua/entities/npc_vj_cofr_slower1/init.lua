@@ -111,7 +111,7 @@ function ENT:Init()
  if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/custom/pedoslow.mdl" then // Already the default
     self.Slower_Type = 0
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler2.mdl" or self:GetModel() == "models/vj_cofr/custom/krypandenej.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler2.mdl" or self:GetModel() == "models/vj_cofr/custom/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/crawler_hh.mdl" then
     self.Slower_Type = 1
     self.AnimTbl_MeleeAttack = "vjseq_attack"
  elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/custom/croucher.mdl" then
