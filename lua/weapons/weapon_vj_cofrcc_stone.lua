@@ -6,7 +6,7 @@ SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel = "models/vj_cofr/cofcc/weapons/w_stone.mdl"
+SWEP.WorldModel = "models/vj_cofr/cofcc/weapons/w_branch_tsos.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel = "models/vj_cofr/cofcc/weapons/w_sledgeshovel.mdl"
+SWEP.WorldModel = "models/vj_cofr/cofcc/weapons/w_sledgehammer_shovel_hc.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 45
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
