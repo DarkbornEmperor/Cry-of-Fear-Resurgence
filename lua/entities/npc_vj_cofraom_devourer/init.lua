@@ -6,9 +6,9 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/devourer.mdl"
+ENT.StartHealth = 50
 ENT.SightDistance = 1024
 ENT.SightAngle = 360
-ENT.StartHealth = 50
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.HullType = HULL_SMALL_CENTERED
