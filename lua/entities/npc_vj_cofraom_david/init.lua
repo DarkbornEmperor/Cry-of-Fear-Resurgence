@@ -91,7 +91,7 @@ ENT.CoFR_NextWepSwitchT = 0
 ENT.CoFR_NextLowHPSoundT = 0
 ENT.CoFR_NextSelfHealT = 0
 ENT.Human_Type = 0
-     -- 0 = David & Assistor
+    -- 0 = David & Assistor
     -- 1 = Simon
     -- 2 = Police
     -- 3 = David (Classic)
@@ -109,7 +109,7 @@ ENT.WeaponsList_AoMDC = {
         "weapon_vj_cofraom_uzi"
     },
     ["Far"] = {
-        "weapon_vj_cofraom_l85"
+        "weapon_vj_cofraom_l85a1"
     },
 }
 ENT.WeaponsList_AoMC = {
@@ -164,8 +164,8 @@ ENT.WeaponsList_CoF_Cont = {
         "weapon_vj_cofr_m16",
         "weapon_vj_cofr_famas",
         "weapon_vj_cofr_g43",
-        "weapon_vj_cofr_ak47",
-        "weapon_vj_cofr_rifle"
+        "weapon_vj_cofr_rifle",
+        "weapon_vj_cofrcc_ak47"
     },
 }
 ENT.WeaponsList_AoMDC_Cont = {
@@ -178,7 +178,7 @@ ENT.WeaponsList_AoMDC_Cont = {
         "weapon_vj_cofraom_shotgun",
         "weapon_vj_cofraom_mp5k",
         "weapon_vj_cofraom_uzi",
-        "weapon_vj_cofraom_l85"
+        "weapon_vj_cofraom_l85a1"
     },
 }
 ENT.WeaponsList_AoMC_Cont = {
@@ -394,16 +394,16 @@ end
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
     self.HealthRegenParams.Enabled = true
 end
-  if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_da.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/cross.mdl" or self:GetModel() == "models/vj_cofr/aom/question.mdl" or self:GetModel() == "models/vj_cofr/aom/scream.mdl" or self:GetModel() == "models/vj_cofr/aom/two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
+  if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_cross.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_question.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_scream.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
      self.Human_Type = 0
      self:David_Init()
-  elseif self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_beta.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/custom/roderick.mdl" then
+  elseif self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_beta.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cofcc/roderick.mdl" then
      self.Human_Type = 1
      self:Simon_Init()
   elseif self:GetModel() == "models/vj_cofr/cof/police1.mdl" or self:GetModel() == "models/vj_cofr/cof/police2.mdl" or self:GetModel() == "models/vj_cofr/cof/police3.mdl" or self:GetModel() == "models/vj_cofr/cof/police4.mdl" then
      self.Human_Type = 2
      self:Police_Init()
-  elseif self:GetModel() == "models/vj_cofr/aom/classic/david.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_old.mdl" then
+  elseif self:GetModel() == "models/vj_cofr/aom/classic/david.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" then
      self.Human_Type = 3
      self:DavidClassic_Init()
 end

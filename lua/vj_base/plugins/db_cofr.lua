@@ -193,8 +193,8 @@
 
     -- Apparitions --
     VJ.AddNPC("Sick Corpse","sent_vj_cofraom_sickcorpse",spawnCategory)
-    VJ.AddNPC("David (Hanging)","sent_vj_cofraom_davidhang",spawnCategory)
-    VJ.AddNPC("David (Corpse)","sent_vj_cofraom_davidcorpse",spawnCategory)
+    VJ.AddNPC("David (Hanging)","sent_vj_cofraom_david_hanging",spawnCategory)
+    VJ.AddNPC("David (Corpse)","sent_vj_cofraom_davidcorpse_grey",spawnCategory)
 
     -- AoM:DC Random & Spawners --
     VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",spawnCategory)

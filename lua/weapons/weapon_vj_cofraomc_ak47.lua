@@ -36,7 +36,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //self:SetModelScale(0.7)
+    self:SetModelScale(0.7)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr,damageType)

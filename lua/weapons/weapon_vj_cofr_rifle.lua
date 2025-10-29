@@ -39,8 +39,8 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
- if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.Primary.Sound = "vj_cofr/cof/weapons/rifle/old/rifle_fire.wav"
+    if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+        self.Primary.Sound = "vj_cofr/cof/weapons/rifle/old/rifle_fire.wav"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

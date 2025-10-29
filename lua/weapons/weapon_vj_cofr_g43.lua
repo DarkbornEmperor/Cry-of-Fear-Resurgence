@@ -33,7 +33,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //self:SetModelScale(0.80)
+    self:SetModelScale(0.80)
     local owner = self:GetOwner()
     if owner:GetClass() == "npc_vj_cofr_simon_beta" then
         self.WorldModel_CustomPositionOrigin = Vector(10, -2.8, -0.2)

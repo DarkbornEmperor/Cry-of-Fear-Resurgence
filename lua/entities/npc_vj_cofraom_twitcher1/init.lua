@@ -134,7 +134,7 @@ function ENT:PreInit()
         "models/vj_cofr/aom/classic/twitcher_zomb.mdl",
         "models/vj_cofr/aom/classic/twitcher_zombie2.mdl"
 }
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
+    elseif self:GetClass() == "npc_vj_cofraomda_twitcher" then
         self.Model =
         "models/vj_cofr/aom/da/twitcher.mdl"
 

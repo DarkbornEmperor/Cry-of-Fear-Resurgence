@@ -6,7 +6,7 @@ SWEP.Purpose = "This weapon is made for NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_kitchenknife.mdl"
+SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_knife.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(-3.1, 4, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //self:SetModelScale(0.75)
+    self:SetModelScale(0.75)
     local owner = self:GetOwner()
     if owner:GetClass() == "npc_vj_cofraom_david_da" then
         self.WorldModel_CustomPositionOrigin = Vector(-4, 2.5, 0)

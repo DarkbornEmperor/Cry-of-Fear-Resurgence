@@ -1,5 +1,5 @@
 SWEP.Base = "weapon_vj_base"
-SWEP.PrintName = "L85"
+SWEP.PrintName = "L85A1"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for NPCs"
@@ -10,7 +10,7 @@ SWEP.NPC_TimeUntilFire = 0.06
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
-SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_l85.mdl"
+SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_l85a1.mdl"
 SWEP.HoldType = "ar2"
 SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
@@ -34,7 +34,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //self:SetModelScale(0.60)
+    self:SetModelScale(0.60)
     local owner = self:GetOwner()
     if owner:GetClass() == "npc_vj_cofraom_david_da" then
         self.WorldModel_CustomPositionOrigin = Vector(3.5, -2.8, -0.7)

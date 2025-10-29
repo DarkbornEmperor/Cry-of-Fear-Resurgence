@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/custom/crocodile.mdl"
+ENT.Model = "models/vj_cofr/cofcc/crocodile.mdl"
 ENT.StartHealth = 1000
 ENT.HullType = HULL_LARGE
 ENT.Aquatic_AnimTbl_Calm = {"Run_1","Run_2"}
@@ -117,7 +117,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
  if act == ACT_IDLE && self.Crocodile_MoveTypeSwim then
-    return ACT_SWIM
+    return ACT_RUN
+ elseif act == ACT_RUN && !self.Crocodile_MoveTypeSwim then
+    return ACT_WALK
 end
     return self.BaseClass.TranslateActivity(self, act)
 end

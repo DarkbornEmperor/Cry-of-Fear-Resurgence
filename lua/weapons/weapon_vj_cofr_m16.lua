@@ -36,7 +36,7 @@ function SWEP:Init()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
     self.Primary.Sound = "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
 end
-    //self:SetModelScale(0.85)
+    self:SetModelScale(0.85)
     local owner = self:GetOwner()
     if owner:GetClass() == "npc_vj_cofr_simon_beta" then
         self.WorldModel_CustomPositionOrigin = Vector(8, -2.5, -0.3)

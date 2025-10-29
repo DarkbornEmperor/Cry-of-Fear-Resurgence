@@ -15,7 +15,7 @@ ENT.Category = "Cry of Fear Resurgence"
 if !SERVER then return end
 
 function ENT:Initialize()
-    self:SetModel("models/vj_cofr/cof/policedead.mdl")
+    self:SetModel("models/vj_cofr/cof/police_dead.mdl")
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
     self:SetBodygroup(0,math.random(0,1))
