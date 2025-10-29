@@ -69,8 +69,8 @@ ENT.Slower_Type = 0
     -- 2 = Croucher
     -- 3 = Slower 3
     -- 4 = Slower No
-    -- 5 = Slower 10
-    -- 6 = Slower 10-2
+    -- 5 = Slower Ten
+    -- 6 = Slower Ten 2
     -- 7 = Upper
     -- 8 = Custom Slower 1
     -- 9 = Custom Slower 10
@@ -108,7 +108,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/custom/pedoslow.mdl" then // Already the default
+ if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
     self.Slower_Type = 0
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
  elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler2.mdl" or self:GetModel() == "models/vj_cofr/custom/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/crawler_hh.mdl" then
@@ -117,31 +117,31 @@ function ENT:Init()
  elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/custom/croucher.mdl" then
     self.Slower_Type = 2
     self.AnimTbl_MeleeAttack = "vjseq_attack1"
- elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3_dream.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/slower3_hh.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower3_ooi.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/slower3_hh.mdl" then
     self.Slower_Type = 3
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno_boss.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slowerno_boss.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno.mdl" then
     self.Slower_Type = 4
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/cof/slower10.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slowerten.mdl" then
     self.Slower_Type = 5
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
- elseif self:GetModel() == "models/vj_cofr/cof/slower102.mdl" or self:GetModel() == "models/vj_cofr/custom/slower102.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slowerten2.mdl" or self:GetModel() == "models/vj_cofr/custom/slower102.mdl" then
     self.Slower_Type = 6
     self.AnimTbl_MeleeAttack = "vjseq_attack"
  elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
     self.Slower_Type = 7
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/custom/monster_cutter.mdl" or self:GetModel() == "models/vj_cofr/custom/slowermummy.mdl" or self:GetModel() == "models/vj_cofr/custom/genome_soldier1.mdl" or self:GetModel() == "models/vj_cofr/custom/slower1.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_memo.mdl" or self:GetModel() == "models/vj_cofr/custom/slower1.mdl" then
     self.Slower_Type = 8
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
  elseif self:GetModel() == "models/vj_cofr/custom/slower10.mdl" then
     self.Slower_Type = 9
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
- elseif self:GetModel() == "models/vj_cofr/custom/sicksophie.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/sicksophie.mdl" then
     self.Slower_Type = 10
     self.AnimTbl_MeleeAttack = "vjseq_attack"
- elseif self:GetModel() == "models/vj_cofr/custom/zombie.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/skeleton.mdl" then
     self.Slower_Type = 10
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}
 end
@@ -152,7 +152,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -167,14 +167,14 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
- if self.Slower_Type == 3 then return end
+    if self.Slower_Type == 3 then return end
     if math.random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav")
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
- if status == "Init" then
+    if status == "Init" then
     if dmginfo:GetDamage() > 30 && VJ.AnimExists(self,ACT_BIG_FLINCH) then
         self.AnimTbl_Flinch = ACT_BIG_FLINCH
     else

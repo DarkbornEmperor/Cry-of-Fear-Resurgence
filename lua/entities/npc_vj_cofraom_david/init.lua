@@ -35,7 +35,7 @@ ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_SpawnPropOnHeal = false
 ENT.Medic_HealAmount = 15
 ENT.AnimTbl_Medic_GiveHealth = "vjges_heal"
-ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/w_medkit.mdl"
+ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/w_pills.mdl"
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 //ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
 ENT.Weapon_SecondaryFireTime = 0.05
@@ -68,10 +68,10 @@ ENT.SoundTbl_MeleeAttackMiss =
 "vj_cofr/cof/weapons/melee_swing.wav"
 
 /*ENT.SoundTbl_MedicBeforeHeal =
-"vj_cofr/aom/pills/pills_pickup.wav"*/
+"vj_cofr/aom/weapons/pills/pills_pickup.wav"*/
 
 ENT.SoundTbl_MedicOnHeal =
-"vj_cofr/aom/pills/pills_use.wav"
+"vj_cofr/aom/weapons/pills/pills_use.wav"
 
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -85,6 +85,7 @@ ENT.SoundTbl_Impact = {
 ENT.Simon_French = false
 ENT.Simon_Branch = false
 ENT.CoFR_Crouching = false
+ENT.CoFR_NextMeleeAnimT = 0
 ENT.CoFR_NextMeleeSoundT = 0
 ENT.CoFR_NextWepSwitchT = 0
 ENT.CoFR_NextLowHPSoundT = 0
@@ -142,7 +143,7 @@ ENT.WeaponsList_CoF = {
         "weapon_vj_cofr_m16",
         "weapon_vj_cofr_famas",
         "weapon_vj_cofr_g43",
-        "weapon_vj_cofr_ak47"
+        "weapon_vj_cofrcc_ak47"
     },
     ["Far"] = {
         "weapon_vj_cofr_rifle"
@@ -464,7 +465,7 @@ function ENT:AssistorFlashlight() end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" or (key == "melee_weapon" && IsValid(self:GetActiveWeapon()) && self:GetActiveWeapon().IsMeleeWeapon) && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_SPECIAL_ATTACK1 then
+    elseif key == "melee" or (key == "melee_weapon" && IsValid(self:GetActiveWeapon()) && self:GetActiveWeapon().IsMeleeWeapon) && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_SPECIAL_ATTACK1 then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -618,8 +619,20 @@ function ENT:OnMeleeAttack(status,enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
- if self.VJ_IsBeingControlled then return end
  local wep = self.WeaponEntity
+ local finalAnim = self:TranslateActivity(VJ.PICK(self.AnimTbl_WeaponAttackGesture))
+ if wep.IsMeleeWeapon && CurTime() > self.CoFR_NextMeleeAnimT && VJ.AnimExists(self, finalAnim) then
+    local animDur = VJ.AnimDuration(self, finalAnim)
+    self:PlaySoundSystem("BeforeMeleeAttack",self.SoundTbl_BeforeMeleeAttack)
+    wep.NPC_NextPrimaryFire = animDur
+    wep:NPCShoot_Primary()
+    VJ.EmitSound(self, wep.NPC_BeforeFireSound, wep.NPC_BeforeFireSoundLevel, math.Rand(wep.NPC_BeforeFireSoundPitch.a, wep.NPC_BeforeFireSoundPitch.b))
+    self.CoFR_NextMeleeAnimT = CurTime() + animDur
+    self.WeaponAttackAnim = finalAnim
+    self:PlayAnim(finalAnim, "LetAttacks", false, true)
+    self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
+end
+ if self.VJ_IsBeingControlled then return end
  if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
  if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeAcquired) > 2 then
  timer.Simple(0,function()

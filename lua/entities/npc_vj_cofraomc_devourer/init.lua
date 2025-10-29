@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/classic/barnacle.mdl"
+ENT.Model = "models/vj_cofr/aom/classic/devourer.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_Init()
     self.SoundTbl_Death = {

@@ -2,5 +2,4 @@
 {
     "$basetexture" "models/vj_cofr/cof/crazyrunner/hair"
     "$alphatest" "1"
-    "$nocull" "1"
 }

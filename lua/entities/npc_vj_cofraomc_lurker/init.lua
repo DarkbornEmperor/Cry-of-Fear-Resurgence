@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/classic/icky.mdl"
+ENT.Model = "models/vj_cofr/aom/classic/lurker.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
 ENT.TurningUseAllAxis = true
@@ -82,7 +82,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack" then
+    if key == "melee" then
         self:ExecuteMeleeAttack()
     end
 end
@@ -95,14 +95,14 @@ function ENT:OnThink()
         timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
         timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
         timer.Simple(0.5, function()
-            if IsValid(self) then
-                if IsValid(self:GetEnemy()) then
-                    self:SetSkin(0)
-                else
-                    self:SetSkin(1)
-                end
-            end
-        end)
+    if IsValid(self) then
+    if IsValid(self:GetEnemy()) then
+        self:SetSkin(0)
+    else
+        self:SetSkin(1)
+        end
+    end
+end)
         self.Icky_BlinkingT = CurTime() + math.Rand(2, 3.5)
     end
 end

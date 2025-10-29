@@ -80,6 +80,12 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
+    elseif key == "flicker_on" then
+        self:SetRenderFX(kRenderFxFlickerSlow)
+        self:SetRenderMode(RENDERMODE_NORMAL)
+    elseif key == "flicker_off" then
+        self:SetRenderFX(kRenderFxNone)
+        self:SetRenderMode(RENDERMODE_NORMAL)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,7 +128,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
         end
     end
 end
- if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
+ if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return true end
  if CurTime() > self.Stranger_NextEnemyDamageT then
  if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
     ent:TakeDamage(10,self,self)
@@ -145,8 +151,6 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
     VJ.STOPSOUND(self.Stranger_HeartBeat)
 end
     if status == "Init" then
-        self:SetRenderFX(kRenderFxFlickerSlow)
-        self:SetRenderMode(RENDERMODE_NORMAL)
         self.DeathAnimationTime = math.Rand(0.75,1.25)
         VJ_COFR_DeathCode(self)
     end

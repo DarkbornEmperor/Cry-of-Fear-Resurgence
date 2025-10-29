@@ -2,5 +2,4 @@
 {
     "$basetexture" "models/vj_cofr/cof/croucher/hair_2"
     "$alphatest" "1"
-    "$nocull" "1"
 }

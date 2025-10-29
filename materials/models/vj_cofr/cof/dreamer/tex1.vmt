@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/dreamer/tex1"
+    "$nocull" "1"
 }

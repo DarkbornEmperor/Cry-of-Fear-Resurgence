@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/wheelchair_monster.mdl"
+ENT.Model = "models/vj_cofr/aom/wheelchair_twitcher.mdl"
 ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
@@ -13,7 +13,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack2"}
+ENT.AnimTbl_MeleeAttack = "vjseq_attack2"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 30
@@ -64,7 +64,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("mouth")).Pos,self:GetAngles())
     end

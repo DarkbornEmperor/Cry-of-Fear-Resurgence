@@ -97,7 +97,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "suicide" then
         VJ.EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 75, 100)

@@ -24,7 +24,7 @@ ENT.Model = "models/vj_cofr/cof/hookedhead.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
-ENT.SoundTbl_OnCollide = "vj_cofr/cof/roofboss/rb_headhit.wav"
+ENT.SoundTbl_OnCollide = "vj_cofr/cof/carcass/rb_headhit.wav"
 ENT.CollisionDecal = "VJ_COFR_Blood_Red_Large"
 -- Custom
 local defVec = Vector(0, 0, 0)
@@ -41,8 +41,8 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headshoot.wav", 75, 100)
-    timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100) self:OnDestroy() end end)
+    VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_headshoot.wav", 75, 100)
+    timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_headdeath.wav", 75, 100) self:OnDestroy() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
@@ -68,7 +68,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo)
-    VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_headdeath.wav", 75, 100)
+    VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_headdeath.wav", 75, 100)
     self:OnDestroy()
     self:Remove()
 end

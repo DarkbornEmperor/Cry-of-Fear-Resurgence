@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/aom/face/classic/ag_chest"
-    "$additive" 1
+    "$additive" "1"
     "$nodecal" "1"
 }

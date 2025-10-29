@@ -90,7 +90,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "barbedwire_break" then
         VJ.EmitSound(self, "vj_cofr/cof/sewmo/break_free.wav", 75, 100)

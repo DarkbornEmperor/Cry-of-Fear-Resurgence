@@ -44,11 +44,11 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/crazylady/knife_hitbody1.wav",
-"vj_cofr/cof/crazylady/knife_hitbody2.wav"
+"vj_cofr/cof/drowned/knife_hitbody1.wav",
+"vj_cofr/cof/drowned/knife_hitbody2.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/crazylady/knife_swing.wav"
+"vj_cofr/cof/drowned/knife_swing.wav"
 
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -59,7 +59,7 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ENT.SoundTbl_Drowned_Suicide =
-"vj_cofr/cof/crazylady/suicide_attempt.wav"
+"vj_cofr/cof/drowned/suicide_attempt.wav"
 
 -- Custom
 ENT.Drowned_Baby = false
@@ -73,25 +73,25 @@ util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/crazylady/lady_alert10.wav",
-    "vj_cofr/cof/crazylady/lady_alert20.wav",
-    "vj_cofr/cof/crazylady/lady_alert30.wav"
+    "vj_cofr/cof/drowned/lady_alert10.wav",
+    "vj_cofr/cof/drowned/lady_alert20.wav",
+    "vj_cofr/cof/drowned/lady_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/crazylady/lady_attack1.wav",
-    "vj_cofr/cof/crazylady/lady_attack2.wav"
+    "vj_cofr/cof/drowned/lady_attack1.wav",
+    "vj_cofr/cof/drowned/lady_attack2.wav"
 }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/cof/crazylady/lady_attack1.wav",
-    "vj_cofr/cof/crazylady/lady_attack2.wav"
+    "vj_cofr/cof/drowned/lady_attack1.wav",
+    "vj_cofr/cof/drowned/lady_attack2.wav"
 }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/crazylady/lady_pain1.wav",
-    "vj_cofr/cof/crazylady/lady_pain2.wav"
+    "vj_cofr/cof/drowned/lady_pain1.wav",
+    "vj_cofr/cof/drowned/lady_pain2.wav"
 }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/crazylady/lady_pain1.wav",
-    "vj_cofr/cof/crazylady/lady_pain2.wav"
+    "vj_cofr/cof/drowned/lady_pain1.wav",
+    "vj_cofr/cof/drowned/lady_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,12 +105,12 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack" then
+    if key == "melee" then
         self:ExecuteMeleeAttack()
-    elseif key == "attack_range" then
+    elseif key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "baby_appear" then
-        VJ.EmitSound(self,"vj_cofr/cof/crazylady/baby_burst.wav", 75, 100)
+        VJ.EmitSound(self,"vj_cofr/cof/drowned/baby_burst.wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
         self:SetBodygroup(0,1)
     elseif key == "death" then
@@ -165,7 +165,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
         end
     end
 end
- if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return end
+ if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return true end
  if CurTime() > self.Drowned_NextEnemyDamageT then
  if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
  if ent:IsPlayer() then

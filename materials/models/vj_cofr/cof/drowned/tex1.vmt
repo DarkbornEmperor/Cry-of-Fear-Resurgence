@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/crazyrunner/tex1"
+    "$nocull" "1"
 }

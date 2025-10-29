@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/classic/islave.mdl"
+ENT.Model = "models/vj_cofr/aom/classic/ghost.mdl"
 ENT.StartHealth = 300
 ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.NextMeleeAttackTime = 0
@@ -49,9 +49,9 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
-    elseif key == "attack_range" then
+    elseif key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)

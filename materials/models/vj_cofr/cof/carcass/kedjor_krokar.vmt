@@ -3,5 +3,4 @@
     "$basetexture" "models/vj_cofr/cof/carcass/kedjor_krokar"
     "$alphatest" "1"
     "$nodecal" "1"
-    "$nocull" "1"
 }

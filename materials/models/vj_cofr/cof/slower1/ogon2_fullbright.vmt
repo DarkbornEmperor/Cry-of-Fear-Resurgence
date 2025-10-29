@@ -8,6 +8,6 @@
     "$emissiveBlendTint" "[1 1 1]"
     "$emissiveBlendStrength" 0.5
     "$emissiveBlendScrollVector" "[0 0]"
-    "$additive" 1
+    "$additive" "1"
     "$nodecal" "1"
 }

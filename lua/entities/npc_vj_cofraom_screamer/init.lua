@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/controller.mdl"
+ENT.Model = "models/vj_cofr/aom/screamer.mdl"
 ENT.StartHealth = 170
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL
@@ -128,7 +128,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
- if key == "attack_range" or key == "attack_rangeclose" then
+ if key == "range" or key == "attack_rangeclose" then
  if IsValid(self.soul1) then
     self.soul1:SetNoDraw(true)
 end

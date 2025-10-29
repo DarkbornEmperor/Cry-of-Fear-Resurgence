@@ -41,8 +41,8 @@ ENT.ControllerParams = {
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/doc_ai/doctorbattle.mp3",
-"vj_cofr/cof/doc_ai/doctorbattle2.mp3"
+"vj_cofr/cof/doctorboss/doctorbattle.mp3",
+"vj_cofr/cof/doctorboss/doctorbattle2.mp3"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -63,22 +63,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_Init()
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/doc_ai/ouch1.wav",
-    "vj_cofr/cof/doc_ai/ouch2.wav",
-    "vj_cofr/cof/doc_ai/ouch3.wav",
-    "vj_cofr/cof/doc_ai/ouch4.wav",
-    "vj_cofr/cof/doc_ai/ouch5.wav",
-    "vj_cofr/cof/doc_ai/ouch6.wav",
-    "vj_cofr/cof/doc_ai/ouch7.wav"
+    "vj_cofr/cof/doctorboss/ouch1.wav",
+    "vj_cofr/cof/doctorboss/ouch2.wav",
+    "vj_cofr/cof/doctorboss/ouch3.wav",
+    "vj_cofr/cof/doctorboss/ouch4.wav",
+    "vj_cofr/cof/doctorboss/ouch5.wav",
+    "vj_cofr/cof/doctorboss/ouch6.wav",
+    "vj_cofr/cof/doctorboss/ouch7.wav"
 }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/doc_ai/ouch1.wav",
-    "vj_cofr/cof/doc_ai/ouch2.wav",
-    "vj_cofr/cof/doc_ai/ouch3.wav",
-    "vj_cofr/cof/doc_ai/ouch4.wav",
-    "vj_cofr/cof/doc_ai/ouch5.wav",
-    "vj_cofr/cof/doc_ai/ouch6.wav",
-    "vj_cofr/cof/doc_ai/ouch7.wav"
+    "vj_cofr/cof/doctorboss/ouch1.wav",
+    "vj_cofr/cof/doctorboss/ouch2.wav",
+    "vj_cofr/cof/doctorboss/ouch3.wav",
+    "vj_cofr/cof/doctorboss/ouch4.wav",
+    "vj_cofr/cof/doctorboss/ouch5.wav",
+    "vj_cofr/cof/doctorboss/ouch6.wav",
+    "vj_cofr/cof/doctorboss/ouch7.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

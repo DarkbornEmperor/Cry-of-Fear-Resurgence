@@ -15,8 +15,8 @@ ENT.Category = "Cry of Fear Resurgence"
 if !SERVER then return end
 
 local models = {
-   "models/vj_cofr/aom/corpse.mdl",
-   "models/vj_cofr/aom/corpse2.mdl"
+   "models/vj_cofr/aom/sickcorpse.mdl",
+   "models/vj_cofr/aom/sickcorpse2.mdl"
 }
 
 function ENT:Initialize()

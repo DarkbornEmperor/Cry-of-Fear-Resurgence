@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/agrunt.mdl"
+ENT.Model = "models/vj_cofr/aom/face.mdl"
 ENT.StartHealth = 350
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
@@ -129,9 +129,9 @@ end
 function ENT:OnInput(key,activator,caller,data)
  if key == "step" then
     self:PlayFootstepSound()
- elseif key == "attack" then
+ elseif key == "melee" then
     self:ExecuteMeleeAttack()
- elseif key == "attack_range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+ elseif key == "range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
     self:ExecuteRangeAttack()
  if IsValid(self.face) then
     self.face:SetNoDraw(false)

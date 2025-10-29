@@ -78,7 +78,7 @@ end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack_range" then
+    if key == "range" then
         self:ExecuteRangeAttack()
     end
 end

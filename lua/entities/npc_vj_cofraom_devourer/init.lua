@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/mouth_monster.mdl"
+ENT.Model = "models/vj_cofr/aom/devourer.mdl"
 ENT.SightDistance = 1024
 ENT.SightAngle = 360
 ENT.StartHealth = 50
@@ -83,7 +83,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack" then
+    if key == "melee" then
         self:ExecuteMeleeAttack()
     end
 end

@@ -10,7 +10,7 @@ ENT.Monster = {
     {class="npc_vj_cofraom_twitcher2",chance=1},
     {class="npc_vj_cofraom_twitcher3",chance=1},
     {class="npc_vj_cofraom_twitcher4",chance=1},
-    {class="npc_vj_cofraom_twitcher_da",chance=2},
+    {class="npc_vj_cofraomda_twitcher",chance=2},
     {class="npc_vj_cofraom_handcrab",chance=3},
     {class="npc_vj_cofraom_wheelchair",chance=5},
     {class="npc_vj_cofraom_hellhound",chance=5},

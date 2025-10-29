@@ -15,7 +15,7 @@ ENT.Category = "CoF Resurgence: AoM"
 if !SERVER then return end
 
 function ENT:Initialize()
-    self:SetModel("models/vj_cofr/aom/pill_bottle.mdl")
+    self:SetModel("models/vj_cofr/aom/weapons/da/w_pills.mdl")
     self:PhysicsInit(SOLID_VPHYSICS)
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)

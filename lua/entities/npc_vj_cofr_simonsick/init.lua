@@ -81,7 +81,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
  if key == "prepare_range" then
     self:LiftProps()
- elseif key == "attack_range" then
+ elseif key == "range" then
     self:ExecuteRangeAttack()
 end
     if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -136,7 +136,7 @@ end
         self.Twisters[#self.Twisters + 1] = Twister4 -- Register the Twisters
         self.Twister4 = Twister4
 
-        local Twister5 = ents.Create("npc_vj_cofr_faceless_twisterv")
+        local Twister5 = ents.Create("npc_vj_cofr_faceless_twistervalve")
         Twister5:SetPos(self:GetPos() + self:GetForward()*-90 + self:GetUp()*10)
         Twister5:SetAngles(self:GetAngles())
         Twister5.VJ_NPC_Class = self.VJ_NPC_Class

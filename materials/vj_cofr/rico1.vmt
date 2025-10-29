@@ -1,7 +1,7 @@
 "UnlitGeneric"
 {
     "$basetexture" "vj_cofr/rico1"
-    "$additive" 1
+    "$additive" "1"
     "Proxies"
     {
         "AnimatedTexture"

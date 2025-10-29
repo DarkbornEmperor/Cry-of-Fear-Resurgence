@@ -37,11 +37,11 @@ ENT.SoundTbl_FootStep =
 "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/crazylady/knife_hitbody1.wav",
-"vj_cofr/cof/crazylady/knife_hitbody2.wav"
+"vj_cofr/cof/drowned/knife_hitbody1.wav",
+"vj_cofr/cof/drowned/knife_hitbody2.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/crazylady/knife_swing.wav"
+"vj_cofr/cof/drowned/knife_swing.wav"
 
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -60,9 +60,9 @@ ENT.CrazyRunner_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/rcrazy/rc_alert1.wav",
-    "vj_cofr/cof/rcrazy/rc_alert2.wav",
-    "vj_cofr/cof/rcrazy/rc_alert3.wav"
+    "vj_cofr/cof/crazyrunner/rc_alert1.wav",
+    "vj_cofr/cof/crazyrunner/rc_alert2.wav",
+    "vj_cofr/cof/crazyrunner/rc_alert3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -99,7 +99,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if math.random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", "vj_cofr/cof/rcrazy/screamloud.wav")
+        self:PlaySoundSystem("Alert", "vj_cofr/cof/crazyrunner/screamloud.wav")
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

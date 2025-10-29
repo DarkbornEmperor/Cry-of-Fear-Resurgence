@@ -69,7 +69,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack" then
+    if key == "melee" then
         self:ExecuteMeleeAttack()
     end
 end

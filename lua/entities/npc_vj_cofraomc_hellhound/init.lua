@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/classic/houndeye.mdl"
+ENT.Model = "models/vj_cofr/aom/classic/hellhound.mdl"
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false //2.35
 ENT.NextMeleeAttackTime = 2

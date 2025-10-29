@@ -66,53 +66,77 @@ ENT.Twitcher_Transparent = false
 function ENT:PreInit()
     if self:GetClass() == "npc_vj_cofraom_twitcher1" then
         self.Model = {
-        "models/vj_cofr/aom/zombie.mdl",
-        "models/vj_cofr/aom/zombie2.mdl",
-        "models/vj_cofr/aom/zombie3.mdl",
-        "models/vj_cofr/aom/zombie4.mdl",
-        "models/vj_cofr/aom/zombie5.mdl",
+        "models/vj_cofr/aom/twitcher1_barney.mdl",
+        "models/vj_cofr/aom/twitcher1_csdamage.mdl",
+        "models/vj_cofr/aom/twitcher1_doctor.mdl",
+        "models/vj_cofr/aom/twitcher1_girl.mdl",
+        "models/vj_cofr/aom/twitcher1_headless.mdl",
+        "models/vj_cofr/aom/twitcher1_headless2.mdl",
+        "models/vj_cofr/aom/twitcher1_normal.mdl",
+        "models/vj_cofr/aom/twitcher1_patient.mdl",
+        "models/vj_cofr/aom/twitcher1_reofficer.mdl",
+        "models/vj_cofr/aom/twitcher1_zomb.mdl",
+        "models/vj_cofr/aom/twitcher1_zombie2.mdl"
 }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher2" then
         self.Model = {
-        "models/vj_cofr/aom/zombie2_1.mdl",
-        "models/vj_cofr/aom/zombie2_2.mdl",
-        "models/vj_cofr/aom/zombie2_3.mdl",
-        "models/vj_cofr/aom/zombie2_4.mdl",
-        "models/vj_cofr/aom/zombie2_5.mdl",
+        "models/vj_cofr/aom/twitcher2_barney.mdl",
+        "models/vj_cofr/aom/twitcher2_csdamage.mdl",
+        "models/vj_cofr/aom/twitcher2_doctor.mdl",
+        "models/vj_cofr/aom/twitcher2_girl.mdl",
+        "models/vj_cofr/aom/twitcher2_headless.mdl",
+        "models/vj_cofr/aom/twitcher2_headless2.mdl",
+        "models/vj_cofr/aom/twitcher2_normal.mdl",
+        "models/vj_cofr/aom/twitcher2_patient.mdl",
+        "models/vj_cofr/aom/twitcher2_reofficer.mdl",
+        "models/vj_cofr/aom/twitcher2_zomb.mdl",
+        "models/vj_cofr/aom/twitcher2_zombie2.mdl"
 }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher3" then
         self.Model = {
-        "models/vj_cofr/aom/zombie3_1.mdl",
-        "models/vj_cofr/aom/zombie3_2.mdl",
-        "models/vj_cofr/aom/zombie3_3.mdl",
-        "models/vj_cofr/aom/zombie3_4.mdl",
-        "models/vj_cofr/aom/zombie3_5.mdl",
+        "models/vj_cofr/aom/twitcher3_barney.mdl",
+        "models/vj_cofr/aom/twitcher3_csdamage.mdl",
+        "models/vj_cofr/aom/twitcher3_doctor.mdl",
+        "models/vj_cofr/aom/twitcher3_girl.mdl",
+        "models/vj_cofr/aom/twitcher3_headless.mdl",
+        "models/vj_cofr/aom/twitcher3_headless2.mdl",
+        "models/vj_cofr/aom/twitcher3_normal.mdl",
+        "models/vj_cofr/aom/twitcher3_patient.mdl",
+        "models/vj_cofr/aom/twitcher3_reofficer.mdl",
+        "models/vj_cofr/aom/twitcher3_zomb.mdl",
+        "models/vj_cofr/aom/twitcher3_zombie2.mdl"
 }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher4" then
         self.Model = {
-        "models/vj_cofr/aom/zombie4_1.mdl",
-        "models/vj_cofr/aom/zombie4_2.mdl",
-        "models/vj_cofr/aom/zombie4_3.mdl",
-        "models/vj_cofr/aom/zombie4_4.mdl",
-        "models/vj_cofr/aom/zombie4_5.mdl"
+        "models/vj_cofr/aom/twitcher4_barney.mdl",
+        "models/vj_cofr/aom/twitcher4_csdamage.mdl",
+        "models/vj_cofr/aom/twitcher4_doctor.mdl",
+        "models/vj_cofr/aom/twitcher4_girl.mdl",
+        "models/vj_cofr/aom/twitcher4_headless.mdl",
+        "models/vj_cofr/aom/twitcher4_headless2.mdl",
+        "models/vj_cofr/aom/twitcher4_normal.mdl",
+        "models/vj_cofr/aom/twitcher4_patient.mdl",
+        "models/vj_cofr/aom/twitcher4_reofficer.mdl",
+        "models/vj_cofr/aom/twitcher4_zomb.mdl",
+        "models/vj_cofr/aom/twitcher4_zombie2.mdl"
 }
     elseif self:GetClass() == "npc_vj_cofraomc_twitcher" then
         self.Model = {
-        "models/vj_cofr/aom/classic/zombie.mdl",
-        "models/vj_cofr/aom/classic/zombie2.mdl",
-        "models/vj_cofr/aom/classic/zombie3.mdl",
-        "models/vj_cofr/aom/classic/zombie4.mdl",
-        "models/vj_cofr/aom/classic/zombie5.mdl",
-        "models/vj_cofr/aom/classic/zombie6.mdl",
-        "models/vj_cofr/aom/classic/zombie7.mdl",
-        "models/vj_cofr/aom/classic/zombie8.mdl",
-        "models/vj_cofr/aom/classic/zombie9.mdl",
-        "models/vj_cofr/aom/classic/zombie10.mdl",
-        "models/vj_cofr/aom/classic/zombie11.mdl"
+        "models/vj_cofr/aom/classic/twitcher_barney.mdl",
+        "models/vj_cofr/aom/classic/twitcher_csdamage.mdl",
+        "models/vj_cofr/aom/classic/twitcher_doctor.mdl",
+        "models/vj_cofr/aom/classic/twitcher_girl.mdl",
+        "models/vj_cofr/aom/classic/twitcher_headless.mdl",
+        "models/vj_cofr/aom/classic/twitcher_headless2.mdl",
+        "models/vj_cofr/aom/classic/twitcher_normal.mdl",
+        "models/vj_cofr/aom/classic/twitcher_patient.mdl",
+        "models/vj_cofr/aom/classic/twitcher_reofficer.mdl",
+        "models/vj_cofr/aom/classic/twitcher_zomb.mdl",
+        "models/vj_cofr/aom/classic/twitcher_zombie2.mdl"
 }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
         self.Model =
-        "models/vj_cofr/aom/zombie_da.mdl"
+        "models/vj_cofr/aom/da/twitcher.mdl"
 
     elseif self:GetClass() == "npc_vj_cofraom_twitcher1_hd" then
         self.Model =
@@ -156,16 +180,16 @@ end
  if (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
     self:DrawShadow(false)
 end
-     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
-     if math.random(1,10) == 1 then
+    if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
+    if math.random(1,10) == 1 then
         self.Twitcher_Invisible = true
         self:SetNoDraw(true)
         self:DrawShadow(false)
 
-     elseif math.random(1,10) == 1 then
-         self.Twitcher_Transparent = true
-         self:SetRenderFX(kRenderFxDistort)
-         self:SetRenderMode(RENDERMODE_TRANSADD)
+    elseif math.random(1,10) == 1 then
+        self.Twitcher_Transparent = true
+        self:SetRenderFX(kRenderFxDistort)
+        self:SetRenderMode(RENDERMODE_TRANSADD)
         end
     end
 end
@@ -235,31 +259,6 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if self:GetModel() == "models/vj_cofr/aom/zombie.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie2_1.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie3_1.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie4_1.mdl" then
-    self:SetBodygroup(0,math.random(0,3))
-
- elseif self:GetModel() == "models/vj_cofr/aom/zombie2.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie3_2.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie4_2.mdl" then
-    self:SetBodygroup(0,math.random(0,2))
-
- elseif self:GetModel() == "models/vj_cofr/aom/zombie3.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie2_5.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie3_5.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie4_5.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombie5_5.mdl" then
-    self:SetBodygroup(0,math.random(0,1))
-
- elseif self:GetModel() == "models/vj_cofr/aom/zombiehd.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombiehd3.mdl"
- or self:GetModel() == "models/vj_cofr/aom/zombiehd4.mdl" then
-    self:SetBodygroup(0,math.random(0,10))
-end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Twitcher_Init()
     self:TwitcherSounds()
@@ -268,7 +267,7 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)

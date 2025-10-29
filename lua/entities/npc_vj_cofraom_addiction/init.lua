@@ -5,7 +5,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/david_monster.mdl"
+ENT.Model = "models/vj_cofr/aom/addiction.mdl"
 ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
@@ -43,17 +43,17 @@ ENT.ControllerParams = {
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
 ENT.SoundTbl_FireLoop =
-"vj_cofr/aom/davidbad/fire_loop.wav"
+"vj_cofr/aom/addiction/fire_loop.wav"
 
 ENT.SoundTbl_FireIgnite =
-"vj_cofr/aom/davidbad/fire_ignite.wav"
+"vj_cofr/aom/addiction/fire_ignite.wav"
 
 ENT.SoundTbl_FireOff =
-"vj_cofr/aom/davidbad/fire_off.wav"
+"vj_cofr/aom/addiction/fire_off.wav"
 
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/aom/davidbad/sickness.mp3",
-"vj_cofr/aom/davidbad/4motherkill.wav"
+"vj_cofr/aom/addiction/sickness.mp3",
+"vj_cofr/aom/addiction/4motherkill.wav"
 }
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -76,20 +76,20 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Addiction_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/aom/davidbad/db_alert10.wav",
-    "vj_cofr/aom/davidbad/db_alert20.wav",
-    "vj_cofr/aom/davidbad/db_alert30.wav"
+    "vj_cofr/aom/addiction/db_alert10.wav",
+    "vj_cofr/aom/addiction/db_alert20.wav",
+    "vj_cofr/aom/addiction/db_alert30.wav"
 }
     self.SoundTbl_BeforeMeleeAttack =
-    "vj_cofr/aom/davidbad/david_attack.wav"
+    "vj_cofr/aom/addiction/david_attack.wav"
 
     self.SoundTbl_Pain = {
-    "vj_cofr/aom/davidbad/db_pain1.wav",
-    "vj_cofr/aom/davidbad/db_pain2.wav"
+    "vj_cofr/aom/addiction/db_pain1.wav",
+    "vj_cofr/aom/addiction/db_pain2.wav"
 }
     self.SoundTbl_Death = {
-    "vj_cofr/aom/davidbad/db_pain1.wav",
-    "vj_cofr/aom/davidbad/db_pain2.wav"
+    "vj_cofr/aom/addiction/db_pain1.wav",
+    "vj_cofr/aom/addiction/db_pain2.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -102,12 +102,12 @@ end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "axe_grab" then
         if self:GetBodygroup(0) == 0 then self:SetBodygroup(0,1)
         elseif self:GetBodygroup(0) == 1 then self:SetBodygroup(0,0) end
-        VJ.EmitSound(self, "vj_cofr/aom/davidbad/david_axegrab.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/aom/addiction/david_axegrab.wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -178,9 +178,9 @@ function ENT:OnMeleeAttack(status,enemy)
         self.MeleeAttackDamage = 20
         self.HasMeleeAttackMissSounds = false
         self.SoundTbl_MeleeAttackExtra = {
-        "vj_cofr/aom/davidbad/david_hurt.wav",
-        "vj_cofr/aom/davidbad/david_hurt2.wav",
-        "vj_cofr/aom/davidbad/david_hurt3.wav"
+        "vj_cofr/aom/addiction/david_hurt.wav",
+        "vj_cofr/aom/addiction/david_hurt2.wav",
+        "vj_cofr/aom/addiction/david_hurt3.wav"
 }
     elseif self:GetBodygroup(0) == 1 then
         self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
@@ -205,7 +205,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
  if status == "Init" then
  local ent = self:GetEnemy()
  if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
-    VJ.EmitSound(ent, {"vj_cofr/aom/davidbad/thunder_attack1.wav","vj_cofr/aom/davidbad/thunder_attack2.wav","vj_cofr/aom/davidbad/thunder_attack3.wav"}, 100, 100)
+    VJ.EmitSound(ent, {"vj_cofr/aom/addiction/thunder_attack1.wav","vj_cofr/aom/addiction/thunder_attack2.wav","vj_cofr/aom/addiction/thunder_attack3.wav"}, 100, 100)
     local color = Color(0, 161, 255, 255) -- The shock wave color
     local dmg = 20 -- How much damage should the shock wave do?
     local enePos = ent:GetPos()
@@ -233,7 +233,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:DeleteOnRemove(lightningFX)
     self.lightningFX = lightningFX
 
-    VJ.EmitSound(ent, "vj_cofr/aom/davidbad/thunder_hit.wav", 90, 100) end end)
+    VJ.EmitSound(ent, "vj_cofr/aom/addiction/thunder_hit.wav", 90, 100) end end)
     end
 end
     return true

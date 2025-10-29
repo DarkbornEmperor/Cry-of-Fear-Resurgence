@@ -20,7 +20,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_cofr/aom/hornet.mdl"
+ENT.Model = "models/vj_cofr/aom/eyeball.mdl"
 ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 6
@@ -38,7 +38,7 @@ ENT.Eyeball_Classic = false
 function ENT:Init()
     timer.Simple(5, function() if IsValid(self) then
     if !self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100)
-    elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
+    elseif self.Eyeball_Classic then self.Model = "models/vj_cofr/aom/classic/eyeball.mdl" VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
         self:Remove()
     end
 end)

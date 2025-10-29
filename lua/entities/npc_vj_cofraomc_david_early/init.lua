@@ -6,8 +6,8 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_cofr/aom/classic/david_early.mdl"
-ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/pill_bottle.mdl"
+ENT.Model = "models/vj_cofr/aom/classic/david_dead.mdl"
+ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/w_pills.mdl"
 -- Custom
 ENT.Human_Type = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -76,7 +76,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
        self:PlayFootstepSound()
-    elseif key == "attack" then
+    elseif key == "melee" then
        self:ExecuteMeleeAttack()
        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)

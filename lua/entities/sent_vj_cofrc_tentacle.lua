@@ -45,7 +45,7 @@ function ENT:Initialize()
  if !IsValid(self.Assignee) then
     self:SetPos(self:GetPos() + self:GetUp()*-40)
 end
-    self:SetModel("models/vj_cofr/custom/tentacleboss.mdl")
+    self:SetModel("models/vj_cofr/cofcc/tentacleboss.mdl")
     //self:SetCollisionBounds(Vector(10, 10, 165), Vector(-10, -10, 0))
     self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 200))
     self:SetMoveType(MOVETYPE_NONE)

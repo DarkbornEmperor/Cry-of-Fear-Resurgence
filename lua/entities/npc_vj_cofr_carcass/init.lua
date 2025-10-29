@@ -47,7 +47,7 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cof/roofboss/sophie3.mp3"
+"vj_cofr/cof/carcass/sophie3.mp3"
 
 ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh1.wav",
@@ -66,19 +66,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Carcass_Init()
     self.SoundTbl_Breath = {
-    "vj_cofr/cof/roofboss/rb_mouthidle1.wav",
-    "vj_cofr/cof/roofboss/rb_mouthidle2.wav"
+    "vj_cofr/cof/carcass/rb_mouthidle1.wav",
+    "vj_cofr/cof/carcass/rb_mouthidle2.wav"
 }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/cof/roofboss/rb_attack1.wav",
-    "vj_cofr/cof/roofboss/rb_attack2.wav"
+    "vj_cofr/cof/carcass/rb_attack1.wav",
+    "vj_cofr/cof/carcass/rb_attack2.wav"
 }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/roofboss/rb_hurt1.wav",
-    "vj_cofr/cof/roofboss/rb_hurt2.wav"
+    "vj_cofr/cof/carcass/rb_hurt1.wav",
+    "vj_cofr/cof/carcass/rb_hurt2.wav"
 }
     self.SoundTbl_Death =
-    "vj_cofr/cof/roofboss/rb_death.wav"
+    "vj_cofr/cof/carcass/rb_death.wav"
 
     if GetConVar("VJ_COFR_JoeBiden"):GetInt() == 1 then
         self.RangeAttackProjectiles = "obj_vj_cofr_biden"
@@ -94,12 +94,12 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack_range" then
+    if key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "stomach_open" then
-        VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_stomopen.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_stomopen.wav", 75, 100)
     elseif key == "stomach_close" then
-        VJ.EmitSound(self, "vj_cofr/cof/roofboss/rb_stomclose.wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_stomclose.wav", 75, 100)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -3,5 +3,4 @@
     "$basetexture" "models/vj_cofr/aom/twitcherwheelchair/BarbedWire"
     "$alphatest" "1"
     "$nodecal" "1"
-    "$nocull" "1"
 }

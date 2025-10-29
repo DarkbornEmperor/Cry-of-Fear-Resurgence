@@ -75,12 +75,12 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
         util.ScreenShake(self:GetPos(),10,100,0.4,300)
-    elseif key == "attack" then
+    elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 end
-    if key == "attack" && self:GetSequence() == self:LookupSequence("stamp") then
+    if key == "melee" && self:GetSequence() == self:LookupSequence("stamp") then
         util.ScreenShake(self:GetPos(),10,100,0.4,300)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)

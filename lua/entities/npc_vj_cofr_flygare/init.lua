@@ -99,9 +99,9 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "attack" then
+    if key == "melee" then
         self:ExecuteMeleeAttack()
-    elseif key == "attack_range" then
+    elseif key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 75, 100)
