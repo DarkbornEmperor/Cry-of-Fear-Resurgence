@@ -256,7 +256,7 @@ end
     "vj_cofr/aom/david/pl_pain6.wav",
     "vj_cofr/aom/david/pl_pain7.wav"
 }
-    if self:GetModel() == "models/vj_cofr/aom/classic/david_old.mdl" then
+    if self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" then
         self:SetBodygroup(0,math.random(0,1))
         end
     end
