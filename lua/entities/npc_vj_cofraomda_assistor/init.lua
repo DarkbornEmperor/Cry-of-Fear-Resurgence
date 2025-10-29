@@ -13,7 +13,7 @@ ENT.SoundTbl_FollowPlayer =
 "vj_cofr/aom/player_da/helpyou.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
-    if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end
+    if GetConVar("VJ_COFR_Flashlight"):GetInt() == 0 then return end
     if math.random(1,3) == 1 then
         self:SetBodygroup(0,1)
         self:SetSkin(1)
@@ -25,7 +25,7 @@ function ENT:AssistorFlashlight()
         light:SetKeyValue('farz', '1000')
         light:SetKeyValue('nearz', '10')
         light:SetKeyValue('shadowquality', '0')
-        light:Input( 'SpotlightTexture', NULL, NULL, "effects/flashlight001")
+        light:Input('SpotlightTexture', NULL, NULL, "effects/flashlight001")
         light:SetOwner(self)
         light:SetParent(self)
         light:Fire("setparentattachment", "flashlight")

@@ -17,7 +17,7 @@ ENT.SoundTbl_MedicOnHeal =
 ENT.Human_Type = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
-    if GetConVar("VJ_COFR_Assistor_Flashlight"):GetInt() == 0 then return end
+    if GetConVar("VJ_COFR_Flashlight"):GetInt() == 0 then return end
     if math.random(1,3) == 1 then
         self:SetBodygroup(0,1)
         local light = ents.Create("env_projectedtexture")
@@ -28,7 +28,7 @@ function ENT:AssistorFlashlight()
         light:SetKeyValue('farz', '1000')
         light:SetKeyValue('nearz', '10')
         light:SetKeyValue('shadowquality', '0')
-        light:Input( 'SpotlightTexture', NULL, NULL, "effects/flashlight001")
+        light:Input('SpotlightTexture', NULL, NULL, "effects/flashlight001")
         light:SetOwner(self)
         light:SetParent(self)
         light:Fire("setparentattachment", "flashlight")

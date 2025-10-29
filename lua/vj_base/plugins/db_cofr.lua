@@ -93,7 +93,7 @@
     VJ.AddNPC("Random Monster Spawner","sent_vj_cofr_mon_sp",spawnCategory)
     VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofr_mon_sinsp",spawnCategory)
 
-    -- Custom Campaigns -- All assets come from their respective Custom Campaigns: Halloween Collab, Lost Echo, Memories, Out of It, Recidivist & The Scrolls of Shaimoon
+    -- Cry of Fear Custom Campaigns -- All assets come from their respective Custom Campaigns: Halloween Collab, Lost Echo, Memories, Out of It, Recidivist & The Scrolls of Shaimoon
     local spawnCategory = "CoF Resurgence: Custom Campaigns"
     VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofr.png"})
 
@@ -266,7 +266,7 @@
     VJ.AddConVar("VJ_COFR_DropAmmo", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Suicider_Headshot", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Assistor_Flashlight", 0, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_Flashlight", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Suicider_NewSound", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_OldWepSounds", 0, {FCVAR_ARCHIVE})
@@ -328,7 +328,7 @@ end
                 VJ_COFR_DropAmmo = "0",
                 VJ_COFR_Suicider_Headshot = "1",
                 VJ_COFR_Ghost_SlowSound = "1",
-                VJ_COFR_Assistor_Flashlight = "0",
+                VJ_COFR_Flashlight = "0",
                 VJ_COFR_Suicider_ExtraPistol = "0",
                 VJ_COFR_Suicider_NewSound = "1",
                 VJ_COFR_OldWepSounds = "0",
@@ -355,7 +355,7 @@ end
             panel:CheckBox("Enable SNPCs Dropping Items On Death?","VJ_COFR_DropAmmo")
             panel:CheckBox("Enable Instant Headshot Death For Suicider?","VJ_COFR_Suicider_Headshot")
             panel:CheckBox("Enable Ghost's Tinnitus Sound After Being Hit?","VJ_COFR_Ghost_SlowSound")
-            panel:CheckBox("Enable Flashlight For Assistor & Police Officers?","VJ_COFR_Assistor_Flashlight")
+            panel:CheckBox("Enable Flashlight For Assistor & Police Officers?","VJ_COFR_Flashlight")
             panel:CheckBox("Enable P345 For Suiciders?","VJ_COFR_Suicider_ExtraPistol")
             panel:CheckBox("Enable Updated Glock Sound For Suiciders & Book Simon?","VJ_COFR_Suicider_NewSound")
             panel:CheckBox("Enable Old Weapon Sounds?","VJ_COFR_OldWepSounds")
