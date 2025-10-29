@@ -68,7 +68,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
  if status == "Init" then
  local ent = self:GetEnemy()
  if (IsValid(ent) && ent:OnGround()) or self.VJ_IsBeingControlled then
-    local Tentacle = ents.Create("sent_vj_cofrc_tentacle")
+    local Tentacle = ents.Create("sent_vj_cofrcc_tentacle")
     Tentacle:SetPos(ent:GetPos() + self:GetForward()*-30 + self:GetUp()*-40 + self:GetRight()*math.random(30,-30))
     Tentacle:SetAngles(self:GetAngles())
     Tentacle.Assignee = self

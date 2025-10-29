@@ -132,7 +132,7 @@
     VJ.AddNPC("Patrick Bateman (Boss)","npc_vj_cofrcc_patrick_boss",spawnCategory)
     VJ.AddNPC("Pumpa","npc_vj_cofrcc_pumpa",spawnCategory)
     VJ.AddNPC("Shaimoon","npc_vj_cofrcc_shaimoon",spawnCategory)
-    VJ.AddNPC("Sick Simon (Book)","npc_vj_cofrcc_simonbook_sick",spawnCategory)
+    VJ.AddNPC("Sick Simon (Book)","npc_vj_cofrcc_simonsick_book",spawnCategory)
     VJ.AddNPC("Abomination","npc_vj_cofrcc_abomination",spawnCategory)
     VJ.AddNPC("The Mummy","npc_vj_cofrcc_mummy",spawnCategory)
 
