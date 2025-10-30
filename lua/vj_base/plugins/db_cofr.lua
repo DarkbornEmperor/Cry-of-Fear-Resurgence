@@ -176,6 +176,7 @@
 
     -- Bosses --
     VJ.AddNPC("The Addiction","npc_vj_cofraom_addiction",spawnCategory)
+    VJ.AddNPC("The Addiction (Dark Assistance)","npc_vj_cofraomda_addiction",spawnCategory)
 
     -- Friendlies --
     VJ.AddNPC("Assistor","npc_vj_cofraomda_assistor",spawnCategory)
@@ -184,6 +185,7 @@
     VJ.AddNPC("David Leatherhoff (Dead)","npc_vj_cofraom_david_dead",spawnCategory)
     VJ.AddNPC("David Leatherhoff (Dead) (Classic)","npc_vj_cofraomc_david_dead",spawnCategory)
     VJ.AddNPC("David Leatherhoff (Dark Assistance)","npc_vj_cofraomda_david",spawnCategory)
+    VJ.AddNPC("David Leatherhoff (Dead) (Dark Assistance)","npc_vj_cofraomda_david_dead",spawnCategory)
     VJ.AddNPC("David Leatherhoff (Early)","npc_vj_cofraomc_david_early",spawnCategory)
     //VJ.AddNPC("David Leatherhoff (Source)","npc_vj_cofraom_davidsource",spawnCategory)
 

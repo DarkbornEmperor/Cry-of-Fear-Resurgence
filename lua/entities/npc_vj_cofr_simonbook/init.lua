@@ -250,19 +250,19 @@ function ENT:SetSledgehammerFlare()
     self.SoundTbl_Breath =
     "vj_cofr/cof/booksimon/flare_burn.wav"
 
-    local FlareLight = ents.Create("light_dynamic")
-    FlareLight:SetKeyValue("brightness", "1")
-    FlareLight:SetKeyValue("distance", "500")
-    FlareLight:SetLocalPos(self:GetPos())
-    FlareLight:SetLocalAngles( self:GetAngles() )
-    FlareLight:Fire("Color", "255 0 0")
-    FlareLight:SetKeyValue("style","1")
-    FlareLight:SetParent(self)
-    FlareLight:Spawn()
-    FlareLight:Activate()
-    FlareLight:Fire("SetParentAttachment","flare")
-    FlareLight:Fire("TurnOn", "", 0)
-    self:DeleteOnRemove(FlareLight)
+    local flaremuzLight = ents.Create("muzLight_dynamic")
+    flaremuzLight:SetKeyValue("brightness", "1")
+    flaremuzLight:SetKeyValue("distance", "500")
+    flaremuzLight:SetLocalPos(self:GetPos())
+    flaremuzLight:SetLocalAngles(self:GetAngles())
+    flaremuzLight:Fire("Color", "255 0 0")
+    flaremuzLight:SetKeyValue("style","1")
+    flaremuzLight:SetParent(self)
+    flaremuzLight:Spawn()
+    flaremuzLight:Activate()
+    flaremuzLight:Fire("SetParentAttachment","flare")
+    flaremuzLight:Fire("TurnOn", "", 0)
+    self:DeleteOnRemove(flaremuzLight)
 
     ParticleEffectAttach("vj_cofr_flare_sparks",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
     ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
@@ -286,33 +286,33 @@ function ENT:FireFX()
     muz:Activate()
     muz:Fire("Kill","",0.08)
 
-    local Light = ents.Create("light_dynamic")
-    Light:SetKeyValue("brightness", "4")
-    Light:SetKeyValue("distance", "120")
-    Light:SetLocalAngles(self:GetAngles())
-    Light:Fire("Color", "255 150 60")
-    //Light:SetParent(self)
-    Light:Spawn()
-    Light:Activate()
-    Light:Fire("TurnOn","",0)
-    Light:Fire("Kill","",0.07)
-    //self:DeleteOnRemove(Light)
+    local muzLight = ents.Create("muzLight_dynamic")
+    muzLight:SetKeyValue("brightness", "4")
+    muzLight:SetKeyValue("distance", "120")
+    muzLight:SetLocalAngles(self:GetAngles())
+    muzLight:Fire("Color", "255 150 60")
+    //muzLight:SetParent(self)
+    muzLight:Spawn()
+    muzLight:Activate()
+    muzLight:Fire("TurnOn","",0)
+    muzLight:Fire("Kill","",0.07)
+    //self:DeleteOnRemove(muzLight)
 
     if self.BookSimon_Shotgun then
         muz:Fire("SetParentAttachment","shotgun_muzzle")
-        Light:SetPos(self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos)
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos)
 
     elseif self.BookSimon_Glock then
         muz:Fire("SetParentAttachment","pistol_muzzle")
-        Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
 
     elseif self.BookSimon_TMP then
         muz:Fire("SetParentAttachment","tmp_muzzle")
-        Light:SetPos(self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos)
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos)
 
     elseif self.BookSimon_M16 then
         muz:Fire("SetParentAttachment","m16_muzzle")
-        Light:SetPos(self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos)
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

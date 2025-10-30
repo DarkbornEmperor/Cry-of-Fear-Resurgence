@@ -135,7 +135,7 @@ function ENT:OnThinkActive()
  local ent = self:GetEnemy()
  if self.Dead then return end
  if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-    self:PlayAnim(ACT_SIGNAL1,true,false,false)
+    self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
     self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
 end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
@@ -148,7 +148,7 @@ end
     /*if IsValid(ent) && ent:WaterLevel() != 3 then*/
         VJ.ApplyRadiusDamage(self,self,self:GetPos(),150,10,DMG_BURN,true,true)
 /*end*/
-        timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) then self.fireFX:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
+        timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,6 +169,21 @@ function ENT:FireSprite()
     fireFX:Fire("SetParentAttachment","fire")
     self:DeleteOnRemove(fireFX)
     self.fireFX = fireFX
+
+    local fireLight = ents.Create("light_dynamic")
+    fireLight:SetKeyValue("brightness", "1")
+    fireLight:SetKeyValue("distance", "250")
+    fireLight:SetLocalPos(self:GetPos())
+    fireLight:SetLocalAngles(self:GetAngles())
+    fireLight:Fire("Color", "182 136 11")
+    fireLight:SetKeyValue("style","1")
+    fireLight:SetParent(self)
+    fireLight:Spawn()
+    fireLight:Activate()
+    fireLight:Fire("SetParentAttachment","fire")
+    fireLight:Fire("TurnOn", "", 0)
+    self:DeleteOnRemove(fireLight)
+    self.fireLight = fireLight
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status,enemy)
