@@ -122,7 +122,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     local cont = self.VJ_TheController
     if IsValid(cont) then
         for _,v in pairs(ents.FindInSphere(ent:GetPos(),10)) do
-            if v != self && v != ent && (v:IsNPC() or v:IsPlayer()) then
+            if v != self && v != ent && v.VJ_ID_Living then
                 ent = v
             break
         end

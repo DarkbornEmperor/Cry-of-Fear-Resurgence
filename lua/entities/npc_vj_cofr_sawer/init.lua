@@ -102,6 +102,9 @@ function ENT:OnInput(key,activator,caller,data)
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
+    elseif key == "eye_close" then
+        self:SetSkin(0)
+        self:SetPoseParameter("aim_yaw", 0)
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -128,7 +131,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
  if status == "PreDamage" then
- if CurTime() > self.Sawer_NextFlinchT && math.random(1,16) == 1 && !self.Sawer_EyeOpen then
+ if CurTime() > self.Sawer_NextFlinchT && math.random(1,14) == 1 && !self.Sawer_EyeOpen then
     self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
     self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
 end
@@ -164,7 +167,6 @@ end
 
     timer.Simple(animTime,function()
     if IsValid(self) && IsValid(self.Sawer_Eye) then
-        self:SetSkin(0)
         self.Sawer_EyeOpen = false
         self.Sawer_Eye:Remove()
         self:RemoveFlags(FL_NOTARGET)

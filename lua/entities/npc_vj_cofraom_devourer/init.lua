@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/devourer.mdl"
 ENT.StartHealth = 50
-ENT.SightDistance = 1024
+ENT.SightDistance = 1270
 ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
@@ -104,9 +104,9 @@ function ENT:Devourer_CalculateTongue()
  local trHitPos = tr.HitPos
  local height = myPos:Distance(trHitPos)
  -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
- self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024)
+ self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024 + offset)
 
- if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_ID_Boss != true then
+ if IsValid(trHitEnt) && trHitEnt.VJ_ID_Living && self:CheckRelationship(trHitEnt) == D_HT && !trHitEnt.VJ_ID_Boss then
  -- If the grabbed enemy is a new enemy then reset the enemy values
  if self.Devourer_CurEnt != trHitEnt then
     self:Devourer_ResetEnt()

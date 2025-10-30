@@ -249,7 +249,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
  else
     dmginfo:ScaleDamage(0.00)
 
- if IsValid(attacker) && (attacker:IsNPC() or attacker:IsPlayer()) && attacker:GetClass() != "npc_stalker" then
+ if IsValid(attacker) && attacker.VJ_ID_Living && attacker:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
     attacker:TakeDamage(10,self,self)
     VJ.DamageSpecialEnts(self,attacker,dmginfo)
 end
