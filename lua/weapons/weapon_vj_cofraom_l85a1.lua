@@ -18,7 +18,7 @@ SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, -170, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(3.5, -2, -0.7)
+SWEP.WorldModel_CustomPositionOrigin = Vector(3.5, 1, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 45
@@ -37,7 +37,7 @@ function SWEP:Init()
     self:SetModelScale(0.60)
     local owner = self:GetOwner()
     if owner:GetClass() == "npc_vj_cofraomda_david" then
-        self.WorldModel_CustomPositionOrigin = Vector(3.5, -2.8, -0.7)
+        self.WorldModel_CustomPositionOrigin = Vector(3.5, 0, -0.7)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
