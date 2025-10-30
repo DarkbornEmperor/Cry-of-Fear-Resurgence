@@ -113,7 +113,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)
-    return self:GetAttachment(self:LookupAttachment("range")).Pos
+    return self:GetAttachment(self:LookupAttachment("stomach")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
