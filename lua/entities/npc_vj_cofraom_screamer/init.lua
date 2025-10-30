@@ -128,14 +128,14 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
- if key == "range" or key == "attack_rangeclose" then
+ if key == "range" or key == "range_close" then
  if IsValid(self.soul1) then
     self.soul1:SetNoDraw(true)
 end
  if IsValid(self.soul2) then
     self.soul2:SetNoDraw(true)
 end
- self.Screamer_HomingAttack = key == "attack_rangeclose"
+ self.Screamer_HomingAttack = key == "range_close"
  self:ExecuteRangeAttack()
  elseif key == "sprite" && !self.Screamer_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
  if IsValid(self.soul1) then

@@ -15,7 +15,7 @@ ENT.Category = "Cry of Fear Resurgence"
 if !SERVER then return end
 
 function ENT:Initialize()
-    self:SetModel("models/vj_cofr/cofcc/corpse.mdl")
+    self:SetModel("models/vj_cofr/cofcc/corpse_hc.mdl")
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, -6))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)

@@ -27,7 +27,7 @@ ENT.DirectDamage = 6
 ENT.DirectDamageType = DMG_SLASH
 ENT.SoundTbl_Idle = {"vj_cofr/aom/eyeball/ag_buzz1.wav","vj_cofr/aom/eyeball/ag_buzz2.wav","vj_cofr/aom/eyeball/ag_buzz3.wav"}
 ENT.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/ag_hornethit1.wav","vj_cofr/aom/eyeball/ag_hornethit2.wav","vj_cofr/aom/eyeball/ag_hornethit3.wav"}
-ENT.IdleSoundPitch = VJ_Set(100, 100)
+ENT.IdleSoundPitch = VJ.SET(100, 100)
 -- Custom
 local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
@@ -38,7 +38,7 @@ ENT.Eyeball_Classic = false
 function ENT:Init()
     timer.Simple(5, function() if IsValid(self) then
     if !self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100)
-    elseif self.Eyeball_Classic then self.Model = "models/vj_cofr/aom/classic/eyeball.mdl" VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
+    elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
         self:Remove()
     end
 end)

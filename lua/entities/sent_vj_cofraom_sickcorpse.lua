@@ -7,7 +7,7 @@ AddCSLuaFile()
 
 ENT.Base = "prop_vj_animatable"
 ENT.Type = "anim"
-ENT.PrintName = "Corpse"
+ENT.PrintName = "Sick Corpse"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Cry of Fear Resurgence"

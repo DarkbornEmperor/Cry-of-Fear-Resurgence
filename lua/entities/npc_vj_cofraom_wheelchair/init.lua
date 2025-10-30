@@ -66,7 +66,7 @@ function ENT:OnInput(key,activator,caller,data)
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("mouth")).Pos,self:GetAngles())
+        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("eyes")).Pos,self:GetAngles())
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
