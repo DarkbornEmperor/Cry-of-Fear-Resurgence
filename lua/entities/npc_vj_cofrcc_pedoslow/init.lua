@@ -9,8 +9,8 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cofcc/slower1_pedo_hc.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
- local Slower_Body = 1
- if Slower_Body == 1 then
+ local slowerBody = 1
+ if slowerBody == 1 then
     self.Slower_Skin = 2
     self:SetBodygroup(0,2)
 end

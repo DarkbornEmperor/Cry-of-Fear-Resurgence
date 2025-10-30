@@ -27,7 +27,7 @@ ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
-ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.AnimTbl_Death = {ACT_DIE_HEADSHOT, ACT_DIE_GUTSHOT}
 ENT.HasSoundTrack = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
@@ -104,24 +104,24 @@ function ENT:FireFX()
     muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
     muz:SetKeyValue("spawnflags","0")
     muz:SetParent(self)
-    muz:Fire("SetParentAttachment","pistol_muzzle")
+    muz:Fire("SetParentAttachment","muzzle")
     muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill","",0.08)
 
-    local Light = ents.Create("light_dynamic")
-    Light:SetKeyValue("brightness", "4")
-    Light:SetKeyValue("distance", "120")
-    Light:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
-    Light:SetLocalAngles(self:GetAngles())
-    Light:Fire("Color", "255 150 60")
-    //Light:SetParent(self)
-    Light:Spawn()
-    Light:Activate()
-    Light:Fire("TurnOn","",0)
-    Light:Fire("Kill","",0.07)
-    //self:DeleteOnRemove(Light)
+    local muzLight = ents.Create("light_dynamic")
+    muzLight:SetKeyValue("brightness", "4")
+    muzLight:SetKeyValue("distance", "120")
+    muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
+    muzLight:SetLocalAngles(self:GetAngles())
+    muzLight:Fire("Color", "255 150 60")
+    //muzLight:SetParent(self)
+    muzLight:Spawn()
+    muzLight:Activate()
+    muzLight:Fire("TurnOn","",0)
+    muzLight:Fire("Kill","",0.07)
+    //self:DeleteOnRemove(muzLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr,damageType)
@@ -143,8 +143,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
     Attacker = self,
     Num = 1,
-    Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos,
-    Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+    Src = self:GetAttachment(self:LookupAttachment("muzzle")).Pos,
+    Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle")).Pos):Angle():Forward(),
     Spread = Vector(0.1,0.1,0),
     TracerName = "VJ_COFR_Tracer",
     Tracer = 1,

@@ -394,7 +394,7 @@ end
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
     self.HealthRegenParams.Enabled = true
 end
-  if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_cross.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_question.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_scream.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
+  if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_cross.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_question.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_scream.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
      self.Human_Type = 0
      self:David_Init()
   elseif self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_beta.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cofcc/roderick.mdl" then

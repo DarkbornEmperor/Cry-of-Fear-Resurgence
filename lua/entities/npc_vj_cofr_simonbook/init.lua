@@ -250,7 +250,7 @@ function ENT:SetSledgehammerFlare()
     self.SoundTbl_Breath =
     "vj_cofr/cof/booksimon/flare_burn.wav"
 
-    local flaremuzLight = ents.Create("muzLight_dynamic")
+    local flaremuzLight = ents.Create("light_dynamic")
     flaremuzLight:SetKeyValue("brightness", "1")
     flaremuzLight:SetKeyValue("distance", "500")
     flaremuzLight:SetLocalPos(self:GetPos())
@@ -286,7 +286,7 @@ function ENT:FireFX()
     muz:Activate()
     muz:Fire("Kill","",0.08)
 
-    local muzLight = ents.Create("muzLight_dynamic")
+    local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
     muzLight:SetKeyValue("distance", "120")
     muzLight:SetLocalAngles(self:GetAngles())
@@ -299,20 +299,20 @@ function ENT:FireFX()
     //self:DeleteOnRemove(muzLight)
 
     if self.BookSimon_Shotgun then
-        muz:Fire("SetParentAttachment","shotgun_muzzle")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos)
+        muz:Fire("SetParentAttachment","muzzle_shotgun")
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos)
 
     elseif self.BookSimon_Glock then
-        muz:Fire("SetParentAttachment","pistol_muzzle")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos)
+        muz:Fire("SetParentAttachment","muzzle_glock")
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos)
 
     elseif self.BookSimon_TMP then
-        muz:Fire("SetParentAttachment","tmp_muzzle")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos)
+        muz:Fire("SetParentAttachment","muzzle_tmp")
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos)
 
     elseif self.BookSimon_M16 then
-        muz:Fire("SetParentAttachment","m16_muzzle")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos)
+        muz:Fire("SetParentAttachment","muzzle_m16")
+        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -363,8 +363,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
         Attacker = self,
         Num = 6,
-        Src = self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("shotgun_muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+        Src = self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos,
+        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -381,8 +381,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
         Attacker = self,
         Num = 1,
-        Src = self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+        Src = self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos,
+        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -399,8 +399,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
         Attacker = self,
         Num = 1,
-        Src = self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("tmp_muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+        Src = self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos,
+        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -417,8 +417,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
         Attacker = self,
         Num = 1,
-        Src = self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("m16_muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("pistol_muzzle")).Pos):Angle():Forward(),
+        Src = self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos,
+        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
