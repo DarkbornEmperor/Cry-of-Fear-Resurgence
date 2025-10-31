@@ -135,11 +135,11 @@ function ENT:OnRangeAttack(status,enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
-  if status == "Init" then
-  local ene = self:GetEnemy()
-  if IsValid(self) && IsValid(self:GetEnemy()) then
-  VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-  VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
+ if status == "Init" then
+ local ene = self:GetEnemy()
+ if IsValid(self) && IsValid(self:GetEnemy()) then
+ VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+ VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
     Attacker = self,
     Num = 1,
@@ -166,7 +166,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-    dmginfo:SetDamage(0)
+        dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())

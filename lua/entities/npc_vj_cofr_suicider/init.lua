@@ -114,33 +114,33 @@ end
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:OnInput(key,activator,caller,data)
-    if key == "step" then
-        self:PlayFootstepSound()
-    elseif key == "suicide" then
-        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
-    if self.Suicider_Glock then
-        VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-    elseif self.Suicider_P345 then
-        VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+ if key == "step" then
+    self:PlayFootstepSound()
+ elseif key == "suicide" then
+    VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
+ if self.Suicider_Glock then
+    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+ elseif self.Suicider_P345 then
+    VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
 end
-        self:FireFX()
-        self:DropGlock()
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-        if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
-        elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
-        elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
-     if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
-        local effectData = EffectData()
-        effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
-        effectData:SetColor(colorRed)
-        effectData:SetScale(25)
-        util.Effect("VJ_Blood1", effectData)
-        effectData:SetScale(5)
-        effectData:SetFlags(3)
-        effectData:SetColor(0)
-        util.Effect("bloodspray", effectData)
-        util.Effect("bloodspray", effectData)
+ self:FireFX()
+ self:DropGlock()
+ VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
+ ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+ if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
+ elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
+ elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
+ if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
+    local effectData = EffectData()
+    effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+    effectData:SetColor(colorRed)
+    effectData:SetScale(25)
+    util.Effect("VJ_Blood1", effectData)
+    effectData:SetScale(5)
+    effectData:SetFlags(3)
+    effectData:SetColor(0)
+    util.Effect("bloodspray", effectData)
+    util.Effect("bloodspray", effectData)
 end
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
