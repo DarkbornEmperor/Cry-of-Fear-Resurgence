@@ -29,7 +29,7 @@ end
 if (!SERVER) then return end
 
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
-ENT.Assignee = NULL -- Is another entity the owner of this tentacle?
+ENT.Assignee = NULL
 
 local sdHit = {
 "vj_cofr/fx/flesh1.wav",
