@@ -134,7 +134,7 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
         self.MeleeAttackDamage = 200
     end
 end
-     if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
+    if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
         ent:StopMoving()
         ent:SetState(VJ_STATE_ONLY_ANIMATION)
         timer.Simple(4,function() if IsValid(ent) then

@@ -72,9 +72,9 @@ function ENT:Init()
  if math.random(1,3) == 1 then
     self.LimitChaseDistance = false
 end
-     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
-     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:Stranger_Init()
+    self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
+    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)

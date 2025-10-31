@@ -88,12 +88,12 @@ function ENT:Init()
     local soul1 = ents.Create("env_sprite")
     soul1:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
     soul1:SetKeyValue("scale","1")
-    soul1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+    soul1:SetKeyValue("GlowProxySize","2.0")
     soul1:SetKeyValue("renderfx","14")
-    soul1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-    soul1:SetKeyValue("renderamt","255") -- Transparency
-    soul1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-    soul1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+    soul1:SetKeyValue("rendermode","3")
+    soul1:SetKeyValue("renderamt","255")
+    soul1:SetKeyValue("disablereceiveshadows","0")
+    soul1:SetKeyValue("framerate","10.0")
     soul1:SetKeyValue("spawnflags","0")
     soul1:SetParent(self)
     soul1:Fire("SetParentAttachment","rhand")
@@ -106,12 +106,12 @@ function ENT:Init()
     local soul2 = ents.Create("env_sprite")
     soul2:SetKeyValue("model","vj_cofr/sprites/soul.vmt")
     soul2:SetKeyValue("scale","1")
-    soul2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+    soul2:SetKeyValue("GlowProxySize","2.0")
     soul2:SetKeyValue("renderfx","14")
-    soul2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-    soul2:SetKeyValue("renderamt","255") -- Transparency
-    soul2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-    soul2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+    soul2:SetKeyValue("rendermode","3")
+    soul2:SetKeyValue("renderamt","255")
+    soul2:SetKeyValue("disablereceiveshadows","0")
+    soul2:SetKeyValue("framerate","10.0")
     soul2:SetKeyValue("spawnflags","0")
     soul2:SetParent(self)
     soul2:Fire("SetParentAttachment","lhand")

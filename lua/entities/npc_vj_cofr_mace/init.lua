@@ -127,7 +127,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
     if status == "PreDamage" then
-    dmginfo:ScaleDamage(0.2)
+        dmginfo:ScaleDamage(0.2)
     if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then return end
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
         dmginfo:ScaleDamage(0.5)
@@ -135,7 +135,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
         dmginfo:ScaleDamage(0)
     end
 end
-     if status == "Init" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
+    if status == "Init" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
         self:SpawnBloodParticles(dmginfo,hitgroup)
         self:SpawnBloodDecals(dmginfo,hitgroup)
         self:PlaySoundSystem("Impact", self.SoundTbl_Impact)

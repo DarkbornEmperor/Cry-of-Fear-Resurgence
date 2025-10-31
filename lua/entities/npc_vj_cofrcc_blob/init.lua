@@ -101,7 +101,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
     for _, v in pairs(self.Tentacles) do
-         if IsValid(v) then v:Remove() end
+        if IsValid(v) then v:Remove() end
     end
 end
 /*-----------------------------------------------

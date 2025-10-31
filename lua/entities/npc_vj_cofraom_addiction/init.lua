@@ -256,7 +256,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
  if status == "PreDamage" then
- dmginfo:ScaleDamage(0.15)
+    dmginfo:ScaleDamage(0.15)
  if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
  local attacker = dmginfo:GetAttacker()
  if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then

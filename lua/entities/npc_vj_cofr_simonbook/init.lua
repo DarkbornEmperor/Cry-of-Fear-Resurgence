@@ -346,7 +346,7 @@ end
     if act == ACT_IDLE then
         return ACT_IDLE_RELAXED
     elseif act == ACT_RUN or act == ACT_WALK then
-        return ACT_SPRINT
+        return ACT_RUN_RELAXED
     end
 end
     return self.BaseClass.TranslateActivity(self,act)

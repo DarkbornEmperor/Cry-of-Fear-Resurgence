@@ -102,7 +102,7 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Finish" then
+    if status == "Finish" then
     -- Screen flash effect for all the players
     for _,v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)

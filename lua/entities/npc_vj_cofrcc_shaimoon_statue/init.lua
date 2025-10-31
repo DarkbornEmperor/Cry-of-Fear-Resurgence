@@ -39,9 +39,9 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
--- Make a metal ricochet effect
-if status == "Init" && dmginfo:GetDamagePosition() != vec then
-    local rico = EffectData()
+ -- Make a metal ricochet effect
+ if status == "Init" && dmginfo:GetDamagePosition() != vec then
+ local rico = EffectData()
     rico:SetOrigin(dmginfo:GetDamagePosition())
     rico:SetScale(5) -- Size
     rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic

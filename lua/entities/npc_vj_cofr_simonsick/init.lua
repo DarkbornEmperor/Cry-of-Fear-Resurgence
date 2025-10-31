@@ -104,7 +104,7 @@ function ENT:OnThinkActive()
 end
     if !IsValid(ent) or self.Dead then return end
     if IsValid(ent) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.Twister1) && !IsValid(self.Twister2) && !IsValid(self.Twister3) && !IsValid(self.Twister4) && !IsValid(self.Twister5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-        local Twister1 = ents.Create("npc_vj_cofr_faceless_twister")
+    local Twister1 = ents.Create("npc_vj_cofr_faceless_twister")
         Twister1:SetPos(self:GetPos() + self:GetRight()*40 + self:GetUp()*10)
         Twister1:SetAngles(self:GetAngles())
         Twister1.VJ_NPC_Class = self.VJ_NPC_Class
@@ -112,7 +112,7 @@ end
         self.Twisters[#self.Twisters + 1] = Twister1 -- Register the Twisters
         self.Twister1 = Twister1
 
-        local Twister2 = ents.Create("npc_vj_cofr_faceless_twister")
+    local Twister2 = ents.Create("npc_vj_cofr_faceless_twister")
         Twister2:SetPos(self:GetPos() + self:GetRight()*-40 + self:GetUp()*10)
         Twister2:SetAngles(self:GetAngles())
         Twister2.VJ_NPC_Class = self.VJ_NPC_Class
@@ -120,7 +120,7 @@ end
         self.Twisters[#self.Twisters + 1] = Twister2 -- Register the Twisters
         self.Twister2 = Twister2
 
-        local Twister3 = ents.Create("npc_vj_cofr_faceless_twister")
+    local Twister3 = ents.Create("npc_vj_cofr_faceless_twister")
         Twister3:SetPos(self:GetPos() + self:GetRight()*80 + self:GetUp()*10)
         Twister3:SetAngles(self:GetAngles())
         Twister3.VJ_NPC_Class = self.VJ_NPC_Class
@@ -128,7 +128,7 @@ end
         self.Twisters[#self.Twisters + 1] = Twister3 -- Register the Twisters
         self.Twister3 = Twister3
 
-        local Twister4 = ents.Create("npc_vj_cofr_faceless_twister")
+    local Twister4 = ents.Create("npc_vj_cofr_faceless_twister")
         Twister4:SetPos(self:GetPos() + self:GetRight()*-80 + self:GetUp()*10)
         Twister4:SetAngles(self:GetAngles())
         Twister4.VJ_NPC_Class = self.VJ_NPC_Class
@@ -149,10 +149,10 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:LiftProps()
-     local ent = self:GetEnemy()
-     for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
-     local PropPhysics = v:GetPhysicsObject()
-     if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then
+    local ent = self:GetEnemy()
+    for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
+    local PropPhysics = v:GetPhysicsObject()
+    if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then
         PropPhysics:SetVelocity(v:GetUp()*100)
         PropPhysics:EnableGravity(false)
         end
@@ -160,9 +160,9 @@ function ENT:LiftProps()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status,enemy)
-     if status == "Init" then
-     local ent = self:GetEnemy()
-     if IsValid(ent) && self:Visible(ent) && CurTime() > self.SickSimon_NextPropT /*&& !IsValid(self.Prop) && !IsValid(self.Prop2)*/ then
+    if status == "Init" then
+    local ent = self:GetEnemy()
+    if IsValid(ent) && self:Visible(ent) && CurTime() > self.SickSimon_NextPropT /*&& !IsValid(self.Prop) && !IsValid(self.Prop2)*/ then
         local Prop = ents.Create("prop_physics")
         Prop:SetModel(VJ.PICK(self.PropstoThrow))
         Prop:SetPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*-200 + self:GetUp()*60)
@@ -172,7 +172,7 @@ function ENT:OnRangeAttack(status,enemy)
         self.Props[#self.Props + 1] = Prop -- Register the Props
         self.Prop = Prop
 
-        local Prop2 = ents.Create("prop_physics")
+    local Prop2 = ents.Create("prop_physics")
         Prop2:SetModel(VJ.PICK(self.PropstoThrow))
         Prop2:SetPos(self:GetPos() + self:GetForward()*90 + self:GetRight()*200 + self:GetUp()*60)
         Prop2:SetAngles(self:GetAngles())
@@ -209,9 +209,9 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
-    dmginfo:SetDamage(0)
+        dmginfo:SetDamage(0)
     if dmginfo:GetDamagePosition() != vec then
-        local rico = EffectData()
+    local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
         rico:SetScale(4) -- Size
         rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic

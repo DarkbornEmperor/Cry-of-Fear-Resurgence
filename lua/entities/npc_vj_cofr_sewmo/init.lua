@@ -115,7 +115,6 @@ end
         self.Sewmo_Sleep = false
         self:PlayAnim(ACT_SIGNAL2,true,false,false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-        self.AnimTbl_IdleStand = {ACT_IDLE}
         self.HasMeleeAttack = true
         self.CallForHelp = true
         self:RemoveFlags(FL_NOTARGET)
@@ -179,7 +178,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "DeathAnim" then
+    if status == "DeathAnim" then
     if hitgroup == HITGROUP_HEAD then
         self.AnimTbl_Death = ACT_DIE_HEADSHOT
     else

@@ -147,7 +147,7 @@ end
 function ENT:OnDeath(dmginfo,hitgroup,status)
  if status == "DeathAnim" then
     self:DeathWeaponDrop(dmginfo,hitgroup)
-    local activeWep = self:GetActiveWeapon()
+ local activeWep = self:GetActiveWeapon()
     if IsValid(activeWep) then activeWep:Remove() end
 end
     if status == "Init" then
