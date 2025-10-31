@@ -110,7 +110,6 @@ function ENT:OnMeleeAttack(status,enemy)
 
     elseif attack == 2 then
         self.AnimTbl_MeleeAttack = "vjseq_stamp"
-        self.MeleeAttackDamage = 200
         self.MeleeAttackDamageAngleRadius = 100
         self.MeleeAttackPlayerSpeed = false
         self.HasMeleeAttackKnockBack = false
