@@ -30,7 +30,7 @@ function ENT:Slower_Init()
     "vj_cofr/cof/slower/slower_pain1.wav",
     "vj_cofr/cof/slower/slower_pain2.wav"
 }
-    self:SetPos(self:GetPos() + self:GetForward()*-32)
+    //self:SetPos(self:GetPos() + self:GetForward()*-32)
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
