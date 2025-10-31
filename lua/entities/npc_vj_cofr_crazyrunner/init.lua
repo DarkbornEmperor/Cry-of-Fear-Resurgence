@@ -73,7 +73,7 @@ function ENT:Init()
     self.CrazyRunner_Type = 1
  elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
     self.CrazyRunner_Type = 2
- elseif self:GetModel() == "models/vj_cofr/custom/crazyrumpel.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/custom/crazyrunner_rumpel_memo.mdl" then
     self.CrazyRunner_Type = 3
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))

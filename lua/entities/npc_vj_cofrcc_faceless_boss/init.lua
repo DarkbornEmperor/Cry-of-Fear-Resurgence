@@ -8,7 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/faceless_reci.mdl"
 ENT.StartHealth = 300
-//ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --

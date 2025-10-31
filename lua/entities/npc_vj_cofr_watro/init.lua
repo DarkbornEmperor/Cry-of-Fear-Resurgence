@@ -80,9 +80,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
  if act == ACT_IDLE && self.Watro_Burrowed then
-    return ACT_IDLE_RELAXED
- elseif act == ACT_IDLE && !self.Watro_Burrowed then
-    return ACT_IDLE_STIMULATED
+    return ACT_IDLE_STEALTH
 end
     return self.BaseClass.TranslateActivity(self,act)
 end

@@ -78,6 +78,8 @@ end
     self:SickSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ50 = Vector(0, 0, -50)
+--
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
@@ -88,6 +90,9 @@ function ENT:OnInput(key,activator,caller,data)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
         self:FireFX()
         self:SetBodygroup(0,1)
+        local selfPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({start = selfPos, endpos = selfPos + vecZ50, filter = self})
+        util.Decal("VJ_COFR_Blood_Red", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

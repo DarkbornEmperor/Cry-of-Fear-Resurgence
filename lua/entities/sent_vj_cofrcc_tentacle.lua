@@ -10,18 +10,16 @@ ENT.Type = "ai"
 ENT.PrintName = "Tentacle"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-
 ENT.Category = "Cry of Fear Resurgence"
-
 ENT.Spawnable = true
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Draw() self:DrawModel() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DrawTranslucent() self:Draw() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
     local Name = "Tentacle"
-    local LangName = "sent_vj_cofrc_tentacle"
+    local LangName = "sent_vj_cofrcc_tentacle"
     language.Add(LangName, Name)
     killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
     language.Add("#"..LangName, Name)
@@ -30,7 +28,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if (!SERVER) then return end
 
-ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.Assignee = NULL -- Is another entity the owner of this tentacle?
 
 local sdHit = {
@@ -46,13 +44,12 @@ function ENT:Initialize()
     self:SetPos(self:GetPos() + self:GetUp()*-40)
 end
     self:SetModel("models/vj_cofr/cofcc/tentacleboss.mdl")
-    //self:SetCollisionBounds(Vector(10, 10, 165), Vector(-10, -10, 0))
     self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 200))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
     self:SetMaxHealth(50)
     self:SetHealth(50)
-    self:ResetSequence("idle")
+    self:ResetSequence("action")
     self.Tentacle_NextDamageT = CurTime()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

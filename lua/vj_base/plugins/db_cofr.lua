@@ -272,6 +272,7 @@
     VJ.AddConVar("VJ_COFR_Slower_HeadGib", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Suicider_DropGlock", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_DropAmmo", 0, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_Suicider_Ammo", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Suicider_Headshot", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Flashlight", 0, {FCVAR_ARCHIVE})
@@ -332,6 +333,7 @@ end
                 VJ_COFR_Sawcrazy_RadiusDamage = "1",
                 VJ_COFR_FaceHead_SummonFaceless = "1",
                 VJ_COFR_Slower_HeadGib = "1",
+                VJ_COFR_Suicider_Ammo = "1",
                 VJ_COFR_Suicider_DropGlock = "0",
                 VJ_COFR_DropAmmo = "0",
                 VJ_COFR_Suicider_Headshot = "1",
@@ -359,6 +361,7 @@ end
             panel:CheckBox("Enable Radius Damage For Sawcrazy?","VJ_COFR_Sawcrazy_RadiusDamage")
             panel:CheckBox("Enable The Face To Summon Faceless?","VJ_COFR_FaceHead_SummonFaceless")
             panel:CheckBox("Enable Head Gibbing For Slowers?","VJ_COFR_Slower_HeadGib")
+            panel:CheckBox("Enable Suiciders Running Out Of Ammo?","VJ_COFR_Suicider_Ammo")
             panel:CheckBox("Enable Suiciders Dropping Glocks/P345s On Death?","VJ_COFR_Suicider_DropGlock")
             panel:CheckBox("Enable SNPCs Dropping Items On Death?","VJ_COFR_DropAmmo")
             panel:CheckBox("Enable Instant Headshot Death For Suicider?","VJ_COFR_Suicider_Headshot")

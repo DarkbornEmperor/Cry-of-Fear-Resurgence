@@ -63,12 +63,14 @@ ENT.Suicider_DeathSuicide = false
 ENT.Suicider_Skin = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
- if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true return end
+ if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true self.Suicider_Ammo = 15 return end
     local Suicider_Type = math.random(1,2)
     if Suicider_Type == 1 then
         self.Suicider_Glock = true
+        self.Suicider_Ammo = 15
     elseif Suicider_Type == 2 then
         self.Suicider_P345 = true
+        self.Suicider_Ammo = 8
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -112,6 +114,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+local vecZ50 = Vector(0, 0, -50)
 --
 function ENT:OnInput(key,activator,caller,data)
  if key == "step" then
@@ -130,6 +133,9 @@ end
  if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
  elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
  elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
+ local selfPos = self:GetPos() + self:OBBCenter()
+ local tr = util.TraceLine({start = selfPos, endpos = selfPos + vecZ50, filter = self})
+ util.Decal("VJ_COFR_Blood_Red", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
  if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
     local effectData = EffectData()
     effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
@@ -197,13 +203,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
-    if !IsValid(ent) or self.Dead then return end
+    if !IsValid(ent) or self.Suicider_Ammo < 1 or self.Dead then return end
     local eneDist = self.EnemyData.Distance
     if eneDist < 100 && ent:Visible(self) && !self.Suicider_DeathSuicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-        self.Suicider_DeathSuicide = true
-        self.Bleeds = false
-        self.HasDeathSounds = false
-        self:TakeDamage(self:GetMaxHealth(),self,self)
+        self:Suicide()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -221,6 +224,10 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
  elseif self.Suicider_P345 then
     VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+end
+ if GetConVar("VJ_COFR_Suicider_Ammo"):GetInt() == 1 then
+    self.Suicider_Ammo = self.Suicider_Ammo - 1
+    if self.Suicider_Ammo < 1 && !self.Suicider_DeathSuicide then self:Suicide() end
 end
     VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
@@ -248,6 +255,13 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
     if status == "PreDamage" && hitgroup == HITGROUP_HEAD then
         dmginfo:SetDamage(self:Health())
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Suicide()
+    self.Suicider_DeathSuicide = true
+    self.Bleeds = false
+    self.HasDeathSounds = false
+    self:TakeDamage(self:GetMaxHealth(),self,self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
@@ -291,19 +305,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock()
     if GetConVar("VJ_COFR_Suicider_DropGlock"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
-       self:SetBodygroup(1,1)
+        self:SetBodygroup(1,1)
     if self.Suicider_Glock then
-       local Glock = ents.Create("weapon_cof_glock")
-       Glock:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
-       Glock:SetAngles(self:GetAngles())
-       Glock:Spawn()
-       Glock:Activate()
+    local Glock = ents.Create("weapon_cof_glock")
+        Glock:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
+        Glock:SetAngles(self:GetAngles())
+        Glock:Spawn()
+        Glock:Activate()
     elseif self.Suicider_P345 then
-       local P345 = ents.Create("weapon_cof_p345")
-       P345:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
-       P345:SetAngles(self:GetAngles())
-       P345:Spawn()
-       P345:Activate()
+        local P345 = ents.Create("weapon_cof_p345")
+        P345:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
+        P345:SetAngles(self:GetAngles())
+        P345:Spawn()
+        P345:Activate()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

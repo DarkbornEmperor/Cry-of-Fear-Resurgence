@@ -81,7 +81,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "flicker_on" then
-        self:SetRenderFX(kRenderFxFlickerSlow)
+        self:SetRenderFX(kRenderFxFlickerFast)
         self:SetRenderMode(RENDERMODE_NORMAL)
     elseif key == "flicker_off" then
         self:SetRenderFX(kRenderFxNone)

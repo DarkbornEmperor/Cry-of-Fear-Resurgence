@@ -16,7 +16,7 @@ if !SERVER then return end
 
 function ENT:Initialize()
     self:SetModel("models/vj_cofr/cofcc/corpse_hc.mdl")
-    self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, -6))
+    self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
     self:ResetSequence("playdeadidle")

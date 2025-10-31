@@ -79,7 +79,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
- if key == "prepare_range" then
+ if key == "range_prepare" then
     self:LiftProps()
  elseif key == "range" then
     self:ExecuteRangeAttack()

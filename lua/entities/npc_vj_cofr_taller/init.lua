@@ -15,6 +15,7 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackAnimationFaceEnemy = false
 ENT.MeleeAttackDistance = 55
 ENT.MeleeAttackDamageDistance = 85
 ENT.MeleeAttackDamageType = DMG_CRUSH
@@ -98,6 +99,7 @@ function ENT:OnMeleeAttack(status,enemy)
     if attack == 1 then
         self.AnimTbl_MeleeAttack = "vjseq_attack"
         self.MeleeAttackDamage = 60
+        self.MeleeAttackDamageAngleRadius = 110
         self.MeleeAttackPlayerSpeed = true
         self.HasMeleeAttackKnockBack = true
         self.SoundTbl_MeleeAttackMiss =
@@ -109,6 +111,7 @@ function ENT:OnMeleeAttack(status,enemy)
     elseif attack == 2 then
         self.AnimTbl_MeleeAttack = "vjseq_stamp"
         self.MeleeAttackDamage = 200
+        self.MeleeAttackDamageAngleRadius = 100
         self.MeleeAttackPlayerSpeed = false
         self.HasMeleeAttackKnockBack = false
         self.SoundTbl_MeleeAttackMiss =
