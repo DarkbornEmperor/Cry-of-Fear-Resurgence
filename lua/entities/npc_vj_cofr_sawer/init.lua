@@ -9,6 +9,8 @@ ENT.Model = "models/vj_cofr/cof/sawer.mdl"
 ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.PoseParameterLooking_Names = {pitch = {"eye_move"}, yaw = {"eye_move"}, roll = {}}
+ENT.PoseParameterLooking_InvertPitch = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -103,7 +105,7 @@ function ENT:OnInput(key,activator,caller,data)
         self:ExecuteMeleeAttack()
     elseif key == "eye_close" then
         self:SetSkin(0)
-        self:SetPoseParameter("aim_yaw", 0)
+        self:UpdatePoseParamTracking(true)
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -144,7 +146,7 @@ end
     self:SpawnBloodDecals(dmginfo,hitgroup)
     self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 end
-     if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
+     if CurTime() > self.Sawer_NextDownT && math.random(1,1) == 1 && !self.Sawer_EyeOpen then
      local animTime = VJ.AnimDuration(self,ACT_COWER)
         self:PlayAnim(ACT_COWER,true,false,false)
         VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
