@@ -20,7 +20,7 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.PoseParameterLooking_InvertPitch = true
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = "vjseq_vjges_shoot_crowbar"
+ENT.AnimTbl_MeleeAttack = "vjges_shoot_crowbar"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextAnyAttackTime_Melee = 1.5
 ENT.MeleeAttackDamage = 10
@@ -34,7 +34,7 @@ ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_SpawnPropOnHeal = false
 ENT.Medic_HealAmount = 15
-ENT.AnimTbl_Medic_GiveHealth = "vjges_heal"
+ENT.AnimTbl_Medic_GiveHealth = "vjges_shoot_wrench"
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/w_pills.mdl"
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 //ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
@@ -465,7 +465,7 @@ function ENT:AssistorFlashlight() end
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
-    elseif key == "melee" or (key == "melee_weapon" && IsValid(self:GetActiveWeapon()) && self:GetActiveWeapon().IsMeleeWeapon) && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_SPECIAL_ATTACK1 then
+    elseif key == "melee" or (key == "melee" && IsValid(self:GetActiveWeapon()) && self.WeaponEntity.IsMeleeWeapon) then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
@@ -480,7 +480,7 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.CoFR_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) then
+    if self.CoFR_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
     if (self.EnemyData.Visible or (self.EnemyData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     if act == ACT_WALK then
@@ -494,6 +494,8 @@ end
     return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
  elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
     return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
+ elseif act == ACT_IDLE && self:GetNPCState() == NPC_STATE_ALERT then
+    return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
 end
     return self.BaseClass.TranslateActivity(self,act)
 end
@@ -518,9 +520,7 @@ end
 function ENT:OnThinkActive()
     if self.IsMedic && !self:IsBusy() && self.MedicData.Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
         self:OnMedicBehavior()
-        self:PlayAnim("vjges_heal",true,false,false)
-    if IsValid(self:GetEnemy()) then
-        self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end) end
+        self:PlayAnim("vjges_shoot_wrench",true,false,false)
         timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
         local CurHP = self:Health()
         self:SetHealth(math.Clamp(CurHP + self.Medic_HealAmount, CurHP, self:GetMaxHealth()))
@@ -530,6 +530,8 @@ function ENT:OnThinkActive()
         self:RemoveAllDecals()
     end
 end)
+ if IsValid(self:GetEnemy()) then
+    self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end) end
     self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
 end
     if self.HasSounds && !self.Dead then
@@ -690,7 +692,7 @@ end
     defRunAim = VJ.SequenceToActivity(self,"run_crowbar")
     defCrouch = VJ.SequenceToActivity(self,"crouch_crowbar")
     defCrawl = VJ.SequenceToActivity(self,"crawl_crowbar")
-    defFire = "vjges_shoot_crowbar_melee"
+    defFire = "vjges_shoot_crowbar"
     defReload = "vjges_reload_crowbar"
  elseif h == "ar2" then
     defIdleAim = VJ.SequenceToActivity(self,"aim_gauss")
