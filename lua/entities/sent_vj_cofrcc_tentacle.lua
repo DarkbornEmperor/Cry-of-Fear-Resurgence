@@ -49,7 +49,6 @@ end
     self:SetSolid(SOLID_BBOX)
     self:SetMaxHealth(50)
     self:SetHealth(50)
-    self:ResetSequence("action")
     self.Tentacle_NextDamageT = CurTime()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,6 +57,7 @@ function ENT:Think()
     VJ.ApplyRadiusDamage(self, self, self:GetPos(), 50, 10, DMG_NEVERGIB, true, true)
     self.Tentacle_NextDamageT = CurTime() + 1
 end
+    self:ResetSequence("action")
     self:NextThink(CurTime())
     return true
 end
