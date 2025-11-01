@@ -18,9 +18,9 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofraomda_david" then
+    /*if owner:GetClass() == "npc_vj_cofraomda_david" then
         self.WorldModel_CustomPositionOrigin = Vector(4, 15, -1)
-    end
+    end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnEquip(newOwner)

@@ -332,7 +332,7 @@ end
     self:SetSkin(math.random(0,13))
 end
     if self:GetSkin() == 8 && math.random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
-        self:PlaySoundSystem("Speech", {"vj_cofr/cof/simon/hellokitty.wav"})
+        self:PlaySoundSystem("Speech", "vj_cofr/cof/simon/hellokitty.wav")
         end
     end
 end
@@ -394,7 +394,7 @@ end
  if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
     self.HealthRegenParams.Enabled = true
 end
-  if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_cross.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_question.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_scream.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
+  if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david_custom.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_cross.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_question.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_scream.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_two.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead_hd.mdl" or self:GetModel() == "models/vj_cofr/aom/david_hd.mdl" then // Already the default
      self.Human_Type = 0
      self:David_Init()
   elseif self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_beta.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cofcc/roderick.mdl" then
@@ -542,8 +542,8 @@ end
 end
  if self.Human_Type == 1 && IsValid(self:GetActiveWeapon()) then
     local wep = self:GetActiveWeapon()
-    if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/famas/french4.wav"}) self.Simon_French = true
-    elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", {"vj_cofr/cof/weapons/branch/branch_first_get.wav"}) self.Simon_Branch = true end
+    if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/famas/french4.wav") self.Simon_French = true
+    elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/branch/branch_first_get.wav") self.Simon_Branch = true end
 end
  if !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
  local ent = self:GetEnemy()
