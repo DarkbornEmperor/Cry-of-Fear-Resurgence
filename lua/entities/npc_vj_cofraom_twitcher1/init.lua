@@ -177,14 +177,13 @@ function ENT:Twitcher_Init()
  elseif self:GetClass() == "npc_vj_cofrc_twitcher" then
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}
 end
- if (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
+ if (self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl") or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
     self:DrawShadow(false)
 end
     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
     if math.random(1,10) == 1 then
         self.Twitcher_Invisible = true
         self:SetNoDraw(true)
-        self:DrawShadow(false)
 
     elseif math.random(1,10) == 1 then
         self.Twitcher_Transparent = true
@@ -318,8 +317,10 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
- if self.Twitcher_Invisible or (self:GetModel() == "models/vj_cofr/aom/zombie2_2.mdl" && self:GetBodygroup(0) == 1) or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
+ if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
     corpseEnt:DrawShadow(false)
+ elseif self.Twitcher_Invisible then
+    corpseEnt:SetNoDraw(true)
  elseif self.Twitcher_Transparent then
     corpseEnt:SetRenderFX(kRenderFxDistort)
     corpseEnt:SetRenderMode(RENDERMODE_TRANSADD)

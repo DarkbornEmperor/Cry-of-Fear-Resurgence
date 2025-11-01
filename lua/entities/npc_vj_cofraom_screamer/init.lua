@@ -121,7 +121,7 @@ function ENT:Init()
     self:DeleteOnRemove(soul2)
     self.soul2 = soul2
 
-    self:DrawShadow(false)
+    if self:GetClass() != "npc_vj_cofraomc_screamer" then self:DrawShadow(false) end
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Screamer_Init()
@@ -239,7 +239,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
-    corpseEnt:DrawShadow(false)
+    if self:GetClass() != "npc_vj_cofraomc_screamer" then corpseEnt:DrawShadow(false) end
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end

@@ -55,7 +55,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status) return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound() return end
+function ENT:OnFootstepSound(moveType,sdFile)
+    if !self:OnGround() then return end
+    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+    end
+end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
