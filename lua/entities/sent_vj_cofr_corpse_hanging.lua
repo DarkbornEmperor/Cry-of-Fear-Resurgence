@@ -14,15 +14,15 @@ ENT.Category = "Cry of Fear Resurgence"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-local models = {
-   "models/vj_cofr/cof/corpse_hanging.mdl",
-   "models/vj_cofr/cof/corpse_hanging2.mdl"
-}
-
 function ENT:Initialize()
-    self:SetModel(VJ.PICK(models))
-    self:SetCollisionBounds(Vector(13, 13, 72), Vector(-13, -13, -10))
+    self:SetModel("models/vj_cofr/cof/corpse_hanging.mdl")
+    self:SetCollisionBounds(Vector(13, 13, 72), Vector(-13, -13, 0))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
-    self:ResetSequence("idle2")
+    local anim = math.random(1,2)
+    if anim == 1 then
+        self:ResetSequence("idle1")
+    elseif anim == 2 then
+        self:ResetSequence("idle2")
+    end
 end

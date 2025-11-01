@@ -145,7 +145,7 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)
-    return self:GetAttachment(self:LookupAttachment("range")).Pos
+    return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
