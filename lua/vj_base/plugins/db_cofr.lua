@@ -152,7 +152,7 @@
 
     -- Apparitions --
     VJ.AddNPC("Corpse","sent_vj_cofrcc_corpse",spawnCategory)
-    VJ.AddNPC("Meatman (Corpse)","sent_vj_cofrcc_meatman_corpse",spawnCategory)
+    VJ.AddNPC("Meatman (Dead)","sent_vj_cofrcc_meatman_dead",spawnCategory)
 
     -- Afraid of Monsters: Classic/Director's Cut/Dark Assistance --
     spawnCategory = "CoF Resurgence: AoM"
@@ -200,9 +200,11 @@
     VJ.AddNPC("Devourer (Classic)","npc_vj_cofraomc_devourer",spawnCategory,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 
     -- Apparitions --
-    VJ.AddNPC("Sick Corpse","sent_vj_cofraom_sickcorpse",spawnCategory)
+    VJ.AddNPC("David (Corpse) (Classic)","sent_vj_cofraomc_david_corpse",spawnCategory)
+    VJ.AddNPC("David (Corpse) (Grey)","sent_vj_cofraom_david_corpse_grey",spawnCategory)
     VJ.AddNPC("David (Hanging)","sent_vj_cofraom_david_hanging",spawnCategory)
-    VJ.AddNPC("David (Corpse)","sent_vj_cofraom_davidcorpse_grey",spawnCategory)
+    VJ.AddNPC("David (Hanging) (Dark Assistance)","sent_vj_cofraomda_david_hanging",spawnCategory)
+    VJ.AddNPC("Sick Corpse","sent_vj_cofraom_sickcorpse",spawnCategory)
 
     -- AoM:DC Random & Spawners --
     VJ.AddNPC("Monster Map Spawner","sent_vj_cofraom_mapspawner",spawnCategory)
@@ -228,7 +230,7 @@
     VJ_COFR_MELEEWEAPONS_AOMDC = {
         "weapon_vj_cofraom_knife",
         "weapon_vj_cofraom_hammer",
-        "weapon_vj_cofraom_hammer",
+        "weapon_vj_cofraomda_hammer",
         "weapon_vj_cofraom_axe",
         "weapon_vj_cofraom_spear"
     }

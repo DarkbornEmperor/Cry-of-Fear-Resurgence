@@ -7,7 +7,7 @@ AddCSLuaFile()
 
 ENT.Base = "prop_vj_animatable"
 ENT.Type = "anim"
-ENT.PrintName = "David (Hanging)"
+ENT.PrintName = "David (Corpse) (Classic)"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Cry of Fear Resurgence"
@@ -15,9 +15,9 @@ ENT.Category = "Cry of Fear Resurgence"
 if !SERVER then return end
 
 function ENT:Initialize()
-    self:SetModel("models/vj_cofr/aom/david_hanging.mdl")
-    self:SetCollisionBounds(Vector(13, 13, 72), Vector(-13, -13, 0))
+    self:SetModel("models/vj_cofr/aom/classic/david_corpse.mdl")
+    self:SetCollisionBounds(Vector(13, 13, 15), Vector(-13, -13, 0))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
-    self:ResetSequence("fucking_lol")
+    self:ResetSequence("idle")
 end

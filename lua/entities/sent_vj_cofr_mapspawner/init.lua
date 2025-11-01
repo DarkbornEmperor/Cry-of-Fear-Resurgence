@@ -102,7 +102,7 @@ local AmbientSounds = {
     "vj_cofr/cof/faceless/psyksjuk.wav",
     "vj_cofr/cof/faster/faster_special.wav",
     "vj_cofr/cof/krypandenej/scream.wav",
-    "vj_cofr/cof/rcrazy/screamloud.wav",
+    "vj_cofr/cof/crazyrunner/screamloud.wav",
     "vj_cofr/cof/sawrunner/sawrunnerhello.wav",
     "vj_cofr/cof/slowerno/headdy.wav",
     "vj_cofr/cof/upper/sickscream.wav",

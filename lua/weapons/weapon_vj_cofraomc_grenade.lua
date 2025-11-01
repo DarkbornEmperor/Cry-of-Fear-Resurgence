@@ -35,7 +35,7 @@ SWEP.PrimaryEffects_SpawnMuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    self:SetModelScale(0.5)
+    self:SetModelScale(0.7)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnGetBulletPos()

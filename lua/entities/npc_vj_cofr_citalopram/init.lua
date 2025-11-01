@@ -10,9 +10,9 @@ ENT.Model = "models/vj_cofr/cof/citalopram.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/rcrazy/rc_alert1.wav",
-    "vj_cofr/cof/rcrazy/rc_alert2.wav",
-    "vj_cofr/cof/rcrazy/rc_alert3.wav"
+    "vj_cofr/cof/crazyrunner/rc_alert1.wav",
+    "vj_cofr/cof/crazyrunner/rc_alert2.wav",
+    "vj_cofr/cof/crazyrunner/rc_alert3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -8,8 +8,8 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cofcc/crocodile.mdl"
 ENT.StartHealth = 1000
 ENT.HullType = HULL_LARGE
-ENT.Aquatic_AnimTbl_Calm = {"Run_1","Run_2"}
-ENT.Aquatic_AnimTbl_Alerted = {"Run_1","Run_2"}
+ENT.Aquatic_AnimTbl_Calm = "Run_1"
+ENT.Aquatic_AnimTbl_Alerted = "Run_2"
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
@@ -119,7 +119,7 @@ function ENT:TranslateActivity(act)
  if act == ACT_IDLE && self.Crocodile_MoveTypeSwim then
     return ACT_RUN
  elseif act == ACT_RUN && !self.Crocodile_MoveTypeSwim then
-    return ACT_WALK
+    return ACT_WALK_AGITATED
 end
     return self.BaseClass.TranslateActivity(self, act)
 end
