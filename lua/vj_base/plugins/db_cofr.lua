@@ -230,7 +230,7 @@
     VJ_COFR_MELEEWEAPONS_AOMDC = {
         "weapon_vj_cofraom_knife",
         "weapon_vj_cofraom_hammer",
-        "weapon_vj_cofraomda_hammer",
+        //"weapon_vj_cofraomda_hammer",
         "weapon_vj_cofraom_axe",
         "weapon_vj_cofraom_spear"
     }
