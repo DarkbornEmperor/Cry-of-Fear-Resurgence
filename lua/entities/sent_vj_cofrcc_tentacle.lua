@@ -63,12 +63,13 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+local vecZ50 = Vector(0, 0, -50)
 --
 function ENT:OnTakeDamage(dmginfo)
     self:SetHealth(self:Health() - dmginfo:GetDamage())
     self:EmitSound(VJ.PICK(sdHit), 70)
     if self:Health() <= 0 then -- If health is now less than 0 then despawn
-        local effectData = EffectData()
+    local effectData = EffectData()
         effectData:SetOrigin(self:GetPos() + self:OBBCenter())
         effectData:SetColor(colorRed)
         effectData:SetScale(25)
@@ -79,8 +80,8 @@ function ENT:OnTakeDamage(dmginfo)
         util.Effect("bloodspray", effectData)
         util.Effect("bloodspray", effectData)
 
-        self.Scale = math.Rand(1,1.25)
-        local spr = ents.Create("env_sprite")
+    self.Scale = math.Rand(1,1.25)
+    local spr = ents.Create("env_sprite")
         spr:SetKeyValue("model","vj_cofr/sprites/spitsplat_red.vmt")
         spr:SetKeyValue("GlowProxySize","1.0")
         spr:SetKeyValue("HDRColorScale","1.0")
@@ -97,6 +98,10 @@ function ENT:OnTakeDamage(dmginfo)
         spr:Spawn()
         spr:Fire("Kill","",0.3)
         timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
+
+    local selfPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({start = selfPos, endpos = selfPos + vecZ50, filter = self})
+        util.Decal("VJ_COFR_Blood_Red", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
 
         //ParticleEffect("vj_cofr_blood_red_large",self:GetPos()+self:OBBCenter(),self:GetAngles())
         self:EmitSound(VJ.PICK(sdBreak), 70)

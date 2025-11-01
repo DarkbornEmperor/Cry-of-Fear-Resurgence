@@ -65,7 +65,8 @@ function ENT:Init()
     "npc_vj_cofraomc_ghost:20",
     "npc_vj_cofraomc_face:25",
     "npc_vj_cofraomc_screamer:25",
-    "npc_vj_cofraom_addiction:60"
+    "npc_vj_cofraom_addiction:60",
+    "npc_vj_cofraomda_addiction:60"
 }
 self.EntitiesToSpawn = {
     {SpawnPosition = Vector(0, 0, 0), Entities = entsList},

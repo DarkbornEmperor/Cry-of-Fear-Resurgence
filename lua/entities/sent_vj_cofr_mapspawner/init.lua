@@ -7,20 +7,25 @@ local table_remove = table.remove
 
 ENT.Monster = {
     {class="npc_vj_cofr_slower1",chance=1},
+    {class="npc_vj_cofr_slower1_beta",chance=1},
     {class="npc_vj_cofr_crawler",chance=8},
     {class="npc_vj_cofr_slower3",chance=4},
+    {class="npc_vj_cofr_slower3_beta",chance=4},
     {class="npc_vj_cofr_slowerten",chance=4},
     {class="npc_vj_cofr_croucher",chance=5},
     {class="npc_vj_cofr_baby",chance=3},
     {class="npc_vj_cofr_children",chance=3},
     {class="npc_vj_cofr_children_early",chance=3},
+    {class="npc_vj_cofr_children_beta",chance=3},
     {class="npc_vj_cofr_faster",chance=4},
     {class="npc_vj_cofr_faster_male",chance=6},
     {class="npc_vj_cofr_crazyrunner",chance=5},
     {class="npc_vj_cofr_citalopram",chance=10},
     {class="npc_vj_cofr_dreamer_runner",chance=15},
     {class="npc_vj_cofr_faceless",chance=8},
+    {class="npc_vj_cofr_faceless_beta",chance=8},
     {class="npc_vj_cofr_faceless_crawler",chance=15},
+    {class="npc_vj_cofr_faceless_crawler_beta",chance=15},
     {class="npc_vj_cofr_krypandenej",chance=15},
     {class="npc_vj_cofr_drowned",chance=15},
     {class="npc_vj_cofr_sewmo",chance=15},
@@ -53,7 +58,7 @@ ENT.Monster = {
     {class="npc_vj_cofrc_shaimoon_statue",chance=70},
     {class="npc_vj_cofrc_sicksophie",chance=70},
     {class="npc_vj_cofrc_skeleton",chance=70},
-    {class="npc_vj_cofrc_crazyrunner_mummy",chance=70},
+    {class="npc_vj_cofrc_crazyrunner_mummy",chance=70}
 }
 
 ENT.BossMonster = {
@@ -64,6 +69,7 @@ ENT.BossMonster = {
     {class="npc_vj_cofr_sawcrazy",max=1},
     {class="npc_vj_cofr_craig",max=1},
     {class="npc_vj_cofr_simonbook",max=1},
+    {class="npc_vj_cofr_simonbook_beta",max=1},
     {class="npc_vj_cofr_simonbook_mh",max=1},
     {class="npc_vj_cofr_purnell",max=1},
     {class="npc_vj_cofr_simonsick_suicider",max=1},
@@ -78,7 +84,7 @@ ENT.BossMonster = {
     {class="npc_vj_cofrc_mother",max=1},
     {class="npc_vj_cofrc_mummy",max=1},
     {class="npc_vj_cofrc_shaimoon",max=1},
-    {class="npc_vj_cofrc_crocodile",max=1},
+    {class="npc_vj_cofrc_crocodile",max=1}
 }
 
 local AmbientSounds = {

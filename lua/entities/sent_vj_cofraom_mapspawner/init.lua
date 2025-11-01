@@ -24,11 +24,12 @@ ENT.Monster = {
     {class="npc_vj_cofraomc_spitter",chance=10},
     {class="npc_vj_cofraomc_face",chance=20},
     {class="npc_vj_cofraomc_ghost",chance=20},
-    {class="npc_vj_cofraomc_screamer",chance=20},
+    {class="npc_vj_cofraomc_screamer",chance=20}
 }
 
 ENT.BossMonster = {
     {class="npc_vj_cofraom_addiction",max=1},
+    {class="npc_vj_cofraomda_addiction",max=1}
 }
 
 local AmbientSounds = {
