@@ -24,25 +24,35 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 16
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound = "vj_cofr/cof/weapons/famas/famas_shoot.wav"
+SWEP.Primary.Sound = "vj_cofr/cof/weapons/famas/famas_shoot_loop.wav"
+SWEP.Primary.EndSound = "vj_cofr/cof/weapons/famas/famas_shoot.wav"
 SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
+SWEP.Primary.UsesLoopedSound = true
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
  if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.Primary.Sound = "vj_cofr/cof/weapons/famas/old/famas_shoot.wav"
+    self.Primary.Sound = "vj_cofr/cof/weapons/famas/old/famas_shoot_loop.wav"
+    self.Primary.EndSound = "vj_cofr/cof/weapons/famas/old/famas_shoot.wav"
 end
-  self:SetModelScale(0.60)
-  local owner = self:GetOwner()
-  if owner:GetClass() == "npc_vj_cofr_simon_beta" then
-        self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
-  elseif owner:GetClass() == "npc_vj_cofr_police" then
-        self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
-    end
+ self:SetModelScale(0.60)
+ local owner = self:GetOwner()
+ if owner:GetClass() == "npc_vj_cofr_simon_beta" then
+    self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
+ elseif owner:GetClass() == "npc_vj_cofr_police" then
+    self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
+end
+ if self.Primary.UsesLoopedSound then
+    self.PrimarySound = self.Primary.Sound
+    self.Primary.Sound = nil
+    self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
+    self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
+end
+    self.PrimaryLoopSoundT = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr,damageType)
@@ -73,7 +83,7 @@ end
 function SWEP:OnPrimaryAttack(status,statusData)
     if status == "Init" then
     local Brt = math.random(1,8)
-    local Num = 0.09
+    local Num = 0.08
     if Brt == 1 then
         self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
         self.NPC_NextPrimaryFire = math.Rand(0.6,0.7)
@@ -98,14 +108,59 @@ function SWEP:OnPrimaryAttack(status,statusData)
     elseif Brt == 8 then
         self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4,Num*5,Num*6,Num*7,Num*8,Num*9}
         self.NPC_NextPrimaryFire = math.Rand(1.55,1.85)
+    end
+end
+    if status == "PostFire" then
+    if self.Primary.UsesLoopedSound then
+        self.PrimaryLoopSoundT = CurTime() +0.1
+    if math.random(1,7) == 1 && self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
+        self.PrimaryLoop:Stop()
+        self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
+        self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
+        self.PrimaryLoop:Play() end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:OnDrop()
+ if self.Primary.UsesLoopedSound && self.PrimaryLoop then
+    self.PrimaryLoop:Stop()
+end
+    self.BaseClass.OnDrop(self)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:OwnerChanged()
+    if self.Primary.UsesLoopedSound && self.PrimaryLoop then
+        self.PrimaryLoop:Stop()
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:OnThink()
+	local owner = self:GetOwner()
+	self.LastOwner = owner
+    if self.PrimaryLoop then
+    if CurTime() > self.PrimaryLoopSoundT && self.PrimaryLoopSoundT > 0 then
+        self.PrimaryLoop:Stop()
+        self.PrimaryLoopSoundT = 0
+    if IsValid(owner) then
+    local fireSd = VJ.PICK(self.Primary.EndSound)
+    if fireSd != false then
+        sound.Play(fireSd, owner:GetPos(), self.Primary.SoundLevel, math.random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
+    end
+end
+ elseif self.PrimaryLoopSoundT > CurTime() && !self.PrimaryLoop:IsPlaying() then
+    self.PrimaryLoop:Play()
+end
+        self:NextThink(CurTime())
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnRemove()
+    VJ.STOPSOUND(self.PrimaryLoop)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
     local owner = self:GetOwner()
-    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
     owner.NextChaseTime = 0
-    self:OnReload("Start")
-    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+    self.BaseClass.NPC_Reload(self)
 end

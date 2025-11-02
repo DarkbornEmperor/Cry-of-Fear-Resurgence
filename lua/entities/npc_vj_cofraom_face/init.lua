@@ -105,12 +105,12 @@ function ENT:Init()
     local face = ents.Create("env_sprite")
     face:SetKeyValue("model","vj_cofr/sprites/face.vmt")
     face:SetKeyValue("scale","1")
-    face:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+    face:SetKeyValue("GlowProxySize","2.0")
     face:SetKeyValue("renderfx","14")
-    face:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-    face:SetKeyValue("renderamt","255") -- Transparency
-    face:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-    face:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+    face:SetKeyValue("rendermode","3")
+    face:SetKeyValue("renderamt","255")
+    face:SetKeyValue("disablereceiveshadows","0")
+    face:SetKeyValue("framerate","10.0")
     face:SetKeyValue("spawnflags","0")
     face:SetParent(self)
     face:Fire("SetParentAttachment","hornet")
