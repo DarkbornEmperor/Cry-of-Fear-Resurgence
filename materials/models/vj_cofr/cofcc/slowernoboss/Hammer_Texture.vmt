@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_cofr/cofcc/slowernoboss/Hammer_Texture"
+    "$nodecal" "1"
+}

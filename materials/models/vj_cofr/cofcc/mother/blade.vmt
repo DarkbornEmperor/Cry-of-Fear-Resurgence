@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_cofr/cofcc/mother/blade"
+    "$nodecal" "1"
+}

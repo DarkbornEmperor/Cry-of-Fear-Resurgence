@@ -101,7 +101,7 @@ function ENT:Init()
     self.Faceless_Type = 3
  elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister_valve.mdl" then
     self.Faceless_Type = 4
- elseif self:GetModel() == "models/vj_cofr/custom/faceless_reci.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_claw.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/faceless_reci.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_claw.mdl" then
     self.Faceless_Type = 5
     self.AnimTbl_MeleeAttack = "vjseq_attack2"
 end

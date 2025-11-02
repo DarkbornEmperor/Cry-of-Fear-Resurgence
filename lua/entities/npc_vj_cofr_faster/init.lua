@@ -89,7 +89,7 @@ function ENT:Init()
  elseif self:GetModel() == "models/vj_cofr/cof/faster_male.mdl" or self:GetModel() == "models/vj_cofr/custom/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/faster2.mdl" then
     self.Faster_Type = 1
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/custom/faster_ooi.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/faster_ooi.mdl" then
     self.Faster_Type = 2
 end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
