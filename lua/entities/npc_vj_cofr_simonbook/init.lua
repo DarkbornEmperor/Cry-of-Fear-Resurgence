@@ -64,6 +64,9 @@ ENT.SoundTbl_ShotgunPump =
 "vj_cofr/cof/weapons/shotgun/pump_seq.wav"
 
 ENT.SoundTbl_TMP =
+"vj_cofr/cof/weapons/tmp/tmp_shoot_loop.wav"
+
+ENT.SoundTbl_TMPEnd =
 "vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
 
 ENT.SoundTbl_M16 =
@@ -88,6 +91,7 @@ ENT.BookSimon_TMP = false
 ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
+ENT.BookSimon_NextTMPSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -157,11 +161,20 @@ end
     "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
 }
     self.SoundTbl_TMP = {
+    "vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
+}
+    self.SoundTbl_TMPEnd = {
     "vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
 }
     self.SoundTbl_M16 = {
     "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
 }
+end
+ if self.BookSimon_TMP then
+    self.TMPSound = self.SoundTbl_TMP
+    self.SoundTbl_TMP = nil
+    self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
+    self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
 end
  -- Screen flash effect for all the players
  for _,v in ipairs(player.GetHumans()) do
@@ -272,13 +285,13 @@ function ENT:FireFX()
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
-    muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+    muz:SetKeyValue("GlowProxySize","2.0")
     muz:SetKeyValue("HDRColorScale","1.0")
     muz:SetKeyValue("renderfx","14")
-    muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-    muz:SetKeyValue("renderamt","255") -- Transparency
-    muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-    muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+    muz:SetKeyValue("rendermode","3")
+    muz:SetKeyValue("renderamt","255")
+    muz:SetKeyValue("disablereceiveshadows","0")
+    muz:SetKeyValue("framerate","10.0")
     muz:SetKeyValue("spawnflags","0")
     muz:SetParent(self)
     muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
@@ -352,6 +365,25 @@ end
     return self.BaseClass.TranslateActivity(self,act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnThink()
+    if !self.BookSimon_TMP then return end
+    if self.TMPLoop then
+    if CurTime() > self.BookSimon_NextTMPSoundT && self.BookSimon_NextTMPSoundT > 0 then
+        self.TMPLoop:Stop()
+        self.BookSimon_NextTMPSoundT = 0
+    if IsValid(self) then
+    local fireSd = VJ.PICK(self.SoundTbl_TMPEnd)
+    if fireSd != false then
+        sound.Play(fireSd, self:GetPos(), self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1)
+    end
+end
+ elseif self.BookSimon_NextTMPSoundT > CurTime() && !self.TMPLoop:IsPlaying() then
+    self.TMPLoop:Play()
+end
+        self:NextThink(CurTime())
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
  if status == "Init" then
  local ene = self:GetEnemy()
@@ -394,7 +426,13 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
      })
 
  elseif self.BookSimon_TMP then
-    VJ.EmitSound(self, self.SoundTbl_TMP, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+    self.BookSimon_NextTMPSoundT = CurTime() +0.1
+ if math.random(1,7) == 1 && self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
+    self.TMPLoop:Stop()
+    self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
+    self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
+    self.TMPLoop:Play()
+end
     VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100, 110))
     self:FireBullets({
         Attacker = self,
@@ -451,6 +489,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
     end
 end
     if status == "Init" then
+        //VJ.STOPSOUND(self.TMPLoop)
         VJ_COFR_DeathCode(self)
     end
 end
@@ -461,6 +500,7 @@ function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
+    VJ.STOPSOUND(self.TMPLoop)
     VJ.STOPSOUND(self.Shotgun_Pump)
     VJ.STOPSOUND(self.Flare_Ignite)
 end
