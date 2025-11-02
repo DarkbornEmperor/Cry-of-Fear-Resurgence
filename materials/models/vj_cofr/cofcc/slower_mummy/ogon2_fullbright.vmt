@@ -1,4 +1,13 @@
 "VertexlitGeneric"
 {
     "$basetexture" "models/vj_cofr/cofcc/slower_mummy/ogon2_fullbright"
+    "$emissiveBlendEnabled" "1"
+    "$emissiveBlendTexture" "vgui/white"
+    "$emissiveBlendBaseTexture" "models/vj_cofr/cofcc/slower_mummy/ogon2_fullbright"
+    "$emissiveBlendFlowTexture" "vgui/white"
+    "$emissiveBlendTint" "[1 1 1]"
+    "$emissiveBlendStrength" "1"
+    "$emissiveBlendScrollVector" "[0 0]"
+    "$additive" "1"
+    "$nodecal" "1"
 }

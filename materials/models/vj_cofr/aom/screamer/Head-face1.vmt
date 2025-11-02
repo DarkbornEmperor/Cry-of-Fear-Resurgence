@@ -1,12 +1,12 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/aom/screamer/Head-face1"
-    "$emissiveBlendEnabled" 1
-    "$emissiveBlendTexture"  "vgui/white"
+    "$emissiveBlendEnabled" "1"
+    "$emissiveBlendTexture" "vgui/white"
     "$emissiveBlendBaseTexture" "models/vj_cofr/aom/screamer/Head-face1"
     "$emissiveBlendFlowTexture" "vgui/white"
     "$emissiveBlendTint" "[1 1 1]"
-    "$emissiveBlendStrength" 0.5
+    "$emissiveBlendStrength" "1"
     "$emissiveBlendScrollVector" "[0 0]"
     "$additive" "1"
     "$nodecal" "1"
