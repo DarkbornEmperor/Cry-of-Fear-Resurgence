@@ -277,8 +277,10 @@ end
         self.AnimTbl_Death = ACT_DIE_GUTSHOT
     end
 end
+ if status == "Init" then
+    VJ_COFR_DeathCode(self)
  if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
- if status == "Init" && !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+ if !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
     self.HasDeathSounds = false
     dmginfo:SetDamage(self:Health())
  if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
@@ -297,10 +299,10 @@ end
     util.Effect("bloodspray", effectData)
     util.Effect("bloodspray", effectData)
 end
-    VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-    ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-end
-    VJ_COFR_DeathCode(self)
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
+        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+        end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock()
