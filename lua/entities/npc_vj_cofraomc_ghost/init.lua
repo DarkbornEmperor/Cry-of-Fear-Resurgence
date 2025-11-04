@@ -107,7 +107,7 @@ end
         endpos = tsakhLocations[i],
         filter = self
     })
-        if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randTime) end
+        if tr.Hit then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randTime) end
         end
     end)
 end
@@ -128,7 +128,7 @@ end
         endpos = achLocations[i],
         filter = self
     })
-        if tr.Hit == true then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 2, randTime) end end end)
+        if tr.Hit then self:Ghost_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 2, randTime) end end end)
         end
     end
 end
@@ -153,7 +153,7 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
         elec:SetAttachment(2)
         util.Effect("VJ_COFR_Electric", elec)
 
-        VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
+        VJ.ApplyRadiusDamage(self, self, hitPos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 
         VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch))
         return true
