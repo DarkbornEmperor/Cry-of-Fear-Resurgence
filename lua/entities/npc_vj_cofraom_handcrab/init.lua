@@ -54,6 +54,12 @@ ENT.SoundTbl_Impact = {
 "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Handcrab_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/handcrab/hc_alert1.wav",

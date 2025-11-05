@@ -264,6 +264,7 @@
 
     -- ConVars --
     VJ.AddConVar("VJ_COFR_Boss_Music", 1, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_CoFvsAoM", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Simon_Costumes", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_BookSimon_Normal", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Twitcher_Invisible", 0, {FCVAR_ARCHIVE})
@@ -327,6 +328,7 @@ end
             local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_COFR_Boss_Music = "1",
+                VJ_COFR_CoFvsAoM = "0",
                 VJ_COFR_Simon_Costumes = "0",
                 VJ_COFR_BookSimon_Normal = "1",
                 VJ_COFR_Twitcher_Invisible = "1",
@@ -352,9 +354,10 @@ end
                 VJ_COFR_JoeBiden = "0"
 }
             panel:AddControl("ComboBox", vj_cofrreset)
-            panel:ControlHelp("Note: Only future spawned SNPCs will be affected!")
+            panel:ControlHelp("Note: Only future spawned NPCs will be affected!")
             panel:Help("Options:")
             panel:CheckBox("Enable Boss Music?","VJ_COFR_Boss_Music")
+            panel:CheckBox("Enable AoM & CoF Enemies Being Hostile To Each Other?","VJ_COFR_CoFvsAoM")
             panel:CheckBox("Enable Hoodie Skins For Simon?","VJ_COFR_Simon_Costumes")
             panel:CheckBox("Enable Only Original Weapons For Book Simon?","VJ_COFR_BookSimon_Normal")
             panel:CheckBox("Enable Transparent/Invisible Twitchers?","VJ_COFR_Twitcher_Invisible")
@@ -362,11 +365,13 @@ end
             panel:CheckBox("Enable Original Damage Method For The Addiction?","VJ_COFR_Addiction_SelfDamage")
             panel:CheckBox("Enable Original Damage Method For Mace?","VJ_COFR_Mace_Damage")
             panel:CheckBox("Enable Radius Damage For Sawcrazy?","VJ_COFR_Sawcrazy_RadiusDamage")
-            panel:CheckBox("Enable The Face To Summon Faceless?","VJ_COFR_FaceHead_SummonFaceless")
+            panel:CheckBox("Enable The Face Summoning Faceless?","VJ_COFR_FaceHead_SummonFaceless")
             panel:CheckBox("Enable Head Gibbing For Slowers?","VJ_COFR_Slower_HeadGib")
             panel:CheckBox("Enable Suiciders Running Out Of Ammo?","VJ_COFR_Suicider_Ammo")
             panel:CheckBox("Enable Suiciders Dropping Glocks/P345s On Death?","VJ_COFR_Suicider_DropGlock")
-            panel:CheckBox("Enable SNPCs Dropping Items On Death?","VJ_COFR_DropAmmo")
+            panel:ControlHelp("Note: Requires CoF Weapon Pack.")
+            panel:CheckBox("Enable NPCs Dropping Items On Death?","VJ_COFR_DropAmmo")
+            panel:ControlHelp("Note: Requires CoF Weapon Pack.")
             panel:CheckBox("Enable Instant Headshot Death For Suicider?","VJ_COFR_Suicider_Headshot")
             panel:CheckBox("Enable Ghost's Tinnitus Sound After Being Hit?","VJ_COFR_Ghost_SlowSound")
             panel:CheckBox("Enable Flashlight For Assistor & Police Officers?","VJ_COFR_Flashlight")
@@ -374,9 +379,9 @@ end
             panel:CheckBox("Enable Updated Glock Sound For Suiciders & Book Simon?","VJ_COFR_Suicider_NewSound")
             panel:CheckBox("Enable Old Weapon Sounds?","VJ_COFR_OldWepSounds")
             panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
-            panel:CheckBox("Enable Human SNPCs Having HP Regen?","VJ_COFR_Human_Regen")
-            panel:CheckBox("Enable Human SNPCs Finding Cover To Reload?","VJ_COFR_Human_ReloadCover")
-            panel:CheckBox("Enable SNPCs Moving While Reloading?","VJ_COFR_Human_ReloadRun")
+            panel:CheckBox("Enable Human NPCs Having HP Regen?","VJ_COFR_Human_Regen")
+            panel:CheckBox("Enable Human NPCs Finding Cover To Reload?","VJ_COFR_Human_ReloadCover")
+            panel:CheckBox("Enable NPCs Moving While Reloading?","VJ_COFR_Human_ReloadRun")
             panel:CheckBox("Enable Bosses Spawning From Spawners?","VJ_COFR_Boss_Spawner")
             panel:CheckBox("Enable Joe Biden Mode For Carcass?","VJ_COFR_JoeBiden")
 end)

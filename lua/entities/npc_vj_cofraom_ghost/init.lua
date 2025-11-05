@@ -75,6 +75,12 @@ ENT.SoundTbl_Impact = {
 ENT.Ghost_Tinnitus = false
 ENT.Ghost_NextTinnitusSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/ghost/slv_alert2.wav",

@@ -64,6 +64,9 @@ ENT.Twitcher_Invisible = false
 ENT.Twitcher_Transparent = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
+ if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+    self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+end
     if self:GetClass() == "npc_vj_cofraom_twitcher1" then
         self.Model = {
         "models/vj_cofr/aom/twitcher1_barney.mdl",

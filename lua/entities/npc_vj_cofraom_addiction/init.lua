@@ -23,7 +23,6 @@ ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 60
 ENT.RangeAttackAngleRadius = 180
 ENT.TimeUntilRangeAttackProjectileRelease = 0
-ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -71,6 +70,8 @@ ENT.Addiction_NextChangeAttackT = 0
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
+    elseif GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -211,8 +212,14 @@ function ENT:OnMeleeAttack(status,enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status,ent,isProp)
-   if status == "PreDamage" then
+    if status == "PreDamage" then
     if self.Addiction_OnFire then ent:Ignite(4) end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRangeAttack(status,enemy)
+    if status == "Init" then
+        self.NextRangeAttackTime = VJ.PICK(10,15)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

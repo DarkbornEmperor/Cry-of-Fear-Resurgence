@@ -58,6 +58,12 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Icky_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Lurker_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/lurker/ichy_alert1.wav",

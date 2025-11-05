@@ -68,6 +68,12 @@ ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_PullingEnt = 0
 ENT.Devourer_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_Init()
     self.SoundTbl_Death = {
     "vj_cofr/aom/devourer/bcl_die1.wav",

@@ -38,8 +38,6 @@ ENT.SoundTbl_BeforeRangeAttack =
 ENT.SoundTbl_RangeAttack =
 "vj_cofr/aom/ghost/classic/hw_shoot1.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:PreInit() return end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))

@@ -55,6 +55,12 @@ ENT.SoundTbl_Impact = {
 ENT.Screamer_HomingAttack = false -- false = Regular, true = Homing
 ENT.Screamer_NumFired = 0 -- Used to make sure range attack sound only plays once
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Screamer_Init()
     self.SoundTbl_Alert = {
     "vj_cofr/aom/screamer/con_alert1.wav",

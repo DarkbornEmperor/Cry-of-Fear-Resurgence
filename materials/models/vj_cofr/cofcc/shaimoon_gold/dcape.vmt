@@ -9,8 +9,8 @@
     "VertexLitGeneric_HDR_DX9"
     {
         "$envmaptint" "[.15 .15 .15]"
-        "$envmapcontrast" .8
-        "$envmapsaturation" 1.5
+        "$envmapcontrast" ".8"
+        "$envmapsaturation" "1.5"
     }
 }
 

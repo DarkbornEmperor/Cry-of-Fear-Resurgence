@@ -264,8 +264,10 @@ end
 function ENT:FindEnemy()
     local tbl = {}
     for _,v in pairs(ents.GetAll()) do
-    if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class,"CLASS_CRY_OF_FEAR","CLASS_AOM_DC") or true) then
+    if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) then
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 0 && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class,"CLASS_CRY_OF_FEAR") or true) or GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class,"CLASS_AFRAID_OF_MONSTERS") or true) then
         table_insert(tbl,v)
+        end
     end
 end
     return tbl

@@ -21,10 +21,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkAttack(isAttacking,enemy)
     if self:GetSequence() == self:LookupSequence("whip") then
-        self.SightAngle = 360
+        //self.SightAngle = 360
         self.MeleeAttackDamageAngleRadius = 180
     elseif self:GetSequence() == self:LookupSequence("bite") then
-        self.SightAngle = 156
+        //self.SightAngle = 156
         self.MeleeAttackDamageAngleRadius = 100
     end
 end
