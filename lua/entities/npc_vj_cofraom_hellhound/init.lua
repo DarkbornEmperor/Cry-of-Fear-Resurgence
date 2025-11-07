@@ -157,6 +157,7 @@ function ENT:OnAlert(ent)
     if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
         if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
         self.Hellhound_Sleeping = false
+        if self:GetModel() == "models/vj_cofr/aom/hellhound.mdl" then self:PlayAnim(ACT_STAND, true, false, false) end
         if VJ.AnimExists(self, ACT_HOP) then self:PlayAnim(ACT_HOP, true, false, false) end
         self.Hellhound_NextSleepT = CurTime() + 20
     elseif VJ.AnimExists(self, "madidle1") && math.random(1,2) == 1 then -- Random alert animation
@@ -218,6 +219,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+    if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then self:SetSkin(2) end
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
