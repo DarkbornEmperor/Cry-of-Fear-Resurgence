@@ -130,6 +130,10 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
  if status == "PreDamage" then
  if CurTime() > self.Sawer_NextFlinchT && math.random(1,14) == 1 && !self.Sawer_EyeOpen then

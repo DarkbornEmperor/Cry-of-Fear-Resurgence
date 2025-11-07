@@ -18,8 +18,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.MeleeAttackDamageAngleRadius = 110
-ENT.MeleeAttackAngleRadius = 110
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
@@ -93,6 +91,10 @@ function ENT:OnInput(key,activator,caller,data)
         util.Effect("watersplash",effectdata)*/
         end
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)

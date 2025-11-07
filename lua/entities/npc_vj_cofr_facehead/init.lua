@@ -125,6 +125,10 @@ function ENT:OnThinkActive()
         self.FaceHead_NextFacelessSpawnT = CurTime() + 20
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

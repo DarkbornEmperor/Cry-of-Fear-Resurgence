@@ -620,6 +620,10 @@ function ENT:OnMeleeAttack(status,enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
  local wep = self.WeaponEntity
  local finalAnim = self:TranslateActivity(VJ.PICK(self.AnimTbl_WeaponAttackGesture))

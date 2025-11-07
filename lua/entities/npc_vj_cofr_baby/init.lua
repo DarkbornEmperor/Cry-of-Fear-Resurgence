@@ -115,6 +115,10 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
     if status == "DeathAnim" then
     if !self.Baby_DeathFromMeleeAttack then

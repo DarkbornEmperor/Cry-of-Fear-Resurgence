@@ -162,6 +162,10 @@ end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
  if status == "PreSpawn" && self:GetClass() == "npc_vj_cofraomc_face" then
     projectile.Eyeball_Classic = true

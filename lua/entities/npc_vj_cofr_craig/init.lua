@@ -119,6 +119,10 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
     if status == "PreDamage" then
         dmginfo:ScaleDamage(0.2)

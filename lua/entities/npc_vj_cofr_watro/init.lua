@@ -22,7 +22,6 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
-ENT.MeleeAttackDamageAngleRadius = 90
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -100,6 +99,10 @@ end
         self.CallForHelp = true
         self:RemoveFlags(FL_NOTARGET)
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)

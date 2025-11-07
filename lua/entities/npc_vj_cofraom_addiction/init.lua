@@ -217,6 +217,10 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status,enemy)
     if status == "Init" then
         self.NextRangeAttackTime = VJ.PICK(10,15)

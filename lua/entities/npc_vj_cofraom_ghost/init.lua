@@ -137,6 +137,10 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
     if status == "DeathAnim" then
     if hitgroup == HITGROUP_HEAD then

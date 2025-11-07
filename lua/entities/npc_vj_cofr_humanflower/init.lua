@@ -83,6 +83,10 @@ function ENT:OnMeleeAttackExecute(status,ent,isProp)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(ent)
     return self:GetForward()*-300 + self:GetUp()*100
 end
