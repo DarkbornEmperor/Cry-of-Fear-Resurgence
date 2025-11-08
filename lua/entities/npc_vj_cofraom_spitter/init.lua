@@ -96,7 +96,7 @@ function ENT:Spitter_Init()
     "vj_cofr/aom/spitter/bc_die2.wav",
     "vj_cofr/aom/spitter/bc_die3.wav"
 }
-    if self:GetModel() == "models/vj_cofr/aom/bullsquidhd.mdl" then
+    if self:GetModel() == "models/vj_cofr/aom/classic/spitter.mdl" or self:GetModel() == "models/vj_cofr/aomr/spitter.mdl" then
         self.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
     end
 end

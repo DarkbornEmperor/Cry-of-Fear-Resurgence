@@ -67,9 +67,9 @@ function ENT:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" then // Already the default
+ if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" or self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_memo.mdl" or self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_real_memo.mdl" or self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofce/crazyrunner.mdl" then // Already the default
     self.CrazyRunner_Type = 0
- elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" or self:GetModel() == "models/vj_cofr/cofce/citalopram.mdl" then
     self.CrazyRunner_Type = 1
  elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
     self.CrazyRunner_Type = 2

@@ -91,17 +91,17 @@ function ENT:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" then // Already the default
+ if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless3_tsos.mdl" then // Already the default
     self.Faceless_Type = 0
- elseif self:GetModel() == "models/vj_cofr/cof/faceless_crawler.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless_crawler.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_crawler_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofce/faceless_crawler.mdl" then
     self.Faceless_Type = 1
- elseif self:GetModel() == "models/vj_cofr/cof/faceless_faced.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless_faced.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_faced_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofce/faceless_faced.mdl" then
     self.Faceless_Type = 2
- elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_twister_tsos.mdl" then
     self.Faceless_Type = 3
  elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister_valve.mdl" then
     self.Faceless_Type = 4
- elseif self:GetModel() == "models/vj_cofr/cofcc/faceless_reci.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_claw.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/faceless_reci.mdl" or self:GetModel() == "models/vj_cofr/cofce/faceless_claw.mdl" then
     self.Faceless_Type = 5
     self.AnimTbl_MeleeAttack = "vjseq_attack2"
 end

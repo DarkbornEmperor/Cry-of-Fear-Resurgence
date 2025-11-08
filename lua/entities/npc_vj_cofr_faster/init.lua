@@ -82,9 +82,9 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if self:GetModel() == "models/vj_cofr/cof/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/faster_hh.mdl" then // Already the default
+ if self:GetModel() == "models/vj_cofr/cof/faster.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faster_memo.mdl" or self:GetModel() == "models/vj_cofr/cofce/hh/faster.mdl" then // Already the default
     self.Faster_Type = 0
- elseif self:GetModel() == "models/vj_cofr/cof/faster_male.mdl" or self:GetModel() == "models/vj_cofr/custom/faster.mdl" or self:GetModel() == "models/vj_cofr/custom/faster2.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/faster_male.mdl" or self:GetModel() == "models/vj_cofr/cofce/faster.mdl" or self:GetModel() == "models/vj_cofr/cofce/faster2.mdl" then
     self.Faster_Type = 1
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
  elseif self:GetModel() == "models/vj_cofr/cofcc/faster_ooi.mdl" then

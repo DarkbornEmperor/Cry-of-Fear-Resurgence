@@ -73,7 +73,7 @@ ENT.Slower_Type = 0
     -- 6 = Slower Ten 2
     -- 7 = Upper
     -- 8 = Custom Slower 1
-    -- 9 = Custom Slower 10
+    -- 9 = Custom Slower Ten
     -- 10 = Misc Custom
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
@@ -111,31 +111,31 @@ function ENT:Init()
  if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/cof/slower1_beta.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
     self.Slower_Type = 0
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler.mdl" or self:GetModel() == "models/vj_cofr/custom/crawler2.mdl" or self:GetModel() == "models/vj_cofr/custom/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/crawler_hh.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/cofce/crawler.mdl" or self:GetModel() == "models/vj_cofr/cofce/crawler2.mdl" or self:GetModel() == "models/vj_cofr/cofce/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/cofce/hh/krypandenej.mdl" then
     self.Slower_Type = 1
     self.AnimTbl_MeleeAttack = "vjseq_attack"
- elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/custom/croucher.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/cofce/croucher.mdl" then
     self.Slower_Type = 2
     self.AnimTbl_MeleeAttack = "vjseq_attack1"
- elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/cof/slower3_beta.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower3_ooi.mdl" or self:GetModel() == "models/vj_cofr/custom/slower3.mdl" or self:GetModel() == "models/vj_cofr/custom/faceless_slower.mdl" or self:GetModel() == "models/vj_cofr/custom/hh/slower3_hh.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/cof/slower3_beta.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower3_ooi.mdl" or self:GetModel() == "models/vj_cofr/cofce/slower3.mdl" or self:GetModel() == "models/vj_cofr/cofce/blacker.mdl" or self:GetModel() == "models/vj_cofr/cofce/hh/slower3.mdl" then
     self.Slower_Type = 3
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slowerno_th.mdl" or self:GetModel() == "models/vj_cofr/custom/slowerno.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slowerno_th.mdl" or self:GetModel() == "models/vj_cofr/cofce/slowerno.mdl" then
     self.Slower_Type = 4
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack5"}
  elseif self:GetModel() == "models/vj_cofr/cof/slowerten.mdl" then
     self.Slower_Type = 5
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
- elseif self:GetModel() == "models/vj_cofr/cof/slowerten2.mdl" or self:GetModel() == "models/vj_cofr/custom/slower102.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cof/slowerten2.mdl" or self:GetModel() == "models/vj_cofr/cofce/slowerten2.mdl" then
     self.Slower_Type = 6
     self.AnimTbl_MeleeAttack = "vjseq_attack"
  elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
     self.Slower_Type = 7
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_memo.mdl" or self:GetModel() == "models/vj_cofr/custom/slower1.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_memo.mdl" or self:GetModel() == "models/vj_cofr/cofce/slower1.mdl" then
     self.Slower_Type = 8
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
- elseif self:GetModel() == "models/vj_cofr/custom/slower10.mdl" then
+ elseif self:GetModel() == "models/vj_cofr/cofce/slowerten.mdl" then
     self.Slower_Type = 9
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
  elseif self:GetModel() == "models/vj_cofr/cofcc/sicksophie.mdl" then

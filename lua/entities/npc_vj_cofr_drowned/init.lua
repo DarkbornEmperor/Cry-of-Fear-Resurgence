@@ -110,7 +110,7 @@ function ENT:OnInput(key,activator,caller,data)
     elseif key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "baby_appear" then
-        VJ.EmitSound(self,"vj_cofr/cof/drowned/baby_burst.wav", 75, 100)
+        if self:GetClass() == "npc_vj_cofrce_drowned" then VJ.EmitSound(self,"vj_cofr/cofce/drowned/baby_burst.wav", 75, 100) else VJ.EmitSound(self,"vj_cofr/cof/drowned/baby_burst.wav", 75, 100) end
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
         self:SetBodygroup(0,1)
     elseif key == "death" then

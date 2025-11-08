@@ -141,46 +141,87 @@ end
         self.Model =
         "models/vj_cofr/aom/da/twitcher.mdl"
 
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher1_hd" then
-        self.Model =
-        "models/vj_cofr/aom/zombiehd.mdl"
-
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher2_hd" then
-        self.Model =
-        "models/vj_cofr/aom/zombiehd2.mdl"
-
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
-        self.Model =
-        "models/vj_cofr/aom/zombiehd3.mdl"
-
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
-        self.Model =
-        "models/vj_cofr/aom/zombiehd4.mdl"
+    elseif self:GetClass() == "npc_vj_cofraomr_twitcher1" then
+        self.Model = {
+        "models/vj_cofr/aomr/twitcher1_barney.mdl",
+        "models/vj_cofr/aomr/twitcher1_csdamage.mdl",
+        "models/vj_cofr/aomr/twitcher1_doctor.mdl",
+        "models/vj_cofr/aomr/twitcher1_girl.mdl",
+        "models/vj_cofr/aomr/twitcher1_headless.mdl",
+        "models/vj_cofr/aomr/twitcher1_headless2.mdl",
+        "models/vj_cofr/aomr/twitcher1_normal.mdl",
+        "models/vj_cofr/aomr/twitcher1_patient.mdl",
+        "models/vj_cofr/aomr/twitcher1_reofficer.mdl",
+        "models/vj_cofr/aomr/twitcher1_zomb.mdl",
+        "models/vj_cofr/aomr/twitcher1_zombie2.mdl"
+}
+    elseif self:GetClass() == "npc_vj_cofraomr_twitcher2" then
+        self.Model = {
+        "models/vj_cofr/aomr/twitcher2_barney.mdl",
+        "models/vj_cofr/aomr/twitcher2_csdamage.mdl",
+        "models/vj_cofr/aomr/twitcher2_doctor.mdl",
+        "models/vj_cofr/aomr/twitcher2_girl.mdl",
+        "models/vj_cofr/aomr/twitcher2_headless.mdl",
+        "models/vj_cofr/aomr/twitcher2_headless2.mdl",
+        "models/vj_cofr/aomr/twitcher2_normal.mdl",
+        //"models/vj_cofr/aomr/twitcher2_patient.mdl",
+        "models/vj_cofr/aomr/twitcher2_reofficer.mdl",
+        "models/vj_cofr/aomr/twitcher2_zomb.mdl",
+        "models/vj_cofr/aomr/twitcher2_zombie2.mdl"
+}
+    elseif self:GetClass() == "npc_vj_cofraomr_twitcher3" then
+        self.Model = {
+        "models/vj_cofr/aomr/twitcher3_barney.mdl",
+        "models/vj_cofr/aomr/twitcher3_csdamage.mdl",
+        "models/vj_cofr/aomr/twitcher3_doctor.mdl",
+        "models/vj_cofr/aomr/twitcher3_girl.mdl",
+        "models/vj_cofr/aomr/twitcher3_headless.mdl",
+        "models/vj_cofr/aomr/twitcher3_headless2.mdl",
+        "models/vj_cofr/aomr/twitcher3_normal.mdl",
+        "models/vj_cofr/aomr/twitcher3_patient.mdl",
+        "models/vj_cofr/aomr/twitcher3_reofficer.mdl",
+        "models/vj_cofr/aomr/twitcher3_zomb.mdl",
+        "models/vj_cofr/aomr/twitcher3_zombie2.mdl"
+}
+    elseif self:GetClass() == "npc_vj_cofraomr_twitcher4" then
+        self.Model = {
+        "models/vj_cofr/aomr/twitcher4_barney.mdl",
+        "models/vj_cofr/aomr/twitcher4_csdamage.mdl",
+        "models/vj_cofr/aomr/twitcher4_doctor.mdl",
+        "models/vj_cofr/aomr/twitcher4_girl.mdl",
+        "models/vj_cofr/aomr/twitcher4_headless.mdl",
+        "models/vj_cofr/aomr/twitcher4_headless2.mdl",
+        "models/vj_cofr/aomr/twitcher4_normal.mdl",
+        "models/vj_cofr/aomr/twitcher4_patient.mdl",
+        "models/vj_cofr/aomr/twitcher4_reofficer.mdl",
+        "models/vj_cofr/aomr/twitcher4_zomb.mdl",
+        "models/vj_cofr/aomr/twitcher4_zombie2.mdl"
+}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_Init()
  if self:GetClass() == "npc_vj_cofraom_twitcher1"
  or self:GetClass() == "npc_vj_cofraom_twitcher2"
- or self:GetClass() == "npc_vj_cofraom_twitcher1_hd"
- or self:GetClass() == "npc_vj_cofraom_twitcher2_hd" then
+ or self:GetClass() == "npc_vj_cofraomr_twitcher1"
+ or self:GetClass() == "npc_vj_cofraomr_twitcher2" then
     self.AnimTbl_MeleeAttack = {"vjseq_attack0","vjseq_attack1","vjseq_attack2","vjseq_attack22","vjseq_attack3","vjseq_attack32","vjseq_attack45"}
 
  elseif self:GetClass() == "npc_vj_cofraom_twitcher3"
- or self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
+ or self:GetClass() == "npc_vj_cofraomr_twitcher3" then
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
 
  elseif self:GetClass() == "npc_vj_cofraom_twitcher4"
- or self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
+ or self:GetClass() == "npc_vj_cofraomr_twitcher4" then
       self.AnimTbl_MeleeAttack = "vjseq_attack0"
 
  elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
     self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3","vjseq_attack4","vjseq_attack5"}
 
- elseif self:GetClass() == "npc_vj_cofrc_twitcher" then
-    self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}
+ /*elseif self:GetClass() == "npc_vj_cofrc_twitcher" then
+    self.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2"}*/
 end
- if (self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl") or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
+ if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or self:GetModel() == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
     self:DrawShadow(false)
 end
     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
@@ -208,8 +249,8 @@ function ENT:TwitcherSounds()
    if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then
    if self:GetClass() == "npc_vj_cofraom_twitcher1"
    or self:GetClass() == "npc_vj_cofraom_twitcher3"
-   or self:GetClass() == "npc_vj_cofraom_twitcher1_hd"
-   or self:GetClass() == "npc_vj_cofraom_twitcher3_hd" then
+   or self:GetClass() == "npc_vj_cofraomr_twitcher1"
+   or self:GetClass() == "npc_vj_cofraomr_twitcher3" then
     self.SoundTbl_Alert = {
     "vj_cofr/aom/twitcher/zo_alert10.wav",
     "vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -221,8 +262,8 @@ function ENT:TwitcherSounds()
 }
    elseif self:GetClass() == "npc_vj_cofraom_twitcher2"
    or self:GetClass() == "npc_vj_cofraom_twitcher4"
-   or self:GetClass() == "npc_vj_cofraom_twitcher2_hd"
-   or self:GetClass() == "npc_vj_cofraom_twitcher4_hd" then
+   or self:GetClass() == "npc_vj_cofraomr_twitcher2"
+   or self:GetClass() == "npc_vj_cofraomr_twitcher4" then
         self.SoundTbl_Alert = {
         "vj_cofr/aom/twitcher2/zo_alert10.wav",
         "vj_cofr/aom/twitcher2/zo_alert20.wav",
@@ -324,7 +365,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
- if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or (self:GetModel() == "models/vj_cofr/aom/zombiehd2.mdl" && self:GetBodygroup(0) == 5) then
+ if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or self:GetModel() == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
     corpseEnt:DrawShadow(false)
  elseif self.Twitcher_Invisible then
     corpseEnt:SetNoDraw(true)
