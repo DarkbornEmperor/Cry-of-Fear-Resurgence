@@ -136,7 +136,7 @@ function ENT:Init()
     "npc_vj_cofrcc_psycho_le:60",
     "npc_vj_cofrcc_faceless_mummy:60",
     "npc_vj_cofrcc_faceless_mummycrawl:60",
-    "npc_vj_cofrcc_faceless_stone:60",
+    "npc_vj_cofrcc_faceless_statue:60",
     "npc_vj_cofrcc_faceless_mummytwister:60",
     "npc_vj_cofrcc_shaimoon_statue:60",
     "npc_vj_cofrcc_sicksophie:60",
