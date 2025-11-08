@@ -39,7 +39,7 @@
     VJ.AddNPC("Slower 3 (Beta)","npc_vj_cofr_slower3_beta",spawnCategory)
     VJ.AddNPC("Slower No","npc_vj_cofr_slowerno",spawnCategory)
     VJ.AddNPC("Slower Ten","npc_vj_cofr_slowerten",spawnCategory)
-    VJ.AddNPC("Slower Ten 2","npc_vj_cofr_slowerten2",spawnCategory)
+    VJ.AddNPC("Slower Ten-2","npc_vj_cofr_slowerten2",spawnCategory)
     VJ.AddNPC("Spitter","npc_vj_cofr_spitter",spawnCategory)
     VJ.AddNPC("Stranger","npc_vj_cofr_stranger",spawnCategory)
     VJ.AddNPC("Suicider","npc_vj_cofr_suicider",spawnCategory)
