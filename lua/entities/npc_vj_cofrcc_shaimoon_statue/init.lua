@@ -47,7 +47,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
     rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
     util.Effect("VJ_COFR_Rico", rico)
 end
- if status == "Predamage" then
+ if status == "PreDamage" then
     dmginfo:ScaleDamage(0.5)
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
     end
