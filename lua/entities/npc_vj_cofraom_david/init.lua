@@ -519,12 +519,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if self.IsMedic && !self:IsBusy() && self.MedicData.Status != "Healing" && CurTime() > self.CoFR_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-        self:OnMedicBehavior()
+        self:OnMedicBehavior("BeforeHeal")
         self:PlayAnim("vjges_shoot_wrench",true,false,false)
         timer.Simple(0.4, function() if IsValid(self) && !self.Dead then
         local CurHP = self:Health()
         self:SetHealth(math.Clamp(CurHP + self.Medic_HealAmount, CurHP, self:GetMaxHealth()))
-        self:OnMedicBehavior()
+        self:OnMedicBehavior("OnHeal")
         self:PlaySoundSystem("Speech",self.SoundTbl_MedicReceiveHeal)
         VJ.CreateSound(self,self.SoundTbl_MedicOnHeal,75,100)
         self:RemoveAllDecals()
