@@ -44,14 +44,14 @@ end
  elseif owner:GetClass() == "npc_vj_cofr_police" then
     self.WorldModel_CustomPositionOrigin = Vector(-2, 3.5, -1)
 end
- if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrcc_robert" then
-    self.NPC_NextPrimaryFire = 1
-    self.Primary.Damage = 15
-end
+    if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrcc_robert" then
+        self.NPC_NextPrimaryFire = 1
+        self.Primary.Damage = 15
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
         self.NPC_ReloadSound = "vj_cofr/cof/doctorboss/old/p345_reload.wav"
     else
         self.NPC_ReloadSound = "vj_cofr/cof/doctorboss/p345_reload.wav"
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
