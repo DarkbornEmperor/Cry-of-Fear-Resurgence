@@ -14,7 +14,7 @@ function ENT:OnThink()
     if !self.Dead && CurTime() > self.Spitter_BlinkingT then
         self:SetSkin(1)
         timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
-        self.Spitter_BlinkingT = CurTime() + math.Rand(2, 3.5)
+        self.Spitter_BlinkingT = CurTime() + math.Rand(2,3.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

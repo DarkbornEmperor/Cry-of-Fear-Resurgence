@@ -215,11 +215,11 @@ end
 function ENT:OnDeath(dmginfo,hitgroup,status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
+        if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then self:SetSkin(math.random(1,2)) end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
-    if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then self:SetSkin(2) end
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
