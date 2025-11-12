@@ -9,8 +9,6 @@ ENT.Model = "models/vj_cofr/cof/sawer.mdl"
 ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
-ENT.PoseParameterLooking_Names = {pitch = {"eye_move"}, yaw = {"eye_move"}, roll = {}}
-ENT.PoseParameterLooking_InvertPitch = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -61,6 +59,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Sawer_EyeOpen = false
 ENT.Sawer_NextDownT = 0
+ENT.Sawer_NextEyeMoveT = 0
 ENT.Sawer_NextFlinchT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -98,6 +97,8 @@ function ENT:Init()
     self:Sawer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local math_angApproach = math.ApproachAngle
+--
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:PlayFootstepSound()
@@ -105,7 +106,7 @@ function ENT:OnInput(key,activator,caller,data)
         self:ExecuteMeleeAttack()
     elseif key == "eye_close" then
         self:SetSkin(0)
-        self:UpdatePoseParamTracking(true)
+        self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -115,6 +116,18 @@ function ENT:OnInput(key,activator,caller,data)
         effectdata:SetScale(10)
         util.Effect("watersplash",effectdata)*/
         end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnThink()
+ if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
+ local eyeDir = math.random(1,2)
+ if eyeDir == 1 then
+    self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 90, 10))
+ elseif eyeDir == 2 then
+    self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), -90, 10))
+end
+        self.Sawer_NextEyeMoveT = CurTime() + math.Rand(0,0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -186,6 +199,7 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
  if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
     self:SetSkin(0)
     self.Sawer_Eye:Remove()
+    self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
         VJ_COFR_DeathCode(self)
