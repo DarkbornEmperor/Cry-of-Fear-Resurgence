@@ -218,8 +218,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
  if status == "Init" then
- local ene = self:GetEnemy()
- if IsValid(self) && IsValid(self:GetEnemy()) then
+ local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
  if self.Suicider_Glock then
     VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
  elseif self.Suicider_P345 then
@@ -233,8 +232,8 @@ end
     self:FireBullets({
     Attacker = self,
     Num = 1,
-    Src = self:GetAttachment(self:LookupAttachment("muzzle")).Pos,
-    Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle")).Pos):Angle():Forward(),
+    Src = attPos,
+    Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
     Spread = Vector(0.1,0.1,0),
     TracerName = "VJ_COFR_Tracer",
     Tracer = 1,
@@ -244,7 +243,6 @@ end
     Distance = 2048,
     HullSize = 1
  })
-end
         self:FireFX()
         return true
     end

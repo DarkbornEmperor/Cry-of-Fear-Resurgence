@@ -50,6 +50,7 @@
     VJ.AddNPC("Book Simon","npc_vj_cofr_simonbook",spawnCategory)
     VJ.AddNPC("Book Simon (Beta)","npc_vj_cofr_simonbook_beta",spawnCategory)
     VJ.AddNPC("Book Simon (Manhunt)","npc_vj_cofr_simonbook_mh",spawnCategory)
+    VJ.AddNPC("Book Simon (Manhunt) (Beta)","npc_vj_cofr_simonbook_mh_beta",spawnCategory)
     VJ.AddNPC("Carcass","npc_vj_cofr_carcass",spawnCategory)
     VJ.AddNPC("Craig","npc_vj_cofr_craig",spawnCategory)
     VJ.AddNPC("Doctor Purnell","npc_vj_cofr_purnell",spawnCategory)

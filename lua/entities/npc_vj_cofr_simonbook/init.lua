@@ -94,8 +94,38 @@ ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_NextTMPSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
-        self.HasSoundTrack = false
+ if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
+    self.HasSoundTrack = false
+end
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
+    local bookSimon_Type = math.random(1,3)
+    if bookSimon_Type == 1 then
+        self.BookSimon_Shotgun = true
+        self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
+    elseif bookSimon_Type == 2 then
+        self.BookSimon_Sledgehammer = true
+    elseif bookSimon_Type == 3 then
+        self.BookSimon_SledgehammerFlare = true
+    end
+end
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then
+    local bookSimon_Type = math.random(1,6)
+    if bookSimon_Type == 1 then
+        self.BookSimon_Shotgun = true
+        self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
+    elseif bookSimon_Type == 2 then
+        self.BookSimon_Glock = true
+    elseif bookSimon_Type == 3 then
+        self.BookSimon_TMP = true
+        self.Model = "models/vj_cofr/cof/booksimon_tmp.mdl"
+    elseif bookSimon_Type == 4 then
+        self.BookSimon_M16 = true
+        self.Model = "models/vj_cofr/cof/booksimon_m16.mdl"
+    elseif bookSimon_Type == 5 then
+        self.BookSimon_Sledgehammer = true
+    elseif bookSimon_Type == 6 then
+        self.BookSimon_SledgehammerFlare = true
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -118,32 +148,6 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
-    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
-    local BookSimon_Type = math.random(1,3)
-    if BookSimon_Type == 1 then
-        self.BookSimon_Shotgun = true
-    elseif BookSimon_Type == 2 then
-        self.BookSimon_Sledgehammer = true
-    elseif BookSimon_Type == 3 then
-        self.BookSimon_SledgehammerFlare = true
-    end
-end
-    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then
-    local BookSimon_Type = math.random(1,6)
-    if BookSimon_Type == 1 then
-        self.BookSimon_Shotgun = true
-    elseif BookSimon_Type == 2 then
-        self.BookSimon_Glock = true
-    elseif BookSimon_Type == 3 then
-        self.BookSimon_TMP = true
-    elseif BookSimon_Type == 4 then
-        self.BookSimon_M16 = true
-    elseif BookSimon_Type == 5 then
-        self.BookSimon_Sledgehammer = true
-    elseif BookSimon_Type == 6 then
-        self.BookSimon_SledgehammerFlare = true
-    end
-end
  if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
     self.SoundTbl_Glock = {
     "vj_cofr/cof/weapons/glock/glock_fire.wav"
@@ -210,6 +214,7 @@ function ENT:SetShotgun()
     self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.5
     self.NextAnyAttackTime_Range = 1
+    self.BookSimon_MuzzleAttach = "muzzle_shotgun"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetTMP()
@@ -222,6 +227,7 @@ function ENT:SetTMP()
     self.TimeUntilRangeAttackProjectileRelease = 0.09
     self.RangeAttackReps = 10
     self.NextAnyAttackTime_Range = 1.5
+    self.BookSimon_MuzzleAttach = "muzzle_tmp"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetGlock()
@@ -232,6 +238,7 @@ function ENT:SetGlock()
     self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.1
     self.NextAnyAttackTime_Range = 0.6
+    self.BookSimon_MuzzleAttach = "muzzle_glock"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetM16()
@@ -243,6 +250,7 @@ function ENT:SetM16()
     self.TimeUntilRangeAttackProjectileRelease = 0.05
     self.RangeAttackReps = 3
     self.NextAnyAttackTime_Range = 1.5
+    self.BookSimon_MuzzleAttach = "muzzle_m16"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammer()
@@ -390,8 +398,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
  if status == "Init" then
- local ene = self:GetEnemy()
- if IsValid(self) && IsValid(self:GetEnemy()) then
+ local attPos = self:GetAttachment(self:LookupAttachment(self.BookSimon_MuzzleAttach)).Pos
  if self.BookSimon_Shotgun then
     VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
     VJ.EmitSound(self, "vj_cofr/fx/distant/sbarrel1_distant2.wav", 140, self:GetSoundPitch(100, 110))
@@ -399,8 +406,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
         Attacker = self,
         Num = 6,
-        Src = self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
+        Src = attPos,
+        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -417,8 +424,8 @@ function ENT:OnRangeAttackExecute(status,enemy,projectile)
     self:FireBullets({
         Attacker = self,
         Num = 1,
-        Src = self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
+        Src = attPos,
+        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -441,8 +448,8 @@ end
     self:FireBullets({
         Attacker = self,
         Num = 1,
-        Src = self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
+        Src = attPos,
+        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -459,8 +466,8 @@ end
     self:FireBullets({
         Attacker = self,
         Num = 1,
-        Src = self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos,
-        Dir = (self:GetAimPosition(ene, self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos, 0) - self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos):Angle():Forward(),
+        Src = attPos,
+        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
         Spread = Vector(0.1,0.1,0),
         TracerName = "VJ_COFR_Tracer",
         Tracer = 1,
@@ -470,7 +477,6 @@ end
         Distance = 2048,
         HullSize = 1
      })
-    end
 end
         self:FireFX()
         return true

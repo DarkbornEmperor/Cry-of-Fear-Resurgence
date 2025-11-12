@@ -163,7 +163,7 @@ end
     self:SpawnBloodDecals(dmginfo,hitgroup)
     self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 end
-     if CurTime() > self.Sawer_NextDownT && math.random(1,1) == 1 && !self.Sawer_EyeOpen then
+     if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
      local animTime = VJ.AnimDuration(self,ACT_COWER)
         self:PlayAnim(ACT_COWER,true,false,false)
         VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
