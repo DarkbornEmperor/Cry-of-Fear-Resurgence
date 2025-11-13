@@ -2,4 +2,5 @@
 {
     "$basetexture" "models/vj_cofr/cof/crazyrunner/hair"
     "$alphatest" "1"
+    "$nodecal" "1"
 }

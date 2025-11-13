@@ -2,4 +2,5 @@
 {
     "$basetexture" "models/vj_cofr/cofcc/sicksophie/hair_inside"
     "$alphatest" "1"
+    "$nodecal" "1"
 }
