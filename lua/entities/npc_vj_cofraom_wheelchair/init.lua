@@ -15,7 +15,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack2"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.NextMeleeAttackTime = 1
 ENT.MeleeAttackDamage = 30
 ENT.MeleeAttackDistance = 25
 ENT.MeleeAttackDamageDistance = 50

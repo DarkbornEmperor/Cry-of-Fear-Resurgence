@@ -8,8 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/hellhound.mdl"
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
-ENT.TimeUntilMeleeAttackDamage = false //2.35
-ENT.NextMeleeAttackTime = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     -- Blinking

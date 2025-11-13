@@ -9,7 +9,6 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/aom/classic/ghost.mdl"
 ENT.StartHealth = 300
 ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
-ENT.NextMeleeAttackTime = 0
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.MeleeAttackBleedEnemy = false

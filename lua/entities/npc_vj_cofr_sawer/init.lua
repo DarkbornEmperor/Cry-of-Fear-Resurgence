@@ -156,9 +156,9 @@ end
  if hitgroup == 9 && self.Sawer_EyeOpen then
     dmginfo:ScaleDamage(0.2)
  else
-    dmginfo:ScaleDamage(0)
+    dmginfo:SetDamage(0)
 end
- if hitgroup != 9 then
+ if !self.Sawer_EyeOpen then
     self:SpawnBloodParticles(dmginfo,hitgroup)
     self:SpawnBloodDecals(dmginfo,hitgroup)
     self:PlaySoundSystem("Impact", self.SoundTbl_Impact)

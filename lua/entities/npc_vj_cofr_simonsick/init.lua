@@ -6,7 +6,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/sicksimon.mdl"
-ENT.StartHealth = 400
+ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -206,6 +206,9 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo,hitgroup,status)
+ if status == "PreDamage" && hitgroup != 8 then
+    dmginfo:ScaleDamage(0.5)
+end
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
     if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end

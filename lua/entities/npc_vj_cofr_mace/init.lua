@@ -89,7 +89,7 @@ end
 function ENT:Init()
  if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
     self.CanFlinch = true
-    self.FlinchChance = 16
+    self.FlinchChance = 14
 end
     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 120))
@@ -130,16 +130,17 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
-    if status == "PreDamage" then
-        dmginfo:ScaleDamage(0.2)
-    if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then return end
+ if status == "PreDamage" && GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
+    dmginfo:ScaleDamage(0.2)
+end
+    if status == "PreDamage" && GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
     if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
-        dmginfo:ScaleDamage(0.5)
+        dmginfo:ScaleDamage(0.2)
     else
-        dmginfo:ScaleDamage(0)
+        dmginfo:SetDamage(0)
     end
 end
-    if status == "Init" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
+    if status == "Init" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() && GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
         self:SpawnBloodParticles(dmginfo,hitgroup)
         self:SpawnBloodDecals(dmginfo,hitgroup)
         self:PlaySoundSystem("Impact", self.SoundTbl_Impact)

@@ -6,7 +6,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/addiction.mdl"
-ENT.StartHealth = 400
+ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -266,14 +266,15 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
- if status == "PreDamage" then
-    dmginfo:ScaleDamage(0.15)
- if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
+ if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
+    dmginfo:ScaleDamage(0.5)
+end
+ if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
  local attacker = dmginfo:GetAttacker()
  if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
-    dmginfo:ScaleDamage(1.50)
+    dmginfo:ScaleDamage(0.5)
  else
-    dmginfo:ScaleDamage(0.00)
+    dmginfo:SetDamage(0)
 
  if IsValid(attacker) && attacker.VJ_ID_Living && attacker:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
     attacker:TakeDamage(10,self,self)
@@ -287,7 +288,7 @@ end
 end
      if !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
         self:SpawnBloodParticles(dmginfo,hitgroup)
-        self:SpawnBloodDecals(dmginfo,hitgroup) end
+        self:SpawnBloodDecals(dmginfo,hitgroup)
         end
     end
 end
