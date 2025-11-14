@@ -118,20 +118,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
     if status == "Init" then
-    local ent = self:GetEnemy()
     local cont = self.VJ_TheController
     if IsValid(cont) then
-        for _,v in pairs(ents.FindInSphere(ent:GetPos(),10)) do
-            if v != self && v != ent && v.VJ_ID_Living then
-                ent = v
+        for _,v in pairs(ents.FindInSphere(enemy:GetPos(),10)) do
+            if v != self && v != enemy && v.VJ_ID_Living then
+                enemy = v
             break
         end
     end
 end
- if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return true end
+ if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
  if CurTime() > self.Stranger_NextEnemyDamageT then
- if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(ent, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
-    ent:TakeDamage(10,self,self)
+ if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
+    enemy:TakeDamage(10,self,self)
     self:Stranger_Damage()
     self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
 end

@@ -319,6 +319,11 @@ end
     "vj_cofr/cof/simon/morphine7.wav",
     "vj_cofr/cof/simon/morphine8.wav"
 }
+    self.SoundTbl_SuicidePanic = {
+    "vj_cofr/cof/simon/suicide_panic1.wav",
+    "vj_cofr/cof/simon/suicide_panic2.wav",
+    "vj_cofr/cof/simon/suicide_panic3.wav"
+}
     self.SoundTbl_Death = {
     "vj_cofr/cof/simon/death1.wav",
     "vj_cofr/cof/simon/death2.wav",

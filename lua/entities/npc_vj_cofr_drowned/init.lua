@@ -159,26 +159,26 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status,enemy,projectile)
     if status == "Init" then
-    local ent = self:GetEnemy()
     local cont = self.VJ_TheController
     if IsValid(cont) then
-        for _,v in pairs(ents.FindInSphere(ent:GetPos(),10)) do
-            if v != self && v != ent && v.VJ_ID_Living then
-                ent = v
+        for _,v in pairs(ents.FindInSphere(enemy:GetPos(),10)) do
+            if v != self && v != enemy && v.VJ_ID_Living then
+                enemy = v
             break
         end
     end
 end
- if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(ent) or !self:Visible(ent) then return true end
+ if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
  if CurTime() > self.Drowned_NextEnemyDamageT then
- if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(ent, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
- if ent:IsPlayer() then
+ if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(enemy, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
+ if enemy.Human_Type == 1 then enemy:PlaySoundSystem("Pain", enemy.SoundTbl_SuicidePanic) end
+ if enemy:IsPlayer() then
     net.Start("VJ_COFR_Drowned_ScreenEffect")
-    net.WriteEntity(ent)
-    net.Send(ent)
+    net.WriteEntity(enemy)
+    net.Send(enemy)
 end
-    timer.Simple(5,function() if IsValid(self) && IsValid(ent) && ent:Visible(self) && !self.Dead then
-    if ent.IsVJBaseSNPC_Human then ent:TakeDamage(ent:Health(),self,self) elseif ent:IsPlayer() then ent:TakeDamage(ent:Health()+ent:Armor(),self,self) else ent:TakeDamage(200,self,self) end
+    timer.Simple(5,function() if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
+    if enemy.IsVJBaseSNPC_Human then enemy:TakeDamage(enemy:Health(),self,self) elseif enemy:IsPlayer() then enemy:TakeDamage(enemy:Health()+enemy:Armor(),self,self) else enemy:TakeDamage(200,self,self) end
     self:Drowned_Damage()
     self.Drowned_NextEnemyDamageT = CurTime() + 5 end end)
 end
