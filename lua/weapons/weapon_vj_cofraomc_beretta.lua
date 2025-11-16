@@ -21,7 +21,7 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(1, 4.2, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 20
-SWEP.Primary.ClipSize = 15
+SWEP.Primary.ClipSize = 17
 SWEP.Primary.Ammo = "Pistol"
 SWEP.Primary.Sound = "vj_cofr/aom/weapons/beretta/classic/pl_gun3.wav"
 SWEP.Primary.DistantSound = "vj_cofr/fx/distant/glock_distant2.wav"
