@@ -287,6 +287,7 @@
     VJ.AddConVar("VJ_COFR_Human_Regen", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_Human_OriginalWepDamage", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_JoeBiden", 0, {FCVAR_ARCHIVE})
     VJ.AddClientConVar("VJ_COFR_SparkFX", 0, "Create GoldSrc-Style Sparks On Metal Surfaces")
@@ -351,6 +352,7 @@ end
                 VJ_COFR_Human_Regen = "0",
                 VJ_COFR_Human_ReloadCover = "0",
                 VJ_COFR_Human_ReloadRun = "1",
+                VJ_COFR_Human_OriginalWepDamage = "0",
                 VJ_COFR_Boss_Spawner = "0",
                 VJ_COFR_JoeBiden = "0"
 }
@@ -382,6 +384,8 @@ end
             panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
             panel:CheckBox("Enable Human NPCs Having HP Regen?","VJ_COFR_Human_Regen")
             panel:CheckBox("Enable Human NPCs Finding Cover To Reload?","VJ_COFR_Human_ReloadCover")
+            panel:CheckBox("Enable Original Weapon Damage For Certain Weapons?","VJ_COFR_Human_OriginalWepDamage")
+            panel:ControlHelp("Ex: AoM Deagle & Revolver")
             panel:CheckBox("Enable NPCs Moving While Reloading?","VJ_COFR_Human_ReloadRun")
             panel:CheckBox("Enable Bosses Spawning From Spawners?","VJ_COFR_Boss_Spawner")
             panel:CheckBox("Enable Joe Biden Mode For Carcass?","VJ_COFR_JoeBiden")

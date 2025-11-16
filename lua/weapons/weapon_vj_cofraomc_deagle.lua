@@ -20,7 +20,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(8, 0, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 4.5, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 60
+SWEP.Primary.Damage = 40
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 6
 SWEP.Primary.Ammo = "357"
@@ -35,6 +35,9 @@ SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.7)
+    if GetConVar("VJ_COFR_Human_OriginalWepDamage"):GetInt() == 1 then
+        self.Primary.Damage = 150
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr,damageType)
