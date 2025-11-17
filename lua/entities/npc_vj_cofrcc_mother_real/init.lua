@@ -11,7 +11,7 @@ ENT.StartHealth = 300
 ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cofcc/mother/psycho1.mp3"
+    "vj_cofr/cofcc/mother/psycho1.mp3"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then

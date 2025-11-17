@@ -48,24 +48,24 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/fx/npc_step1.wav"
+    "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/spitter/bc_bite1.wav",
-"vj_cofr/aom/spitter/bc_bite2.wav",
-"vj_cofr/aom/spitter/bc_bite3.wav"
+    "vj_cofr/aom/spitter/bc_bite1.wav",
+    "vj_cofr/aom/spitter/bc_bite2.wav",
+    "vj_cofr/aom/spitter/bc_bite3.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/aom/twitcher/claw_miss1.wav",
-"vj_cofr/aom/twitcher/claw_miss2.wav"
+    "vj_cofr/aom/twitcher/claw_miss1.wav",
+    "vj_cofr/aom/twitcher/claw_miss2.wav"
 }
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -76,28 +76,28 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spitter_Init()
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/aom/spitter/bc_attackgrowl.wav",
-    "vj_cofr/aom/spitter/bc_attackgrowl2.wav",
-    "vj_cofr/aom/spitter/bc_attackgrowl3.wav"
-}
+        "vj_cofr/aom/spitter/bc_attackgrowl.wav",
+        "vj_cofr/aom/spitter/bc_attackgrowl2.wav",
+        "vj_cofr/aom/spitter/bc_attackgrowl3.wav"
+    }
     self.SoundTbl_RangeAttack = {
-    "vj_cofr/aom/spitter/bc_attack1.wav",
-    "vj_cofr/aom/spitter/bc_attack2.wav",
-    "vj_cofr/aom/spitter/bc_attack3.wav"
-}
+        "vj_cofr/aom/spitter/bc_attack1.wav",
+        "vj_cofr/aom/spitter/bc_attack2.wav",
+        "vj_cofr/aom/spitter/bc_attack3.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/aom/spitter/bc_pain1.wav",
-    "vj_cofr/aom/spitter/bc_pain2.wav",
-    "vj_cofr/aom/spitter/bc_pain3.wav",
-    "vj_cofr/aom/spitter/bc_pain4.wav"
-}
+        "vj_cofr/aom/spitter/bc_pain1.wav",
+        "vj_cofr/aom/spitter/bc_pain2.wav",
+        "vj_cofr/aom/spitter/bc_pain3.wav",
+        "vj_cofr/aom/spitter/bc_pain4.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/aom/spitter/bc_die1.wav",
-    "vj_cofr/aom/spitter/bc_die2.wav",
-    "vj_cofr/aom/spitter/bc_die3.wav"
-}
+        "vj_cofr/aom/spitter/bc_die1.wav",
+        "vj_cofr/aom/spitter/bc_die2.wav",
+        "vj_cofr/aom/spitter/bc_die3.wav"
+    }
     if self:GetModel() == "models/vj_cofr/aom/classic/spitter.mdl" or self:GetModel() == "models/vj_cofr/aomr/spitter.mdl" then
-        self.AnimTbl_MeleeAttack = {"vjseq_bite","vjseq_whip"}
+        self.AnimTbl_MeleeAttack = {"vjseq_bite", "vjseq_whip"}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ function ENT:Init()
     self:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "range" then
@@ -115,13 +115,13 @@ function ENT:OnInput(key,activator,caller,data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
@@ -131,7 +131,7 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(ent)
-    return self:GetForward()*55 + self:GetUp()*255
+    return self:GetForward() * 55 + self:GetUp() * 255
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
@@ -139,30 +139,31 @@ function ENT:RangeAttackProjVel(projectile)
     return VJ.CalculateTrajectory(self, self:GetEnemy(), "CurveOld", projPos, 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFlinch(dmginfo,hitgroup,status)
+function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
-    if dmginfo:GetDamage() > 30 then
-        self.AnimTbl_Flinch = ACT_BIG_FLINCH
-    else
-        self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+        if dmginfo:GetDamage() > 30 then
+            self.AnimTbl_Flinch = ACT_BIG_FLINCH
+        else
+            self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

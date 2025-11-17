@@ -9,7 +9,9 @@ SWEP.Category = "Cry of Fear Resurgence"
 SWEP.NPC_NextPrimaryFire = 2.5
 SWEP.NPC_TimeUntilFire = 0.8
 SWEP.NPC_FiringDistanceScale = 0.65
-SWEP.NPC_ReloadSound = "vj_cofr/fx/null.wav"
+SWEP.NPC_ReloadSound =
+    "vj_cofr/fx/null.wav"
+
 SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -25,8 +27,10 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 1
 SWEP.Primary.ClipSize = 10
-SWEP.Primary.Ammo = "grenade"
-SWEP.Primary.Sound = "vj_cofr/fx/null.wav"
+SWEP.Primary.Ammo = "Grenade"
+SWEP.Primary.Sound =
+    "vj_cofr/fx/null.wav"
+
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.Primary.DisableBulletCode = true
@@ -41,30 +45,28 @@ end
 function SWEP:OnGetBulletPos()
     local owner = self:GetOwner()
 
-    return owner:GetPos() + owner:GetUp() + Vector(0,0,50)
+    return owner:GetPos() + owner:GetUp() + Vector(0, 0, 50)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnPrimaryAttack(status,statusData)
+function SWEP:OnPrimaryAttack(status, statusData)
     if status == "Init" then
-    if CLIENT then return end
-    local grenade = ents.Create("obj_vj_cofraomc_grenade")
-    grenade:SetPos(self:GetBulletPos())
-    grenade:SetAngles(self:GetOwner():GetAngles())
-    grenade:SetOwner(self:GetOwner())
-    grenade:Spawn()
-    grenade:Activate()
+        if CLIENT then return end
+        local grenade = ents.Create("obj_vj_cofraomc_grenade")
+        grenade:SetPos(self:GetBulletPos())
+        grenade:SetAngles(self:GetOwner():GetAngles())
+        grenade:SetOwner(self:GetOwner())
+        grenade:Spawn()
+        grenade:Activate()
 
-    local phys = grenade:GetPhysicsObject()
-    if IsValid(phys) then
-        phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetBulletPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
+        local phys = grenade:GetPhysicsObject()
+        if IsValid(phys) then
+            phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", self:GetBulletPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1500))
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
     local owner = self:GetOwner()
-    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
     owner.NextChaseTime = 0
-    self:OnReload("Start")
-    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+    self.BaseClass.NPC_Reload(self)
 end

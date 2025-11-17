@@ -10,35 +10,35 @@ ENT.Model = "models/vj_cofr/cofcc/sawrunner_tsos.mdl"
 ENT.MeleeAttackDamageType = DMG_CLUB
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/faceless/fist_strike1.wav",
-"vj_cofr/cof/faceless/fist_strike2.wav",
-"vj_cofr/cof/faceless/fist_strike3.wav"
+    "vj_cofr/cof/faceless/fist_strike1.wav",
+    "vj_cofr/cof/faceless/fist_strike2.wav",
+    "vj_cofr/cof/faceless/fist_strike3.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/cof/faceless/fist_miss1.wav",
-"vj_cofr/cof/faceless/fist_miss2.wav"
+    "vj_cofr/cof/faceless/fist_miss1.wav",
+    "vj_cofr/cof/faceless/fist_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/sawrunner/sawrunner_alert10.wav",
-    "vj_cofr/cof/sawrunner/sawrunner_alert20.wav",
-    "vj_cofr/cof/sawrunner/sawrunner_alert30.wav"
-}
+        "vj_cofr/cof/sawrunner/sawrunner_alert10.wav",
+        "vj_cofr/cof/sawrunner/sawrunner_alert20.wav",
+        "vj_cofr/cof/sawrunner/sawrunner_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/sawrunner/sawrunner_attack1.wav",
-    "vj_cofr/cof/sawrunner/sawrunner_attack2.wav"
-}
+        "vj_cofr/cof/sawrunner/sawrunner_attack1.wav",
+        "vj_cofr/cof/sawrunner/sawrunner_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
-    "vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
-}
+        "vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
+        "vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
-    "vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
-}
+        "vj_cofr/cof/sawrunner/sawrunner_pain1.wav",
+        "vj_cofr/cof/sawrunner/sawrunner_pain2.wav"
+    }
     self.SoundTbl_SoundTrack =
-    "vj_cofr/cofcc/themummy/forestpound.mp3"
+        "vj_cofr/cofcc/themummy/forestpound.mp3"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent) return end

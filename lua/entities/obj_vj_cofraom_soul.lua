@@ -33,19 +33,19 @@ ENT.Track_Position = defVec
 function ENT:Init()
     self:SetNoDraw(true)
     local soulSpr = ents.Create("env_sprite")
-    soulSpr:SetKeyValue("model","vj_cofr/sprites/soul_range.vmt")
-    soulSpr:SetKeyValue("rendercolor","255 255 255")
-    soulSpr:SetKeyValue("GlowProxySize","2.0")
-    soulSpr:SetKeyValue("HDRColorScale","1.0")
-    soulSpr:SetKeyValue("renderfx","14")
-    soulSpr:SetKeyValue("rendermode","3")
-    soulSpr:SetKeyValue("renderamt","255")
-    soulSpr:SetKeyValue("disablereceiveshadows","0")
-    soulSpr:SetKeyValue("mindxlevel","0")
-    soulSpr:SetKeyValue("maxdxlevel","0")
-    soulSpr:SetKeyValue("framerate","10.0")
-    soulSpr:SetKeyValue("spawnflags","0")
-    soulSpr:SetKeyValue("scale","1")
+    soulSpr:SetKeyValue("model", "vj_cofr/sprites/soul_range.vmt")
+    soulSpr:SetKeyValue("rendercolor", "255 255 255")
+    soulSpr:SetKeyValue("GlowProxySize", "2.0")
+    soulSpr:SetKeyValue("HDRColorScale", "1.0")
+    soulSpr:SetKeyValue("renderfx", "14")
+    soulSpr:SetKeyValue("rendermode", "3")
+    soulSpr:SetKeyValue("renderamt", "255")
+    soulSpr:SetKeyValue("disablereceiveshadows", "0")
+    soulSpr:SetKeyValue("mindxlevel", "0")
+    soulSpr:SetKeyValue("maxdxlevel", "0")
+    soulSpr:SetKeyValue("framerate", "10.0")
+    soulSpr:SetKeyValue("spawnflags", "0")
+    soulSpr:SetKeyValue("scale", "1")
     soulSpr:SetPos(self:GetPos())
     soulSpr:Spawn()
     soulSpr:SetParent(self)
@@ -54,20 +54,20 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
- local trackedEnt = self.Track_Enemy
- -- Homing Behavior
- if IsValid(trackedEnt) then
-    self.DirectDamage = 25
- if IsValid(self.GlowSprite) then
-    self.GlowSprite:SetKeyValue("scale", "1.5")
-end
- local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
- if self:VisibleVec(pos) or self.Track_Position == defVec then
-    self.Track_Position = pos
-end
-    local phys = self:GetPhysicsObject()
-    if IsValid(phys) then
-        phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
+    local trackedEnt = self.Track_Enemy
+    -- Homing Behavior
+    if IsValid(trackedEnt) then
+            self.DirectDamage = 25
+        if IsValid(self.GlowSprite) then
+            self.GlowSprite:SetKeyValue("scale", "1.5")
+        end
+        local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
+        if self:VisibleVec(pos) or self.Track_Position == defVec then
+            self.Track_Position = pos
+        end
+        local phys = self:GetPhysicsObject()
+        if IsValid(phys) then
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
         end
     end
 end

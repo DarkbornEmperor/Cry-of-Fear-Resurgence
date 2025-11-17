@@ -10,16 +10,16 @@ ENT.Model = "models/vj_cofr/cofcc/psycho_patrick_hc.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Psycho_Init()
     self.SoundTbl_Alert =
-    "vj_cofr/cofcc/patrick/patrick_scream.wav"
+        "vj_cofr/cofcc/patrick/patrick_scream.wav"
 
     self.SoundTbl_BeforeMeleeAttack =
-    "vj_cofr/cofcc/patrick/patrick_attack.wav"
+        "vj_cofr/cofcc/patrick/patrick_attack.wav"
 
     self.SoundTbl_Pain =
-    "vj_cofr/cofcc/patrick/patrick_scream.wav"
+        "vj_cofr/cofcc/patrick/patrick_scream.wav"
 
     self.SoundTbl_Death =
-    "vj_cofr/cofcc/patrick/patrick_scream.wav"
+        "vj_cofr/cofcc/patrick/patrick_scream.wav"
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

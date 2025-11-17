@@ -41,23 +41,23 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = {
-"vj_cofr/cof/sicksimon/wheelchair_move1.wav",
-"vj_cofr/cof/sicksimon/wheelchair_move2.wav",
-"vj_cofr/cof/sicksimon/wheelchair_move3.wav"
+    "vj_cofr/cof/sicksimon/wheelchair_move1.wav",
+    "vj_cofr/cof/sicksimon/wheelchair_move2.wav",
+    "vj_cofr/cof/sicksimon/wheelchair_move3.wav"
 }
 ENT.SoundTbl_Browning =
-"vj_cofr/cof/weapons/browning/browning_fire.wav"
+    "vj_cofr/cof/weapons/browning/browning_fire.wav"
 
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cof/booksimon/ending5.mp3"
+    "vj_cofr/cof/booksimon/ending5.mp3"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -69,25 +69,24 @@ end
 function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.SoundTbl_Browning =
-    "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
-
-end
+    if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+        self.SoundTbl_Browning =
+        "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
+    end
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:SickSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ50 = Vector(0, 0, -50)
 --
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "suicide" then
         VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math.random(1,2) .. ".wav", 75, 100)
+        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
         self:FireFX()
         self:SetBodygroup(0,1)
         local selfPos = self:GetPos() + self:OBBCenter()
@@ -98,22 +97,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
-    muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
-    muz:SetKeyValue("GlowProxySize","2.0")
-    muz:SetKeyValue("HDRColorScale","1.0")
-    muz:SetKeyValue("renderfx","14")
-    muz:SetKeyValue("rendermode","3")
-    muz:SetKeyValue("renderamt","255")
-    muz:SetKeyValue("disablereceiveshadows","0")
-    muz:SetKeyValue("framerate","10.0")
-    muz:SetKeyValue("spawnflags","0")
+    muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
+    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("GlowProxySize", "2.0")
+    muz:SetKeyValue("HDRColorScale", "1.0")
+    muz:SetKeyValue("renderfx", "14")
+    muz:SetKeyValue("rendermode", "3")
+    muz:SetKeyValue("renderamt", "255")
+    muz:SetKeyValue("disablereceiveshadows", "0")
+    muz:SetKeyValue("framerate", "10.0")
+    muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
-    muz:Fire("SetParentAttachment","muzzle")
-    muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+    muz:Fire("SetParentAttachment", "muzzle")
+    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
     muz:Spawn()
     muz:Activate()
-    muz:Fire("Kill","",0.08)
+    muz:Fire("Kill", "", 0.08)
 
     local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
@@ -124,40 +123,40 @@ function ENT:FireFX()
     //muzLight:SetParent(self)
     muzLight:Spawn()
     muzLight:Activate()
-    muzLight:Fire("TurnOn","",0)
-    muzLight:Fire("Kill","",0.07)
+    muzLight:Fire("TurnOn", "", 0)
+    muzLight:Fire("Kill", "", 0.07)
     //self:DeleteOnRemove(muzLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DoImpactEffect(tr,damageType)
+function ENT:DoImpactEffect(tr, damageType)
     return VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttack(status,enemy)
+function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
         self.NextRangeAttackTime = (math.random(2) == 1 and 0 or 0.6)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
- if status == "Init" then
- local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
- VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
- VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
-    self:FireBullets({
-    Attacker = self,
-    Num = 1,
-    Src = attPos,
-    Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-    Spread = Vector(0.1,0.1,0),
-    TracerName = "VJ_COFR_Tracer",
-    Tracer = 1,
-    Damage = self:ScaleByDifficulty(12),
-    Force = 5,
-    AmmoType = "Pistol",
-    Distance = 2048,
-    HullSize = 1
- })
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+    if status == "Init" then
+        local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
+        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
+        self:FireBullets({
+            Attacker = self,
+            Num = 1,
+            Src = attPos,
+            Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
+            Spread = Vector(0.1, 0.1 ,0),
+            TracerName = "VJ_COFR_Tracer",
+            Tracer = 1,
+            Damage = self:ScaleByDifficulty(12),
+            Force = 5,
+            AmmoType = "Pistol",
+            Distance = 2048,
+            HullSize = 1
+        })
         self:FireFX()
         return true
     end
@@ -165,38 +164,39 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:OnDamaged(dmginfo,hitgroup,status)
- if status == "PreDamage" && hitgroup != 8 then
-    dmginfo:ScaleDamage(0.5)
-end
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" && hitgroup != 8 then
+        dmginfo:ScaleDamage(0.5)
+    end
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
         dmginfo:SetDamage(0)
-    if dmginfo:GetDamagePosition() != vec then
-    local rico = EffectData()
-        rico:SetOrigin(dmginfo:GetDamagePosition())
-        rico:SetScale(4) -- Size
-        rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-        util.Effect("VJ_COFR_Rico", rico)
+        if dmginfo:GetDamagePosition() != vec then
+        local rico = EffectData()
+            rico:SetOrigin(dmginfo:GetDamagePosition())
+            rico:SetScale(4) -- Size
+            rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+            util.Effect("VJ_COFR_Rico", rico)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

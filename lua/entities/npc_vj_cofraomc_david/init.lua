@@ -12,19 +12,19 @@ ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/w_pills.mdl"
 ENT.Human_Type = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
-   [MAT_ANTLION] = {
-       "vj_cofr/cof/simon/footsteps/mud1.wav",
-       "vj_cofr/cof/simon/footsteps/mud2.wav",
-       "vj_cofr/cof/simon/footsteps/mud3.wav",
-       "vj_cofr/cof/simon/footsteps/mud4.wav"
-   },
-   [MAT_BLOODYFLESH] = {
+    [MAT_ANTLION] = {
         "vj_cofr/cof/simon/footsteps/mud1.wav",
         "vj_cofr/cof/simon/footsteps/mud2.wav",
         "vj_cofr/cof/simon/footsteps/mud3.wav",
         "vj_cofr/cof/simon/footsteps/mud4.wav"
-   },
-   [MAT_CONCRETE] = {
+    },
+    [MAT_BLOODYFLESH] = {
+        "vj_cofr/cof/simon/footsteps/mud1.wav",
+        "vj_cofr/cof/simon/footsteps/mud2.wav",
+        "vj_cofr/cof/simon/footsteps/mud3.wav",
+        "vj_cofr/cof/simon/footsteps/mud4.wav"
+    },
+    [MAT_CONCRETE] = {
         "vj_cofr/aom/david/footsteps_classic/pl_step1.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_step2.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_step3.wav",

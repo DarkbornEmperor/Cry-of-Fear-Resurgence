@@ -32,12 +32,12 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hangman_Init() end
@@ -49,14 +49,14 @@ function ENT:Init()
     self:Hangman_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = ent:Health() + 10
-    elseif ent:IsPlayer() then
-        self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
-    else
-        self.MeleeAttackDamage = 200
+        if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+            self.MeleeAttackDamage = ent:Health() + 10
+        elseif ent:IsPlayer() then
+            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+        else
+            self.MeleeAttackDamage = 200
         end
     end
 end

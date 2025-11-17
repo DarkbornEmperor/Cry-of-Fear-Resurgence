@@ -37,18 +37,18 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra =
-"vj_cofr/cof/watro/watro_hit.wav"
+    "vj_cofr/cof/watro/watro_hit.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/watro/watro_swing.wav"
+    "vj_cofr/cof/watro/watro_swing.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Watro_Burrowed = true
@@ -67,33 +67,33 @@ function ENT:Init()
     self:Watro_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
         self:ExecuteMeleeAttack()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Unburrow")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if act == ACT_IDLE && self.Watro_Burrowed then
-    return ACT_IDLE_STEALTH
-end
-    return self.BaseClass.TranslateActivity(self,act)
+    if act == ACT_IDLE && self.Watro_Burrowed then
+        return ACT_IDLE_STEALTH
+    end
+    return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- local ent = self:GetEnemy()
- if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self:GetPos():Distance(ent:GetPos()) <= 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
- if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-    VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
- else
-    VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
-end
+    local ent = self:GetEnemy()
+    if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
+        else
+            VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
+        end
         self.Watro_Burrowed = false
-        self:PlayAnim(ACT_SIGNAL1,true,false,false)
+        self:PlayAnim(ACT_SIGNAL1, true, false, false)
         self.HasMeleeAttack = true
         self:DrawShadow(true)
         self.CallForHelp = true
@@ -105,31 +105,31 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         dmginfo:ScaleDamage(0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Init" then
- if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-    self.SoundTbl_Death =
-    "vj_cofr/fx/out_water.wav"
- else
-    self.SoundTbl_Death =
-    "vj_cofr/fx/bodysplat.wav"
-end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            self.SoundTbl_Death =
+                "vj_cofr/fx/out_water.wav"
+        else
+            self.SoundTbl_Death =
+                "vj_cofr/fx/bodysplat.wav"
+        end
         self:DrawShadow(false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:DrawShadow(false)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

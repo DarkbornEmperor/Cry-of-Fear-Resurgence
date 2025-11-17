@@ -16,13 +16,13 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(3.3, 13, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
- self:SetModelScale(0.90)
- local owner = self:GetOwner()
- /*if owner:GetClass() == "npc_vj_cofraomda_david" then
-    self.WorldModel_CustomPositionOrigin = Vector(4.5, 14, -1)*/
- if owner:GetClass() == "npc_vj_cofr_simon" then
-    self.WorldModel_CustomPositionOrigin = Vector(4, 14, -2)
-end
+    self:SetModelScale(0.90)
+    local owner = self:GetOwner()
+    /*if owner:GetClass() == "npc_vj_cofraomda_david" then
+        self.WorldModel_CustomPositionOrigin = Vector(4.5, 14, -1)*/
+    if owner:GetClass() == "npc_vj_cofr_simon" then
+        self.WorldModel_CustomPositionOrigin = Vector(4, 14, -2)
+    end
     if owner.Human_Type == 1 or owner.Human_Type == 2 then
         self.Primary.Damage = 55
     end
@@ -33,9 +33,9 @@ function SWEP:OnEquip(newOwner)
     owner.MeleeAttackDamage = self.Primary.Damage
     owner.MeleeAttackDamageType = DMG_SLASH
     owner.SoundTbl_MeleeAttackExtra =
-    "vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
+        "vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
 
     owner.SoundTbl_MeleeAttackMiss =
-    "vj_cofr/aom/weapons/axe/Axe_swing.wav"
+        "vj_cofr/aom/weapons/axe/Axe_swing.wav"
 
 end

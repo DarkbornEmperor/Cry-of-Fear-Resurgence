@@ -10,22 +10,22 @@ ENT.Model = "models/vj_cofr/cofcc/slower1_cutter_hc.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/slower/slower_alert10.wav",
-    "vj_cofr/cof/slower/slower_alert20.wav",
-    "vj_cofr/cof/slower/slower_alert30.wav"
-}
+        "vj_cofr/cof/slower/slower_alert10.wav",
+        "vj_cofr/cof/slower/slower_alert20.wav",
+        "vj_cofr/cof/slower/slower_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/slower/slower_attack1.wav",
-    "vj_cofr/cof/slower/slower_attack2.wav"
-}
+        "vj_cofr/cof/slower/slower_attack1.wav",
+        "vj_cofr/cof/slower/slower_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/slower/slower_pain1.wav",
-    "vj_cofr/cof/slower/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower/slower_pain1.wav",
+        "vj_cofr/cof/slower/slower_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/slower/slower_pain1.wav",
-    "vj_cofr/cof/slower/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower/slower_pain1.wav",
+        "vj_cofr/cof/slower/slower_pain2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)

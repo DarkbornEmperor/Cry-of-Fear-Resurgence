@@ -27,26 +27,31 @@ SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 6
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Buckshot"
-SWEP.Primary.Sound = "vj_cofr/aom/weapons/shotgun/classic/sbarrel1.wav"
-SWEP.Primary.DistantSound = "vj_cofr/fx/distant/sbarrel1_distant2.wav"
+SWEP.Primary.Sound =
+    "vj_cofr/aom/weapons/shotgun/classic/sbarrel1.wav"
+
+SWEP.Primary.DistantSound =
+    "vj_cofr/fx/distant/sbarrel1_distant2.wav"
+
 SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = "vj_cofr/aom/weapons/dryfire.wav"
+SWEP.DryFireSound =
+    "vj_cofr/aom/weapons/dryfire.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.85)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:DoImpactEffect(tr,damageType)
+function SWEP:DoImpactEffect(tr, damageType)
     return VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -57,7 +62,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
-    muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
@@ -66,8 +71,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
     local owner = self:GetOwner()
-    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
     owner.NextChaseTime = 0
-    self:OnReload("Start")
-    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+    self.BaseClass.NPC_Reload(self)
 end

@@ -47,42 +47,44 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = "common/null.wav"
+ENT.SoundTbl_FootStep =
+    "common/null.wav"
+
 ENT.SoundTbl_MeleeAttackExtra =
-"vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
+    "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
+    "vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
 
 ENT.SoundTbl_Glock =
-"vj_cofr/cof/suicider/suicider_glock_fire.wav"
+    "vj_cofr/cof/suicider/suicider_glock_fire.wav"
 
 ENT.SoundTbl_Shotgun =
-"vj_cofr/cof/weapons/shotgun/shoot.wav"
+    "vj_cofr/cof/weapons/shotgun/shoot.wav"
 
 ENT.SoundTbl_ShotgunPump =
-"vj_cofr/cof/weapons/shotgun/pump_seq.wav"
+    "vj_cofr/cof/weapons/shotgun/pump_seq.wav"
 
 ENT.SoundTbl_TMP =
-"vj_cofr/cof/weapons/tmp/tmp_shoot_loop.wav"
+    "vj_cofr/cof/weapons/tmp/tmp_shoot_loop.wav"
 
 ENT.SoundTbl_TMPEnd =
-"vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
+    "vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
 
 ENT.SoundTbl_M16 =
-"vj_cofr/cof/weapons/m16/m16_fire.wav"
+    "vj_cofr/cof/weapons/m16/m16_fire.wav"
 
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/booksimon/ending5.mp3",
-"vj_cofr/cof/booksimon/fucked.mp3",
+    "vj_cofr/cof/booksimon/ending5.mp3",
+    "vj_cofr/cof/booksimon/fucked.mp3"
 }
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.BookSimon_Shotgun = false
@@ -94,37 +96,37 @@ ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_NextTMPSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
- if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
-    self.HasSoundTrack = false
-end
-    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
-    local bookSimon_Type = math.random(1,3)
-    if bookSimon_Type == 1 then
-        self.BookSimon_Shotgun = true
-        self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
-    elseif bookSimon_Type == 2 then
-        self.BookSimon_Sledgehammer = true
-    elseif bookSimon_Type == 3 then
-        self.BookSimon_SledgehammerFlare = true
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
+        self.HasSoundTrack = false
     end
-end
+    if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
+        local bookSimon_Type = math.random(1,3)
+        if bookSimon_Type == 1 then
+            self.BookSimon_Shotgun = true
+            self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
+        elseif bookSimon_Type == 2 then
+            self.BookSimon_Sledgehammer = true
+        elseif bookSimon_Type == 3 then
+            self.BookSimon_SledgehammerFlare = true
+        end
+    end
     if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then
-    local bookSimon_Type = math.random(1,6)
-    if bookSimon_Type == 1 then
-        self.BookSimon_Shotgun = true
-        self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
-    elseif bookSimon_Type == 2 then
-        self.BookSimon_Glock = true
-    elseif bookSimon_Type == 3 then
-        self.BookSimon_TMP = true
-        self.Model = "models/vj_cofr/cof/booksimon_tmp.mdl"
-    elseif bookSimon_Type == 4 then
-        self.BookSimon_M16 = true
-        self.Model = "models/vj_cofr/cof/booksimon_m16.mdl"
-    elseif bookSimon_Type == 5 then
-        self.BookSimon_Sledgehammer = true
-    elseif bookSimon_Type == 6 then
-        self.BookSimon_SledgehammerFlare = true
+        local bookSimon_Type = math.random(1,6)
+        if bookSimon_Type == 1 then
+            self.BookSimon_Shotgun = true
+            self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
+        elseif bookSimon_Type == 2 then
+            self.BookSimon_Glock = true
+        elseif bookSimon_Type == 3 then
+            self.BookSimon_TMP = true
+            self.Model = "models/vj_cofr/cof/booksimon_tmp.mdl"
+        elseif bookSimon_Type == 4 then
+            self.BookSimon_M16 = true
+            self.Model = "models/vj_cofr/cof/booksimon_m16.mdl"
+        elseif bookSimon_Type == 5 then
+            self.BookSimon_Sledgehammer = true
+        elseif bookSimon_Type == 6 then
+            self.BookSimon_SledgehammerFlare = true
         end
     end
 end
@@ -148,60 +150,59 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
- if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
-    self.SoundTbl_Glock = {
-    "vj_cofr/cof/weapons/glock/glock_fire.wav"
-}
- elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.SoundTbl_Glock = {
-    "vj_cofr/cof/weapons/glock/old/glock_fire.wav"
-}
-end
- if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.SoundTbl_Shotgun = {
-    "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
-}
-    self.SoundTbl_ShotgunPump = {
-    "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
-}
-    self.SoundTbl_TMP = {
-    "vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
-}
-    self.SoundTbl_TMPEnd = {
-    "vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
-}
-    self.SoundTbl_M16 = {
-    "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
-}
-end
- if self.BookSimon_TMP then
-    self.TMPSound = self.SoundTbl_TMP
-    self.SoundTbl_TMP = nil
-    self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
-    self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
-end
- -- Screen flash effect for all the players
- for _,v in ipairs(player.GetHumans()) do
-    v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
-end
+    if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
+        self.SoundTbl_Glock =
+            "vj_cofr/cof/weapons/glock/glock_fire.wav"
+
+    elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+        self.SoundTbl_Glock =
+            "vj_cofr/cof/weapons/glock/old/glock_fire.wav"
+    end
+    if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+        self.SoundTbl_Shotgun =
+        "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
+
+        self.SoundTbl_ShotgunPump =
+        "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
+
+        self.SoundTbl_TMP =
+        "vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
+
+        self.SoundTbl_TMPEnd =
+        "vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
+
+        self.SoundTbl_M16 =
+        "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
+
+    end
+    if self.BookSimon_TMP then
+        self.TMPSound = self.SoundTbl_TMP
+        self.SoundTbl_TMP = nil
+        self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
+        self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
+    end
+    -- Screen flash effect for all the players
+    for _,v in ipairs(player.GetHumans()) do
+        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+    end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
@@ -261,7 +262,7 @@ function ENT:SetSledgehammer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammerFlare()
-    self.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1","vjseq_sledgeflare_attack2","vjseq_sledgeflare_attack3"}
+    self.AnimTbl_MeleeAttack = {"vjseq_sledgeflare_attack1", "vjseq_sledgeflare_attack2", "vjseq_sledgeflare_attack3"}
     self:SetBodygroup(0,5)
     self:SetBodygroup(2,1)
     self.HasPoseParameterLooking = false
@@ -269,7 +270,7 @@ function ENT:SetSledgehammerFlare()
     self.HasRangeAttack = false
     self.Flare_Ignite = VJ.CreateSound(self, "vj_cofr/cof/booksimon/flare_ignite.wav", 75, 100)
     self.SoundTbl_Breath =
-    "vj_cofr/cof/booksimon/flare_burn.wav"
+        "vj_cofr/cof/booksimon/flare_burn.wav"
 
     local flareLight = ents.Create("light_dynamic")
     flareLight:SetKeyValue("brightness", "1")
@@ -277,11 +278,11 @@ function ENT:SetSledgehammerFlare()
     flareLight:SetLocalPos(self:GetPos())
     flareLight:SetLocalAngles(self:GetAngles())
     flareLight:Fire("Color", "255 0 0")
-    flareLight:SetKeyValue("style","1")
+    flareLight:SetKeyValue("style", "1")
     flareLight:SetParent(self)
     flareLight:Spawn()
     flareLight:Activate()
-    flareLight:Fire("SetParentAttachment","flare")
+    flareLight:Fire("SetParentAttachment", "flare")
     flareLight:Fire("TurnOn", "", 0)
     self:DeleteOnRemove(flareLight)
 
@@ -291,21 +292,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
-    muz:SetKeyValue("model","vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
-    muz:SetKeyValue("GlowProxySize","2.0")
-    muz:SetKeyValue("HDRColorScale","1.0")
-    muz:SetKeyValue("renderfx","14")
-    muz:SetKeyValue("rendermode","3")
-    muz:SetKeyValue("renderamt","255")
-    muz:SetKeyValue("disablereceiveshadows","0")
-    muz:SetKeyValue("framerate","10.0")
-    muz:SetKeyValue("spawnflags","0")
+    muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
+    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("GlowProxySize", "2.0")
+    muz:SetKeyValue("HDRColorScale", "1.0")
+    muz:SetKeyValue("renderfx", "14")
+    muz:SetKeyValue("rendermode", "3")
+    muz:SetKeyValue("renderamt", "255")
+    muz:SetKeyValue("disablereceiveshadows", "0")
+    muz:SetKeyValue("framerate", "10.0")
+    muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
-    muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
     muz:Spawn()
     muz:Activate()
-    muz:Fire("Kill","",0.08)
+    muz:Fire("Kill", "", 0.08)
 
     local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
@@ -315,79 +316,79 @@ function ENT:FireFX()
     //muzLight:SetParent(self)
     muzLight:Spawn()
     muzLight:Activate()
-    muzLight:Fire("TurnOn","",0)
-    muzLight:Fire("Kill","",0.07)
+    muzLight:Fire("TurnOn", "", 0)
+    muzLight:Fire("Kill", "", 0.07)
     //self:DeleteOnRemove(muzLight)
 
     if self.BookSimon_Shotgun then
-        muz:Fire("SetParentAttachment","muzzle_shotgun")
+        muz:Fire("SetParentAttachment", "muzzle_shotgun")
         muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos)
 
     elseif self.BookSimon_Glock then
-        muz:Fire("SetParentAttachment","muzzle_glock")
+        muz:Fire("SetParentAttachment", "muzzle_glock")
         muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos)
 
     elseif self.BookSimon_TMP then
-        muz:Fire("SetParentAttachment","muzzle_tmp")
+        muz:Fire("SetParentAttachment", "muzzle_tmp")
         muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos)
 
     elseif self.BookSimon_M16 then
-        muz:Fire("SetParentAttachment","muzzle_m16")
+        muz:Fire("SetParentAttachment", "muzzle_m16")
         muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DoImpactEffect(tr,damageType)
+function ENT:DoImpactEffect(tr, damageType)
     return VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if self.BookSimon_Glock then
-    if act == ACT_IDLE then
-        return ACT_IDLE_STEALTH
-    elseif act == ACT_RUN or act == ACT_WALK then
-        return ACT_WALK_STEALTH
+        if act == ACT_IDLE then
+            return ACT_IDLE_STEALTH
+        elseif act == ACT_RUN or act == ACT_WALK then
+            return ACT_WALK_STEALTH
+        end
     end
-end
     if self.BookSimon_TMP then
-    if act == ACT_IDLE then
-        return ACT_IDLE_HURT
-    elseif act == ACT_RUN or act == ACT_WALK then
-        return ACT_WALK_HURT
+        if act == ACT_IDLE then
+            return ACT_IDLE_HURT
+        elseif act == ACT_RUN or act == ACT_WALK then
+            return ACT_WALK_HURT
+        end
     end
-end
     if self.BookSimon_Sledgehammer then
-    if act == ACT_IDLE then
-        return ACT_IDLE_STIMULATED
-    elseif act == ACT_RUN or act == ACT_WALK then
-        return ACT_RUN_STIMULATED
+        if act == ACT_IDLE then
+            return ACT_IDLE_STIMULATED
+        elseif act == ACT_RUN or act == ACT_WALK then
+            return ACT_RUN_STIMULATED
+        end
     end
-end
     if self.BookSimon_SledgehammerFlare then
-    if act == ACT_IDLE then
-        return ACT_IDLE_RELAXED
-    elseif act == ACT_RUN or act == ACT_WALK then
-        return ACT_RUN_RELAXED
+        if act == ACT_IDLE then
+            return ACT_IDLE_RELAXED
+        elseif act == ACT_RUN or act == ACT_WALK then
+            return ACT_RUN_RELAXED
+        end
     end
-end
-    return self.BaseClass.TranslateActivity(self,act)
+    return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     if !self.BookSimon_TMP then return end
     if self.TMPLoop then
-    if CurTime() > self.BookSimon_NextTMPSoundT && self.BookSimon_NextTMPSoundT > 0 then
-        self.TMPLoop:Stop()
-        self.BookSimon_NextTMPSoundT = 0
-    if IsValid(self) then
-    local fireSd = VJ.PICK(self.SoundTbl_TMPEnd)
-    if fireSd != false then
-        sound.Play(fireSd, self:GetPos(), self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1)
-    end
-end
- elseif self.BookSimon_NextTMPSoundT > CurTime() && !self.TMPLoop:IsPlaying() then
-    self.TMPLoop:Play()
-end
+        if CurTime() > self.BookSimon_NextTMPSoundT && self.BookSimon_NextTMPSoundT > 0 then
+            self.TMPLoop:Stop()
+            self.BookSimon_NextTMPSoundT = 0
+            if IsValid(self) then
+                local fireSd = VJ.PICK(self.SoundTbl_TMPEnd)
+                if fireSd != false then
+                    sound.Play(fireSd, self:GetPos(), self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1)
+                end
+            end
+        elseif self.BookSimon_NextTMPSoundT > CurTime() && !self.TMPLoop:IsPlaying() then
+            self.TMPLoop:Play()
+        end
         self:NextThink(CurTime())
     end
 end
@@ -396,94 +397,94 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
- if status == "Init" then
- local attPos = self:GetAttachment(self:LookupAttachment(self.BookSimon_MuzzleAttach)).Pos
- if self.BookSimon_Shotgun then
-    VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-    VJ.EmitSound(self, "vj_cofr/fx/distant/sbarrel1_distant2.wav", 140, self:GetSoundPitch(100, 110))
-    timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
-    self:FireBullets({
-        Attacker = self,
-        Num = 6,
-        Src = attPos,
-        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-        Spread = Vector(0.1,0.1,0),
-        TracerName = "VJ_COFR_Tracer",
-        Tracer = 1,
-        Damage = self:ScaleByDifficulty(5),
-        Force = 1,
-        AmmoType = "Buckshot",
-        Distance = 2048,
-        HullSize = 1
-     })
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+    if status == "Init" then
+        local attPos = self:GetAttachment(self:LookupAttachment(self.BookSimon_MuzzleAttach)).Pos
+        if self.BookSimon_Shotgun then
+            VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+            VJ.EmitSound(self, "vj_cofr/fx/distant/sbarrel1_distant2.wav", 140, self:GetSoundPitch(100,110))
+            timer.Simple(0.5,function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
+            self:FireBullets({
+                Attacker = self,
+                Num = 6,
+                Src = attPos,
+                Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
+                Spread = Vector(0.1, 0.1 ,0),
+                TracerName = "VJ_COFR_Tracer",
+                Tracer = 1,
+                Damage = self:ScaleByDifficulty(5),
+                Force = 1,
+                AmmoType = "Buckshot",
+                Distance = 2048,
+                HullSize = 1
+            })
 
- elseif self.BookSimon_Glock then
-    VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-    VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
-    self:FireBullets({
-        Attacker = self,
-        Num = 1,
-        Src = attPos,
-        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-        Spread = Vector(0.1,0.1,0),
-        TracerName = "VJ_COFR_Tracer",
-        Tracer = 1,
-        Damage = self:ScaleByDifficulty(13),
-        Force = 5,
-        AmmoType = "Pistol",
-        Distance = 2048,
-        HullSize = 1
-     })
+        elseif self.BookSimon_Glock then
+            VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+            VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
+            self:FireBullets({
+                Attacker = self,
+                Num = 1,
+                Src = attPos,
+                Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
+                Spread = Vector(0.1, 0.1 ,0),
+                TracerName = "VJ_COFR_Tracer",
+                Tracer = 1,
+                Damage = self:ScaleByDifficulty(13),
+                Force = 5,
+                AmmoType = "Pistol",
+                Distance = 2048,
+                HullSize = 1
+            })
 
- elseif self.BookSimon_TMP then
-    self.BookSimon_NextTMPSoundT = CurTime() +0.1
- if math.random(1,7) == 1 && self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
-    self.TMPLoop:Stop()
-    self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
-    self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
-    self.TMPLoop:Play()
-end
-    VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100, 110))
-    self:FireBullets({
-        Attacker = self,
-        Num = 1,
-        Src = attPos,
-        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-        Spread = Vector(0.1,0.1,0),
-        TracerName = "VJ_COFR_Tracer",
-        Tracer = 1,
-        Damage = self:ScaleByDifficulty(7),
-        Force = 5,
-        AmmoType = "SMG1",
-        Distance = 2048,
-        HullSize = 1
-     })
+        elseif self.BookSimon_TMP then
+            self.BookSimon_NextTMPSoundT = CurTime() +0.1
+            if math.random(1,7) == 1 && self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
+                self.TMPLoop:Stop()
+                self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
+                self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
+                self.TMPLoop:Play()
+            end
+            VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100,110))
+            self:FireBullets({
+                Attacker = self,
+                Num = 1,
+                Src = attPos,
+                Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
+                Spread = Vector(0.1, 0.1 ,0),
+                TracerName = "VJ_COFR_Tracer",
+                Tracer = 1,
+                Damage = self:ScaleByDifficulty(7),
+                Force = 5,
+                AmmoType = "SMG1",
+                Distance = 2048,
+                HullSize = 1
+            })
 
- elseif self.BookSimon_M16 then
-    VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-    VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100, 110))
-    self:FireBullets({
-        Attacker = self,
-        Num = 1,
-        Src = attPos,
-        Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-        Spread = Vector(0.1,0.1,0),
-        TracerName = "VJ_COFR_Tracer",
-        Tracer = 1,
-        Damage = self:ScaleByDifficulty(16),
-        Force = 5,
-        AmmoType = "SMG1",
-        Distance = 2048,
-        HullSize = 1
-     })
-end
+        elseif self.BookSimon_M16 then
+            VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
+            VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100,110))
+            self:FireBullets({
+                Attacker = self,
+                Num = 1,
+                Src = attPos,
+                Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
+                Spread = Vector(0.1, 0.1 ,0),
+                TracerName = "VJ_COFR_Tracer",
+                Tracer = 1,
+                Damage = self:ScaleByDifficulty(16),
+                Force = 5,
+                AmmoType = "SMG1",
+                Distance = 2048,
+                HullSize = 1
+            })
+        end
         self:FireFX()
         return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         dmginfo:ScaleDamage(0.5)
     end
@@ -491,22 +492,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorBlack = Color(0, 0, 0, 255)
 --
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Finish" then
-    -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
-        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+        -- Screen flash effect for all the players
+        for _,v in ipairs(player.GetHumans()) do
+            v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+        end
     end
-end
     if status == "Init" then
         //VJ.STOPSOUND(self.TMPLoop)
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
@@ -632,18 +633,18 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound(moveType,sdFile)
- if !self:OnGround() then return end
- local tr = util.TraceLine({
-    start = self:GetPos(),
-    endpos = self:GetPos() +Vector(0,0,-150),
-    filter = {self}
-})
- if tr.Hit && self.FootSteps[tr.MatType] then
-    VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-end
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
+    local tr = util.TraceLine({
+        start = self:GetPos(),
+        endpos = self:GetPos() + Vector(0, 0, -150),
+        filter = {self}
+    })
+    if tr.Hit && self.FootSteps[tr.MatType] then
+        VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+    end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

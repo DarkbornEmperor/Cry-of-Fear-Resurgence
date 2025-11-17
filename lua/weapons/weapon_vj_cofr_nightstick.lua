@@ -24,9 +24,9 @@ function SWEP:OnEquip(newOwner)
     owner.MeleeAttackDamage = self.Primary.Damage
     owner.MeleeAttackDamageType = DMG_CLUB
     owner.SoundTbl_MeleeAttackExtra = {
-    "vj_cofr/cof/weapons/nightstick/nightstick_hitbody1.wav",
-    "vj_cofr/cof/weapons/nightstick/nightstick_hitbody2.wav"
+        "vj_cofr/cof/weapons/nightstick/nightstick_hitbody1.wav",
+        "vj_cofr/cof/weapons/nightstick/nightstick_hitbody2.wav"
     }
     owner.SoundTbl_MeleeAttackMiss =
-    "vj_cofr/cof/weapons/nightstick/nightstick_swing.wav"
+        "vj_cofr/cof/weapons/nightstick/nightstick_swing.wav"
 end

@@ -20,7 +20,6 @@ ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackMaxDistance = 3000
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = 0
-ENT.NextRangeAttackTime = VJ.PICK(5,10)
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
@@ -39,14 +38,15 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cofcc/blob/final2.mp3"
+    "vj_cofr/cofcc/blob/final2.mp3"
+
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Blob_NextAttackT = 0
@@ -65,39 +65,45 @@ function ENT:Init()
     self.Tentacles = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
- if status == "Init" then
- local ent = self:GetEnemy()
- if (IsValid(ent) && ent:OnGround()) or self.VJ_IsBeingControlled then
-    local Tentacle = ents.Create("sent_vj_cofrcc_tentacle")
-    Tentacle:SetPos(ent:GetPos() + self:GetForward()*-35 + self:GetUp()*-40 + self:GetRight()*math.random(35,-35))
-    Tentacle:SetAngles(self:GetAngles())
-    Tentacle.Assignee = self
-    Tentacle.VJ_NPC_Class = self.VJ_NPC_Class
-    Tentacle:Spawn()
-    self.Tentacles[#self.Tentacles + 1] = Tentacle -- Register the Tentacles
-    self.Tentacle = Tentacle
-    SafeRemoveEntityDelayed(self.Tentacle,25)
+function ENT:OnRangeAttack(status, enemy)
+    if status == "Init" then
+        self.NextRangeAttackTime = (math.random(2) == 1 and 5 or 10)
+    end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+    if status == "Init" then
+        local ent = self:GetEnemy()
+        if (IsValid(ent) && ent:OnGround()) or self.VJ_IsBeingControlled then
+            local Tentacle = ents.Create("sent_vj_cofrcc_tentacle")
+            Tentacle:SetPos(ent:GetPos() + self:GetForward() * -35 + self:GetUp() * -40 + self:GetRight() * math.random(35,-35))
+            Tentacle:SetAngles(self:GetAngles())
+            Tentacle.Assignee = self
+            Tentacle.VJ_NPC_Class = self.VJ_NPC_Class
+            Tentacle:Spawn()
+            self.Tentacles[#self.Tentacles + 1] = Tentacle -- Register the Tentacles
+            self.Tentacle = Tentacle
+            SafeRemoveEntityDelayed(self.Tentacle, 25)
+        end
         return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         dmginfo:ScaleDamage(0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

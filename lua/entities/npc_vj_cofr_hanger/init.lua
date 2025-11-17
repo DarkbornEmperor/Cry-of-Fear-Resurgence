@@ -29,22 +29,22 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Hanger_Death = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Hanger_Init()
     self.SoundTbl_Death = {
-    "vj_cofr/cof/hanger/hangerscream1.wav",
-    "vj_cofr/cof/hanger/hangerscream2.wav",
-    "vj_cofr/cof/hanger/hangerscream3.wav"
-}
+        "vj_cofr/cof/hanger/hangerscream1.wav",
+        "vj_cofr/cof/hanger/hangerscream2.wav",
+        "vj_cofr/cof/hanger/hangerscream3.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -55,13 +55,13 @@ function ENT:Init()
     self:Hanger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
         self:JumpscareDamage()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,23 +69,23 @@ function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.GodMode = false
-        self:TakeDamage(self:GetMaxHealth(),self,self)
+        self:TakeDamage(self:GetMaxHealth(), self, self)
         self.Hanger_Death = true
         self.CallForHelp = true
-        timer.Simple(0.1,function() if IsValid(self) then self:SetNoDraw(false) self:DrawShadow(true) end end)
+        timer.Simple(0.1, function() if IsValid(self) then self:SetNoDraw(false) self:DrawShadow(true) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:JumpscareDamage()
     local ent = self:GetEnemy()
-    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self,ent) < 60 then
-        ent:TakeDamage(10,self,self)
+    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self, ent) < 60 then
+        ent:TakeDamage(10, self, self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

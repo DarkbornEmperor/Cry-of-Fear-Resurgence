@@ -36,33 +36,33 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/fx/npc_step1.wav"
+    "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Baby_DeathFromMeleeAttack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Baby_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/baby/b_alert1.wav",
-    "vj_cofr/cof/baby/b_alert2.wav",
-    "vj_cofr/cof/baby/b_alert3.wav"
-}
+        "vj_cofr/cof/baby/b_alert1.wav",
+        "vj_cofr/cof/baby/b_alert2.wav",
+        "vj_cofr/cof/baby/b_alert3.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/baby/b_pain1.wav",
-    "vj_cofr/cof/baby/b_pain2.wav"
-}
+        "vj_cofr/cof/baby/b_pain1.wav",
+        "vj_cofr/cof/baby/b_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/baby/b_death1.wav",
-    "vj_cofr/cof/baby/b_death2.wav"
-}
+        "vj_cofr/cof/baby/b_death1.wav",
+        "vj_cofr/cof/baby/b_death2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -73,45 +73,45 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:OnInput(key,activator,caller,data)
- if key == "step" then
-    self:PlayFootstepSound()
- elseif key == "melee" then
-    self:ExecuteMeleeAttack()
-    ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
-    VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
-    self:SetBodygroup(0,1)
- if self.HasGibOnDeathEffects then
-    local effectData = EffectData()
-    effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
-    effectData:SetColor(colorRed)
-    effectData:SetScale(25)
-    util.Effect("VJ_Blood1", effectData)
-    effectData:SetScale(5)
-    effectData:SetFlags(3)
-    effectData:SetColor(0)
-    util.Effect("bloodspray", effectData)
-    util.Effect("bloodspray", effectData)
-end
+function ENT:OnInput(key, activator, caller, data)
+    if key == "step" then
+        self:PlayFootstepSound()
+    elseif key == "melee" then
+        self:ExecuteMeleeAttack()
+        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math.random(1,2) .. ".wav", 75, 100)
+        self:SetBodygroup(0,1)
+    if self.HasGibOnDeathEffects then
+        local effectData = EffectData()
+        effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+        effectData:SetColor(colorRed)
+        effectData:SetScale(25)
+        util.Effect("VJ_Blood1", effectData)
+        effectData:SetScale(5)
+        effectData:SetFlags(3)
+        effectData:SetColor(0)
+        util.Effect("bloodspray", effectData)
+        util.Effect("bloodspray", effectData)
+    end
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "Init" then
-    if self.Dead then return end
+        if self.Dead then return end
         self.HasDeathSounds = false
         self:SetGroundEntity(NULL)
         self.Baby_DeathFromMeleeAttack = true
-        self:TakeDamage(self:GetMaxHealth(),self,self)
+        self:TakeDamage(self:GetMaxHealth(), self, self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -119,27 +119,28 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "DeathAnim" then
-    if !self.Baby_DeathFromMeleeAttack then
-        self.AnimTbl_Death = ACT_DIESIMPLE
-    elseif self.Baby_DeathFromMeleeAttack then
-        self.AnimTbl_Death = ACT_SIGNAL1
+        if !self.Baby_DeathFromMeleeAttack then
+            self.AnimTbl_Death = ACT_DIESIMPLE
+        elseif self.Baby_DeathFromMeleeAttack then
+            self.AnimTbl_Death = ACT_SIGNAL1
+        end
     end
-end
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

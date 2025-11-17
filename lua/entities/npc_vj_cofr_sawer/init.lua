@@ -13,7 +13,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack1","vjseq_attack2","vjseq_attack3"}
+ENT.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 40
@@ -37,24 +37,24 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/fx/npc_step1.wav"
+    "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_MeleeAttackExtra =
-"vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
+    "vj_cofr/cof/sawrunner/chainsaw_attack_hit.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
+    "vj_cofr/cof/sawrunner/chainsaw_attack_miss.wav"
 
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cof/sawer/sawersong.mp3"
+    "vj_cofr/cof/sawer/sawersong.mp3"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Sawer_EyeOpen = false
@@ -70,25 +70,25 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawer_Init()
     self.SoundTbl_Breath =
-    "vj_cofr/cof/sawer/chainsaw_loop.wav"
+        "vj_cofr/cof/sawer/chainsaw_loop.wav"
 
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/sawer/sawer_alert10.wav",
-    "vj_cofr/cof/sawer/sawer_alert20.wav",
-    "vj_cofr/cof/sawer/sawer_alert30.wav"
-}
+        "vj_cofr/cof/sawer/sawer_alert10.wav",
+        "vj_cofr/cof/sawer/sawer_alert20.wav",
+        "vj_cofr/cof/sawer/sawer_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/sawer/sawer_attack1.wav",
-    "vj_cofr/cof/sawer/sawer_attack2.wav"
-}
+        "vj_cofr/cof/sawer/sawer_attack1.wav",
+        "vj_cofr/cof/sawer/sawer_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/sawer/sawer_pain1.wav",
-    "vj_cofr/cof/sawer/sawer_pain2.wav"
-}
+        "vj_cofr/cof/sawer/sawer_pain1.wav",
+        "vj_cofr/cof/sawer/sawer_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/sawer/sawer_pain1.wav",
-    "vj_cofr/cof/sawer/sawer_pain2.wav"
-}
+        "vj_cofr/cof/sawer/sawer_pain1.wav",
+        "vj_cofr/cof/sawer/sawer_pain2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -99,7 +99,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local math_angApproach = math.ApproachAngle
 --
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "melee" then
@@ -109,36 +109,36 @@ function ENT:OnInput(key,activator,caller,data)
         self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
- if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
- local eyeDir = math.random(1,2)
- if eyeDir == 1 then
-    self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 90, 10))
- elseif eyeDir == 2 then
-    self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), -90, 10))
-end
+    if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
+        local eyeDir = math.random(1,2)
+        if eyeDir == 1 then
+            self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 90, 10))
+        elseif eyeDir == 2 then
+            self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), -90, 10))
+        end
         self.Sawer_NextEyeMoveT = CurTime() + math.Rand(0,0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = ent:Health() + 10
-    elseif ent:IsPlayer() then
-        self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
-    else
-        self.MeleeAttackDamage = 200
+        if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+            self.MeleeAttackDamage = ent:Health() + 10
+        elseif ent:IsPlayer() then
+            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+        else
+            self.MeleeAttackDamage = 200
         end
     end
 end
@@ -147,73 +147,76 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
- if status == "PreDamage" then
- if CurTime() > self.Sawer_NextFlinchT && math.random(1,14) == 1 && !self.Sawer_EyeOpen then
-    self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
-    self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
-end
- if hitgroup == 9 && self.Sawer_EyeOpen then
-    dmginfo:ScaleDamage(0.2)
- else
-    dmginfo:SetDamage(0)
-end
- if !self.Sawer_EyeOpen then
-    self:SpawnBloodParticles(dmginfo,hitgroup)
-    self:SpawnBloodDecals(dmginfo,hitgroup)
-    self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
-end
-     if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
-     local animTime = VJ.AnimDuration(self,ACT_COWER)
-        self:PlayAnim(ACT_COWER,true,false,false)
-        VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
-        self:SetSkin(1)
-        self.Sawer_EyeOpen = true
-        self.MovementType = VJ_MOVETYPE_STATIONARY
-        self.CanTurnWhileStationary = false
-        self:AddFlags(FL_NOTARGET)
-        self.Sawer_Eye = ents.Create("obj_vj_bullseye")
-        self.Sawer_Eye:SetModel("models/hunter/plates/plate.mdl")
-        self.Sawer_Eye:SetParent(self)
-        self.Sawer_Eye:Fire("SetParentAttachment", "eye")
-        self.Sawer_Eye:Spawn()
-        self.Sawer_Eye:SetNoDraw(true)
-        self.Sawer_Eye:DrawShadow(false)
-        self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
-        self:SetRelationshipMemory(self.Sawer_Eye, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
-        self:DeleteOnRemove(self.Sawer_Eye)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" then
+        if CurTime() > self.Sawer_NextFlinchT && math.random(1,14) == 1 && !self.Sawer_EyeOpen then
+            self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
+            self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
+        end
+        if hitgroup == 9 && self.Sawer_EyeOpen then
+            dmginfo:ScaleDamage(0.2)
+        else
+            dmginfo:SetDamage(0)
+        end
+        if !self.Sawer_EyeOpen then
+            self:SpawnBloodParticles(dmginfo, hitgroup)
+            self:SpawnBloodDecals(dmginfo, hitgroup)
+            self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
+        end
+        if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
+            local animTime = VJ.AnimDuration(self, ACT_COWER)
+            self:PlayAnim(ACT_COWER, true, false, false)
+            VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
+            self:SetSkin(1)
+            self.Sawer_EyeOpen = true
+            self.MovementType = VJ_MOVETYPE_STATIONARY
+            self.CanTurnWhileStationary = false
+            self:AddFlags(FL_NOTARGET)
+            self.Sawer_Eye = ents.Create("obj_vj_bullseye")
+            self.Sawer_Eye:SetModel("models/hunter/plates/plate.mdl")
+            self.Sawer_Eye:SetParent(self)
+            self.Sawer_Eye:Fire("SetParentAttachment", "eye")
+            self.Sawer_Eye:Spawn()
+            self.Sawer_Eye:SetNoDraw(true)
+            self.Sawer_Eye:DrawShadow(false)
+            self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
+            self:SetRelationshipMemory(self.Sawer_Eye, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
+            self:DeleteOnRemove(self.Sawer_Eye)
 
-    timer.Simple(animTime,function()
-    if IsValid(self) && IsValid(self.Sawer_Eye) then
-        self.Sawer_EyeOpen = false
-        self.Sawer_Eye:Remove()
-        self:RemoveFlags(FL_NOTARGET)
-        self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-        self.Sawer_NextDownT = CurTime() + math.Rand(5,10) end end)
+            timer.Simple(animTime, function()
+                if IsValid(self) && IsValid(self.Sawer_Eye) then
+                    self.Sawer_EyeOpen = false
+                    self.Sawer_Eye:Remove()
+                    self:RemoveFlags(FL_NOTARGET)
+                    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+                    self.Sawer_NextDownT = CurTime() + math.Rand(5,10)
+                end
+            end)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Init" then
- if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
-    self:SetSkin(0)
-    self.Sawer_Eye:Remove()
-    self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
+            self:SetSkin(0)
+            self.Sawer_Eye:Remove()
+            self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
+            self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+        end
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

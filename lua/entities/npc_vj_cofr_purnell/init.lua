@@ -39,18 +39,20 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = "common/null.wav"
+ENT.SoundTbl_FootStep =
+    "common/null.wav"
+
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/cof/doctorboss/doctorbattle.mp3",
-"vj_cofr/cof/doctorboss/doctorbattle2.mp3"
+    "vj_cofr/cof/doctorboss/doctorbattle.mp3",
+    "vj_cofr/cof/doctorboss/doctorbattle2.mp3"
 }
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Doctor_NextRunT = 0
@@ -63,23 +65,23 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_Init()
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/doctorboss/ouch1.wav",
-    "vj_cofr/cof/doctorboss/ouch2.wav",
-    "vj_cofr/cof/doctorboss/ouch3.wav",
-    "vj_cofr/cof/doctorboss/ouch4.wav",
-    "vj_cofr/cof/doctorboss/ouch5.wav",
-    "vj_cofr/cof/doctorboss/ouch6.wav",
-    "vj_cofr/cof/doctorboss/ouch7.wav"
-}
+        "vj_cofr/cof/doctorboss/ouch1.wav",
+        "vj_cofr/cof/doctorboss/ouch2.wav",
+        "vj_cofr/cof/doctorboss/ouch3.wav",
+        "vj_cofr/cof/doctorboss/ouch4.wav",
+        "vj_cofr/cof/doctorboss/ouch5.wav",
+        "vj_cofr/cof/doctorboss/ouch6.wav",
+        "vj_cofr/cof/doctorboss/ouch7.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/doctorboss/ouch1.wav",
-    "vj_cofr/cof/doctorboss/ouch2.wav",
-    "vj_cofr/cof/doctorboss/ouch3.wav",
-    "vj_cofr/cof/doctorboss/ouch4.wav",
-    "vj_cofr/cof/doctorboss/ouch5.wav",
-    "vj_cofr/cof/doctorboss/ouch6.wav",
-    "vj_cofr/cof/doctorboss/ouch7.wav"
-}
+        "vj_cofr/cof/doctorboss/ouch1.wav",
+        "vj_cofr/cof/doctorboss/ouch2.wav",
+        "vj_cofr/cof/doctorboss/ouch3.wav",
+        "vj_cofr/cof/doctorboss/ouch4.wav",
+        "vj_cofr/cof/doctorboss/ouch5.wav",
+        "vj_cofr/cof/doctorboss/ouch6.wav",
+        "vj_cofr/cof/doctorboss/ouch7.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -95,17 +97,17 @@ function ENT:Init()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
@@ -113,11 +115,11 @@ end
 function ENT:OnWeaponAttack()
     if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
     if CurTime() > self.Doctor_NextRunT then
-    timer.Simple(0.5, function()
-    if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
-        self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
-    end
-end)
+        timer.Simple(0.5, function()
+            if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
+                self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
+            end
+        end)
         self.Doctor_NextRunT = CurTime() + math.Rand(12,18)
     end
 end
@@ -138,29 +140,29 @@ function ENT:SetAnimationTranslations(wepHoldType)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         dmginfo:ScaleDamage(0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "DeathAnim" then
-    self:DeathWeaponDrop(dmginfo,hitgroup)
- local activeWep = self:GetActiveWeapon()
-    if IsValid(activeWep) then activeWep:Remove() end
-end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+    if status == "DeathAnim" then
+        self:DeathWeaponDrop(dmginfo,hitgroup)
+        local activeWep = self:GetActiveWeapon()
+        if IsValid(activeWep) then activeWep:Remove() end
+    end
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeathWeaponDrop(dmginfo,hitgroup,wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
     wepEnt:SetModelScale(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -281,18 +283,18 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound(moveType,sdFile)
- if !self:OnGround() then return end
- local tr = util.TraceLine({
-    start = self:GetPos(),
-    endpos = self:GetPos() +Vector(0,0,-150),
-    filter = {self}
-})
- if tr.Hit && self.FootSteps[tr.MatType] then
-    VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-end
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
+    local tr = util.TraceLine({
+        start = self:GetPos(),
+        endpos = self:GetPos() + Vector(0, 0, -150),
+        filter = {self}
+    })
+    if tr.Hit && self.FootSteps[tr.MatType] then
+        VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+    end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

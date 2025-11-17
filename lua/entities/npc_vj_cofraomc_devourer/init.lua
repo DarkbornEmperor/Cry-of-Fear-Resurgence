@@ -10,14 +10,14 @@ ENT.Model = "models/vj_cofr/aom/classic/devourer.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_Init()
     self.SoundTbl_Death = {
-    "vj_cofr/aom/devourer/classic/bcl_die1.wav",
-    "vj_cofr/aom/devourer/classic/bcl_die3.wav"
-}
+        "vj_cofr/aom/devourer/classic/bcl_die1.wav",
+        "vj_cofr/aom/devourer/classic/bcl_die3.wav"
+    }
     self.SoundTbl_MeleeAttackExtra = {
-    "vj_cofr/aom/devourer/classic/bcl_chew1.wav",
-    "vj_cofr/aom/devourer/classic/bcl_chew2.wav",
-    "vj_cofr/aom/devourer/classic/bcl_chew3.wav"
-}
+        "vj_cofr/aom/devourer/classic/bcl_chew1.wav",
+        "vj_cofr/aom/devourer/classic/bcl_chew2.wav",
+        "vj_cofr/aom/devourer/classic/bcl_chew3.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

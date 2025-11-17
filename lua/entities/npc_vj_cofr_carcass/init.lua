@@ -47,15 +47,15 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cof/carcass/sophie3.mp3"
+    "vj_cofr/cof/carcass/sophie3.mp3"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -66,19 +66,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Carcass_Init()
     self.SoundTbl_Breath = {
-    "vj_cofr/cof/carcass/rb_mouthidle1.wav",
-    "vj_cofr/cof/carcass/rb_mouthidle2.wav"
-}
+        "vj_cofr/cof/carcass/rb_mouthidle1.wav",
+        "vj_cofr/cof/carcass/rb_mouthidle2.wav"
+    }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/cof/carcass/rb_attack1.wav",
-    "vj_cofr/cof/carcass/rb_attack2.wav"
-}
+        "vj_cofr/cof/carcass/rb_attack1.wav",
+        "vj_cofr/cof/carcass/rb_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/carcass/rb_hurt1.wav",
-    "vj_cofr/cof/carcass/rb_hurt2.wav"
-}
+        "vj_cofr/cof/carcass/rb_hurt1.wav",
+        "vj_cofr/cof/carcass/rb_hurt2.wav"
+    }
     self.SoundTbl_Death =
-    "vj_cofr/cof/carcass/rb_death.wav"
+        "vj_cofr/cof/carcass/rb_death.wav"
 
     if GetConVar("VJ_COFR_JoeBiden"):GetInt() == 1 then
         self.RangeAttackProjectiles = "obj_vj_cofr_biden"
@@ -93,7 +93,7 @@ function ENT:Init()
     self:Carcass_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "stomach_open" then
@@ -103,11 +103,11 @@ function ENT:OnInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
-    local ene = self:GetEnemy()
-    if IsValid(ene) then
-        projectile.Track_Enemy = ene
+        local ene = self:GetEnemy()
+        if IsValid(ene) then
+            projectile.Track_Enemy = ene
         end
     end
 end
@@ -123,31 +123,31 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
-    if dmginfo:GetDamagePosition() != vec then
-    local rico = EffectData()
-        rico:SetOrigin(dmginfo:GetDamagePosition())
-        rico:SetScale(4) -- Size
-        rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-        util.Effect("VJ_COFR_Rico", rico)
+        if dmginfo:GetDamagePosition() != vec then
+            local rico = EffectData()
+            rico:SetOrigin(dmginfo:GetDamagePosition())
+            rico:SetScale(4) -- Size
+            rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+            util.Effect("VJ_COFR_Rico", rico)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

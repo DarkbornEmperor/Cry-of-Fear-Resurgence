@@ -18,7 +18,7 @@ function ENT:Initialize()
     self:SetModel("models/vj_cofr/cof/police_dead.mdl")
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
-    self:SetBodygroup(0,math.random(0,1))
+    self:SetBodygroup(0, math.random(0,1))
     local anim = math.random(1,2)
     if anim == 1 then
         self:ResetSequence("e5idle1")

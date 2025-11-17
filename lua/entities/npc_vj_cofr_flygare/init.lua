@@ -17,7 +17,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = {"vjseq_punch","vjseq_punchdown"}
+ENT.AnimTbl_MeleeAttack = {"vjseq_punch", "vjseq_punchdown"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
@@ -51,38 +51,38 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra =
-"vj_cofr/cof/flygare/flygare_slice.wav"
+    "vj_cofr/cof/flygare/flygare_slice.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/flygare/flygare_slash.wav"
+    "vj_cofr/cof/flygare/flygare_slash.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Flygare_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/flygare/flygare_alert1.wav",
-    "vj_cofr/cof/flygare/flygare_alert2.wav"
-}
+        "vj_cofr/cof/flygare/flygare_alert1.wav",
+        "vj_cofr/cof/flygare/flygare_alert2.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/flygare/flygare_attack1.wav",
-    "vj_cofr/cof/flygare/flygare_attack2.wav"
-}
+        "vj_cofr/cof/flygare/flygare_attack1.wav",
+        "vj_cofr/cof/flygare/flygare_attack2.wav"
+    }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/cof/flygare/flygare_attack1.wav",
-    "vj_cofr/cof/flygare/flygare_attack2.wav"
-}
+        "vj_cofr/cof/flygare/flygare_attack1.wav",
+        "vj_cofr/cof/flygare/flygare_attack2.wav"
+    }
     self.SoundTbl_Pain =
-    "vj_cofr/cof/flygare/flygare_pain.wav"
+        "vj_cofr/cof/flygare/flygare_pain.wav"
 
     self.SoundTbl_Death =
-    "vj_cofr/cof/flygare/flygare_death.wav"
+        "vj_cofr/cof/flygare/flygare_death.wav"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -98,7 +98,7 @@ function ENT:Init()
     self:Flygare_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "range" then
@@ -109,33 +109,33 @@ function ENT:OnInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if act == ACT_FLY then
- if self.AA_CurrentMovePosDir then
- local moveDir = self.AA_CurrentMovePosDir:GetNormal()
- -- Up-down
- local dotUp = moveDir:Dot(self:GetUp())
- if dotUp > 0.60 then
-    return self.Flygare_FlyAnim_Up
- elseif dotUp < -0.60 then
-    return self.Flygare_FlyAnim_Down
-end
- -- Forward-backward
- local dotForward = moveDir:Dot(self:GetForward())
- if dotForward > 0.5 then
-    return self.Flygare_FlyAnim_Forward
- elseif dotForward < -0.5 then
-    return self.Flygare_FlyAnim_Backward
-end
-    -- Right-left
-    local dotRight = moveDir:Dot(self:GetRight())
-    if dotRight > 0.5 then
-        return self.Flygare_FlyAnim_Right
-    elseif dotRight < -0.5 then
-        return self.Flygare_FlyAnim_Left
+    if act == ACT_FLY then
+        if self.AA_CurrentMovePosDir then
+            local moveDir = self.AA_CurrentMovePosDir:GetNormal()
+            -- Up-down
+            local dotUp = moveDir:Dot(self:GetUp())
+            if dotUp > 0.60 then
+                return self.Flygare_FlyAnim_Up
+            elseif dotUp < -0.60 then
+                return self.Flygare_FlyAnim_Down
+            end
+            -- Forward-backward
+            local dotForward = moveDir:Dot(self:GetForward())
+            if dotForward > 0.5 then
+                return self.Flygare_FlyAnim_Forward
+            elseif dotForward < -0.5 then
+                return self.Flygare_FlyAnim_Backward
+            end
+            -- Right-left
+            local dotRight = moveDir:Dot(self:GetRight())
+            if dotRight > 0.5 then
+                return self.Flygare_FlyAnim_Right
+            elseif dotRight < -0.5 then
+                return self.Flygare_FlyAnim_Left
+            end
+        end
+        return self.Flygare_FlyAnim_Up -- Fallback animation
     end
-end
-    return self.Flygare_FlyAnim_Up -- Fallback animation
-end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -154,31 +154,31 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
-    if dmginfo:GetDamagePosition() != vec then
-    local rico = EffectData()
-        rico:SetOrigin(dmginfo:GetDamagePosition())
-        rico:SetScale(4) -- Size
-        rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-        util.Effect("VJ_COFR_Rico", rico)
+        if dmginfo:GetDamagePosition() != vec then
+            local rico = EffectData()
+            rico:SetOrigin(dmginfo:GetDamagePosition())
+            rico:SetScale(4) -- Size
+            rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+            util.Effect("VJ_COFR_Rico", rico)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

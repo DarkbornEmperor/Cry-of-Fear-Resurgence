@@ -30,7 +30,7 @@ function EFFECT:Init(data)
     self.DieTime = CurTime() + self.TracerTime
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local metalMat = {[MAT_VENT]=true, [MAT_METAL]=true, [MAT_GRATE]=true, [MAT_GLASS]=true, [MAT_COMPUTER]=true}
+local metalMat = {[MAT_VENT] = true, [MAT_METAL] = true, [MAT_GRATE] = true, [MAT_GLASS] = true, [MAT_COMPUTER] = true}
 local vecDef = Vector(0, 0, 0)
 --
 function EFFECT:Think()
@@ -44,16 +44,16 @@ function EFFECT:Think()
             sound.Play("vj_cofr/fx/ric" .. math.random(1, 5) .. ".wav", self.EndPos, 80, 100)
             local Emitter = ParticleEmitter(self.EndPos)
             if GetConVar("VJ_COFR_SparkFX"):GetInt() == 1 then
-                for _ = 1, math.random(5, 15) do
+                for _ = 1, math.random(5,15) do
                     local particle = Emitter:Add("vj_cofr/tracer_middle", self.EndPos)
-                    particle:SetVelocity(VectorRand()*math.Rand(100, 350))
-                    particle:SetDieTime(math.Rand(0.1, 1))
+                    particle:SetVelocity(VectorRand() * math.Rand(100,350))
+                    particle:SetDieTime(math.Rand(0.1,1))
                     particle:SetStartAlpha(200)
                     particle:SetEndAlpha(0)
                     particle:SetStartSize(1)
                     particle:SetEndSize(3)
-                    particle:SetRoll(math.random(0, 360))
-                    particle:SetGravity(Vector(math.random(-300, 300), math.random(-300, 300), math.random(-300, -700)))
+                    particle:SetRoll(math.random(0,360))
+                    particle:SetGravity(Vector(math.random(-300,300), math.random(-300,300), math.random(-300,-700)))
                     particle:SetCollide(true)
                     particle:SetBounce(0.9)
                     particle:SetAirResistance(120)
@@ -70,11 +70,11 @@ function EFFECT:Think()
             fx:SetDieTime(0.15)
             fx:SetStartAlpha(255)
             fx:SetEndAlpha(0)
-            fx:SetStartSize(math.random(4, 6))
+            fx:SetStartSize(math.random(4,6))
             fx:SetEndSize(5)
-            fx:SetRoll(math.Rand(180, 360))
-            fx:SetRollDelta(math.Rand(-1, 1))
-            fx:SetColor(255,255,255)
+            fx:SetRoll(math.Rand(180,360))
+            fx:SetRollDelta(math.Rand(-1,1))
+            fx:SetColor(255, 255, 255)
         end
         return false
     end

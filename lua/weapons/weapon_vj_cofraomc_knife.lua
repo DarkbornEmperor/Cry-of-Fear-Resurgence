@@ -28,10 +28,10 @@ function SWEP:OnEquip(newOwner)
     owner.MeleeAttackDamage = self.Primary.Damage
     owner.MeleeAttackDamageType = DMG_SLASH
     owner.SoundTbl_MeleeAttackExtra = {
-    "vj_cofr/aom/weapons/knife/classic/cbar_hitbod1.wav",
-    "vj_cofr/aom/weapons/knife/classic/cbar_hitbod2.wav",
-    "vj_cofr/aom/weapons/knife/classic/cbar_hitbod3.wav",
+        "vj_cofr/aom/weapons/knife/classic/cbar_hitbod1.wav",
+        "vj_cofr/aom/weapons/knife/classic/cbar_hitbod2.wav",
+        "vj_cofr/aom/weapons/knife/classic/cbar_hitbod3.wav"
     }
     owner.SoundTbl_MeleeAttackMiss =
-    "vj_cofr/aom/weapons/knife/classic/cbar_miss1.wav"
+        "vj_cofr/aom/weapons/knife/classic/cbar_miss1.wav"
 end

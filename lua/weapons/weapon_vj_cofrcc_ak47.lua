@@ -24,13 +24,18 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 16
 SWEP.Primary.ClipSize = 20
 SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound = "vj_cofr/cofcc/weapons/ak47/shoot.wav"
-SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
+SWEP.Primary.Sound =
+    "vj_cofr/cofcc/weapons/ak47/shoot.wav"
+
+SWEP.Primary.DistantSound =
+    "vj_cofr/fx/distant/hks_distant_new.wav"
+
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
+SWEP.DryFireSound =
+    "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
@@ -46,35 +51,33 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
-    muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
     self.BaseClass.PrimaryAttackEffects(self, owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:DoImpactEffect(tr,damageType)
+function SWEP:DoImpactEffect(tr, damageType)
     return VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnPrimaryAttack(status,statusData)
+function SWEP:OnPrimaryAttack(status, statusData)
     if status == "Init" then
-    local Brt = math.random(1,2)
-    local Num = 0.05
-    if Brt == 1 then
-        self.NPC_TimeUntilFireExtraTimers = {}
-        self.NPC_NextPrimaryFire = math.Rand(0.7,0.9)
-    elseif Brt == 2 then
-        self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
-        self.NPC_NextPrimaryFire = math.Rand(1,1.2)
+        local burst = math.random(1,2)
+        local num = 0.05
+        if burst == 1 then
+            self.NPC_TimeUntilFireExtraTimers = {}
+            self.NPC_NextPrimaryFire = math.Rand(0.7,0.9)
+        elseif burst == 2 then
+            self.NPC_TimeUntilFireExtraTimers = {num, num * 2}
+            self.NPC_NextPrimaryFire = math.Rand(1,1.2)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
     local owner = self:GetOwner()
-    owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
     owner.NextChaseTime = 0
-    self:OnReload("Start")
-    if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+    self.BaseClass.NPC_Reload(self)
 end

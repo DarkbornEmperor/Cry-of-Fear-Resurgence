@@ -48,27 +48,27 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/fx/npc_step1.wav"
+    "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/twitcher/claw_strike1.wav",
-"vj_cofr/aom/twitcher/claw_strike2.wav",
-"vj_cofr/aom/twitcher/claw_strike3.wav"
+    "vj_cofr/aom/twitcher/claw_strike1.wav",
+    "vj_cofr/aom/twitcher/claw_strike2.wav",
+    "vj_cofr/aom/twitcher/claw_strike3.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/aom/twitcher/claw_miss1.wav",
-"vj_cofr/aom/twitcher/claw_miss2.wav"
+    "vj_cofr/aom/twitcher/claw_miss1.wav",
+    "vj_cofr/aom/twitcher/claw_miss2.wav"
 }
 ENT.SoundTbl_Tinnitus =
-"vj_cofr/aom/ghost/ear_ringing.wav"
+    "vj_cofr/aom/ghost/ear_ringing.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Ghost_Tinnitus = false
@@ -82,13 +82,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Ghost_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/aom/ghost/slv_alert2.wav",
-    "vj_cofr/aom/ghost/slv_alert4.wav"
-}
+        "vj_cofr/aom/ghost/slv_alert2.wav",
+        "vj_cofr/aom/ghost/slv_alert4.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/aom/ghost/slv_die1.wav",
-    "vj_cofr/aom/ghost/slv_die2.wav"
-}
+        "vj_cofr/aom/ghost/slv_die1.wav",
+        "vj_cofr/aom/ghost/slv_die2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -97,41 +97,40 @@ function ENT:Init()
     self:Ghost_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
-        self.Ghost_Tinnitus = true
-    if self.HasSounds && GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 1 then
-        self.Ghost_TinnitusSound = CreateSound(ent,self.SoundTbl_Tinnitus)
-        self.Ghost_TinnitusSound:Play()
-        self.Ghost_TinnitusSound:SetSoundLevel(100)
-        hook.Add("Think","VJ_COFR_GhostTinnitus",function()
-        if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think","VJ_COFR_GhostTinnitus")
-        end
-    end)
-end
-        net.Start("VJ_COFR_Ghost_ScreenEffect")
-        net.WriteEntity(ent)
-        net.Send(ent)
-        self.Ghost_Tinnitus = false
-        self.Ghost_NextTinnitusSoundT = CurTime() + SoundDuration("vj_cofr/aom/ghost/ear_ringing.wav")
+        if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
+            self.Ghost_Tinnitus = true
+            if self.HasSounds && GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 1 then
+                self.Ghost_TinnitusSound = CreateSound(ent, self.SoundTbl_Tinnitus)
+                self.Ghost_TinnitusSound:Play()
+                self.Ghost_TinnitusSound:SetSoundLevel(100)
+                hook.Add("Think", "VJ_COFR_GhostTinnitus" .. self:EntIndex(), function()
+                    if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think", "VJ_COFR_GhostTinnitus" .. self:EntIndex()) end
+                end)
+            end
+            net.Start("VJ_COFR_Ghost_ScreenEffect")
+            net.WriteEntity(ent)
+            net.Send(ent)
+            self.Ghost_Tinnitus = false
+            self.Ghost_NextTinnitusSoundT = CurTime() + SoundDuration("vj_cofr/aom/ghost/ear_ringing.wav")
         end
     end
 end
@@ -140,27 +139,28 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "DeathAnim" then
-    if hitgroup == HITGROUP_HEAD then
-        self.AnimTbl_Death = ACT_DIE_HEADSHOT
-    else
-        self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE}
+        if hitgroup == HITGROUP_HEAD then
+            self.AnimTbl_Death = ACT_DIE_HEADSHOT
+        else
+            self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+        end
     end
-end
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

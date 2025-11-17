@@ -40,27 +40,29 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(5, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = "common/null.wav"
+ENT.SoundTbl_FootStep =
+    "common/null.wav"
+
 ENT.SoundTbl_FireLoop =
-"vj_cofr/aom/addiction/fire_loop.wav"
+    "vj_cofr/aom/addiction/fire_loop.wav"
 
 ENT.SoundTbl_FireIgnite =
-"vj_cofr/aom/addiction/fire_ignite.wav"
+    "vj_cofr/aom/addiction/fire_ignite.wav"
 
 ENT.SoundTbl_FireOff =
-"vj_cofr/aom/addiction/fire_off.wav"
+    "vj_cofr/aom/addiction/fire_off.wav"
 
 ENT.SoundTbl_SoundTrack = {
-"vj_cofr/aom/addiction/sickness.mp3",
-"vj_cofr/aom/addiction/4motherkill.wav"
+    "vj_cofr/aom/addiction/sickness.mp3",
+    "vj_cofr/aom/addiction/4motherkill.wav"
 }
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Addiction_FinishedIgnited = false
@@ -77,21 +79,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Addiction_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/aom/addiction/db_alert10.wav",
-    "vj_cofr/aom/addiction/db_alert20.wav",
-    "vj_cofr/aom/addiction/db_alert30.wav"
-}
+        "vj_cofr/aom/addiction/db_alert10.wav",
+        "vj_cofr/aom/addiction/db_alert20.wav",
+        "vj_cofr/aom/addiction/db_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack =
-    "vj_cofr/aom/addiction/david_attack.wav"
+        "vj_cofr/aom/addiction/david_attack.wav"
 
     self.SoundTbl_Pain = {
-    "vj_cofr/aom/addiction/db_pain1.wav",
-    "vj_cofr/aom/addiction/db_pain2.wav"
-}
+        "vj_cofr/aom/addiction/db_pain1.wav",
+        "vj_cofr/aom/addiction/db_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/aom/addiction/db_pain1.wav",
-    "vj_cofr/aom/addiction/db_pain2.wav"
-}
+        "vj_cofr/aom/addiction/db_pain1.wav",
+        "vj_cofr/aom/addiction/db_pain2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -100,7 +102,7 @@ function ENT:Init()
     self:Addiction_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "melee" then
@@ -112,62 +114,65 @@ function ENT:OnInput(key,activator,caller,data)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
- if self.VJ_IsBeingControlled then return end
+    if self.VJ_IsBeingControlled then return end
     self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Switch attacks")
     ply:ChatPrint("NOTE: Switching attacks will cause a 15/20 second delay until able to switch again.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- local ent = self:GetEnemy()
- if self.Dead then return end
- if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-    self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
-    self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
-end
+    local ent = self:GetEnemy()
+    if self.Dead then return end
+    if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+        self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
+        self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
+    end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
     if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then
         self.Addiction_OnFire = true
         self:FireSprite()
         self.Addiction_FireIgnite = VJ.CreateSound(self,self.SoundTbl_FireIgnite,75,100)
         self.Addiction_FireLoop = VJ.CreateSound(self,self.SoundTbl_FireLoop,75,100)
-        timer.Create("VJ_COFR_Addiction_Fire"..self:EntIndex(), 1, 15, function() if IsValid(self) && self.Addiction_OnFire then
-    /*if IsValid(ent) && ent:WaterLevel() != 3 then*/
-        VJ.ApplyRadiusDamage(self,self,self:GetPos(),150,10,DMG_BURN,true,true)
-/*end*/
-        timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end) end end)
+        timer.Create("VJ_COFR_Addiction_Fire" .. self:EntIndex(), 1, 15, function()
+            if IsValid(self) && self.Addiction_OnFire then
+                /*if IsValid(ent) && ent:WaterLevel() != 3 then*/
+                    VJ.ApplyRadiusDamage(self, self, self:GetPos(), 150, 10, DMG_BURN, true, true)
+                /*end*/
+                timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end)
+            end
+        end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireSprite()
     local fireFX = ents.Create("env_sprite")
-    fireFX:SetKeyValue("model","vj_cofr/sprites/fire.vmt")
-    fireFX:SetKeyValue("scale","1")
-    fireFX:SetKeyValue("GlowProxySize","2.0")
-    fireFX:SetKeyValue("renderfx","0")
-    fireFX:SetKeyValue("rendermode","2")
-    fireFX:SetKeyValue("renderamt","255")
-    fireFX:SetKeyValue("disablereceiveshadows","0")
-    fireFX:SetKeyValue("framerate","10.0")
-    fireFX:SetKeyValue("spawnflags","0")
+    fireFX:SetKeyValue("model", "vj_cofr/sprites/fire.vmt")
+    fireFX:SetKeyValue("scale", "1")
+    fireFX:SetKeyValue("GlowProxySize", "2.0")
+    fireFX:SetKeyValue("renderfx", "0")
+    fireFX:SetKeyValue("rendermode", "2")
+    fireFX:SetKeyValue("renderamt", "255")
+    fireFX:SetKeyValue("disablereceiveshadows", "0")
+    fireFX:SetKeyValue("framerate", "10.0")
+    fireFX:SetKeyValue("spawnflags", "0")
     fireFX:SetPos(self:GetPos())
     fireFX:Spawn()
     fireFX:SetParent(self)
-    fireFX:Fire("SetParentAttachment","fire")
+    fireFX:Fire("SetParentAttachment", "fire")
     self:DeleteOnRemove(fireFX)
     self.fireFX = fireFX
 
@@ -177,43 +182,43 @@ function ENT:FireSprite()
     fireLight:SetLocalPos(self:GetPos())
     fireLight:SetLocalAngles(self:GetAngles())
     fireLight:Fire("Color", "182 136 11")
-    fireLight:SetKeyValue("style","1")
+    fireLight:SetKeyValue("style", "1")
     fireLight:SetParent(self)
     fireLight:Spawn()
     fireLight:Activate()
-    fireLight:Fire("SetParentAttachment","fire")
+    fireLight:Fire("SetParentAttachment", "fire")
     fireLight:Fire("TurnOn", "", 0)
     self:DeleteOnRemove(fireLight)
     self.fireLight = fireLight
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttack(status,enemy)
+function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
-    if self:GetBodygroup(0) == 0 then
-        self.AnimTbl_MeleeAttack = "vjseq_attack"
-        self.MeleeAttackDamage = 20
-        self.HasMeleeAttackMissSounds = false
-        self.SoundTbl_MeleeAttackExtra = {
-        "vj_cofr/aom/addiction/david_hurt.wav",
-        "vj_cofr/aom/addiction/david_hurt2.wav",
-        "vj_cofr/aom/addiction/david_hurt3.wav"
-}
-    elseif self:GetBodygroup(0) == 1 then
-        self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
-        self.MeleeAttackDamage = 35
-        self.HasMeleeAttackMissSounds = true
-        self.SoundTbl_MeleeAttackExtra =
-        "vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
+        if self:GetBodygroup(0) == 0 then
+            self.AnimTbl_MeleeAttack = "vjseq_attack"
+            self.MeleeAttackDamage = 20
+            self.HasMeleeAttackMissSounds = false
+            self.SoundTbl_MeleeAttackExtra = {
+                "vj_cofr/aom/addiction/david_hurt.wav",
+                "vj_cofr/aom/addiction/david_hurt2.wav",
+                "vj_cofr/aom/addiction/david_hurt3.wav"
+            }
+        elseif self:GetBodygroup(0) == 1 then
+            self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
+            self.MeleeAttackDamage = 35
+            self.HasMeleeAttackMissSounds = true
+            self.SoundTbl_MeleeAttackExtra =
+                "vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
 
-        self.SoundTbl_MeleeAttackMiss =
-        "vj_cofr/aom/weapons/axe/Axe_swing.wav"
+            self.SoundTbl_MeleeAttackMiss =
+                "vj_cofr/aom/weapons/axe/Axe_swing.wav"
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if self.Addiction_OnFire then ent:Ignite(4) end
+        if self.Addiction_OnFire then ent:Ignite(4) end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -221,94 +226,97 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttack(status,enemy)
+function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        self.NextRangeAttackTime = VJ.PICK(10,15)
+        self.NextRangeAttackTime = (math.random(2) == 1 and 10 or 15)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
- if status == "Init" then
- local ent = self:GetEnemy()
- if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
-    VJ.EmitSound(ent, {"vj_cofr/aom/addiction/thunder_attack1.wav","vj_cofr/aom/addiction/thunder_attack2.wav","vj_cofr/aom/addiction/thunder_attack3.wav"}, 100, 100)
-    local color = Color(0, 161, 255, 255) -- The shock wave color
-    local dmg = 20 -- How much damage should the shock wave do?
-    local enePos = ent:GetPos()
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+    if status == "Init" then
+        local ent = self:GetEnemy()
+        if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
+            VJ.EmitSound(ent, {"vj_cofr/aom/addiction/thunder_attack1.wav", "vj_cofr/aom/addiction/thunder_attack2.wav", "vj_cofr/aom/addiction/thunder_attack3.wav"}, 100, 100)
+            local color = Color(0, 161, 255, 255) -- The shock wave color
+            local dmg = 20 -- How much damage should the shock wave do?
+            local enePos = ent:GetPos()
 
-    timer.Simple(1,function() if IsValid(self) && IsValid(ent) then VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck=true, Force=80})
-    -- flags 0 = No fade!
-    effects.BeamRingPoint(enePos, 0.3, 2, 400, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
-    effects.BeamRingPoint(enePos, 0.3, 2, 200, 16, 0, color, {material="vj_cofr/sprites/shockwave", framerate=20, flags=0})
+            timer.Simple(1,function()
+                if IsValid(self) && IsValid(ent) then VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck = true, Force = 80})
+                    -- flags 0 = No fade!
+                    effects.BeamRingPoint(enePos, 0.3, 2, 400, 16, 0, color, {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0})
+                    effects.BeamRingPoint(enePos, 0.3, 2, 200, 16, 0, color, {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0})
 
-    local lightningFX = ents.Create("env_sprite")
-    lightningFX:SetKeyValue("model","vj_cofr/sprites/lightning.vmt")
-    lightningFX:SetKeyValue("scale","1")
-    lightningFX:SetKeyValue("rendercolor","0, 161, 255, 255")
-    lightningFX:SetKeyValue("GlowProxySize","2.0")
-    lightningFX:SetKeyValue("renderfx","0")
-    lightningFX:SetKeyValue("rendermode","2")
-    lightningFX:SetKeyValue("renderamt","255")
-    lightningFX:SetKeyValue("disablereceiveshadows","0")
-    lightningFX:SetKeyValue("framerate","10.0")
-    lightningFX:SetKeyValue("spawnflags","0")
-    lightningFX:SetPos(enePos + ent:GetUp()*60)
-    lightningFX:Spawn()
-    lightningFX:Activate()
-    lightningFX:Fire("Kill","",0.2)
-    self:DeleteOnRemove(lightningFX)
-    self.lightningFX = lightningFX
+                    local lightningFX = ents.Create("env_sprite")
+                    lightningFX:SetKeyValue("model", "vj_cofr/sprites/lightning.vmt")
+                    lightningFX:SetKeyValue("scale", "1")
+                    lightningFX:SetKeyValue("rendercolor", "0, 161, 255, 255")
+                    lightningFX:SetKeyValue("GlowProxySize", "2.0")
+                    lightningFX:SetKeyValue("renderfx", "0")
+                    lightningFX:SetKeyValue("rendermode", "2")
+                    lightningFX:SetKeyValue("renderamt", "255")
+                    lightningFX:SetKeyValue("disablereceiveshadows", "0")
+                    lightningFX:SetKeyValue("framerate", "10.0")
+                    lightningFX:SetKeyValue("spawnflags", "0")
+                    lightningFX:SetPos(enePos + ent:GetUp() * 60)
+                    lightningFX:Spawn()
+                    lightningFX:Activate()
+                    lightningFX:Fire("Kill", "", 0.2)
+                    self:DeleteOnRemove(lightningFX)
+                    self.lightningFX = lightningFX
 
-    VJ.EmitSound(ent, "vj_cofr/aom/addiction/thunder_hit.wav", 90, 100) end end)
+                    VJ.EmitSound(ent, "vj_cofr/aom/addiction/thunder_hit.wav", 90, 100)
+                end
+            end)
+        end
     end
-end
     return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
- if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
-    dmginfo:ScaleDamage(0.5)
-end
- if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
- local attacker = dmginfo:GetAttacker()
- if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
-    dmginfo:ScaleDamage(0.5)
- else
-    dmginfo:SetDamage(0)
-
- if IsValid(attacker) && attacker.VJ_ID_Living && attacker:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
-    attacker:TakeDamage(10,self,self)
-    VJ.DamageSpecialEnts(self,attacker,dmginfo)
-end
-    if attacker:IsPlayer() then
-        net.Start("VJ_COFR_Addiction_ScreenEffect")
-        net.WriteEntity(attacker)
-        net.Send(attacker)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
+        dmginfo:ScaleDamage(0.5)
     end
-end
-     if !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
-        self:SpawnBloodParticles(dmginfo,hitgroup)
-        self:SpawnBloodDecals(dmginfo,hitgroup)
+    if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
+        local attacker = dmginfo:GetAttacker()
+        if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
+            dmginfo:ScaleDamage(0.5)
+        else
+            dmginfo:SetDamage(0)
+
+        if IsValid(attacker) && attacker.VJ_ID_Living && attacker:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
+            attacker:TakeDamage(10, self, self)
+            VJ.DamageSpecialEnts(self, attacker, dmginfo)
+        end
+        if attacker:IsPlayer() then
+            net.Start("VJ_COFR_Addiction_ScreenEffect")
+            net.WriteEntity(attacker)
+            net.Send(attacker)
+        end
+    end
+    if !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
+        self:SpawnBloodParticles(dmginfo, hitgroup)
+        self:SpawnBloodDecals(dmginfo, hitgroup)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Init" then
- if self.Addiction_OnFire then
-    self.Addiction_OnFire = false
- if IsValid(self.fireFX) then self.fireFX:Remove() end
-    self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100)
-    VJ.STOPSOUND(self.Addiction_FireLoop)
-    timer.Remove("VJ_COFR_Addiction_Fire")
-end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if self.Addiction_OnFire then
+            self.Addiction_OnFire = false
+            if IsValid(self.fireFX) then self.fireFX:Remove() end
+            self.Addiction_FireOff = VJ.CreateSound(self, self.SoundTbl_FireOff, 75, 100)
+            VJ.STOPSOUND(self.Addiction_FireLoop)
+            timer.Remove("VJ_COFR_Addiction_Fire")
+        end
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
@@ -438,18 +446,18 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound(moveType,sdFile)
- if !self:OnGround() then return end
- local tr = util.TraceLine({
-    start = self:GetPos(),
-    endpos = self:GetPos() +Vector(0,0,-150),
-    filter = {self}
-})
- if tr.Hit && self.FootSteps[tr.MatType] then
-    VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-end
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
+    local tr = util.TraceLine({
+        start = self:GetPos(),
+        endpos = self:GetPos() +Vector(0, 0, -150),
+        filter = {self}
+    })
+    if tr.Hit && self.FootSteps[tr.MatType] then
+        VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+    end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

@@ -27,26 +27,33 @@ ENT.RadiusDamageRadius = 70
 ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
-ENT.SoundTbl_Idle = {"vj_cofr/aom/spitter/bc_acid1.wav","vj_cofr/aom/spitter/bc_acid2.wav"}
-ENT.SoundTbl_OnCollide = {"vj_cofr/aom/spitter/bc_spithit1.wav","vj_cofr/aom/spitter/bc_spithit2.wav","vj_cofr/aom/spitter/bc_spithit3.wav"}
+ENT.SoundTbl_Idle = {
+    "vj_cofr/aom/spitter/bc_acid1.wav",
+    "vj_cofr/aom/spitter/bc_acid2.wav"
+}
+ENT.SoundTbl_OnCollide = {
+    "vj_cofr/aom/spitter/bc_spithit1.wav",
+    "vj_cofr/aom/spitter/bc_spithit2.wav",
+    "vj_cofr/aom/spitter/bc_spithit3.wav"
+}
 ENT.CollisionDecal = "VJ_COFR_Spit"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetNoDraw(true)
     self.Scale = math.Rand(0.5,1.15)
     local spitSpr = ents.Create("env_sprite")
-    spitSpr:SetKeyValue("model","vj_cofr/sprites/spit_white.vmt")
-    spitSpr:SetKeyValue("rendercolor","255 255 255")
-    spitSpr:SetKeyValue("GlowProxySize","1.0")
-    spitSpr:SetKeyValue("HDRColorScale","1.0")
-    spitSpr:SetKeyValue("renderfx","0")
-    spitSpr:SetKeyValue("rendermode","2")
-    spitSpr:SetKeyValue("renderamt","255")
-    spitSpr:SetKeyValue("disablereceiveshadows","0")
-    spitSpr:SetKeyValue("mindxlevel","0")
-    spitSpr:SetKeyValue("maxdxlevel","0")
-    //spitSpr:SetKeyValue("framerate","40.0")
-    spitSpr:SetKeyValue("spawnflags","0")
+    spitSpr:SetKeyValue("model", "vj_cofr/sprites/spit_white.vmt")
+    spitSpr:SetKeyValue("rendercolor", "255 255 255")
+    spitSpr:SetKeyValue("GlowProxySize", "1.0")
+    spitSpr:SetKeyValue("HDRColorScale", "1.0")
+    spitSpr:SetKeyValue("renderfx", "0")
+    spitSpr:SetKeyValue("rendermode", "2")
+    spitSpr:SetKeyValue("renderamt", "255")
+    spitSpr:SetKeyValue("disablereceiveshadows", "0")
+    spitSpr:SetKeyValue("mindxlevel", "0")
+    spitSpr:SetKeyValue("maxdxlevel", "0")
+    //spitSpr:SetKeyValue("framerate", "40.0")
+    spitSpr:SetKeyValue("spawnflags", "0")
     spitSpr:SetKeyValue("scale",tostring(self.Scale))
     spitSpr:SetPos(self:GetPos())
     spitSpr:Spawn()
@@ -56,20 +63,20 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data,phys)
     local spr = ents.Create("env_sprite")
-    spr:SetKeyValue("model","vj_cofr/sprites/spitsplat_white.vmt")
-    spr:SetKeyValue("GlowProxySize","1.0")
-    spr:SetKeyValue("HDRColorScale","1.0")
-    spr:SetKeyValue("renderfx","0")
-    spr:SetKeyValue("rendermode","2")
-    spr:SetKeyValue("renderamt","255")
-    spr:SetKeyValue("disablereceiveshadows","0")
-    spr:SetKeyValue("mindxlevel","0")
-    spr:SetKeyValue("maxdxlevel","0")
-    //spr:SetKeyValue("framerate","15.0")
-    spr:SetKeyValue("spawnflags","0")
-    spr:SetKeyValue("scale",tostring(self.Scale *0.3))
+    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat_white.vmt")
+    spr:SetKeyValue("GlowProxySize", "1.0")
+    spr:SetKeyValue("HDRColorScale", "1.0")
+    spr:SetKeyValue("renderfx", "0")
+    spr:SetKeyValue("rendermode", "2")
+    spr:SetKeyValue("renderamt", "255")
+    spr:SetKeyValue("disablereceiveshadows", "0")
+    spr:SetKeyValue("mindxlevel", "0")
+    spr:SetKeyValue("maxdxlevel", "0")
+    //spr:SetKeyValue("framerate", "15.0")
+    spr:SetKeyValue("spawnflags", "0")
+    spr:SetKeyValue("scale", tostring(self.Scale * 0.3))
     spr:SetPos(data.HitPos)
     spr:Spawn()
-    spr:Fire("Kill","",0.3)
+    spr:Fire("Kill", "", 0.3)
     timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 end

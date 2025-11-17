@@ -9,33 +9,33 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cofcc/slower1_memo.mdl"
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/faceless/fist_strike1.wav",
-"vj_cofr/cof/faceless/fist_strike2.wav",
-"vj_cofr/cof/faceless/fist_strike3.wav"
+    "vj_cofr/cof/faceless/fist_strike1.wav",
+    "vj_cofr/cof/faceless/fist_strike2.wav",
+    "vj_cofr/cof/faceless/fist_strike3.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_cofr/cof/faceless/fist_miss1.wav",
-"vj_cofr/cof/faceless/fist_miss2.wav"
+    "vj_cofr/cof/faceless/fist_miss1.wav",
+    "vj_cofr/cof/faceless/fist_miss2.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/slower3/slower_alert10.wav",
-    "vj_cofr/cof/slower3/slower_alert20.wav",
-    "vj_cofr/cof/slower3/slower_alert30.wav"
-}
+        "vj_cofr/cof/slower3/slower_alert10.wav",
+        "vj_cofr/cof/slower3/slower_alert20.wav",
+        "vj_cofr/cof/slower3/slower_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/slower3/slower_attack1.wav",
-    "vj_cofr/cof/slower3/slower_attack2.wav"
-}
+        "vj_cofr/cof/slower3/slower_attack1.wav",
+        "vj_cofr/cof/slower3/slower_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/slower3/slower_pain1.wav",
-    "vj_cofr/cof/slower3/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower3/slower_pain1.wav",
+        "vj_cofr/cof/slower3/slower_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/slower3/slower_pain1.wav",
-    "vj_cofr/cof/slower3/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower3/slower_pain1.wav",
+        "vj_cofr/cof/slower3/slower_pain2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent) return end

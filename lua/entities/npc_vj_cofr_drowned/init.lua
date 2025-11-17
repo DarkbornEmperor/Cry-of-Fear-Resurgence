@@ -44,22 +44,22 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/cof/drowned/knife_hitbody1.wav",
-"vj_cofr/cof/drowned/knife_hitbody2.wav"
+    "vj_cofr/cof/drowned/knife_hitbody1.wav",
+    "vj_cofr/cof/drowned/knife_hitbody2.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/drowned/knife_swing.wav"
+    "vj_cofr/cof/drowned/knife_swing.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ENT.SoundTbl_Drowned_Suicide =
-"vj_cofr/cof/drowned/suicide_attempt.wav"
+    "vj_cofr/cof/drowned/suicide_attempt.wav"
 
 -- Custom
 ENT.Drowned_Baby = false
@@ -73,68 +73,68 @@ util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/drowned/lady_alert10.wav",
-    "vj_cofr/cof/drowned/lady_alert20.wav",
-    "vj_cofr/cof/drowned/lady_alert30.wav"
-}
+        "vj_cofr/cof/drowned/lady_alert10.wav",
+        "vj_cofr/cof/drowned/lady_alert20.wav",
+        "vj_cofr/cof/drowned/lady_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/drowned/lady_attack1.wav",
-    "vj_cofr/cof/drowned/lady_attack2.wav"
-}
+        "vj_cofr/cof/drowned/lady_attack1.wav",
+        "vj_cofr/cof/drowned/lady_attack2.wav"
+    }
     self.SoundTbl_BeforeRangeAttack = {
-    "vj_cofr/cof/drowned/lady_attack1.wav",
-    "vj_cofr/cof/drowned/lady_attack2.wav"
-}
+        "vj_cofr/cof/drowned/lady_attack1.wav",
+        "vj_cofr/cof/drowned/lady_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/drowned/lady_pain1.wav",
-    "vj_cofr/cof/drowned/lady_pain2.wav"
-}
+        "vj_cofr/cof/drowned/lady_pain1.wav",
+        "vj_cofr/cof/drowned/lady_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/drowned/lady_pain1.wav",
-    "vj_cofr/cof/drowned/lady_pain2.wav"
-}
+        "vj_cofr/cof/drowned/lady_pain1.wav",
+        "vj_cofr/cof/drowned/lady_pain2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if math.random(1,3) == 1 then
-    self.LimitChaseDistance = false
-end
+    if math.random(1,2) == 1 then
+        self.LimitChaseDistance = false
+    end
     self:SetCollisionBounds(Vector(13, 13, 78), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Drowned_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "baby_appear" then
-        if self:GetClass() == "npc_vj_cofrce_drowned" then VJ.EmitSound(self,"vj_cofr/cofce/drowned/baby_burst.wav", 75, 100) else VJ.EmitSound(self,"vj_cofr/cof/drowned/baby_burst.wav", 75, 100) end
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("baby")).Pos,self:GetAngles())
+        if self:GetClass() == "npc_vj_cofrce_drowned" then VJ.EmitSound(self, "vj_cofr/cofce/drowned/baby_burst.wav", 75, 100) else VJ.EmitSound(self, "vj_cofr/cof/drowned/baby_burst.wav", 75, 100) end
+        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("baby")).Pos, self:GetAngles())
         self:SetBodygroup(0,1)
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop".. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Baby Burst")
     local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
-        net.Start(nwName)
-        net.WriteBool(false)
-        net.WriteEntity(opt1)
-        net.WriteString(opt2)
-        net.WriteEntity(ply)
-        net.WriteEntity(opt3)
-        net.Send(ply)
+    net.Start(nwName)
+    net.WriteBool(false)
+    net.WriteEntity(opt1)
+    net.WriteString(opt2)
+    net.WriteEntity(ply)
+    net.WriteEntity(opt3)
+    net.Send(ply)
     function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start(nwName)
         net.WriteBool(true)
@@ -157,31 +157,33 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-    local cont = self.VJ_TheController
-    if IsValid(cont) then
-        for _,v in pairs(ents.FindInSphere(enemy:GetPos(),10)) do
-            if v != self && v != enemy && v.VJ_ID_Living then
-                enemy = v
-            break
+        local cont = self.VJ_TheController
+        if IsValid(cont) then
+            for _,v in pairs(ents.FindInSphere(enemy:GetPos(), 10)) do
+                if v != self && v != enemy && v.VJ_ID_Living then
+                    enemy = v
+                    break
+                end
+            end
         end
-    end
-end
- if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
- if CurTime() > self.Drowned_NextEnemyDamageT then
- if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(enemy, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
- if enemy.Human_Type == 1 then enemy:PlaySoundSystem("Pain", enemy.SoundTbl_SuicidePanic) end
- if enemy:IsPlayer() then
-    net.Start("VJ_COFR_Drowned_ScreenEffect")
-    net.WriteEntity(enemy)
-    net.Send(enemy)
-end
-    timer.Simple(5,function() if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
-    if enemy.IsVJBaseSNPC_Human then enemy:TakeDamage(enemy:Health(),self,self) elseif enemy:IsPlayer() then enemy:TakeDamage(enemy:Health()+enemy:Armor(),self,self) else enemy:TakeDamage(200,self,self) end
-    self:Drowned_Damage()
-    self.Drowned_NextEnemyDamageT = CurTime() + 5 end end)
-end
+        if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
+        if CurTime() > self.Drowned_NextEnemyDamageT then
+            if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(enemy, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
+            if enemy.Human_Type == 1 then enemy:PlaySoundSystem("Pain", enemy.SoundTbl_SuicidePanic) end
+            if enemy:IsPlayer() then
+                net.Start("VJ_COFR_Drowned_ScreenEffect")
+                net.WriteEntity(enemy)
+                net.Send(enemy)
+            end
+            timer.Simple(5,function() if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
+                    if enemy.IsVJBaseSNPC_Human then enemy:TakeDamage(enemy:Health(), self, self) elseif enemy:IsPlayer() then enemy:TakeDamage(enemy:Health() + enemy:Armor(), self, self) else enemy:TakeDamage(200, self, self) end
+                    self:Drowned_Damage()
+                    self.Drowned_NextEnemyDamageT = CurTime() + 5
+                end
+            end)
+        end
         return true
     end
 end
@@ -201,9 +203,9 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

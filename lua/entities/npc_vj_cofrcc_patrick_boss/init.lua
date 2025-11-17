@@ -10,19 +10,19 @@ ENT.Model = "models/vj_cofr/cofcc/sawrunner_patrick_le.mdl"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawrunner_Init()
     self.SoundTbl_Breath =
-    "vj_cofr/cof/sawer/chainsaw_loop.wav"
+        "vj_cofr/cof/sawer/chainsaw_loop.wav"
 
     self.SoundTbl_Alert =
-    "vj_cofr/cofcc/patrick/patrick_scream.wav"
+        "vj_cofr/cofcc/patrick/patrick_scream.wav"
 
     self.SoundTbl_BeforeMeleeAttack =
-    "vj_cofr/cofcc/patrick/patrick_attack.wav"
+        "vj_cofr/cofcc/patrick/patrick_attack.wav"
 
     self.SoundTbl_Pain =
-    "vj_cofr/cofcc/patrick/patrick_scream.wav"
+        "vj_cofr/cofcc/patrick/patrick_scream.wav"
 
     self.SoundTbl_Death =
-    "vj_cofr/cofcc/patrick/patrick_scream.wav"
+        "vj_cofr/cofcc/patrick/patrick_scream.wav"
 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

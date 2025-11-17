@@ -21,13 +21,13 @@ SWEP.MeleeWeaponSound_Miss = false
 SWEP.NextMeleeAnimT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttack() -- Heavily modified PrimaryAttack function to have melee weapons work better and more fluid
- self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
- local owner = self:GetOwner()
- local isNPC = owner:IsNPC()
+    self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+    local owner = self:GetOwner()
+    local isNPC = owner:IsNPC()
 
- if isNPC && !owner.VJ_IsBeingControlled && !IsValid(owner:GetEnemy()) then return end -- If the NPC owner isn't being controlled and doesn't have an enemy, then return end
- if (!self:CanPrimaryAttack()) then return end
- if self:OnPrimaryAttack("Init") == true then return end
+    if isNPC && !owner.VJ_IsBeingControlled && !IsValid(owner:GetEnemy()) then return end -- If the NPC owner isn't being controlled and doesn't have an enemy, then return end
+    if (!self:CanPrimaryAttack()) then return end
+    if self:OnPrimaryAttack("Init") == true then return end
 
     self:OnPrimaryAttack("PostFire")
 end

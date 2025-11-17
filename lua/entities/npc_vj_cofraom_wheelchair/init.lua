@@ -23,7 +23,7 @@ ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
@@ -36,21 +36,21 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = {
-"vj_cofr/aom/wheelchair/wheel01.wav",
-"vj_cofr/aom/wheelchair/wheel02.wav",
-"vj_cofr/aom/wheelchair/wheel03.wav",
-"vj_cofr/aom/wheelchair/wheel04.wav"
+    "vj_cofr/aom/wheelchair/wheel01.wav",
+    "vj_cofr/aom/wheelchair/wheel02.wav",
+    "vj_cofr/aom/wheelchair/wheel03.wav",
+    "vj_cofr/aom/wheelchair/wheel04.wav"
 }
 ENT.SoundTbl_BeforeMeleeAttack =
-"vj_cofr/aom/wheelchair/wcm_squirt.wav"
+    "vj_cofr/aom/wheelchair/wcm_squirt.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -66,12 +66,12 @@ function ENT:Init()
     self:Wheelchair_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("mouth")).Pos,self:GetAngles())
+        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("mouth")).Pos, self:GetAngles())
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,35 +81,36 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-    if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
-    if dmginfo:GetDamagePosition() != vec then
-    local rico = EffectData()
-        rico:SetOrigin(dmginfo:GetDamagePosition())
-        rico:SetScale(4) -- Size
-        rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-        util.Effect("VJ_COFR_Rico", rico)
+        if dmginfo:GetDamagePosition() != vec then
+        local rico = EffectData()
+            rico:SetOrigin(dmginfo:GetDamagePosition())
+            rico:SetScale(4) -- Size
+            rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+            util.Effect("VJ_COFR_Rico", rico)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

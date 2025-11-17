@@ -47,18 +47,18 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_cofr/aom/devourer/bcl_bite3.wav",
-"vj_cofr/aom/devourer/bcl_chew1.wav",
-"vj_cofr/aom/devourer/bcl_chew2.wav",
-"vj_cofr/aom/devourer/bcl_chew3.wav"
+    "vj_cofr/aom/devourer/bcl_bite3.wav",
+    "vj_cofr/aom/devourer/bcl_chew1.wav",
+    "vj_cofr/aom/devourer/bcl_chew2.wav",
+    "vj_cofr/aom/devourer/bcl_chew3.wav"
 }
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ENT.MainSoundPitch = 100
 -- Custom
@@ -76,8 +76,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Devourer_Init()
     self.SoundTbl_Death = {
-    "vj_cofr/aom/devourer/bcl_die1.wav",
-    "vj_cofr/aom/devourer/bcl_die3.wav"
+        "vj_cofr/aom/devourer/bcl_die1.wav",
+        "vj_cofr/aom/devourer/bcl_die3.wav"
 }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ function ENT:Init()
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
         self:ExecuteMeleeAttack()
     end
@@ -99,53 +99,53 @@ local offset = 200
 local offsetPulling = 125
 --
 function ENT:Devourer_CalculateTongue()
- local myPos = self:GetPos()
- local myUpPos = self:GetUp()
- local tr = util.TraceLine({
-    start = myPos,
-    endpos = myPos - myUpPos * self.Devourer_LastHeight,
-    filter = self
-})
- local trHitEnt = tr.Entity
- local trHitPos = tr.HitPos
- local height = myPos:Distance(trHitPos)
- -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
- self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024 + offset)
+    local myPos = self:GetPos()
+    local myUpPos = self:GetUp()
+    local tr = util.TraceLine({
+        start = myPos,
+        endpos = myPos - myUpPos * self.Devourer_LastHeight,
+        filter = self
+    })
+    local trHitEnt = tr.Entity
+    local trHitPos = tr.HitPos
+    local height = myPos:Distance(trHitPos)
+    -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
+    self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024 + offset)
 
- if IsValid(trHitEnt) && trHitEnt.VJ_ID_Living && self:CheckRelationship(trHitEnt) == D_HT && !trHitEnt.VJ_ID_Boss then
- -- If the grabbed enemy is a new enemy then reset the enemy values
- if self.Devourer_CurEnt != trHitEnt then
-    self:Devourer_ResetEnt()
-    self.Devourer_CurEntMoveType = trHitEnt:GetMoveType()
-end
- self.Devourer_CurEnt = trHitEnt
- trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
- if trHitEnt:IsNPC() then
-    trHitEnt:StopMoving()
-    trHitEnt:SetVelocity(velInitial)
-    trHitEnt:SetMoveType(MOVETYPE_FLY)
- elseif trHitEnt:IsPlayer() then
-    trHitEnt:SetMoveType(MOVETYPE_NONE)
-    //trHitEnt:AddFlags(FL_ATCONTROLS)
-end
- trHitEnt:SetGroundEntity(NULL)
- -- Make it pull the enemy up
- if height >= 50 then
-    trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
- if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
- if self:GetClass() == "npc_vj_cofraomc_devourer" then
-    VJ.EmitSound(self, "vj_cofr/aom/devourer/classic/bcl_alert2.wav")
- else
-    VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
-end
-        self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
+    if IsValid(trHitEnt) && trHitEnt.VJ_ID_Living && self:CheckRelationship(trHitEnt) == D_HT && !trHitEnt.VJ_ID_Boss then
+        -- If the grabbed enemy is a new enemy then reset the enemy values
+        if self.Devourer_CurEnt != trHitEnt then
+            self:Devourer_ResetEnt()
+            self.Devourer_CurEntMoveType = trHitEnt:GetMoveType()
+        end
+        self.Devourer_CurEnt = trHitEnt
+        trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
+        if trHitEnt:IsNPC() then
+            trHitEnt:StopMoving()
+            trHitEnt:SetVelocity(velInitial)
+            trHitEnt:SetMoveType(MOVETYPE_FLY)
+        elseif trHitEnt:IsPlayer() then
+            trHitEnt:SetMoveType(MOVETYPE_NONE)
+            //trHitEnt:AddFlags(FL_ATCONTROLS)
+        end
+        trHitEnt:SetGroundEntity(NULL)
+        -- Make it pull the enemy up
+        if height >= 50 then
+                trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
+            if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
+                if self:GetClass() == "npc_vj_cofraomc_devourer" then
+                    VJ.EmitSound(self, "vj_cofr/aom/devourer/classic/bcl_alert2.wav")
+                else
+                    VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
+                end
+                self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
+            end
+        end
+        self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offsetPulling)
+        return true
+    else
+        self:Devourer_ResetEnt()
     end
-end
-    self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offsetPulling)
-    return true
- else
-    self:Devourer_ResetEnt()
-end
     self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offset)
     return false
 end
@@ -159,9 +159,9 @@ function ENT:Devourer_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if act == ACT_IDLE then
-    return (self.Devourer_PullingEnt and ACT_BARNACLE_PULL) or ACT_IDLE
-end
+    if act == ACT_IDLE then
+        return (self.Devourer_PullingEnt and ACT_BARNACLE_PULL) or ACT_IDLE
+    end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,13 +170,14 @@ function ENT:OnThinkActive()
     self.Devourer_PullingEnt = self:Devourer_CalculateTongue()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if ent.IsVJBaseSNPC_Human then
-    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = ent:Health() + 10
-    else
-        self.MeleeAttackDamage = 200 end
+        if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+            self.MeleeAttackDamage = ent:Health() + 10
+        elseif ent:IsPlayer() then
+            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+        else
+            self.MeleeAttackDamage = 200
         end
     end
 end
@@ -185,18 +186,18 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        self:SetPos(self:GetPos() + self:GetUp()*-4)
+        self:SetPos(self:GetPos() + self:GetUp() * -4)
         self:Devourer_ResetEnt()
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetPoseParameter("tongue_height", 1)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

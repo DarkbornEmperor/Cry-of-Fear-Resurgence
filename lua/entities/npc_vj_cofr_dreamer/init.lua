@@ -23,19 +23,19 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Dreamer_Jumpscare = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Dreamer_Init()
     self.SoundTbl_DreamerScream =
-    "vj_cofr/cof/dreamer/dreamer_scream.wav"
+        "vj_cofr/cof/dreamer/dreamer_scream.wav"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -47,33 +47,33 @@ function ENT:Init()
     self:Dreamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
         self:JumpscareDamage()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.Dreamer_Jumpscare && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-        self:PlayAnim(ACT_SIGNAL1,true,false,true)
-        self.Dreamer_Scream = VJ.CreateSound(self,self.SoundTbl_DreamerScream,75,100)
+        self:PlayAnim(ACT_SIGNAL1, true, false, true)
+        self.Dreamer_Scream = VJ.CreateSound(self, self.SoundTbl_DreamerScream, 75, 100)
         self.Dreamer_Jumpscare = true
         self.CallForHelp = true
         self:DrawShadow(true)
         self:SetNoDraw(false)
-        timer.Simple(SoundDuration("vj_cofr/cof/dreamer/dreamer_scream.wav"),function() if IsValid(self) then self:Remove() end end)
+        timer.Simple(SoundDuration("vj_cofr/cof/dreamer/dreamer_scream.wav"), function() if IsValid(self) then self:Remove() end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:JumpscareDamage()
     local ent = self:GetEnemy()
-    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self,ent) < 60 then
-        ent:TakeDamage(10,self,self)
+    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self, ent) < 60 then
+        ent:TakeDamage(10, self, self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

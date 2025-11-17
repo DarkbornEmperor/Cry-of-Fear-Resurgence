@@ -38,18 +38,18 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/fx/npc_step1.wav"
+    "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ENT.SoundTbl_Stranger_HeartBeat =
-"vj_cofr/cof/stranger/st_hearbeat.wav"
+    "vj_cofr/cof/stranger/st_hearbeat.wav"
 
 -- Custom
 ENT.Stranger_DamageDistance = 500
@@ -62,22 +62,22 @@ util.AddNetworkString(nwName)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_Init()
     self.SoundTbl_Breath =
-    "vj_cofr/cof/stranger/st_voiceloop.wav"
+        "vj_cofr/cof/stranger/st_voiceloop.wav"
 
     self.SoundTbl_Death =
-    "vj_cofr/cof/stranger/st_death.wav"
+        "vj_cofr/cof/stranger/st_death.wav"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if math.random(1,3) == 1 then
-    self.LimitChaseDistance = false
-end
+    if math.random(1,2) == 1 then
+        self.LimitChaseDistance = false
+    end
     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "flicker_on" then
@@ -89,15 +89,15 @@ function ENT:OnInput(key,activator,caller,data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
     local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
-        net.Start(nwName)
-        net.WriteBool(false)
-        net.WriteEntity(opt1)
-        net.WriteString(opt2)
-        net.WriteEntity(ply)
-        net.WriteEntity(opt3)
-        net.Send(ply)
+    net.Start(nwName)
+    net.WriteBool(false)
+    net.WriteEntity(opt1)
+    net.WriteString(opt2)
+    net.WriteEntity(ply)
+    net.WriteEntity(opt3)
+    net.Send(ply)
     function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start(nwName)
         net.WriteBool(true)
@@ -116,48 +116,49 @@ function ENT:Stranger_Damage()
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttackExecute(status,enemy,projectile)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-    local cont = self.VJ_TheController
-    if IsValid(cont) then
-        for _,v in pairs(ents.FindInSphere(enemy:GetPos(),10)) do
-            if v != self && v != enemy && v.VJ_ID_Living then
-                enemy = v
-            break
+        local cont = self.VJ_TheController
+        if IsValid(cont) then
+            for _,v in pairs(ents.FindInSphere(enemy:GetPos(), 10)) do
+                if v != self && v != enemy && v.VJ_ID_Living then
+                        enemy = v
+                    break
+                end
+            end
         end
-    end
-end
- if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
- if CurTime() > self.Stranger_NextEnemyDamageT then
- if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
-    enemy:TakeDamage(10,self,self)
-    self:Stranger_Damage()
-    self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
-end
+        if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
+        if CurTime() > self.Stranger_NextEnemyDamageT then
+            if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
+            enemy:TakeDamage(10, self, self)
+            self:Stranger_Damage()
+            self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
+        end
         return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-    self:SetNW2Entity("Enemy",self:GetEnemy())
+    self:SetNW2Entity("Enemy", self:GetEnemy())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self:GetPos():Distance(self:GetEnemy():GetPos()) < self.Stranger_DamageDistance then
-    net.Start("VJ_COFR_Stranger_ScreenEffect")
-    net.WriteEntity(self:GetEnemy())
-    net.Send(self:GetEnemy())
-    VJ.STOPSOUND(self.Stranger_HeartBeat)
-end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+    if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self.EnemyData.Distance < self.Stranger_DamageDistance then
+        net.Start("VJ_COFR_Stranger_ScreenEffect")
+        net.WriteEntity(self:GetEnemy())
+        net.Send(self:GetEnemy())
+        VJ.STOPSOUND(self.Stranger_HeartBeat)
+    end
     if status == "Init" then
         self.DeathAnimationTime = math.Rand(0.75,1.25)
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

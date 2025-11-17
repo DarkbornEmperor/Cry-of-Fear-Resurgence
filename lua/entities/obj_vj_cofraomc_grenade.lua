@@ -20,11 +20,19 @@ if !SERVER then return end
 
 ENT.Model = "models/vj_cofr/aom/weapons/classic/w_grenade.mdl"
 ENT.CollisionDecal = "VJ_COFR_Scorch"
-ENT.SoundTbl_OnCollide = {"vj_cofr/aom/weapons/grenade/grenade_hit1.wav","vj_cofr/aom/weapons/grenade/grenade_hit2.wav","vj_cofr/aom/weapons/grenade/grenade_hit3.wav"}
-ENT.SoundTbl_OnRemove = {"vj_cofr/aom/weapons/grenade/explode3.wav","vj_cofr/aom/weapons/grenade/explode4.wav","vj_cofr/aom/weapons/grenade/explode5.wav"}
+ENT.SoundTbl_OnCollide = {
+    "vj_cofr/aom/weapons/grenade/grenade_hit1.wav",
+    "vj_cofr/aom/weapons/grenade/grenade_hit2.wav",
+    "vj_cofr/aom/weapons/grenade/grenade_hit3.wav"
+}
+ENT.SoundTbl_OnRemove = {
+    "vj_cofr/aom/weapons/grenade/explode3.wav",
+    "vj_cofr/aom/weapons/grenade/explode4.wav",
+    "vj_cofr/aom/weapons/grenade/explode5.wav"
+}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCollision(data,phys)
+function ENT:OnCollision(data, phys)
     local getVel = phys:GetVelocity()
     local curVelSpeed = getVel:Length()
     phys:SetVelocity(getVel * 0.5)
@@ -42,18 +50,18 @@ function ENT:OnDestroy()
     local myPos = self:GetPos()
 
     local spr = ents.Create("env_sprite")
-    spr:SetKeyValue("model","vj_cofr/sprites/zerogxplode.vmt")
-    spr:SetKeyValue("GlowProxySize","2.0")
-    spr:SetKeyValue("HDRColorScale","1.0")
-    spr:SetKeyValue("renderfx","14")
-    spr:SetKeyValue("rendermode","5")
-    spr:SetKeyValue("renderamt","255")
-    spr:SetKeyValue("disablereceiveshadows","0")
-    spr:SetKeyValue("mindxlevel","0")
-    spr:SetKeyValue("maxdxlevel","0")
-    spr:SetKeyValue("framerate","15.0")
-    spr:SetKeyValue("spawnflags","0")
-    spr:SetKeyValue("scale","4")
+    spr:SetKeyValue("model", "vj_cofr/sprites/zerogxplode.vmt")
+    spr:SetKeyValue("GlowProxySize", "2.0")
+    spr:SetKeyValue("HDRColorScale", "1.0")
+    spr:SetKeyValue("renderfx", "14")
+    spr:SetKeyValue("rendermode", "5")
+    spr:SetKeyValue("renderamt", "255")
+    spr:SetKeyValue("disablereceiveshadows", "0")
+    spr:SetKeyValue("mindxlevel", "0")
+    spr:SetKeyValue("maxdxlevel", "0")
+    spr:SetKeyValue("framerate", "15.0")
+    spr:SetKeyValue("spawnflags", "0")
+    spr:SetKeyValue("scale", "4")
     spr:SetPos(myPos + vezZ90)
     spr:Spawn()
     spr:Fire("Kill", "", 0.9)

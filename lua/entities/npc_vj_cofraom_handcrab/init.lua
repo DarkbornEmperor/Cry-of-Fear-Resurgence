@@ -15,7 +15,7 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasLeapAttack = true
 ENT.LeapAttackDamage = 16
-ENT.AnimTbl_LeapAttack = {"vjseq_jump","vjseq_jump_variation1","vjseq_jump_variation2"}
+ENT.AnimTbl_LeapAttack = {"vjseq_jump", "vjseq_jump_variation1", "vjseq_jump_variation2"}
 ENT.LeapAttackMaxDistance = 256
 ENT.LeapAttackMinDistance = 1
 ENT.LeapAttackDamageDistance = 50
@@ -43,15 +43,15 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_LeapAttackDamage  =
-"vj_cofr/aom/handcrab/hc_headbite.wav"
+    "vj_cofr/aom/handcrab/hc_headbite.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -62,23 +62,23 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Handcrab_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/aom/handcrab/hc_alert1.wav",
-    "vj_cofr/aom/handcrab/hc_alert2.wav"
-}
+        "vj_cofr/aom/handcrab/hc_alert1.wav",
+        "vj_cofr/aom/handcrab/hc_alert2.wav"
+    }
     self.SoundTbl_LeapAttackJump  = {
-    "vj_cofr/aom/handcrab/hc_attack1.wav",
-    "vj_cofr/aom/handcrab/hc_attack2.wav",
-    "vj_cofr/aom/handcrab/hc_attack3.wav"
-}
+        "vj_cofr/aom/handcrab/hc_attack1.wav",
+        "vj_cofr/aom/handcrab/hc_attack2.wav",
+        "vj_cofr/aom/handcrab/hc_attack3.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/aom/handcrab/hc_pain1.wav",
-    "vj_cofr/aom/handcrab/hc_pain2.wav",
-    "vj_cofr/aom/handcrab/hc_pain3.wav"
-}
+        "vj_cofr/aom/handcrab/hc_pain1.wav",
+        "vj_cofr/aom/handcrab/hc_pain2.wav",
+        "vj_cofr/aom/handcrab/hc_pain3.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/aom/handcrab/hc_die1.wav",
-    "vj_cofr/aom/handcrab/hc_die2.wav"
-}
+        "vj_cofr/aom/handcrab/hc_die1.wav",
+        "vj_cofr/aom/handcrab/hc_die2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -87,21 +87,21 @@ function ENT:Init()
     self:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnLeapAttack(status,enemy)
+function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
         return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

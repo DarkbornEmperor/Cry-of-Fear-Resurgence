@@ -44,26 +44,26 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/cof/taller/taller_step.wav"
+    "vj_cofr/cof/taller/taller_step.wav"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Taller_Init()
     self.SoundTbl_Alert =
-    "vj_cofr/cof/taller/taller_alert.wav"
+        "vj_cofr/cof/taller/taller_alert.wav"
 
     self.SoundTbl_Pain =
-    "vj_cofr/cof/taller/taller_pain.wav"
+        "vj_cofr/cof/taller/taller_pain.wav"
 
     self.SoundTbl_Death =
-    "vj_cofr/cof/taller/taller_die.wav"
+        "vj_cofr/cof/taller/taller_die.wav"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -72,70 +72,73 @@ function ENT:Init()
     self:Taller_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
-        util.ScreenShake(self:GetPos(),10,100,0.4,300)
+        util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-end
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+    end
     if key == "melee" && self:GetSequence() == self:LookupSequence("stamp") then
-        util.ScreenShake(self:GetPos(),10,100,0.4,300)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttack(status,enemy)
+function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
-    local attack = math.random(1,2)
-    if attack == 1 then
-        self.AnimTbl_MeleeAttack = "vjseq_attack"
-        self.MeleeAttackDamage = 60
-        self.MeleeAttackPlayerSpeed = true
-        self.HasMeleeAttackKnockBack = true
-        self.SoundTbl_MeleeAttackMiss =
-        "vj_cofr/cof/taller/taller_swing.wav"
+        local attack = math.random(1,2)
+        if attack == 1 then
+            self.AnimTbl_MeleeAttack = "vjseq_attack"
+            self.MeleeAttackDamage = 60
+            self.MeleeAttackPlayerSpeed = true
+            self.HasMeleeAttackKnockBack = true
+            self.SoundTbl_MeleeAttackMiss =
+                "vj_cofr/cof/taller/taller_swing.wav"
 
-        self.SoundTbl_MeleeAttackExtra =
-        "vj_cofr/cof/taller/taller_player_punch.wav"
+            self.SoundTbl_MeleeAttackExtra =
+                "vj_cofr/cof/taller/taller_player_punch.wav"
 
-    elseif attack == 2 then
-        self.AnimTbl_MeleeAttack = "vjseq_stamp"
-        self.MeleeAttackPlayerSpeed = false
-        self.HasMeleeAttackKnockBack = false
-        self.SoundTbl_MeleeAttackMiss =
-        "vj_cofr/cof/taller/taller_wall_punch.wav"
+        elseif attack == 2 then
+            self.AnimTbl_MeleeAttack = "vjseq_stamp"
+            self.MeleeAttackPlayerSpeed = false
+            self.HasMeleeAttackKnockBack = false
+            self.SoundTbl_MeleeAttackMiss =
+                "vj_cofr/cof/taller/taller_wall_punch.wav"
 
-        self.SoundTbl_MeleeAttackExtra =
-        "vj_cofr/cof/taller/taller_stamp.wav"
+            self.SoundTbl_MeleeAttackExtra =
+                "vj_cofr/cof/taller/taller_stamp.wav"
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if self:GetSequence() == self:LookupSequence("stamp") then
-    if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-        self.MeleeAttackDamage = ent:Health() + 10
-    elseif ent:IsPlayer() then
-        self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
-    else
-        self.MeleeAttackDamage = 200
-    end
-end
-    if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
-        ent:StopMoving()
-        ent:SetState(VJ_STATE_ONLY_ANIMATION)
-        timer.Simple(4,function() if IsValid(ent) then
-        ent:SetState() end end)
+        if self:GetSequence() == self:LookupSequence("stamp") then
+            if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+                self.MeleeAttackDamage = ent:Health() + 10
+            elseif ent:IsPlayer() then
+                self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+            else
+                self.MeleeAttackDamage = 200
+            end
+        end
+        if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
+            ent:StopMoving()
+            ent:SetState(VJ_STATE_ONLY_ANIMATION)
+            timer.Simple(4,function()
+                if IsValid(ent) then
+                    ent:SetState()
+                end
+            end)
         end
     end
 end
@@ -145,29 +148,30 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(ent)
-    return self:GetForward()*150 + self:GetUp()*250
+    return self:GetForward() * 150 + self:GetUp() * 250
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         dmginfo:ScaleDamage(0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

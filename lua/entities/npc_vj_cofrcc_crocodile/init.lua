@@ -31,10 +31,10 @@ ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-ENT.AlertSoundPitch = VJ.SET(80, 80)
-ENT.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
-ENT.PainSoundPitch = VJ.SET(80, 80)
-ENT.DeathSoundPitch = VJ.SET(80, 80)
+ENT.AlertSoundPitch = VJ.SET(80,80)
+ENT.BeforeMeleeAttackSoundPitch = VJ.SET(80,80)
+ENT.PainSoundPitch = VJ.SET(80,80)
+ENT.DeathSoundPitch = VJ.SET(80,80)
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -44,24 +44,24 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-"vj_cofr/fx/npc_step1.wav"
+    "vj_cofr/fx/npc_step1.wav"
 
 ENT.SoundTbl_MeleeAttackExtra =
-"vj_cofr/cof/taller/taller_stamp.wav"
+    "vj_cofr/cof/taller/taller_stamp.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/taller/taller_swing.wav"
+    "vj_cofr/cof/taller/taller_swing.wav"
 
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cof/craig/cof_gayviolin_s3.mp3"
+    "vj_cofr/cof/craig/cof_gayviolin_s3.mp3"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
 ENT.Crocodile_MoveTypeSwim = false
@@ -74,22 +74,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gator_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/slower/slower_alert10.wav",
-    "vj_cofr/cof/slower/slower_alert20.wav",
-    "vj_cofr/cof/slower/slower_alert30.wav"
-}
+        "vj_cofr/cof/slower/slower_alert10.wav",
+        "vj_cofr/cof/slower/slower_alert20.wav",
+        "vj_cofr/cof/slower/slower_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/slower/slower_attack1.wav",
-    "vj_cofr/cof/slower/slower_attack2.wav"
-}
+        "vj_cofr/cof/slower/slower_attack1.wav",
+        "vj_cofr/cof/slower/slower_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/slower/slower_pain1.wav",
-    "vj_cofr/cof/slower/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower/slower_pain1.wav",
+        "vj_cofr/cof/slower/slower_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/slower/slower_pain1.wav",
-    "vj_cofr/cof/slower/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower/slower_pain1.wav",
+        "vj_cofr/cof/slower/slower_pain2.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -98,38 +98,38 @@ function ENT:Init()
     self:Gator_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-        /*local effectdata = EffectData()
-        effectdata:SetOrigin(self:GetPos())
-        effectdata:SetScale(10)
-        util.Effect("watersplash",effectdata)*/
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if act == ACT_IDLE && self.Crocodile_MoveTypeSwim then
-    return ACT_RUN
- elseif act == ACT_RUN && !self.Crocodile_MoveTypeSwim then
-    return ACT_WALK_AGITATED
-end
+    if act == ACT_IDLE && self.Crocodile_MoveTypeSwim then
+        return ACT_RUN
+    elseif act == ACT_RUN && !self.Crocodile_MoveTypeSwim then
+        return ACT_WALK_AGITATED
+    end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
- if self:WaterLevel() < 2 then
- if self.Crocodile_MoveTypeSwim then
-    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-    self.Crocodile_MoveTypeSwim = false
-end
+    if self:WaterLevel() < 2 then
+        if self.Crocodile_MoveTypeSwim then
+            self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+            self.Crocodile_MoveTypeSwim = false
+        end
     elseif !self.Crocodile_MoveTypeSwim then
         self:DoChangeMovementType(VJ_MOVETYPE_AQUATIC)
         self.Crocodile_MoveTypeSwim = true
@@ -146,20 +146,21 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

@@ -14,29 +14,29 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
     self.SoundTbl_Alert = {
-    "vj_cofr/cof/slower/slower_alert10.wav",
-    "vj_cofr/cof/slower/slower_alert20.wav",
-    "vj_cofr/cof/slower/slower_alert30.wav"
-}
+        "vj_cofr/cof/slower/slower_alert10.wav",
+        "vj_cofr/cof/slower/slower_alert20.wav",
+        "vj_cofr/cof/slower/slower_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_cofr/cof/slower/slower_attack1.wav",
-    "vj_cofr/cof/slower/slower_attack2.wav"
-}
+        "vj_cofr/cof/slower/slower_attack1.wav",
+        "vj_cofr/cof/slower/slower_attack2.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_cofr/cof/slower/slower_pain1.wav",
-    "vj_cofr/cof/slower/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower/slower_pain1.wav",
+        "vj_cofr/cof/slower/slower_pain2.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_cofr/cof/slower/slower_pain1.wav",
-    "vj_cofr/cof/slower/slower_pain2.wav"
-}
+        "vj_cofr/cof/slower/slower_pain1.wav",
+        "vj_cofr/cof/slower/slower_pain2.wav"
+    }
     //self:SetPos(self:GetPos() + self:GetForward()*-32)
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_NONE)
-    VJ_COFR_ApplyCorpse(self,corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

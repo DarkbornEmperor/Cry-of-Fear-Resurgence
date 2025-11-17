@@ -34,18 +34,18 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
-"vj_cofr/cof/facehead/sirensfromhell2.mp3"
+    "vj_cofr/cof/facehead/sirensfromhell2.mp3"
 
 ENT.SoundTbl_Impact = {
-"vj_cofr/fx/flesh1.wav",
-"vj_cofr/fx/flesh2.wav",
-"vj_cofr/fx/flesh3.wav",
-"vj_cofr/fx/flesh5.wav",
-"vj_cofr/fx/flesh6.wav",
-"vj_cofr/fx/flesh7.wav"
+    "vj_cofr/fx/flesh1.wav",
+    "vj_cofr/fx/flesh2.wav",
+    "vj_cofr/fx/flesh3.wav",
+    "vj_cofr/fx/flesh5.wav",
+    "vj_cofr/fx/flesh6.wav",
+    "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.FaceHead_NextFacelessSpawnT = CurTime()
+ENT.FaceHead_NextFacelessSpawnT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -55,7 +55,7 @@ end
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FaceHead_Init()
     self.SoundTbl_Breath =
-    "vj_cofr/cof/facehead/facehead.wav"
+        "vj_cofr/cof/facehead/facehead.wav"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -65,62 +65,62 @@ function ENT:Init()
     self:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
- if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
+function ENT:Controller_Initialize(ply, controlEnt)
+    if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
     ply:ChatPrint("JUMP: Summon Faceless")
     ply:ChatPrint("NOTE: Summoning Faceless will cause a 20 second delay until able to spawn more and the current Faceless are dead.")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
-    if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.Faceless1) && !IsValid(self.Faceless2) && !IsValid(self.Faceless3) && !IsValid(self.Faceless4) && !IsValid(self.Faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-        local Faceless1 = ents.Create("npc_vj_cofr_faceless")
-        Faceless1:SetPos(self:GetPos() + self:GetRight()*60 + self:GetUp()*10)
-        Faceless1:SetAngles(self:GetAngles())
-        Faceless1.VJ_NPC_Class = self.VJ_NPC_Class
-        Faceless1:Spawn()
-        self.Faceless1 = Faceless1
-        self:DeleteOnRemove(self.Faceless1)
+    if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+        local faceless1 = ents.Create("npc_vj_cofr_faceless")
+        faceless1:SetPos(self:GetPos() + self:GetRight() * 60 + self:GetUp() * 10)
+        faceless1:SetAngles(self:GetAngles())
+        faceless1.VJ_NPC_Class = self.VJ_NPC_Class
+        faceless1:Spawn()
+        self.faceless1 = faceless1
+        self:DeleteOnRemove(self.faceless1)
 
-        local Faceless2 = ents.Create("npc_vj_cofr_faceless")
-        Faceless2:SetPos(self:GetPos() + self:GetRight()*-60 + self:GetUp()*10)
-        Faceless2:SetAngles(self:GetAngles())
-        Faceless2.VJ_NPC_Class = self.VJ_NPC_Class
-        Faceless2:Spawn()
-        self.Faceless2 = Faceless2
-        self:DeleteOnRemove(self.Faceless2)
+        local faceless2 = ents.Create("npc_vj_cofr_faceless")
+        faceless2:SetPos(self:GetPos() + self:GetRight() * -60 + self:GetUp() * 10)
+        faceless2:SetAngles(self:GetAngles())
+        faceless2.VJ_NPC_Class = self.VJ_NPC_Class
+        faceless2:Spawn()
+        self.faceless2 = faceless2
+        self:DeleteOnRemove(self.faceless2)
 
-        local Faceless3 = ents.Create("npc_vj_cofr_faceless")
-        Faceless3:SetPos(self:GetPos() + self:GetRight()*100 + self:GetUp()*10)
-        Faceless3:SetAngles(self:GetAngles())
-        Faceless3.VJ_NPC_Class = self.VJ_NPC_Class
-        Faceless3:Spawn()
-        self.Faceless3 = Faceless3
-        self:DeleteOnRemove(self.Faceless3)
+        local faceless3 = ents.Create("npc_vj_cofr_faceless")
+        faceless3:SetPos(self:GetPos() + self:GetRight() * 100 + self:GetUp() * 10)
+        faceless3:SetAngles(self:GetAngles())
+        faceless3.VJ_NPC_Class = self.VJ_NPC_Class
+        faceless3:Spawn()
+        self.faceless3 = faceless3
+        self:DeleteOnRemove(self.faceless3)
 
-        local Faceless4 = ents.Create("npc_vj_cofr_faceless")
-        Faceless4:SetPos(self:GetPos() + self:GetRight()*-100 + self:GetUp()*10)
-        Faceless4:SetAngles(self:GetAngles())
-        Faceless4.VJ_NPC_Class = self.VJ_NPC_Class
-        Faceless4:Spawn()
-        self.Faceless4 = Faceless4
-        self:DeleteOnRemove(self.Faceless4)
+        local faceless4 = ents.Create("npc_vj_cofr_faceless")
+        faceless4:SetPos(self:GetPos() + self:GetRight() * -100 + self:GetUp() * 10)
+        faceless4:SetAngles(self:GetAngles())
+        faceless4.VJ_NPC_Class = self.VJ_NPC_Class
+        faceless4:Spawn()
+        self.faceless4 = faceless4
+        self:DeleteOnRemove(self.faceless4)
 
-        local Faceless5 = ents.Create("npc_vj_cofr_faceless_crawler")
-        Faceless5:SetPos(self:GetPos() + self:GetForward()*-90 + self:GetUp()*10)
-        Faceless5:SetAngles(self:GetAngles())
-        Faceless5.VJ_NPC_Class = self.VJ_NPC_Class
-        Faceless5:Spawn()
-        self.Faceless5 = Faceless5
-        self:DeleteOnRemove(self.Faceless5)
+        local faceless5 = ents.Create("npc_vj_cofr_faceless_crawler")
+        faceless5:SetPos(self:GetPos() + self:GetForward() * -90 + self:GetUp() * 10)
+        faceless5:SetAngles(self:GetAngles())
+        faceless5.VJ_NPC_Class = self.VJ_NPC_Class
+        faceless5:Spawn()
+        self.faceless5 = faceless5
+        self:DeleteOnRemove(self.faceless5)
 
-        local Faceless6 = ents.Create("npc_vj_cofr_faceless_crawler")
-        Faceless6:SetPos(self:GetPos() + self:GetForward()*90 + self:GetUp()*10)
-        Faceless6:SetAngles(self:GetAngles())
-        Faceless6.VJ_NPC_Class = self.VJ_NPC_Class
-        Faceless6:Spawn()
-        self.Faceless6 = Faceless6
-        self:DeleteOnRemove(self.Faceless6)
+        local faceless6 = ents.Create("npc_vj_cofr_faceless_crawler")
+        faceless6:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetUp() * 10)
+        faceless6:SetAngles(self:GetAngles())
+        faceless6.VJ_NPC_Class = self.VJ_NPC_Class
+        faceless6:Spawn()
+        self.faceless6 = faceless6
+        self:DeleteOnRemove(self.faceless6)
 
         self.FaceHead_NextFacelessSpawnT = CurTime() + 20
     end

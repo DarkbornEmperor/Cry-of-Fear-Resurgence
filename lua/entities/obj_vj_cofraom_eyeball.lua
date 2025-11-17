@@ -25,9 +25,17 @@ ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 6
 ENT.DirectDamageType = DMG_SLASH
-ENT.SoundTbl_Idle = {"vj_cofr/aom/eyeball/ag_buzz1.wav","vj_cofr/aom/eyeball/ag_buzz2.wav","vj_cofr/aom/eyeball/ag_buzz3.wav"}
-ENT.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/ag_hornethit1.wav","vj_cofr/aom/eyeball/ag_hornethit2.wav","vj_cofr/aom/eyeball/ag_hornethit3.wav"}
-ENT.IdleSoundPitch = VJ.SET(100, 100)
+ENT.SoundTbl_Idle = {
+    "vj_cofr/aom/eyeball/ag_buzz1.wav",
+    "vj_cofr/aom/eyeball/ag_buzz2.wav",
+    "vj_cofr/aom/eyeball/ag_buzz3.wav"
+}
+ENT.SoundTbl_OnCollide = {
+    "vj_cofr/aom/eyeball/ag_hornethit1.wav",
+    "vj_cofr/aom/eyeball/ag_hornethit2.wav",
+    "vj_cofr/aom/eyeball/ag_hornethit3.wav"
+}
+ENT.IdleSoundPitch = VJ.SET(100,100)
 -- Custom
 local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
@@ -36,29 +44,36 @@ ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    timer.Simple(5, function() if IsValid(self) then
-    if !self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100)
-    elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
-        self:Remove()
+    timer.Simple(5, function()
+        if IsValid(self) then
+            if !self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade1.wav", 75, 100)
+            elseif self.Eyeball_Classic then VJ.EmitSound(self, "vj_cofr/fx/pl_wade2.wav", 75, 100) end
+            self:Remove()
+        end
+    end)
+    if self.Eyeball_Classic then
+        self.SoundTbl_OnCollide = {
+            "vj_cofr/aom/eyeball/classic/ag_hornethit1.wav",
+            "vj_cofr/aom/eyeball/classic/ag_hornethit2.wav",
+            "vj_cofr/aom/eyeball/classic/ag_hornethit3.wav"
+        }
     end
-end)
-    if self.Eyeball_Classic then self.SoundTbl_OnCollide = {"vj_cofr/aom/eyeball/classic/ag_hornethit1.wav","vj_cofr/aom/eyeball/classic/ag_hornethit2.wav","vj_cofr/aom/eyeball/classic/ag_hornethit3.wav"} end
     if math.random(1,3) == 1 then
         self:SetNoDraw(true)
         local eyeballSpr = ents.Create("env_sprite")
-        eyeballSpr:SetKeyValue("model","vj_cofr/sprites/eyeball.vmt")
-        eyeballSpr:SetKeyValue("rendercolor","255 255 255")
-        eyeballSpr:SetKeyValue("GlowProxySize","1.0")
-        eyeballSpr:SetKeyValue("HDRColorScale","1.0")
-        eyeballSpr:SetKeyValue("renderfx","0")
-        eyeballSpr:SetKeyValue("rendermode","2")
-        eyeballSpr:SetKeyValue("renderamt","255")
-        eyeballSpr:SetKeyValue("disablereceiveshadows","0")
-        eyeballSpr:SetKeyValue("mindxlevel","0")
-        eyeballSpr:SetKeyValue("maxdxlevel","0")
-        eyeballSpr:SetKeyValue("framerate","5.0")
-        eyeballSpr:SetKeyValue("spawnflags","0")
-        eyeballSpr:SetKeyValue("scale","0.2")
+        eyeballSpr:SetKeyValue("model", "vj_cofr/sprites/eyeball.vmt")
+        eyeballSpr:SetKeyValue("rendercolor", "255 255 255")
+        eyeballSpr:SetKeyValue("GlowProxySize", "1.0")
+        eyeballSpr:SetKeyValue("HDRColorScale", "1.0")
+        eyeballSpr:SetKeyValue("renderfx", "0")
+        eyeballSpr:SetKeyValue("rendermode", "2")
+        eyeballSpr:SetKeyValue("renderamt", "255")
+        eyeballSpr:SetKeyValue("disablereceiveshadows", "0")
+        eyeballSpr:SetKeyValue("mindxlevel", "0")
+        eyeballSpr:SetKeyValue("maxdxlevel", "0")
+        eyeballSpr:SetKeyValue("framerate", "5.0")
+        eyeballSpr:SetKeyValue("spawnflags", "0")
+        eyeballSpr:SetKeyValue("scale", "0.2")
         eyeballSpr:SetPos(self:GetPos())
         eyeballSpr:Spawn()
         eyeballSpr:SetParent(self)
@@ -67,28 +82,28 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
- local phys = self:GetPhysicsObject()
- local trackedEnt = self.Track_Enemy
- -- Homing Behavior
- if IsValid(trackedEnt) && trackedEnt:Alive() then
- local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
- if self:VisibleVec(pos) or self.Track_Position == defVec then
-    self.Track_Position = pos
-end
- if IsValid(phys) then
-    phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50, 50), self.Eyeball_ChaseSpeed))
-    self:SetAngles(self:GetVelocity():GetNormal():Angle())
-end
+    local phys = self:GetPhysicsObject()
+    local trackedEnt = self.Track_Enemy
+    -- Homing Behavior
+    if IsValid(trackedEnt) && trackedEnt:Alive() then
+        local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
+        if self:VisibleVec(pos) or self.Track_Position == defVec then
+            self.Track_Position = pos
+        end
+        if IsValid(phys) then
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50,50), self.Eyeball_ChaseSpeed))
+            self:SetAngles(self:GetVelocity():GetNormal():Angle())
+        end
     -- Not tracking, go in straight line
     else
-    if IsValid(phys) then
-        phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80, 80), self.Eyeball_ChaseSpeed / 2))
-        self:SetAngles(self:GetVelocity():GetNormal():Angle())
+        if IsValid(phys) then
+            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80,80), self.Eyeball_ChaseSpeed / 2))
+            self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCollision(data,phys)
+function ENT:OnCollision(data, phys)
     local lastVel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
     local newVel = phys:GetVelocity():GetNormal()
     lastVel = math.max(newVel:Length(), lastVel)

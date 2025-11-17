@@ -23,46 +23,54 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 20
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = "vj_cofr/cof/weapons/p345/p345_fire.wav"
-SWEP.Primary.DistantSound = "vj_cofr/fx/distant/hks_distant_new.wav"
+SWEP.Primary.Sound =
+    "vj_cofr/cof/weapons/p345/p345_fire.wav"
+
+SWEP.Primary.DistantSound =
+    "vj_cofr/fx/distant/hks_distant_new.wav"
+
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DryFireSound = "vj_cofr/cof/weapons/weapon_fire_empty.wav"
+SWEP.DryFireSound =
+    "vj_cofr/cof/weapons/weapon_fire_empty.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
- if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-    self.Primary.Sound = "vj_cofr/cof/weapons/p345/old/p345_fire.wav"
-end
- local owner = self:GetOwner()
- if owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" or owner:GetClass() == "npc_vj_cofrcc_robert" then
-    self.WorldModel_CustomPositionAngle = Vector(80, -20, 10)
-    self.WorldModel_CustomPositionOrigin = Vector(-3.2, 4, -1)
- elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then
-    self.WorldModel_CustomPositionOrigin = Vector(-2, 3.2, -1)
- elseif owner:GetClass() == "npc_vj_cofr_police" then
-    self.WorldModel_CustomPositionOrigin = Vector(-2, 3.5, -1)
-end
-    if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrcc_robert" then
-        self.NPC_NextPrimaryFire = 1
-        self.Primary.Damage = 15
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.NPC_ReloadSound = "vj_cofr/cof/doctorboss/old/p345_reload.wav"
-    else
-        self.NPC_ReloadSound = "vj_cofr/cof/doctorboss/p345_reload.wav"
+        self.Primary.Sound =
+            "vj_cofr/cof/weapons/p345/old/p345_fire.wav"
+    end
+    local owner = self:GetOwner()
+    if owner:GetClass() == "npc_vj_cofr_purnell" or owner:GetClass() == "npc_vj_cofr_purnell_fri" or owner:GetClass() == "npc_vj_cofrcc_robert" then
+        self.WorldModel_CustomPositionAngle = Vector(80, -20, 10)
+        self.WorldModel_CustomPositionOrigin = Vector(-3.2, 4, -1)
+    elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then
+        self.WorldModel_CustomPositionOrigin = Vector(-2, 3.2, -1)
+    elseif owner:GetClass() == "npc_vj_cofr_police" then
+        self.WorldModel_CustomPositionOrigin = Vector(-2, 3.5, -1)
+    end
+        if owner:GetClass() == "npc_vj_cofr_purnell" && owner:GetClass() != "npc_vj_cofr_purnell_fri" && owner:GetClass() != "npc_vj_cofrcc_robert" then
+            self.NPC_NextPrimaryFire = 1
+            self.Primary.Damage = 15
+        if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+            self.NPC_ReloadSound =
+                "vj_cofr/cof/doctorboss/old/p345_reload.wav"
+        else
+            self.NPC_ReloadSound =
+                "vj_cofr/cof/doctorboss/p345_reload.wav"
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:DoImpactEffect(tr,damageType)
+function SWEP:DoImpactEffect(tr, damageType)
     return VJ.COFR_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -73,36 +81,34 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
-    muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
     self.BaseClass.PrimaryAttackEffects(self, owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnPrimaryAttack(status,statusData)
+function SWEP:OnPrimaryAttack(status, statusData)
     if status == "Init" then
-    local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofr_purnell" then return end
-    local Brt = math.random(1,3)
-    local Num = 0.35
-    if Brt == 1 then
-        self.NPC_TimeUntilFireExtraTimers = {Num,Num*2}
-        self.NPC_NextPrimaryFire = math.Rand(1.25,1.55)
-    elseif Brt == 2 then
-      self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3}
-        self.NPC_NextPrimaryFire = math.Rand(1.65,1.85)
-    elseif Brt == 3 then
-        self.NPC_TimeUntilFireExtraTimers = {Num,Num*2,Num*3,Num*4}
-        self.NPC_NextPrimaryFire = math.Rand(2.05,2.25)
+        local owner = self:GetOwner()
+        if owner:GetClass() == "npc_vj_cofr_purnell" then return end
+        local burst = math.random(1,3)
+        local num = 0.35
+        if burst == 1 then
+            self.NPC_TimeUntilFireExtraTimers = {num, num * 2}
+            self.NPC_NextPrimaryFire = math.Rand(1.25,1.55)
+        elseif burst == 2 then
+            self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3}
+            self.NPC_NextPrimaryFire = math.Rand(1.65,1.85)
+        elseif burst == 3 then
+            self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4}
+            self.NPC_NextPrimaryFire = math.Rand(2.05,2.25)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
-  local owner = self:GetOwner()
-  owner.NextThrowGrenadeT = owner.NextThrowGrenadeT + 2
-  owner.NextChaseTime = 0
-  self:OnReload("Start")
-  if self.NPC_HasReloadSound == true then VJ.EmitSound(owner, self.NPC_ReloadSound, self.NPC_ReloadSoundLevel) end
+    local owner = self:GetOwner()
+    owner.NextChaseTime = 0
+    self.BaseClass.NPC_Reload(self)
 end
