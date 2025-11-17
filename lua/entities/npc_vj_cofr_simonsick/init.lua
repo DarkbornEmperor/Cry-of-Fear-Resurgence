@@ -85,9 +85,6 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "range" then
         self:ExecuteRangeAttack()
     end
-    if key == "death" && self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -97,7 +94,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
-    for _,v in ipairs(ents.FindInSphere(self:GetPos(),500)) do
+    for _,v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
         local propPhy = v:GetPhysicsObject()
         if IsValid(v) && v:GetClass() == "prop_physics" && (!IsValid(ent) or !IsValid(self) or self.Dead) then
             propPhy:EnableGravity(true)
