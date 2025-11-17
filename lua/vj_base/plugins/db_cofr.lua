@@ -417,9 +417,9 @@ if CLIENT then
 end
 
 VJ_COFR_NODEPOS = {}
-hook.Add("EntityRemoved","VJ_COFR_AddNodes",function(ent)
+hook.Add("EntityRemoved","VJ_COFR_AddNodes", function(ent)
     if ent:GetClass() == "info_node" then
-        table.insert(VJ_COFR_NODEPOS,ent:GetPos())
+        table.insert(VJ_COFR_NODEPOS, ent:GetPos())
     end
 end)
 
@@ -461,12 +461,12 @@ if CLIENT then
             ply:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
         end)
     end)
-    net.Receive("VJ_COFR_Ghost_ScreenEffect",function()
+    net.Receive("VJ_COFR_Ghost_ScreenEffect", function()
         local ply = net.ReadEntity()
         local hookName = "VJ_COFR_Ghost_ScreenEffect" .. ply:EntIndex()
         local colorRed = Color(255, 0, 0, 255)
 
-        ply.VJ_COFR_Ghost_ScreenEffect_Time = CurTime() +0.1
+        ply.VJ_COFR_Ghost_ScreenEffect_Time = CurTime() + 0.1
 
         hook.Add("RenderScreenspaceEffects", hookName, function()
             if !IsValid(ply) or IsValid(ply) && (CurTime() > ply.VJ_COFR_Ghost_ScreenEffect_Time) then
@@ -476,16 +476,16 @@ if CLIENT then
             ply:ScreenFade(SCREENFADE.IN, colorRed, 12, 0)
         end)
     end)
-    net.Receive("VJ_COFR_Addiction_ScreenEffect",function()
+    net.Receive("VJ_COFR_Addiction_ScreenEffect", function()
     local ply = net.ReadEntity()
     local hookName = "VJ_COFR_Addiction_ScreenEffect" .. ply:EntIndex()
     local colorRed = Color(127, 0, 0, 255)
 
-    ply.VJ_COFR_Stranger_ScreenEffect_Time = CurTime() +0.1
+    ply.VJ_COFR_Stranger_ScreenEffect_Time = CurTime() + 0.1
 
-        hook.Add("RenderScreenspaceEffects",hookName,function()
+        hook.Add("RenderScreenspaceEffects", hookName, function()
             if !IsValid(ply) or IsValid(ply) && (CurTime() > ply.VJ_COFR_Stranger_ScreenEffect_Time) then
-                hook.Remove("RenderScreenspaceEffects",hookName)
+                hook.Remove("RenderScreenspaceEffects", hookName)
                 return
             end
             ply:ScreenFade(SCREENFADE.IN, colorRed, 0.25, 0)

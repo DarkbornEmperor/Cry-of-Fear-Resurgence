@@ -71,7 +71,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.Ghost_Tinnitus = false
 ENT.Ghost_NextTinnitusSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -116,20 +115,20 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-        if ent:IsPlayer() && !self.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
-            self.Ghost_Tinnitus = true
+        if ent:IsPlayer() && !ent.Ghost_Tinnitus && CurTime() > self.Ghost_NextTinnitusSoundT then
+            ent.Ghost_Tinnitus = true
+            timer.Create("VJ_COFR_PlyTinnitus" .. ent:EntIndex(), SoundDuration("vj_cofr/aom/ghost/ear_ringing.wav"), 1, function() if IsValid(ent) && ent:Alive() && ent.Ghost_Tinnitus then ent.Ghost_Tinnitus = false end end)
             if self.HasSounds && GetConVar("VJ_COFR_Ghost_SlowSound"):GetInt() == 1 then
                 self.Ghost_TinnitusSound = CreateSound(ent, self.SoundTbl_Tinnitus)
                 self.Ghost_TinnitusSound:Play()
                 self.Ghost_TinnitusSound:SetSoundLevel(100)
-                hook.Add("Think", "VJ_COFR_GhostTinnitus" .. self:EntIndex(), function()
-                    if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think", "VJ_COFR_GhostTinnitus" .. self:EntIndex()) end
+                hook.Add("Think", "VJ_COFR_GhostTinnitus" .. ent:EntIndex(), function()
+                    if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think", "VJ_COFR_GhostTinnitus" .. ent:EntIndex()) ent.Ghost_Tinnitus = false timer.Remove("VJ_COFR_PlyTinnitus" .. ent:EntIndex()) self.Ghost_NextTinnitusSoundT = CurTime() + 0 end
                 end)
             end
             net.Start("VJ_COFR_Ghost_ScreenEffect")
             net.WriteEntity(ent)
             net.Send(ent)
-            self.Ghost_Tinnitus = false
             self.Ghost_NextTinnitusSoundT = CurTime() + SoundDuration("vj_cofr/aom/ghost/ear_ringing.wav")
         end
     end

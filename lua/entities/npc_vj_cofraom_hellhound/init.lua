@@ -121,13 +121,13 @@ function ENT:TranslateActivity(act)
         if self.Hellhound_Sleeping then
             return ACT_CROUCHIDLE
         -- Barking
-        elseif VJ.AnimExists(self, ACT_IDLE_ANGRY) && IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+        elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
             return ACT_IDLE_ANGRY
         end
         -- Default idle
         return self:ResolveAnimation(defIdle)
     -- Limp Walking
-    elseif VJ.AnimExists(self, ACT_WALK_HURT) && act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
+    elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
         return ACT_WALK_HURT
     end
     return self.BaseClass.TranslateActivity(self, act)
@@ -158,10 +158,10 @@ function ENT:OnAlert(ent)
     if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
         if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
         self.Hellhound_Sleeping = false
-        if self:GetModel() == "models/vj_cofr/aom/hellhound.mdl" then self:PlayAnim(ACT_STAND, true, false, false) end
+        if self:GetClass() == "npc_vj_cofraom_hellhound" then self:PlayAnim(ACT_STAND, true, false, false) end
         if VJ.AnimExists(self, ACT_HOP) then self:PlayAnim(ACT_HOP, true, false, false) end
         self.Hellhound_NextSleepT = CurTime() + 20
-    elseif VJ.AnimExists(self, "madidle1") && math.random(1,2) == 1 then -- Random alert animation
+    elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && math.random(1,2) == 1 then -- Random alert animation
         self:PlayAnim(alertAnims, true, false, true)
     end
 end
