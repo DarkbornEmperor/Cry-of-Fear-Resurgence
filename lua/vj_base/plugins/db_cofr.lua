@@ -214,8 +214,8 @@
     VJ.AddNPC("Random Monster Spawner (Single)","sent_vj_cofraom_mon_sinsp", spawnCategory)
 
     -- AoM:DC Entities
-    VJ.AddEntity("Pills","sent_vj_cofraom_pills","Darkborn",true,0,true, spawnCategory)
-    VJ.AddEntity("Pills (Dark Assistance)","sent_vj_cofraom_pills_da","Darkborn",true,0,true, spawnCategory)
+    VJ.AddEntity("Pills","sent_vj_cofraom_pills", "Darkborn", false, 0, true, spawnCategory)
+    VJ.AddEntity("Pills (Dark Assistance)", "sent_vj_cofraom_pills_da", "Darkborn", false, 0, true, spawnCategory)
 
     -- Decals --
     game.AddDecal("VJ_COFR_Blood_Red", {"vj_cofr/decals/cof_blood01", "vj_cofr/decals/cof_blood02", "vj_cofr/decals/cof_blood03", "vj_cofr/decals/cof_blood04", "vj_cofr/decals/cof_blood05", "vj_cofr/decals/cof_blood06", "vj_cofr/decals/cof_blood07"})
