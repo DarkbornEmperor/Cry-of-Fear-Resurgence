@@ -231,6 +231,7 @@ function ENT:Twitcher_Init()
 
         elseif math.random(1,10) == 1 then
             self.Twitcher_Transparent = true
+            self:SetSkin(1) -- For the Remod twitcher#_zomb & twitcher#_headless models to avoid transparency issues
             self:SetRenderFX(kRenderFxDistort)
             self:SetRenderMode(RENDERMODE_TRANSADD)
         end
