@@ -536,6 +536,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+    if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 then return end
     local controller = self.VJ_TheController
     if IsValid(controller) then
     if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then
@@ -582,7 +583,7 @@ function ENT:OnThinkActive()
         if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/famas/french4.wav") self.Simon_French = true
         elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/branch/branch_first_get.wav") self.Simon_Branch = true end
     end
-    if !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
+    if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 or !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
     local ent = self:GetEnemy()
     local dist = self.EnemyData.DistanceNearest
     if IsValid(ent) && !self.VJ_IsBeingControlled then
