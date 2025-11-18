@@ -97,7 +97,7 @@ function ENT:OnInput(key, activator, caller, data)
         if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
         if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()

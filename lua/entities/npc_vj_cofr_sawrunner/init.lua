@@ -123,7 +123,7 @@ function ENT:OnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
             self.MeleeAttackDamage = ent:Health() + 10

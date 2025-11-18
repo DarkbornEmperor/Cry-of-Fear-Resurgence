@@ -883,7 +883,7 @@ function ENT:SetAnimationTranslations(h)
     self.AnimationTranslations[ACT_RELOAD_LOW] = defReload
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo,hitgroup,status)
+function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT

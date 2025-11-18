@@ -92,7 +92,7 @@ function ENT:OnInput(key, activator, caller, data)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
             effectdata:SetScale(10)
-            util.Effect("watersplash",effectdata)*/
+            util.Effect("watersplash", effectdata)*/
         end
     end
 end

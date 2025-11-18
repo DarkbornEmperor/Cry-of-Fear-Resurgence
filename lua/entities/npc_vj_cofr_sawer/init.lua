@@ -108,7 +108,7 @@ function ENT:OnInput(key, activator, caller, data)
         self:SetSkin(0)
         self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
