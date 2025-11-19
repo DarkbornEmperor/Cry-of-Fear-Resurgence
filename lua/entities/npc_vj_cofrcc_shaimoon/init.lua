@@ -25,6 +25,12 @@ ENT.SoundTbl_MeleeAttackMiss =
 ENT.SoundTbl_Spawn =
     "vj_cofr/cofcc/shaimoon/damned2_ritual_2b_mono.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
+        self.HasSoundTrack = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BookSimon_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cofcc/shaimoon/egyptiantalk.wav",
