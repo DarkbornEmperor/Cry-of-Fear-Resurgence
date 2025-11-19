@@ -132,6 +132,10 @@ function SWEP:OnPrimaryAttack(status, statusData)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:OnHolster(newWep)
+    VJ.STOPSOUND(self.PrimaryLoop)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnDrop()
     if self.Primary.UsesLoopedSound && self.PrimaryLoop then
         self.PrimaryLoop:Stop()

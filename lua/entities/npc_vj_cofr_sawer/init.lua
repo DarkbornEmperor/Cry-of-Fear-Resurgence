@@ -105,8 +105,9 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "eye_close" then
+        local speed = FrameTime() * 10
         self:SetSkin(0)
-        self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
+        self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 0))
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
@@ -121,11 +122,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
+        local speed = FrameTime() * 10
         local eyeDir = math.random(1,2)
         if eyeDir == 1 then
-            self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 90, 10))
+            self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), -90))
         elseif eyeDir == 2 then
-            self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), -90, 10))
+            self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 90))
         end
         self.Sawer_NextEyeMoveT = CurTime() + math.Rand(0,0.5)
     end
@@ -177,6 +179,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             self.Sawer_Eye:SetParent(self)
             self.Sawer_Eye:Fire("SetParentAttachment", "eye")
             self.Sawer_Eye:Spawn()
+            self.Sawer_Eye:SetSolid(SOLID_NONE)
             self.Sawer_Eye:SetNoDraw(true)
             self.Sawer_Eye:DrawShadow(false)
             self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
@@ -199,9 +202,10 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if self.Sawer_EyeOpen && IsValid(self.Sawer_Eye) then
+            local speed = FrameTime() * 10
             self:SetSkin(0)
             self.Sawer_Eye:Remove()
-            self:SetPoseParameter("eye_move", math_angApproach(self:GetPoseParameter("eye_move"), 0, 10))
+            self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 0))
             self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         end
         VJ_COFR_DeathCode(self)
