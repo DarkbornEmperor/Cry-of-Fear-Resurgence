@@ -286,8 +286,8 @@ function ENT:SetSledgehammerFlare()
     flareLight:Fire("TurnOn", "", 0)
     self:DeleteOnRemove(flareLight)
 
-    ParticleEffectAttach("vj_cofr_flare_sparks",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
-    ParticleEffectAttach("vj_cofr_flare_trail",PATTACH_POINT_FOLLOW,self,self:LookupAttachment("flare"))
+    ParticleEffectAttach("vj_cofr_flare_sparks", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("flare"))
+    ParticleEffectAttach("vj_cofr_flare_trail", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("flare"))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()

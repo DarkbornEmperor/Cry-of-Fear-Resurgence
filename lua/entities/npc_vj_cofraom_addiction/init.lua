@@ -111,7 +111,7 @@ function ENT:OnInput(key, activator, caller, data)
         if self:GetBodygroup(0) == 0 then self:SetBodygroup(0,1)
         elseif self:GetBodygroup(0) == 1 then self:SetBodygroup(0,0) end
         VJ.EmitSound(self, "vj_cofr/aom/addiction/david_axegrab.wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("axe")).Pos,self:GetAngles())
+        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("axe")).Pos, self:GetAngles())
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
