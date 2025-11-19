@@ -197,8 +197,8 @@
     //VJ.AddNPC("David Leatherhoff (Source)","npc_vj_cofraom_davidsource", spawnCategory)
 
     -- Misc/Hazards --
-    VJ.AddNPC("Devourer","npc_vj_cofraom_devourer", spawnCategory,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-    VJ.AddNPC("Devourer (Classic)","npc_vj_cofraomc_devourer", spawnCategory,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+    VJ.AddNPC("Devourer","npc_vj_cofraom_devourer", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+    VJ.AddNPC("Devourer (Classic)","npc_vj_cofraomc_devourer", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
 
     -- Apparitions --
     VJ.AddNPC("David (Corpse) (Classic)","sent_vj_cofraomc_david_corpse", spawnCategory)
