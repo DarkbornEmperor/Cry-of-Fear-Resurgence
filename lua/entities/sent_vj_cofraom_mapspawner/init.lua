@@ -89,7 +89,7 @@ function ENT:Initialize()
     self.navAreas = {}
 
     for _,pos in pairs(VJ_COFR_NODEPOS) do
-        if pos then table_insert(self.nodePositions,{Position = pos, Time = 0}) end
+        if pos then table_insert(self.nodePositions, {Position = pos, Time = 0}) end
     end
 
     for _,nav in pairs(navmesh.GetAllNavAreas()) do
@@ -147,7 +147,7 @@ function ENT:CheckVisibility(pos, ent, mdl)
     check:SetNoDraw(true)
     check:DrawShadow(false)
     self:DeleteOnRemove(check)
-    timer.Simple(0,function()
+    timer.Simple(0, function()
         SafeRemoveEntity(check)
     end)
     return ent:Visible(check)
@@ -413,7 +413,7 @@ function ENT:DoMusic(stop)
                     self.CoFR_Track = VJ.CreateSound(v, self.CoFR_PickTrack,GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(), 100)
                     self.NextAoMMusicT = CurTime() + ((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1)
 
-                    timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1),function() if IsValid(self) then self.DidStartMusic = false VJ.STOPSOUND(self.CoFR_Track) end end)
+                    timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1), function() if IsValid(self) then self.DidStartMusic = false VJ.STOPSOUND(self.CoFR_Track) end end)
                 end
             end
         end
@@ -462,12 +462,12 @@ function ENT:SpawnMonster(ent, pos, isMob)
     Monster:SetPos(pos)
     Monster:SetAngles(Angle(0,math.random(0,360),0))
     Monster:Spawn()
-    table_insert(self.tbl_SpawnedNPCs,Monster)
+    table_insert(self.tbl_SpawnedNPCs, Monster)
     if isMob then
         Monster.SightAngle = 360
         Monster.EnemyXRayDetection = true
         Monster:DrawShadow(false)
-        timer.Simple(0,function()
+        timer.Simple(0, function()
             if IsValid(Monster) then
                 Monster:DrawShadow(false)
             end

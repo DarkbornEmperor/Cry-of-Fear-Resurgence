@@ -65,7 +65,7 @@ function ENT:OnDestroy()
     spr:SetPos(myPos + vezZ90)
     spr:Spawn()
     spr:Fire("Kill", "", 0.9)
-    timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+    timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
     VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris"..math.random(1,3)..".wav", 80, 100)
     VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode"..math.random(3,5).."_dist.wav", 140, 100)

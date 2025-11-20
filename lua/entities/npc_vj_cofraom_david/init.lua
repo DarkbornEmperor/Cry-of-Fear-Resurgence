@@ -624,7 +624,7 @@ function ENT:OnMedicBehavior(status, statusData)
         //SafeRemoveEntityDelayed(self.healItem,1)
     end
     if status == "OnHeal" then
-        timer.Simple(0.1,function()
+        timer.Simple(0.1, function()
             if IsValid(self) then
                 SafeRemoveEntity(self.healItem)
                 if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end

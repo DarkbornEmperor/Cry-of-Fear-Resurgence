@@ -152,7 +152,7 @@ function ENT:OnThinkActive()
                 /*if IsValid(ent) && ent:WaterLevel() != 3 then*/
                     VJ.ApplyRadiusDamage(self, self, self:GetPos(), 150, 10, DMG_BURN, true, true)
                 /*end*/
-                timer.Simple(15,function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end)
+                timer.Simple(15, function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end)
             end
         end)
     end
@@ -241,7 +241,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             local dmg = 20 -- How much damage should the shock wave do?
             local enePos = ent:GetPos()
 
-            timer.Simple(1,function()
+            timer.Simple(1, function()
                 if IsValid(self) && IsValid(ent) then VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck = true, Force = 80})
                     -- flags 0 = No fade!
                     effects.BeamRingPoint(enePos, 0.3, 2, 400, 16, 0, color, {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0})
