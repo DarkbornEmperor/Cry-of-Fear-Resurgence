@@ -1,8 +1,7 @@
 "LightmappedGeneric"
 {
-    // Original shader: DecalBaseTimesLightmapAlphaBlend
-    "$translucent" 1
     "$basetexture" "vj_cofr/decals/shot4"
-    //"$decalscale"     0.50
-    "$decal" 1
+    "$translucent" "1"
+    //"$decalscale" "0.50"
+    "$decal" "1"
 }

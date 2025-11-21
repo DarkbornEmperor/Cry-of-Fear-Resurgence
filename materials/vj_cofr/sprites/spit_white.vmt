@@ -1,16 +1,17 @@
 "UnlitGeneric"
 {
-                "$basetexture" "vj_cofr/sprites/spit_white"
-    "$nolod" 1
-    "$translucent" 1
-    //"$alphatest" 1
+    "$basetexture" "vj_cofr/sprites/spit_white"
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+    "$nolod" "1"
+    "$translucent" "1"
     "Proxies"
     {
         "AnimatedTexture"
         {
             "animatedtexturevar" "$basetexture"
             "animatedtextureframenumvar" "$frame"
-            "animatedtextureframerate" 10
+            "animatedtextureframerate" "10"
         }
     }
 }

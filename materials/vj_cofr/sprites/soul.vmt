@@ -1,8 +1,8 @@
 "UnlitGeneric"
 {
-                "$basetexture" "vj_cofr/sprites/soul"
-    "$nolod" 1
-    "$translucent" 1
+    "$basetexture" "vj_cofr/sprites/soul"
+    "$nolod" "1"
+    "$translucent" "1"
     "$additive" "1"
     "$nocull" "1"
     "$vertexcolor" "1"

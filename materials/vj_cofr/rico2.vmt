@@ -8,7 +8,7 @@
         {
             "animatedtexturevar" "$basetexture"
             "animatedtextureframenumvar" "$frame"
-            "animatedtextureframerate" 60
+            "animatedtextureframerate" "10"
         }
     }
 }
