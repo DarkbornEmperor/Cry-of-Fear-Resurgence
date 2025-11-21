@@ -54,7 +54,7 @@ function SWEP:DoImpactEffect(tr, damageType)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
-    muz = ents.Create("env_sprite")
+    local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
@@ -71,6 +71,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
+    self.BaseClass.PrimaryAttackEffects(self, owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
