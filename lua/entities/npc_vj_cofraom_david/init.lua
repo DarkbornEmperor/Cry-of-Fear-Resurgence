@@ -22,7 +22,7 @@ ENT.PoseParameterLooking_InvertPitch = true
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjges_shoot_crowbar"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.NextAnyAttackTime_Melee = 1.5
+//ENT.NextAnyAttackTime_Melee = 1.5
 ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
@@ -621,26 +621,18 @@ function ENT:OnMedicBehavior(status, statusData)
         //self.healItem:AddEffects(EF_BONEMERGE)
         self.healItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
         self:DeleteOnRemove(self.healItem)
-        //SafeRemoveEntityDelayed(self.healItem,1)
-    end
-    if status == "OnHeal" then
-        timer.Simple(0.1, function()
-            if IsValid(self) then
-                SafeRemoveEntity(self.healItem)
-                if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(false) end
-            end
-        end)
+        timer.Simple(1.2, function() if IsValid(self) && IsValid(self:GetActiveWeapon()) then SafeRemoveEntity(self.healItem) self:GetActiveWeapon():SetNoDraw(false) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.Human_Type == 1 && math.random(1,2) == 1 then
-    if ent:GetClass() == "npc_vj_cofr_purnell" then
-        self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simonbossangry.wav")
-    elseif ent:GetClass() == "npc_vj_cofr_carcass" then
-        self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simon32.wav")
-    elseif ent:GetClass() == "npc_vj_cofr_mace" then
-        self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/sub3.wav")
+        if ent:GetClass() == "npc_vj_cofr_purnell" then
+            self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simonbossangry.wav")
+        elseif ent:GetClass() == "npc_vj_cofr_carcass" then
+            self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simon32.wav")
+        elseif ent:GetClass() == "npc_vj_cofr_mace" then
+            self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/sub3.wav")
         end
     end
 end
