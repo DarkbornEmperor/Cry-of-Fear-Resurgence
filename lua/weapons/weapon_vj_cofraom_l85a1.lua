@@ -31,7 +31,6 @@ SWEP.Primary.DistantSound =
     "vj_cofr/fx/distant/hks_distant_new.wav"
 
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
-SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +52,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale","" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
