@@ -97,6 +97,7 @@ ENT.Human_Type = 0
     -- 1 = Simon
     -- 2 = Police
     -- 3 = David (Classic)
+    -- 4 = Doctor Purnell
 ENT.WeaponsList_AoMDC = {
     ["Close"] = {
         "weapon_vj_cofraom_shotgun"
@@ -221,6 +222,8 @@ function ENT:PreInit()
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
     elseif math.random(1,2) == 1 && self.Human_Type == 3 then
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_AOMC})
+    elseif math.random(1,2) == 1 && self.Human_Type == 4 then
+        self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -420,6 +423,42 @@ function ENT:DavidClassic_Init()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Doctor_Init()
+    if !self.Weapon_Disabled && self.Human_Type == 4 then
+        if !self.WeaponInventory_MeleeList then
+            self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
+        else
+            self:Give(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]))
+        end
+    end
+    self.SoundTbl_Pain = {
+        "vj_cofr/cof/doctor/Pain1.wav",
+        "vj_cofr/cof/doctor/Pain2.wav",
+        "vj_cofr/cof/doctor/Pain3.wav",
+        "vj_cofr/cof/doctor/Pain4.wav",
+        "vj_cofr/cof/doctor/Pain5.wav",
+        "vj_cofr/cof/doctor/Pain6.wav",
+        "vj_cofr/cof/doctor/Pain7.wav",
+        "vj_cofr/cof/doctor/Pain8.wav"
+    }
+    self.SoundTbl_LowHealth = {
+        "vj_cofr/cof/doctor/lhealth1.wav",
+        "vj_cofr/cof/doctor/lhealth2.wav",
+        "vj_cofr/cof/doctor/lhealth3.wav",
+        "vj_cofr/cof/doctor/lhealth4.wav",
+        "vj_cofr/cof/doctor/lhealth5.wav"
+    }
+    self.SoundTbl_Death = {
+        "vj_cofr/cof/doctor/death1.wav",
+        "vj_cofr/cof/doctor/death2.wav",
+        "vj_cofr/cof/doctor/death3.wav",
+        "vj_cofr/cof/doctor/death4.wav",
+        "vj_cofr/cof/doctor/death5.wav",
+        "vj_cofr/cof/doctor/death6.wav",
+        "vj_cofr/cof/doctor/death7.wav"
+    }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     if math.random(1,5) == 1 then self.IsMedic = true end
     if GetConVar("VJ_COFR_Human_ReloadCover"):GetInt() == 1 then
@@ -440,6 +479,9 @@ function ENT:Init()
     elseif self:GetModel() == "models/vj_cofr/aom/classic/david.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" then
         self.Human_Type = 3
         self:DavidClassic_Init()
+    elseif self:GetModel() == "models/vj_cofr/cof/doctor_friendly.mdl" then
+        self.Human_Type = 4
+        self:Doctor_Init()
     end
 
     self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
