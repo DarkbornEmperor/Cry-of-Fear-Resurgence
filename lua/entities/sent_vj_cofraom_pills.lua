@@ -35,17 +35,17 @@ function ENT:PhysicsCollide(data, physobj)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Use(ply, caller)
-    if IsValid(ply) && ply:IsPlayer() then
-        ply:PickupObject(self)
+function ENT:Use(activator, caller)
+    local hp, maxhp = activator:Health(), activator:GetMaxHealth()
+    if IsValid(activator) && activator:IsPlayer() && hp >= maxhp then
+        activator:PickupObject(self)
         self:EmitSound("vj_cofr/aom/weapons/pills/pills_pickup.wav", 75, 100)
     end
-    local hp,maxhp = ply:Health(),ply:GetMaxHealth()
     if hp >= maxhp then return end
-    if ply:IsPlayer() then
-        ply:EmitSound(Sound("vj_cofr/aom/weapons/pills/pills_use.wav"), 75, 100)
-        ply:SetHealth(math.min(hp + 15, maxhp))
-        //ply:PrintMessage(HUD_PRINTTALK, "Don't Do Drugs, Kids.")
+    if activator:IsPlayer() then
+        activator:EmitSound(Sound("vj_cofr/aom/weapons/pills/pills_use.wav"), 75, 100)
+        activator:SetHealth(math.min(hp + 15, maxhp))
+        //activator:PrintMessage(HUD_PRINTTALK, "Don't Do Drugs, Kids.")
         self:Remove()
     end
 end
