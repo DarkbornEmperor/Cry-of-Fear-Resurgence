@@ -54,7 +54,8 @@ local ambient = {
     "vj_cofr/aom/mapspawner/vaggover.wav",
     "vj_cofr/aom/mapspawner/viskingar.wav",
     "vj_cofr/aom/mapspawner/viskingar2.wav",
-    "vj_cofr/aom/mapspawner/child_cryin.wav"
+    "vj_cofr/aom/mapspawner/child_cryin.wav",
+    "vj_cofr/aom/mapspawner/is_scream.wav"
 }
 
 local music = {
