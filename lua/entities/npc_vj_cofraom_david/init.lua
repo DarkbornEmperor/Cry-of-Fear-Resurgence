@@ -479,7 +479,7 @@ function ENT:Init()
     elseif self:GetModel() == "models/vj_cofr/aom/classic/david.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" then
         self.Human_Type = 3
         self:DavidClassic_Init()
-    elseif self:GetModel() == "models/vj_cofr/cof/doctor_friendly.mdl" then
+    elseif self:GetModel() == "models/vj_cofr/cof/doctor_friendly.mdl" or self:GetModel() == "models/vj_cofr/cofcc/robert.mdl" then
         self.Human_Type = 4
         self:Doctor_Init()
     end
