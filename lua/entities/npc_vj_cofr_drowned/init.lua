@@ -170,8 +170,19 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 end
             end
         end
-        if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) then return true end
-        if CurTime() > self.Drowned_NextEnemyDamageT then
+        if self.EnemyData.Distance > self.Drowned_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) or enemy.IsVJBaseBullseye then return true end
+        if !enemy.Drowned_SuicideAttempt && CurTime() > self.Drowned_NextEnemyDamageT then
+            enemy.Drowned_SuicideAttempt = true
+            timer.Create("VJ_COFR_Survive" .. enemy:EntIndex(), SoundDuration("vj_cofr/cof/drowned/suicide_attempt.wav"), 1, function()
+                if IsValid(enemy) && (enemy:IsPlayer() && enemy:Alive()) or (enemy.VJ_ID_Living && enemy:Health() > 0) && enemy.Drowned_SuicideAttempt then
+                    enemy.Drowned_SuicideAttempt = false
+                    if enemy:IsPlayer() then
+                        net.Start("VJ_COFR_Survive_ScreenEffect")
+                        net.WriteEntity(enemy)
+                        net.Send(enemy)
+                    end
+                end
+            end)
             if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(enemy, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
             if enemy.Human_Type == 1 then enemy:PlaySoundSystem("Pain", enemy.SoundTbl_SuicidePanic) end
             if enemy:IsPlayer() then
@@ -179,7 +190,11 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 net.WriteEntity(enemy)
                 net.Send(enemy)
             end
-            timer.Simple(5, function() if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
+            hook.Add("Think", "VJ_COFR_SuicideCheck" .. enemy:EntIndex(), function()
+                if (enemy:IsPlayer() && !enemy:Alive()) or (enemy.VJ_ID_Living && enemy:Health() < 0) or !IsValid(enemy) or self.Dead or !IsValid(self) && enemy.Drowned_SuicideAttempt then hook.Remove("Think", "VJ_COFR_SuicideCheck" .. enemy:EntIndex()) enemy.Drowned_SuicideAttempt = false timer.Remove("VJ_COFR_Suicide" .. enemy:EntIndex()) timer.Remove("VJ_COFR_Survive" .. enemy:EntIndex()) self.Drowned_NextEnemyDamageT = CurTime() + 0 end
+            end)
+            timer.Create("VJ_COFR_Suicide" .. enemy:EntIndex(), SoundDuration("vj_cofr/cof/drowned/suicide_attempt.wav"), 1, function()
+                if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
                     if self.HasSounds then VJ.EmitSound(enemy, "vj_cofr/fx/gibbed.wav", 75, 100) end
                     if enemy.IsVJBaseSNPC_Human then enemy:TakeDamage(enemy:Health(), self, self) elseif enemy:IsPlayer() then enemy:TakeDamage(enemy:Health() + enemy:Armor(), self, self) else enemy:TakeDamage(200, self, self) end
                     self:Drowned_Damage()

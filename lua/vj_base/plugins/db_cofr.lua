@@ -425,7 +425,7 @@ end)
 
 if SERVER then
     util.AddNetworkString("VJ_COFR_Drowned_ScreenEffect")
-    util.AddNetworkString("VJ_COFR_Drowned_ScreenEffect_Survive")
+    util.AddNetworkString("VJ_COFR_Survive_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Stranger_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Ghost_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Addiction_ScreenEffect")
@@ -447,10 +447,10 @@ if CLIENT then
             ply:ScreenFade(SCREENFADE.IN, colorRed, 0.1, 0)
         end)
     end)
-    /*net.Receive("VJ_COFR_Drowned_ScreenEffect_Survive", function()
+    net.Receive("VJ_COFR_Survive_ScreenEffect", function()
         local ply = net.ReadEntity()
-        local hookName = "VJ_COFR_Drowned_ScreenEffect_Survive" .. ply:EntIndex()
-        local colorRed = Color(255, 255, 255, 50)
+        local hookName = "VJ_COFR_Survive_ScreenEffect" .. ply:EntIndex()
+        local colorRed = Color(200, 200, 200, 100)
 
         ply.VJ_COFR_Drowned_ScreenEffect_Time = CurTime() + 0.1
 
@@ -461,7 +461,7 @@ if CLIENT then
             end
             ply:ScreenFade(SCREENFADE.IN, colorRed, 0.1, 0)
         end)
-    end)*/
+    end)
     net.Receive("VJ_COFR_Stranger_ScreenEffect", function()
         local ply = net.ReadEntity()
         local hookName = "VJ_COFR_Stranger_ScreenEffect" .. ply:EntIndex()
