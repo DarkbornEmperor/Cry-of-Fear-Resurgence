@@ -7,6 +7,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/slower1_pedo_hc.mdl"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
     local slowerBody = 1
@@ -34,7 +36,7 @@ function ENT:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/faceless/psyksjuk.wav")
     end
 end

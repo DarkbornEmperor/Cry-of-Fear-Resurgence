@@ -14,12 +14,14 @@ ENT.Category = "Cry of Fear Resurgence"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
+local math_random = math.random
+
 function ENT:Initialize()
     self:SetModel("models/vj_cofr/cof/police_dead.mdl")
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
-    self:SetBodygroup(0, math.random(0,1))
-    local anim = math.random(1,2)
+    self:SetBodygroup(0, math_random(0,1))
+    local anim = math_random(1,2)
     if anim == 1 then
         self:ResetSequence("e5idle1")
         self:SetCollisionBounds(Vector(13, 13, 15), Vector(-13, -13, 0))

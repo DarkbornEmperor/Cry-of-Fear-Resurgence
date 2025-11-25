@@ -55,6 +55,8 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Sawcrazy_NextRadiusDamageT = 0
 ENT.Sawcrazy_RadiusDamage = 200
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_Init()
     self.SoundTbl_Breath =
@@ -85,7 +87,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -144,7 +146,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

@@ -49,7 +49,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetNoDraw(true)
-    self:DrawShadow(false)
     self:AddFlags(FL_NOTARGET)
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Hanger_Init()
@@ -72,7 +71,7 @@ function ENT:OnThinkActive()
         self:TakeDamage(self:GetMaxHealth(), self, self)
         self.Hanger_Death = true
         self.CallForHelp = true
-        timer.Simple(0.1, function() if IsValid(self) then self:SetNoDraw(false) self:DrawShadow(true) end end)
+        timer.Simple(0.1, function() if IsValid(self) then self:SetNoDraw(false) end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

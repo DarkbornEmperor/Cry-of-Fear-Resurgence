@@ -36,30 +36,13 @@ ENT.SoundTbl_BeforeRangeAttack =
 
 ENT.SoundTbl_RangeAttack =
     "vj_cofr/aom/ghost/classic/hw_shoot1.wav"
+
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Ghost_Init()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key, activator, caller, data)
-    if key == "step" then
-        self:PlayFootstepSound()
-    elseif key == "melee" then
-        self:ExecuteMeleeAttack()
-    elseif key == "range" then
-        self:ExecuteRangeAttack()
-    elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
-            /*local effectdata = EffectData()
-            effectdata:SetOrigin(self:GetPos())
-            effectdata:SetScale(10)
-            util.Effect("watersplash", effectdata)*/
-        end
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp) return end
@@ -90,13 +73,13 @@ function ENT:OnRangeAttack(status, enemy)
         -- Tsakh --------------------------
         local tsakhSpawn = myPos + myUp * 45 + myRight * 20
         local tsakhLocations = {
-            myPos + myRight * math.Rand(150,500) + myUp * -200,
-            myPos + myRight * math.Rand(150,500) + myUp * -200 + myForward*-math.Rand(150,500),
-            myPos + myRight * math.Rand(150,500) + myUp * -200 + myForward*math.Rand(150,500),
-            myPos + myRight * math.Rand(1,150) + myUp * 200 + myForward*math.Rand(-100,100),
+            myPos + myRight * math_rand(150,500) + myUp * -200,
+            myPos + myRight * math_rand(150,500) + myUp * -200 + myForward * -math_rand(150,500),
+            myPos + myRight * math_rand(150,500) + myUp * -200 + myForward * math_rand(150,500),
+            myPos + myRight * math_rand(1,150) + myUp * 200 + myForward * math_rand(-100,100),
         }
         for i = 1, 4 do
-            local randTime = math.Rand(0,0.6)
+            local randTime = math_rand(0,0.6)
             timer.Simple(randTime, function()
                 if IsValid(self) then
                     local tr = util.TraceLine({
@@ -111,13 +94,13 @@ function ENT:OnRangeAttack(status, enemy)
         -- Ach --------------------------
         local achSpawn = myPos + myUp * 45 + myRight * -20
         local achLocations = {
-            myPos + myRight * -math.Rand(150,500) + myUp * -200,
-            myPos + myRight * -math.Rand(150,500) + myUp * -200 + myForward*-math.Rand(150,500),
-            myPos + myRight * -math.Rand(150,500) + myUp * -200 + myForward*math.Rand(150,500),
-            myPos + myRight * -math.Rand(1,150) + myUp * 200 + myForward*math.Rand(-100,100),
+            myPos + myRight * -math_rand(150,500) + myUp * -200,
+            myPos + myRight * -math_rand(150,500) + myUp * -200 + myForward * -math_rand(150,500),
+            myPos + myRight * -math_rand(150,500) + myUp * -200 + myForward * math_rand(150,500),
+            myPos + myRight * -math_rand(1,150) + myUp * 200 + myForward * math_rand(-100,100),
         }
         for i = 1, 4 do
-            local randTime = math.Rand(0,0.6)
+            local randTime = math_rand(0,0.6)
             timer.Simple(randTime, function()
                 if IsValid(self) then
                     local tr = util.TraceLine({
@@ -169,18 +152,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
     if status == "Init" then
         VJ_COFR_DeathCode(self)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    corpseEnt:SetMoveType(MOVETYPE_STEP)
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound(moveType, sdFile)
-    if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

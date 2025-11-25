@@ -67,6 +67,8 @@ ENT.Devourer_CurEnt = NULL
 ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_PullingEnt = 0
 ENT.Devourer_NextPullSoundT = 0
+
+local math_clamp = math.Clamp
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
@@ -82,7 +84,7 @@ function ENT:Devourer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetCollisionBounds(Vector(25,25,0),Vector(-25,-25,39))
+    self:SetCollisionBounds(Vector(25, 25, 0),Vector(-25, -25, 39))
     self:SetSurroundingBounds(Vector(-60, -60, -20), Vector(60, 60, 40))
     self:Devourer_Init()
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024
@@ -110,7 +112,7 @@ function ENT:Devourer_CalculateTongue()
     local trHitPos = tr.HitPos
     local height = myPos:Distance(trHitPos)
     -- Increase the height by 10 every tick | minimum = 0, maximum = 1024
-    self.Devourer_LastHeight = math.Clamp(height + 10, 0, 1024 + offset)
+    self.Devourer_LastHeight = math_clamp(height + 10, 0, 1024 + offset)
 
     if IsValid(trHitEnt) && trHitEnt.VJ_ID_Living && self:CheckRelationship(trHitEnt) == D_HT && !trHitEnt.VJ_ID_Boss then
         -- If the grabbed enemy is a new enemy then reset the enemy values

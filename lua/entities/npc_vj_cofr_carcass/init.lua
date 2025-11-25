@@ -57,6 +57,8 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -83,7 +85,6 @@ function ENT:Carcass_Init()
     if GetConVar("VJ_COFR_JoeBiden"):GetInt() == 1 then
         self.RangeAttackProjectiles = "obj_vj_cofr_biden"
         self:SetNoDraw(true)
-        self:DrawShadow(false)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -126,7 +127,7 @@ local vec = Vector(0, 0, 0)
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math_random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
         if dmginfo:GetDamagePosition() != vec then
             local rico = EffectData()

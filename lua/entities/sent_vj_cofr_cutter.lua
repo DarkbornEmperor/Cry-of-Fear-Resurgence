@@ -14,12 +14,14 @@ ENT.Category = "Cry of Fear Resurgence"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
+local math_random = math.random
+
 function ENT:Initialize()
     self:SetModel("models/vj_cofr/cof/cutters.mdl")
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
-    local anim = math.random(1,3)
+    local anim = math_random(1,3)
     if anim == 1 then
         self:ResetSequence("cut1")
     elseif anim == 2 then

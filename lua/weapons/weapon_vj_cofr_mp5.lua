@@ -36,6 +36,9 @@ SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.Primary.UsesLoopedSound = true
+
+local math_random = math.random
+local math_rand = math.Rand
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound =
     "vj_cofr/cof/weapons/weapon_fire_empty.wav"
@@ -71,7 +74,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -82,7 +85,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
-    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
+    muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
@@ -91,38 +94,38 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
     if status == "Init" then
-        local burst = math.random(1,8)
+        local burst = math_random(1,8)
         local num = 0.08
         if burst == 1 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2}
-            self.NPC_NextPrimaryFire = math.Rand(0.6,0.7)
+            self.NPC_NextPrimaryFire = math_rand(0.6,0.7)
         elseif burst == 2 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3}
-            self.NPC_NextPrimaryFire = math.Rand(0.7,0.8)
+            self.NPC_NextPrimaryFire = math_rand(0.7,0.8)
         elseif burst == 3 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4}
-            self.NPC_NextPrimaryFire = math.Rand(0.8,0.9)
+            self.NPC_NextPrimaryFire = math_rand(0.8,0.9)
         elseif burst == 4 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4, num * 5}
-            self.NPC_NextPrimaryFire = math.Rand(0.9,1.25)
+            self.NPC_NextPrimaryFire = math_rand(0.9,1.25)
         elseif burst == 5 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4, num * 5, num * 6}
-            self.NPC_NextPrimaryFire = math.Rand(1.25,1.35)
+            self.NPC_NextPrimaryFire = math_rand(1.25,1.35)
         elseif burst == 6 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4, num * 5, num * 6, num * 7}
-            self.NPC_NextPrimaryFire = math.Rand(1.35,1.45)
+            self.NPC_NextPrimaryFire = math_rand(1.35,1.45)
         elseif burst == 7 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4, num * 5, num * 6, num * 7, num * 8}
-            self.NPC_NextPrimaryFire = math.Rand(1.45,1.55)
+            self.NPC_NextPrimaryFire = math_rand(1.45,1.55)
         elseif burst == 8 then
             self.NPC_TimeUntilFireExtraTimers = {num, num * 2, num * 3, num * 4, num * 5, num * 6, num * 7, num * 8, num * 9}
-            self.NPC_NextPrimaryFire = math.Rand(1.55,1.85)
+            self.NPC_NextPrimaryFire = math_rand(1.55,1.85)
         end
     end
     if status == "PostFire" then
         if self.Primary.UsesLoopedSound then
             self.PrimaryLoopSoundT = CurTime() +0.1
-            if math.random(1,7) == 1 && self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
+            if math_random(1,7) == 1 && self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
                 self.PrimaryLoop:Stop()
                 self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
                 self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
@@ -159,7 +162,7 @@ function SWEP:OnThink()
             if IsValid(owner) then
                 local fireSd = VJ.PICK(self.Primary.EndSound)
                 if fireSd != false then
-                    sound.Play(fireSd, owner:GetPos(), self.Primary.SoundLevel, math.random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
+                    sound.Play(fireSd, owner:GetPos(), self.Primary.SoundLevel, math_random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
                 end
             end
         elseif self.PrimaryLoopSoundT > CurTime() && !self.PrimaryLoop:IsPlaying() then

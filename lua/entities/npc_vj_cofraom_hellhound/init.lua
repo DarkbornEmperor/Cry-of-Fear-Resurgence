@@ -54,6 +54,9 @@ ENT.SoundTbl_Impact = {
 ENT.Hellhound_BlinkingT = 0
 ENT.Hellhound_NextSleepT = 0
 ENT.Hellhound_Sleeping = false
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
@@ -86,7 +89,7 @@ function ENT:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self.Hellhound_NextSleepT = CurTime() + math.Rand(0,15)
+    self.Hellhound_NextSleepT = CurTime() + math_rand(0,15)
     if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then
         self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
     else
@@ -102,7 +105,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -137,7 +140,7 @@ function ENT:OnThinkActive()
     if self.VJ_IsBeingControlled then return end
     -- Sleep system
     if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
-        local sleepTime = math.Rand(15,30) -- How long it should sleep
+        local sleepTime = math_rand(15,30) -- How long it should sleep
         self.Hellhound_Sleeping = true
         self:PlayAnim(ACT_CROUCH, true, false, false)
         self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
@@ -146,7 +149,7 @@ function ENT:OnThinkActive()
             if IsValid(self) && self.Hellhound_Sleeping then
                 self.Hellhound_Sleeping = false
                 self:PlayAnim(ACT_STAND, true, false, false)
-                self.Hellhound_NextSleepT = CurTime() + math.Rand(15,45)
+                self.Hellhound_NextSleepT = CurTime() + math_rand(15,45)
             end
         end)
     end
@@ -161,13 +164,13 @@ function ENT:OnAlert(ent)
         if self:GetClass() == "npc_vj_cofraom_hellhound" then self:PlayAnim(ACT_STAND, true, false, false) end
         if VJ.AnimExists(self, ACT_HOP) then self:PlayAnim(ACT_HOP, true, false, false) end
         self.Hellhound_NextSleepT = CurTime() + 20
-    elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && math.random(1,2) == 1 then -- Random alert animation
+    elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && math_random(1,2) == 1 then -- Random alert animation
         self:PlayAnim(alertAnims, true, false, true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnResetEnemy()
-    self.Hellhound_NextSleepT = CurTime() + math.Rand(15,45)
+    self.Hellhound_NextSleepT = CurTime() + math_rand(15,45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local hellhoundClasses = {npc_vj_cofraom_hellhound = true, npc_vj_cofraomc_hellhound = true}
@@ -200,7 +203,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
         effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
 
         if self.HasSounds && self.HasMeleeAttackSounds then
-            VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav", "vj_cofr/aom/hellhound/he_blast2.wav", "vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math.random(80,100))
+            VJ.EmitSound(self, {"vj_cofr/aom/hellhound/he_blast1.wav", "vj_cofr/aom/hellhound/he_blast2.wav", "vj_cofr/aom/hellhound/he_blast3.wav"}, 100, math_random(80,100))
         end
         VJ.ApplyRadiusDamage(self, self, myPos, 200, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck = true, Force = 80})
     end
@@ -216,7 +219,7 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
-        if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then self:SetSkin(math.random(1,2)) end
+        if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then self:SetSkin(math_random(1,2)) end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -228,7 +231,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

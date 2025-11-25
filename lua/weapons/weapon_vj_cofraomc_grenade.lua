@@ -22,7 +22,7 @@ SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0,0,0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-2,2,-3)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-2, 2, -3)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 1

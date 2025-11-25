@@ -56,6 +56,8 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -84,7 +86,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "death_hammer" then
         VJ.EmitSound(self, "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hit.wav", 75, 100)
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -252,7 +254,7 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

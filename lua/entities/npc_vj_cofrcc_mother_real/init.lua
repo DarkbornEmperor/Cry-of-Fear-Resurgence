@@ -12,6 +12,8 @@ ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
     "vj_cofr/cofcc/mother/psycho1.mp3"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -20,7 +22,7 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cofcc/mother/mothertalk.wav")
     end
 end

@@ -56,6 +56,9 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Doctor_NextRunT = 0
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -88,8 +91,8 @@ function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Doctor_Init()
-    self.Doctor_NextRunT = CurTime() + math.Rand(8,12)
-    local wep = math.random(1,2)
+    self.Doctor_NextRunT = CurTime() + math_rand(8,12)
+    local wep = math_random(1,2)
     if wep == 1 then
         self:Give("weapon_vj_cofr_revolver")
     elseif wep == 2 then
@@ -101,7 +104,7 @@ function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -120,7 +123,7 @@ function ENT:OnWeaponAttack()
                 self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
             end
         end)
-        self.Doctor_NextRunT = CurTime() + math.Rand(12,18)
+        self.Doctor_NextRunT = CurTime() + math_rand(12,18)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -294,7 +297,7 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

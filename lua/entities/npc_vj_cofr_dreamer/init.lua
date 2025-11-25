@@ -41,7 +41,6 @@ end
 function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetNoDraw(true)
-    self:DrawShadow(false)
     self:SetCollisionBounds(Vector(13, 13, 86), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:Dreamer_Init()
@@ -64,7 +63,6 @@ function ENT:OnThinkActive()
         self.Dreamer_Scream = VJ.CreateSound(self, self.SoundTbl_DreamerScream, 75, 100)
         self.Dreamer_Jumpscare = true
         self.CallForHelp = true
-        self:DrawShadow(true)
         self:SetNoDraw(false)
         timer.Simple(SoundDuration("vj_cofr/cof/dreamer/dreamer_scream.wav"), function() if IsValid(self) then self:Remove() end end)
     end

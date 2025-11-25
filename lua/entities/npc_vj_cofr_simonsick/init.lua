@@ -55,6 +55,8 @@ ENT.PropstoThrow = {
     "models/props_junk/wood_crate001a_damaged.mdl",
     "models/props_wasteland/dockplank01a.mdl"
 }
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -207,7 +209,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
     end
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math_random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
         if dmginfo:GetDamagePosition() != vec then
             local rico = EffectData()

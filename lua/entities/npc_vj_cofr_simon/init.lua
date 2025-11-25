@@ -14,7 +14,7 @@ ENT.SoundTbl_MedicOnHeal =
     "vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 
 -- Custom
-ENT.Human_Type = 2
+ENT.Human_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
     [MAT_ANTLION] = {

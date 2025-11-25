@@ -52,6 +52,8 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
@@ -84,7 +86,7 @@ local vec = Vector(0, 0, 0)
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math_random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
         if dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
@@ -110,7 +112,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

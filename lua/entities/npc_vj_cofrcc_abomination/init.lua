@@ -12,6 +12,8 @@ ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
     "vj_cofr/cofcc/abomination/watro.mp3"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -40,7 +42,7 @@ function ENT:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", {"vj_cofr/cofcc/abomination/hole_canthide.wav", "vj_cofr/cofcc/abomination/hole_hurt_dialogue.wav", "vj_cofr/cofcc/abomination/hole_run.wav"})
     end
 end

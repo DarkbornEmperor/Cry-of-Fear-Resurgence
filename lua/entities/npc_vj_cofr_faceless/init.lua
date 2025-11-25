@@ -69,6 +69,8 @@ ENT.Faceless_Type = 0
     -- 3 = Twister
     -- 4 = Twister Valve
     -- 5 = Custom
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faceless_Init()
     self.SoundTbl_Alert = {
@@ -115,7 +117,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -127,7 +129,7 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/faceless/psyksjuk.wav")
     end
 end
@@ -141,7 +143,7 @@ local vec = Vector(0, 0, 0)
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect
     if status == "PreDamage" && self.Faceless_Type == 4 && hitgroup == HITGROUP_HEAD then
-        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math.random(1,4) .. ".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math_random(1,4) .. ".wav", 75, 100) end
         dmginfo:SetDamage(0)
         if dmginfo:GetDamagePosition() != vec then
             local rico = EffectData()
@@ -167,7 +169,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

@@ -31,6 +31,9 @@ ENT.SoundTbl_OnRemove = {
     "vj_cofr/aom/weapons/grenade/explode5.wav"
 }
 ENT.OnRemoveSoundLevel = 100
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCollision(data, phys)
     local getVel = phys:GetVelocity()
@@ -67,8 +70,8 @@ function ENT:OnDestroy()
     spr:Fire("Kill", "", 0.9)
     timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
-    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris" .. math.random(1,3) .. ".wav", 80, 100)
-    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode" .. math.random(3,5) .. "_dist.wav", 140, 100)
+    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris" .. math_random(1,3) .. ".wav", 80, 100)
+    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode" .. math_random(3,5) .. "_dist.wav", 140, 100)
     util.ScreenShake(myPos, 100, 200, 1, 2500)
 
     local expLight = ents.Create("light_dynamic")
@@ -81,7 +84,7 @@ function ENT:OnDestroy()
     expLight:Spawn()
     expLight:Activate()
     expLight:Fire("TurnOn", "", 0)
-    expLight:Fire("Kill","",0.08)
+    expLight:Fire("Kill", "", 0.08)
 
     self:SetLocalPos(myPos + vecZ4) -- Because the entity is too close to the ground
     local tr = util.TraceLine({

@@ -59,6 +59,9 @@ util.AddNetworkString("VJ_COFR_Stranger_Damage")
 
 local nwName = "VJ_COFR_Stranger_Controller"
 util.AddNetworkString(nwName)
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_Init()
     self.SoundTbl_Breath =
@@ -69,7 +72,7 @@ function ENT:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if math.random(1,2) == 1 then
+    if math_random(1,2) == 1 then
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
@@ -83,9 +86,11 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "flicker_on" then
         self:SetRenderFX(kRenderFxFlickerFast)
         self:SetRenderMode(RENDERMODE_NORMAL)
+        self:DrawShadow(False)
     elseif key == "flicker_off" then
         self:SetRenderFX(kRenderFxNone)
         self:SetRenderMode(RENDERMODE_NORMAL)
+        self:DrawShadow(true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +155,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         VJ.STOPSOUND(self.Stranger_HeartBeat)
     end
     if status == "Init" then
-        self.DeathAnimationTime = math.Rand(0.75,1.25)
+        self.DeathAnimationTime = math_rand(0.75,1.25)
         VJ_COFR_DeathCode(self)
     end
 end
@@ -158,7 +163,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

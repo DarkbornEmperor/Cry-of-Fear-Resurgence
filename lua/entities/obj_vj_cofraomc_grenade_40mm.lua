@@ -35,11 +35,13 @@ ENT.SoundTbl_OnRemove = {
     "vj_cofr/aom/weapons/grenade/explode5.wav"
 }
 ENT.OnRemoveSoundLevel = 100
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:InitPhys()
     local phys = self:GetPhysicsObject()
     if IsValid(phys) then
-        phys:AddAngleVelocity(Vector(0, math.random(300,400), 0))
+        phys:AddAngleVelocity(Vector(0, math_random(300,400), 0))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,8 +66,8 @@ function ENT:OnDestroy(data, phys)
     spr:Fire("Kill", "", 0.9)
     //timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
-    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris" .. math.random(1,3) .. ".wav", 80, 100)
-    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode" .. math.random(3,5) .. "_dist.wav", 140, 100)
+    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/debris" .. math_random(1,3) .. ".wav", 80, 100)
+    VJ.EmitSound(self, "vj_cofr/aom/weapons/grenade/explode" .. math_random(3,5) .. "_dist.wav", 140, 100)
     util.ScreenShake(data.HitPos, 100, 200, 1, 2500)
 
     local expLight = ents.Create("light_dynamic")
@@ -78,5 +80,5 @@ function ENT:OnDestroy(data, phys)
     expLight:Spawn()
     expLight:Activate()
     expLight:Fire("TurnOn", "", 0)
-    expLight:Fire("Kill","",0.08)
+    expLight:Fire("Kill", "", 0.08)
 end

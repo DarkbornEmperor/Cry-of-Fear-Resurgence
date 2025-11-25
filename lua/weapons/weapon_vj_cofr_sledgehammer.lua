@@ -16,7 +16,7 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(-9, -5, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    self:SetModelScale(1.2)
+    //self:SetModelScale(1.2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnEquip(newOwner)

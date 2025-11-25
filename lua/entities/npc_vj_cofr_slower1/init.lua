@@ -75,9 +75,11 @@ ENT.Slower_Type = 0
     -- 8 = Custom Slower 1
     -- 9 = Custom Slower Ten
     -- 10 = Misc Custom
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
-    local slowerBody = math.random(1,3)
+    local slowerBody = math_random(1,3)
     if slowerBody == 1 then
         self.Slower_Skin = 0
         self:SetBodygroup(0,0)
@@ -155,7 +157,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -168,7 +170,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.Slower_Type == 3 then return end
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav")
     end
 end
@@ -201,7 +203,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         end
     end
     if status == "DeathAnim" && VJ.AnimExists(self, ACT_DIEVIOLENT) then
-        if math.random(1,3) == 1 && hitgroup == HITGROUP_HEAD then
+        if math_random(1,3) == 1 && hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIEVIOLENT
         end
     end
@@ -224,7 +226,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             util.Effect("bloodspray", effectData)
             util.Effect("bloodspray", effectData)
         end
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math.random(1,2) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
     end
 end
@@ -237,7 +239,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

@@ -43,7 +43,6 @@ end
 function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetNoDraw(true)
-    self:DrawShadow(false)
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:FaceHead_Init()
@@ -67,7 +66,6 @@ function ENT:OnThinkActive()
         self.FaceHead_Jumpscare = true
         VJ.STOPSOUND(self.CurrentAlertSound)
         self.CallForHelp = true
-        self:DrawShadow(true)
         self:SetNoDraw(false)
         timer.Simple(SoundDuration("vj_cofr/cof/facehead/b_screamclose1.wav"), function() if IsValid(self) then self:Remove() end end)
     end

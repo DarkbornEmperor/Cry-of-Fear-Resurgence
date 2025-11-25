@@ -68,6 +68,9 @@ ENT.SoundTbl_Impact = {
 ENT.Addiction_FinishedIgnited = false
 ENT.Addiction_OnFire = false
 ENT.Addiction_NextChangeAttackT = 0
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -113,7 +116,7 @@ function ENT:OnInput(key, activator, caller, data)
         VJ.EmitSound(self, "vj_cofr/aom/addiction/david_axegrab.wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("axe")).Pos, self:GetAngles())
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -126,7 +129,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.VJ_IsBeingControlled then return end
-    self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
+    self.Addiction_NextChangeAttackT = CurTime() + math_rand(15,20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -139,7 +142,7 @@ function ENT:OnThinkActive()
     if self.Dead then return end
     if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
-        self.Addiction_NextChangeAttackT = CurTime() + math.Rand(15,20)
+        self.Addiction_NextChangeAttackT = CurTime() + math_rand(15,20)
     end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
     if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then
@@ -228,7 +231,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        self.NextRangeAttackTime = (math.random(2) == 1 and 10 or 15)
+        self.NextRangeAttackTime = (math_random(2) == 1 and 10 or 15)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -457,7 +460,7 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

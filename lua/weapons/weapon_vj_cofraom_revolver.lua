@@ -34,6 +34,9 @@ SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
+
+local math_random = math.random
+local math_rand = math.Rand
 -- Dry Fire Variables ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.DryFireSound =
     "vj_cofr/aom/weapons/dryfire.wav"
@@ -56,7 +59,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -67,7 +70,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
-    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
+    muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)

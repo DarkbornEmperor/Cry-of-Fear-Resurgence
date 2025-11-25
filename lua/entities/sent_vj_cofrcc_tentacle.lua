@@ -38,6 +38,8 @@ local sdHit = {
 }
 local sdBreak =
     "vj_cofr/fx/bodysplat.wav"
+
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
     if !IsValid(self.Assignee) then
@@ -80,7 +82,7 @@ function ENT:OnTakeDamage(dmginfo)
         util.Effect("bloodspray", effectData)
         util.Effect("bloodspray", effectData)
 
-        self.Scale = math.Rand(1,1.25)
+        self.Scale = math_rand(1,1.25)
         local spr = ents.Create("env_sprite")
         spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat_red.vmt")
         spr:SetKeyValue("GlowProxySize", "1.0")

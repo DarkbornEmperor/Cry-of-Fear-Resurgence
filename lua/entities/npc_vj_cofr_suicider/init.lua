@@ -61,10 +61,13 @@ ENT.Suicider_Glock = false
 ENT.Suicider_P345 = false
 ENT.Suicider_DeathSuicide = false
 ENT.Suicider_Skin = 0
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true self.Suicider_Ammo = 15 return end
-    local Suicider_Type = math.random(1,2)
+    local Suicider_Type = math_random(1,2)
     if Suicider_Type == 1 then
         self.Suicider_Glock = true
         self.Suicider_Ammo = 15
@@ -105,7 +108,7 @@ function ENT:Init()
         self.SoundTbl_P345 =
             "vj_cofr/cof/weapons/p345/old/p345_fire.wav"
     end
-    if math.random(1,2) == 1 then
+    if math_random(1,2) == 1 then
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
@@ -128,7 +131,7 @@ function ENT:OnInput(key, activator, caller, data)
         end
         self:FireFX()
         self:DropGlock()
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math.random(1,2)..".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math_random(1,2)..".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
         if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
         elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
@@ -149,7 +152,7 @@ function ENT:OnInput(key, activator, caller, data)
             util.Effect("bloodspray", effectData)
         end
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -163,7 +166,7 @@ end
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -174,7 +177,7 @@ function ENT:FireFX()
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", "muzzle")
-    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
+    muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
@@ -212,7 +215,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        self.NextRangeAttackTime = math.Rand(0.1,1)
+        self.NextRangeAttackTime = math_rand(0.1,1)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -297,7 +300,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 util.Effect("bloodspray", effectData)
                 util.Effect("bloodspray", effectData)
             end
-            VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math.random(1,2) .. ".wav", 75, 100)
+            VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
             ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
         end
     end
@@ -329,7 +332,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

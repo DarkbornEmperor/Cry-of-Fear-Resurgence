@@ -54,6 +54,9 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Taller_Init()
     self.SoundTbl_Alert =
@@ -79,7 +82,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
     end
     if key == "melee" && self:GetSequence() == self:LookupSequence("stamp") then
         util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
@@ -95,7 +98,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
-        local attack = math.random(1,2)
+        local attack = math_random(1,2)
         if attack == 1 then
             self.AnimTbl_MeleeAttack = "vjseq_attack"
             self.MeleeAttackDamage = 60
@@ -171,7 +174,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

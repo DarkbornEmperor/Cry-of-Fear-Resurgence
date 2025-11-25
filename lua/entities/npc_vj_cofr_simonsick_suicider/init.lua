@@ -59,6 +59,9 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -85,7 +88,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "suicide" then
         VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
         VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math.random(1,2) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
         self:FireFX()
         self:SetBodygroup(0,1)
@@ -98,7 +101,7 @@ end
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -109,7 +112,7 @@ function ENT:FireFX()
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", "muzzle")
-    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
+    muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
@@ -134,7 +137,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        self.NextRangeAttackTime = math.Rand(0.1,1)
+        self.NextRangeAttackTime = math_rand(0.1,1)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,7 +173,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
     end
     -- Make a metal ricochet effect
     if status == "PreDamage" && hitgroup == 8 then
-        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math.random(1,4)..".wav", 75, 100) end
+        if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self,"vj_cofr/cof/faster/faster_headhit"..math_random(1,4)..".wav", 75, 100) end
         dmginfo:SetDamage(0)
         if dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
@@ -196,7 +199,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

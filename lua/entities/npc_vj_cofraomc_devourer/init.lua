@@ -21,7 +21,7 @@ function ENT:Devourer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetCollisionBounds(Vector(18,18,0),Vector(-18,-18,-50))
+    self:SetCollisionBounds(Vector(18, 18, 0),Vector(-18, -18, -50))
     self:SetSurroundingBounds(Vector(-60, -60, -60), Vector(60, 60, 40))
     self:Devourer_Init()
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024

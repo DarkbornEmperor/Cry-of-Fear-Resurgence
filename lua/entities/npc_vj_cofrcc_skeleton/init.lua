@@ -22,9 +22,11 @@ ENT.SoundTbl_MeleeAttackMiss = {
     "vj_cofr/cof/faceless/fist_miss1.wav",
     "vj_cofr/cof/faceless/fist_miss2.wav"
 }
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
-    local voiceType = math.random(1,2)
+    local voiceType = math_random(1,2)
     if voiceType == 1 then
         self.SlowerSounds = true
         self.SoundTbl_Alert = {
@@ -67,9 +69,9 @@ function ENT:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.SlowerSounds && math.random(1,3) == 1 then
+    if self.SlowerSounds && math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/slower/scream1.wav")
-    elseif self.FacelessSounds && math.random(1,3) == 1 then
+    elseif self.FacelessSounds && math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/faceless/psyksjuk.wav")
     end
 end

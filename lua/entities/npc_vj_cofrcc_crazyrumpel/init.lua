@@ -7,9 +7,11 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", {"vj_cofr/cofcc/crazyrumpel/rumpelscream.wav", "vj_cofr/cofcc/crazyrumpel/rumpelscream2.wav"})
     end
 end

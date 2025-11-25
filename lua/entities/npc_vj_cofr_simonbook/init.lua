@@ -94,13 +94,16 @@ ENT.Booksimon_M16 = false
 ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_NextTMPSoundT = 0
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
     if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
-        local bookSimon_Type = math.random(1,3)
+        local bookSimon_Type = math_random(1,3)
         if bookSimon_Type == 1 then
             self.BookSimon_Shotgun = true
             self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
@@ -111,7 +114,7 @@ function ENT:PreInit()
         end
     end
     if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then
-        local bookSimon_Type = math.random(1,6)
+        local bookSimon_Type = math_random(1,6)
         if bookSimon_Type == 1 then
             self.BookSimon_Shotgun = true
             self.Model = "models/vj_cofr/cof/booksimon_shotgun.mdl"
@@ -196,7 +199,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -293,7 +296,7 @@ end
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3,0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.3,0.5))
     muz:SetKeyValue("GlowProxySize", "2.0")
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -303,7 +306,7 @@ function ENT:FireFX()
     muz:SetKeyValue("framerate", "10.0")
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
-    muz:SetAngles(Angle(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
+    muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)
@@ -439,7 +442,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 
         elseif self.BookSimon_TMP then
             self.BookSimon_NextTMPSoundT = CurTime() +0.1
-            if math.random(1,7) == 1 && self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
+            if math_random(1,7) == 1 && self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
                 self.TMPLoop:Stop()
                 self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
                 self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
@@ -644,7 +647,7 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

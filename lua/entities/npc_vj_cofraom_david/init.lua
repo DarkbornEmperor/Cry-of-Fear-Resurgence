@@ -97,7 +97,7 @@ ENT.Human_Type = 0
     -- 1 = Simon
     -- 2 = Police
     -- 3 = David (Classic)
-    -- 4 = Doctor Purnell
+    -- 4 = Doctor Purnell & Robert
 ENT.WeaponsList_AoMDC = {
     ["Close"] = {
         "weapon_vj_cofraom_shotgun"
@@ -212,17 +212,22 @@ VJ_COFR_MELEEWEAPONS_AOMDC = {
 }
 VJ_COFR_MELEEWEAPONS_AOMC =
     "weapon_vj_cofraomc_knife"
+
+local math_random = math.random
+local math_rand = math.Rand
+local math_round = math.Round
+local math_clamp = math.Clamp
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if math.random(1,2) == 1 && self.Human_Type == 0 then
+    if math_random(1,2) == 1 && self.Human_Type == 0 then
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_AOMDC})
-    elseif math.random(1,2) == 1 && self.Human_Type == 1 then
+    elseif math_random(1,2) == 1 && self.Human_Type == 1 then
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
-    elseif math.random(1,2) == 1 && self.Human_Type == 2 then
+    elseif math_random(1,2) == 1 && self.Human_Type == 2 then
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
-    elseif math.random(1,2) == 1 && self.Human_Type == 3 then
+    elseif math_random(1,2) == 1 && self.Human_Type == 3 then
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_AOMC})
-    elseif math.random(1,2) == 1 && self.Human_Type == 4 then
+    elseif math_random(1,2) == 1 && self.Human_Type == 4 then
         self.WeaponInventory_MeleeList = VJ.PICK({VJ_COFR_MELEEWEAPONS_COF})
     end
 end
@@ -331,9 +336,9 @@ function ENT:Simon_Init()
             "vj_cofr/cof/simon/death7.wav"
         }
         if GetConVar("VJ_COFR_Simon_Costumes"):GetInt() == 1 then
-            self:SetSkin(math.random(0,13))
+            self:SetSkin(math_random(0,13))
         end
-        if self:GetSkin() == 8 && math.random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
+        if self:GetSkin() == 8 && math_random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
             self:PlaySoundSystem("Speech", "vj_cofr/cof/simon/hellokitty.wav")
         end
     end
@@ -418,7 +423,7 @@ function ENT:DavidClassic_Init()
             "vj_cofr/aom/david/pl_pain7.wav"
         }
         if self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" then
-            self:SetBodygroup(0, math.random(0,1))
+            self:SetBodygroup(0, math_random(0,1))
         end
     end
 end
@@ -460,7 +465,7 @@ function ENT:Doctor_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if math.random(1,5) == 1 then self.IsMedic = true end
+    if math_random(1,5) == 1 then self.IsMedic = true end
     if GetConVar("VJ_COFR_Human_ReloadCover"):GetInt() == 1 then
         self.Weapon_FindCoverOnReload = true
     end
@@ -484,8 +489,8 @@ function ENT:Init()
         self:Doctor_Init()
     end
 
-    self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
-    self.NextWeaponSwitchT = CurTime() + math.Rand(2,4)
+    self.CoFR_NextSelfHealT = CurTime() + math_rand(10,20)
+    self.NextWeaponSwitchT = CurTime() + math_rand(2,4)
     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
     self:AssistorFlashlight()
 
@@ -496,7 +501,7 @@ function ENT:Init()
                 self:Give(wep)
             end
         end
-        local wepList = math.random(1,3)
+        local wepList = math_random(1,3)
         if wepList == 1 then
             self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC["Normal"]), true)
         elseif wepList == 2 then
@@ -511,7 +516,7 @@ function ENT:Init()
                 self:Give(wep)
             end
         end
-        local wepList = math.random(1,3)
+        local wepList = math_random(1,3)
         if wepList == 1 then
             self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF["Normal"]), true)
         elseif wepList == 2 then
@@ -526,7 +531,7 @@ function ENT:Init()
                 self:Give(wep)
             end
         end
-        local wepList = math.random(1,3)
+        local wepList = math_random(1,3)
         if wepList == 1 then
             self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC["Normal"]), true)
         elseif wepList == 2 then
@@ -545,7 +550,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" or (key == "melee" && IsValid(self:GetActiveWeapon()) && self.WeaponEntity.IsMeleeWeapon) then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -602,7 +607,7 @@ function ENT:OnThinkActive()
         timer.Simple(0.4, function()
             if IsValid(self) && !self.Dead then
                 local curHP = self:Health()
-                self:SetHealth(math.Clamp(curHP + self.Medic_HealAmount, curHP, self:GetMaxHealth()))
+                self:SetHealth(math_clamp(curHP + self.Medic_HealAmount, curHP, self:GetMaxHealth()))
                 self:OnMedicBehavior("OnHeal")
                 self:PlaySoundSystem("Speech", self.SoundTbl_MedicReceiveHeal)
                 VJ.CreateSound(self, self.SoundTbl_MedicOnHeal, 75, 100)
@@ -612,12 +617,12 @@ function ENT:OnThinkActive()
         if IsValid(self:GetEnemy()) then
             self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
         end
-        self.CoFR_NextSelfHealT = CurTime() + math.Rand(10,20)
+        self.CoFR_NextSelfHealT = CurTime() + math_rand(10,20)
     end
     if self.HasSounds && !self.Dead then
-        if math.random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
+        if math_random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.CoFR_NextLowHPSoundT < CurTime() then
             self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
-            self.CoFR_NextLowHPSoundT = CurTime() + math.random(10,20)
+            self.CoFR_NextLowHPSoundT = CurTime() + math_random(10,20)
         end
     end
     if self.Human_Type == 1 && IsValid(self:GetActiveWeapon()) then
@@ -639,12 +644,12 @@ function ENT:OnThinkActive()
         else
             selectType = "Close"
         end
-        if selectType && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math.random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() * 0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
+        if selectType && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math_random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() * 0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
             if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC[selectType]),true) end
             if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]),true) end
             if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC[selectType]),true) end
             wep = self:GetActiveWeapon()
-            self.NextWeaponSwitchT = CurTime() + math.Rand(6, math.Round(math.Clamp(wep:Clip1() * 0.5, 1, wep:Clip1())))
+            self.NextWeaponSwitchT = CurTime() + math_rand(6, math_round(math_clamp(wep:Clip1() * 0.5, 1, wep:Clip1())))
         end
     end
 end
@@ -668,7 +673,7 @@ function ENT:OnMedicBehavior(status, statusData)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.Human_Type == 1 && math.random(1,2) == 1 then
+    if self.Human_Type == 1 && math_random(1,2) == 1 then
         if ent:GetClass() == "npc_vj_cofr_purnell" then
             self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simonbossangry.wav")
         elseif ent:GetClass() == "npc_vj_cofr_carcass" then
@@ -705,7 +710,7 @@ function ENT:OnWeaponAttack()
         self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
         wep.NPC_NextPrimaryFire = animDur
         wep:NPCShoot_Primary()
-        VJ.EmitSound(self, wep.NPC_BeforeFireSound, wep.NPC_BeforeFireSoundLevel, math.Rand(wep.NPC_BeforeFireSoundPitch.a, wep.NPC_BeforeFireSoundPitch.b))
+        VJ.EmitSound(self, wep.NPC_BeforeFireSound, wep.NPC_BeforeFireSoundLevel, math_rand(wep.NPC_BeforeFireSoundPitch.a, wep.NPC_BeforeFireSoundPitch.b))
         self.CoFR_NextMeleeAnimT = CurTime() + animDur
         self.WeaponAttackAnim = finalAnim
         self:PlayAnim(finalAnim, "LetAttacks", false, true)
@@ -715,10 +720,10 @@ function ENT:OnWeaponAttack()
     if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
     if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeAcquired) > 2 then
         timer.Simple(0, function()
-            local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math.random(150,250), true, false, 8, true))
+            local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,250), true, false, 8, true))
             if moveCheck then
                 self:StopMoving()
-                self.NextWeaponStrafeT = CurTime() + math.Rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
+                self.NextWeaponStrafeT = CurTime() + math_rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
                 self:SetLastPosition(moveCheck)
                 self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
             end
@@ -728,7 +733,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponStrafe()
     if self.VJ_IsBeingControlled then self.CoFR_Crouching = false return end
-    if math.random(1,2) == 1 && !self.CoFR_Crouching then
+    if math_random(1,2) == 1 && !self.CoFR_Crouching then
         self.CoFR_Crouching = true
     else
         self.CoFR_Crouching  = false
@@ -739,7 +744,7 @@ function ENT:OnWeaponReload()
     //if self.Weapon_FindCoverOnReload then self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
     if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) then return end
     timer.Simple(0, function()
-    local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math.random(150,400), true, false, 8, true))
+    local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,400), true, false, 8, true))
         if moveCheck then
             self:StopMoving()
             self:SetLastPosition(moveCheck)
@@ -1078,7 +1083,7 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

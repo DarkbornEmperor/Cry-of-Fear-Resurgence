@@ -42,6 +42,8 @@ ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     timer.Simple(5, function()
@@ -58,7 +60,7 @@ function ENT:Init()
             "vj_cofr/aom/eyeball/classic/ag_hornethit3.wav"
         }
     end
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:SetNoDraw(true)
         local eyeballSpr = ents.Create("env_sprite")
         eyeballSpr:SetKeyValue("model", "vj_cofr/sprites/eyeball.vmt")

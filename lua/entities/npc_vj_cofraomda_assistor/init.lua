@@ -11,10 +11,12 @@ ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/da/w_pills.mdl"
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FollowPlayer =
     "vj_cofr/aom/player_da/helpyou.wav"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
     if GetConVar("VJ_COFR_Flashlight"):GetInt() == 0 then return end
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:SetBodygroup(0,1)
         self:SetSkin(1)
         local light = ents.Create("env_projectedtexture")

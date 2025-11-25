@@ -15,10 +15,12 @@ ENT.SoundTbl_MedicOnHeal =
 
 -- Custom
 ENT.Human_Type = 2
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AssistorFlashlight()
     if GetConVar("VJ_COFR_Flashlight"):GetInt() == 0 then return end
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:SetBodygroup(0,1)
         local light = ents.Create("env_projectedtexture")
         light:SetLocalPos(self:GetPos() + Vector(0, 0, 0))

@@ -54,6 +54,8 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Screamer_HomingAttack = false -- false = Regular, true = Homing
 ENT.Screamer_NumFired = 0 -- Used to make sure range attack sound only plays once
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
@@ -197,7 +199,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        if (math.random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
+        if (math_random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
             self.AnimTbl_RangeAttack = "vjseq_shoot"
             self.Screamer_HomingAttack = true
         else

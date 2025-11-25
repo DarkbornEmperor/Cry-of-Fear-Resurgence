@@ -7,13 +7,15 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/booksimon_beta.mdl"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
     if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 1 then
-        local bookSimon_Type = math.random(1,3)
+        local bookSimon_Type = math_random(1,3)
         if bookSimon_Type == 1 then
             self.BookSimon_Shotgun = true
             self.Model = "models/vj_cofr/cof/booksimon_beta_shotgun.mdl"
@@ -24,7 +26,7 @@ function ENT:PreInit()
         end
     end
     if GetConVar("VJ_COFR_BookSimon_Normal"):GetInt() == 0 then
-        local bookSimon_Type = math.random(1,6)
+        local bookSimon_Type = math_random(1,6)
         if bookSimon_Type == 1 then
             self.BookSimon_Shotgun = true
             self.Model = "models/vj_cofr/cof/booksimon_beta_shotgun.mdl"

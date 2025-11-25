@@ -61,6 +61,9 @@ ENT.Sawer_EyeOpen = false
 ENT.Sawer_NextDownT = 0
 ENT.Sawer_NextEyeMoveT = 0
 ENT.Sawer_NextFlinchT = 0
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -109,7 +112,7 @@ function ENT:OnInput(key, activator, caller, data)
         self:SetSkin(0)
         self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 0))
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -123,13 +126,13 @@ end
 function ENT:OnThink()
     if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
         local speed = FrameTime() * 10
-        local eyeDir = math.random(1,2)
+        local eyeDir = math_random(1,2)
         if eyeDir == 1 then
             self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), -90))
         elseif eyeDir == 2 then
             self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 90))
         end
-        self.Sawer_NextEyeMoveT = CurTime() + math.Rand(0,0.5)
+        self.Sawer_NextEyeMoveT = CurTime() + math_rand(0,0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -151,7 +154,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
-        if CurTime() > self.Sawer_NextFlinchT && math.random(1,14) == 1 && !self.Sawer_EyeOpen then
+        if CurTime() > self.Sawer_NextFlinchT && math_random(1,14) == 1 && !self.Sawer_EyeOpen then
             self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
             self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
         end
@@ -165,7 +168,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             self:SpawnBloodDecals(dmginfo, hitgroup)
             self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
         end
-        if CurTime() > self.Sawer_NextDownT && math.random(1,20) == 1 && !self.Sawer_EyeOpen then
+        if CurTime() > self.Sawer_NextDownT && math_random(1,20) == 1 && !self.Sawer_EyeOpen then
             local animTime = VJ.AnimDuration(self, ACT_COWER)
             self:PlayAnim(ACT_COWER, true, false, false)
             VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
@@ -181,7 +184,6 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             self.Sawer_Eye:Spawn()
             self.Sawer_Eye:SetSolid(SOLID_NONE)
             self.Sawer_Eye:SetNoDraw(true)
-            self.Sawer_Eye:DrawShadow(false)
             self.Sawer_Eye.VJ_NPC_Class = self.VJ_NPC_Class
             self:SetRelationshipMemory(self.Sawer_Eye, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
             self:DeleteOnRemove(self.Sawer_Eye)
@@ -192,7 +194,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                     self.Sawer_Eye:Remove()
                     self:RemoveFlags(FL_NOTARGET)
                     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-                    self.Sawer_NextDownT = CurTime() + math.Rand(5,10)
+                    self.Sawer_NextDownT = CurTime() + math_rand(5,10)
                 end
             end)
         end
@@ -220,7 +222,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

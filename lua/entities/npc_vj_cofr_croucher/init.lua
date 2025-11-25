@@ -14,9 +14,11 @@ ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(10, 0, -30),
 }
+
+local math_random = math.random
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
-    local slowerBody = math.random(1,3)
+    local slowerBody = math_random(1,3)
     if slowerBody == 1 then
         self.Slower_Skin = 0
         self:SetBodygroup(0,0)

@@ -52,6 +52,9 @@ ENT.SoundTbl_Impact = {
 //ENT.Sewmo_Sleep = false
 ENT.Sewmo_WireBroken = false
 ENT.Sewmo_Skin = 0
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sewmo_Init()
     self.SoundTbl_Alert = {
@@ -97,7 +100,7 @@ function ENT:OnInput(key, activator, caller, data)
         if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
         if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -160,7 +163,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if self.Sewmo_WireBroken or self.Dead then return end
     if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
-        if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math.random(1,5) == 1 then
+        if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math_random(1,5) == 1 then
             self.Sewmo_WireBroken = true
             self:PlayAnim(ACT_SIGNAL1, true, false, false)
         end
@@ -201,7 +204,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

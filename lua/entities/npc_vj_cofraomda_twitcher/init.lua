@@ -15,6 +15,8 @@ ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 5),
 }
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
@@ -32,7 +34,7 @@ function ENT:TwitcherSounds()
         "vj_cofr/aom/twitcher/zo_pain1.wav",
         "vj_cofr/aom/twitcher/zo_pain2.wav"
     }
-    local twitcherSounds = math.random(1,2)
+    local twitcherSounds = math_random(1,2)
     if twitcherSounds == 1 then
         self.SoundTbl_Alert = {
             "vj_cofr/aom/twitcher/zo_alert10.wav",

@@ -4,6 +4,8 @@ include('shared.lua')
 
 local table_insert = table.insert
 local table_remove = table.remove
+local math_random = math.random
+local math_rand = math.Rand
 
 ENT.Monster = {
     {class="npc_vj_cofraom_twitcher1", chance = 1},
@@ -113,7 +115,6 @@ function ENT:Initialize()
     self:SetSolid(SOLID_NONE)
     self:SetPos(Vector(0, 0, 0))
     self:SetNoDraw(true)
-    self:DrawShadow(false)
 
     self.IsActivated = tobool(GetConVarNumber("VJ_COFR_MapSpawner_Enabled"))
     self.COFR_SpawnDistance = GetConVarNumber("VJ_COFR_MapSpawner_SpawnMax")
@@ -128,14 +129,14 @@ function ENT:Initialize()
     self.tbl_SpawnedBossMonster = {}
     self.NextAICheckTime = CurTime() + 5
     self.NextMonsterSpawnTime = CurTime() + 1
-    self.NextBossMonsterSpawnTime = CurTime() + math.random(10,20)
-    self.NextHordeSpawnTime = CurTime() + math.Rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
+    self.NextBossMonsterSpawnTime = CurTime() + math_random(10,20)
+    self.NextHordeSpawnTime = CurTime() + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
     self.DidStartMusic = false
     self.NextMusicSwitchT = CurTime() + 1
     self.NextAIBossCheckTime = CurTime() + 5
     self.HordeSpawnRate = 0.19
     self.MaxBossMonster = 2
-    self.NextAmbientSoundT = CurTime() + math.Rand(1,30)
+    self.NextAmbientSoundT = CurTime() + math_rand(1,30)
     self.CanSpawnBossMonster = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -146,7 +147,6 @@ function ENT:CheckVisibility(pos, ent, mdl)
     check:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
     check:Spawn()
     check:SetNoDraw(true)
-    check:DrawShadow(false)
     self:DeleteOnRemove(check)
     timer.Simple(0, function()
         SafeRemoveEntity(check)
@@ -241,10 +241,10 @@ end
 function ENT:FindSpawnPosition(getClosest, findHidden)
     local nodes = self.nodePositions
     local navareas = self.navAreas
-    local useNav = (#nodes <= 0 && #navareas > 0) or (#navareas > 0 && #nodes > 0 && math.random(1,2) == 1) or false
+    local useNav = (#nodes <= 0 && #navareas > 0) or (#navareas > 0 && #nodes > 0 && math_random(1,2) == 1) or false
     local pos = false
     if useNav then
-        local getHidden = findHidden or math.random(1,3) == 1
+        local getHidden = findHidden or math_random(1,3) == 1
         local testEnt = self:GetRandomEnemy()
         pos = getClosest && self:GetClosestNavPosition(testEnt, getHidden) or getHidden && self:FindHiddenNavPoint(testEnt) or self:FindRandomNavPoint(testEnt)
     else
@@ -324,10 +324,10 @@ function ENT:Think()
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
             for _,v in ipairs(player.GetAll()) do
-                if math.random(1,2) == 1 && self.NextAmbientSoundT < CurTime() then
+                if math_random(1,2) == 1 && self.NextAmbientSoundT < CurTime() then
                     self.CoFR_PickAmbient = VJ.PICK(ambient)
                     self.COFR_Ambient = VJ.CreateSound(v, self.CoFR_PickAmbient, GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(), 100)
-                    self.NextAmbientSoundT = CurTime() + ((((SoundDuration(self.CoFR_PickAmbient) > 0) and SoundDuration(self.CoFR_PickAmbient)) or 2) + 1) + math.Rand(20,40)
+                    self.NextAmbientSoundT = CurTime() + ((((SoundDuration(self.CoFR_PickAmbient) > 0) and SoundDuration(self.CoFR_PickAmbient)) or 2) + 1) + math_rand(20,40)
                 end
             end
         end
@@ -377,19 +377,19 @@ function ENT:Think()
             if CurTime() > self.NextMonsterSpawnTime then
                 if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster -self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
                 self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
-                self.NextMonsterSpawnTime = CurTime() +math.Rand(GetConVarNumber("VJ_COFR_MapSpawner_DelayMin"), GetConVarNumber("VJ_COFR_MapSpawner_DelayMax"))
+                self.NextMonsterSpawnTime = CurTime() + math_rand(GetConVarNumber("VJ_COFR_MapSpawner_DelayMin"), GetConVarNumber("VJ_COFR_MapSpawner_DelayMax"))
             end
 
             if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
                 self.CanSpawnBossMonster = true
                 if CurTime() > self.NextBossMonsterSpawnTime then
                     self:SpawnBossMonster(self:PickMonster(self.BossMonster), self:FindSpawnPosition(true))
-                    self.NextBossMonsterSpawnTime = CurTime() + math.random(10,20)
+                    self.NextBossMonsterSpawnTime = CurTime() + math_random(10,20)
                 end
             end
 
                 -- Spawns Hordes
-            if CurTime() > self.NextHordeSpawnTime && math.random(1, self.COFR_HordeChance) == 1 then
+            if CurTime() > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 then
                 for i = 1,self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
@@ -397,7 +397,7 @@ function ENT:Think()
                     end
                 end)
             end
-            self.NextHordeSpawnTime = CurTime() + math.Rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
+            self.NextHordeSpawnTime = CurTime() + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
         end
     end
 end
@@ -441,7 +441,7 @@ function ENT:PickMonster(tbl)
     local ent = false
     for _,v in RandomPairs(tbl) do
         if !useMax then
-            if math.random(1, v.chance) == 1 then
+            if math_random(1, v.chance) == 1 then
                 ent = v.class
                 break
             end
@@ -461,7 +461,7 @@ function ENT:SpawnMonster(ent, pos, isMob)
     if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster then return end
     local Monster = ents.Create(ent)
     Monster:SetPos(pos)
-    Monster:SetAngles(Angle(0,math.random(0,360),0))
+    Monster:SetAngles(Angle(0,math_random(0,360),0))
     Monster:Spawn()
     table_insert(self.tbl_SpawnedNPCs, Monster)
     if isMob then
@@ -492,7 +492,7 @@ function ENT:SpawnBossMonster(ent, pos)
 
     local Boss = ents.Create(ent)
     Boss:SetPos(pos)
-    Boss:SetAngles(Angle(0, math.random(0,360), 0))
+    Boss:SetAngles(Angle(0, math_random(0,360), 0))
     Boss:Spawn()
     Boss.SightAngle = 360
     Boss.EnemyXRayDetection = true

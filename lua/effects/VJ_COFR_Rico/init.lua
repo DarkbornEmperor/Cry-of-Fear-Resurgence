@@ -3,6 +3,9 @@
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
+local math_random = math.random
+local math_rand = math.Rand
+
 function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect name Ricochet you illiterate boi
     self.Pos = data:GetOrigin()
     self.Size = data:GetScale()
@@ -10,19 +13,19 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
     local Emitter = ParticleEmitter(self.Pos)
     if Emitter == nil then return end
 
-    sound.Play("vj_cofr/fx/ric" .. math.random(1,5) .. ".wav", self.Pos, 80, 100)
+    sound.Play("vj_cofr/fx/ric" .. math_random(1,5) .. ".wav", self.Pos, 80, 100)
 
     /*if GetConVar("VJ_COFR_SparkFX"):GetInt() == 1 then*/
-        for i = 1,math.random(5,15) do
+        for i = 1,math_random(5,15) do
             local particle = Emitter:Add("vj_cofr/tracer_middle", self.Pos)
-            particle:SetVelocity(VectorRand() *math.Rand(100,350))
-            particle:SetDieTime(math.Rand(0.1,1))
+            particle:SetVelocity(VectorRand() * math_rand(100,350))
+            particle:SetDieTime(math_rand(0.1,1))
             particle:SetStartAlpha(200)
             particle:SetEndAlpha(0)
             particle:SetStartSize(1)
             particle:SetEndSize(3)
-            particle:SetRoll(math.random(0,360))
-            particle:SetGravity(Vector(math.random(-300,300), math.random(-300,300), math.random(-300,-700)))
+            particle:SetRoll(math_random(0,360))
+            particle:SetGravity(Vector(math_random(-300,300), math_random(-300,300), math_random(-300,-700)))
             particle:SetCollide(true)
             particle:SetBounce(0.9)
             particle:SetAirResistance(120)
@@ -40,10 +43,10 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
     fx:SetDieTime(0.15)
     fx:SetStartAlpha(255)
     fx:SetEndAlpha(0)
-    fx:SetStartSize(self.Size or math.random(5,8))
+    fx:SetStartSize(self.Size or math_random(5,8))
     fx:SetEndSize(5)
-    fx:SetRoll(math.Rand(180,360))
-    fx:SetRollDelta(math.Rand(-1,1))
+    fx:SetRoll(math_rand(180,360))
+    fx:SetRollDelta(math_rand(-1,1))
     fx:SetColor(255, 255, 255)
 
     Emitter:Finish()

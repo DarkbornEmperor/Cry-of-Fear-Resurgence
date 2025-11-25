@@ -57,6 +57,9 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Icky_BlinkingT = 0
+
+local math_rand = math.Rand
+local math_clamp = math.Clamp
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
@@ -109,7 +112,7 @@ function ENT:OnThink()
                 end
             end
         end)
-        self.Icky_BlinkingT = CurTime() + math.Rand(2,3.5)
+        self.Icky_BlinkingT = CurTime() + math_rand(2,3.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,7 +120,7 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
     -- Increase its health when it deals damage (Up to 2x its max health)
     -- If the enemy is less health than its melee attack, then use the enemy's health as the addition
     if status == "PreDamage" then
-        self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth() * 2))
+        self:SetHealth(math_clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth() * 2))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

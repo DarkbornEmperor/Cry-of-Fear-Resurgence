@@ -62,6 +62,8 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Twitcher_Invisible = false
 ENT.Twitcher_Transparent = false
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
@@ -225,11 +227,11 @@ function ENT:Twitcher_Init()
         self:DrawShadow(false)
     end
     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
-        if math.random(1,10) == 1 then
+        if math_random(1,10) == 1 then
             self.Twitcher_Invisible = true
             self:SetNoDraw(true)
 
-        elseif math.random(1,10) == 1 then
+        elseif math_random(1,10) == 1 then
             self.Twitcher_Transparent = true
             self:SetSkin(1) -- For the Remod twitcher#_zomb & twitcher#_headless models to avoid transparency issues
             self:SetRenderFX(kRenderFxDistort)
@@ -277,7 +279,7 @@ function ENT:TwitcherSounds()
         end
     end
     if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 1 then
-        local twitcherSounds = math.random(1,2)
+        local twitcherSounds = math_random(1,2)
         if twitcherSounds == 1 then
             self.SoundTbl_Alert = {
                 "vj_cofr/aom/twitcher/zo_alert10.wav",
@@ -314,7 +316,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -326,7 +328,7 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 && self.Twitcher_Invisible then
+    if math_random(1,3) == 1 && self.Twitcher_Invisible then
         self:PlaySoundSystem("Alert", "vj_cofr/aom/twitcher/skuggfa.wav")
     end
 end
@@ -381,7 +383,7 @@ end
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math.random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 /*-----------------------------------------------

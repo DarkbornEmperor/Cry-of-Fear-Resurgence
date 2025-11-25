@@ -7,6 +7,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/citalopram.mdl"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_Init()
     self.SoundTbl_Alert = {
@@ -17,7 +19,7 @@ function ENT:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if math.random(1,3) == 1 then
+    if math_random(1,3) == 1 then
         self:PlaySoundSystem("Alert", "vj_cofr/cof/citalopram/citalopramscream.wav")
     end
 end

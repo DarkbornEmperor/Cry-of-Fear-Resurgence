@@ -70,6 +70,8 @@ util.AddNetworkString("VJ_COFR_Drowned_Damage")
 
 local nwName = "VJ_COFR_Drowned_Controller"
 util.AddNetworkString(nwName)
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_Init()
     self.SoundTbl_Alert = {
@@ -96,7 +98,7 @@ function ENT:Drowned_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if math.random(1,2) == 1 then
+    if math_random(1,2) == 1 then
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 78), Vector(-13, -13, 0))
@@ -114,7 +116,7 @@ function ENT:OnInput(key, activator, caller, data)
         ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("baby")).Pos, self:GetAngles())
         self:SetBodygroup(0,1)
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop".. math.random(3,4) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop".. math_random(3,4) .. ".wav", 75, 100)
         if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
