@@ -11,7 +11,7 @@ if CLIENT then
     function ENT:Initialize()
         local function GetStrangers()
         local strangers = {}
-        for _,v in pairs(ents.FindByClass("npc_vj_cofrce_stranger")) do
+        for _,v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do
             if IsValid(v) then
                 table_insert(strangers, v)
             end

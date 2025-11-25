@@ -425,6 +425,7 @@ end)
 
 if SERVER then
     util.AddNetworkString("VJ_COFR_Drowned_ScreenEffect")
+    util.AddNetworkString("VJ_COFR_Drowned_ScreenEffect_Survive")
     util.AddNetworkString("VJ_COFR_Stranger_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Ghost_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Addiction_ScreenEffect")
@@ -434,7 +435,7 @@ if CLIENT then
     net.Receive("VJ_COFR_Drowned_ScreenEffect", function()
         local ply = net.ReadEntity()
         local hookName = "VJ_COFR_Drowned_ScreenEffect" .. ply:EntIndex()
-        local colorRed = Color(127, 0, 0, 255)
+        local colorRed = Color(127, 0, 0, 155)
 
         ply.VJ_COFR_Drowned_ScreenEffect_Time = CurTime() + 0.1
 
@@ -443,13 +444,28 @@ if CLIENT then
                 hook.Remove("RenderScreenspaceEffects", hookName)
                 return
             end
-            ply:ScreenFade(SCREENFADE.IN, colorRed, 1, 0)
+            ply:ScreenFade(SCREENFADE.IN, colorRed, 0.1, 0)
         end)
     end)
+    /*net.Receive("VJ_COFR_Drowned_ScreenEffect_Survive", function()
+        local ply = net.ReadEntity()
+        local hookName = "VJ_COFR_Drowned_ScreenEffect_Survive" .. ply:EntIndex()
+        local colorRed = Color(255, 255, 255, 50)
+
+        ply.VJ_COFR_Drowned_ScreenEffect_Time = CurTime() + 0.1
+
+        hook.Add("RenderScreenspaceEffects", hookName, function()
+            if !IsValid(ply) or IsValid(ply) && (CurTime() > ply.VJ_COFR_Drowned_ScreenEffect_Time) then
+                hook.Remove("RenderScreenspaceEffects", hookName)
+                return
+            end
+            ply:ScreenFade(SCREENFADE.IN, colorRed, 0.1, 0)
+        end)
+    end)*/
     net.Receive("VJ_COFR_Stranger_ScreenEffect", function()
         local ply = net.ReadEntity()
         local hookName = "VJ_COFR_Stranger_ScreenEffect" .. ply:EntIndex()
-        local colorBlack = Color(0, 0, 0, 255)
+        local colorBlack = Color(0, 0, 0, 155)
 
         ply.VJ_COFR_Stranger_ScreenEffect_Time = CurTime() + 0.1
 
@@ -464,7 +480,7 @@ if CLIENT then
     net.Receive("VJ_COFR_Ghost_ScreenEffect", function()
         local ply = net.ReadEntity()
         local hookName = "VJ_COFR_Ghost_ScreenEffect" .. ply:EntIndex()
-        local colorRed = Color(255, 0, 0, 255)
+        local colorRed = Color(255, 0, 0, 155)
 
         ply.VJ_COFR_Ghost_ScreenEffect_Time = CurTime() + 0.1
 
@@ -479,7 +495,7 @@ if CLIENT then
     net.Receive("VJ_COFR_Addiction_ScreenEffect", function()
     local ply = net.ReadEntity()
     local hookName = "VJ_COFR_Addiction_ScreenEffect" .. ply:EntIndex()
-    local colorRed = Color(127, 0, 0, 255)
+    local colorRed = Color(127, 0, 0, 155)
 
     ply.VJ_COFR_Stranger_ScreenEffect_Time = CurTime() + 0.1
 

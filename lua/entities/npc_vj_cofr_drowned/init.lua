@@ -180,6 +180,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 net.Send(enemy)
             end
             timer.Simple(5, function() if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
+                    if self.HasSounds then VJ.EmitSound(enemy, "vj_cofr/fx/gibbed.wav", 75, 100) end
                     if enemy.IsVJBaseSNPC_Human then enemy:TakeDamage(enemy:Health(), self, self) elseif enemy:IsPlayer() then enemy:TakeDamage(enemy:Health() + enemy:Armor(), self, self) else enemy:TakeDamage(200, self, self) end
                     self:Drowned_Damage()
                     self.Drowned_NextEnemyDamageT = CurTime() + 5
