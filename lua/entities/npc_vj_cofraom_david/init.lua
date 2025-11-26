@@ -377,7 +377,7 @@ function ENT:Police_Init()
             "vj_cofr/cof/police/lhealth1.wav",
             "vj_cofr/cof/police/lhealth2.wav",
             "vj_cofr/cof/police/lhealth3.wav",
-            "vj_cofr/cof/police/lhealth4.wav",
+            "vj_cofr/cof/police/lhealth4.wav"
         }
         self.SoundTbl_MedicReceiveHeal = {
             "vj_cofr/cof/police/morphine1.wav",
@@ -586,12 +586,12 @@ function ENT:OnThink()
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 then return end
     local controller = self.VJ_TheController
     if IsValid(controller) then
-    if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then
-    if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]), true) end
-    if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]), true) end
-    if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]), true) end
-        self.CoFR_NextWepSwitchT = CurTime() + 1
-    end
+        if controller:KeyDown(IN_WALK) && CurTime() > self.CoFR_NextWepSwitchT && self.WeaponInventory_MeleeList then
+            if self.Human_Type == 1 or self.Human_Type == 2 or self.Human_Type == 4 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]), true) end
+            if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]), true) end
+            if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]), true) end
+            self.CoFR_NextWepSwitchT = CurTime() + 1
+        end
         /*if controller:KeyDown(IN_DUCK) && !self.CoFR_Crouching then
             self.CoFR_Crouching = true
         else
