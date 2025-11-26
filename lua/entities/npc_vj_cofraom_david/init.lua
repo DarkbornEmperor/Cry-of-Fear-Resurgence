@@ -234,7 +234,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:David_Init()
     if !self.Weapon_Disabled && self.Human_Type == 0 then
-        if !self.WeaponInventory_MeleeList then
+        if !self.WeaponInventory_MeleeList && GetConVar("VJ_COFR_Human_MeleeWep"):GetInt() == 1 then
             self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMDC))
         else
             self:Give(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]))
@@ -264,7 +264,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Simon_Init()
     if !self.Weapon_Disabled && self.Human_Type == 1 then
-        if !self.WeaponInventory_MeleeList then
+        if !self.WeaponInventory_MeleeList && GetConVar("VJ_COFR_Human_MeleeWep"):GetInt() == 1 then
             self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
         else
             self:Give(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]))
@@ -346,7 +346,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Police_Init()
     if !self.Weapon_Disabled && self.Human_Type == 2 then
-        if !self.WeaponInventory_MeleeList then
+        if !self.WeaponInventory_MeleeList && GetConVar("VJ_COFR_Human_MeleeWep"):GetInt() == 1 then
             self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
         else
             self:Give(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]))
@@ -397,7 +397,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DavidClassic_Init()
     if !self.Weapon_Disabled && self.Human_Type == 3 then
-        if !self.WeaponInventory_MeleeList then
+        if !self.WeaponInventory_MeleeList && GetConVar("VJ_COFR_Human_MeleeWep"):GetInt() == 1 then
             self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_AOMC))
         else
             self:Give(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]))
@@ -430,7 +430,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Doctor_Init()
     if !self.Weapon_Disabled && self.Human_Type == 4 then
-        if !self.WeaponInventory_MeleeList then
+        if !self.WeaponInventory_MeleeList && GetConVar("VJ_COFR_Human_MeleeWep"):GetInt() == 1 then
             self:Give(VJ.PICK(VJ_COFR_MELEEWEAPONS_COF))
         else
             self:Give(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]))

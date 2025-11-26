@@ -1,4 +1,5 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cofcc/robert/facelol"
+    "$nocull" "1"
 }

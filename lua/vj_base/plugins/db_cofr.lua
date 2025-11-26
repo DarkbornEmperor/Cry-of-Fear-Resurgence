@@ -262,6 +262,7 @@
     VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Suicider_NewSound", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_OldWepSounds", 0, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_Human_MeleeWep", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Human_WepSwitch", 1, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Human_Regen", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})
@@ -328,6 +329,7 @@ if CLIENT then
                     VJ_COFR_Suicider_ExtraPistol = "0",
                     VJ_COFR_Suicider_NewSound = "1",
                     VJ_COFR_OldWepSounds = "0",
+                    VJ_COFR_Human_MeleeWep = "1",
                     VJ_COFR_Human_WepSwitch = "1",
                     VJ_COFR_Human_Regen = "0",
                     VJ_COFR_Human_ReloadCover = "0",
@@ -362,6 +364,7 @@ if CLIENT then
             panel:CheckBox("Enable Updated Glock Sound For Suiciders & Book Simon?", "VJ_COFR_Suicider_NewSound")
             panel:CheckBox("Enable Old Weapon Sounds?", "VJ_COFR_OldWepSounds")
             panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
+            panel:CheckBox("Enable Human NPCs Spawning With Melee Weapons?", "VJ_COFR_Human_MeleeWep")
             panel:CheckBox("Enable Human NPCs Switching Weapons?", "VJ_COFR_Human_WepSwitch")
             panel:CheckBox("Enable Human NPCs Having HP Regen?", "VJ_COFR_Human_Regen")
             panel:CheckBox("Enable Human NPCs Finding Cover To Reload?", "VJ_COFR_Human_ReloadCover")

@@ -285,7 +285,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
             self.HasDeathSounds = false
             self:RemoveAllDecals()
-            dmginfo:SetDamage(self:Health())
             if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
             elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
             elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
