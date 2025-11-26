@@ -576,7 +576,7 @@ function ENT:TranslateActivity(act)
         return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
     elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
         return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
-    elseif act == ACT_IDLE && self:GetNPCState() == NPC_STATE_ALERT then
+    elseif act == ACT_IDLE && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) then
         return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
     end
     return self.BaseClass.TranslateActivity(self,act)
