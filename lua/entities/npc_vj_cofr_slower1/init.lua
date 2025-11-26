@@ -210,6 +210,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     if GetConVar("VJ_COFR_Slower_HeadGib"):GetInt() == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or (self.Slower_Type == 3 && self:GetModel() != "models/vj_cofr/cof/slower3_beta.mdl") or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end
     if status == "Init" && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
         self.HasDeathSounds = false
+        self:RemoveAllDecals()
         if self.Slower_Skin == 0 then self:SetBodygroup(0,3)
         elseif self.Slower_Skin == 1 then self:SetBodygroup(0,4)
         elseif self.Slower_Skin == 2 then self:SetBodygroup(0,5) end

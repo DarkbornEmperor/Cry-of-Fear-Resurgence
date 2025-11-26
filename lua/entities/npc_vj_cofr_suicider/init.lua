@@ -129,6 +129,7 @@ function ENT:OnInput(key, activator, caller, data)
         elseif self.Suicider_P345 then
             VJ.EmitSound(self, self.SoundTbl_P345, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
         end
+        self:RemoveAllDecals()
         self:FireFX()
         self:DropGlock()
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math_random(1,2)..".wav", 75, 100)
@@ -283,6 +284,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
         if !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
             self.HasDeathSounds = false
+            self:RemoveAllDecals()
             dmginfo:SetDamage(self:Health())
             if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
             elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)

@@ -113,6 +113,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "axe_grab" then
         if self:GetBodygroup(0) == 0 then self:SetBodygroup(0,1)
         elseif self:GetBodygroup(0) == 1 then self:SetBodygroup(0,0) end
+        self:RemoveAllDecals()
         VJ.EmitSound(self, "vj_cofr/aom/addiction/david_axegrab.wav", 75, 100)
         ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("axe")).Pos, self:GetAngles())
     elseif key == "death" then

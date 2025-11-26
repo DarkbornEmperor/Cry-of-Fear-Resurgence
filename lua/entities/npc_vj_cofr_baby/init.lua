@@ -80,6 +80,7 @@ function ENT:OnInput(key, activator, caller, data)
         self:PlayFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
+        self:RemoveAllDecals()
         ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
         self:SetBodygroup(0,1)
