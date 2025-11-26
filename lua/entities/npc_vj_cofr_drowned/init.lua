@@ -191,7 +191,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 net.Send(enemy)
             end
             hook.Add("Think", "VJ_COFR_SuicideCheck" .. enemy:EntIndex(), function()
-                if (enemy:IsPlayer() && !enemy:Alive()) or (enemy.VJ_ID_Living && enemy:Health() <= 0) or enemy.Dead or !IsValid(enemy) or self.Dead or !IsValid(self) && enemy.Drowned_SuicideAttempt then hook.Remove("Think", "VJ_COFR_SuicideCheck" .. enemy:EntIndex()) enemy.Drowned_SuicideAttempt = false timer.Remove("VJ_COFR_Suicide" .. enemy:EntIndex()) timer.Remove("VJ_COFR_Survive" .. enemy:EntIndex()) self.Drowned_NextEnemyDamageT = CurTime() + 0 end
+                if (enemy:IsPlayer() && !enemy:Alive()) or (enemy.VJ_ID_Living && enemy:Health() <= 0) or (enemy.Dead or !IsValid(enemy) or self.Dead or !IsValid(self)) && enemy.Drowned_SuicideAttempt then hook.Remove("Think", "VJ_COFR_SuicideCheck" .. enemy:EntIndex()) enemy.Drowned_SuicideAttempt = false timer.Remove("VJ_COFR_Suicide" .. enemy:EntIndex()) timer.Remove("VJ_COFR_Survive" .. enemy:EntIndex()) self.Drowned_NextEnemyDamageT = CurTime() + 0 end
             end)
             timer.Create("VJ_COFR_Suicide" .. enemy:EntIndex(), SoundDuration("vj_cofr/cof/drowned/suicide_attempt.wav"), 1, function()
                 if IsValid(self) && IsValid(enemy) && enemy:Visible(self) && !self.Dead then
