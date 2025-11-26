@@ -646,7 +646,7 @@ function ENT:OnThinkActive()
         end
         if selectType && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math_random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() * 0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
             if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC[selectType]),true) end
-            if self.Human_Type == 1 or self.Human_Type == 2 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]),true) end
+            if self.Human_Type == 1 or self.Human_Type == 2 or self.Human_Type == 4 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]),true) end
             if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC[selectType]),true) end
             wep = self:GetActiveWeapon()
             self.NextWeaponSwitchT = CurTime() + math_rand(6, math_round(math_clamp(wep:Clip1() * 0.5, 1, wep:Clip1())))
