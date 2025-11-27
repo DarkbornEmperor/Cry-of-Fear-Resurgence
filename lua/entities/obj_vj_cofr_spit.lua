@@ -29,13 +29,15 @@ ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
 ENT.SoundTbl_OnCollide = "vj_cofr/cof/flygare/flygare_acid_hit.wav"
 ENT.CollisionDecal = "VJ_COFR_Blood_Red_Large"
+
+local math_rand = math.Rand
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetNoDraw(true)
-    self.Scale = math.Rand(0.5,1.15)
+    self.Scale = math_rand(0.5,1.15)
     local spitSpr = ents.Create("env_sprite")
-    spitSpr:SetKeyValue("model", "vj_cofr/sprites/spit_red.vmt")
-    spitSpr:SetKeyValue("rendercolor", "255 255 255")
+    spitSpr:SetKeyValue("model", "vj_cofr/sprites/spit.vmt")
+    spitSpr:SetKeyValue("rendercolor", "130 19 10")
     spitSpr:SetKeyValue("GlowProxySize", "1.0")
     spitSpr:SetKeyValue("HDRColorScale", "1.0")
     spitSpr:SetKeyValue("renderfx", "0")
@@ -44,7 +46,7 @@ function ENT:Init()
     spitSpr:SetKeyValue("disablereceiveshadows", "0")
     spitSpr:SetKeyValue("mindxlevel", "0")
     spitSpr:SetKeyValue("maxdxlevel", "0")
-    //spitSpr:SetKeyValue("framerate", "40.0")
+    spitSpr:SetKeyValue("framerate", "15.0")
     spitSpr:SetKeyValue("spawnflags", "0")
     spitSpr:SetKeyValue("scale", tostring(self.Scale))
     spitSpr:SetPos(self:GetPos())
@@ -55,7 +57,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)
     local spr = ents.Create("env_sprite")
-    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat_red.vmt")
+    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat.vmt")
+    spr:SetKeyValue("rendercolor", "130 19 10")
     spr:SetKeyValue("GlowProxySize", "1.0")
     spr:SetKeyValue("HDRColorScale", "1.0")
     spr:SetKeyValue("renderfx", "0")
@@ -64,7 +67,7 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("disablereceiveshadows", "0")
     spr:SetKeyValue("mindxlevel", "0")
     spr:SetKeyValue("maxdxlevel", "0")
-    //spr:SetKeyValue("framerate", "15.0")
+    spr:SetKeyValue("framerate", "15.0")
     spr:SetKeyValue("spawnflags", "0")
     spr:SetKeyValue("scale", tostring(self.Scale * 0.3))
     spr:SetPos(data.HitPos)

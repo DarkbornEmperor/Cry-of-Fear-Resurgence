@@ -1,6 +1,7 @@
 "Sprite"
 {
-    "$basetexture" "vj_cofr/sprites/shockwave_test"
     "$spriteorientation" "vp_parallel_oriented"
     "$spriteorigin" "[0.50 0.50]"
+    "$additive" "1"
+    "$basetexture" "vj_cofr/sprites/shockwave_test"
 }

@@ -31,6 +31,8 @@ local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500
+
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
     phys:Wake()
@@ -41,6 +43,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self.Scale = math_rand(0.5,1.15)
     VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_headshoot.wav", 75, 100)
     timer.Simple(10, function() if IsValid(self) then self:Remove() VJ.EmitSound(self, "vj_cofr/cof/carcass/rb_headdeath.wav", 75, 100) self:OnDestroy() end end)
 end
@@ -74,9 +77,9 @@ function ENT:OnDamaged(dmginfo)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)
-    self.Scale = math.Rand(0.5,1.15)
     local spr = ents.Create("env_sprite")
-    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat_red.vmt")
+    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat_white.vmt")
+    spr:SetKeyValue("rendercolor", "130 19 10")
     spr:SetKeyValue("GlowProxySize", "1.0")
     spr:SetKeyValue("HDRColorScale", "1.0")
     spr:SetKeyValue("renderfx", "0")
@@ -85,10 +88,10 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("disablereceiveshadows", "0")
     spr:SetKeyValue("mindxlevel", "0")
     spr:SetKeyValue("maxdxlevel", "0")
-    //spr:SetKeyValue("framerate", "15.0")
+    spr:SetKeyValue("framerate", "15.0")
     spr:SetKeyValue("spawnflags", "0")
     spr:SetKeyValue("scale", tostring(self.Scale * 0.3))
-    spr:SetPos(self:GetPos())
+    spr:SetPos(data.HitPos)
     spr:Spawn()
     spr:Fire("Kill", "", 0.3)
     timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
