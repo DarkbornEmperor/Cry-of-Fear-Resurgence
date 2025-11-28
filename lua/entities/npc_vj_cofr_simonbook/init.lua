@@ -452,8 +452,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             })
 
         elseif self.BookSimon_TMP then
-            self.BookSimon_NextTMPSoundT = CurTime() +0.1
-            if math_random(1,7) == 1 && self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
+            self.BookSimon_NextTMPSoundT = CurTime() + 0.1
+            if /*math_random(1,7) == 1 &&*/ self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
                 self.TMPLoop:Stop()
                 self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
                 self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)

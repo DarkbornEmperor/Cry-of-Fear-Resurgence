@@ -362,6 +362,7 @@ if CLIENT then
             panel:CheckBox("Enable Flashlight For Assistor & Police Officers?", "VJ_COFR_Flashlight")
             panel:CheckBox("Enable P345 For Suiciders?", "VJ_COFR_Suicider_ExtraPistol")
             panel:CheckBox("Enable Updated Glock Sound For Suiciders & Book Simon?", "VJ_COFR_Suicider_NewSound")
+            panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
             panel:CheckBox("Enable Old Weapon Sounds?", "VJ_COFR_OldWepSounds")
             panel:ControlHelp("Note: Be sure to only have one option enabled for Suicider & Book Simon weapon sounds.")
             panel:CheckBox("Enable Human NPCs Spawning With Melee Weapons?", "VJ_COFR_Human_MeleeWep")

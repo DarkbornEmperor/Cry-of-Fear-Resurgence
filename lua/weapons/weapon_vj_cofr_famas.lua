@@ -125,7 +125,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
     if status == "PostFire" then
         if self.Primary.UsesLoopedSound then
             self.PrimaryLoopSoundT = CurTime() + 0.1
-            if math_random(1,7) == 1 && self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
+            if /*math_random(1,7) == 1 &&*/ self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
                 self.PrimaryLoop:Stop()
                 self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
                 self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
@@ -159,12 +159,12 @@ function SWEP:OnThink()
         if CurTime() > self.PrimaryLoopSoundT && self.PrimaryLoopSoundT > 0 then
             self.PrimaryLoop:Stop()
             self.PrimaryLoopSoundT = 0
-        if IsValid(owner) then
-        local fireSd = VJ.PICK(self.Primary.EndSound)
-        if fireSd != false then
-            sound.Play(fireSd, owner:GetPos(), self.Primary.SoundLevel, math_random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
-        end
-    end
+            if IsValid(owner) then
+                local fireSd = VJ.PICK(self.Primary.EndSound)
+                if fireSd != false then
+                    sound.Play(fireSd, owner:GetPos(), self.Primary.SoundLevel, math_random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
+                end
+            end
         elseif self.PrimaryLoopSoundT > CurTime() && !self.PrimaryLoop:IsPlaying() then
             self.PrimaryLoop:Play()
         end

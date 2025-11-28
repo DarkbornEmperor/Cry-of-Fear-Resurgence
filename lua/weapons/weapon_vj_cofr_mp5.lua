@@ -125,7 +125,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
     if status == "PostFire" then
         if self.Primary.UsesLoopedSound then
             self.PrimaryLoopSoundT = CurTime() +0.1
-            if math_random(1,7) == 1 && self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
+            if /*math_random(1,7) == 1 &&*/ self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
                 self.PrimaryLoop:Stop()
                 self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
                 self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
