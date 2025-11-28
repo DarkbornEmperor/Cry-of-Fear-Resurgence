@@ -100,8 +100,6 @@ function ENT:Init()
     self:Sawer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local math_angApproach = math.ApproachAngle
---
 function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
