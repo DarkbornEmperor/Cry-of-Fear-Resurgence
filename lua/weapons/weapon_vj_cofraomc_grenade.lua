@@ -37,6 +37,7 @@ SWEP.Primary.DisableBulletCode = true
 SWEP.HasDryFireSound = false
 SWEP.PrimaryEffects_SpawnMuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
+SWEP.PrimaryEffects_SpawnDynamicLight = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.7)
