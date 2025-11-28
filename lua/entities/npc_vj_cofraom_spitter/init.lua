@@ -139,6 +139,16 @@ function ENT:Controller_Initialize(ply, controlEnt)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent)
+    if math.random(1,3) == 1 then
+        if ent.VJ_ID_Headcrab then
+            self:PlayAnim("seecrab", true, false, true)
+        else
+            self:PlayAnim(ACT_HOP, true, false, true)
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end

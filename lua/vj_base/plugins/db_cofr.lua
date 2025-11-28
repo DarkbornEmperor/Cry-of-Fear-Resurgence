@@ -456,7 +456,7 @@ if SERVER then
         local npcClass = net.ReadString()
         local ply = net.ReadEntity()
         ply.VJ_COFR_SpawnedNPCClass = npcClass
-        -- print(ply,"Added NPC class", npcClass)
+        //print(ply,"Added NPC class", npcClass)
     end)
 end
 
@@ -559,7 +559,7 @@ local excludedMats = {
     [MAT_ANTLION] = true,
     [MAT_ALIENFLESH] = true,
     [MAT_BLOODYFLESH] = true,
-    [MAT_FLESH] = true,
+    [MAT_FLESH] = true
 }
 function VJ.COFR_Effect_Impact(tr)
     if !excludedMats[tr.MatType] then
@@ -581,7 +581,7 @@ function VJ_COFR_DeathCode(ent)
     ent.HasBloodPool = false
     ent:AddFlags(FL_NOTARGET) -- So normal NPCs can stop shooting at the corpse
     if GetConVar("VJ_COFR_DropAmmo"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua", "GAME") then return end
-    ent.DropCoFAmmo = {"weapon_cof_syringe", "ent_cof_glock_ammo", "ent_cof_g43_ammo","ent_cof_m16_ammo", "ent_cof_p345_ammo", "ent_cof_revolver_ammo", "ent_cof_rifle_ammo", "ent_cof_shotgun_ammo", "ent_cof_tmp_ammo", "ent_cof_vp70_ammo"}
+    ent.DropCoFAmmo = {"weapon_cof_syringe", "ent_cof_glock_ammo", "ent_cof_g43_ammo", "ent_cof_m16_ammo", "ent_cof_p345_ammo", "ent_cof_revolver_ammo", "ent_cof_rifle_ammo", "ent_cof_shotgun_ammo", "ent_cof_tmp_ammo", "ent_cof_vp70_ammo"}
     local pickedAmmoType = VJ.PICK(ent.DropCoFAmmo)
     if pickedAmmoType != false then
         local ammoDrop = ents.Create(pickedAmmoType)
