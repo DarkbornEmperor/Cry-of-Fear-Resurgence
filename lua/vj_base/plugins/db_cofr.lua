@@ -242,34 +242,34 @@
     })
 
     -- ConVars --
-    VJ.AddConVar("VJ_COFR_Boss_Music", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_CoFvsAoM", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Simon_Costumes", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_BookSimon_Normal", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Twitcher_Invisible", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Twitcher_RandomSounds", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Addiction_SelfDamage", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Mace_Damage", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Sawcrazy_RadiusDamage", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_FaceHead_SummonFaceless", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Slower_HeadGib", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Suicider_DropGlock", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_DropAmmo", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Suicider_Ammo", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Suicider_Headshot", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Flashlight", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Suicider_NewSound", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_OldWepSounds", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Human_MeleeWep", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Human_WepSwitch", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Human_Regen", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Human_OriginalWepDamage", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_JoeBiden", 0, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_Boss_Music", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_CoFvsAoM", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Simon_Costumes", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_BookSimon_Normal", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Twitcher_Invisible", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Twitcher_RandomSounds", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Addiction_SelfDamage", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Mace_Damage", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Sawcrazy_RadiusDamage", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_FaceHead_SummonFaceless", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Slower_HeadGib", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Suicider_DropGlock", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_DropAmmo", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Suicider_Ammo", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Suicider_Headshot", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Ghost_SlowSound", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Flashlight", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Suicider_ExtraPistol", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Suicider_NewSound", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_OldWepSounds", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Human_MeleeWep", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Human_WepSwitch", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Human_Regen", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Human_OriginalWepDamage", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_JoeBiden", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
     VJ.AddClientConVar("VJ_COFR_SparkFX", 0, "Create GoldSrc-Style Sparks On Metal Surfaces")
 
     -- Map Spawner ConVars --
@@ -277,17 +277,17 @@
     VJ.AddClientConVar("VJ_COFR_MapSpawner_Ambience", 1, "Ambience For Map Spawner")
     VJ.AddClientConVar("VJ_COFR_MapSpawner_MusicVolume", 50, "Adjust Music Volume For Map Spawner")
     VJ.AddClientConVar("VJ_COFR_MapSpawner_AmbienceVolume", 30, "Adjust Ambience Volume For Map Spawner")
-    VJ.AddConVar("VJ_COFR_MapSpawner_Enabled", 1, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_Boss", 0, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_MaxMon", 80, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_HordeCount", 35, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_SpawnMax", 2000, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_SpawnMin", 650, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_HordeChance", 100, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMin", 120, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMax", 180, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_DelayMin", 0.85, {FCVAR_ARCHIVE})
-    VJ.AddConVar("VJ_COFR_MapSpawner_DelayMax", 3, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_COFR_MapSpawner_Enabled", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_Boss", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_MaxMon", 80, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_HordeCount", 35, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_SpawnMax", 2000, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_SpawnMin", 650, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_HordeChance", 100, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMin", 120, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMax", 180, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_DelayMin", 0.85, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+    VJ.AddConVar("VJ_COFR_MapSpawner_DelayMax", 3, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 
 -- Main Configure Menu --
 if CLIENT then
@@ -420,9 +420,10 @@ if CLIENT then
 end
 
 VJ_COFR_NODEPOS = {}
+local table_insert = table.insert
 hook.Add("EntityRemoved","VJ_COFR_AddNodes", function(ent)
     if ent:GetClass() == "info_node" then
-        table.insert(VJ_COFR_NODEPOS, ent:GetPos())
+        table_insert(VJ_COFR_NODEPOS, ent:GetPos())
     end
 end)
 
@@ -432,6 +433,30 @@ if SERVER then
     util.AddNetworkString("VJ_COFR_Stranger_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Ghost_ScreenEffect")
     util.AddNetworkString("VJ_COFR_Addiction_ScreenEffect")
+    util.AddNetworkString("VJ_COFR_ControlSpawnedNPC")
+
+    hook.Add("PlayerSpawnedNPC", "VJ_COFR_ControlSpawnedNPC", function(ply, npc)
+        timer.Simple(0.01, function()
+            if IsValid(npc) && IsValid(ply) then
+                if ply.VJ_COFR_SpawnedNPCClass then
+                    if IsValid(npc) && npc:GetClass() == ply.VJ_COFR_SpawnedNPCClass then
+                        ply.VJ_COFR_SpawnedNPCClass = nil
+                        local controllerOBJ = ents.Create("obj_vj_controller")
+                        controllerOBJ.VJCE_Player = ply
+                        controllerOBJ:SetControlledNPC(npc)
+                        controllerOBJ:Spawn()
+                        controllerOBJ:StartControlling()
+                    end
+                end
+            end
+        end)
+    end)
+    net.Receive("VJ_COFR_ControlSpawnedNPC", function(len, ply)
+        local npcClass = net.ReadString()
+        local ply = net.ReadEntity()
+        ply.VJ_COFR_SpawnedNPCClass = npcClass
+        -- print(ply,"Added NPC class", npcClass)
+    end)
 end
 
 if CLIENT then
@@ -509,6 +534,23 @@ if CLIENT then
             end
             ply:ScreenFade(SCREENFADE.IN, colorRed, 0.25, 0)
         end)
+    end)
+    hook.Add("SpawnmenuIconMenuOpen", "VJ_COFR_SpawnIconOptions", function(menu, icon, contentType)
+        if contentType == "npc" then
+            local npcName = icon:GetSpawnName()
+            local NPCinfo = scripted_ents.Get(npcName)
+            if NPCinfo && (NPCinfo.IsVJBaseSNPC && NPCinfo.VJ_COFR_NPC) then
+                menu:AddSpacer()
+                menu:AddOption("Spawn as NPC", function()
+                    icon:DoClick()
+                    local ply = LocalPlayer()
+                    net.Start("VJ_COFR_ControlSpawnedNPC")
+                        net.WriteString(npcName)
+                        net.WriteEntity(ply)
+                    net.SendToServer()
+                end):SetIcon("icon16/heart.png")
+            end
+        end
     end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

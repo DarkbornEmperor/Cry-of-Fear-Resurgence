@@ -25,8 +25,12 @@ ENT.NextLeapAttackTime = 1
 ENT.LeapAttackExtraTimers = {0.6, 0.8, 1, 1.2, 1.4}
 ENT.NextAnyAttackTime_Leap = 3
 ENT.LeapAttackStopOnHit = true
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = 200
+ENT.LimitChaseDistance_Min = 0
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
+ENT.FlinchChance = 3
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -87,9 +91,33 @@ function ENT:Init()
     self:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent)
+    if self.VJ_IsBeingControlled then return end
+    if math.random(1,2) == 1 then
+        self:PlayAnim("angry", true, false, true)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
         return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Init" then
+        return !self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -134,8 +134,16 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    ply:ChatPrint("JUMP: Switch attacks")
-    ply:ChatPrint("NOTE: Switching attacks will cause a 15/20 second delay until able to switch again.")
+    ply:ChatPrint("JUMP: Switch melee")
+    ply:ChatPrint("NOTE: Switching melee will cause a 15/20 second delay until able to switch again.")
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
@@ -301,7 +309,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         end
         if attacker:IsPlayer() then
             net.Start("VJ_COFR_Addiction_ScreenEffect")
-            net.WriteEntity(attacker)
+                net.WriteEntity(attacker)
             net.Send(attacker)
         end
     end

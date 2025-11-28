@@ -1,6 +1,8 @@
-ENT.Base = "npc_vj_human_base" -- List of all base types: https://github.com/DrVrej/VJ-Base/wiki/Base-Types
+ENT.Base = "npc_vj_human_base"
 ENT.Type = "ai"
 ENT.PrintName = "David Leatherhoff (Dead) (Dark Assistance)"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Cry of Fear Resurgence"
+
+ENT.VJ_COFR_NPC = true

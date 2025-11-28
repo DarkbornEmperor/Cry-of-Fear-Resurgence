@@ -77,6 +77,18 @@ function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Unburrow")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    ply:ChatPrint("JUMP: Unburrow")
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if act == ACT_IDLE && self.Watro_Burrowed then
         return ACT_IDLE_STEALTH

@@ -66,9 +66,18 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
-    ply:ChatPrint("JUMP: Summon Faceless")
-    ply:ChatPrint("NOTE: Summoning Faceless will cause a 20 second delay until able to spawn more and the current Faceless are dead.")
+    if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 1 then
+        ply:ChatPrint("JUMP: Summon Faceless")
+        ply:ChatPrint("NOTE: Summoning Faceless will cause a 20 second delay until able to spawn more and the current Faceless are dead.")
+    end
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()

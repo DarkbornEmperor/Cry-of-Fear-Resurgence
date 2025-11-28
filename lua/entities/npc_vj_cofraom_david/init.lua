@@ -561,6 +561,20 @@ function ENT:OnInput(key, activator, caller, data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 1 then ply:ChatPrint("WALK: Switch weapon") end
+    if self.IsMedic then ply:ChatPrint("USE: Heal") end
+    //ply:ChatPrint("DUCK: Crouch")
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     if self.CoFR_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
         if (self.EnemyData.Visible or (self.EnemyData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then

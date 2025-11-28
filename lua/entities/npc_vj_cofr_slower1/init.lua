@@ -168,6 +168,17 @@ function ENT:OnInput(key, activator, caller, data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.Slower_Type == 3 then return end
     if math_random(1,3) == 1 then

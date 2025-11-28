@@ -64,6 +64,18 @@ function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Jumpscare")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    ply:ChatPrint("JUMP: Jumpscare")
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !self.Hanger_Death && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then

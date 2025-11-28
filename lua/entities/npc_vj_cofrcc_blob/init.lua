@@ -63,8 +63,20 @@ function ENT:Blob_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(350, 350, 620), Vector(-350, -350, 0))
+    self:SetSurroundingBounds(Vector(-800, -800, 0), Vector(800, 800, 700))
     self:Blob_Init()
     self.Tentacles = {}
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)

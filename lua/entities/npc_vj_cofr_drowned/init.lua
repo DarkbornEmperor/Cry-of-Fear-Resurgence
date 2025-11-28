@@ -131,27 +131,56 @@ function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("JUMP: Baby Burst")
     local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
     net.Start(nwName)
-    net.WriteBool(false)
-    net.WriteEntity(opt1)
-    net.WriteString(opt2)
-    net.WriteEntity(ply)
-    net.WriteEntity(opt3)
-    net.Send(ply)
-    function self.VJ_TheControllerEntity:OnStopControlling()
-        net.Start(nwName)
-        net.WriteBool(true)
+        net.WriteBool(false)
         net.WriteEntity(opt1)
         net.WriteString(opt2)
         net.WriteEntity(ply)
         net.WriteEntity(opt3)
+    net.Send(ply)
+    function self.VJ_TheControllerEntity:OnStopControlling()
+        net.Start(nwName)
+            net.WriteBool(true)
+            net.WriteEntity(opt1)
+            net.WriteString(opt2)
+            net.WriteEntity(ply)
+            net.WriteEntity(opt3)
         net.Send(ply)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    ply:ChatPrint("JUMP: Baby Burst")
+    local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
+    net.Start(nwName)
+        net.WriteBool(false)
+        net.WriteEntity(opt1)
+        net.WriteString(opt2)
+        net.WriteEntity(ply)
+        net.WriteEntity(opt3)
+    net.Send(ply)
+    function self.VJ_TheControllerEntity:OnStopControlling()
+        net.Start(nwName)
+            net.WriteBool(true)
+            net.WriteEntity(opt1)
+            net.WriteString(opt2)
+            net.WriteEntity(ply)
+            net.WriteEntity(opt3)
+        net.Send(ply)
+    end
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_Damage()
     net.Start("VJ_COFR_Drowned_Damage")
-    net.WriteEntity(self)
-    net.WriteEntity(self:GetEnemy())
+        net.WriteEntity(self)
+        net.WriteEntity(self:GetEnemy())
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -178,7 +207,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                     enemy.Drowned_SuicideAttempt = false
                     if enemy:IsPlayer() then
                         net.Start("VJ_COFR_Survive_ScreenEffect")
-                        net.WriteEntity(enemy)
+                            net.WriteEntity(enemy)
                         net.Send(enemy)
                     end
                 end
@@ -187,7 +216,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             if enemy.Human_Type == 1 then enemy:PlaySoundSystem("Pain", enemy.SoundTbl_SuicidePanic) end
             if enemy:IsPlayer() then
                 net.Start("VJ_COFR_Drowned_ScreenEffect")
-                net.WriteEntity(enemy)
+                    net.WriteEntity(enemy)
                 net.Send(enemy)
             end
             hook.Add("Think", "VJ_COFR_SuicideCheck" .. enemy:EntIndex(), function()

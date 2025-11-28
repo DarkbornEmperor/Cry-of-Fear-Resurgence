@@ -164,6 +164,17 @@ function ENT:OnInput(key, activator, caller, data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
@@ -174,7 +185,7 @@ function ENT:FireFX()
     muz:SetKeyValue("rendermode", "3")
     muz:SetKeyValue("renderamt", "255")
     muz:SetKeyValue("disablereceiveshadows", "0")
-    muz:SetKeyValue("framerate", "10.0")
+    muz:SetKeyValue("framerate", "15.0")
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", "muzzle")

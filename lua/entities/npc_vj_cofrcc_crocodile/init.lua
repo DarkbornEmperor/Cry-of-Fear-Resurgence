@@ -96,7 +96,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(35, 35, 70), Vector(-35, -35, 0))
-    self:SetSurroundingBounds(Vector(-100, -100, 0), Vector(100, 100, 90))
+    self:SetSurroundingBounds(Vector(-200, -200, 0), Vector(200, 200, 90))
     self:Gator_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,6 +114,17 @@ function ENT:OnInput(key, activator, caller, data)
             effectdata:SetScale(10)
             util.Effect("watersplash", effectdata)*/
         end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

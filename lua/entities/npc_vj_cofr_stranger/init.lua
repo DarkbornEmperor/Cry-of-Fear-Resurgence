@@ -97,27 +97,35 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
     local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
     net.Start(nwName)
-    net.WriteBool(false)
-    net.WriteEntity(opt1)
-    net.WriteString(opt2)
-    net.WriteEntity(ply)
-    net.WriteEntity(opt3)
-    net.Send(ply)
-    function self.VJ_TheControllerEntity:OnStopControlling()
-        net.Start(nwName)
-        net.WriteBool(true)
+        net.WriteBool(false)
         net.WriteEntity(opt1)
         net.WriteString(opt2)
         net.WriteEntity(ply)
         net.WriteEntity(opt3)
+    net.Send(ply)
+    function self.VJ_TheControllerEntity:OnStopControlling()
+        net.Start(nwName)
+            net.WriteBool(true)
+            net.WriteEntity(opt1)
+            net.WriteString(opt2)
+            net.WriteEntity(ply)
+            net.WriteEntity(opt3)
         net.Send(ply)
+    end
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_Damage()
     net.Start("VJ_COFR_Stranger_Damage")
-    net.WriteEntity(self)
-    net.WriteEntity(self:GetEnemy())
+        net.WriteEntity(self)
+        net.WriteEntity(self:GetEnemy())
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +158,7 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self.EnemyData.Distance < self.Stranger_DamageDistance then
         net.Start("VJ_COFR_Stranger_ScreenEffect")
-        net.WriteEntity(self:GetEnemy())
+            net.WriteEntity(self:GetEnemy())
         net.Send(self:GetEnemy())
         VJ.STOPSOUND(self.Stranger_HeartBeat)
     end
