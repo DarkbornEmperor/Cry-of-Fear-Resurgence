@@ -174,7 +174,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         else
             dmginfo:SetDamage(0)
         end
-        if !self.Sawer_EyeOpen then
+        if hitgroup != 9 then
             self:SpawnBloodParticles(dmginfo, hitgroup)
             self:SpawnBloodDecals(dmginfo, hitgroup)
             self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
