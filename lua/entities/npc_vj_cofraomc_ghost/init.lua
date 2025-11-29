@@ -135,7 +135,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         elec:SetAttachment(2)
         util.Effect("VJ_COFR_Electric", elec)
 
-        VJ.ApplyRadiusDamage(self, self, hitPos, 30, 20, DMG_SHOCK, true, false, {Force = 90})
+        VJ.ApplyRadiusDamage(self, self, hitPos, 30, 50, DMG_SHOCK, true, false, {Force = 90})
 
         VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch))
         return true

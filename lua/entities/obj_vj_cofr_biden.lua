@@ -14,8 +14,6 @@ ENT.Category = "Projectiles"
 
 ENT.VJ_ID_Danger = true
 
-ENT.AutomaticFrameAdvance = true
-
 if CLIENT then
     VJ.AddKillIcon("obj_vj_cofr_biden", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
@@ -42,7 +40,6 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:ResetSequence("idle")
     timer.Simple(10, function() if IsValid(self) then self:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

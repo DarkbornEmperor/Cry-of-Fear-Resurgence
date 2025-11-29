@@ -6,7 +6,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/lurker.mdl"
-ENT.StartHealth = 500
+ENT.StartHealth = 1000
 ENT.HullType = HULL_LARGE
 ENT.TurningUseAllAxis = true
 ENT.MovementType = VJ_MOVETYPE_AQUATIC
@@ -21,7 +21,7 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_bite_l", "vjseq_bite_r"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 35
+ENT.MeleeAttackDamage = 50
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
 ENT.MeleeAttackDistance = 50
 ENT.MeleeAttackDamageDistance = 120
