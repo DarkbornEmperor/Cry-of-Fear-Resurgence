@@ -56,8 +56,10 @@ function SWEP:Init()
     end
     self:SetModelScale(0.85)
     local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofr_police" then
-        self.WorldModel_CustomPositionOrigin = Vector(-5.5, 7, -2)
+    if IsValid(owner) then
+        if owner:GetClass() == "npc_vj_cofr_police" then
+            self.WorldModel_CustomPositionOrigin = Vector(-5.5, 7, -2)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

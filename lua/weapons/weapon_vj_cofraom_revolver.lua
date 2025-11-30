@@ -46,8 +46,8 @@ function SWEP:Init()
     if GetConVar("VJ_COFR_Human_OriginalWepDamage"):GetInt() == 1 then
         self.Primary.Damage = 200
     end
-    local owner = self:GetOwner()
-    /*if owner:GetClass() == "npc_vj_cofraomda_david" then
+    /*local owner = self:GetOwner()
+    if IsValid(owner) && owner:GetClass() == "npc_vj_cofraomda_david" then
         self.WorldModel_CustomPositionOrigin = Vector(-3, 5.5, -0.8)
     end*/
 end

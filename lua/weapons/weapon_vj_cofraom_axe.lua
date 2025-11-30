@@ -18,13 +18,15 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 function SWEP:Init()
     self:SetModelScale(0.90)
     local owner = self:GetOwner()
-    /*if owner:GetClass() == "npc_vj_cofraomda_david" then
-        self.WorldModel_CustomPositionOrigin = Vector(4.5, 14, -1)*/
-    if owner:GetClass() == "npc_vj_cofr_simon" then
-        self.WorldModel_CustomPositionOrigin = Vector(4, 14, -2)
-    end
-    if owner.Human_Type == 1 or owner.Human_Type == 2 then
-        self.Primary.Damage = 55
+    if IsValid(owner) then
+        /*if owner:GetClass() == "npc_vj_cofraomda_david" then
+            self.WorldModel_CustomPositionOrigin = Vector(4.5, 14, -1)*/
+        if owner:GetClass() == "npc_vj_cofr_simon" then
+            self.WorldModel_CustomPositionOrigin = Vector(4, 14, -2)
+        end
+        if owner.Human_Type == 1 or owner.Human_Type == 2 then
+            self.Primary.Damage = 55
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

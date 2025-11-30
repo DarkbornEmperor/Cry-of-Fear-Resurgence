@@ -42,8 +42,8 @@ SWEP.DryFireSound =
 function SWEP:Init()
     self:SetModelScale(0.60)
     local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofr_simon_beta" then
-        self.WorldModel_CustomPositionOrigin = Vector(-0.9, -5, 0)
+    if IsValid(owner) && owner:GetClass() == "npc_vj_cofr_simon_beta" then
+        self.WorldModel_CustomPositionOrigin = Vector(-10, -5, 0)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

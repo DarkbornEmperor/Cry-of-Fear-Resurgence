@@ -53,10 +53,12 @@ function SWEP:Init()
     end
     self:SetModelScale(0.60)
     local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofr_simon_beta" then
-        self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
-    elseif owner:GetClass() == "npc_vj_cofr_police" then
-        self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
+    if IsValid(owner) then
+        if owner:GetClass() == "npc_vj_cofr_simon_beta" then
+            self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
+        elseif owner:GetClass() == "npc_vj_cofr_police" then
+            self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
+        end
     end
     if self.Primary.UsesLoopedSound then
         self.PrimarySound = self.Primary.Sound

@@ -47,22 +47,24 @@ function SWEP:Init()
             "vj_cofr/cof/weapons/revolver/old/revolver_fire.wav"
     end
     local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofr_police" then
-        self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
-    elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then
-        self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
-    elseif owner:GetClass() == "npc_vj_cofr_purnell" then
-        self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
-        self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
-    end
-    if owner:GetClass() == "npc_vj_cofr_purnell" then
-        self.Primary.Damage = 13
-        if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-            self.NPC_ReloadSound =
-                "vj_cofr/cof/doctorboss/old/revolver_reload.wav"
-        else
-            self.NPC_ReloadSound =
-                "vj_cofr/cof/doctorboss/revolver_reload.wav"
+    if IsValid(owner) then
+        if owner:GetClass() == "npc_vj_cofr_police" then
+            self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
+        elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then
+            self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
+        elseif owner:GetClass() == "npc_vj_cofr_purnell" then
+            self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
+            self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
+        end
+        if owner:GetClass() == "npc_vj_cofr_purnell" then
+            self.Primary.Damage = 13
+            if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+                self.NPC_ReloadSound =
+                    "vj_cofr/cof/doctorboss/old/revolver_reload.wav"
+            else
+                self.NPC_ReloadSound =
+                    "vj_cofr/cof/doctorboss/revolver_reload.wav"
+            end
         end
     end
 end

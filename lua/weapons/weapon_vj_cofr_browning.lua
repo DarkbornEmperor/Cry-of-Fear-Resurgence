@@ -45,10 +45,12 @@ function SWEP:Init()
             "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
     end
     local owner = self:GetOwner()
-    if owner:GetClass() == "npc_vj_cofr_simon_beta" then
-        self.WorldModel_CustomPositionOrigin = Vector(-1.5, 4, -1)
-    elseif owner:GetClass() == "npc_vj_cofr_police" then
-        self.WorldModel_CustomPositionOrigin = Vector(-1.3, 4.5, -1)
+    if IsValid(owner) then
+        if owner:GetClass() == "npc_vj_cofr_simon_beta" then
+            self.WorldModel_CustomPositionOrigin = Vector(-1.5, 4, -1)
+        elseif owner:GetClass() == "npc_vj_cofr_police" then
+            self.WorldModel_CustomPositionOrigin = Vector(-1.3, 4.5, -1)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
