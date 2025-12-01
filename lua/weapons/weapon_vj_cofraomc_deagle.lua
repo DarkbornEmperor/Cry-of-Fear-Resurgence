@@ -11,7 +11,7 @@ SWEP.NPC_CanBePickedUp = false
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/classic/w_deagle.mdl"
-SWEP.HoldType = "revolver"
+SWEP.HoldType = "pistol"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
