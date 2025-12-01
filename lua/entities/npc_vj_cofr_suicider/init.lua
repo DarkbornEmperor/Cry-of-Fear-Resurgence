@@ -79,9 +79,6 @@ function ENT:PreInit()
         self.StartHealth = 70
         self.SuiciderDamage = 20
     end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:PreInit()
     if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true self.Suicider_Ammo = 15 return end
     local Suicider_Type = math_random(1,2)
     if Suicider_Type == 1 then
