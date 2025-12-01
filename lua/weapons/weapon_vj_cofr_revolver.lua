@@ -57,7 +57,15 @@ function SWEP:Init()
             self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
         end
         if owner:GetClass() == "npc_vj_cofr_purnell" then
-            self.Primary.Damage = 13
+            if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+                self.Primary.Damage = 5
+            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+                self.Primary.Damage = 8
+            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+                self.Primary.Damage = 13
+            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+                self.Primary.Damage = 20
+            end
             if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
                 self.NPC_ReloadSound =
                     "vj_cofr/cof/doctorboss/old/revolver_reload.wav"

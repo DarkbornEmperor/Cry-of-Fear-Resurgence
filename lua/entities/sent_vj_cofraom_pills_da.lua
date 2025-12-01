@@ -24,4 +24,13 @@ function ENT:Initialize()
     if phys && IsValid(phys) then
         phys:Wake()
     end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.HPAmount = 40
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.HPAmount = 30
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.HPAmount = 20
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.HPAmount = 15
+    end
 end

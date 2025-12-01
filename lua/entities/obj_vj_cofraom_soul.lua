@@ -22,13 +22,22 @@ if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_small.mdl"
 ENT.DoesDirectDamage = true
-ENT.DirectDamage = 10
 ENT.DirectDamageType = DMG_SHOCK
 ENT.HasOnCollideSounds = false
 -- Custom
 local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.DirectDamage = 3
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.DirectDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.DirectDamage = 30
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetNoDraw(true)

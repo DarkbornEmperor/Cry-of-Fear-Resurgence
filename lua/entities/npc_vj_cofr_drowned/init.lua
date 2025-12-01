@@ -15,7 +15,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 14
 ENT.MeleeAttackDistance = 25
 ENT.MeleeAttackDamageDistance = 50
 ENT.HasRangeAttack = true
@@ -23,7 +22,7 @@ ENT.AnimTbl_RangeAttack = "vjseq_point"
 ENT.RangeAttackMaxDistance = 500
 ENT.RangeAttackMinDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 15
+ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 500
 ENT.LimitChaseDistance_Min = 200
@@ -73,6 +72,22 @@ util.AddNetworkString(nwName)
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 17
+        self.MeleeAttackDamage = 2
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 37
+        self.MeleeAttackDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 60
+        self.MeleeAttackDamage = 8
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 80
+        self.MeleeAttackDamage = 20
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Drowned_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cof/drowned/lady_alert10.wav",
@@ -102,7 +117,7 @@ function ENT:Init()
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 78), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Drowned_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

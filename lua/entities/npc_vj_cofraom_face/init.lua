@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/face.mdl"
-ENT.StartHealth = 350
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_mattack2", "vjseq_mattack3"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 ENT.MeleeAttackDamageType = DMG_CLUB
@@ -71,12 +69,26 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+ENT.Face_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic
+    -- 2 = Remod
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 150
+        self.MeleeAttackDamage = 2
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 210
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 350
+        self.MeleeAttackDamage = 10
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -110,6 +122,14 @@ function ENT:Face_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    if self:GetModel() == "models/vj_cofr/aom/face.mdl" then // Already the default
+        self.Face_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/face.mdl" then
+        self.Face_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/face.mdl" then
+        self.Face_Type = 2
+    end
+
     local face = ents.Create("env_sprite")
     face:SetKeyValue("model", "vj_cofr/sprites/face.vmt")
     face:SetKeyValue("rendercolor", "255 255 255")
@@ -134,7 +154,7 @@ function ENT:Init()
 
     self:DrawShadow(false)
     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
+    self:SetSurroundingBounds(Vector(60, 60, 120), Vector(-60, -60, 0))
     self:Face_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -184,10 +204,10 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-    if status == "PreSpawn" && self:GetClass() == "npc_vj_cofraomc_face" then
+    if status == "PreSpawn" && self.Face_Type == 1 then
         projectile.Eyeball_Classic = true
         projectile.Model = "models/vj_cofr/aom/classic/eyeball.mdl"
-    elseif status == "PreSpawn" && self:GetClass() == "npc_vj_cofraomr_face" then
+    elseif status == "PreSpawn" && self.Face_Type == 2 then
         projectile.Model = "models/vj_cofr/aomr/eyeball.mdl"
     end
     if status == "PostSpawn" then

@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/wheelchair_twitcher.mdl"
-ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack2"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 30
 ENT.MeleeAttackDistance = 25
 ENT.MeleeAttackDamageDistance = 50
 ENT.DamageResponse = "OnlySearch"
@@ -59,12 +57,22 @@ function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
     end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 70
+        self.MeleeAttackDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 90
+        self.MeleeAttackDamage = 20
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 160
+        self.MeleeAttackDamage = 30
+    end
 end
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Wheelchair_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Wheelchair_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

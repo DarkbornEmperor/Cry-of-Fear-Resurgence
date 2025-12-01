@@ -22,7 +22,6 @@ if !SERVER then return end
 
 ENT.Model = "models/vj_cofr/cof/biden_box.mdl"
 ENT.DoesDirectDamage = true
-ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_SLASH
 ENT.SoundTbl_OnCollide = "vj_cofr/cof/carcass/milkme.wav"
 -- Custom
@@ -31,12 +30,24 @@ ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
+function ENT:InitPhys(phys)
     phys:Wake()
     phys:SetMass(1)
     phys:SetBuoyancyRatio(0)
     phys:EnableDrag(false)
     phys:EnableGravity(false)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.DirectDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.DirectDamage = 6
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.DirectDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.DirectDamage = 15
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

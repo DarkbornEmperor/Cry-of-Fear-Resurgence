@@ -242,6 +242,7 @@
     })
 
     -- ConVars --
+    VJ.AddConVar("VJ_COFR_Difficulty", 2, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
     VJ.AddConVar("VJ_COFR_Boss_Music", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
     VJ.AddConVar("VJ_COFR_CoFvsAoM", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
     VJ.AddConVar("VJ_COFR_Simon_Costumes", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
@@ -309,6 +310,7 @@ if CLIENT then
             panel:Help("#vjbase.menu.general.admin.only")
             local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_cofrreset.Options["#vjbase.menu.general.reset.everything"] = {
+                    VJ_COFR_Difficulty = "2",
                     VJ_COFR_Boss_Music = "1",
                     VJ_COFR_CoFvsAoM = "0",
                     VJ_COFR_Simon_Costumes = "0",
@@ -340,6 +342,10 @@ if CLIENT then
             }
             panel:AddControl("ComboBox", vj_cofrreset)
             panel:ControlHelp("Note: Only future spawned NPCs will be affected!")
+            panel:Help("Modifiers:")
+            panel:NumSlider("Difficulty","VJ_COFR_Difficulty", 1, 4, 0)
+            panel:ControlHelp("1 = Easy | 2 = Medium | 3 = Difficult | 4 = Nightmare")
+            panel:ControlHelp("Note: Some NPCs' stats will remain the same. Ex: Book Simon.")
             panel:Help("Options:")
             panel:CheckBox("Enable Boss Music?", "VJ_COFR_Boss_Music")
             panel:CheckBox("Enable AoM & CoF Enemies Being Hostile To Each Other?", "VJ_COFR_CoFvsAoM")

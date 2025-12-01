@@ -9,13 +9,14 @@ ENT.Model = "models/vj_cofr/cof/booksimon_mh.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack_1", "vjseq_attack_2", "vjseq_attack_3"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25
+ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
@@ -37,7 +38,7 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-    "common/null.wav"
+    "vj_cofr/fx/null.wav"
 
 ENT.SoundTbl_MeleeAttackExtra =
     "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
@@ -74,7 +75,7 @@ function ENT:Init()
     for _,v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -132,7 +133,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end

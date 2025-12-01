@@ -7,8 +7,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/face.mdl"
-
-//local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Face_Init()
     self.SoundTbl_Alert = {
@@ -37,10 +35,6 @@ function ENT:Face_Init()
         "vj_cofr/aom/face/classic/ag_die4.wav",
         "vj_cofr/aom/face/classic/ag_die5.wav"
     }
-    /*if math_random(1,3) == 1 then
-        self:SetRenderFX(kRenderFxDistort)
-        self:SetRenderMode(RENDERMODE_TRANSADD)
-    end*/
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***

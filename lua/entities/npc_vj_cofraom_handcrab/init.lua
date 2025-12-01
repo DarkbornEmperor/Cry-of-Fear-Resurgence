@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/handcrab.mdl"
-ENT.StartHealth = 50
 ENT.HullType = HULL_TINY
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -14,7 +13,6 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
 ENT.HasLeapAttack = true
-ENT.LeapAttackDamage = 16
 ENT.AnimTbl_LeapAttack = {"vjseq_jump", "vjseq_jump_variation1", "vjseq_jump_variation2"}
 ENT.LeapAttackMaxDistance = 256
 ENT.LeapAttackMinDistance = 1
@@ -57,10 +55,25 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+-- Custom
+ENT.Handcrab_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic aka Headcrab
+    -- 2 = Remod
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 25
+        self.LeapAttackDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 35
+        self.LeapAttackDamage = 8
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 50
+        self.LeapAttackDamage = 16
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,8 +99,15 @@ function ENT:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    if self:GetModel() == "models/vj_cofr/aom/handcrab.mdl" then // Already the default
+        self.Handcrab_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/headcrab.mdl" then
+        self.Handcrab_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/handcrab.mdl" then
+        self.Handcrab_Type = 2
+    end
     self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
-    self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 30))
+    self:SetSurroundingBounds(Vector(30, 30, 30), Vector(-30, -30, 0))
     self:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

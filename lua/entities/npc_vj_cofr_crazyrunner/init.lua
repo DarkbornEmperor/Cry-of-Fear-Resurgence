@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/crazyrunner.mdl"
-ENT.StartHealth = 80
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
@@ -60,6 +58,22 @@ ENT.CrazyRunner_Type = 0
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 17
+        self.MeleeAttackDamage = 2
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 37
+        self.MeleeAttackDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 60
+        self.MeleeAttackDamage = 8
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 80
+        self.MeleeAttackDamage = 20
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CrazyRunner_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cof/crazyrunner/rc_alert1.wav",
@@ -78,7 +92,7 @@ function ENT:Init()
     elseif self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl" then
         self.CrazyRunner_Type = 3
     end
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -46,7 +46,7 @@ function ENT:Initialize()
         self:SetPos(self:GetPos() + self:GetUp() * -40)
     end
     self:SetModel("models/vj_cofr/cofcc/tentacleboss.mdl")
-    self:SetSurroundingBounds(Vector(-30, -30, 0), Vector(30, 30, 200))
+    self:SetSurroundingBounds(Vector(30, 30, 200), Vector(-30, -30, 0))
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_BBOX)
     self:SetMaxHealth(50)

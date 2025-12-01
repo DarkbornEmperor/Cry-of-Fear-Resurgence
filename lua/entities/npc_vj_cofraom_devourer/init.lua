@@ -19,7 +19,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
 ENT.NextAnyAttackTime_Melee = 10
 ENT.MeleeAttackDistance = 30
@@ -67,6 +66,10 @@ ENT.Devourer_CurEnt = NULL
 ENT.Devourer_CurEntMoveType = MOVETYPE_WALK
 ENT.Devourer_PullingEnt = 0
 ENT.Devourer_NextPullSoundT = 0
+ENT.Devourer_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic
+    -- 2 = Remod
 
 local math_clamp = math.Clamp
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -84,8 +87,19 @@ function ENT:Devourer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetCollisionBounds(Vector(25, 25, 0),Vector(-25, -25, 39))
-    self:SetSurroundingBounds(Vector(-60, -60, -20), Vector(60, 60, 40))
+    if self:GetModel() == "models/vj_cofr/aom/devourer.mdl" then // Already the default
+        self.Devourer_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/devourer.mdl" then
+        self.Devourer_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/devourer.mdl" then
+        self.Devourer_Type = 2
+    end
+    if self.Devourer_Type == 1 or self.Devourer_Type == 2 then
+        self:SetCollisionBounds(Vector(18, 18, 0),Vector(-18, -18, -50))
+    else
+        self:SetCollisionBounds(Vector(25, 25, 0),Vector(-25, -25, 39))
+    end
+    self:SetSurroundingBounds(Vector(60, 60, 70), Vector(-60, -60, -30))
     self:Devourer_Init()
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end

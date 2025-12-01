@@ -8,6 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cofcc/blob.mdl"
 ENT.StartHealth = 2000
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -18,8 +19,9 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackMaxDistance = 3000
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = 0
+ENT.NextRangeAttackTime = VJ.PICK(5,10)
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
@@ -63,7 +65,7 @@ function ENT:Blob_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(350, 350, 620), Vector(-350, -350, 0))
-    self:SetSurroundingBounds(Vector(-800, -800, 0), Vector(800, 800, 700))
+    self:SetSurroundingBounds(Vector(800, 800, 700), Vector(-800, -800, 0))
     self:Blob_Init()
     self.Tentacles = {}
 end
@@ -79,25 +81,19 @@ function ENT:Controller_Initialize(ply, controlEnt)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttack(status, enemy)
-    if status == "Init" then
-        self.NextRangeAttackTime = (math_random(2) == 1 and 5 or 10)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local ent = self:GetEnemy()
         if (IsValid(ent) && ent:OnGround()) or self.VJ_IsBeingControlled then
-            local Tentacle = ents.Create("sent_vj_cofrcc_tentacle")
-            Tentacle:SetPos(ent:GetPos() + self:GetForward() * -35 + self:GetUp() * -40 + self:GetRight() * math_random(35,-35))
-            Tentacle:SetAngles(self:GetAngles())
-            Tentacle.Assignee = self
-            Tentacle.VJ_NPC_Class = self.VJ_NPC_Class
-            Tentacle:Spawn()
-            self.Tentacles[#self.Tentacles + 1] = Tentacle -- Register the Tentacles
-            self.Tentacle = Tentacle
-            SafeRemoveEntityDelayed(self.Tentacle, 25)
+            local tentacle = ents.Create("sent_vj_cofrcc_tentacle")
+            tentacle:SetPos(ent:GetPos() + self:GetForward() * -35 + self:GetUp() * -40 + self:GetRight() * math_random(35,-35))
+            tentacle:SetAngles(self:GetAngles())
+            tentacle.Assignee = self
+            tentacle.VJ_NPC_Class = self.VJ_NPC_Class
+            tentacle:Spawn()
+            self.Tentacles[#self.Tentacles + 1] = tentacle -- Register the Tentacles
+            self.tentacle = tentacle
+            SafeRemoveEntityDelayed(self.tentacle, 25)
         end
         return true
     end

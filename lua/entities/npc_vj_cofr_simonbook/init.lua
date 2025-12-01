@@ -9,13 +9,14 @@ ENT.Model = "models/vj_cofr/cof/booksimon.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
-ENT.TimeUntilMeleeAttackDamage = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack_sledgehammer"
-ENT.MeleeAttackDamage = 25
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
@@ -24,10 +25,10 @@ ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.NextRangeAttackTime = 0
 ENT.RangeAttackMaxDistance = 2000
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.LimitChaseDistance = false
 ENT.LimitChaseDistance_Max = 600
-ENT.LimitChaseDistance_Min = 1
+ENT.LimitChaseDistance_Min = 0
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -48,7 +49,7 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-    "common/null.wav"
+    "vj_cofr/fx/null.wav"
 
 ENT.SoundTbl_MeleeAttackExtra =
     "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hitbody.wav"
@@ -189,7 +190,7 @@ function ENT:Init()
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -423,7 +424,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Num = 6,
                 Src = attPos,
                 Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-                Spread = Vector(0.1, 0.1 ,0),
+                Spread = Vector(0.1, 0.1, 0),
                 TracerName = "VJ_COFR_Tracer",
                 Tracer = 1,
                 Damage = self:ScaleByDifficulty(5),
@@ -441,7 +442,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Num = 1,
                 Src = attPos,
                 Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-                Spread = Vector(0.1, 0.1 ,0),
+                Spread = Vector(0.1, 0.1, 0),
                 TracerName = "VJ_COFR_Tracer",
                 Tracer = 1,
                 Damage = self:ScaleByDifficulty(13),
@@ -465,7 +466,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Num = 1,
                 Src = attPos,
                 Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-                Spread = Vector(0.1, 0.1 ,0),
+                Spread = Vector(0.1, 0.1, 0),
                 TracerName = "VJ_COFR_Tracer",
                 Tracer = 1,
                 Damage = self:ScaleByDifficulty(7),
@@ -483,7 +484,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Num = 1,
                 Src = attPos,
                 Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-                Spread = Vector(0.1, 0.1 ,0),
+                Spread = Vector(0.1, 0.1, 0),
                 TracerName = "VJ_COFR_Tracer",
                 Tracer = 1,
                 Damage = self:ScaleByDifficulty(16),

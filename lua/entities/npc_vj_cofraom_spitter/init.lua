@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/spitter.mdl"
-ENT.StartHealth = 250
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_bite"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 35
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasMeleeAttackKnockBack = true
@@ -25,7 +23,7 @@ ENT.RangeAttackProjectiles = "obj_vj_cofraom_spit"
 ENT.RangeAttackMaxDistance = 784
 ENT.RangeAttackMinDistance = 300
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 1
+ENT.NextRangeAttackTime = 0
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
@@ -34,7 +32,7 @@ ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
-ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
@@ -67,12 +65,28 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+-- Custom
+ENT.Spitter_BlinkingT = 0
+ENT.Spitter_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic
+    -- 2 = Remod
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 120
+        self.MeleeAttackDamage = 15
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 170
+        self.MeleeAttackDamage = 25
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 250
+        self.MeleeAttackDamage = 50
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,14 +112,21 @@ function ENT:Spitter_Init()
         "vj_cofr/aom/spitter/bc_die2.wav",
         "vj_cofr/aom/spitter/bc_die3.wav"
     }
-    if self:GetModel() == "models/vj_cofr/aom/classic/spitter.mdl" or self:GetModel() == "models/vj_cofr/aomr/spitter.mdl" then
+    if self.Spitter_Type == 1 or self.Spitter_Type == 2 then
         self.AnimTbl_MeleeAttack = {"vjseq_bite", "vjseq_whip"}
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    if self:GetModel() == "models/vj_cofr/aom/spitter.mdl" then // Already the default
+        self.Spitter_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/spitter.mdl" then
+        self.Spitter_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/spitter.mdl" then
+        self.Spitter_Type = 2
+    end
     self:SetCollisionBounds(Vector(20, 20, 44), Vector(-20, -20, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -179,6 +200,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
+    corpseEnt:SetSkin(1)
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end

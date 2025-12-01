@@ -6,18 +6,17 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/doctor.mdl"
-ENT.StartHealth = 400
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = false
-ENT.HasLostWeaponSightAnimation = true
 ENT.HasCallForHelpAnimation = false
 ENT.Weapon_CanMoveFire = false
 ENT.Weapon_Strafe = false
-ENT.DisableWeaponFiringGesture = true
+ENT.AnimTbl_WeaponAttackGesture = false
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.CanTurnWhileMoving = false
 ENT.CanFlinch = true
@@ -40,7 +39,7 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-    "common/null.wav"
+    "vj_cofr/fx/null.wav"
 
 ENT.SoundTbl_SoundTrack = {
     "vj_cofr/cof/doctorboss/doctorbattle.mp3",
@@ -63,6 +62,15 @@ local math_rand = math.Rand
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 100
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 200
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 300
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 400
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,10 +96,10 @@ function ENT:Doctor_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Doctor_Init()
     self.Doctor_NextRunT = CurTime() + math_rand(8,12)
+    self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
+    self:Doctor_Init()
     local wep = math_random(1,2)
     if wep == 1 then
         self:Give("weapon_vj_cofr_revolver")
@@ -144,6 +152,8 @@ function ENT:SetAnimationTranslations(wepHoldType)
         self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
         self.AnimationTranslations[ACT_WALK] = ACT_WALK
         self.AnimationTranslations[ACT_RUN] = ACT_RUN
+        self.AnimationTranslations[ACT_WALK_CROUCH] = ACT_WALK
+        self.AnimationTranslations[ACT_RUN_CROUCH] = ACT_RUN
         self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM
         self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM
         self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_IDLE_ANGRY

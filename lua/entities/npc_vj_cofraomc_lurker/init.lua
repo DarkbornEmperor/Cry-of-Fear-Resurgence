@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/classic/lurker.mdl"
-ENT.StartHealth = 1000
 ENT.HullType = HULL_LARGE
 ENT.TurningUseAllAxis = true
 ENT.MovementType = VJ_MOVETYPE_AQUATIC
@@ -21,7 +20,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_bite_l", "vjseq_bite_r"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 50
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
 ENT.MeleeAttackDistance = 50
 ENT.MeleeAttackDamageDistance = 120
@@ -65,6 +63,16 @@ function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
     end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 500
+        self.MeleeAttackDamage = 20
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 600
+        self.MeleeAttackDamage = 35
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 1000
+        self.MeleeAttackDamage = 50
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Lurker_Init()
@@ -86,7 +94,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
-    self:SetSurroundingBounds(Vector(-200, -200, 0), Vector(200, 200, 90))
+    self:SetSurroundingBounds(Vector(200, 200, 90), Vector(-200, -200, 0))
     self:Lurker_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

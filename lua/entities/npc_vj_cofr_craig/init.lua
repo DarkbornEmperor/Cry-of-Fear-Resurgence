@@ -9,13 +9,13 @@ ENT.Model = "models/vj_cofr/cof/craig.mdl"
 ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 ENT.DamageResponse = "OnlySearch"
@@ -88,7 +88,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 140))
+    self:SetSurroundingBounds(Vector(60, 60, 140), Vector(-60, -60, 0))
     self:Craig_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

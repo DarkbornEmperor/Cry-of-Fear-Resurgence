@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/hellhound.mdl"
-ENT.StartHealth = 70
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -54,6 +53,10 @@ ENT.SoundTbl_Impact = {
 ENT.Hellhound_BlinkingT = 0
 ENT.Hellhound_NextSleepT = 0
 ENT.Hellhound_Sleeping = false
+ENT.Hellhound_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic
+    -- 2 = Remod
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -61,6 +64,16 @@ local math_rand = math.Rand
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 30
+        self.HellhoundDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 50
+        self.HellhoundDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 70
+        self.HellhoundDamage = 20
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,13 +102,20 @@ function ENT:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self.Hellhound_NextSleepT = CurTime() + math_rand(0,15)
-    if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then
+    if self:GetModel() == "models/vj_cofr/aom/hellhound.mdl" then // Already the default
+        self.Hellhound_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then
+        self.Hellhound_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/hellhound.mdl" then
+        self.Hellhound_Type = 2
+    end
+    if self.Hellhound_Type == 1 then
         self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
     else
         self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
     end
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self.Hellhound_NextSleepT = CurTime() + math_rand(0,15)
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -135,13 +155,13 @@ function ENT:TranslateActivity(act)
         if self.Hellhound_Sleeping then
             return ACT_CROUCHIDLE
         -- Barking
-        elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+        elseif self.Hellhound_Type == 1 && IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
             return ACT_IDLE_ANGRY
         end
         -- Default idle
         return self:ResolveAnimation(defIdle)
     -- Limp Walking
-    elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
+    elseif self.Hellhound_Type == 1 && act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
         return ACT_WALK_HURT
     end
     return self.BaseClass.TranslateActivity(self, act)
@@ -172,10 +192,10 @@ function ENT:OnAlert(ent)
     if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
         if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
         self.Hellhound_Sleeping = false
-        if self:GetClass() == "npc_vj_cofraom_hellhound" then self:PlayAnim(ACT_STAND, true, false, false) end
-        if VJ.AnimExists(self, ACT_HOP) then self:PlayAnim(ACT_HOP, true, false, false) end
+        if self.Hellhound_Type == 0 then self:PlayAnim(ACT_STAND, true, false, false) end
+        if self.Hellhound_Type == 1 then self:PlayAnim(ACT_HOP, true, false, false) end
         self.Hellhound_NextSleepT = CurTime() + 20
-    elseif self:GetClass() == "npc_vj_cofraomc_hellhound" && math_random(1,2) == 1 then -- Random alert animation
+    elseif self.Hellhound_Type == 1 && math_random(1,2) == 1 then -- Random alert animation
         self:PlayAnim(alertAnims, true, false, true)
     end
 end
@@ -191,7 +211,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	if status == "Init" then
         local friNum = 0 -- How many allies exist around the Hellhound
         local color = Color(255, 0, 0, 255) -- The shock wave color
-        local dmg = 20 -- How much damage should the shock wave do?
+        local dmg = self.HellhoundDamage -- How much damage should the shock wave do?
         local myPos = self:GetPos()
         for _, v in ipairs(ents.FindInSphere(myPos, 200)) do
             if v != self && hellhoundClasses[v:GetClass()] then
@@ -200,14 +220,11 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
         end
         -- More allies = more damage and different colors
         if friNum == 1 then
-            //color = Color(101, 133, 221)
-            dmg = 40
+            dmg = self.HellhoundDamage + 5
         elseif friNum == 2 then
-            //color = Color(67, 85, 255)
-            dmg = 60
+            dmg = self.HellhoundDamage + 10
         elseif friNum >= 3 then
-            //color = Color(62, 33, 211)
-            dmg = 80
+            dmg = self.HellhoundDamage + 20
         end
         -- flags 0 = No fade!
         effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)

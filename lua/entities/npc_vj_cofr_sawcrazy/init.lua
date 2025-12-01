@@ -15,7 +15,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
@@ -54,7 +53,6 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Sawcrazy_NextRadiusDamageT = 0
-ENT.Sawcrazy_RadiusDamage = 200
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +75,7 @@ function ENT:Init()
         self.VJ_ID_Danger = true
     end
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Sawcrazy_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

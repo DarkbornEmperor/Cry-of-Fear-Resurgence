@@ -9,6 +9,7 @@ ENT.Model = "models/vj_cofr/aom/addiction.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -23,6 +24,7 @@ ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 60
 ENT.RangeAttackAngleRadius = 180
 ENT.TimeUntilRangeAttackProjectileRelease = 0
+ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -41,7 +43,7 @@ ENT.ControllerParams = {
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep =
-    "common/null.wav"
+    "vj_cofr/fx/null.wav"
 
 ENT.SoundTbl_FireLoop =
     "vj_cofr/aom/addiction/fire_loop.wav"
@@ -67,7 +69,11 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Addiction_FinishedIgnited = false
 ENT.Addiction_OnFire = false
-ENT.Addiction_NextChangeAttackT = 0
+ENT.Addiction_NextChangeMeleeT = 0
+ENT.Addiction_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Dark Assistance
+    -- 2 = Remod
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -77,6 +83,16 @@ function ENT:PreInit()
         self.HasSoundTrack = false
     elseif GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.MeleeAttackDamage_Hands = 5
+        self.MeleeAttackDamage_Axe = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.MeleeAttackDamage_Hands = 10
+        self.MeleeAttackDamage_Axe = 15
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.MeleeAttackDamage_Hands = 20
+        self.MeleeAttackDamage_Axe = 25
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -100,8 +116,15 @@ function ENT:Addiction_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    if self:GetModel() == "models/vj_cofr/aom/addiction.mdl" then // Already the default
+        self.Addiction_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/da/addiction.mdl" then
+        self.Addiction_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/addiction.mdl" then
+        self.Addiction_Type = 2
+    end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Addiction_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -130,7 +153,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.VJ_IsBeingControlled then return end
-    self.Addiction_NextChangeAttackT = CurTime() + math_rand(15,20)
+    self.Addiction_NextChangeMeleeT = CurTime() + math_rand(15,20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -149,9 +172,9 @@ end
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if self.Dead then return end
-    if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeAttackT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    if !self:IsBusy() && IsValid(ent) && CurTime() > self.Addiction_NextChangeMeleeT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         self:PlayAnim(ACT_SMALL_FLINCH,true,false,false)
-        self.Addiction_NextChangeAttackT = CurTime() + math_rand(15,20)
+        self.Addiction_NextChangeMeleeT = CurTime() + math_rand(15,20)
     end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
     if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then
@@ -162,7 +185,7 @@ function ENT:OnThinkActive()
         timer.Create("VJ_COFR_Addiction_Fire" .. self:EntIndex(), 1, 15, function()
             if IsValid(self) && self.Addiction_OnFire then
                 /*if IsValid(ent) && ent:WaterLevel() != 3 then*/
-                    VJ.ApplyRadiusDamage(self, self, self:GetPos(), 150, 10, DMG_BURN, true, true)
+                    VJ.ApplyRadiusDamage(self, self, self:GetPos(), 150, 1, DMG_BURN, true, true)
                 /*end*/
                 timer.Simple(15, function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end)
             end
@@ -212,7 +235,7 @@ function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
         if self:GetBodygroup(0) == 0 then
             self.AnimTbl_MeleeAttack = "vjseq_attack"
-            self.MeleeAttackDamage = 20
+            self.MeleeAttackDamage = self.MeleeAttackDamage_Hands
             self.HasMeleeAttackMissSounds = false
             self.SoundTbl_MeleeAttackExtra = {
                 "vj_cofr/aom/addiction/david_hurt.wav",
@@ -221,7 +244,7 @@ function ENT:OnMeleeAttack(status, enemy)
             }
         elseif self:GetBodygroup(0) == 1 then
             self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
-            self.MeleeAttackDamage = 35
+            self.MeleeAttackDamage = self.MeleeAttackDamage_Axe
             self.HasMeleeAttackMissSounds = true
             self.SoundTbl_MeleeAttackExtra =
                 "vj_cofr/aom/weapons/axe/Axe_hitbody.wav"
@@ -242,23 +265,18 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnRangeAttack(status, enemy)
-    if status == "Init" then
-        self.NextRangeAttackTime = (math_random(2) == 1 and 10 or 15)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local ent = self:GetEnemy()
         if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
             VJ.EmitSound(ent, {"vj_cofr/aom/addiction/thunder_attack1.wav", "vj_cofr/aom/addiction/thunder_attack2.wav", "vj_cofr/aom/addiction/thunder_attack3.wav"}, 100, 100)
             local color = Color(0, 161, 255, 255) -- The shock wave color
-            local dmg = 20 -- How much damage should the shock wave do?
+            local dmg = 10 -- How much damage should the shock wave do?
             local enePos = ent:GetPos()
 
             timer.Simple(1, function()
-                if IsValid(self) && IsValid(ent) then VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck = true, Force = 80})
+                if IsValid(self) && IsValid(ent) then
+                    VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck = true, Force = 80})
                     -- flags 0 = No fade!
                     effects.BeamRingPoint(enePos, 0.3, 2, 400, 16, 0, color, {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0})
                     effects.BeamRingPoint(enePos, 0.3, 2, 200, 16, 0, color, {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0})
@@ -297,20 +315,20 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         dmginfo:ScaleDamage(0.5)
     end
     if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
-        local attacker = dmginfo:GetAttacker()
+        local eneVictim = dmginfo:GetAttacker(), dmginfo:GetInflictor()
         if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
             dmginfo:ScaleDamage(0.5)
         else
             dmginfo:SetDamage(0)
 
-        if IsValid(attacker) && attacker.VJ_ID_Living && attacker:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
-            attacker:TakeDamage(10, self, self)
-            VJ.DamageSpecialEnts(self, attacker, dmginfo)
+        if IsValid(eneVictim) && eneVictim.VJ_ID_Living && attacker:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
+            eneVictim:TakeDamage(math_random(5,10), self, self)
+            VJ.DamageSpecialEnts(self, eneVictim, dmginfo)
         end
-        if attacker:IsPlayer() then
+        if eneVictim:IsPlayer() then
             net.Start("VJ_COFR_Addiction_ScreenEffect")
-                net.WriteEntity(attacker)
-            net.Send(attacker)
+                net.WriteEntity(eneVictim)
+            net.Send(eneVictim)
         end
     end
     if !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then

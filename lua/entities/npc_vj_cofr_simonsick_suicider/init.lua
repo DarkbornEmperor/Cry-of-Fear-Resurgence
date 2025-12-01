@@ -9,6 +9,7 @@ ENT.Model = "models/vj_cofr/cof/sicksimon_suicider.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -17,11 +18,11 @@ ENT.HasRangeAttack = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 2600
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 600
-ENT.LimitChaseDistance_Min = 1
+ENT.LimitChaseDistance_Min = 0
 ENT.CanTurnWhileMoving = false
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
@@ -76,7 +77,7 @@ function ENT:Init()
         self.SoundTbl_Browning =
         "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
     end
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:SickSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,7 +163,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             Num = 1,
             Src = attPos,
             Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-            Spread = Vector(0.1, 0.1 ,0),
+            Spread = Vector(0.1, 0.1, 0),
             TracerName = "VJ_COFR_Tracer",
             Tracer = 1,
             Damage = self:ScaleByDifficulty(12),

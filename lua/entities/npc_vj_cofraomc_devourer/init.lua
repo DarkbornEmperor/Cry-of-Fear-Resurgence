@@ -19,13 +19,6 @@ function ENT:Devourer_Init()
         "vj_cofr/aom/devourer/classic/bcl_chew3.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Init()
-    self:SetCollisionBounds(Vector(18, 18, 0),Vector(-18, -18, -50))
-    self:SetSurroundingBounds(Vector(-60, -60, -60), Vector(60, 60, 40))
-    self:Devourer_Init()
-    //self:GetPoseParameters(true) -- tongue_height 0 / 1024
-end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

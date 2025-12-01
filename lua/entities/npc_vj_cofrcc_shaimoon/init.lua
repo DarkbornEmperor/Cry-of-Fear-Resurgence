@@ -53,7 +53,7 @@ function ENT:Init()
     end
      self.Shaimoon_Spawn = VJ.CreateSound(self, self.SoundTbl_Spawn, 75, 100)
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
      self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

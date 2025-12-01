@@ -44,7 +44,7 @@ function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetNoDraw(true)
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

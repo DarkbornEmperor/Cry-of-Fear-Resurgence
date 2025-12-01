@@ -9,6 +9,7 @@ ENT.Model = "models/vj_cofr/cof/sicksimon.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -17,7 +18,7 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = {"vjseq_bossmove1", "vjseq_bossmove2"}
 ENT.RangeAttackMaxDistance = 1500
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.HasDeathAnimation = true
@@ -67,7 +68,7 @@ end
 function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:SickSimon_Init()
     self.Twisters = {}
     self.Props = {}

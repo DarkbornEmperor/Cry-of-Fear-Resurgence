@@ -1,4 +1,4 @@
-include("entities/npc_vj_cofraom_david/init.lua")
+include("entities/npc_vj_cofraomda_david/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -7,4 +7,3 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/da/david_dead.mdl"
-ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/da/w_pills.mdl"

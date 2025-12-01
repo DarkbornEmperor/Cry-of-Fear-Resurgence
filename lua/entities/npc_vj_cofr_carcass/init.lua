@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/carcass.mdl"
-ENT.StartHealth = 2000
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 120
@@ -14,6 +13,7 @@ ENT.Aerial_FlyingSpeed_Alerted = 150
 ENT.Aerial_AnimTbl_Calm = "kam52"
 ENT.Aerial_AnimTbl_Alerted = "kam52"
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.ConstantlyFaceEnemy = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
@@ -23,7 +23,7 @@ ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_attack"
 ENT.RangeAttackProjectiles = "obj_vj_cofr_carcasshead"
 ENT.RangeAttackMaxDistance = 2048
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 25
 ENT.LimitChaseDistance = true
@@ -64,6 +64,15 @@ function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
     end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 600
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 1000
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 1500
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 2000
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Carcass_Init()
@@ -90,7 +99,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(15, 15, 92), Vector(-15, -15, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Carcass_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

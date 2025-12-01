@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/baby.mdl"
-ENT.StartHealth = 50
 ENT.HullType = HULL_MEDIUM
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
@@ -51,6 +49,22 @@ ENT.Baby_DeathFromMeleeAttack = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 10
+        self.MeleeAttackDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 20
+        self.MeleeAttackDamage = 13
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 30
+        self.MeleeAttackDamage = 17
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 50
+        self.MeleeAttackDamage = 25
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Baby_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cof/baby/b_alert1.wav",
@@ -69,7 +83,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 50), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Baby_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

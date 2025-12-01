@@ -23,7 +23,6 @@ if !SERVER then return end
 ENT.Model = "models/vj_cofr/aom/eyeball.mdl"
 ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
 ENT.DoesDirectDamage = true
-ENT.DirectDamage = 6
 ENT.DirectDamageType = DMG_SLASH
 ENT.SoundTbl_Idle = {
     "vj_cofr/aom/eyeball/ag_buzz1.wav",
@@ -44,6 +43,16 @@ ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
 
 local math_random = math.random
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.DirectDamage = 2
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.DirectDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.DirectDamage = 6
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     timer.Simple(5, function()

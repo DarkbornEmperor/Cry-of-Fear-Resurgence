@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/suicider.mdl"
-ENT.StartHealth = 70
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -17,7 +16,7 @@ ENT.HasRangeAttack = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 2000
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 250
@@ -59,11 +58,28 @@ ENT.RangeAttackSoundLevel = 90
 -- Custom
 ENT.Suicider_Glock = false
 ENT.Suicider_P345 = false
-ENT.Suicider_DeathSuicide = false
+ENT.Suicider_Suicide = false
+ENT.Suicider_Ammo = 0
 ENT.Suicider_Skin = 0
 
 local math_random = math.random
 local math_rand = math.Rand
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 25
+        self.SuiciderDamage = 2
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 40
+        self.SuiciderDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 50
+        self.SuiciderDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 70
+        self.SuiciderDamage = 20
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Suicider_ExtraPistol"):GetInt() == 0 then self.Suicider_Glock = true self.Suicider_Ammo = 15 return end
@@ -112,7 +128,7 @@ function ENT:Init()
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Suicider_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -220,7 +236,7 @@ function ENT:OnThinkActive()
     local ent = self:GetEnemy()
     if !IsValid(ent) or self.Suicider_Ammo < 1 or self.Dead then return end
     local eneDist = self.EnemyData.Distance
-    if eneDist < 100 && ent:Visible(self) && !self.Suicider_DeathSuicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    if eneDist < 100 && ent:Visible(self) && !self.Suicider_Suicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self:Suicide()
     end
 end
@@ -241,7 +257,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         end
         if GetConVar("VJ_COFR_Suicider_Ammo"):GetInt() == 1 then
             self.Suicider_Ammo = self.Suicider_Ammo - 1
-            if self.Suicider_Ammo < 1 && !self.Suicider_DeathSuicide then self:Suicide() end
+            if self.Suicider_Ammo < 1 && !self.Suicider_Suicide then self:Suicide() end
         end
         VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100, 110))
         self:FireBullets({
@@ -249,10 +265,10 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             Num = 1,
             Src = attPos,
             Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-            Spread = Vector(0.1, 0.1 ,0),
+            Spread = Vector(0.1, 0.1, 0),
             TracerName = "VJ_COFR_Tracer",
             Tracer = 1,
-            Damage = self:ScaleByDifficulty(10),
+            Damage = self:ScaleByDifficulty(self.SuiciderDamage),
             Force = 5,
             AmmoType = "Pistol",
             Distance = 2048,
@@ -271,7 +287,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Suicide()
-    self.Suicider_DeathSuicide = true
+    self.Suicider_Suicide = true
     self.Bleeds = false
     self.HasDeathSounds = false
     self:TakeDamage(self:GetMaxHealth(), self, self)
@@ -284,7 +300,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         else
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         end
-        if !self.Suicider_DeathSuicide then
+        if !self.Suicider_Suicide then
             self:DropGlock()
         else
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
@@ -293,7 +309,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
         if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
-        if !self.Suicider_DeathSuicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
+        if !self.Suicider_Suicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
             self.HasDeathSounds = false
             self:RemoveAllDecals()
             if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)

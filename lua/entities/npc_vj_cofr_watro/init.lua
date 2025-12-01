@@ -19,7 +19,7 @@ ENT.SightAngle = 360
 ENT.HasMeleeAttack = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25
+ENT.MeleeAttackDamage = 15
 ENT.MeleeAttackDistance = 80
 ENT.MeleeAttackDamageDistance = 120
 ENT.HasDeathAnimation = true
@@ -63,7 +63,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
-    self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 160))
+    self:SetSurroundingBounds(Vector(80, 80, 160), Vector(-80, -80, 0))
     self:Watro_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -9,7 +9,6 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/aom/classic/ghost.mdl"
 ENT.StartHealth = 300
 ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
-ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.MeleeAttackBleedEnemy = false
 ENT.MeleeAttackPlayerSpeed = false
@@ -38,12 +37,6 @@ ENT.SoundTbl_RangeAttack =
     "vj_cofr/aom/ghost/classic/hw_shoot1.wav"
 
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Init()
-    self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-    self:Ghost_Init()
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp) return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -135,7 +128,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         elec:SetAttachment(2)
         util.Effect("VJ_COFR_Electric", elec)
 
-        VJ.ApplyRadiusDamage(self, self, hitPos, 30, 50, DMG_SHOCK, true, false, {Force = 90})
+        VJ.ApplyRadiusDamage(self, self, hitPos, 30, self.GhostDamage, DMG_SHOCK, true, false, {Force = 90})
 
         VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch))
         return true

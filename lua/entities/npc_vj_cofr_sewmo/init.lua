@@ -50,11 +50,31 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 //ENT.Sewmo_Sleep = false
-ENT.Sewmo_WireBroken = false
+ENT.Sewmo_BarbBroken = false
 ENT.Sewmo_Skin = 0
 
 local math_random = math.random
 local math_rand = math.Rand
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 40
+        self.MeleeAttackDamage_Tongue = 4
+        self.MeleeAttackDamage_Fists = 6
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 60
+        self.MeleeAttackDamage_Tongue = 6
+        self.MeleeAttackDamage_Fists = 8
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 90
+        self.MeleeAttackDamage_Tongue = 9
+        self.MeleeAttackDamage_Fists = 12
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 140
+        self.MeleeAttackDamage_Tongue = 16
+        self.MeleeAttackDamage_Fists = 19
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sewmo_Init()
     self.SoundTbl_Alert = {
@@ -85,7 +105,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 74), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Sewmo_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -138,9 +158,9 @@ function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
         if self:GetBodygroup(0) == 0 then
             self.AnimTbl_MeleeAttack = "vjseq_attack1"
+            self.MeleeAttackDamage = self.MeleeAttackDamage_Tongue
             self.MeleeAttackDistance = 50
             self.MeleeAttackDamageDistance = 75
-            self.MeleeAttackDamage = 16
             self.SoundTbl_MeleeAttackMiss =
                 "vj_cofr/cof/sewmo/tunga_miss.wav"
 
@@ -152,7 +172,7 @@ function ENT:OnMeleeAttack(status, enemy)
             self.AnimTbl_MeleeAttack = "vjseq_attack2"
             self.MeleeAttackDistance = 30
             self.MeleeAttackDamageDistance = 60
-            self.MeleeAttackDamage = 24
+            self.MeleeAttackDamage = self.MeleeAttackDamage_Fists
             self.SoundTbl_MeleeAttackMiss = {
                 "vj_cofr/cof/sewmo/claw_miss1.wav",
                 "vj_cofr/cof/sewmo/claw_miss2.wav",
@@ -172,10 +192,10 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if self.Sewmo_WireBroken or self.Dead then return end
+    if self.Sewmo_BarbBroken or self.Dead then return end
     if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
-        if !self.Sewmo_WireBroken && self:Health() <= (self:GetMaxHealth() / 2) && math_random(1,5) == 1 then
-            self.Sewmo_WireBroken = true
+        if !self.Sewmo_BarbBroken && self:Health() <= (self:GetMaxHealth() / 2) && math_random(1,5) == 1 then
+            self.Sewmo_BarbBroken = true
             self:PlayAnim(ACT_SIGNAL1, true, false, false)
         end
     end

@@ -6,18 +6,19 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/crocodile.mdl"
-ENT.StartHealth = 1000
+ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
 ENT.Aquatic_AnimTbl_Calm = "Run_1"
 ENT.Aquatic_AnimTbl_Alerted = "Run_2"
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_biteattack_1"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 30
+ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 50
 ENT.MeleeAttackDamageDistance = 120
 ENT.DamageResponse = "OnlySearch"
@@ -96,7 +97,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(35, 35, 70), Vector(-35, -35, 0))
-    self:SetSurroundingBounds(Vector(-200, -200, 0), Vector(200, 200, 90))
+    self:SetSurroundingBounds(Vector(200, 200, 90), Vector(-200, -200, 90))
     self:Gator_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -157,6 +158,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" then
+        dmginfo:ScaleDamage(0.5)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)

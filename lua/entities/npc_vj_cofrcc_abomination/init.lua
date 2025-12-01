@@ -8,6 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/slowerno_th.mdl"
 ENT.StartHealth = 300
+ENT.VJ_ID_Boss = true
 ENT.HasSoundTrack = true
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_SoundTrack =
@@ -18,6 +19,15 @@ local math_random = math.random
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.MeleeAttackDamage = 7
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.MeleeAttackDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.MeleeAttackDamage = 20
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

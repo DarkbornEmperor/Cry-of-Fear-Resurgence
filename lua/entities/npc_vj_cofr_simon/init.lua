@@ -8,13 +8,24 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/simon.mdl"
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/cof/weapons/w_syringe.mdl"
-ENT.Medic_HealAmount = 50
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MedicOnHeal =
     "vj_cofr/cof/weapons/syringe/syringe_inject.wav"
 
 -- Custom
 ENT.Human_Type = 1
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetStats()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.Medic_HealAmount = 100
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.Medic_HealAmount = 80
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.Medic_HealAmount = 60
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.Medic_HealAmount = 50
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
     [MAT_ANTLION] = {

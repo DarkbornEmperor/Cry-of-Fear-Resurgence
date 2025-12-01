@@ -5,7 +5,6 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -13,7 +12,6 @@ ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
@@ -62,6 +60,17 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Twitcher_Invisible = false
 ENT.Twitcher_Transparent = false
+ENT.Twitcher_Type = 0
+    -- 0 = Director's Cut Twitcher 1
+    -- 1 = Director's Cut Twitcher 2
+    -- 2 = Director's Cut Twitcher 3
+    -- 3 = Director's Cut Twitcher 4
+    -- 4 = Classic
+    -- 5 = Dark Assistance
+    -- 6 = Remod Twitcher 1
+    -- 7 = Remod Twitcher 2
+    -- 8 = Remod Twitcher 3
+    -- 9 = Remod Twitcher 4
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +78,9 @@ function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
     end
+    if self.SetStats then self:SetStats() end
     if self:GetClass() == "npc_vj_cofraom_twitcher1" then
+        self.Twitcher_Type = 0
         self.Model = {
             "models/vj_cofr/aom/twitcher1_barney.mdl",
             "models/vj_cofr/aom/twitcher1_csdamage.mdl",
@@ -84,6 +95,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher1_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher2" then
+        self.Twitcher_Type = 1
         self.Model = {
             "models/vj_cofr/aom/twitcher2_barney.mdl",
             "models/vj_cofr/aom/twitcher2_csdamage.mdl",
@@ -98,6 +110,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher2_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher3" then
+        self.Twitcher_Type = 2
         self.Model = {
             "models/vj_cofr/aom/twitcher3_barney.mdl",
             "models/vj_cofr/aom/twitcher3_csdamage.mdl",
@@ -112,6 +125,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher3_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraom_twitcher4" then
+        self.Twitcher_Type = 3
         self.Model = {
             "models/vj_cofr/aom/twitcher4_barney.mdl",
             "models/vj_cofr/aom/twitcher4_csdamage.mdl",
@@ -126,6 +140,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher4_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraomc_twitcher" then
+        self.Twitcher_Type = 4
         self.Model = {
             "models/vj_cofr/aom/classic/twitcher_barney.mdl",
             "models/vj_cofr/aom/classic/twitcher_csdamage.mdl",
@@ -140,10 +155,12 @@ function ENT:PreInit()
             "models/vj_cofr/aom/classic/twitcher_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraomda_twitcher" then
+        self.Twitcher_Type = 5
         self.Model =
             "models/vj_cofr/aom/da/twitcher.mdl"
 
     elseif self:GetClass() == "npc_vj_cofraomr_twitcher1" then
+        self.Twitcher_Type = 6
         self.Model = {
             "models/vj_cofr/aomr/twitcher1_barney.mdl",
             "models/vj_cofr/aomr/twitcher1_csdamage.mdl",
@@ -158,6 +175,7 @@ function ENT:PreInit()
             "models/vj_cofr/aomr/twitcher1_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraomr_twitcher2" then
+        self.Twitcher_Type = 7
         self.Model = {
             "models/vj_cofr/aomr/twitcher2_barney.mdl",
             "models/vj_cofr/aomr/twitcher2_csdamage.mdl",
@@ -172,6 +190,7 @@ function ENT:PreInit()
             "models/vj_cofr/aomr/twitcher2_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraomr_twitcher3" then
+        self.Twitcher_Type = 8
         self.Model = {
             "models/vj_cofr/aomr/twitcher3_barney.mdl",
             "models/vj_cofr/aomr/twitcher3_csdamage.mdl",
@@ -186,6 +205,7 @@ function ENT:PreInit()
             "models/vj_cofr/aomr/twitcher3_zombie2.mdl"
         }
     elseif self:GetClass() == "npc_vj_cofraomr_twitcher4" then
+        self.Twitcher_Type = 9
         self.Model = {
             "models/vj_cofr/aomr/twitcher4_barney.mdl",
             "models/vj_cofr/aomr/twitcher4_csdamage.mdl",
@@ -202,26 +222,34 @@ function ENT:PreInit()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetStats()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 70
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 90
+        self.MeleeAttackDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 160
+        self.MeleeAttackDamage = 20
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Twitcher_Init()
-    if self:GetClass() == "npc_vj_cofraom_twitcher1"
-    or self:GetClass() == "npc_vj_cofraom_twitcher2"
-    or self:GetClass() == "npc_vj_cofraomr_twitcher1"
-    or self:GetClass() == "npc_vj_cofraomr_twitcher2" then
+    if self.Twitcher_Type == 0 or self.Twitcher_Type == 1 or self.Twitcher_Type == 6 or self.Twitcher_Type == 7 then
         self.AnimTbl_MeleeAttack = {"vjseq_attack0", "vjseq_attack1", "vjseq_attack2", "vjseq_attack22", "vjseq_attack3", "vjseq_attack32", "vjseq_attack45"}
 
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher3"
-    or self:GetClass() == "npc_vj_cofraomr_twitcher3" then
+    elseif self.Twitcher_Type == 2 or self.Twitcher_Type == 8 then
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
 
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher4"
-    or self:GetClass() == "npc_vj_cofraomr_twitcher4" then
+    elseif self.Twitcher_Type == 3 or self.Twitcher_Type == 9 then
         self.AnimTbl_MeleeAttack = "vjseq_attack0"
 
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher_da" then
-        self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
+    elseif self.Twitcher_Type == 4 then
+        self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2"}
 
-    /*elseif self:GetClass() == "npc_vj_cofrc_twitcher" then
-        self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2"}*/
+    elseif self.Twitcher_Type == 5 then
+        self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
     end
     if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or self:GetModel() == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
         self:DrawShadow(false)
@@ -250,10 +278,7 @@ function ENT:TwitcherSounds()
         "vj_cofr/aom/twitcher/zo_pain2.wav"
     }
     if GetConVar("VJ_COFR_Twitcher_RandomSounds"):GetInt() == 0 then
-        if self:GetClass() == "npc_vj_cofraom_twitcher1"
-        or self:GetClass() == "npc_vj_cofraom_twitcher3"
-        or self:GetClass() == "npc_vj_cofraomr_twitcher1"
-        or self:GetClass() == "npc_vj_cofraomr_twitcher3" then
+        if self.Twitcher_Type == 0 or self.Twitcher_Type == 2 or self.Twitcher_Type == 6 or self.Twitcher_Type == 8 then
             self.SoundTbl_Alert = {
                 "vj_cofr/aom/twitcher/zo_alert10.wav",
                 "vj_cofr/aom/twitcher/zo_alert20.wav",
@@ -263,10 +288,7 @@ function ENT:TwitcherSounds()
                 "vj_cofr/aom/twitcher/zo_attack1.wav",
                 "vj_cofr/aom/twitcher/zo_attack2.wav"
             }
-        elseif self:GetClass() == "npc_vj_cofraom_twitcher2"
-        or self:GetClass() == "npc_vj_cofraom_twitcher4"
-        or self:GetClass() == "npc_vj_cofraomr_twitcher2"
-        or self:GetClass() == "npc_vj_cofraomr_twitcher4" then
+        elseif self.Twitcher_Type == 1 or self.Twitcher_Type == 3 or self.Twitcher_Type == 7 or self.Twitcher_Type == 9 then
             self.SoundTbl_Alert = {
                 "vj_cofr/aom/twitcher2/zo_alert10.wav",
                 "vj_cofr/aom/twitcher2/zo_alert20.wav",
@@ -305,7 +327,8 @@ function ENT:TwitcherSounds()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    if self.Twitcher_Type == 5 then self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0)) end
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Twitcher_Init()
     self:TwitcherSounds()
 end

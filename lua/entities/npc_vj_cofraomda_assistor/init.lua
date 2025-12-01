@@ -1,4 +1,4 @@
-include("entities/npc_vj_cofraom_david/init.lua")
+include("entities/npc_vj_cofraomda_david/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -7,14 +7,13 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_cofr/aom/da/assistor_cross.mdl", "models/vj_cofr/aom/da/assistor_question.mdl", "models/vj_cofr/aom/da/assistor_scream.mdl", "models/vj_cofr/aom/da/assistor_two.mdl"}
-ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/da/w_pills.mdl"
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FollowPlayer =
     "vj_cofr/aom/player_da/helpyou.wav"
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:AssistorFlashlight()
+function ENT:FlashlightSetup()
     if GetConVar("VJ_COFR_Flashlight"):GetInt() == 0 then return end
     if math_random(1,3) == 1 then
         self:SetBodygroup(0,1)

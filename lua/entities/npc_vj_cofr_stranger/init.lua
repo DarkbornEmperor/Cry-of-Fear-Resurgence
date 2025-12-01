@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/stranger.mdl"
-ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -17,12 +16,12 @@ ENT.HasRangeAttack = true
 ENT.DisableRangeAttackAnimation = true
 ENT.RangeAttackAnimationFaceEnemy = false
 ENT.RangeAttackMaxDistance = 500
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.NextRangeAttackTime = 0.5
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 300
-ENT.LimitChaseDistance_Min = 1
+ENT.LimitChaseDistance_Min = 0
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -63,6 +62,22 @@ util.AddNetworkString(nwName)
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 50
+        self.StrangerDamage = 1
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 70
+        self.StrangerDamage = 2
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 90
+        self.StrangerDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 150
+        self.StrangerDamage = 10
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Stranger_Init()
     self.SoundTbl_Breath =
         "vj_cofr/cof/stranger/st_voiceloop.wav"
@@ -76,7 +91,7 @@ function ENT:Init()
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -143,7 +158,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) or enemy.IsVJBaseBullseye then return true end
         if CurTime() > self.Stranger_NextEnemyDamageT then
             if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
-            enemy:TakeDamage(10, self, self)
+            enemy:TakeDamage(self.StrangerDamage, self, self)
             self:Stranger_Damage()
             self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
         end

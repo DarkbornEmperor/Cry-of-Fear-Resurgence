@@ -16,7 +16,6 @@ ENT.SightAngle = 360
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_smash"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 90
 ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 130
@@ -61,7 +60,7 @@ end
 function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
-    self:SetSurroundingBounds(Vector(-90, -90, 0), Vector(90, 90, 190))
+    self:SetSurroundingBounds(Vector(90, 90, 190), Vector(-90, -90, 0))
     self:HumanFlower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

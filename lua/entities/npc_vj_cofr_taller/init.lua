@@ -6,10 +6,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/taller.mdl"
-ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
-ENT.VJ_ID_Boss = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_cofr_blood_red"}
 ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
@@ -22,7 +20,7 @@ ENT.MeleeAttackDamageType = DMG_CRUSH
 ENT.MeleeAttackPlayerSpeed = false
 ENT.MeleeAttackPlayerSpeedWalk = 0.001
 ENT.MeleeAttackPlayerSpeedRun = 0.001
-ENT.MeleeAttackPlayerSpeedTime = 4
+ENT.MeleeAttackPlayerSpeedTime = 5
 ENT.HasMeleeAttackPlayerSpeedSounds = false
 ENT.HasMeleeAttackKnockBack = false
 ENT.DamageResponse = "OnlySearch"
@@ -58,6 +56,22 @@ ENT.SoundTbl_Impact = {
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 200
+        self.MeleeAttackDamage_Punch = 20
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 300
+        self.MeleeAttackDamage_Punch = 30
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 370
+        self.MeleeAttackDamage_Punch = 40
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 500
+        self.MeleeAttackDamage_Punch = 60
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Taller_Init()
     self.SoundTbl_Alert =
         "vj_cofr/cof/taller/taller_alert.wav"
@@ -71,7 +85,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(30, 30, 167), Vector(-30, -30, 0))
-    self:SetSurroundingBounds(Vector(-90, -90, 0), Vector(90, 90, 200))
+    self:SetSurroundingBounds(Vector(90, 90, 200), Vector(-90, -90, 0))
     self:Taller_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -112,7 +126,7 @@ function ENT:OnMeleeAttack(status, enemy)
         local attack = math_random(1,2)
         if attack == 1 then
             self.AnimTbl_MeleeAttack = "vjseq_attack"
-            self.MeleeAttackDamage = 60
+            self.MeleeAttackDamage = self.MeleeAttackDamage_Punch
             self.MeleeAttackPlayerSpeed = true
             self.HasMeleeAttackKnockBack = true
             self.SoundTbl_MeleeAttackMiss =
@@ -148,7 +162,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
         if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
             ent:StopMoving()
             ent:SetState(VJ_STATE_ONLY_ANIMATION)
-            timer.Simple(4, function()
+            timer.Simple(5, function()
                 if IsValid(ent) then
                     ent:SetState()
                 end

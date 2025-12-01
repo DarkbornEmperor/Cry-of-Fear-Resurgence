@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/faster.mdl"
-ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack5"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 14
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
@@ -62,6 +60,22 @@ ENT.Faster_Type = 0
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 25
+        self.MeleeAttackDamage = 3
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 40
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 70
+        self.MeleeAttackDamage = 9
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 110
+        self.MeleeAttackDamage = 14
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_Init()
     if self.Faster_Type == 1 then
         self.AlertSoundPitch = VJ.SET(80, 80)
@@ -92,7 +106,7 @@ function ENT:Init()
     elseif self:GetModel() == "models/vj_cofr/cofcc/faster_ooi.mdl" then
         self.Faster_Type = 2
     end
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Faster_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

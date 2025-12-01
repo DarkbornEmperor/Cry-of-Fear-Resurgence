@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/flygare.mdl"
-ENT.StartHealth = 100
 ENT.HullType = HULL_MEDIUM
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 150
@@ -19,7 +18,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_punch", "vjseq_punchdown"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
@@ -28,7 +26,7 @@ ENT.RangeAttackProjectiles = "obj_vj_cofr_spit"
 ENT.RangeAttackMaxDistance = 784
 ENT.RangeAttackMinDistance = 300
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 1
+ENT.NextRangeAttackTime = 0
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
@@ -67,6 +65,22 @@ ENT.SoundTbl_Impact = {
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 40
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 60
+        self.MeleeAttackDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 80
+        self.MeleeAttackDamage = 15
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 100
+        self.MeleeAttackDamage = 20
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Flygare_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cof/flygare/flygare_alert1.wav",
@@ -96,7 +110,7 @@ function ENT:Init()
     self.Flygare_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
 
     self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 120))
+    self:SetSurroundingBounds(Vector(60, 60, 120), Vector(-60, -60, 0))
     self:Flygare_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

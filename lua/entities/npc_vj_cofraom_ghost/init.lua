@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/ghost.mdl"
-ENT.StartHealth = 300
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -72,6 +71,10 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.Ghost_NextTinnitusSoundT = 0
+ENT.Ghost_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic
+    -- 2 = Remod
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -79,6 +82,16 @@ local math_rand = math.Rand
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 100
+        self.GhostDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 200
+        self.GhostDamage = 10
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 300
+        self.GhostDamage = 50
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,8 +107,14 @@ function ENT:Ghost_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
-    self:SetSurroundingBounds(Vector(-80, -80, 0), Vector(80, 80, 100))
+    if self:GetModel() == "models/vj_cofr/aom/ghost.mdl" then // Already the default
+        self.Ghost_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/ghost.mdl" then
+        self.Ghost_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/ghost.mdl" then
+        self.Ghost_Type = 2
+    end
+    self:SetSurroundingBounds(Vector(80, 80, 100), Vector(-80, -80, 0))
     self:Ghost_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

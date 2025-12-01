@@ -7,7 +7,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/sawcrazy_jeff_le.mdl"
-ENT.StartHealth = 2000
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status) return end
 /*-----------------------------------------------

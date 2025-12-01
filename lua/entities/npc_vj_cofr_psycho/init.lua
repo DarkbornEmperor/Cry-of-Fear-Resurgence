@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/psycho.mdl"
-ENT.StartHealth = 110
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -15,7 +14,6 @@ ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDistance = 45
 ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
@@ -56,6 +54,22 @@ ENT.SoundTbl_Impact = {
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 20
+        self.MeleeAttackDamage = 4
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 40
+        self.MeleeAttackDamage = 7
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 70
+        self.MeleeAttackDamage = 13
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 110
+        self.MeleeAttackDamage = 25
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Psycho_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cof/faceless/faceless_alert10.wav",
@@ -78,7 +92,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(-70, -70, 0), Vector(70, 70, 90))
+    self:SetSurroundingBounds(Vector(70, 70, 90), Vector(-70, -70, 0))
     self:Psycho_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

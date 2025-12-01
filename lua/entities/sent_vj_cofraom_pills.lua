@@ -28,6 +28,15 @@ function ENT:Initialize()
     if phys && IsValid(phys) then
         phys:Wake()
     end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.HPAmount = 40
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.HPAmount = 30
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.HPAmount = 20
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.HPAmount = 15
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PhysicsCollide(data, physobj)
@@ -46,7 +55,7 @@ function ENT:Use(activator, caller)
     if hp >= maxhp then return end
     if activator:IsPlayer() then
         activator:EmitSound(Sound("vj_cofr/aom/weapons/pills/pills_use.wav"), 75, 100)
-        activator:SetHealth(math.min(hp + 15, maxhp))
+        activator:SetHealth(math.min(hp + self.HPAmount, maxhp))
         //activator:PrintMessage(HUD_PRINTTALK, "Don't Do Drugs, Kids.")
         self:Remove()
     end

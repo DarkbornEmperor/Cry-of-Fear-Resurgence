@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/aom/screamer.mdl"
-ENT.StartHealth = 170
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 120
@@ -20,7 +19,7 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.RangeAttackProjectiles = "obj_vj_cofraom_soul"
 ENT.RangeAttackMaxDistance = 2048
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.PICK(3,4)
 ENT.LimitChaseDistance = true
@@ -54,12 +53,23 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Screamer_HomingAttack = false -- false = Regular, true = Homing
 ENT.Screamer_NumFired = 0 -- Used to make sure range attack sound only plays once
+ENT.Screamer_Type = 0
+    -- 0 = Director's Cut
+    -- 1 = Classic
+    -- 2 = Remod
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
+    end
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 80
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 110
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
+        self.StartHealth = 170
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,6 +96,14 @@ function ENT:Screamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    if self:GetModel() == "models/vj_cofr/aom/screamer.mdl" then // Already the default
+        self.Screamer_Type = 0
+    elseif self:GetModel() == "models/vj_cofr/aom/classic/screamer.mdl" then
+        self.Screamer_Type = 1
+    elseif self:GetModel() == "models/vj_cofr/aomr/screamer.mdl" then
+        self.Screamer_Type = 2
+    end
+
     self.Screamer_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
     self.Screamer_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
     self.Screamer_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
@@ -137,9 +155,9 @@ function ENT:Init()
     self:DeleteOnRemove(soul2)
     self.soul2 = soul2
 
-    if self:GetClass() != "npc_vj_cofraomc_screamer" then self:DrawShadow(false) end
+    if self.Screamer_Type == 0 then self:DrawShadow(false) end
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Screamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -268,7 +286,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    if self:GetClass() != "npc_vj_cofraomc_screamer" then corpseEnt:DrawShadow(false) end
+    if self.Screamer_Type == 0 then corpseEnt:DrawShadow(false) end
     corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end

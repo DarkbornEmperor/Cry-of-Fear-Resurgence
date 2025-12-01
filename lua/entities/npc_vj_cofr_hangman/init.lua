@@ -16,7 +16,6 @@ ENT.SightAngle = 360
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
-ENT.MeleeAttackDamage = 200
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
@@ -45,7 +44,7 @@ function ENT:Hangman_Init() end
 function ENT:Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(13, 13, 150), Vector(-13, -13, 10))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 180))
+    self:SetSurroundingBounds(Vector(60, 60, 180), Vector(-60, -60, 0))
     self:Hangman_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

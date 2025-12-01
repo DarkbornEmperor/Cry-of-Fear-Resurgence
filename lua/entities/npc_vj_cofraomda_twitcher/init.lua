@@ -18,13 +18,6 @@ ENT.ControllerParams = {
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Init()
-     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
-     self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
-     self:Twitcher_Init()
-     self:TwitcherSounds()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TwitcherSounds()
     self.SoundTbl_Pain = {
         "vj_cofr/aom/twitcher/zo_pain1.wav",

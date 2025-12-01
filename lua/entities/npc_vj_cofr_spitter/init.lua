@@ -6,7 +6,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/spitter.mdl"
-ENT.StartHealth = 140
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
@@ -19,9 +18,9 @@ ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_spit"
 ENT.RangeAttackProjectiles = "obj_vj_cofr_spit"
 ENT.RangeAttackMaxDistance = 784
-ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMinDistance = 0
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 1
+ENT.NextRangeAttackTime = 0
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -43,6 +42,18 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 40
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 60
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 90
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 140
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Spitter_Init()
     self.SoundTbl_Alert = {
@@ -73,7 +84,7 @@ function ENT:Init()
         end)
     end*/
     self:SetCollisionBounds(Vector(15, 15, 70), Vector(-15, -15, 0))
-    self:SetSurroundingBounds(Vector(-60, -60, 0), Vector(60, 60, 90))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
