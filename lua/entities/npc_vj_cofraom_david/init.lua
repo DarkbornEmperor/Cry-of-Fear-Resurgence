@@ -65,7 +65,7 @@ ENT.SoundTbl_MeleeAttackExtra =
     "vj_cofr/cof/weapons/melee_hit.wav"
 
 ENT.SoundTbl_MeleeAttackMiss =
-"vj_cofr/cof/weapons/melee_swing.wav"
+    "vj_cofr/cof/weapons/melee_swing.wav"
 
 /*ENT.SoundTbl_MedicBeforeHeal =
     "vj_cofr/aom/weapons/pills/pills_pickup.wav"*/
@@ -592,9 +592,10 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    if self.Human_CanHeal && !self:IsBusy() && self.MedicData.Status != "Healing" && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && CurTime() > self.Human_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+    if self.Human_CanHeal && !self:IsBusy() && self.MedicData.Status != "Healing" && self.AttackType != VJ.ATTACK_TYPE_MELEE && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && CurTime() > self.Human_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
         self:OnMedicBehavior("BeforeHeal")
         self:PlayAnim(self.AnimTbl_Medic_GiveHealth, true, false, false)
+        self.IsAbleToMeleeAttack = false
         self.WeaponState = VJ.WEP_STATE_HOLSTERED
         timer.Simple(0.4, function()
             if IsValid(self) && !self.Dead then
@@ -650,17 +651,18 @@ function ENT:OnMedicBehavior(status, statusData)
     if status == "BeforeHeal" then
         if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(true) end
         local att = self:GetAttachment(self:LookupAttachment("rhand"))
-        self.healItem = ents.Create("prop_vj_animatable")
-        self.healItem:SetModel(self.Medic_SpawnPropOnHealModel)
-        self.healItem:SetPos(att.Pos)
-        self.healItem:SetAngles(att.Ang)
-        self.healItem:SetParent(self)
-        self.healItem:Fire("SetParentAttachment", "rhand")
-        self.healItem:Spawn()
-        //self.healItem:AddEffects(EF_BONEMERGE)
-        self.healItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-        self:DeleteOnRemove(self.healItem)
-        timer.Simple(VJ.AnimDuration(self, self.AnimTbl_Medic_GiveHealth), function() if IsValid(self) && IsValid(self:GetActiveWeapon()) then SafeRemoveEntity(self.healItem) self:GetActiveWeapon():SetNoDraw(false) self.WeaponState = VJ.WEP_STATE_READY end end)
+        local healItem = ents.Create("prop_vj_animatable")
+        healItem:SetModel(self.Medic_SpawnPropOnHealModel)
+        healItem:SetPos(att.Pos)
+        healItem:SetAngles(att.Ang)
+        healItem:SetParent(self)
+        healItem:Fire("SetParentAttachment", "rhand")
+        healItem:Spawn()
+        //healItem:AddEffects(EF_BONEMERGE)
+        healItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+        self.healItem = healItem
+        self:DeleteOnRemove(healItem)
+        timer.Simple(VJ.AnimDuration(self, self.AnimTbl_Medic_GiveHealth), function() if IsValid(self) && IsValid(self:GetActiveWeapon()) && IsValid(self.healItem) then SafeRemoveEntity(self.healItem) self:GetActiveWeapon():SetNoDraw(false) self.WeaponState = VJ.WEP_STATE_READY self.IsAbleToMeleeAttack = true end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
