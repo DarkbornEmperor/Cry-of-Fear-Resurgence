@@ -942,7 +942,6 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
         if self.Human_Type == 2 then corpseEnt:SetBodygroup(0,0) end
         corpseEnt:SetSkin(0)
     end
-    corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -287,7 +287,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     if self.Screamer_Type == 0 then corpseEnt:DrawShadow(false) end
-    corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------

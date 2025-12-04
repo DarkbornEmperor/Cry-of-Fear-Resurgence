@@ -603,11 +603,13 @@ function VJ_COFR_DeathCode(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function VJ_COFR_ApplyCorpse(ent,corpse)
+function VJ_COFR_ApplyCorpse(ent, corpse)
     if !VJ_CVAR_AI_ENABLED then corpse:Remove() end
-    //VJ_COFR_ExtraCorpseOptions(corpse)
     corpse:ResetSequence(ent:GetSequence())
     corpse:SetCycle(1)
+    corpse:SetMoveType(MOVETYPE_STEP)
     corpse:SetCollisionBounds(Vector(1, 1, 1), Vector(-1, -1, 0))
+    corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
     corpse:SetSolid(SOLID_NONE)
+    corpse:SetPersistent(true)
 end

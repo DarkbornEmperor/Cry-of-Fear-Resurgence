@@ -151,7 +151,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
     corpseEnt:SetSkin(2)
-    corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------

@@ -95,7 +95,6 @@ function ENT:JumpscareDamage()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    corpseEnt:SetMoveType(MOVETYPE_NONE)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 /*-----------------------------------------------

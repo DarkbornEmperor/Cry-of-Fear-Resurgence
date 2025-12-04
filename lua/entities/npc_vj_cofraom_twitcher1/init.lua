@@ -410,7 +410,6 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
         corpseEnt:SetRenderFX(kRenderFxDistort)
         corpseEnt:SetRenderMode(RENDERMODE_TRANSADD)
     end
-    corpseEnt:SetMoveType(MOVETYPE_STEP)
     VJ_COFR_ApplyCorpse(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
