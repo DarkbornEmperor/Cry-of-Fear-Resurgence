@@ -89,7 +89,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)
     local spr = ents.Create("env_sprite")
-    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat_white.vmt")
+    spr:SetKeyValue("model", "vj_cofr/sprites/spitsplat.vmt")
     spr:SetKeyValue("rendercolor", "130 19 10")
     spr:SetKeyValue("GlowProxySize", "1.0")
     spr:SetKeyValue("HDRColorScale", "1.0")
