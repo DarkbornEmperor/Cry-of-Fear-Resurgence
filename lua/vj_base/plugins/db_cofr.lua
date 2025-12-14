@@ -464,6 +464,11 @@ if SERVER then
         ply.VJ_COFR_SpawnedNPCClass = npcClass
         //print(ply,"Added NPC class", npcClass)
     end)
+    /*hook.Add("PhysgunPickup", "VJ_COFR_PhysgunCheck", function(ply, ent)
+        if ent:GetClass() == "prop_vj_animatable" && ent.VJ_COFR_Corpse then
+            return false
+        end
+    end)*/
 end
 
 if CLIENT then
@@ -605,12 +610,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_ApplyCorpse(ent, corpse)
     if !VJ_CVAR_AI_ENABLED then corpse:Remove() end
+    local minBounds, maxBounds = ent:GetCollisionBounds()
+    corpse.VJ_COFR_Corpse = true
     corpse:ResetSequence(ent:GetSequence())
     corpse:SetCycle(1)
     corpse:SetMoveType(MOVETYPE_STEP)
-    corpse:SetCollisionBounds(Vector(1, 1, 1), Vector(-1, -1, 0))
-    corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
     corpse:SetSolid(SOLID_NONE)
-    corpse:PhysgunDisabled(true)
-    corpse:SetSaveValue("m_tblToolsAllowed", false)
+    corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
+    corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+    //corpse:SetSaveValue("m_tblToolsAllowed", false)
 end
