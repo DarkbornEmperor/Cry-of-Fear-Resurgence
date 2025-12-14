@@ -30,14 +30,6 @@ ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:InitPhys(phys)
-    phys:Wake()
-    phys:SetMass(1)
-    phys:SetBuoyancyRatio(0)
-    phys:EnableDrag(false)
-    phys:EnableGravity(false)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
         self.DirectDamage = 4
