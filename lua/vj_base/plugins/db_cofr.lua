@@ -611,4 +611,6 @@ function VJ_COFR_ApplyCorpse(ent, corpse)
     corpse:SetCollisionBounds(Vector(1, 1, 1), Vector(-1, -1, 0))
     corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
     corpse:SetSolid(SOLID_NONE)
+    corpse:PhysgunDisabled(true)
+    corpse:SetSaveValue("m_tblToolsAllowed", false)
 end
