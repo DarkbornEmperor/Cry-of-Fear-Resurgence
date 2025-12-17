@@ -144,6 +144,9 @@ function ENT:Devourer_CalculateTongue()
         if self.Devourer_CurEnt != trHitEnt then
             self:Devourer_ResetEnt()
             self.Devourer_CurEntMoveType = trHitEnt:GetMoveType()
+            if trHitEnt:IsNextBot() then -- NextBots initially need to be repositioned upwards otherwise they will constantly snap to the ground
+                trHitEnt:SetPos(trHitEnt:GetUp() * 150)
+            end
         end
         self.Devourer_CurEnt = trHitEnt
         trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
@@ -154,6 +157,9 @@ function ENT:Devourer_CalculateTongue()
         elseif trHitEnt:IsPlayer() then
             trHitEnt:SetMoveType(MOVETYPE_NONE)
             //trHitEnt:AddFlags(FL_ATCONTROLS)
+        elseif trHitEnt:IsNextBot() then
+            trHitEnt:SetVelocity(velInitial)
+            trHitEnt:SetMoveType(MOVETYPE_NONE)
         end
         trHitEnt:SetGroundEntity(NULL)
         -- Make it pull the enemy up
