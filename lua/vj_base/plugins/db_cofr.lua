@@ -294,11 +294,7 @@
 if CLIENT then
     hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_COFR", function()
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - General", "CoFR - General", "", "", function(panel)
-            local vj_cofrreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_cofrreset_cs.Options["#vjbase.menu.general.reset.everything"] = {
-                    VJ_COFR_SparkFX = "0"
-            }
-            panel:AddControl("ComboBox", vj_cofrreset_cs)
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_SparkFX 0"})
             panel:Help("Client-Side Options:")
             panel:CheckBox("Enable GoldSrc-Style Sparks On Metal Surfaces?", "VJ_COFR_SparkFX")
             panel:ControlHelp("Applies ONLY to CoFR weapons!")
@@ -308,45 +304,23 @@ if CLIENT then
                 return
             end
             panel:Help("#vjbase.menu.general.admin.only")
-            local vj_cofrreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_cofrreset.Options["#vjbase.menu.general.reset.everything"] = {
-                    VJ_COFR_Difficulty = "2",
-                    VJ_COFR_Boss_Music = "1",
-                    VJ_COFR_CoFvsAoM = "0",
-                    VJ_COFR_Simon_Costumes = "0",
-                    VJ_COFR_BookSimon_Normal = "1",
-                    VJ_COFR_Twitcher_Invisible = "1",
-                    VJ_COFR_Twitcher_RandomSounds = "0",
-                    VJ_COFR_Addiction_SelfDamage = "1",
-                    VJ_COFR_Mace_Damage = "1",
-                    VJ_COFR_Sawcrazy_RadiusDamage = "1",
-                    VJ_COFR_FaceHead_SummonFaceless = "1",
-                    VJ_COFR_Slower_HeadGib = "1",
-                    VJ_COFR_Suicider_Ammo = "1",
-                    VJ_COFR_Suicider_DropGlock = "0",
-                    VJ_COFR_DropAmmo = "0",
-                    VJ_COFR_Suicider_Headshot = "1",
-                    VJ_COFR_Ghost_SlowSound = "1",
-                    VJ_COFR_Flashlight = "0",
-                    VJ_COFR_Suicider_ExtraPistol = "0",
-                    VJ_COFR_Suicider_NewSound = "1",
-                    VJ_COFR_OldWepSounds = "0",
-                    VJ_COFR_Human_MeleeWep = "1",
-                    VJ_COFR_Human_WepSwitch = "1",
-                    VJ_COFR_Human_Regen = "0",
-                    VJ_COFR_Human_ReloadCover = "0",
-                    VJ_COFR_Human_ReloadRun = "1",
-                    VJ_COFR_Human_OriginalWepDamage = "0",
-                    VJ_COFR_Boss_Spawner = "0",
-                    VJ_COFR_JoeBiden = "0"
-            }
-            panel:AddControl("ComboBox", vj_cofrreset)
-            panel:ControlHelp("Note: Only future spawned NPCs will be affected!")
-            panel:Help("Modifiers:")
-            panel:NumSlider("Difficulty","VJ_COFR_Difficulty", 1, 4, 0)
-            panel:ControlHelp("1 = Easy | 2 = Medium | 3 = Difficult | 4 = Nightmare")
-            panel:ControlHelp("Note: Some NPCs' stats will remain the same. Ex: Book Simon.")
-            panel:Help("Options:")
+            panel:Help("#vjbase.menu.general.npc.note.future")
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_Difficulty 2\nVJ_COFR_Boss_Music 1\nVJ_COFR_CoFvsAoM 0\nVJ_COFR_Simon_Costumes 0\nVJ_COFR_BookSimon_Normal 1\nVJ_COFR_Twitcher_Invisible 1\nVJ_COFR_Twitcher_RandomSounds 0\nVJ_COFR_Addiction_SelfDamage 1\nVJ_COFR_Mace_Damage 1\nVJ_COFR_Sawcrazy_RadiusDamage 1\nVJ_COFR_FaceHead_SummonFaceless 1\nVJ_COFR_Slower_HeadGib 1\nVJ_COFR_Suicider_Ammo 1\nVJ_COFR_Suicider_DropGlock 0\nVJ_COFR_DropAmmo 0\nVJ_COFR_Suicider_Headshot 1\nVJ_COFR_Ghost_SlowSound 1\nVJ_COFR_Flashlight 0\nVJ_COFR_Suicider_ExtraPistol 0\nVJ_COFR_Suicider_NewSound 1\nVJ_COFR_OldWepSounds 0\nVJ_COFR_Human_MeleeWep 1\nVJ_COFR_Human_WepSwitch 1\nVJ_COFR_Human_Regen 0\nVJ_COFR_Human_ReloadCover 0\nVJ_COFR_Human_ReloadRun 1\nVJ_COFR_Human_OriginalWepDamage 1\nVJ_COFR_Boss_Spawner 0\nVJ_COFR_JoeBiden 0"})
+
+            local difList_Text = vgui.Create("DLabel", panel)
+            difList_Text:SetText("#vjbase.menu.npc.settings.gen.difficulty.header")
+            difList_Text:SetDark(true)
+            local difList = vgui.Create("CtrlListBox", panel)
+            difList:SetHeight(25)
+            difList:Dock(TOP)
+            difList:SetSortItems(false)
+            difList:AddOption("Easy", {VJ_COFR_Difficulty = "1"})
+            difList:AddOption("Medium", {VJ_COFR_Difficulty = "2"})
+            difList:AddOption("Difficult", {VJ_COFR_Difficulty = "3"})
+            difList:AddOption("Nightmare", {VJ_COFR_Difficulty = "4"})
+            panel:AddItem(difList_Text, difList)
+
+            panel:Help("Server-Side Options:")
             panel:CheckBox("Enable Boss Music?", "VJ_COFR_Boss_Music")
             panel:CheckBox("Enable AoM & CoF Enemies Being Hostile To Each Other?", "VJ_COFR_CoFvsAoM")
             panel:CheckBox("Enable Hoodie Skins For Simon?", "VJ_COFR_Simon_Costumes")
@@ -375,14 +349,15 @@ if CLIENT then
             panel:CheckBox("Enable Human NPCs Switching Weapons?", "VJ_COFR_Human_WepSwitch")
             panel:CheckBox("Enable Human NPCs Having HP Regen?", "VJ_COFR_Human_Regen")
             panel:CheckBox("Enable Human NPCs Finding Cover To Reload?", "VJ_COFR_Human_ReloadCover")
+            panel:CheckBox("Enable Human NPCs Moving While Reloading?", "VJ_COFR_Human_ReloadRun")
             panel:CheckBox("Enable Original Weapon Damage For Certain Weapons?", "VJ_COFR_Human_OriginalWepDamage")
             panel:ControlHelp("Ex: AoM Deagle & Revolver")
-            panel:CheckBox("Enable NPCs Moving While Reloading?", "VJ_COFR_Human_ReloadRun")
             panel:CheckBox("Enable Bosses Spawning From Spawners?", "VJ_COFR_Boss_Spawner")
             panel:CheckBox("Enable Joe Biden Mode For Carcass?", "VJ_COFR_JoeBiden")
         end)
         -- Map Spawner Configure Menu --
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - Map Spawner", "CoFR - Map Spawner", "", "", function(panel)
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_MapSpawner_Music 1\nVJ_COFR_MapSpawner_Ambience 1\nVJ_COFR_MapSpawner_MusicVolume 50\nVJ_COFR_MapSpawner_AmbienceVolume 50"})
             panel:Help("Client-Side Options:")
             panel:CheckBox("Enable Music?", "VJ_COFR_MapSpawner_Music")
             panel:CheckBox("Enable Ambience?", "VJ_COFR_MapSpawner_Ambience")
@@ -393,24 +368,10 @@ if CLIENT then
                 panel:Help("#vjbase.menu.general.admin.only")
                 return
             end
-            panel:Help("Note: Only Admins can change these settings!")
-            local vj_cofrreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_cofrreset_mapspawner.Options["#vjbase.menu.general.reset.everything"] = {
-                    VJ_COFR_MapSpawner_Music = "1",
-                    VJ_COFR_MapSpawner_Enabled = "1",
-                    VJ_COFR_MapSpawner_Boss = "0",
-                    VJ_COFR_MapSpawner_MaxMon = "80",
-                    VJ_COFR_MapSpawner_HordeCount = "35",
-                    VJ_COFR_MapSpawner_SpawnMax = "2000",
-                    VJ_COFR_MapSpawner_SpawnMin = "650",
-                    VJ_COFR_MapSpawner_HordeChance = "100",
-                    VJ_COFR_MapSpawner_HordeCooldownMin = "120",
-                    VJ_COFR_MapSpawner_HordeCooldownMax = "180",
-                    VJ_COFR_MapSpawner_DelayMin = "0.85",
-                    VJ_COFR_MapSpawner_DelayMax = "3"
-            }
-            panel:AddControl("ComboBox", vj_cofrreset_mapspawner)
-            panel:Help("Options:")
+            panel:Help("#vjbase.menu.general.admin.only")
+            panel:Help("#vjbase.menu.general.npc.note.future")
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_MapSpawner_Enabled 2\nVJ_COFR_MapSpawner_Enabled 1\nVJ_COFR_MapSpawner_Boss 0\nVJ_COFR_MapSpawner_MaxMon 80\nVJ_COFR_MapSpawner_HordeCount 35\nVJ_COFR_MapSpawner_SpawnMax 2000\nVJ_COFR_MapSpawner_SpawnMin 650\nVJ_COFR_MapSpawner_HordeChance 100\nVJ_COFR_MapSpawner_HordeCooldownMin 120\nVJ_COFR_MapSpawner_HordeCooldownMax 180\nVJ_COFR_MapSpawner_DelayMin 0.85\nVJ_COFR_MapSpawner_DelayMax 3"})
+            panel:Help("Server-Side Options:")
             panel:CheckBox("Enable Map Spawner Processing?", "VJ_COFR_MapSpawner_Enabled")
             panel:CheckBox("Enable Bosses?", "VJ_COFR_MapSpawner_Boss")
             panel:NumSlider("Max Monsters", "VJ_COFR_MapSpawner_MaxMon", "5", "400" ,2)
