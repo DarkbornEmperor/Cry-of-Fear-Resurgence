@@ -553,7 +553,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.Human_Crouching && self.Weapon_CanMoveFire && IsValid(self:GetEnemy()) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
+    if self.Human_Crouching && self.Weapon_CanMoveFire && IsValid(self.EnemyData.Target) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
         if (self.EnemyData.Visible or (self.EnemyData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
                 self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
             if act == ACT_WALK then
