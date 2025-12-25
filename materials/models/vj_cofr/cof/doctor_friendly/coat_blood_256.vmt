@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_cofr/cof/doctor_friendly/coat_blood_256"
+    "$nocull" "1"
 }
