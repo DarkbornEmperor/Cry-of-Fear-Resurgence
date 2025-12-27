@@ -193,7 +193,7 @@ end
 function ENT:GetClosestNavPosition(ent, getHidden)
     local pos = false
     local closestDist = 999999999
-    for i,v in pairs(self.navAreas) do
+    for i, v in pairs(self.navAreas) do
         local hidingSpots = getHidden && v:GetHidingSpots() or true
         if !hidingSpots then continue end
         if istable(hidingSpots) && #hidingSpots <= 0 then continue end
@@ -210,7 +210,7 @@ end
 function ENT:GetClosestNodePosition(ent)
     local pos = false
     local closestDist = 999999999
-    for i,v in pairs(self.nodePositions) do
+    for i, v in pairs(self.nodePositions) do
         if !self:IsNodeUsable(i) then continue end
         local testPos = self:GetNodePosition(i)
         local dist = ent:GetPos():Distance(testPos)
@@ -223,7 +223,7 @@ function ENT:GetClosestNodePosition(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FindRandomNodePosition(ent)
-    for i,v in RandomPairs(self.nodePositions) do
+    for i, v in RandomPairs(self.nodePositions) do
         if !self:IsNodeUsable(i) then continue end
         local testPos = self:GetNodePosition(i)
         local dist = ent && testPos:Distance(ent:GetPos()) or 0
@@ -334,7 +334,7 @@ function ENT:Think()
             -- Checks for inactive AI, this code is quite bulky and might be able to be optimized better
         if CurTime() > self.NextAICheckTime then
             if #self.tbl_SpawnedNPCs > 0 then
-                for i,v in ipairs(self.tbl_SpawnedNPCs) do
+                for i, v in ipairs(self.tbl_SpawnedNPCs) do
                     if IsValid(v) then
                         local enemy = v:GetEnemy()
                         self:CheckEnemyDistance(v)
@@ -351,7 +351,7 @@ function ENT:Think()
                 end
             end
                 if #self.tbl_SpawnedBossMonster > 0 then
-                    for i,v in ipairs(self.tbl_SpawnedBossMonster) do
+                    for i, v in ipairs(self.tbl_SpawnedBossMonster) do
                         if IsValid(v) then
                             local enemy = v:GetEnemy()
                             self:CheckEnemyDistance(v)
