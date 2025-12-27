@@ -505,8 +505,8 @@ function ENT:Init()
     self:FlashlightSetup()
 
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 or !self.WeaponInventory_MeleeList then return end
-    for _,category in pairs(self.Human_WeaponList) do
-        for _,wep in pairs(category) do
+    for _, category in pairs(self.Human_WeaponList) do
+        for _, wep in pairs(category) do
             self:Give(wep)
         end
     end

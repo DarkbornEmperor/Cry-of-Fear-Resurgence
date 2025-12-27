@@ -110,7 +110,7 @@ end
 function ENT:OnThinkActive()
     if self.Dead or GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 0 then return end
     if self.Sawcrazy_NextRadiusDamageT < CurTime() then
-        for _,v in ipairs(ents.FindInSphere(self:GetPos(), 60)) do
+        for _, v in ipairs(ents.FindInSphere(self:GetPos(), 60)) do
             if v != self && IsValid(v) && self:Visible(v) && (v.VJ_ID_Living or v.VJ_ID_Destructible or v.VJ_ID_Attackable) then
                 if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(), self, self) elseif v:IsPlayer() then v:TakeDamage(v:Health() + v:Armor(), self, self) else v:TakeDamage(200, self, self) end
                 self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5

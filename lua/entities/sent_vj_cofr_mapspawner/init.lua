@@ -141,11 +141,11 @@ function ENT:Initialize()
     self.nodePositions = {}
     self.navAreas = {}
 
-    for _,pos in pairs(VJ_COFR_NODEPOS) do
+    for _, pos in pairs(VJ_COFR_NODEPOS) do
         if pos then table_insert(self.nodePositions, {Position = pos, Time = 0}) end
     end
 
-    for _,nav in pairs(navmesh.GetAllNavAreas()) do
+    for _, nav in pairs(navmesh.GetAllNavAreas()) do
         if nav then table_insert(self.navAreas, nav) end
     end
 
@@ -205,7 +205,7 @@ function ENT:CheckVisibility(pos, ent, mdl)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FindCenterNavPoint(ent)
-    for _,v in RandomPairs(self.navAreas) do
+    for _, v in RandomPairs(self.navAreas) do
         local testPos = v:GetCenter()
         local dist = testPos:Distance(ent:GetPos())
         if dist <= self.COFR_SpawnDistance && dist >= self.COFR_SpawnDistanceClose && !self:CheckVisibility(testPos, ent) then
@@ -216,7 +216,7 @@ function ENT:FindCenterNavPoint(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FindHiddenNavPoint(ent)
-    for _,v in RandomPairs(self.navAreas) do
+    for _, v in RandomPairs(self.navAreas) do
         local hidingSpots = v:GetHidingSpots()
         if !hidingSpots then continue end
         if #hidingSpots <= 0 then continue end
@@ -230,7 +230,7 @@ function ENT:FindHiddenNavPoint(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FindRandomNavPoint(ent)
-    for _,v in RandomPairs(self.navAreas) do
+    for _, v in RandomPairs(self.navAreas) do
         local testPos = v:GetRandomPoint()
         local dist = testPos:Distance(ent:GetPos())
         if dist <= self.COFR_SpawnDistance && dist >= self.COFR_SpawnDistanceClose && !self:CheckVisibility(testPos, ent) then
@@ -314,7 +314,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FindEnemy()
     local tbl = {}
-    for _,v in pairs(ents.GetAll()) do
+    for _, v in pairs(ents.GetAll()) do
         if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_CRY_OF_FEAR") or true) then
             table_insert(tbl, v)
         end
@@ -329,7 +329,7 @@ end
 function ENT:GetClosestEnemy(pos)
     local ent = NULL
     local closestDist = 999999999
-    for _,v in pairs(self:FindEnemy()) do
+    for _, v in pairs(self:FindEnemy()) do
         local dist = v:GetPos():Distance(pos)
         if dist < closestDist then
             closestDist = dist
@@ -343,7 +343,7 @@ function ENT:CheckEnemyDistance(ent, remove)
     local remove = remove or true
     local closestDist = 999999999
     local visible = false
-    for _,v in pairs(self:FindEnemy()) do
+    for _, v in pairs(self:FindEnemy()) do
         local dist = v:GetPos():Distance(ent:GetPos())
         if dist < closestDist then
             closestDist = dist
@@ -371,7 +371,7 @@ function ENT:Think()
         self.AI_RefreshTime = GetConVarNumber("VJ_COFR_MapSpawner_RefreshRate")
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
-            for _,v in ipairs(player.GetAll()) do
+            for _, v in ipairs(player.GetAll()) do
                 if math_random(1,2) == 1 && self.NextAmbientSoundT < CurTime() then
                     self.CoFR_PickAmbient = VJ.PICK(ambient)
                     self.COFR_Ambient = VJ.CreateSound(v, self.CoFR_PickAmbient, GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(), 100)
@@ -451,7 +451,7 @@ function ENT:Think()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoMusic(stop)
-    for _,v in ipairs(player.GetAll()) do
+    for _, v in ipairs(player.GetAll()) do
         if !stop && !self.DidStartMusic then
                 self.DidStartMusic = true
                 self.NextMusicSwitchT = CurTime() + 1
@@ -476,7 +476,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetBossCount(class)
         local count = 0
-        for _,v in pairs(self.tbl_SpawnedBossMonster) do
+        for _, v in pairs(self.tbl_SpawnedBossMonster) do
         if IsValid(v) && v:GetClass() == class then
             count = count +1
         end
@@ -487,7 +487,7 @@ end
 function ENT:PickMonster(tbl)
     local useMax = tbl == self.BossMonster
     local ent = false
-    for _,v in RandomPairs(tbl) do
+    for _, v in RandomPairs(tbl) do
         if !useMax then
             if math_random(1, v.chance) == 1 then
                 ent = v.class
@@ -525,10 +525,10 @@ function ENT:SpawnMonster(ent, pos, isMob)
     Monster.MapSpawner = self
     Monster.EntitiesToNoCollide = {}
     Monster.CallForHelp = false
-    for _,v in pairs(self.Monster) do
+    for _, v in pairs(self.Monster) do
         table_insert(Monster.EntitiesToNoCollide, v.class)
     end
-    for _,v in pairs(self.BossMonster) do
+    for _, v in pairs(self.BossMonster) do
         table_insert(Monster.EntitiesToNoCollide, v.class)
     end
 end
@@ -549,7 +549,7 @@ function ENT:SpawnBossMonster(ent, pos)
     table_insert(self.tbl_SpawnedBossMonster, Boss)
     Boss.MapSpawner = self
     Boss.EntitiesToNoCollide = {}
-    for _,v in pairs(self.BossMonster) do
+    for _, v in pairs(self.BossMonster) do
         table_insert(Boss.EntitiesToNoCollide, v.class)
     end
 end

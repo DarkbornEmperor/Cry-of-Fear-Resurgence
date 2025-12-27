@@ -158,7 +158,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
                 self.Ghost_TinnitusSound:Play()
                 self.Ghost_TinnitusSound:SetSoundLevel(100)
                 hook.Add("Think", "VJ_COFR_GhostTinnitus" .. ent:EntIndex(), function()
-                    if !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think", "VJ_COFR_GhostTinnitus" .. ent:EntIndex()) ent.Ghost_Tinnitus = false timer.Remove("VJ_COFR_PlyTinnitus" .. ent:EntIndex()) self.Ghost_NextTinnitusSoundT = CurTime() + 0 end
+                    if IsValid(ent) && !ent:Alive() && self.Ghost_TinnitusSound then self.Ghost_TinnitusSound:FadeOut(1) hook.Remove("Think", "VJ_COFR_GhostTinnitus" .. ent:EntIndex()) ent.Ghost_Tinnitus = false timer.Remove("VJ_COFR_PlyTinnitus" .. ent:EntIndex()) self.Ghost_NextTinnitusSoundT = CurTime() + 0 end
                 end)
             end
             net.Start("VJ_COFR_Ghost_ScreenEffect")

@@ -13,7 +13,7 @@ if CLIENT then
     function ENT:Initialize()
         local function GetStrangers()
         local strangers = {}
-        for _,v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do
+        for _, v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do
             if IsValid(v) then
                 table_insert(strangers, v)
             end
@@ -30,7 +30,7 @@ if CLIENT then
             end
             local stranger = NULL
             local closestDist = 500
-            for _,v in pairs(strangers) do
+            for _, v in pairs(strangers) do
                 local dist = v:GetPos():Distance(ply:GetPos())
                 if dist < closestDist then
                     stranger = v

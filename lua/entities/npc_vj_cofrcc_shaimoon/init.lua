@@ -48,7 +48,7 @@ local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
     -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
+    for _, v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
      self.Shaimoon_Spawn = VJ.CreateSound(self, self.SoundTbl_Spawn, 75, 100)

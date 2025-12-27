@@ -72,7 +72,7 @@ local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
     -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
+    for _, v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
@@ -124,7 +124,7 @@ local colorBlack = Color(0, 0, 0, 255)
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Finish" then
     -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
+    for _, v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
 end

@@ -186,7 +186,7 @@ function ENT:Init()
         self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
     end
     -- Screen flash effect for all the players
-    for _,v in ipairs(player.GetHumans()) do
+    for _, v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
     end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
@@ -510,7 +510,7 @@ local colorBlack = Color(0, 0, 0, 255)
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Finish" then
         -- Screen flash effect for all the players
-        for _,v in ipairs(player.GetHumans()) do
+        for _, v in ipairs(player.GetHumans()) do
             v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
         end
     end

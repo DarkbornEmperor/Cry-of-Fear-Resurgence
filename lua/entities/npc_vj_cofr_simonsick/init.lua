@@ -105,7 +105,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
-    for _,v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
+    for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
         local propPhy = v:GetPhysicsObject()
         if IsValid(v) && v:GetClass() == "prop_physics" && (!IsValid(ent) or !IsValid(self) or self.Dead) then
             propPhy:EnableGravity(true)
@@ -159,7 +159,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:LiftProps()
     local ent = self:GetEnemy()
-    for _,v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
+    for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
         local propPhy = v:GetPhysicsObject()
         if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then
             propPhy:SetVelocity(v:GetUp() * 100)
@@ -199,7 +199,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        for _,v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
+        for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
             local propPhy = v:GetPhysicsObject()
             if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(enemy) && !self.Dead then
                 propPhy:EnableGravity(true)
