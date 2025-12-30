@@ -368,7 +368,7 @@ function ENT:Think()
         self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetFloat()
         self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetFloat()
         self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetFloat()
-        self.AI_RefreshTime = GetConVar("VJ_COFR_MapSpawner_RefreshRate"):GetFloat()
+        //self.AI_RefreshTime = GetConVar("VJ_COFR_MapSpawner_RefreshRate"):GetFloat()
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
             for _, v in ipairs(player.GetAll()) do
