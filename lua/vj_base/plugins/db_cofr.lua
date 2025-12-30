@@ -370,7 +370,7 @@ if CLIENT then
             end
             panel:Help("#vjbase.menu.general.admin.only")
             panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_MapSpawner_Enabled 2\nVJ_COFR_MapSpawner_Enabled 1\nVJ_COFR_MapSpawner_Boss 0\nVJ_COFR_MapSpawner_MaxMon 80\nVJ_COFR_MapSpawner_HordeCount 35\nVJ_COFR_MapSpawner_SpawnMax 2000\nVJ_COFR_MapSpawner_SpawnMin 650\nVJ_COFR_MapSpawner_HordeChance 100\nVJ_COFR_MapSpawner_HordeCooldownMin 120\nVJ_COFR_MapSpawner_HordeCooldownMax 180\nVJ_COFR_MapSpawner_DelayMin 0.85\nVJ_COFR_MapSpawner_DelayMax 3"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_MapSpawner_Enabled 1\nVJ_COFR_MapSpawner_Boss 0\nVJ_COFR_MapSpawner_MaxMon 80\nVJ_COFR_MapSpawner_HordeCount 35\nVJ_COFR_MapSpawner_SpawnMax 2000\nVJ_COFR_MapSpawner_SpawnMin 650\nVJ_COFR_MapSpawner_HordeChance 100\nVJ_COFR_MapSpawner_HordeCooldownMin 120\nVJ_COFR_MapSpawner_HordeCooldownMax 180\nVJ_COFR_MapSpawner_DelayMin 0.85\nVJ_COFR_MapSpawner_DelayMax 3"})
             panel:Help("Server-Side Options:")
             panel:CheckBox("Enable Map Spawner Processing?", "VJ_COFR_MapSpawner_Enabled")
             panel:CheckBox("Enable Bosses?", "VJ_COFR_MapSpawner_Boss")

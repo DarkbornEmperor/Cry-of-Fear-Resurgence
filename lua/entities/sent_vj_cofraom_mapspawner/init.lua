@@ -116,14 +116,14 @@ function ENT:Initialize()
     self:SetPos(Vector(0, 0, 0))
     self:SetNoDraw(true)
 
-    self.IsActivated = tobool(GetConVarNumber("VJ_COFR_MapSpawner_Enabled"))
-    self.COFR_SpawnDistance = GetConVarNumber("VJ_COFR_MapSpawner_SpawnMax")
-    self.COFR_SpawnDistanceClose = GetConVarNumber("VJ_COFR_MapSpawner_SpawnMin")
-    self.COFR_HordeChance = GetConVarNumber("VJ_COFR_MapSpawner_HordeChance")
-    self.COFR_HordeCooldownMin = GetConVarNumber("VJ_COFR_MapSpawner_HordeCooldownMin")
-    self.COFR_HordeCooldownMax = GetConVarNumber("VJ_COFR_MapSpawner_HordeCooldownMax")
-    self.COFR_MaxMonster = GetConVarNumber("VJ_COFR_MapSpawner_MaxMon")
-    self.COFR_MaxHordeSpawn = GetConVarNumber("VJ_COFR_MapSpawner_HordeCount")
+    self.IsActivated = tobool(GetConVar("VJ_COFR_MapSpawner_Enabled"):GetInt())
+    self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetFloat()
+    self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetFloat()
+    self.COFR_HordeChance = GetConVar("VJ_COFR_MapSpawner_HordeChance"):GetFloat()
+    self.COFR_HordeCooldownMin = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMin"):GetFloat()
+    self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetFloat()
+    self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetFloat()
+    self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetFloat()
     self.tbl_SpawnedNPCs = {}
     self.tbl_NPCsWithEnemies = {}
     self.tbl_SpawnedBossMonster = {}
@@ -304,23 +304,23 @@ function ENT:CheckEnemyDistance(ent, remove)
             visible = true -- Visible to someone, don't bother removing
         end
     end
-    if closestDist >= GetConVarNumber("VJ_COFR_MapSpawner_SpawnMax") + 1000 && !visible && !remove then
+    if closestDist >= GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetFloat() + 1000 && !visible && !remove then
         SafeRemoveEntity(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
-    self.IsActivated = GetConVar("VJ_COFR_MapSpawner_Enabled")
+    self.IsActivated = GetConVar("VJ_COFR_MapSpawner_Enabled"):GetInt()
     if self.IsActivated then
         -- Manage ConVar data
-        self.COFR_SpawnDistance = GetConVarNumber("VJ_COFR_MapSpawner_SpawnMax")
-        self.COFR_SpawnDistanceClose = GetConVarNumber("VJ_COFR_MapSpawner_SpawnMin")
-        self.COFR_HordeChance = GetConVarNumber("VJ_COFR_MapSpawner_HordeChance")
-        self.COFR_HordeCooldownMin = GetConVarNumber("VJ_COFR_MapSpawner_HordeCooldownMin")
-        self.COFR_HordeCooldownMax = GetConVarNumber("VJ_COFR_MapSpawner_HordeCooldownMax")
-        self.COFR_MaxMonster = GetConVarNumber("VJ_COFR_MapSpawner_MaxMon")
-        self.COFR_MaxHordeSpawn = GetConVarNumber("VJ_COFR_MapSpawner_HordeCount")
-        self.AI_RefreshTime = GetConVarNumber("VJ_COFR_MapSpawner_RefreshRate")
+        self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetFloat()
+        self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetFloat()
+        self.COFR_HordeChance = GetConVar("VJ_COFR_MapSpawner_HordeChance"):GetFloat()
+        self.COFR_HordeCooldownMin = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMin"):GetFloat()
+        self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetFloat()
+        self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetFloat()
+        self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetFloat()
+        //self.AI_RefreshTime = GetConVar("VJ_COFR_MapSpawner_RefreshRate"):GetFloat()
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
             for _, v in ipairs(player.GetAll()) do
@@ -377,7 +377,7 @@ function ENT:Think()
             if CurTime() > self.NextMonsterSpawnTime then
                 if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster -self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
                 self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
-                self.NextMonsterSpawnTime = CurTime() + math_rand(GetConVarNumber("VJ_COFR_MapSpawner_DelayMin"), GetConVarNumber("VJ_COFR_MapSpawner_DelayMax"))
+                self.NextMonsterSpawnTime = CurTime() + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetFloat(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetFloat())
             end
 
             if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
