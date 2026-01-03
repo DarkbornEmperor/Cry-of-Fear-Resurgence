@@ -1,6 +1,12 @@
 /* Note: All credits go to Cpt. Hazama. I take no credit for this. */
-AddCSLuaFile("shared.lua")
-include('shared.lua')
+AddCSLuaFile()
+
+ENT.Type = "anim"
+ENT.Base = "base_anim"
+ENT.PrintName = "Monster Map Spawner"
+ENT.Author = "Darkborn"
+
+if !SERVER then return end
 
 local table_insert = table.insert
 local table_remove = table.remove
@@ -8,125 +14,75 @@ local math_random = math.random
 local math_rand = math.Rand
 
 ENT.Monster = {
-    {class="npc_vj_cofr_slower1", chance = 1},
-    {class="npc_vj_cofr_slower1_beta", chance = 1},
-    {class="npc_vj_cofr_crawler", chance = 8},
-    {class="npc_vj_cofr_slower3", chance = 4},
-    {class="npc_vj_cofr_slower3_beta", chance = 4},
-    {class="npc_vj_cofr_slowerten", chance = 4},
-    {class="npc_vj_cofr_croucher", chance = 5},
-    {class="npc_vj_cofr_baby", chance = 3},
-    {class="npc_vj_cofr_children", chance = 3},
-    {class="npc_vj_cofr_children_early", chance = 3},
-    {class="npc_vj_cofr_children_beta", chance = 3},
-    {class="npc_vj_cofr_faster", chance = 4},
-    {class="npc_vj_cofr_faster_male", chance = 6},
-    {class="npc_vj_cofr_crazyrunner", chance = 5},
-    {class="npc_vj_cofr_citalopram", chance = 10},
-    {class="npc_vj_cofr_dreamer_runner", chance = 15},
-    {class="npc_vj_cofr_faceless", chance = 8},
-    {class="npc_vj_cofr_faceless_beta", chance = 8},
-    {class="npc_vj_cofr_faceless_crawler", chance = 15},
-    {class="npc_vj_cofr_faceless_crawler_beta", chance = 15},
-    {class="npc_vj_cofr_krypandenej", chance = 15},
-    {class="npc_vj_cofr_drowned", chance = 15},
-    {class="npc_vj_cofr_sewmo", chance = 15},
-    {class="npc_vj_cofr_suicider", chance = 20},
-    {class="npc_vj_cofr_psycho", chance = 20},
-    {class="npc_vj_cofr_stranger", chance = 20},
-    {class="npc_vj_cofr_flygare", chance = 20},
-    {class="npc_vj_cofr_faceless_faced", chance = 30},
-    {class="npc_vj_cofr_faceless_twister", chance = 30},
-    {class="npc_vj_cofr_faceless_twistervalve", chance = 30},
-    {class="npc_vj_cofr_taller", chance = 50},
-    {class="npc_vj_cofr_upper", chance = 60},
-    {class="npc_vj_cofr_slowerno", chance = 60},
-    {class="npc_vj_cofrcc_faster_clown", chance = 70},
-    {class="npc_vj_cofrcc_crazyrumpel", chance = 70},
-    {class="npc_vj_cofrcc_baby_ooi", chance = 70},
-    {class="npc_vj_cofrcc_faster_ooi", chance = 70},
-    {class="npc_vj_cofrcc_slower3_ooi", chance = 70},
-    {class="npc_vj_cofrcc_patrick", chance = 70},
-    {class="npc_vj_cofrcc_genome_soldier", chance = 70},
-    {class="npc_vj_cofrcc_genome_giant", chance = 70},
-    {class="npc_vj_cofrcc_pedoslow", chance = 70},
-    {class="npc_vj_cofrcc_slower1_mummy", chance = 70},
-    {class="npc_vj_cofrcc_cutter", chance = 70},
-    {class="npc_vj_cofrcc_psycho_le", chance = 70},
-    {class="npc_vj_cofrcc_faceless_mummy", chance = 70},
-    {class="npc_vj_cofrcc_faceless_mummycrawl", chance = 70},
-    {class="npc_vj_cofrcc_faceless_statue", chance = 70},
-    {class="npc_vj_cofrcc_faceless_mummytwister", chance = 70},
-    {class="npc_vj_cofrcc_shaimoon_statue", chance = 70},
-    {class="npc_vj_cofrcc_sicksophie", chance = 70},
-    {class="npc_vj_cofrcc_skeleton", chance = 70},
-    {class="npc_vj_cofrcc_crazyrunner_mummy", chance = 70}
+    {class="npc_vj_cofraom_twitcher1", chance = 1},
+    {class="npc_vj_cofraom_twitcher2", chance = 1},
+    {class="npc_vj_cofraom_twitcher3", chance = 1},
+    {class="npc_vj_cofraom_twitcher4", chance = 1},
+    {class="npc_vj_cofraomda_twitcher", chance = 2},
+    {class="npc_vj_cofraom_handcrab", chance = 3},
+    {class="npc_vj_cofraom_wheelchair", chance = 5},
+    {class="npc_vj_cofraom_hellhound", chance = 5},
+    {class="npc_vj_cofraom_spitter", chance = 10},
+    {class="npc_vj_cofraom_face", chance = 20},
+    {class="npc_vj_cofraom_ghost", chance = 20},
+    {class="npc_vj_cofraom_screamer", chance = 20},
+    {class="npc_vj_cofraomc_twitcher", chance = 1},
+    {class="npc_vj_cofraomc_headcrab", chance = 3},
+    {class="npc_vj_cofraomc_hellhound", chance = 5},
+    {class="npc_vj_cofraomc_spitter", chance = 10},
+    {class="npc_vj_cofraomc_face", chance = 20},
+    {class="npc_vj_cofraomc_ghost", chance = 20},
+    {class="npc_vj_cofraomc_screamer", chance = 20}
 }
 
 ENT.BossMonster = {
-    {class="npc_vj_cofr_sawer", max = 1},
-    {class="npc_vj_cofr_sawrunner", max = 1},
-    {class="npc_vj_cofr_mace", max = 1},
-    {class="npc_vj_cofr_carcass", max = 1},
-    {class="npc_vj_cofr_sawcrazy", max = 1},
-    {class="npc_vj_cofr_craig", max = 1},
-    {class="npc_vj_cofr_simonbook", max = 1},
-    {class="npc_vj_cofr_simonbook_beta", max = 1},
-    {class="npc_vj_cofr_simonbook_mh", max = 1},
-    {class="npc_vj_cofr_purnell", max = 1},
-    {class="npc_vj_cofr_simonsick_suicider", max = 1},
-    {class="npc_vj_cofrcc_duorunner", max = 1},
-    {class="npc_vj_cofrcc_abomination", max = 1},
-    {class="npc_vj_cofrcc_faceless_boss", max = 1},
-    {class="npc_vj_cofrcc_mace_ooi", max = 1},
-    {class="npc_vj_cofrcc_patrick_boss", max = 1},
-    {class="npc_vj_cofrcc_craigrunner", max = 1},
-    {class="npc_vj_cofrcc_jeffrunner", max = 1},
-    {class="npc_vj_cofrcc_pumpa", max = 1},
-    {class="npc_vj_cofrcc_mother", max = 1},
-    {class="npc_vj_cofrcc_mummy", max = 1},
-    {class="npc_vj_cofrcc_shaimoon", max = 1},
-    {class="npc_vj_cofrcc_crocodile", max = 1}
+    {class="npc_vj_cofraom_addiction", max = 1},
+    {class="npc_vj_cofraomda_addiction", max = 1}
 }
 
 local ambient = {
-    "vj_cofr/cof/mapspawner/Chainsawbaby.wav",
-    "vj_cofr/cof/mapspawner/asy_crying.wav",
-    "vj_cofr/cof/mapspawner/asy_sobbing.wav",
-    "vj_cofr/cof/mapspawner/babycryinroom.wav",
-    "vj_cofr/cof/mapspawner/babyscream.wav",
-    "vj_cofr/cof/mapspawner/barnskrik2.wav",
-    "vj_cofr/cof/mapspawner/ch1.wav",
-    "vj_cofr/cof/mapspawner/ch2.wav",
-    "vj_cofr/cof/mapspawner/gah.wav",
-    "vj_cofr/cof/mapspawner/horror1.wav",
-    "vj_cofr/cof/mapspawner/screaminbase.wav",
-    "vj_cofr/cof/mapspawner/sskrik.wav",
-    "vj_cofr/cof/citalopram/citalopramscream.wav",
-    "vj_cofr/cofcc/crazyrumpel/rumpelscream.wav",
-    "vj_cofr/cofcc/crazyrumpel/rumpelscream2.wav",
-    "vj_cofr/cof/facehead/b_screamdistance4.wav",
-    "vj_cofr/cof/facehead/b_screamclose1.wav",
-    "vj_cofr/cof/faceless/psyksjuk.wav",
-    "vj_cofr/cof/faster/faster_special.wav",
-    "vj_cofr/cof/krypandenej/scream.wav",
-    "vj_cofr/cof/crazyrunner/screamloud.wav",
-    "vj_cofr/cof/sawrunner/sawrunnerhello.wav",
-    "vj_cofr/cof/slowerno/headdy.wav",
-    "vj_cofr/cof/upper/sickscream.wav",
-    "vj_cofr/cof/dreamer/dreamer_scream.wav",
-    "vj_cofr/cof/mapspawner/gaycry.wav",
-    "vj_cofr/cof/mapspawner/doorscream.wav",
-    "vj_cofr/cof/mapspawner/stepsinhall.wav"
+    "vj_cofr/aom/mapspawner/4motherbr.wav",
+    "vj_cofr/aom/mapspawner/babylaugh12.wav",
+    "vj_cofr/aom/mapspawner/brutalskrik.wav",
+    "vj_cofr/aom/mapspawner/cagesound.wav",
+    "vj_cofr/aom/mapspawner/cover_here.wav",
+    "vj_cofr/aom/mapspawner/cry1.wav",
+    "vj_cofr/aom/mapspawner/cry2.wav",
+    "vj_cofr/aom/mapspawner/cry3.wav",
+    "vj_cofr/aom/mapspawner/freakguyscream.wav",
+    "vj_cofr/aom/mapspawner/freakguyscream2.wav",
+    "vj_cofr/aom/mapspawner/iscareyou1.wav",
+    "vj_cofr/aom/mapspawner/karringskrik1.wav",
+    "vj_cofr/aom/mapspawner/karringskrik2.wav",
+    "vj_cofr/aom/mapspawner/ki5.wav",
+    "vj_cofr/aom/mapspawner/ki6.wav",
+    "vj_cofr/aom/mapspawner/ki9.wav",
+    "vj_cofr/aom/mapspawner/over_here.wav",
+    "vj_cofr/aom/mapspawner/scream22.wav",
+    "vj_cofr/aom/mapspawner/vaggover.wav",
+    "vj_cofr/aom/mapspawner/viskingar.wav",
+    "vj_cofr/aom/mapspawner/viskingar2.wav",
+    "vj_cofr/aom/mapspawner/child_cryin.wav",
+    "vj_cofr/aom/mapspawner/is_scream.wav"
 }
 
 local music = {
-    "vj_cofr/cof/mapspawner/music1.wav",
-    "vj_cofr/cof/mapspawner/music2.wav",
-    "vj_cofr/cof/mapspawner/music3.wav",
-    "vj_cofr/cof/mapspawner/music4.wav",
-    "vj_cofr/cof/mapspawner/music5.wav",
-    "vj_cofr/cof/mapspawner/music6.wav"
+    "vj_cofr/aom/mapspawner/afterforest1.wav",
+    "vj_cofr/aom/mapspawner/angforest1.wav",
+    "vj_cofr/aom/mapspawner/arforest1.wav",
+    "vj_cofr/aom/mapspawner/carforest1.wav",
+    "vj_cofr/aom/mapspawner/carforest2.wav",
+    "vj_cofr/aom/mapspawner/city2.wav",
+    "vj_cofr/aom/mapspawner/cityz22.wav",
+    "vj_cofr/aom/mapspawner/cityz45.wav",
+    "vj_cofr/aom/mapspawner/darkalley1.wav",
+    "vj_cofr/aom/mapspawner/forest21.wav",
+    "vj_cofr/aom/mapspawner/forhousemain.wav",
+    "vj_cofr/aom/mapspawner/heaven22.wav",
+    "vj_cofr/aom/mapspawner/hospital2.wav",
+    "vj_cofr/aom/mapspawner/hospital3.wav",
+    "vj_cofr/aom/mapspawner/sewer1.wav",
+    "vj_cofr/aom/mapspawner/sickfromsick.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
@@ -167,13 +123,13 @@ function ENT:Initialize()
     self:SetNoDraw(true)
 
     self.IsActivated = tobool(GetConVar("VJ_COFR_MapSpawner_Enabled"):GetInt())
-    self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetFloat()
-    self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetFloat()
-    self.COFR_HordeChance = GetConVar("VJ_COFR_MapSpawner_HordeChance"):GetFloat()
-    self.COFR_HordeCooldownMin = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMin"):GetFloat()
-    self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetFloat()
-    self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetFloat()
-    self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetFloat()
+    self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetInt()
+    self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetInt()
+    self.COFR_HordeChance = GetConVar("VJ_COFR_MapSpawner_HordeChance"):GetInt()
+    self.COFR_HordeCooldownMin = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMin"):GetInt()
+    self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetInt()
+    self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetInt()
+    self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetInt()
     self.tbl_SpawnedNPCs = {}
     self.tbl_NPCsWithEnemies = {}
     self.tbl_SpawnedBossMonster = {}
@@ -315,8 +271,10 @@ end
 function ENT:FindEnemy()
     local tbl = {}
     for _, v in pairs(ents.GetAll()) do
-        if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_CRY_OF_FEAR") or true) then
-            table_insert(tbl, v)
+        if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) then
+            if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 0 && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_CRY_OF_FEAR") or true) or GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_AFRAID_OF_MONSTERS") or true) then
+                table_insert(tbl, v)
+            end
         end
     end
     return tbl
@@ -352,7 +310,7 @@ function ENT:CheckEnemyDistance(ent, remove)
             visible = true -- Visible to someone, don't bother removing
         end
     end
-    if closestDist >= GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetFloat() + 1000 && !visible && !remove then
+    if closestDist >= GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetInt() + 1000 && !visible && !remove then
         SafeRemoveEntity(ent)
     end
 end
@@ -361,14 +319,14 @@ function ENT:Think()
     self.IsActivated = GetConVar("VJ_COFR_MapSpawner_Enabled"):GetInt()
     if self.IsActivated then
         -- Manage ConVar data
-        self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetFloat()
-        self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetFloat()
-        self.COFR_HordeChance = GetConVar("VJ_COFR_MapSpawner_HordeChance"):GetFloat()
-        self.COFR_HordeCooldownMin = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMin"):GetFloat()
-        self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetFloat()
-        self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetFloat()
-        self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetFloat()
-        //self.AI_RefreshTime = GetConVar("VJ_COFR_MapSpawner_RefreshRate"):GetFloat()
+        self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetInt()
+        self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetInt()
+        self.COFR_HordeChance = GetConVar("VJ_COFR_MapSpawner_HordeChance"):GetInt()
+        self.COFR_HordeCooldownMin = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMin"):GetInt()
+        self.COFR_HordeCooldownMax = GetConVar("VJ_COFR_MapSpawner_HordeCooldownMax"):GetInt()
+        self.COFR_MaxMonster = GetConVar("VJ_COFR_MapSpawner_MaxMon"):GetInt()
+        self.COFR_MaxHordeSpawn = GetConVar("VJ_COFR_MapSpawner_HordeCount"):GetInt()
+        //self.AI_RefreshTime = GetConVar("VJ_COFR_MapSpawner_RefreshRate"):GetInt()
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
             for _, v in ipairs(player.GetAll()) do
@@ -425,7 +383,7 @@ function ENT:Think()
             if CurTime() > self.NextMonsterSpawnTime then
                 if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster -self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
                 self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
-                self.NextMonsterSpawnTime = CurTime() + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetFloat(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetFloat())
+                self.NextMonsterSpawnTime = CurTime() + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
             end
 
             if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
