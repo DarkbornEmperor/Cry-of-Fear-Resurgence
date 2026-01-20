@@ -122,9 +122,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    corpseEnt:DrawShadow(false)
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    corpse:DrawShadow(false)
+    VJ_COFR_ApplyCorpse(self, corpse)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***

@@ -937,12 +937,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     if self.Human_Type == 2 or self.Human_Type == 0 then
-        if self.Human_Type == 2 then corpseEnt:SetBodygroup(0,0) end
-        corpseEnt:SetSkin(0)
+        if self.Human_Type == 2 then corpse:SetBodygroup(0,0) end
+        corpse:SetSkin(0)
     end
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)

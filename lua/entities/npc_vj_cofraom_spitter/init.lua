@@ -199,9 +199,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    corpseEnt:SetSkin(1)
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    corpse:SetSkin(1)
+    VJ_COFR_ApplyCorpse(self, corpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)

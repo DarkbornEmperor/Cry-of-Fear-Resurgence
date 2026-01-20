@@ -33,8 +33,8 @@ function ENT:Slower_Init()
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    VJ_COFR_ApplyCorpse(self, corpse)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***

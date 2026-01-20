@@ -401,16 +401,16 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or self:GetModel() == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
-        corpseEnt:DrawShadow(false)
+        corpse:DrawShadow(false)
     elseif self.Twitcher_Invisible then
-        corpseEnt:SetNoDraw(true)
+        corpse:SetNoDraw(true)
     elseif self.Twitcher_Transparent then
-        corpseEnt:SetRenderFX(kRenderFxDistort)
-        corpseEnt:SetRenderMode(RENDERMODE_TRANSADD)
+        corpse:SetRenderFX(kRenderFxDistort)
+        corpse:SetRenderMode(RENDERMODE_TRANSADD)
     end
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
+    VJ_COFR_ApplyCorpse(self, corpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)

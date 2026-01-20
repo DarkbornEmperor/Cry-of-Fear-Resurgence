@@ -285,9 +285,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    if self.Screamer_Type == 0 then corpseEnt:DrawShadow(false) end
-    VJ_COFR_ApplyCorpse(self, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    if self.Screamer_Type == 0 then corpse:DrawShadow(false) end
+    VJ_COFR_ApplyCorpse(self, corpse)
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
