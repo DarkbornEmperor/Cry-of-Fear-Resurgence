@@ -332,7 +332,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DropGlock()
-    if GetConVar("VJ_COFR_Suicider_DropGlock"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua","GAME") then return end
+    if GetConVar("VJ_COFR_Suicider_DropGlock"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua", "GAME") then return end
     self:SetBodygroup(1,1)
     if self.Suicider_Glock then
         local glock = ents.Create("weapon_cof_glock")
