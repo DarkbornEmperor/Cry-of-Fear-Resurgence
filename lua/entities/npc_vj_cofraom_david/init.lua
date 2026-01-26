@@ -604,6 +604,7 @@ function ENT:OnThinkActive()
                 self:OnMedicBehavior("OnHeal")
                 self:PlaySoundSystem("Speech", self.SoundTbl_MedicReceiveHeal)
                 VJ.CreateSound(self, self.SoundTbl_MedicOnHeal, 75, 100)
+                timer.Remove("timer_melee_bleed" .. self:EntIndex())
                 self:RemoveAllDecals()
             end
         end)
