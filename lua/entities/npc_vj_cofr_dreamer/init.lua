@@ -10,6 +10,7 @@ ENT.GodMode = true
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileMoving = false
 ENT.CallForHelp = false
 ENT.SightAngle = 360
 ENT.HasMeleeAttack = false

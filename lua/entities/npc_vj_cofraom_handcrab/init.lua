@@ -8,9 +8,10 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/aom/handcrab.mdl"
 ENT.HullType = HULL_TINY
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.CanTurnWhileMoving = false
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_cofr_blood_red"}
-ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
+ENT.BloodParticle = "vj_cofr_blood_red"
+ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = false
 ENT.HasLeapAttack = true
 ENT.AnimTbl_LeapAttack = {"vjseq_jump", "vjseq_jump_variation1", "vjseq_jump_variation2"}

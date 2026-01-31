@@ -10,9 +10,10 @@ ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.VJ_ID_Boss = true
+ENT.CanTurnWhileMoving = false
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_cofr_blood_red"}
-ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
+ENT.BloodParticle = "vj_cofr_blood_red"
+ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack_sledgehammer"
 ENT.TimeUntilMeleeAttackDamage = false
@@ -227,7 +228,6 @@ function ENT:SetShotgun()
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
     self.LimitChaseDistance = true
-    self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.5
     self.NextAnyAttackTime_Range = 1
     self.BookSimon_MuzzleAttach = "muzzle_shotgun"
@@ -239,7 +239,6 @@ function ENT:SetTMP()
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
     self.LimitChaseDistance = true
-    self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.09
     self.RangeAttackReps = 10
     self.NextAnyAttackTime_Range = 1.5
@@ -251,7 +250,6 @@ function ENT:SetGlock()
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
     self.LimitChaseDistance = true
-    self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.1
     self.NextAnyAttackTime_Range = 0.6
     self.BookSimon_MuzzleAttach = "muzzle_glock"
@@ -262,7 +260,6 @@ function ENT:SetM16()
     self.HasMeleeAttack = false
     self.HasRangeAttack = true
     self.LimitChaseDistance = true
-    self.CanTurnWhileMoving = false
     self.TimeUntilRangeAttackProjectileRelease = 0.05
     self.RangeAttackReps = 3
     self.NextAnyAttackTime_Range = 1.5

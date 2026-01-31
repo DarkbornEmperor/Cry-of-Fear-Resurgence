@@ -8,9 +8,10 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cof/taller.mdl"
 ENT.HullType = HULL_LARGE
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.CanTurnWhileMoving = false
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_cofr_blood_red"}
-ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
+ENT.BloodParticle = "vj_cofr_blood_red"
+ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackAnimationFaceEnemy = false

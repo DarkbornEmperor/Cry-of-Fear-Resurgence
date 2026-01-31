@@ -8,9 +8,10 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cof/suicider.mdl"
 ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
+ENT.CanTurnWhileMoving = false
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_cofr_blood_red"}
-ENT.BloodDecal = {"VJ_COFR_Blood_Red"}
+ENT.BloodParticle = "vj_cofr_blood_red"
+ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.DisableRangeAttackAnimation = true
@@ -21,14 +22,14 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0.1
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 250
 ENT.LimitChaseDistance_Min = 200
-ENT.CanTurnWhileMoving = false
-ENT.DisableFootStepSoundTimer = true
-ENT.MainSoundPitch = 100
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIE_HEADSHOT
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.DisableFootStepSoundTimer = true
+ENT.MainSoundPitch = 100
+ENT.RangeAttackSoundLevel = 90
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -54,7 +55,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
-ENT.RangeAttackSoundLevel = 90
 -- Custom
 ENT.Suicider_Glock = false
 ENT.Suicider_P345 = false

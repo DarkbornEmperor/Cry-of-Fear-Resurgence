@@ -12,6 +12,7 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_CRY_OF_FEAR"}
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CallForHelp = false
+ENT.CanTurnWhileMoving = false
 ENT.CanTurnWhileStationary = false
 ENT.SightAngle = 360
 ENT.HasMeleeAttack = false
