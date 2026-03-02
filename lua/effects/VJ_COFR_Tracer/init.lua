@@ -1,8 +1,8 @@
-/*--------------------------------------------------
+/*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
+-----------------------------------------------*/
 -- Based off of the GMod lasertracer
 EFFECT.MainMat = Material("vj_cofr/tracer_middle")
 
@@ -97,8 +97,8 @@ function EFFECT:Render()
     local sinWave = math_sin(fDelta * math_pi)
     render.DrawBeam(self.EndPos - self.Dir * (fDelta - sinWave * self.Length), self.EndPos - self.Dir * (fDelta + sinWave * self.Length), 1 + sinWave * 3, 1, 0, colorBeam)
 end
-/*--------------------------------------------------
+/*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
+-----------------------------------------------*/
