@@ -467,7 +467,7 @@ function ENT:SpawnMonster(ent, pos, isMob)
     if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster then return end
     local Monster = ents.Create(ent)
     Monster:SetPos(pos)
-    Monster:SetAngles(Angle(0,math_random(0,360),0))
+    Monster:SetAngles(Angle(0, math_random(0,360), 0))
     Monster:Spawn()
     table_insert(self.tbl_SpawnedNPCs, Monster)
     if isMob then
