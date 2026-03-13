@@ -91,6 +91,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_Reload()
     local owner = self:GetOwner()
+    if !IsValid(owner) then return end
     owner.NextChaseTime = 0
     self.BaseClass.NPC_Reload(self)
 end
