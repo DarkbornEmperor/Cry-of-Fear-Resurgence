@@ -165,20 +165,19 @@ function ENT:Init()
     end
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
         self.SoundTbl_Shotgun =
-        "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
+            "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
 
         self.SoundTbl_ShotgunPump =
-        "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
+            "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
 
         self.SoundTbl_TMP =
-        "vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
+            "vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
 
         self.SoundTbl_TMPEnd =
-        "vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
+            "vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
 
         self.SoundTbl_M16 =
-        "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
-
+            "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
     end
     if self.BookSimon_TMP then
         self.TMPSound = self.SoundTbl_TMP
@@ -231,6 +230,8 @@ function ENT:SetShotgun()
     self.TimeUntilRangeAttackProjectileRelease = 0.5
     self.NextAnyAttackTime_Range = 1
     self.BookSimon_MuzzleAttach = "muzzle_shotgun"
+    self.BookSimon_ShellAttach = "shell_shotgun"
+    self.BookSimon_ShellType = "ShotgunShellEject"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetTMP()
@@ -243,6 +244,8 @@ function ENT:SetTMP()
     self.RangeAttackReps = 10
     self.NextAnyAttackTime_Range = 1.5
     self.BookSimon_MuzzleAttach = "muzzle_tmp"
+    self.BookSimon_ShellAttach = "shell_tmp"
+    self.BookSimon_ShellType = "ShellEject"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetGlock()
@@ -253,6 +256,8 @@ function ENT:SetGlock()
     self.TimeUntilRangeAttackProjectileRelease = 0.1
     self.NextAnyAttackTime_Range = 0.6
     self.BookSimon_MuzzleAttach = "muzzle_glock"
+    self.BookSimon_ShellAttach = "shell_glock"
+    self.BookSimon_ShellType = "ShellEject"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetM16()
@@ -264,6 +269,8 @@ function ENT:SetM16()
     self.RangeAttackReps = 3
     self.NextAnyAttackTime_Range = 1.5
     self.BookSimon_MuzzleAttach = "muzzle_m16"
+    self.BookSimon_ShellAttach = "shell_m16"
+    self.BookSimon_ShellType = "RifleShellEject"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSledgehammer()
@@ -303,6 +310,15 @@ function ENT:SetSledgehammerFlare()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
+    local attMuz = self:GetAttachment(self:LookupAttachment(self.BookSimon_MuzzleAttach))
+    local attShell = self:GetAttachment(self:LookupAttachment(self.BookSimon_ShellAttach))
+
+    local effectData = EffectData()
+    effectData:SetEntity(self)
+    effectData:SetOrigin(attShell.Pos)
+    effectData:SetAngles(attShell.Ang)
+    util.Effect(self.BookSimon_ShellType, effectData, true, true)
+
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale", "" .. math_rand(0.15,0.25))
@@ -315,6 +331,15 @@ function ENT:FireFX()
     muz:SetKeyValue("framerate", "15.0")
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
+    if self.BookSimon_Shotgun then
+        muz:Fire("SetParentAttachment", "muzzle_shotgun")
+    elseif self.BookSimon_Glock then
+        muz:Fire("SetParentAttachment", "muzzle_glock")
+    elseif self.BookSimon_TMP then
+        muz:Fire("SetParentAttachment", "muzzle_tmp")
+    elseif self.BookSimon_M16 then
+        muz:Fire("SetParentAttachment", "muzzle_m16")
+    end
     muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
@@ -323,6 +348,7 @@ function ENT:FireFX()
     local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
     muzLight:SetKeyValue("distance", "120")
+    muzLight:SetPos(attMuz.Pos)
     muzLight:SetLocalAngles(self:GetAngles())
     muzLight:Fire("Color", "255 150 60")
     //muzLight:SetParent(self)
@@ -331,23 +357,6 @@ function ENT:FireFX()
     muzLight:Fire("TurnOn", "", 0)
     muzLight:Fire("Kill", "", 0.07)
     //self:DeleteOnRemove(muzLight)
-
-    if self.BookSimon_Shotgun then
-        muz:Fire("SetParentAttachment", "muzzle_shotgun")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_shotgun")).Pos)
-
-    elseif self.BookSimon_Glock then
-        muz:Fire("SetParentAttachment", "muzzle_glock")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_glock")).Pos)
-
-    elseif self.BookSimon_TMP then
-        muz:Fire("SetParentAttachment", "muzzle_tmp")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_tmp")).Pos)
-
-    elseif self.BookSimon_M16 then
-        muz:Fire("SetParentAttachment", "muzzle_m16")
-        muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle_m16")).Pos)
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
