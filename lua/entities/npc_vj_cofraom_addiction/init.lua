@@ -82,7 +82,8 @@ local math_rand = math.Rand
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
         self.HasSoundTrack = false
-    elseif GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
+    end
+    if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
     end
     if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
