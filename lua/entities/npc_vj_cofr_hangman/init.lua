@@ -15,13 +15,13 @@ ENT.CanTurnWhileStationary = false
 ENT.CallForHelp = false
 ENT.SightAngle = 360
 ENT.HasMeleeAttack = true
+ENT.AnimTbl_MeleeAttack = false
 ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackAngleRadius = 180
 ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180
-ENT.DisableMeleeAttackAnimation = true
 ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
