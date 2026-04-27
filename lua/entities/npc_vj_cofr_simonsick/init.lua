@@ -59,6 +59,7 @@ ENT.PropstoThrow = {
 }
 
 local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -69,6 +70,7 @@ end
 function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    //self:SetPhysicsDamageScale(0)
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:SickSimon_Init()
     self.Twisters = {}
@@ -85,7 +87,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
     if key == "range_prepare" then
-        self:LiftProps()
+        self:LiftObjects()
     elseif key == "range" then
         self:ExecuteRangeAttack()
     end
@@ -106,50 +108,52 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local ent = self:GetEnemy()
-    for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
-        local propPhy = v:GetPhysicsObject()
-        if IsValid(v) && v:GetClass() == "prop_physics" && (!IsValid(ent) or !IsValid(self) or self.Dead) then
-            propPhy:EnableGravity(true)
-        end
+    if !IsValid(ent) or self.Dead then
+        self:ResetObjects()
     end
     if !IsValid(ent) or self.Dead then return end
     if IsValid(ent) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.twister1) && !IsValid(self.twister2) && !IsValid(self.twister3) && !IsValid(self.twister4) && !IsValid(self.twister5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         local twister1 = ents.Create("npc_vj_cofr_faceless_twister")
-        twister1:SetPos(self:GetPos() + self:GetRight()*40 + self:GetUp()*10)
+        twister1:SetPos(self:GetPos() + self:GetRight() * 40 + self:GetUp() * 10)
         twister1:SetAngles(self:GetAngles())
         twister1.VJ_NPC_Class = self.VJ_NPC_Class
+        //twister1:SetPhysicsDamageScale(0)
         twister1:Spawn()
         self.Twisters[#self.Twisters + 1] = twister1 -- Register the Twisters
         self.twister1 = twister1
 
         local twister2 = ents.Create("npc_vj_cofr_faceless_twister")
-        twister2:SetPos(self:GetPos() + self:GetRight()*-40 + self:GetUp()*10)
+        twister2:SetPos(self:GetPos() + self:GetRight() * -40 + self:GetUp() * 10)
         twister2:SetAngles(self:GetAngles())
         twister2.VJ_NPC_Class = self.VJ_NPC_Class
+        //twister2:SetPhysicsDamageScale(0)
         twister2:Spawn()
         self.Twisters[#self.Twisters + 1] = twister2 -- Register the Twisters
         self.twister2 = twister2
 
         local twister3 = ents.Create("npc_vj_cofr_faceless_twister")
-        twister3:SetPos(self:GetPos() + self:GetRight()*80 + self:GetUp()*10)
+        twister3:SetPos(self:GetPos() + self:GetRight() * 80 + self:GetUp() * 10)
         twister3:SetAngles(self:GetAngles())
         twister3.VJ_NPC_Class = self.VJ_NPC_Class
+        //twister3:SetPhysicsDamageScale(0)
         twister3:Spawn()
         self.Twisters[#self.Twisters + 1] = twister3 -- Register the Twisters
         self.twister3 = twister3
 
         local twister4 = ents.Create("npc_vj_cofr_faceless_twister")
-        twister4:SetPos(self:GetPos() + self:GetRight()*-80 + self:GetUp()*10)
+        twister4:SetPos(self:GetPos() + self:GetRight() * -80 + self:GetUp() * 10)
         twister4:SetAngles(self:GetAngles())
         twister4.VJ_NPC_Class = self.VJ_NPC_Class
+        //twister4:SetPhysicsDamageScale(0)
         twister4:Spawn()
         self.Twisters[#self.Twisters + 1] = twister4 -- Register the Twisters
         self.twister4 = twister4
 
         local twister5 = ents.Create("npc_vj_cofr_faceless_twistervalve")
-        twister5:SetPos(self:GetPos() + self:GetForward()*-90 + self:GetUp()*10)
+        twister5:SetPos(self:GetPos() + self:GetForward() * -90 + self:GetUp() * 10)
         twister5:SetAngles(self:GetAngles())
         twister5.VJ_NPC_Class = self.VJ_NPC_Class
+        //twister5:SetPhysicsDamageScale(0)
         twister5:Spawn()
         self.Twisters[#self.Twisters + 1] = twister5 -- Register the Twisters
         self.twister5 = twister5
@@ -158,13 +162,42 @@ function ENT:OnThinkActive()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:LiftProps()
-    local ent = self:GetEnemy()
+function ENT:LiftObjects()
     for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
-        local propPhy = v:GetPhysicsObject()
-        if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(ent) && !self.Dead then
-            propPhy:SetVelocity(v:GetUp() * 100)
-            propPhy:EnableGravity(false)
+        local phys = v:GetPhysicsObject()
+        if IsValid(v) && IsValid(phys) && v:GetClass() == "prop_physics" then
+            phys:SetVelocity(v:GetUp() * 50)
+            phys:EnableGravity(false)
+            phys:Wake()
+        end
+        if IsValid(v) && v:GetClass() == "prop_ragdoll" then
+            for i = 0, v:GetPhysicsObjectCount() - 1 do
+                local physRag = v:GetPhysicsObjectNum(i)
+                if IsValid(physRag) then
+                    physRag:SetVelocity(v:GetUp() * 50)
+                    physRag:EnableGravity(false)
+                    physRag:Wake()
+                end
+            end
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:ResetObjects()
+    for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
+        local phys = v:GetPhysicsObject()
+        if IsValid(v) && IsValid(phys) && v:GetClass() == "prop_physics" then
+            phys:EnableGravity(true)
+            phys:Wake()
+        end
+        if IsValid(v) && v:GetClass() == "prop_ragdoll" then
+            for i = 0, v:GetPhysicsObjectCount() - 1 do
+                local physRag = v:GetPhysicsObjectNum(i)
+                if IsValid(physRag) then
+                    physRag:EnableGravity(true)
+                    physRag:Wake()
+                end
+            end
         end
     end
 end
@@ -177,6 +210,7 @@ function ENT:OnRangeAttack(status, enemy)
             prop:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetRight() * -200 + self:GetUp() * 60)
             prop:SetAngles(self:GetAngles())
             prop:SetOwner(self)
+            prop.VJ_NPC_Class = self.VJ_NPC_Class
             prop:Spawn()
             self.Props[#self.Props + 1] = prop -- Register the Props
             self.prop = prop
@@ -186,14 +220,17 @@ function ENT:OnRangeAttack(status, enemy)
             prop2:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetRight() * 200 + self:GetUp() * 60)
             prop2:SetAngles(self:GetAngles())
             prop2:SetOwner(self)
+            prop.VJ_NPC_Class = self.VJ_NPC_Class
             prop2:Spawn()
             self.Props[#self.Props + 1] = prop2 -- Register the Props
             self.prop2 = prop2
 
             self.SickSimon_NextPropT = CurTime() + self.NextRangeAttackTime
 
-            SafeRemoveEntityDelayed(self.prop, 15)
-            SafeRemoveEntityDelayed(self.prop2, 15)
+            self.prop:Fire("break", nil, 15)
+            self.prop2:Fire("break", nil, 15)
+
+            sound.EmitHint(SOUND_DANGER, enemy:GetPos() + enemy:OBBCenter(), 500, 1, self)
         end
     end
 end
@@ -201,10 +238,23 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
-            local propPhy = v:GetPhysicsObject()
-            if IsValid(self) && IsValid(v) && v:GetClass() == "prop_physics" && IsValid(enemy) && !self.Dead then
-                propPhy:EnableGravity(true)
-                propPhy:SetVelocity((enemy:GetPos() + enemy:OBBCenter() - v:GetPos()) * 8 + v:GetUp() * 200)
+            local phys = v:GetPhysicsObject()
+            if IsValid(v) && IsValid(phys) && v:GetClass() == "prop_physics" then
+                phys:EnableGravity(true)
+                phys:Wake()
+                phys:SetVelocity(VJ.CalculateTrajectory(self, enemy, "CurveOld", v:GetPos(), 1, 2000))
+                phys:AddAngleVelocity(Vector(math_rand(-200,200), math_rand(-200,200), math_rand(-200,200)))
+            end
+            if IsValid(v) && v:GetClass() == "prop_ragdoll" then
+                for i = 0, v:GetPhysicsObjectCount() - 1 do
+                    local physRag = v:GetPhysicsObjectNum(i)
+                    if IsValid(physRag) then
+                        physRag:EnableGravity(true)
+                        physRag:Wake()
+                        physRag:SetVelocity(VJ.CalculateTrajectory(self, enemy, "CurveOld", v:GetPos(), 1, 2000))
+                        physRag:AddAngleVelocity(Vector(math_rand(-200,200), math_rand(-200,200), math_rand(-200,200)))
+                    end
+                end
             end
         end
         return true
@@ -252,6 +302,7 @@ function ENT:CustomOnRemove()
     for _, v in pairs(self.Props) do
         if IsValid(v) then v:Remove() end
     end
+    self:ResetObjects()
     timer.Remove("VJ_SickSimon_Intro" .. self:EntIndex())
     VJ.STOPSOUND(self.SickSimon_Intro)
 end
