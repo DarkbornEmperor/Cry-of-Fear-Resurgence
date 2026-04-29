@@ -269,15 +269,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        local ent = self:GetEnemy()
-        if IsValid(ent) && self:Visible(ent) && ent:WaterLevel() != 3 then
-            VJ.EmitSound(ent, {"vj_cofr/aom/addiction/thunder_attack1.wav", "vj_cofr/aom/addiction/thunder_attack2.wav", "vj_cofr/aom/addiction/thunder_attack3.wav"}, 100, 100)
+        if enemy:WaterLevel() != 3 then
+            VJ.EmitSound(enemy, {"vj_cofr/aom/addiction/thunder_attack1.wav", "vj_cofr/aom/addiction/thunder_attack2.wav", "vj_cofr/aom/addiction/thunder_attack3.wav"}, 100, 100)
             local color = Color(0, 161, 255, 255) -- The shock wave color
             local dmg = 10 -- How much damage should the shock wave do?
-            local enePos = ent:GetPos()
-
+            local enePos = enemy:GetPos()
             timer.Simple(1, function()
-                if IsValid(self) && IsValid(ent) then
+                if IsValid(self) && IsValid(enemy) then
                     VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck = true, Force = 80})
                     -- flags 0 = No fade!
                     effects.BeamRingPoint(enePos, 0.3, 2, 400, 16, 0, color, {material = "vj_cofr/sprites/shockwave", framerate = 20, flags = 0})
@@ -297,14 +295,14 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                     lightningFX:SetKeyValue("framerate", "15.0")
                     lightningFX:SetKeyValue("spawnflags", "0")
                     lightningFX:SetKeyValue("scale", "1")
-                    lightningFX:SetPos(enePos + ent:GetUp() * 60)
+                    lightningFX:SetPos(enePos + enemy:GetUp() * 60)
                     lightningFX:Spawn()
                     lightningFX:Activate()
                     lightningFX:Fire("Kill", "", 0.2)
                     self:DeleteOnRemove(lightningFX)
                     self.lightningFX = lightningFX
 
-                    VJ.EmitSound(ent, "vj_cofr/aom/addiction/thunder_hit.wav", 90, 100)
+                    VJ.EmitSound(enemy, "vj_cofr/aom/addiction/thunder_hit.wav", 90, 100)
                 end
             end)
         end
@@ -313,29 +311,32 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
-        dmginfo:ScaleDamage(0.5)
-    end
-    if status == "PreDamage" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
-        local eneVictim = dmginfo:GetAttacker(), dmginfo:GetInflictor()
-        if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
+    if status == "PreDamage" then
+        if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
             dmginfo:ScaleDamage(0.5)
-        else
-            dmginfo:SetDamage(0)
-
-        if IsValid(eneVictim) && eneVictim.VJ_ID_Living && eneVictim:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
-            eneVictim:TakeDamage(math_random(5,10), self, self)
-            VJ.DamageSpecialEnts(self, eneVictim, dmginfo)
+            return
         end
-        if eneVictim:IsPlayer() then
-            net.Start("VJ_COFR_Addiction_ScreenEffect")
-                net.WriteEntity(eneVictim)
-            net.Send(eneVictim)
-        end
-    end
-    if !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
-        self:SpawnBloodParticles(dmginfo, hitgroup)
-        self:SpawnBloodDecals(dmginfo, hitgroup)
+        if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
+            local eneVictim = dmginfo:GetAttacker(), dmginfo:GetInflictor()
+            if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
+                dmginfo:ScaleDamage(0.5)
+            else
+                dmginfo:SetDamage(0)
+                if IsValid(eneVictim) && eneVictim.VJ_ID_Living && eneVictim:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
+                    eneVictim:TakeDamage(math_random(5,10), self, self)
+                    VJ.DamageSpecialEnts(self, eneVictim, dmginfo)
+                end
+                if eneVictim:IsPlayer() then
+                    net.Start("VJ_COFR_Addiction_ScreenEffect")
+                        net.WriteEntity(eneVictim)
+                    net.Send(eneVictim)
+                end
+            end
+            if status == "Init" && !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
+                self:SpawnBloodParticles(dmginfo, hitgroup)
+                self:SpawnBloodDecals(dmginfo, hitgroup)
+                self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
+            end
         end
     end
 end
