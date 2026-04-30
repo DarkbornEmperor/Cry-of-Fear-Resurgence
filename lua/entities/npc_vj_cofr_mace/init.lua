@@ -151,7 +151,7 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "PreDamage" the
+    if status == "PreDamage" then
         if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
             dmginfo:ScaleDamage(0.2)
             return
