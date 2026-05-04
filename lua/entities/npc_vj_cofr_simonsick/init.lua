@@ -51,13 +51,12 @@ ENT.SoundTbl_Impact = {
 ENT.SickSimon_NextTwisterSpawnT = 0
 ENT.SickSimon_NextPropT = 0
 
-ENT.PropstoThrow = {
+local propList = {
     "models/props_junk/wood_crate001a.mdl",
     "models/props_wasteland/dockplank01b.mdl",
     "models/props_junk/wood_crate001a_damaged.mdl",
     "models/props_wasteland/dockplank01a.mdl"
 }
-
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -166,17 +165,19 @@ function ENT:LiftObjects()
     for _, v in ipairs(ents.FindInSphere(self:GetPos(), 500)) do
         local phys = v:GetPhysicsObject()
         if IsValid(v) && IsValid(phys) && v:GetClass() == "prop_physics" then
-            phys:SetVelocity(v:GetUp() * 50)
+            phys:SetVelocity(((v:GetPos() + v:OBBCenter() + v:GetUp() * 1000) - self:GetPos()) * -0.5)
             phys:EnableGravity(false)
             phys:Wake()
+            timer.Simple(2, function() if IsValid(v) && IsValid(phys) then phys:EnableGravity(true) phys:Wake() end end)
         end
         if IsValid(v) && v:GetClass() == "prop_ragdoll" then
             for i = 0, v:GetPhysicsObjectCount() - 1 do
                 local physRag = v:GetPhysicsObjectNum(i)
                 if IsValid(physRag) then
-                    physRag:SetVelocity(v:GetUp() * 50)
+                    physRag:SetVelocity(((v:GetPos() + v:OBBCenter()) - self:GetPos() + self:GetUp() * 1000) * -0.5)
                     physRag:EnableGravity(false)
                     physRag:Wake()
+                    timer.Simple(2, function() if IsValid(v) && IsValid(physRag) then physRag:EnableGravity(true) phys:Wake() end end)
                 end
             end
         end
@@ -204,34 +205,30 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        if CurTime() > self.SickSimon_NextPropT /*&& !IsValid(self.prop) && !IsValid(self.prop2)*/ then
-            local prop = ents.Create("prop_physics")
-            prop:SetModel(VJ.PICK(self.PropstoThrow))
-            prop:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetRight() * -200 + self:GetUp() * 60)
-            prop:SetAngles(self:GetAngles())
-            prop:SetOwner(self)
-            prop.VJ_NPC_Class = self.VJ_NPC_Class
-            prop:Spawn()
-            self.Props[#self.Props + 1] = prop -- Register the Props
-            self.prop = prop
+        local prop = ents.Create("prop_physics")
+        prop:SetModel(VJ.PICK(propList))
+        prop:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetRight() * -200 + self:GetUp() * 60)
+        prop:SetAngles(self:GetAngles())
+        prop:SetOwner(self)
+        prop.VJ_NPC_Class = self.VJ_NPC_Class
+        prop:Spawn()
+        self.Props[#self.Props + 1] = prop -- Register the Props
+        self.prop = prop
 
-            local prop2 = ents.Create("prop_physics")
-            prop2:SetModel(VJ.PICK(self.PropstoThrow))
-            prop2:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetRight() * 200 + self:GetUp() * 60)
-            prop2:SetAngles(self:GetAngles())
-            prop2:SetOwner(self)
-            prop.VJ_NPC_Class = self.VJ_NPC_Class
-            prop2:Spawn()
-            self.Props[#self.Props + 1] = prop2 -- Register the Props
-            self.prop2 = prop2
+        local prop2 = ents.Create("prop_physics")
+        prop2:SetModel(VJ.PICK(propList))
+        prop2:SetPos(self:GetPos() + self:GetForward() * 90 + self:GetRight() * 200 + self:GetUp() * 60)
+        prop2:SetAngles(self:GetAngles())
+        prop2:SetOwner(self)
+        prop.VJ_NPC_Class = self.VJ_NPC_Class
+        prop2:Spawn()
+        self.Props[#self.Props + 1] = prop2 -- Register the Props
+        self.prop2 = prop2
 
-            self.SickSimon_NextPropT = CurTime() + self.NextRangeAttackTime
+        self.prop:Fire("break", nil, math_rand(3,6))
+        self.prop2:Fire("break", nil, math_rand(3,6))
 
-            self.prop:Fire("break", nil, 15)
-            self.prop2:Fire("break", nil, 15)
-
-            sound.EmitHint(SOUND_DANGER, enemy:GetPos() + enemy:OBBCenter(), 500, 1, self)
-        end
+        sound.EmitHint(SOUND_DANGER, enemy:GetPos() + enemy:OBBCenter(), 500, 1, self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -243,7 +240,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 phys:EnableGravity(true)
                 phys:Wake()
                 phys:SetVelocity(VJ.CalculateTrajectory(self, enemy, "CurveOld", v:GetPos(), 1, 2000))
-                phys:AddAngleVelocity(Vector(math_rand(-200,200), math_rand(-200,200), math_rand(-200,200)))
+                phys:AddAngleVelocity(Vector(math_rand(-360,360), math_rand(-360,360), math_rand(-360,360)))
             end
             if IsValid(v) && v:GetClass() == "prop_ragdoll" then
                 for i = 0, v:GetPhysicsObjectCount() - 1 do
@@ -252,7 +249,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                         physRag:EnableGravity(true)
                         physRag:Wake()
                         physRag:SetVelocity(VJ.CalculateTrajectory(self, enemy, "CurveOld", v:GetPos(), 1, 2000))
-                        physRag:AddAngleVelocity(Vector(math_rand(-200,200), math_rand(-200,200), math_rand(-200,200)))
+                        physRag:AddAngleVelocity(Vector(math_rand(-360,360), math_rand(-360,360), math_rand(-360,360)))
                     end
                 end
             end

@@ -12,14 +12,14 @@ local table_insert = table.insert
 if CLIENT then
     function ENT:Initialize()
         local function GetStrangers()
-        local strangers = {}
-        for _, v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do
-            if IsValid(v) then
-                table_insert(strangers, v)
+            local strangers = {}
+            for _, v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do
+                if IsValid(v) then
+                    table_insert(strangers, v)
+                end
             end
+            return strangers
         end
-        return strangers
-    end
         local hookName = "VJ_COFR_Stranger_ScreenEffect"
         hook.Add("Think", hookName, function()
             local strangers = GetStrangers()
