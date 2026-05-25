@@ -48,6 +48,9 @@ ENT.SickSimon_NextTwisterSpawnT = 0
 ENT.SickSimon_NextPropT = 0
 ENT.SickSimon_NextPsionicAttackT = 0
 
+ENT.Twisters = {}
+ENT.Props = {}
+
 local propList = {
     "models/props_junk/wood_crate001a.mdl",
     "models/props_wasteland/dockplank01b.mdl",
@@ -70,11 +73,9 @@ end
 function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:SickSimon_Init()
     self:SetPhysicsDamageScale(0.01)
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:SickSimon_Init()
-    self.Twisters = {}
-    self.Props = {}
 
     if GetConVar("vj_npc_snd_track"):GetInt() == 0 or GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then return end
     self.SickSimon_Intro = VJ.CreateSound(self, "vj_cofr/cof/sicksimon/bossstart.mp3", 100, 100)

@@ -99,7 +99,6 @@ function ENT:Screamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Screamer_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/screamer.mdl" then // Already the default
         self.Screamer_Type = 0
@@ -109,12 +108,12 @@ function ENT:Init()
         self.Screamer_Type = 2
     end
 
-    self.Screamer_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
-    self.Screamer_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
-    self.Screamer_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
-    self.Screamer_FlyAnim_Left  = self:GetSequenceActivity(self:LookupSequence("left"))
-    self.Screamer_FlyAnim_Up  = self:GetSequenceActivity(self:LookupSequence("up"))
-    self.Screamer_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
+    self.Screamer_FlyAnim_Forward = self:GetSequenceActivity(self:LookupSequence("forward"))
+    self.Screamer_FlyAnim_Backward = self:GetSequenceActivity(self:LookupSequence("backward"))
+    self.Screamer_FlyAnim_Right = self:GetSequenceActivity(self:LookupSequence("right"))
+    self.Screamer_FlyAnim_Left = self:GetSequenceActivity(self:LookupSequence("left"))
+    self.Screamer_FlyAnim_Up = self:GetSequenceActivity(self:LookupSequence("up"))
+    self.Screamer_FlyAnim_Down = self:GetSequenceActivity(self:LookupSequence("down"))
 
     local soul1 = ents.Create("env_sprite")
     soul1:SetKeyValue("model", "vj_cofr/sprites/soul.vmt")
@@ -161,6 +160,7 @@ function ENT:Init()
     self.soul2 = soul2
 
     if self.Screamer_Type == 0 then self:DrawShadow(false) end
+    self:Screamer_Init()
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

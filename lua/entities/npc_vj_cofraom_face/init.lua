@@ -123,7 +123,6 @@ function ENT:Face_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Face_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/face.mdl" then // Already the default
         self.Face_Type = 0
@@ -156,6 +155,7 @@ function ENT:Init()
     self.Face = face
 
     self:DrawShadow(false)
+    self:Face_Init()
     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
     self:SetSurroundingBounds(Vector(60, 60, 120), Vector(-60, -60, 0))
 end

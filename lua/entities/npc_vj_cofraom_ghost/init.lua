@@ -108,7 +108,6 @@ function ENT:Ghost_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Ghost_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/ghost.mdl" then // Already the default
         self.Ghost_Type = 0
@@ -117,6 +116,7 @@ function ENT:Init()
     elseif myMdl == "models/vj_cofr/aomr/ghost.mdl" then
         self.Ghost_Type = 2
     end
+    self:Ghost_Init()
     self:SetSurroundingBounds(Vector(80, 80, 100), Vector(-80, -80, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

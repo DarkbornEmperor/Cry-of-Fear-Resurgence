@@ -82,7 +82,6 @@ function ENT:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:CrazyRunner_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/cof/crazyrunner.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_memo.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_real_memo.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_tsos.mdl" or myMdl == "models/vj_cofr/cofce/crazyrunner.mdl" then // Already the default
         self.CrazyRunner_Type = 0
@@ -93,6 +92,7 @@ function ENT:Init()
     elseif myMdl == "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl" then
         self.CrazyRunner_Type = 3
     end
+    self:CrazyRunner_Init()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

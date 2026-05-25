@@ -87,7 +87,6 @@ function ENT:Devourer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Devourer_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/devourer.mdl" then // Already the default
         self.Devourer_Type = 0
@@ -101,6 +100,7 @@ function ENT:Init()
     else
         self:SetCollisionBounds(Vector(25, 25, 0),Vector(-25, -25, 39))
     end
+    self:Devourer_Init()
     self:SetSurroundingBounds(Vector(60, 60, 70), Vector(-60, -60, -30))
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end

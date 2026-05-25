@@ -22,7 +22,6 @@ ENT.SoundTbl_MeleeAttackMiss = {
     "vj_cofr/cof/faceless/fist_miss1.wav",
     "vj_cofr/cof/faceless/fist_miss2.wav"
 }
-
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()

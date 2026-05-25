@@ -94,11 +94,11 @@ function ENT:Mace_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Mace_Init()
     if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
         self.CanFlinch = true
         self.FlinchChance = 14
     end
+    self:Mace_Init()
     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(80, 80, 120), Vector(-80, -80, 0))
 end

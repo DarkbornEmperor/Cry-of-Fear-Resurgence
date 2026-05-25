@@ -103,7 +103,6 @@ function ENT:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Hellhound_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/hellhound.mdl" then // Already the default
         self.Hellhound_Type = 0
@@ -117,6 +116,7 @@ function ENT:Init()
     else
         self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
     end
+    self:Hellhound_Init()
     self.Hellhound_NextSleepT = CurTime() + math_rand(0,15)
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

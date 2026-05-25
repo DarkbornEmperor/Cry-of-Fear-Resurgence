@@ -77,10 +77,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_Init()
     if self.Faster_Type == 1 then
-        self.AlertSoundPitch = 80
-        self.BeforeMeleeAttackSoundPitch = 80
-        self.PainSoundPitch = 80
-        self.DeathSoundPitch = 80
+        self.AlertSoundPitch = 85
+        self.BeforeMeleeAttackSoundPitch = 85
+        self.PainSoundPitch = 85
+        self.DeathSoundPitch = 85
     end
     self.SoundTbl_Alert = {
         "vj_cofr/cof/faster/faster_alert1.wav",
@@ -97,7 +97,6 @@ function ENT:Faster_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Faster_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/cof/faster.mdl" or myMdl == "models/vj_cofr/cofcc/faster_memo.mdl" or myMdl == "models/vj_cofr/cofce/hh/faster.mdl" then // Already the default
         self.Faster_Type = 0
@@ -107,6 +106,7 @@ function ENT:Init()
     elseif myMdl == "models/vj_cofr/cofcc/faster_ooi.mdl" then
         self.Faster_Type = 2
     end
+    self:Faster_Init()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -84,10 +84,10 @@ function ENT:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Stranger_Init()
     if math_random(1,2) == 1 then
         self.LimitChaseDistance = false
     end
+    self:Stranger_Init()
     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

@@ -84,9 +84,9 @@ function ENT:Taller_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Taller_Init()
     self:SetCollisionBounds(Vector(30, 30, 167), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(90, 90, 200), Vector(-90, -90, 0))
-    self:Taller_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

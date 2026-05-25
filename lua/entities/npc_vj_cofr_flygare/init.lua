@@ -100,15 +100,14 @@ function ENT:Flygare_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self.Flygare_FlyAnim_Forward = self:GetSequenceActivity(self:LookupSequence("forward"))
+    self.Flygare_FlyAnim_Backward = self:GetSequenceActivity(self:LookupSequence("backward"))
+    self.Flygare_FlyAnim_Right = self:GetSequenceActivity(self:LookupSequence("right"))
+    self.Flygare_FlyAnim_Left = self:GetSequenceActivity(self:LookupSequence("left"))
+    self.Flygare_FlyAnim_Up = self:GetSequenceActivity(self:LookupSequence("up"))
+    self.Flygare_FlyAnim_Down = self:GetSequenceActivity(self:LookupSequence("down"))
+
     self:Flygare_Init()
-
-    self.Flygare_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
-    self.Flygare_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
-    self.Flygare_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
-    self.Flygare_FlyAnim_Left  = self:GetSequenceActivity(self:LookupSequence("left"))
-    self.Flygare_FlyAnim_Up  = self:GetSequenceActivity(self:LookupSequence("up"))
-    self.Flygare_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
-
     self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
     self:SetSurroundingBounds(Vector(60, 60, 120), Vector(-60, -60, 0))
 end

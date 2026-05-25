@@ -96,7 +96,6 @@ function ENT:Doctor_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Doctor_Init()
     local wep = math_random(1,2)
     if wep == 1 then
         self:Give("weapon_vj_cofr_revolver")
@@ -104,6 +103,7 @@ function ENT:Init()
         self:Give("weapon_vj_cofr_p345")
     end
     self.Doctor_NextRunT = CurTime() + math_rand(8,12)
+    self:Doctor_Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

@@ -70,10 +70,10 @@ function ENT:Sawcrazy_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Sawcrazy_Init()
     if GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 1 then
         self.VJ_ID_Danger = true
     end
+    self:Sawcrazy_Init()
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

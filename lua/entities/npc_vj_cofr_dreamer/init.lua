@@ -82,3 +82,7 @@ function ENT:OnThinkActive()
         timer.Simple(SoundDuration("vj_cofr/cof/dreamer/dreamer_scream.wav"), function() if IsValid(self) then self:Remove() end end)
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end

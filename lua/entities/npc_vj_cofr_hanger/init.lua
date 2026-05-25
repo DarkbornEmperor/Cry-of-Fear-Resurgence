@@ -94,6 +94,10 @@ function ENT:OnThinkActive()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     VJ_COFR_ApplyCorpse(self, corpse)
 end

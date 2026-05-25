@@ -107,7 +107,6 @@ function ENT:Suicider_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Suicider_Init()
     if self.Suicider_Glock then
         if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
             self.SoundTbl_Glock =
@@ -125,6 +124,7 @@ function ENT:Init()
     if math_random(1,2) == 1 then
         self.LimitChaseDistance = false
     end
+    self:Suicider_Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

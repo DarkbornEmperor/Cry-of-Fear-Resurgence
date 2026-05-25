@@ -59,10 +59,10 @@ function ENT:HumanFlower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:HumanFlower_Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(30, 30, 150), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(90, 90, 190), Vector(-90, -90, 0))
-    self:HumanFlower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

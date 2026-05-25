@@ -123,7 +123,6 @@ function ENT:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Slower_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/cof/slower1.mdl" or myMdl == "models/vj_cofr/cof/slower1_beta.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
         self.Slower_Type = 0
@@ -162,6 +161,7 @@ function ENT:Init()
         self.Slower_Type = 10
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2"}
     end
+    self:Slower_Init()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

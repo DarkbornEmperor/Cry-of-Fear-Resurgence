@@ -72,11 +72,11 @@ end
 function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:SickSimon_Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
         self.SoundTbl_Browning =
-        "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
+            "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
     end
+    self:SickSimon_Init()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

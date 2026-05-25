@@ -126,7 +126,6 @@ function ENT:Addiction_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Addiction_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/addiction.mdl" then // Already the default
         self.Addiction_Type = 0
@@ -135,6 +134,7 @@ function ENT:Init()
     elseif myMdl == "models/vj_cofr/aomr/addiction.mdl" then
         self.Addiction_Type = 2
     end
+    self:Addiction_Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end

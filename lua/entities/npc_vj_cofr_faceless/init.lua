@@ -106,7 +106,6 @@ function ENT:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Faceless_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/cof/faceless.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_tsos.mdl" or myMdl == "models/vj_cofr/cofcc/faceless3_tsos.mdl" then // Already the default
         self.Faceless_Type = 0
@@ -122,6 +121,7 @@ function ENT:Init()
         self.Faceless_Type = 5
         self.AnimTbl_MeleeAttack = "vjseq_attack2"
     end
+    self:Faceless_Init()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

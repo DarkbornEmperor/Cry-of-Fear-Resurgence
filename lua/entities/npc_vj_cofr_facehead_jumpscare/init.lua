@@ -85,3 +85,7 @@ function ENT:OnThinkActive()
         timer.Simple(SoundDuration("vj_cofr/cof/facehead/b_screamclose1.wav"), function() if IsValid(self) then self:Remove() end end)
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end

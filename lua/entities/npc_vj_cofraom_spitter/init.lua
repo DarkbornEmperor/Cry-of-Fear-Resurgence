@@ -118,7 +118,6 @@ function ENT:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self:Spitter_Init()
     local myMdl = self:GetModel()
     if myMdl == "models/vj_cofr/aom/spitter.mdl" then // Already the default
         self.Spitter_Type = 0
@@ -127,6 +126,7 @@ function ENT:Init()
     elseif myMdl == "models/vj_cofr/aomr/spitter.mdl" then
         self.Spitter_Type = 2
     end
+    self:Spitter_Init()
     self:SetCollisionBounds(Vector(20, 20, 44), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
