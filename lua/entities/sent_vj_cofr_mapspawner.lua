@@ -155,7 +155,7 @@ function ENT:Initialize()
         if nav then table_insert(self.navAreas, nav) end
     end
 
-    local count = #self.nodePositions +#self.navAreas
+    local count = #self.nodePositions + #self.navAreas
     if count <= 50 then
     local msg = "WARNING: Low node/nav-area count detected! The Map Spawner may find it difficult to process with such low nodes/nav-areas. The Map Spawner will now remove itself."
     if count <= 0 then

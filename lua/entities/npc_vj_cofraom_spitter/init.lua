@@ -16,7 +16,6 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_bite"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 35
-ENT.MeleeAttackDamageDistance = 60
 ENT.HasMeleeAttackKnockBack = true
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_range"
@@ -119,16 +118,17 @@ function ENT:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/aom/spitter.mdl" then // Already the default
+    self:Spitter_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/spitter.mdl" then // Already the default
         self.Spitter_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/spitter.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/spitter.mdl" then
         self.Spitter_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/aomr/spitter.mdl" then
+    elseif myMdl == "models/vj_cofr/aomr/spitter.mdl" then
         self.Spitter_Type = 2
     end
     self:SetCollisionBounds(Vector(20, 20, 44), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -140,7 +140,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -156,8 +158,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -180,8 +180,7 @@ function ENT:MeleeAttackKnockbackVelocity(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "CurveOld", projPos, 1, 1500)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "CurveOld", projectile:GetPos(), 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
@@ -207,12 +206,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

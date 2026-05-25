@@ -7,6 +7,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/croucher.mdl"
+ENT.HullType = HULL_TINY
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -14,7 +15,6 @@ ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(10, 0, -30),
 }
-
 local math_random = math.random
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()

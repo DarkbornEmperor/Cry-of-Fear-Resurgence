@@ -7,12 +7,13 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/crawler.mdl"
+ENT.HullType = HULL_TINY
 ENT.FlinchHitGroupMap = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
-    ThirdP_Offset = Vector(45, 20, -15),
+    ThirdP_Offset = Vector(45, 20, -25),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 5),
 }

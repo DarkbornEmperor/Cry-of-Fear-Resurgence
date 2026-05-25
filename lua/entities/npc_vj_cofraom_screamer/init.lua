@@ -59,6 +59,8 @@ ENT.Screamer_Type = 0
     -- 1 = Classic
     -- 2 = Remod
 
+local attDef = {"vjseq_attack1", "vjseq_attack2"}
+
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -97,11 +99,13 @@ function ENT:Screamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/aom/screamer.mdl" then // Already the default
+    self:Screamer_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/screamer.mdl" then // Already the default
         self.Screamer_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/screamer.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/screamer.mdl" then
         self.Screamer_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/aomr/screamer.mdl" then
+    elseif myMdl == "models/vj_cofr/aomr/screamer.mdl" then
         self.Screamer_Type = 2
     end
 
@@ -159,7 +163,6 @@ function ENT:Init()
     if self.Screamer_Type == 0 then self:DrawShadow(false) end
     self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Screamer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -199,8 +202,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -241,7 +242,7 @@ function ENT:OnRangeAttack(status, enemy)
             self.AnimTbl_RangeAttack = "vjseq_shoot"
             self.Screamer_HomingAttack = true
         else
-            self.AnimTbl_RangeAttack = {"vjseq_attack1", "vjseq_attack2"}
+            self.AnimTbl_RangeAttack = attDef
             self.Screamer_HomingAttack = false
         end
         self.Screamer_NumFired = 0
@@ -251,7 +252,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
-        local ene = self:GetEnemy()
+        local ene = self.EnemyData.Target
         if self.Screamer_HomingAttack && IsValid(ene) then
             projectile.Track_Enemy = ene
             timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
@@ -267,8 +268,7 @@ function ENT:RangeAttackProjPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 700)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Line", projectile:GetPos(), 1, 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup)
@@ -290,8 +290,3 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     if self.Screamer_Type == 0 then corpse:DrawShadow(false) end
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

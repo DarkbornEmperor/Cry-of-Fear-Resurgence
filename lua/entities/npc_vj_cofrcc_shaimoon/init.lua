@@ -46,6 +46,7 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
+     self:BookSimon_Init()
     -- Screen flash effect for all the players
     for _, v in ipairs(player.GetHumans()) do
         v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
@@ -53,14 +54,4 @@ function ENT:Init()
      self.Shaimoon_Spawn = VJ.CreateSound(self, self.SoundTbl_Spawn, 75, 100)
      self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
      self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-     self:BookSimon_Init()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    VJ.STOPSOUND(self.Shaimoon_Spawn)
-end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

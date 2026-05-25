@@ -103,11 +103,13 @@ function ENT:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/aom/hellhound.mdl" then // Already the default
+    self:Hellhound_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/hellhound.mdl" then // Already the default
         self.Hellhound_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/hellhound.mdl" then
         self.Hellhound_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/aomr/hellhound.mdl" then
+    elseif myMdl == "models/vj_cofr/aomr/hellhound.mdl" then
         self.Hellhound_Type = 2
     end
     if self.Hellhound_Type == 1 then
@@ -117,7 +119,6 @@ function ENT:Init()
     end
     self.Hellhound_NextSleepT = CurTime() + math_rand(0,15)
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -127,7 +128,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -143,8 +146,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,7 +157,7 @@ function ENT:TranslateActivity(act)
         if self.Hellhound_Sleeping then
             return ACT_CROUCHIDLE
         -- Barking
-        elseif self.Hellhound_Type == 1 && IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+        elseif self.Hellhound_Type == 1 && IsValid(self.EnemyData.Target) && !self.VJ_IsBeingControlled then
             return ACT_IDLE_ANGRY
         end
         -- Default idle
@@ -171,7 +172,7 @@ end
 function ENT:OnThinkActive()
     if self.VJ_IsBeingControlled then return end
     -- Sleep system
-    if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
+    if !self.Alerted && !IsValid(self.EnemyData.Target) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
         local sleepTime = math_rand(15,30) -- How long it should sleep
         self.Hellhound_Sleeping = true
         self:PlayAnim(ACT_CROUCH, true, false, false)
@@ -258,12 +259,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -123,11 +123,13 @@ function ENT:Face_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/aom/face.mdl" then // Already the default
+    self:Face_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/face.mdl" then // Already the default
         self.Face_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/face.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/face.mdl" then
         self.Face_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/aomr/face.mdl" then
+    elseif myMdl == "models/vj_cofr/aomr/face.mdl" then
         self.Face_Type = 2
     end
 
@@ -151,12 +153,11 @@ function ENT:Init()
     face:Activate()
     face:SetNoDraw(true)
     self:DeleteOnRemove(face)
-    self.face = face
+    self.Face = face
 
     self:DrawShadow(false)
     self:SetCollisionBounds(Vector(25, 25, 86), Vector(-25, -25, 0))
     self:SetSurroundingBounds(Vector(60, 60, 120), Vector(-60, -60, 0))
-    self:Face_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -166,20 +167,23 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "range" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
         self:ExecuteRangeAttack()
-        if IsValid(self.face) then
-            self.face:SetNoDraw(false)
+        local face = self.Face
+        if IsValid(face) then
+            face:SetNoDraw(false)
         end
         -- Backup timer to make sure the sprites are hidden in case event doesn't run!
         timer.Simple(0.08, function()
             if IsValid(self) then
-                if IsValid(self.face) then
-                    self.face:SetNoDraw(true)
+                if IsValid(face) then
+                    face:SetNoDraw(true)
                 end
             end
         end)
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4).. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -195,8 +199,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -212,7 +214,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         projectile.Model = "models/vj_cofr/aomr/eyeball.mdl"
     end
     if status == "PostSpawn" then
-        local ene = self:GetEnemy()
+        local ene = self.EnemyData.Target
         if IsValid(ene) then
             projectile.Track_Enemy = ene
         end
@@ -234,15 +236,14 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         else
             self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
         end
-    end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -253,12 +254,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -19,9 +19,7 @@ ENT.AnimTbl_MeleeAttack = false
 ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
 ENT.MeleeAttackDamage = 10
-ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackAngleRadius = 180
-ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.HasSoundTrack = true
 ENT.MainSoundPitch = 100
@@ -60,10 +58,10 @@ function ENT:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:FaceHead_Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(30, 30, 90), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -76,14 +74,12 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
-    if IsValid(self:GetEnemy()) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    if IsValid(self.EnemyData.Target) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         local faceless1 = ents.Create("npc_vj_cofr_faceless")
         faceless1:SetPos(self:GetPos() + self:GetRight() * 60 + self:GetUp() * 10)
         faceless1:SetAngles(self:GetAngles())
@@ -139,8 +135,3 @@ end
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

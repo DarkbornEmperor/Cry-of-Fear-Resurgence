@@ -34,14 +34,16 @@ ENT.SoundTbl_OnCollide = {
     "vj_cofr/aom/eyeball/ag_hornethit2.wav",
     "vj_cofr/aom/eyeball/ag_hornethit3.wav"
 }
-ENT.IdleSoundPitch = VJ.SET(100,100)
+ENT.IdleSoundPitch = 100
 -- Custom
-local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
 
+local defVec = Vector(0, 0, 0)
+
+local math_max = math.max
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -95,6 +97,7 @@ end
 function ENT:OnThink()
     local phys = self:GetPhysicsObject()
     local trackedEnt = self.Track_Enemy
+    local myPos = self:GetPos()
     -- Homing Behavior
     if IsValid(trackedEnt) && trackedEnt:Alive() then
         local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
@@ -102,22 +105,22 @@ function ENT:OnThink()
             self.Track_Position = pos
         end
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50,50), self.Eyeball_ChaseSpeed))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", myPos, self.Track_Position + VectorRand(-50,50), self.Eyeball_ChaseSpeed))
             self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
     -- Not tracking, go in straight line
     else
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80,80), self.Eyeball_ChaseSpeed / 2))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", myPos, self.Track_Position + VectorRand(-80,80), self.Eyeball_ChaseSpeed / 2))
             self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCollision(data, phys)
-    local lastVel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
+    local lastVel = math_max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
     local newVel = phys:GetVelocity():GetNormal()
-    lastVel = math.max(newVel:Length(), lastVel)
+    lastVel = math_max(newVel:Length(), lastVel)
     phys:SetVelocity(newVel * lastVel * 0.3)
     self:SetAngles(self:GetVelocity():GetNormal():Angle())
 

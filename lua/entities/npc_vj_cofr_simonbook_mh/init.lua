@@ -18,8 +18,6 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack_1", "vjseq_attack_2", "vjseq_attack_3"}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
@@ -58,7 +56,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
-
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -89,7 +86,9 @@ function ENT:OnInput(key, activator, caller, data)
         VJ.EmitSound(self, "vj_cofr/cof/weapons/sledgehammer/sledgehammer_hit.wav", 75, 100)
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -105,8 +104,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,14 +120,13 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "Finish" then
-    -- Screen flash effect for all the players
-    for _, v in ipairs(player.GetHumans()) do
-        v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
-    end
-end
     if status == "Init" then
         VJ_COFR_DeathCode(self)
+    elseif status == "Finish" then
+        -- Screen flash effect for all the players
+        for _, v in ipairs(player.GetHumans()) do
+            v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -181,7 +177,7 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/mud3.wav",
         "vj_cofr/cof/simon/footsteps/mud4.wav"
     },
-    [74] = { -- Snow
+    [MAT_SNOW] = {
         "vj_cofr/cof/simon/footsteps/snow1.wav",
         "vj_cofr/cof/simon/footsteps/snow2.wav",
         "vj_cofr/cof/simon/footsteps/snow3.wav",
@@ -229,7 +225,7 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/concrete3.wav",
         "vj_cofr/cof/simon/footsteps/concrete4.wav"
     },
-    [85] = { -- Grass
+    [MAT_GRASS] = {
         "vj_cofr/cof/simon/footsteps/grass1.wav",
         "vj_cofr/cof/simon/footsteps/grass2.wav",
         "vj_cofr/cof/simon/footsteps/grass3.wav",
@@ -268,12 +264,8 @@ function ENT:OnFootstepSound(moveType, sdFile)
     if tr.Hit && self.FootSteps[tr.MatType] then
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

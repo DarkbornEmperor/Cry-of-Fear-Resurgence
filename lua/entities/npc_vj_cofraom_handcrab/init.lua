@@ -100,16 +100,17 @@ function ENT:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/aom/handcrab.mdl" then // Already the default
+    self:Handcrab_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/handcrab.mdl" then // Already the default
         self.Handcrab_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/headcrab.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/headcrab.mdl" then
         self.Handcrab_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/aomr/handcrab.mdl" then
+    elseif myMdl == "models/vj_cofr/aomr/handcrab.mdl" then
         self.Handcrab_Type = 2
     end
     self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
     self:SetSurroundingBounds(Vector(30, 30, 30), Vector(-30, -30, 0))
-    self:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -118,8 +119,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -132,13 +131,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
-        return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
+        return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self.EnemyData.Target:EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
-        return !self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air
+        return !self:OnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -151,8 +150,3 @@ end
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

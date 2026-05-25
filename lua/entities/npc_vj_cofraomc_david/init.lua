@@ -53,7 +53,7 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/mud3.wav",
         "vj_cofr/cof/simon/footsteps/mud4.wav"
     },
-    [74] = { -- Snow
+    [MAT_SNOW] = {
         "vj_cofr/aom/david/footsteps_classic/pl_dirt1.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_dirt2.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_dirt3.wav",
@@ -104,7 +104,7 @@ ENT.FootSteps = {
         "vj_cofr/aom/david/footsteps_classic/pl_tile4.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_tile5.wav"
     },
-    [85] = { -- Grass
+    [MAT_SNOW] = {
         "vj_cofr/aom/david/footsteps_classic/pl_dirt1.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_dirt2.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_dirt3.wav",
@@ -129,8 +129,3 @@ ENT.FootSteps = {
         "vj_cofr/aom/david/footsteps_classic/pl_grate4.wav"
     }
 }
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

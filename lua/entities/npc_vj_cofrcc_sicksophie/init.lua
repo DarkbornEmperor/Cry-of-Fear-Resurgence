@@ -8,10 +8,10 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cofcc/sicksophie.mdl"
 ENT.CanFlinch = false
-ENT.AlertSoundPitch = VJ.SET(120,120)
-ENT.BeforeMeleeAttackSoundPitch = VJ.SET(120,120)
-ENT.PainSoundPitch = VJ.SET(120,120)
-ENT.DeathSoundPitch = VJ.SET(120,120)
+ENT.AlertSoundPitch = 120
+ENT.BeforeMeleeAttackSoundPitch = 120
+ENT.PainSoundPitch = 120
+ENT.DeathSoundPitch = 120
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
     "vj_cofr/cof/faceless/fist_strike1.wav",
@@ -42,8 +42,3 @@ function ENT:Slower_Init()
         "vj_cofr/cof/slower/slower_pain2.wav"
     }
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

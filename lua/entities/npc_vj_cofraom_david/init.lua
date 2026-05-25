@@ -23,8 +23,6 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjges_shoot_crowbar"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 10
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.Weapon_FindCoverOnReload = false
 ENT.Weapon_OcclusionDelayTime = VJ.SET(0,0.2)
 ENT.Weapon_OcclusionDelay = false
@@ -98,6 +96,7 @@ ENT.Human_Type = 0
     -- 2 = Police
     -- 3 = David (Classic)
     -- 4 = Doctor Purnell & Robert
+
 ENT.WeaponsList_AoMDC = {
     ["Close"] = {
         "weapon_vj_cofraom_shotgun"
@@ -352,7 +351,8 @@ function ENT:Simon_Init()
     if GetConVar("VJ_COFR_Simon_Costumes"):GetInt() == 1 then
         self:SetSkin(math_random(0,13))
     end
-    if self:GetSkin() == 8 && math_random(1,10) == 1 && (self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl") then
+    local myMdl = self:GetModel()
+    if self:GetSkin() == 8 && math_random(1,10) == 1 && (myMdl == "models/vj_cofr/cof/simon.mdl" or myMdl == "models/vj_cofr/cof/simon_hoodless.mdl" or myMdl == "models/vj_cofr/cof/simon_early.mdl") then
         self:PlaySoundSystem("Speech", "vj_cofr/cof/simon/hellokitty.wav")
     end
 end
@@ -487,22 +487,32 @@ function ENT:Init()
     if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
         self.HealthRegenParams.Enabled = true
     end
-    if self:GetModel() == "models/vj_cofr/aom/david.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david_custom.mdl" or self:GetModel() == "models/vj_cofr/aom/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_cross.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_question.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_scream.mdl" or self:GetModel() == "models/vj_cofr/aom/da/assistor_two.mdl" or self:GetModel() == "models/vj_cofr/aomr/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aomr/david.mdl" then // Already the default
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/david.mdl" or myMdl == "models/vj_cofr/aom/da/david_custom.mdl" or myMdl == "models/vj_cofr/aom/david_dead.mdl" or myMdl == "models/vj_cofr/aom/da/david_dead.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_cross.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_question.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_scream.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_two.mdl" or myMdl == "models/vj_cofr/aomr/david_dead.mdl" or myMdl == "models/vj_cofr/aomr/david.mdl" then // Already the default
         self:David_Init()
-    elseif self:GetModel() == "models/vj_cofr/cof/simon.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_beta.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_early.mdl" or self:GetModel() == "models/vj_cofr/cof/simon_hoodless.mdl" or self:GetModel() == "models/vj_cofr/cofcc/roderick.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/simon.mdl" or myMdl == "models/vj_cofr/cof/simon_beta.mdl" or myMdl == "models/vj_cofr/cof/simon_early.mdl" or myMdl == "models/vj_cofr/cof/simon_hoodless.mdl" or myMdl == "models/vj_cofr/cofcc/roderick.mdl" then
         self:Simon_Init()
-    elseif self:GetModel() == "models/vj_cofr/cof/police1.mdl" or self:GetModel() == "models/vj_cofr/cof/police2.mdl" or self:GetModel() == "models/vj_cofr/cof/police3.mdl" or self:GetModel() == "models/vj_cofr/cof/police4.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/police1.mdl" or myMdl == "models/vj_cofr/cof/police2.mdl" or myMdl == "models/vj_cofr/cof/police3.mdl" or myMdl == "models/vj_cofr/cof/police4.mdl" then
         self:Police_Init()
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/david.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_dead.mdl" or self:GetModel() == "models/vj_cofr/aom/classic/david_early.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/david.mdl" or myMdl == "models/vj_cofr/aom/classic/david_dead.mdl" or myMdl == "models/vj_cofr/aom/classic/david_early.mdl" then
         self:DavidClassic_Init()
-    elseif self:GetModel() == "models/vj_cofr/cof/doctor_friendly.mdl" or self:GetModel() == "models/vj_cofr/cofcc/robert.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/doctor_friendly.mdl" or myMdl == "models/vj_cofr/cofcc/robert.mdl" then
         self:Doctor_Init()
     end
 
+    timer.Simple(0.1, function()
+        local wep = self:GetActiveWeapon()
+        if self.Human_Type == 1 && IsValid(self) && IsValid(wep) then
+            local wepClass = wep:GetClass()
+            if !self.Simon_French && wepClass == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/famas/french4.wav") self.Simon_French = true
+            elseif !self.Simon_Branch && (wepClass == "weapon_vj_cofr_branch" or wepClass == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/branch/branch_first_get.wav") self.Simon_Branch = true end
+        end
+    end)
+
     self.Human_NextSelfHealT = CurTime() + math_rand(10,15)
     self.NextWeaponSwitchT = CurTime() + math_rand(2,4)
-    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:FlashlightSetup()
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 or !self.WeaponInventory_MeleeList then return end
     for _, category in pairs(self.Human_WeaponList) do
@@ -528,7 +538,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -547,8 +559,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -567,7 +577,7 @@ function ENT:TranslateActivity(act)
         return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
     elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
         return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
-    elseif act == ACT_IDLE && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) then
+    elseif act == ACT_IDLE && self.Alerted then
         return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
     end
     return self.BaseClass.TranslateActivity(self,act)
@@ -599,8 +609,8 @@ function ENT:OnThinkActive()
         self.WeaponState = VJ.WEP_STATE_HOLSTERED
         timer.Simple(0.4, function()
             if IsValid(self) && !self.Dead then
-                local curHP = self:Health()
-                self:SetHealth(math_clamp(curHP + self.Medic_HealAmount, curHP, self:GetMaxHealth()))
+                local myHP = self:Health()
+                self:SetHealth(math_clamp(myHP + self.Medic_HealAmount, myHP, self:GetMaxHealth()))
                 self:OnMedicBehavior("OnHeal")
                 self:PlaySoundSystem("Speech", self.SoundTbl_MedicReceiveHeal)
                 VJ.CreateSound(self, self.SoundTbl_MedicOnHeal, 75, 100)
@@ -618,11 +628,6 @@ function ENT:OnThinkActive()
             self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
             self.Human_NextLowHPSoundT = CurTime() + math_random(10,20)
         end
-    end
-    if self.Human_Type == 1 && IsValid(self:GetActiveWeapon()) then
-        local wep = self:GetActiveWeapon()
-        if !self.Simon_French && wep:GetClass() == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/famas/french4.wav") self.Simon_French = true
-        elseif !self.Simon_Branch && (wep:GetClass() == "weapon_vj_cofr_branch" or wep:GetClass() == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/branch/branch_first_get.wav") self.Simon_Branch = true end
     end
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 or !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
     local ent = self:GetEnemy()
@@ -650,7 +655,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMedicBehavior(status, statusData)
     if status == "BeforeHeal" then
-        if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():SetNoDraw(true) end
+        local wep = self:GetActiveWeapon()
+        if IsValid(wep) then wep:SetNoDraw(true) end
         local att = self:GetAttachment(self:LookupAttachment("rhand"))
         local healItem = ents.Create("prop_vj_animatable")
         healItem:SetModel(self.Medic_SpawnPropOnHealModel)
@@ -661,19 +667,20 @@ function ENT:OnMedicBehavior(status, statusData)
         healItem:Spawn()
         //healItem:AddEffects(EF_BONEMERGE)
         healItem:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-        self.healItem = healItem
+        self.HealItem = healItem
         self:DeleteOnRemove(healItem)
-        timer.Simple(VJ.AnimDuration(self, self.AnimTbl_Medic_GiveHealth), function() if IsValid(self) && IsValid(self:GetActiveWeapon()) && IsValid(self.healItem) then SafeRemoveEntity(self.healItem) self:GetActiveWeapon():SetNoDraw(false) self.WeaponState = VJ.WEP_STATE_READY self.IsAbleToMeleeAttack = true end end)
+        timer.Simple(VJ.AnimDuration(self, self.AnimTbl_Medic_GiveHealth), function() if IsValid(self) && IsValid(wep) && IsValid(self.HealItem) then SafeRemoveEntity(self.HealItem) wep:SetNoDraw(false) self.WeaponState = VJ.WEP_STATE_READY self.IsAbleToMeleeAttack = true end end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.Human_Type == 1 && math_random(1,2) == 1 then
-        if ent:GetClass() == "npc_vj_cofr_purnell" then
+        local entClass = ent:GetClass()
+        if entClass == "npc_vj_cofr_purnell" then
             self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simonbossangry.wav")
-        elseif ent:GetClass() == "npc_vj_cofr_carcass" then
+        elseif entClass == "npc_vj_cofr_carcass" then
             self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/simon32.wav")
-        elseif ent:GetClass() == "npc_vj_cofr_mace" then
+        elseif entClass == "npc_vj_cofr_mace" then
             self:PlaySoundSystem("Alert", "vj_cofr/cof/simon/sub3.wav")
         end
     end
@@ -740,7 +747,6 @@ function ENT:OnWeaponStrafe()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponReload()
-    //if self.Weapon_FindCoverOnReload then self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.ConstantlyFaceEnemy_IfVisible = (IsValid(self:GetActiveWeapon()) and true) or false x.DisableChasingEnemy = false end) return end
     if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) then return end
     timer.Simple(0, function()
     local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,400), true, false, 8, true))
@@ -923,7 +929,9 @@ function ENT:SetAnimationTranslations(h)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         else
@@ -932,9 +940,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         self:DeathWeaponDrop(dmginfo,hitgroup)
         local activeWep = self:GetActiveWeapon()
         if IsValid(activeWep) then activeWep:Remove() end
-    end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -993,7 +998,7 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/mud3.wav",
         "vj_cofr/cof/simon/footsteps/mud4.wav"
     },
-    [74] = { -- Snow
+    [MAT_SNOW] = {
         "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
         "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
         "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
@@ -1044,7 +1049,7 @@ ENT.FootSteps = {
         "vj_cofr/aom/david/footsteps/pl_tile4.wav",
         "vj_cofr/aom/david/footsteps/pl_tile5.wav"
     },
-    [85] = { -- Grass
+    [MAT_GRASS] = {
         "vj_cofr/aom/david/footsteps/pl_dirt1.wav",
         "vj_cofr/aom/david/footsteps/pl_dirt2.wav",
         "vj_cofr/aom/david/footsteps/pl_dirt3.wav",
@@ -1083,12 +1088,8 @@ function ENT:OnFootstepSound(moveType, sdFile)
     if tr.Hit && self.FootSteps[tr.MatType] then
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

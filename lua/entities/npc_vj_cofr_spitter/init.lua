@@ -73,6 +73,7 @@ function ENT:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Spitter_Init()
     /*if VJ_CVAR_AI_ENABLED then
         timer.Simple(0, function()
             self:PlayAnim(ACT_COWER, true, false)
@@ -86,7 +87,6 @@ function ENT:Init()
     end*/
     self:SetCollisionBounds(Vector(15, 15, 70), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Spitter_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -101,14 +101,11 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "CurveOld", projPos, 1, 1500)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "CurveOld", projectile:GetPos(), 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)
@@ -127,8 +124,3 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:DrawShadow(false)
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

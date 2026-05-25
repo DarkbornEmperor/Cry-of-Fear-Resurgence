@@ -51,10 +51,6 @@ ENT.SoundTbl_Impact = {
 ENT.SoundTbl_Stranger_HeartBeat =
     "vj_cofr/cof/stranger/st_hearbeat.wav"
 
--- Custom
-ENT.Stranger_DamageDistance = 500
-ENT.Stranger_NextEnemyDamageT = 0
-
 util.AddNetworkString("VJ_COFR_Stranger_Damage")
 
 local nwName = "VJ_COFR_Stranger_Controller"
@@ -88,12 +84,12 @@ function ENT:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Stranger_Init()
     if math_random(1,2) == 1 then
         self.LimitChaseDistance = false
     end
     self:SetCollisionBounds(Vector(13, 13, 82), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Stranger_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -111,30 +107,28 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    local opt1, opt2, opt3 = self, self:GetClass(), self.VJ_TheControllerEntity
-    net.Start(nwName)
-        net.WriteBool(false)
-        net.WriteEntity(opt1)
-        net.WriteString(opt2)
-        net.WriteEntity(ply)
-        net.WriteEntity(opt3)
-    net.Send(ply)
-    function self.VJ_TheControllerEntity:OnStopControlling()
-        net.Start(nwName)
-            net.WriteBool(true)
-            net.WriteEntity(opt1)
-            net.WriteString(opt2)
-            net.WriteEntity(ply)
-            net.WriteEntity(opt3)
-        net.Send(ply)
-    end
     controlEnt.VJC_Player_DrawHUD = false
     function controlEnt:OnThink()
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+    local ent, class, contEnt = self, self:GetClass(), self.VJ_TheControllerEntity
+    net.Start(nwName)
+        net.WriteBool(false)
+        net.WriteEntity(ent)
+        net.WriteString(class)
+        net.WriteEntity(ply)
+        net.WriteEntity(contEnt)
+    net.Send(ply)
+    function self.VJ_TheControllerEntity:OnStopControlling()
+        net.Start(nwName)
+            net.WriteBool(true)
+            net.WriteEntity(ent)
+            net.WriteString(class)
+            net.WriteEntity(ply)
+            net.WriteEntity(contEnt)
+        net.Send(ply)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,42 +150,38 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 end
             end
         end
-        if self.EnemyData.Distance > self.Stranger_DamageDistance or !IsValid(enemy) or !self:Visible(enemy) or enemy.IsVJBaseBullseye then return true end
-        if CurTime() > self.Stranger_NextEnemyDamageT then
-            if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
-            enemy:TakeDamage(self.StrangerDamage, self, self)
-            self:Stranger_Damage()
-            self.Stranger_NextEnemyDamageT = CurTime() + self.NextRangeAttackTime
-        end
+        local eneData = self.EnemyData
+        if eneData.Distance > self.RangeAttackMaxDistance or !eneData.Visible or self:Disposition(enemy) == D_LI or enemy.IsVJBaseBullseye then return true end
+        if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
+        enemy:TakeDamage(self.StrangerDamage, self, self)
+        VJ.DamageSpecialEnts(self, enemy, dmginfo)
+        self:Stranger_Damage()
         return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-    self:SetNW2Entity("Enemy", self:GetEnemy())
+    self:SetNW2Entity("Enemy", self.EnemyData.Target)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "Finish" && IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && self.EnemyData.Distance < self.Stranger_DamageDistance then
-        net.Start("VJ_COFR_Stranger_ScreenEffect")
-            net.WriteEntity(self:GetEnemy())
-        net.Send(self:GetEnemy())
-        VJ.STOPSOUND(self.Stranger_HeartBeat)
-    end
+    local eneData = self.EnemyData
+    local ene = eneData.Target
     if status == "Init" then
-        self.DeathAnimationTime = math_rand(0.75,1.25)
         VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
+        self.DeathAnimationTime = math_rand(0.75,1.25)
+    elseif status == "Finish" && IsValid(ene) && ene:IsPlayer() && eneData.Distance < self.RangeAttackMaxDistance && eneData.Visible then
+        net.Start("VJ_COFR_Stranger_ScreenEffect")
+            net.WriteEntity(ene)
+        net.Send(ene)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

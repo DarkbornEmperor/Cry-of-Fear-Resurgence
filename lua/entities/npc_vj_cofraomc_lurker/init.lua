@@ -94,9 +94,9 @@ function ENT:Lurker_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Lurker_Init()
     self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
     self:SetSurroundingBounds(Vector(200, 200, 90), Vector(-200, -200, 0))
-    self:Lurker_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -111,8 +111,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -125,7 +123,7 @@ function ENT:OnThink()
         timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
         timer.Simple(0.5, function()
             if IsValid(self) then
-                if IsValid(self:GetEnemy()) then
+                if IsValid(self.EnemyData.Target) then
                     self:SetSkin(0)
                 else
                     self:SetSkin(1)
@@ -154,8 +152,3 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:SetSkin(2)
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

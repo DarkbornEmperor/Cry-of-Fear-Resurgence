@@ -48,9 +48,9 @@ end
 function ENT:BookSimon_Init() return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:BookSimon_Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:BookSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
@@ -63,8 +63,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         rico:SetScale(5) -- Size
         rico:SetMagnitude(math_random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
         util.Effect("VJ_COFR_Rico", rico)
-    end
-    if status == "PreDamage" then
+    elseif status == "PreDamage" then
         dmginfo:ScaleDamage(0.5)
         if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_cofr/cof/faster/faster_headhit" .. math_random(1,4) .. ".wav", 75, 100) end
     end
@@ -74,12 +73,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status) return end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_cofr/fx/wade" .. math_random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

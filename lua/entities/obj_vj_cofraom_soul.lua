@@ -66,9 +66,10 @@ function ENT:OnThink()
     local trackedEnt = self.Track_Enemy
     -- Homing Behavior
     if IsValid(trackedEnt) then
-            self.DirectDamage = 25
-        if IsValid(self.GlowSprite) then
-            self.GlowSprite:SetKeyValue("scale", "1.5")
+        self.DirectDamage = 25
+        local soulSpr = self.GlowSprite
+        if IsValid(soulSpr) then
+            soulSpr:SetKeyValue("scale", "1.5")
         end
         local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
         if self:VisibleVec(pos) or self.Track_Position == defVec then

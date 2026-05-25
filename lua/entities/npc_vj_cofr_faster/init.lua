@@ -15,8 +15,6 @@ ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack5"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -79,10 +77,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_Init()
     if self.Faster_Type == 1 then
-        self.AlertSoundPitch = VJ.SET(80, 80)
-        self.BeforeMeleeAttackSoundPitch = VJ.SET(80, 80)
-        self.PainSoundPitch = VJ.SET(80, 80)
-        self.DeathSoundPitch = VJ.SET(80, 80)
+        self.AlertSoundPitch = 80
+        self.BeforeMeleeAttackSoundPitch = 80
+        self.PainSoundPitch = 80
+        self.DeathSoundPitch = 80
     end
     self.SoundTbl_Alert = {
         "vj_cofr/cof/faster/faster_alert1.wav",
@@ -99,16 +97,17 @@ function ENT:Faster_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/faster.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faster_memo.mdl" or self:GetModel() == "models/vj_cofr/cofce/hh/faster.mdl" then // Already the default
+    self:Faster_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/cof/faster.mdl" or myMdl == "models/vj_cofr/cofcc/faster_memo.mdl" or myMdl == "models/vj_cofr/cofce/hh/faster.mdl" then // Already the default
         self.Faster_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/cof/faster_male.mdl" or self:GetModel() == "models/vj_cofr/cofce/faster.mdl" or self:GetModel() == "models/vj_cofr/cofce/faster2.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/faster_male.mdl" or myMdl == "models/vj_cofr/cofce/faster.mdl" or myMdl == "models/vj_cofr/cofce/faster2.mdl" then
         self.Faster_Type = 1
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/cofcc/faster_ooi.mdl" then
+    elseif myMdl == "models/vj_cofr/cofcc/faster_ooi.mdl" then
         self.Faster_Type = 2
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Faster_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -117,13 +116,16 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "suicide" then
+        local att = self:GetAttachment(self:LookupAttachment("head"))
+        ParticleEffect("vj_cofr_blood_red_large", att.Pos, att.Ang)
         VJ.EmitSound(self, "vj_cofr/cof/faster/faster_suicide.wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
     elseif key == "death_metal" then
         VJ.EmitSound(self, "vj_cofr/cof/faster/faster_metalfall.wav", 75, 100)
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -139,8 +141,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -183,12 +183,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -26,8 +26,9 @@ ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 70
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
-ENT.SoundTbl_OnCollide = "vj_cofr/cof/flygare/flygare_acid_hit.wav"
 ENT.CollisionDecal = "VJ_COFR_Blood_Red_Large"
+ENT.SoundTbl_OnCollide =
+    "vj_cofr/cof/flygare/flygare_acid_hit.wav"
 
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------

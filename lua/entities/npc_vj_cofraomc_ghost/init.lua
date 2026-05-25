@@ -136,19 +136,13 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         else
             self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
         end
     end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
-    end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

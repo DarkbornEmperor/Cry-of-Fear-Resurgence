@@ -54,6 +54,8 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Blob_NextAttackT = 0
 
+ENT.Tentacles = {}
+
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -65,10 +67,9 @@ end
 function ENT:Blob_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Blob_Init()
     self:SetCollisionBounds(Vector(350, 350, 620), Vector(-350, -350, 0))
     self:SetSurroundingBounds(Vector(800, 800, 700), Vector(-800, -800, 0))
-    self:Blob_Init()
-    self.Tentacles = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -77,24 +78,21 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        local ent = self:GetEnemy()
-        if (IsValid(ent) && ent:OnGround()) or self.VJ_IsBeingControlled then
+        if enemy:OnGround() or self.VJ_IsBeingControlled then
             local tentacle = ents.Create("sent_vj_cofrcc_tentacle")
-            tentacle:SetPos(ent:GetPos() + self:GetForward() * -35 + self:GetUp() * -40 + self:GetRight() * math_random(35,-35))
+            tentacle:SetPos(enemy:GetPos() + self:GetForward() * -35 + self:GetUp() * -40 + self:GetRight() * math_random(35,-35))
             tentacle:SetAngles(self:GetAngles())
             tentacle.Assignee = self
             tentacle.VJ_NPC_Class = self.VJ_NPC_Class
             tentacle:Spawn()
             self.Tentacles[#self.Tentacles + 1] = tentacle -- Register the Tentacles
-            self.tentacle = tentacle
-            SafeRemoveEntityDelayed(self.tentacle, 25)
+            self.Tentacle = tentacle
+            SafeRemoveEntityDelayed(tentacle, 25)
         end
         return true
     end
@@ -121,8 +119,3 @@ function ENT:CustomOnRemove()
         if IsValid(v) then v:Remove() end
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

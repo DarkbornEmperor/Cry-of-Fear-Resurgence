@@ -16,8 +16,6 @@ ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -72,12 +70,12 @@ function ENT:Sawcrazy_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Sawcrazy_Init()
     if GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 1 then
         self.VJ_ID_Danger = true
     end
     self:SetCollisionBounds(Vector(15, 15, 85), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Sawcrazy_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -87,7 +85,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -103,8 +103,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,7 +111,13 @@ function ENT:OnThinkActive()
     if self.Sawcrazy_NextRadiusDamageT < CurTime() then
         for _, v in ipairs(ents.FindInSphere(self:GetPos(), 60)) do
             if v != self && IsValid(v) && self:Visible(v) && (v.VJ_ID_Living or v.VJ_ID_Destructible or v.VJ_ID_Attackable) then
-                if v.IsVJBaseSNPC_Human then v:TakeDamage(v:Health(), self, self) elseif v:IsPlayer() then v:TakeDamage(v:Health() + v:Armor(), self, self) else v:TakeDamage(200, self, self) end
+                if v.IsVJBaseSNPC_Human then
+                    v:TakeDamage(v:Health(), self, self)
+                elseif v:IsPlayer() then
+                    v:TakeDamage(v:Health() + v:Armor(), self, self)
+                else
+                    v:TakeDamage(200, self, self)
+                end
                 self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5
             end
         end
@@ -122,10 +126,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
+        local entHP = ent:Health()
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-            self.MeleeAttackDamage = ent:Health() + 10
+            self.MeleeAttackDamage = entHP + 10
         elseif ent:IsPlayer() then
-            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+            self.MeleeAttackDamage = entHP + ent:Armor() + 10
         else
             self.MeleeAttackDamage = 200
         end
@@ -154,12 +159,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

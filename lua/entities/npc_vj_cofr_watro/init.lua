@@ -63,9 +63,9 @@ function ENT:Watro_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Watro_Init()
     self:SetCollisionBounds(Vector(20, 20, 120), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(80, 80, 160), Vector(-80, -80, 0))
-    self:Watro_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -85,8 +85,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,18 +96,20 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    local ent = self:GetEnemy()
-    if self.Watro_Burrowed && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local eneData = self.EnemyData
+    local ene = eneData.Target
+    if self.Watro_Burrowed && IsValid(ene) && eneData.Visible && eneData.Distance < 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)
         else
             VJ.EmitSound(self, "vj_cofr/fx/bodysplat.wav", 75, 100)
         end
         self.Watro_Burrowed = false
         self:PlayAnim(ACT_SIGNAL1, true, false, false)
+        self.CallForHelp = true
         self.HasMeleeAttack = true
         self:DrawShadow(true)
-        self.CallForHelp = true
         self:RemoveFlags(FL_NOTARGET)
     end
 end
@@ -126,7 +126,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
             self.SoundTbl_Death =
                 "vj_cofr/fx/out_water.wav"
         else
@@ -143,8 +144,3 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:DrawShadow(false)
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

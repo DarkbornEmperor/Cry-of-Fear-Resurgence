@@ -18,8 +18,6 @@ ENT.HasMeleeAttack = false
 ENT.AnimTbl_MeleeAttack = "vjseq_attack_sledgehammer"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 20
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = false
@@ -201,7 +199,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -217,8 +217,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -291,6 +289,7 @@ function ENT:SetSledgehammerFlare()
     self.SoundTbl_Breath =
         "vj_cofr/cof/booksimon/flare_burn.wav"
 
+    local att = self:LookupAttachment("flare")
     local flareLight = ents.Create("light_dynamic")
     flareLight:SetKeyValue("brightness", "1")
     flareLight:SetKeyValue("distance", "500")
@@ -305,8 +304,8 @@ function ENT:SetSledgehammerFlare()
     flareLight:Fire("TurnOn", "", 0)
     self:DeleteOnRemove(flareLight)
 
-    ParticleEffectAttach("vj_cofr_flare_sparks", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("flare"))
-    ParticleEffectAttach("vj_cofr_flare_trail", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("flare"))
+    ParticleEffectAttach("vj_cofr_flare_sparks", PATTACH_POINT_FOLLOW, self, att)
+    ParticleEffectAttach("vj_cofr_flare_trail", PATTACH_POINT_FOLLOW, self, att)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
@@ -370,22 +369,19 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_RUN or act == ACT_WALK then
             return ACT_WALK_STEALTH
         end
-    end
-    if self.BookSimon_TMP then
+    elseif self.BookSimon_TMP then
         if act == ACT_IDLE then
             return ACT_IDLE_HURT
         elseif act == ACT_RUN or act == ACT_WALK then
             return ACT_WALK_HURT
         end
-    end
-    if self.BookSimon_Sledgehammer then
+    elseif self.BookSimon_Sledgehammer then
         if act == ACT_IDLE then
             return ACT_IDLE_STIMULATED
         elseif act == ACT_RUN or act == ACT_WALK then
             return ACT_RUN_STIMULATED
         end
-    end
-    if self.BookSimon_SledgehammerFlare then
+    elseif self.BookSimon_SledgehammerFlare then
         if act == ACT_IDLE then
             return ACT_IDLE_RELAXED
         elseif act == ACT_RUN or act == ACT_WALK then
@@ -439,7 +435,6 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Distance = 2048,
                 HullSize = 1
             })
-
         elseif self.BookSimon_Glock then
             VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
             VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
@@ -457,7 +452,6 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Distance = 2048,
                 HullSize = 1
             })
-
         elseif self.BookSimon_TMP then
             self.BookSimon_NextTMPSoundT = CurTime() + 0.1
             if /*math_random(1,7) == 1 &&*/ self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
@@ -481,7 +475,6 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 Distance = 2048,
                 HullSize = 1
             })
-
         elseif self.BookSimon_M16 then
             VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
             VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100,110))
@@ -514,26 +507,18 @@ end
 local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "Finish" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "Finish" then
         -- Screen flash effect for all the players
         for _, v in ipairs(player.GetHumans()) do
             v:ScreenFade(SCREENFADE.IN, colorBlack, 1, 0)
         end
     end
-    if status == "Init" then
-        //VJ.STOPSOUND(self.TMPLoop)
-        VJ_COFR_DeathCode(self)
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     VJ_COFR_ApplyCorpse(self, corpse)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    VJ.STOPSOUND(self.TMPLoop)
-    VJ.STOPSOUND(self.Shotgun_Pump)
-    VJ.STOPSOUND(self.Flare_Ignite)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
@@ -579,7 +564,7 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/mud3.wav",
         "vj_cofr/cof/simon/footsteps/mud4.wav"
     },
-    [74] = { -- Snow
+    [MAT_SNOW] = {
         "vj_cofr/cof/simon/footsteps/snow1.wav",
         "vj_cofr/cof/simon/footsteps/snow2.wav",
         "vj_cofr/cof/simon/footsteps/snow3.wav",
@@ -627,7 +612,7 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/concrete3.wav",
         "vj_cofr/cof/simon/footsteps/concrete4.wav"
     },
-    [85] = { -- Grass
+    [MAT_GRASS] = {
         "vj_cofr/cof/simon/footsteps/grass1.wav",
         "vj_cofr/cof/simon/footsteps/grass2.wav",
         "vj_cofr/cof/simon/footsteps/grass3.wav",
@@ -666,12 +651,16 @@ function ENT:OnFootstepSound(moveType, sdFile)
     if tr.Hit && self.FootSteps[tr.MatType] then
         VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFootstepSound(moveType, sdFile)
+    if !self:OnGround() then return end
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
+        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+    end
+end

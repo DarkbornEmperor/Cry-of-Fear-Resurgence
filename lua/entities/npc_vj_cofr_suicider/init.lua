@@ -107,6 +107,7 @@ function ENT:Suicider_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Suicider_Init()
     if self.Suicider_Glock then
         if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
             self.SoundTbl_Glock =
@@ -126,7 +127,6 @@ function ENT:Init()
     end
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Suicider_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
@@ -145,8 +145,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:RemoveAllDecals()
         self:FireFX()
         self:DropGlock()
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack"..math_random(1,2)..".wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large",self:GetAttachment(self:LookupAttachment("head")).Pos,self:GetAngles())
+        local att = self:GetAttachment(self:LookupAttachment("head"))
+        ParticleEffect("vj_cofr_blood_red_large", att.Pos, att.Ang)
+        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
         if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
         elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
         elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
@@ -155,7 +156,7 @@ function ENT:OnInput(key, activator, caller, data)
         util.Decal("VJ_COFR_Blood_Red", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
         if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
             local effectData = EffectData()
-            effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+            effectData:SetOrigin(att.Pos)
             effectData:SetColor(colorRed)
             effectData:SetScale(25)
             util.Effect("VJ_Blood1", effectData)
@@ -167,7 +168,9 @@ function ENT:OnInput(key, activator, caller, data)
         end
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -183,8 +186,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -230,10 +231,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    local ent = self:GetEnemy()
-    if !IsValid(ent) or self.Suicider_Ammo < 1 or self.Dead then return end
-    local eneDist = self.EnemyData.Distance
-    if eneDist < 100 && ent:Visible(self) && !self.Suicider_Suicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local eneData = self.EnemyData
+    local ene = eneData.Target
+    if self.Suicider_Ammo < 1 or self.Dead then return end
+    if IsValid(ene) && eneData.Distance < 100 && eneData.Visible && !self.Suicider_Suicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self:Suicide()
     end
 end
@@ -287,11 +288,13 @@ function ENT:Suicide()
     self.Suicider_Suicide = true
     self.Bleeds = false
     self.HasDeathSounds = false
-    self:TakeDamage(self:GetMaxHealth(), self, self)
+    self:TakeDamage(self:Health(), self, self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if self:IsMoving() then
             self.AnimTbl_Death = ACT_DIESIMPLE
         else
@@ -302,9 +305,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         else
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
-    end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
         if self.Suicider_Skin == 3 or self.Suicider_Skin == 4 then return end
         if !self.Suicider_Suicide && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 600 then
             self.HasDeathSounds = false
@@ -313,9 +313,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
             elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
 
+            local att = self:GetAttachment(self:LookupAttachment("head"))
             if self.HasGibOnDeathEffects then
                 local effectData = EffectData()
-                effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+                effectData:SetOrigin(att.Pos)
                 effectData:SetColor(colorRed)
                 effectData:SetScale(25)
                 util.Effect("VJ_Blood1", effectData)
@@ -325,8 +326,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 util.Effect("bloodspray", effectData)
                 util.Effect("bloodspray", effectData)
             end
+            ParticleEffect("vj_cofr_blood_red_large", att.Pos, att.Ang)
             VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
-            ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
         end
     end
 end
@@ -334,19 +335,16 @@ end
 function ENT:DropGlock()
     if GetConVar("VJ_COFR_Suicider_DropGlock"):GetInt() == 0 or !file.Exists("lua/weapons/weapon_cof_glock.lua", "GAME") then return end
     self:SetBodygroup(1,1)
+    local pistol = NULL
     if self.Suicider_Glock then
-        local glock = ents.Create("weapon_cof_glock")
-        glock:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
-        glock:SetAngles(self:GetAngles())
-        glock:Spawn()
-        glock:Activate()
+        pistol = ents.Create("weapon_cof_glock")
     elseif self.Suicider_P345 then
-        local p345 = ents.Create("weapon_cof_p345")
-        p345:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
-        p345:SetAngles(self:GetAngles())
-        p345:Spawn()
-        p345:Activate()
+        pistol = ents.Create("weapon_cof_p345")
     end
+    pistol:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
+    pistol:SetAngles(self:GetAngles())
+    pistol:Spawn()
+    pistol:Activate()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
@@ -355,12 +353,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

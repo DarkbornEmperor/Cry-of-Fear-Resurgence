@@ -7,6 +7,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_cofr/cof/faceless_crawler.mdl"
+ENT.HullType = HULL_TINY
 ENT.CanFlinch = false
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
@@ -36,8 +37,3 @@ function ENT:Faceless_Init()
     }
     self:SetCollisionBounds(Vector(13, 13, 15), Vector(-13, -13, 0))
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

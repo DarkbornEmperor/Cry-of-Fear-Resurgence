@@ -19,8 +19,6 @@ ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {"vjseq_punch", "vjseq_punchdown"}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_shoot"
 ENT.RangeAttackProjectiles = "obj_vj_cofr_spit"
@@ -63,7 +61,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
-
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -103,6 +100,8 @@ function ENT:Flygare_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Flygare_Init()
+
     self.Flygare_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
     self.Flygare_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
     self.Flygare_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
@@ -112,7 +111,6 @@ function ENT:Init()
 
     self:SetCollisionBounds(Vector(25, 25, 100), Vector(-25, -25, 0))
     self:SetSurroundingBounds(Vector(60, 60, 120), Vector(-60, -60, 0))
-    self:Flygare_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -122,6 +120,15 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteRangeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/cof/flygare/flygare_fallhit.wav", 75, 100)
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
+            VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
+            /*local effectdata = EffectData()
+            effectdata:SetOrigin(self:GetPos())
+            effectdata:SetScale(10)
+            util.Effect("watersplash", effectdata)*/
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -131,8 +138,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,8 +177,7 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "CurveOld", projPos, 1, 1500)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "CurveOld", projectile:GetPos(), 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)
@@ -207,8 +211,3 @@ end
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

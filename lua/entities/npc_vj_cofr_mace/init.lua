@@ -16,8 +16,6 @@ ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 40
-ENT.MeleeAttackDamageDistance = 70
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = "DamageTypes"
@@ -60,7 +58,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
-
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -97,13 +94,13 @@ function ENT:Mace_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Mace_Init()
     if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
         self.CanFlinch = true
         self.FlinchChance = 14
     end
     self:SetCollisionBounds(Vector(20, 20, 92), Vector(-20, -20, 0))
     self:SetSurroundingBounds(Vector(80, 80, 120), Vector(-80, -80, 0))
-    self:Mace_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -113,7 +110,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -129,17 +128,16 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
+        local entHP = ent:Health()
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-            self.MeleeAttackDamage = ent:Health() + 10
+            self.MeleeAttackDamage = entHP + 10
         elseif ent:IsPlayer() then
-            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+            self.MeleeAttackDamage = entHP + ent:Armor() + 10
         else
             self.MeleeAttackDamage = 200
         end
@@ -151,7 +149,11 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "PreDamage" then
+    if status == "Init" && GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
+        self:SpawnBloodParticles(dmginfo, hitgroup)
+        self:SpawnBloodDecals(dmginfo, hitgroup)
+        self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
+    elseif status == "PreDamage" then
         if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
             dmginfo:ScaleDamage(0.2)
             return
@@ -162,11 +164,6 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             else
                 dmginfo:SetDamage(0)
             end
-        end
-        if status == "Init" && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
-            self:SpawnBloodParticles(dmginfo, hitgroup)
-            self:SpawnBloodDecals(dmginfo, hitgroup)
-            self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
         end
     end
 end
@@ -183,12 +180,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

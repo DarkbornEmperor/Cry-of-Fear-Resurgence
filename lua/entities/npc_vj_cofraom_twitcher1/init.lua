@@ -13,8 +13,6 @@ ENT.BloodParticle = "vj_cofr_blood_red"
 ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
@@ -80,7 +78,8 @@ function ENT:PreInit()
         self.VJ_NPC_Class = {"CLASS_AFRAID_OF_MONSTERS"}
     end
     if self.SetStats then self:SetStats() end
-    if self:GetClass() == "npc_vj_cofraom_twitcher1" then
+    local myClass = self:GetClass()
+    if myClass == "npc_vj_cofraom_twitcher1" then
         self.Twitcher_Type = 0
         self.Model = {
             "models/vj_cofr/aom/twitcher1_barney.mdl",
@@ -95,7 +94,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher1_zomb.mdl",
             "models/vj_cofr/aom/twitcher1_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher2" then
+    elseif myClass == "npc_vj_cofraom_twitcher2" then
         self.Twitcher_Type = 1
         self.Model = {
             "models/vj_cofr/aom/twitcher2_barney.mdl",
@@ -110,7 +109,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher2_zomb.mdl",
             "models/vj_cofr/aom/twitcher2_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher3" then
+    elseif myClass == "npc_vj_cofraom_twitcher3" then
         self.Twitcher_Type = 2
         self.Model = {
             "models/vj_cofr/aom/twitcher3_barney.mdl",
@@ -125,7 +124,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher3_zomb.mdl",
             "models/vj_cofr/aom/twitcher3_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraom_twitcher4" then
+    elseif myClass == "npc_vj_cofraom_twitcher4" then
         self.Twitcher_Type = 3
         self.Model = {
             "models/vj_cofr/aom/twitcher4_barney.mdl",
@@ -140,7 +139,7 @@ function ENT:PreInit()
             "models/vj_cofr/aom/twitcher4_zomb.mdl",
             "models/vj_cofr/aom/twitcher4_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraomc_twitcher" then
+    elseif myClass == "npc_vj_cofraomc_twitcher" then
         self.Twitcher_Type = 4
         self.Model = {
             "models/vj_cofr/aom/classic/twitcher_barney.mdl",
@@ -155,12 +154,12 @@ function ENT:PreInit()
             "models/vj_cofr/aom/classic/twitcher_zomb.mdl",
             "models/vj_cofr/aom/classic/twitcher_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraomda_twitcher" then
+    elseif myClass == "npc_vj_cofraomda_twitcher" then
         self.Twitcher_Type = 5
         self.Model =
             "models/vj_cofr/aom/da/twitcher.mdl"
 
-    elseif self:GetClass() == "npc_vj_cofraomr_twitcher1" then
+    elseif myClass == "npc_vj_cofraomr_twitcher1" then
         self.Twitcher_Type = 6
         self.Model = {
             "models/vj_cofr/aomr/twitcher1_barney.mdl",
@@ -175,7 +174,7 @@ function ENT:PreInit()
             "models/vj_cofr/aomr/twitcher1_zomb.mdl",
             "models/vj_cofr/aomr/twitcher1_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraomr_twitcher2" then
+    elseif myClass == "npc_vj_cofraomr_twitcher2" then
         self.Twitcher_Type = 7
         self.Model = {
             "models/vj_cofr/aomr/twitcher2_barney.mdl",
@@ -190,7 +189,7 @@ function ENT:PreInit()
             "models/vj_cofr/aomr/twitcher2_zomb.mdl",
             "models/vj_cofr/aomr/twitcher2_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraomr_twitcher3" then
+    elseif myClass == "npc_vj_cofraomr_twitcher3" then
         self.Twitcher_Type = 8
         self.Model = {
             "models/vj_cofr/aomr/twitcher3_barney.mdl",
@@ -205,7 +204,7 @@ function ENT:PreInit()
             "models/vj_cofr/aomr/twitcher3_zomb.mdl",
             "models/vj_cofr/aomr/twitcher3_zombie2.mdl"
         }
-    elseif self:GetClass() == "npc_vj_cofraomr_twitcher4" then
+    elseif myClass == "npc_vj_cofraomr_twitcher4" then
         self.Twitcher_Type = 9
         self.Model = {
             "models/vj_cofr/aomr/twitcher4_barney.mdl",
@@ -252,14 +251,14 @@ function ENT:Twitcher_Init()
     elseif self.Twitcher_Type == 5 then
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
     end
-    if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or self:GetModel() == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/twitcher2_girl.mdl" or myMdl == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
         self:DrawShadow(false)
     end
     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
         if math_random(1,10) == 1 then
             self.Twitcher_Invisible = true
             self:SetNoDraw(true)
-
         elseif math_random(1,10) == 1 then
             self.Twitcher_Transparent = true
             self:SetSkin(1) -- For the Remod twitcher#_zomb & twitcher#_headless models to avoid transparency issues
@@ -328,10 +327,10 @@ function ENT:TwitcherSounds()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self.Twitcher_Type == 5 then self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0)) end
-    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     self:Twitcher_Init()
     self:TwitcherSounds()
+    if self.Twitcher_Type == 5 then self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0)) end
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -341,7 +340,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -357,8 +358,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -368,10 +367,10 @@ function ENT:OnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnThink()
+function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Remove decals for Transparent & Invisible Twitchers
-    if self.Twitcher_Invisible or self.Twitcher_Transparent then
-        self:RemoveAllDecals()
+    if status == "Init" && (self.Twitcher_Invisible or self.Twitcher_Transparent) then
+        timer.Simple(0, function() self:RemoveAllDecals() end) -- Otherwise a decal will still spawn
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -390,20 +389,20 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         else
             self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
         end
     end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
-    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-    if self:GetModel() == "models/vj_cofr/aom/twitcher2_girl.mdl" or self:GetModel() == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/twitcher2_girl.mdl" or myMdl == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
         corpse:DrawShadow(false)
     elseif self.Twitcher_Invisible then
         corpse:SetNoDraw(true)
@@ -416,12 +415,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

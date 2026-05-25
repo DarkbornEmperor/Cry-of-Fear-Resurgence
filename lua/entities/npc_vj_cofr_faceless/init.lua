@@ -15,8 +15,6 @@ ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
@@ -108,22 +106,23 @@ function ENT:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/faceless.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless3_tsos.mdl" then // Already the default
+    self:Faceless_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/cof/faceless.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_tsos.mdl" or myMdl == "models/vj_cofr/cofcc/faceless3_tsos.mdl" then // Already the default
         self.Faceless_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless_crawler.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_crawler_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofce/faceless_crawler.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/faceless_crawler.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_crawler_tsos.mdl" or myMdl == "models/vj_cofr/cofce/faceless_crawler.mdl" then
         self.Faceless_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless_faced.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_faced_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofce/faceless_faced.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/faceless_faced.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_faced_tsos.mdl" or myMdl == "models/vj_cofr/cofce/faceless_faced.mdl" then
         self.Faceless_Type = 2
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister.mdl" or self:GetModel() == "models/vj_cofr/cofcc/faceless_twister_tsos.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/faceless_twister.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_twister_tsos.mdl" then
         self.Faceless_Type = 3
-    elseif self:GetModel() == "models/vj_cofr/cof/faceless_twister_valve.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/faceless_twister_valve.mdl" then
         self.Faceless_Type = 4
-    elseif self:GetModel() == "models/vj_cofr/cofcc/faceless_reci.mdl" or self:GetModel() == "models/vj_cofr/cofce/faceless_claw.mdl" then
+    elseif myMdl == "models/vj_cofr/cofcc/faceless_reci.mdl" or myMdl == "models/vj_cofr/cofce/faceless_claw.mdl" then
         self.Faceless_Type = 5
         self.AnimTbl_MeleeAttack = "vjseq_attack2"
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -133,7 +132,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -149,8 +150,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -193,12 +192,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

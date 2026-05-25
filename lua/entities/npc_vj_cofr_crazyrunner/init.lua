@@ -15,8 +15,6 @@ ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.DamageResponse = "OnlySearch"
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
@@ -84,17 +82,18 @@ function ENT:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/crazyrunner.mdl" or self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_memo.mdl" or self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_real_memo.mdl" or self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofce/crazyrunner.mdl" then // Already the default
+    self:CrazyRunner_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/cof/crazyrunner.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_memo.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_real_memo.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_tsos.mdl" or myMdl == "models/vj_cofr/cofce/crazyrunner.mdl" then // Already the default
         self.CrazyRunner_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/cof/citalopram.mdl" or self:GetModel() == "models/vj_cofr/cofce/citalopram.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/citalopram.mdl" or myMdl == "models/vj_cofr/cofce/citalopram.mdl" then
         self.CrazyRunner_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/cof/dreamerrunner.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/dreamerrunner.mdl" then
         self.CrazyRunner_Type = 2
-    elseif self:GetModel() == "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl" then
+    elseif myMdl == "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl" then
         self.CrazyRunner_Type = 3
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -103,8 +102,10 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "death" then
-        VJ.EmitSound(self, "vj_cofr/fx/bodydrop".. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -120,8 +121,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -136,15 +135,14 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         else
             self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
         end
-    end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -154,12 +152,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

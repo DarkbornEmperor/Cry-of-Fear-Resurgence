@@ -22,7 +22,6 @@ ENT.AnimTbl_MeleeAttack = "vjseq_attack1"
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
 ENT.NextAnyAttackTime_Melee = 10
-ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 80
 ENT.MeleeAttackAngleRadius = 100
 ENT.MeleeAttackDamageAngleRadius = 120
@@ -84,15 +83,17 @@ function ENT:Devourer_Init()
     self.SoundTbl_Death = {
         "vj_cofr/aom/devourer/bcl_die1.wav",
         "vj_cofr/aom/devourer/bcl_die3.wav"
-}
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/aom/devourer.mdl" then // Already the default
+    self:Devourer_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/aom/devourer.mdl" then // Already the default
         self.Devourer_Type = 0
-    elseif self:GetModel() == "models/vj_cofr/aom/classic/devourer.mdl" then
+    elseif myMdl == "models/vj_cofr/aom/classic/devourer.mdl" then
         self.Devourer_Type = 1
-    elseif self:GetModel() == "models/vj_cofr/aomr/devourer.mdl" then
+    elseif myMdl == "models/vj_cofr/aomr/devourer.mdl" then
         self.Devourer_Type = 2
     end
     if self.Devourer_Type == 1 or self.Devourer_Type == 2 then
@@ -101,7 +102,6 @@ function ENT:Init()
         self:SetCollisionBounds(Vector(25, 25, 0),Vector(-25, -25, 39))
     end
     self:SetSurroundingBounds(Vector(60, 60, 70), Vector(-60, -60, -30))
-    self:Devourer_Init()
     //self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,8 +117,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -206,10 +204,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
+        local entHP = self:Health()
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-            self.MeleeAttackDamage = ent:Health() + 10
+            self.MeleeAttackDamage = entHP + 10
         elseif ent:IsPlayer() then
-            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+            self.MeleeAttackDamage = entHP + ent:Armor() + 10
         else
             self.MeleeAttackDamage = 200
         end
@@ -236,8 +235,3 @@ end
 function ENT:CustomOnRemove()
     self:Devourer_ResetEnt()
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

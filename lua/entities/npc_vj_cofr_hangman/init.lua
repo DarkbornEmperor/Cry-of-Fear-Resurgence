@@ -18,9 +18,7 @@ ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = false
 ENT.TimeUntilMeleeAttackDamage = 0
 ENT.NextMeleeAttackTime = 0.5
-ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackAngleRadius = 180
-ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageAngleRadius = 180
 ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
@@ -43,10 +41,10 @@ ENT.SoundTbl_Impact = {
 function ENT:Hangman_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Hangman_Init()
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(13, 13, 150), Vector(-13, -13, 10))
     self:SetSurroundingBounds(Vector(60, 60, 180), Vector(-60, -60, 0))
-    self:Hangman_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -55,17 +53,16 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
+        local entHP = ent:Health()
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-            self.MeleeAttackDamage = ent:Health() + 10
+            self.MeleeAttackDamage = entHP + 10
         elseif ent:IsPlayer() then
-            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+            self.MeleeAttackDamage = entHP + ent:Armor() + 10
         else
             self.MeleeAttackDamage = 200
         end
@@ -75,8 +72,3 @@ end
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

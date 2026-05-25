@@ -14,6 +14,7 @@ ENT.CanTurnWhileMoving = false
 ENT.CallForHelp = false
 ENT.SightAngle = 360
 ENT.HasMeleeAttack = false
+ENT.MeleeAttackDamage = 10
 ENT.MainSoundPitch = 100
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
@@ -42,16 +43,16 @@ function ENT:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:FaceHead_Init()
     self:AddFlags(FL_NOTARGET)
     self:SetNoDraw(true)
     self:SetCollisionBounds(Vector(13, 13, 80), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:FaceHead_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
     if key == "melee" then
-        self:JumpscareDamage()
+        self:ExecuteMeleeAttack()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,36 +63,24 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    local ent = self:GetEnemy()
-    if !self.FaceHead_Jumpscare && IsValid(ent) && self:Visible(ent) && self.EnemyData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
-        self:PlayAnim(ACT_SIGNAL1, true, false, true)
-        self.FaceHead_Scream = VJ.CreateSound(self, self.SoundTbl_FaceHeadScream, 75, 100)
+    local eneData = self.EnemyData
+    if !self.FaceHead_Jumpscare && IsValid(eneData.Target) && eneData.Visible && eneData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.FaceHead_Jumpscare = true
+        local animPick, animDur = self:PlayAnim(ACT_SIGNAL1, false, 0, false)
+        if animPick != ACT_INVALID then
+            self.AttackAnim = animPick
+            self.AttackAnimDuration = animDur
+            self.AttackAnimTime = CurTime() + self.AttackAnimDuration
+        end
+        self.FaceHead_Scream = VJ.EmitSound(self, self.SoundTbl_FaceHeadScream, 75, 100)
         VJ.STOPSOUND(self.CurrentAlertSound)
         self.CallForHelp = true
+        self:RemoveFlags(FL_NOTARGET)
         self:SetNoDraw(false)
         timer.Simple(SoundDuration("vj_cofr/cof/facehead/b_screamclose1.wav"), function() if IsValid(self) then self:Remove() end end)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:JumpscareDamage()
-    local ent = self:GetEnemy()
-    if IsValid(ent) && self:Visible(ent) && VJ.GetNearestDistance(self, ent) < 60 then
-        ent:TakeDamage(10, self, self)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    VJ.STOPSOUND(self.FaceHead_Scream)
-end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

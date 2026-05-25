@@ -33,10 +33,10 @@ ENT.HasSoundTrack = true
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-ENT.AlertSoundPitch = VJ.SET(80,80)
-ENT.BeforeMeleeAttackSoundPitch = VJ.SET(80,80)
-ENT.PainSoundPitch = VJ.SET(80,80)
-ENT.DeathSoundPitch = VJ.SET(80,80)
+ENT.AlertSoundPitch = 80
+ENT.BeforeMeleeAttackSoundPitch = 80
+ENT.PainSoundPitch = 80
+ENT.DeathSoundPitch = 80
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -76,7 +76,7 @@ function ENT:PreInit()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Gator_Init()
+function ENT:Crocodile_Init()
     self.SoundTbl_Alert = {
         "vj_cofr/cof/slower/slower_alert10.wav",
         "vj_cofr/cof/slower/slower_alert20.wav",
@@ -97,9 +97,9 @@ function ENT:Gator_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Crocodile_Init()
     self:SetCollisionBounds(Vector(35, 35, 70), Vector(-35, -35, 0))
     self:SetSurroundingBounds(Vector(200, 200, 90), Vector(-200, -200, 0))
-    self:Gator_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -109,7 +109,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -125,8 +127,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -179,12 +179,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

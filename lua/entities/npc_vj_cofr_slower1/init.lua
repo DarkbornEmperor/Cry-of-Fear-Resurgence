@@ -14,8 +14,6 @@ ENT.BloodParticle = "vj_cofr_blood_red"
 ENT.BloodDecal = "VJ_COFR_Blood_Red"
 ENT.HasMeleeAttack = true
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamageType = DMG_CLUB
 ENT.DamageResponse = "OnlySearch"
 ENT.CanFlinch = true
@@ -125,45 +123,46 @@ function ENT:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    if self:GetModel() == "models/vj_cofr/cof/slower1.mdl" or self:GetModel() == "models/vj_cofr/cof/slower1_beta.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
+    self:Slower_Init()
+    local myMdl = self:GetModel()
+    if myMdl == "models/vj_cofr/cof/slower1.mdl" or myMdl == "models/vj_cofr/cof/slower1_beta.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
         self.Slower_Type = 0
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/cof/crawler.mdl" or self:GetModel() == "models/vj_cofr/cof/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/cofce/crawler.mdl" or self:GetModel() == "models/vj_cofr/cofce/crawler2.mdl" or self:GetModel() == "models/vj_cofr/cofce/krypandenej.mdl" or self:GetModel() == "models/vj_cofr/cofce/hh/krypandenej.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/crawler.mdl" or myMdl == "models/vj_cofr/cof/krypandenej.mdl" or myMdl == "models/vj_cofr/cofce/crawler.mdl" or myMdl == "models/vj_cofr/cofce/crawler2.mdl" or myMdl == "models/vj_cofr/cofce/krypandenej.mdl" or myMdl == "models/vj_cofr/cofce/hh/krypandenej.mdl" then
         self.Slower_Type = 1
         self.AnimTbl_MeleeAttack = "vjseq_attack"
-    elseif self:GetModel() == "models/vj_cofr/cof/croucher.mdl" or self:GetModel() == "models/vj_cofr/cofce/croucher.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/croucher.mdl" or myMdl == "models/vj_cofr/cofce/croucher.mdl" then
         self.Slower_Type = 2
         self.AnimTbl_MeleeAttack = "vjseq_attack1"
-    elseif self:GetModel() == "models/vj_cofr/cof/slower3.mdl" or self:GetModel() == "models/vj_cofr/cof/slower3_beta.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower3_ooi.mdl" or self:GetModel() == "models/vj_cofr/cofce/slower3.mdl" or self:GetModel() == "models/vj_cofr/cofce/blacker.mdl" or self:GetModel() == "models/vj_cofr/cofce/hh/slower3.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/slower3.mdl" or myMdl == "models/vj_cofr/cof/slower3_beta.mdl" or myMdl == "models/vj_cofr/cofcc/slower3_ooi.mdl" or myMdl == "models/vj_cofr/cofce/slower3.mdl" or myMdl == "models/vj_cofr/cofce/blacker.mdl" or myMdl == "models/vj_cofr/cofce/hh/slower3.mdl" then
         self.Slower_Type = 3
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/cof/slowerno.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slowerno_th.mdl" or self:GetModel() == "models/vj_cofr/cofce/slowerno.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/slowerno.mdl" or myMdl == "models/vj_cofr/cofcc/slowerno_th.mdl" or myMdl == "models/vj_cofr/cofce/slowerno.mdl" then
         self.Slower_Type = 4
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/cof/slowerten.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/slowerten.mdl" then
         self.Slower_Type = 5
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
-    elseif self:GetModel() == "models/vj_cofr/cof/slowerten2.mdl" or self:GetModel() == "models/vj_cofr/cofce/slowerten2.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/slowerten2.mdl" or myMdl == "models/vj_cofr/cofce/slowerten2.mdl" then
         self.Slower_Type = 6
         self.AnimTbl_MeleeAttack = "vjseq_attack"
-    elseif self:GetModel() == "models/vj_cofr/cof/upper.mdl" then
+    elseif myMdl == "models/vj_cofr/cof/upper.mdl" then
         self.Slower_Type = 7
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_tsos.mdl" or self:GetModel() == "models/vj_cofr/cofcc/slower1_memo.mdl" or self:GetModel() == "models/vj_cofr/cofce/slower1.mdl" then
+    elseif myMdl == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_tsos.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_memo.mdl" or myMdl == "models/vj_cofr/cofce/slower1.mdl" then
         self.Slower_Type = 8
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif self:GetModel() == "models/vj_cofr/cofce/slowerten.mdl" then
+    elseif myMdl == "models/vj_cofr/cofce/slowerten.mdl" then
         self.Slower_Type = 9
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
-    elseif self:GetModel() == "models/vj_cofr/cofcc/sicksophie.mdl" then
+    elseif myMdl == "models/vj_cofr/cofcc/sicksophie.mdl" then
         self.Slower_Type = 10
         self.AnimTbl_MeleeAttack = "vjseq_attack"
-    elseif self:GetModel() == "models/vj_cofr/cofcc/skeleton.mdl" then
+    elseif myMdl == "models/vj_cofr/cofcc/skeleton.mdl" then
         self.Slower_Type = 10
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2"}
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -173,7 +172,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteMeleeAttack()
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -189,8 +190,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -220,41 +219,41 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
-    end
-    if status == "DeathAnim" && (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
-        if hitgroup == HITGROUP_HEAD then
-            self.AnimTbl_Death = ACT_DIE_HEADSHOT
-        else
-            self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
+    elseif status == "DeathAnim" then
+        if (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
+            if hitgroup == HITGROUP_HEAD then
+                self.AnimTbl_Death = ACT_DIE_HEADSHOT
+            else
+                self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
+            end
         end
-    end
-    if status == "DeathAnim" && VJ.AnimExists(self, ACT_DIEVIOLENT) then
-        if math_random(1,3) == 1 && hitgroup == HITGROUP_HEAD then
+        if math_random(1,3) == 1 && hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIEVIOLENT) then
             self.AnimTbl_Death = ACT_DIEVIOLENT
         end
-    end
-    if GetConVar("VJ_COFR_Slower_HeadGib"):GetInt() == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or (self.Slower_Type == 3 && self:GetModel() != "models/vj_cofr/cof/slower3_beta.mdl") or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end
-    if status == "Init" && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
-        self.HasDeathSounds = false
-        self:RemoveAllDecals()
-        if self.Slower_Skin == 0 then self:SetBodygroup(0,3)
-        elseif self.Slower_Skin == 1 then self:SetBodygroup(0,4)
-        elseif self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
+        if GetConVar("VJ_COFR_Slower_HeadGib"):GetInt() == 0 or self.Slower_Type == 1 or self.Slower_Type == 2 or (self.Slower_Type == 3 && self:GetModel() != "models/vj_cofr/cof/slower3_beta.mdl") or self.Slower_Type == 4 or self.Slower_Type == 6 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10 then return end
+        if hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+            self.HasDeathSounds = false
+            self:RemoveAllDecals()
+            if self.Slower_Skin == 0 then self:SetBodygroup(0,3)
+            elseif self.Slower_Skin == 1 then self:SetBodygroup(0,4)
+            elseif self.Slower_Skin == 2 then self:SetBodygroup(0,5) end
 
-        if self.HasGibOnDeathEffects then
-            local effectData = EffectData()
-            effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
-            effectData:SetColor(colorRed)
-            effectData:SetScale(25)
-            util.Effect("VJ_Blood1", effectData)
-            effectData:SetScale(5)
-            effectData:SetFlags(3)
-            effectData:SetColor(0)
-            util.Effect("bloodspray", effectData)
-            util.Effect("bloodspray", effectData)
+            if self.HasGibOnDeathEffects then
+                local effectData = EffectData()
+                effectData:SetOrigin(self:GetAttachment(self:LookupAttachment("head")).Pos)
+                effectData:SetColor(colorRed)
+                effectData:SetScale(25)
+                util.Effect("VJ_Blood1", effectData)
+                effectData:SetScale(5)
+                effectData:SetFlags(3)
+                effectData:SetColor(0)
+                util.Effect("bloodspray", effectData)
+                util.Effect("bloodspray", effectData)
+            end
+            local att = self:GetAttachment(self:LookupAttachment("head"))
+            ParticleEffect("vj_cofr_blood_red_large", att.Pos, att.Ang)
+            VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
         end
-        VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -264,12 +263,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

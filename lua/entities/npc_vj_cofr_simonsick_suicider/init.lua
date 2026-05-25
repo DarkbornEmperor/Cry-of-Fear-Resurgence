@@ -60,7 +60,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
-
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,12 +72,12 @@ end
 function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:SickSimon_Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
         self.SoundTbl_Browning =
         "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:SickSimon_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ50 = Vector(0, 0, -50)
@@ -87,10 +86,11 @@ function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
     elseif key == "suicide" then
+        local att = self:GetAttachment(self:LookupAttachment("head"))
+        ParticleEffect("vj_cofr_blood_red_large", att.Pos, att.Ang)
         VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
         VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
-        ParticleEffect("vj_cofr_blood_red_large", self:GetAttachment(self:LookupAttachment("head")).Pos, self:GetAngles())
         self:FireFX()
         self:SetBodygroup(0,1)
         local selfPos = self:GetPos() + self:OBBCenter()
@@ -105,8 +105,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -209,12 +207,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

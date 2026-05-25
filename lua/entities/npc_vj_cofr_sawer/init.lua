@@ -104,9 +104,9 @@ function ENT:Sawer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Sawer_Init()
     self:SetCollisionBounds(Vector(18, 18, 103), Vector(-18, -18, 0))
     self:SetSurroundingBounds(Vector(60, 60, 140), Vector(-60, -60, 0))
-    self:Sawer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -120,7 +120,9 @@ function ENT:OnInput(key, activator, caller, data)
         self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 0))
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -136,8 +138,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,10 +145,11 @@ function ENT:OnThink()
     if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
         local speed = FrameTime() * 10
         local eyeDir = math_random(1,2)
+        local getPoseParem = self:GetPoseParameter("eye_move")
         if eyeDir == 1 then
-            self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), -90))
+            self:SetPoseParameter("eye_move", Lerp(speed, getPoseParem, -90))
         elseif eyeDir == 2 then
-            self:SetPoseParameter("eye_move", Lerp(speed, self:GetPoseParameter("eye_move"), 90))
+            self:SetPoseParameter("eye_move", Lerp(speed, getPoseParem, 90))
         end
         self.Sawer_NextEyeMoveT = CurTime() + math_rand(0,0.5)
     end
@@ -156,10 +157,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
+        local entHP = ent:Health()
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-            self.MeleeAttackDamage = ent:Health() + 10
+            self.MeleeAttackDamage = entHP + 10
         elseif ent:IsPlayer() then
-            self.MeleeAttackDamage = ent:Health() + ent:Armor() + 10
+            self.MeleeAttackDamage = entHP + ent:Armor() + 10
         else
             self.MeleeAttackDamage = 200
         end
@@ -192,9 +194,8 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
             self:SetSkin(1)
             self.Sawer_EyeOpen = true
-            self.MovementType = VJ_MOVETYPE_STATIONARY
-            self.CanTurnWhileStationary = false
             self:AddFlags(FL_NOTARGET)
+            self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
             self.Sawer_Eye = ents.Create("obj_vj_bullseye")
             self.Sawer_Eye:SetModel("models/hunter/plates/plate.mdl")
             self.Sawer_Eye:SetParent(self)
@@ -209,9 +210,9 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             timer.Simple(animTime, function()
                 if IsValid(self) && IsValid(self.Sawer_Eye) then
                     self.Sawer_EyeOpen = false
-                    self.Sawer_Eye:Remove()
                     self:RemoveFlags(FL_NOTARGET)
-                    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+                    self:SetState()
+                    self.Sawer_Eye:Remove()
                     self.Sawer_NextDownT = CurTime() + math_rand(5,10)
                 end
             end)
@@ -238,12 +239,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

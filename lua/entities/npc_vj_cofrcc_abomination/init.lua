@@ -14,6 +14,11 @@ ENT.HasSoundTrack = true
 ENT.SoundTbl_SoundTrack =
     "vj_cofr/cofcc/abomination/watro.mp3"
 
+local sdAlert = {
+    "vj_cofr/cofcc/abomination/hole_canthide.wav",
+    "vj_cofr/cofcc/abomination/hole_hurt_dialogue.wav",
+    "vj_cofr/cofcc/abomination/hole_run.wav"
+}
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -53,7 +58,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if math_random(1,3) == 1 then
-        self:PlaySoundSystem("Alert", {"vj_cofr/cofcc/abomination/hole_canthide.wav", "vj_cofr/cofcc/abomination/hole_hurt_dialogue.wav", "vj_cofr/cofcc/abomination/hole_run.wav"})
+        self:PlaySoundSystem("Alert", sdAlert)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,8 +67,3 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         dmginfo:ScaleDamage(0.5)
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -23,13 +23,16 @@ if !SERVER then return end
 ENT.Model = "models/vj_cofr/cof/hookedhead.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamageType = DMG_SLASH
-ENT.SoundTbl_OnCollide = "vj_cofr/cof/carcass/rb_headhit.wav"
 ENT.CollisionDecal = "VJ_COFR_Blood_Red_Large"
+ENT.SoundTbl_OnCollide =
+    "vj_cofr/cof/carcass/rb_headhit.wav"
+
 -- Custom
-local defVec = Vector(0, 0, 0)
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500
+
+local defVec = Vector(0, 0, 0)
 
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,6 +57,7 @@ end
 function ENT:OnThink()
     local phys = self:GetPhysicsObject()
     local trackedEnt = self.Track_Enemy
+    local myPos = self:GetPos()
     -- Homing Behavior
     if IsValid(trackedEnt) && trackedEnt:Alive() then
         local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
@@ -61,13 +65,13 @@ function ENT:OnThink()
             self.Track_Position = pos
         end
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50,50), self.Head_ChaseSpeed))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", myPos, self.Track_Position + VectorRand(-50,50), self.Head_ChaseSpeed))
             self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
         -- Not tracking, go in straight line
     else
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80,80), self.Head_ChaseSpeed / 2))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", myPos, self.Track_Position + VectorRand(-80,80), self.Head_ChaseSpeed / 2))
             self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
     end

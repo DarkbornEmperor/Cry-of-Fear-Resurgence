@@ -25,8 +25,23 @@ ENT.SoundTbl_MeleeAttackMiss = {
     "vj_cofr/cof/faceless/fist_miss1.wav",
     "vj_cofr/cof/faceless/fist_miss2.wav"
 }
-
 local math_random = math.random
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+        self.StartHealth = 25
+        self.MeleeAttackDamage = 3
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+        self.StartHealth = 40
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+        self.StartHealth = 70
+        self.MeleeAttackDamage = 9
+    elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+        self.StartHealth = 110
+        self.MeleeAttackDamage = 14
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Slower_Init()
     self.SoundTbl_Alert = {
@@ -53,8 +68,3 @@ function ENT:OnAlert(ent)
         self:PlaySoundSystem("Alert", "vj_cofr/cof/upper/sickscream.wav")
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

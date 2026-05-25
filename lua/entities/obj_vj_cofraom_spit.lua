@@ -26,6 +26,7 @@ ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 70
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
+ENT.CollisionDecal = "VJ_COFR_Spit"
 ENT.SoundTbl_Idle = {
     "vj_cofr/aom/spitter/bc_acid1.wav",
     "vj_cofr/aom/spitter/bc_acid2.wav"
@@ -35,7 +36,6 @@ ENT.SoundTbl_OnCollide = {
     "vj_cofr/aom/spitter/bc_spithit2.wav",
     "vj_cofr/aom/spitter/bc_spithit3.wav"
 }
-ENT.CollisionDecal = "VJ_COFR_Spit"
 
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------

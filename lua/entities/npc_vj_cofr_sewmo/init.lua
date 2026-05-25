@@ -54,6 +54,20 @@ ENT.SoundTbl_Impact = {
 ENT.Sewmo_BarbBroken = false
 ENT.Sewmo_Skin = 0
 
+local sdAttTongue = {
+    "vj_cofr/cof/sewmo/tunga_strike1.wav",
+    "vj_cofr/cof/sewmo/tunga_strike2.wav"
+}
+local sdAttFist =  {
+    "vj_cofr/cof/sewmo/claw_strike1.wav",
+    "vj_cofr/cof/sewmo/claw_strike2.wav",
+    "vj_cofr/cof/sewmo/claw_strike3.wav"
+}
+local sdAttFistMiss = {
+    "vj_cofr/cof/sewmo/claw_miss1.wav",
+    "vj_cofr/cof/sewmo/claw_miss2.wav",
+    "vj_cofr/cof/sewmo/claw_miss3.wav"
+}
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +75,7 @@ function ENT:PreInit()
     if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
         self.StartHealth = 40
         self.MeleeAttackDamage_Tongue = 4
-        self.MeleeAttackDamage_Fists = 6
+        self.MeleeAttackDamage_Fists = 5
     elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
         self.StartHealth = 60
         self.MeleeAttackDamage_Tongue = 6
@@ -73,7 +87,7 @@ function ENT:PreInit()
     elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
         self.StartHealth = 140
         self.MeleeAttackDamage_Tongue = 16
-        self.MeleeAttackDamage_Fists = 19
+        self.MeleeAttackDamage_Fists = 23
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,7 +136,9 @@ function ENT:OnInput(key, activator, caller, data)
         if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
-        if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+        local watLevel = self:WaterLevel()
+        if watLevel > 0 && watLevel < 3 then
+            ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_cofr/fx/water_splash.wav", 75, 100)
             /*local effectdata = EffectData()
             effectdata:SetOrigin(self:GetPos())
@@ -138,8 +154,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,28 +176,17 @@ function ENT:OnMeleeAttack(status, enemy)
             self.MeleeAttackDamage = self.MeleeAttackDamage_Tongue
             self.MeleeAttackDistance = 50
             self.MeleeAttackDamageDistance = 75
+            self.SoundTbl_MeleeAttackExtra = sdTongueAtt
             self.SoundTbl_MeleeAttackMiss =
                 "vj_cofr/cof/sewmo/tunga_miss.wav"
 
-            self.SoundTbl_MeleeAttackExtra = {
-                "vj_cofr/cof/sewmo/tunga_strike1.wav",
-                "vj_cofr/cof/sewmo/tunga_strike2.wav"
-            }
         elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
             self.AnimTbl_MeleeAttack = "vjseq_attack2"
-            self.MeleeAttackDistance = 30
-            self.MeleeAttackDamageDistance = 60
+            self.MeleeAttackDistance = false
+            self.MeleeAttackDamageDistance = false
             self.MeleeAttackDamage = self.MeleeAttackDamage_Fists
-            self.SoundTbl_MeleeAttackMiss = {
-                "vj_cofr/cof/sewmo/claw_miss1.wav",
-                "vj_cofr/cof/sewmo/claw_miss2.wav",
-                "vj_cofr/cof/sewmo/claw_miss3.wav"
-            }
-            self.SoundTbl_MeleeAttackExtra = {
-                "vj_cofr/cof/sewmo/claw_strike1.wav",
-                "vj_cofr/cof/sewmo/claw_strike2.wav",
-                "vj_cofr/cof/sewmo/claw_strike3.wav"
-            }
+            self.SoundTbl_MeleeAttackExtra = sdAttFist
+            self.SoundTbl_MeleeAttackMiss = sdAttFistMiss
         end
     end
 end
@@ -194,8 +197,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if self.Sewmo_BarbBroken or self.Dead then return end
-    if status == "PreDamage" && self:Health() > 0 && (self:GetBodygroup(0) == 0 or self:GetBodygroup(0) == 2) then
-        if !self.Sewmo_BarbBroken && self:Health() <= (self:GetMaxHealth() / 2) && math_random(1,5) == 1 then
+    local myHP = self:Health()
+    local myBG = self:GetBodygroup(0)
+    if status == "PreDamage" && myHP > 0 && (myBG == 0 or myBG == 2) then
+        if !self.Sewmo_BarbBroken && myHP <= (self:GetMaxHealth() / 2) && math_random(1,5) == 1 then
             self.Sewmo_BarbBroken = true
             self:PlayAnim(ACT_SIGNAL1, true, false, false)
         end
@@ -203,7 +208,6 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
-    local curAct = self:GetSequenceActivity(self:GetIdealSequence())
     if status == "Init" then
         if dmginfo:GetDamage() > 30 then
             self.AnimTbl_Flinch = ACT_BIG_FLINCH
@@ -211,20 +215,19 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
             self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
         -- Make sure the barbed wire breaking animation doesn't get interrupted from flinching
-        return curAct == ACT_SIGNAL1
+        return self:GetSequenceActivity(self:GetIdealSequence()) == ACT_SIGNAL1
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "Init" then
+        VJ_COFR_DeathCode(self)
+    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         else
             self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
         end
-    end
-    if status == "Init" then
-        VJ_COFR_DeathCode(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -234,12 +237,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
-    if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+    local watLevel = self:WaterLevel()
+    if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

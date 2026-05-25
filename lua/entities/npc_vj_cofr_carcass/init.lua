@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/cof/carcass.mdl"
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL
-ENT.Aerial_FlyingSpeed_Calm = 120
+ENT.Aerial_FlyingSpeed_Calm = 125
 ENT.Aerial_FlyingSpeed_Alerted = 150
 ENT.Aerial_AnimTbl_Calm = "kam52"
 ENT.Aerial_AnimTbl_Alerted = "kam52"
@@ -36,7 +36,6 @@ ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.HasSoundTrack = true
-ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 ENT.BreathSoundLevel = 75
     -- ====== Controller Data ====== --
@@ -58,7 +57,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
-
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -99,9 +97,9 @@ function ENT:Carcass_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:Carcass_Init()
     self:SetCollisionBounds(Vector(15, 15, 92), Vector(-15, -15, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
-    self:Carcass_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -120,14 +118,12 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC:SetArrivalSpeed(9999)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
-        local ene = self:GetEnemy()
+        local ene = self.EnemyData.Target
         if IsValid(ene) then
             projectile.Track_Enemy = ene
         end
@@ -139,8 +135,7 @@ function ENT:RangeAttackProjPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    local projPos = projectile:GetPos()
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 700)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Line", projectile:GetPos(), 1, 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
@@ -170,8 +165,3 @@ end
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     VJ_COFR_ApplyCorpse(self, corpse)
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
