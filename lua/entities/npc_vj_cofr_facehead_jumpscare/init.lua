@@ -76,6 +76,7 @@ function ENT:OnThinkActive()
             self.AttackAnimDuration = animDur
             self.AttackAnimTime = CurTime() + self.AttackAnimDuration
         end
+        sound.EmitHint(SOUND_DANGER, self:GetPos(), 100, 1, self)
         self.FaceHead_Scream = VJ.EmitSound(self, self.SoundTbl_FaceHeadScream, 75, 100)
         VJ.STOPSOUND(self.CurrentAlertSound)
         self.CallForHelp = true

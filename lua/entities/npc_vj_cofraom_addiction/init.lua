@@ -278,10 +278,11 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         if enemy:WaterLevel() != 3 then
-            VJ.EmitSound(enemy, sdThunder, 100, 100)
             local color = Color(0, 161, 255, 255) -- The shock wave color
             local dmg = 10 -- How much damage should the shock wave do?
             local enePos = enemy:GetPos()
+            VJ.EmitSound(enemy, sdThunder, 100, 100)
+            sound.EmitHint(SOUND_DANGER, enePos, 250, 1, self)
             timer.Simple(1, function()
                 if IsValid(self) && IsValid(enemy) then
                     VJ.ApplyRadiusDamage(self, self, enePos, 200, dmg, DMG_SHOCK, true, true, {DisableVisibilityCheck = true, Force = 80})

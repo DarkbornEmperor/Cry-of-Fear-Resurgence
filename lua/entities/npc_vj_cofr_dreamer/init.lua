@@ -74,6 +74,7 @@ function ENT:OnThinkActive()
             self.AttackAnimDuration = animDur
             self.AttackAnimTime = CurTime() + self.AttackAnimDuration
         end
+        sound.EmitHint(SOUND_DANGER, self:GetPos(), 100, 1, self)
         self.Dreamer_Scream = VJ.EmitSound(self, self.SoundTbl_DreamerScream, 75, 100)
         self.CallForHelp = true
         self:RemoveFlags(FL_NOTARGET)
