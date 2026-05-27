@@ -330,15 +330,7 @@ function ENT:FireFX()
     muz:SetKeyValue("framerate", "15.0")
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
-    if self.BookSimon_Shotgun then
-        muz:Fire("SetParentAttachment", "muzzle_shotgun")
-    elseif self.BookSimon_Glock then
-        muz:Fire("SetParentAttachment", "muzzle_glock")
-    elseif self.BookSimon_TMP then
-        muz:Fire("SetParentAttachment", "muzzle_tmp")
-    elseif self.BookSimon_M16 then
-        muz:Fire("SetParentAttachment", "muzzle_m16")
-    end
+    muz:Fire("SetParentAttachment", self.BookSimon_MuzzleAttach)
     muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()

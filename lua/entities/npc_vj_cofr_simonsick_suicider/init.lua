@@ -109,6 +109,14 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
+    local attShell = self:GetAttachment(self:LookupAttachment("shell"))
+
+    local effectData = EffectData()
+    effectData:SetEntity(self)
+    effectData:SetOrigin(attShell.Pos)
+    effectData:SetAngles(attShell.Ang)
+    util.Effect("ShellEject", effectData, true, true)
+
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_cofr/sprites/muzzleflash.vmt")
     muz:SetKeyValue("scale", "" .. math_rand(0.15,0.25))
