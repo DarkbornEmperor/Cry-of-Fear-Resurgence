@@ -216,7 +216,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
         local ene = self.EnemyData.Target
         if IsValid(ene) then
-            projectile.Track_Enemy = ene
+            projectile.Track_Ent = ene
         end
     end
 end

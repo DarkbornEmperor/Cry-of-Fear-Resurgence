@@ -27,7 +27,7 @@ ENT.SoundTbl_OnCollide =
     "vj_cofr/cof/carcass/milkme.wav"
 
 -- Custom
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500
 
@@ -51,7 +51,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     local phys = self:GetPhysicsObject()
-    local trackedEnt = self.Track_Enemy
+    local trackedEnt = self.Track_Ent
     local myPos = self:GetPos()
     -- Homing Behavior
     if IsValid(trackedEnt) && trackedEnt:Alive() then

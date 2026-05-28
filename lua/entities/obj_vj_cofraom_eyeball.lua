@@ -36,12 +36,12 @@ ENT.SoundTbl_OnCollide = {
 }
 ENT.IdleSoundPitch = VJ.SET(100,100)
 -- Custom
-ENT.Track_Enemy = NULL
+local defVec = Vector(0, 0, 0)
+
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
-
-local defVec = Vector(0, 0, 0)
 
 local math_max = math.max
 local math_random = math.random
@@ -96,21 +96,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     local phys = self:GetPhysicsObject()
-    local trackedEnt = self.Track_Enemy
+    local trackedEnt = self.Track_Ent
     -- Homing Behavior
     if IsValid(trackedEnt) && trackedEnt:Alive() then
+        local myPos = self:GetPos()
         local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
         if self:VisibleVec(pos) or self.Track_Position == defVec then
             self.Track_Position = pos
         end
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50,50), self.Eyeball_ChaseSpeed))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", myPos, self.Track_Position + VectorRand(-50, 50), self.Eyeball_ChaseSpeed))
             self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
     -- Not tracking, go in straight line
     else
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80,80), self.Eyeball_ChaseSpeed / 2))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", myPos, self.Track_Position + VectorRand(-80, 80), self.Eyeball_ChaseSpeed / 2))
             self:SetAngles(self:GetVelocity():GetNormal():Angle())
         end
     end

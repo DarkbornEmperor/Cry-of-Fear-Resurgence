@@ -254,7 +254,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
         local ene = self.EnemyData.Target
         if self.Screamer_HomingAttack && IsValid(ene) then
-            projectile.Track_Enemy = ene
+            projectile.Track_Ent = ene
             timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
         end
         if self.Screamer_NumFired < 1 then
@@ -268,7 +268,7 @@ function ENT:RangeAttackProjPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Line", projectile:GetPos(), 1, 700)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Line", projectile:GetPos(), 1, projectile.Soul_Speed)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup)

@@ -26,16 +26,23 @@ ENT.DirectDamageType = DMG_SHOCK
 ENT.HasOnCollideSounds = false
 -- Custom
 local defVec = Vector(0, 0, 0)
-ENT.Track_Enemy = NULL
+
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
         self.DirectDamage = 3
+        self.HomingDamage = 10
+        self.Soul_Speed = 650
     elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
         self.DirectDamage = 4
+        self.HomingDamage = 15
+        self.Soul_Speed = 800
     elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 or GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Difficult & Nightmare
-        self.DirectDamage = 30
+        self.DirectDamage = 10
+        self.HomingDamage = 25
+        self.Soul_Speed = 1000
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -63,10 +70,10 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-    local trackedEnt = self.Track_Enemy
+    local trackedEnt = self.Track_Ent
     -- Homing Behavior
     if IsValid(trackedEnt) then
-        self.DirectDamage = 25
+        self.DirectDamage = self.HomingDamage
         local soulSpr = self.GlowSprite
         if IsValid(soulSpr) then
             soulSpr:SetKeyValue("scale", "1.5")
@@ -77,7 +84,7 @@ function ENT:OnThink()
         end
         local phys = self:GetPhysicsObject()
         if IsValid(phys) then
-            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
+            phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, self.Soul_Speed))
         end
     end
 end
