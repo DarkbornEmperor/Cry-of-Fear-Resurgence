@@ -151,7 +151,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             end
         end
         local eneData = self.EnemyData
-        if eneData.Distance > self.RangeAttackMaxDistance or !eneData.Visible or self:Disposition(enemy) == D_LI or enemy.IsVJBaseBullseye then return true end
+        if eneData.Distance > self.RangeAttackMaxDistance or !eneData.Visible or self:CheckRelationship(enemy) == D_LI or enemy.IsVJBaseBullseye then return true end
         if self.HasSounds then self.Stranger_HeartBeat = VJ.CreateSound(enemy, self.SoundTbl_Stranger_HeartBeat, self:GetSoundPitch(self.RangeAttackPitch)) end
         enemy:TakeDamage(self.StrangerDamage, self, self)
         VJ.DamageSpecialEnts(self, enemy, dmginfo)

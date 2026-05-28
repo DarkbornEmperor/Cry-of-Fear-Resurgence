@@ -198,7 +198,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             end
         end
         local eneData = self.EnemyData
-        if eneData.Distance > self.RangeAttackMaxDistance or !eneData.Visible or self:Disposition(enemy) == D_LI or enemy.IsVJBaseBullseye then return true end
+        if eneData.Distance > self.RangeAttackMaxDistance or !eneData.Visible or self:CheckRelationship(enemy) == D_LI or enemy.IsVJBaseBullseye then return true end
         if !enemy.Drowned_SuicideAttempt then
             enemy.Drowned_SuicideAttempt = true
             timer.Create("VJ_COFR_Survive" .. enemy:EntIndex(), SoundDuration("vj_cofr/cof/drowned/suicide_attempt.wav"), 1, function()
