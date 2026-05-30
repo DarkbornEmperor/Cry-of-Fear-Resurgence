@@ -52,7 +52,6 @@ end
 function ENT:OnThink()
     local phys = self:GetPhysicsObject()
     local trackedEnt = self.Track_Ent
-    local myPos = self:GetPos()
     -- Homing Behavior
     if IsValid(trackedEnt) && trackedEnt:Alive() then
         local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
