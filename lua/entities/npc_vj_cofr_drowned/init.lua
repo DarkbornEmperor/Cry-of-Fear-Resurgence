@@ -178,7 +178,7 @@ end
 function ENT:Drowned_Damage()
     net.Start("VJ_COFR_Drowned_Damage")
         net.WriteEntity(self)
-        net.WriteEntity(self:GetEnemy())
+        net.WriteEntity(self.EnemyData.Target)
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

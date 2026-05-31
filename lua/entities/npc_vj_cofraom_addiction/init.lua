@@ -74,6 +74,8 @@ ENT.Addiction_Type = 0
     -- 1 = Dark Assistance
     -- 2 = Remod
 
+util.AddNetworkString("VJ_COFR_Addiction_Damage")
+
 local sdFistsAtt = {
     "vj_cofr/aom/addiction/david_hurt.wav",
     "vj_cofr/aom/addiction/david_hurt2.wav",
@@ -179,6 +181,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
         self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Addiction_Damage(dmginfo)
+    net.Start("VJ_COFR_Addiction_Damage")
+        net.WriteEntity(self)
+        net.WriteEntity(dmginfo:GetAttacker())
+    net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
@@ -320,24 +329,21 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "Init" && GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 && !dmginfo:IsDamageType(DMG_SLASH) && !dmginfo:IsDamageType(DMG_CLUB) then
-        self:SpawnBloodParticles(dmginfo, hitgroup)
-        self:SpawnBloodDecals(dmginfo, hitgroup)
-        self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
-    elseif status == "PreDamage" then
-        if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
-            dmginfo:ScaleDamage(0.5)
-            return
-        end
+    if status == "Init" then
         if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 1 then
-            local eneVictim = dmginfo:GetAttacker()
             if dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_CLUB) then
                 dmginfo:ScaleDamage(0.5)
             else
                 dmginfo:SetDamage(0)
+                self:SpawnBloodParticles(dmginfo, hitgroup)
+                self:SpawnBloodDecals(dmginfo, hitgroup)
+                self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
+
+                local eneVictim = dmginfo:GetAttacker()
                 if IsValid(eneVictim) && eneVictim.VJ_ID_Living && eneVictim:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
                     eneVictim:TakeDamage(math_random(5,10), self, self)
                     VJ.DamageSpecialEnts(self, eneVictim, dmginfo)
+                    self:Addiction_Damage(dmginfo)
                 end
                 if eneVictim:IsPlayer() then
                     net.Start("VJ_COFR_Addiction_ScreenEffect")
@@ -345,6 +351,11 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                     net.Send(eneVictim)
                 end
             end
+            return
+        end
+    elseif status == "PreDamage" then
+        if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
+            dmginfo:ScaleDamage(0.5)
         end
     end
 end

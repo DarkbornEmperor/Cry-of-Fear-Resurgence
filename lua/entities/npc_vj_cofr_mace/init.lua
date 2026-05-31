@@ -149,21 +149,21 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "Init" && GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 && !dmginfo:IsDamageType(DMG_SHOCK) && !dmginfo:IsExplosionDamage() then
-        self:SpawnBloodParticles(dmginfo, hitgroup)
-        self:SpawnBloodDecals(dmginfo, hitgroup)
-        self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
-    elseif status == "PreDamage" then
-        if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
-            dmginfo:ScaleDamage(0.2)
-            return
-        end
+    if status == "Init" then
         if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 1 then
             if dmginfo:IsDamageType(DMG_SHOCK) or dmginfo:IsExplosionDamage() then
                 dmginfo:ScaleDamage(0.2)
             else
                 dmginfo:SetDamage(0)
+                self:SpawnBloodParticles(dmginfo, hitgroup)
+                self:SpawnBloodDecals(dmginfo, hitgroup)
+                self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
             end
+            return
+        end
+    elseif status == "PreDamage" then
+        if GetConVar("VJ_COFR_Mace_Damage"):GetInt() == 0 then
+            dmginfo:ScaleDamage(0.2)
         end
     end
 end
