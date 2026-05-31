@@ -10,7 +10,7 @@ ENT.Base = "obj_vj_projectile_base"
 ENT.PrintName = "Joe Biden Box"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category = "Projectiles"
+ENT.Category = "Cry of Fear Resurgence"
 
 ENT.VJ_ID_Danger = true
 
@@ -46,6 +46,17 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:SetNoDraw(true)
+
+    local dumModel = ents.Create("prop_vj_animatable")
+    dumModel:SetModel(self.Model)
+    dumModel:SetPos(self:GetPos())
+    dumModel:SetAngles(self:GetAngles())
+    dumModel:SetParent(self)
+    dumModel:Spawn()
+    dumModel:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+    dumModel:ResetSequence("idle")
+
     timer.Simple(10, function() if IsValid(self) then self:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

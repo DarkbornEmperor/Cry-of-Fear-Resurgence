@@ -10,7 +10,7 @@ ENT.Base = "obj_vj_grenade"
 ENT.PrintName = "Grenade"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category = "Projectiles"
+ENT.Category = "Cry of Fear Resurgence"
 
 if CLIENT then
     VJ.AddKillIcon("obj_vj_cofraomc_grenade", ENT.PrintName, VJ.KILLICON_GRENADE)

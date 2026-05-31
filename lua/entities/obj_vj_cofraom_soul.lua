@@ -10,7 +10,7 @@ ENT.Base = "obj_vj_projectile_base"
 ENT.PrintName = "Soul"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category = "Projectiles"
+ENT.Category = "Cry of Fear Resurgence"
 
 ENT.VJ_ID_Danger = true
 
