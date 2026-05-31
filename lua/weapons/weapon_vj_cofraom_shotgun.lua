@@ -30,12 +30,7 @@ SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 8
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Buckshot"
-SWEP.Primary.Sound =
-    "vj_cofr/aom/weapons/shotgun/shotgun_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/sbarrel1_distant2.wav"
-
+SWEP.Primary.Sound = "VJ.CoFRAoM_Shotgun.Single"
 SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

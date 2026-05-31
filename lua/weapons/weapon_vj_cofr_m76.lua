@@ -24,12 +24,7 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 7
 SWEP.Primary.ClipSize = 36
 SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound =
-    "vj_cofr/cof/weapons/m76/m76_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/hks_distant_new.wav"
-
+SWEP.Primary.Sound = "VJ.CoFR_M76.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

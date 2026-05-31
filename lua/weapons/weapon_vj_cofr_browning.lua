@@ -23,12 +23,7 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 13
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound =
-    "vj_cofr/cof/weapons/browning/browning_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/glock_distant2.wav"
-
+SWEP.Primary.Sound = "VJ.CoFR_Browning.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -41,14 +36,14 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.Primary.Sound =
-            "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
+        self.Primary.Sound = "VJ.CoFR_Browning_Old.Single"
     end
     local owner = self:GetOwner()
+    local ownerClass = owner:GetClass()
     if IsValid(owner) then
-        if owner:GetClass() == "npc_vj_cofr_simon_beta" then
+        if ownerClass == "npc_vj_cofr_simon_beta" then
             self.WorldModel_CustomPositionOrigin = Vector(-1.5, 4, -1)
-        elseif owner:GetClass() == "npc_vj_cofr_police" then
+        elseif ownerClass == "npc_vj_cofr_police" then
             self.WorldModel_CustomPositionOrigin = Vector(-1.3, 4.5, -1)
         end
     end

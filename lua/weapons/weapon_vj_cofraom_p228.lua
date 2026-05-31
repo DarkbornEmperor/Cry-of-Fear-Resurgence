@@ -23,12 +23,7 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 23
 SWEP.Primary.ClipSize = 13
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound =
-    "vj_cofr/aom/weapons/p228/p228_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/glock_distant2.wav"
-
+SWEP.Primary.Sound = "VJ.CoFRAoM_P228.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

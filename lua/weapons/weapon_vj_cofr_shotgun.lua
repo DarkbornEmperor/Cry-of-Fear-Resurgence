@@ -30,12 +30,7 @@ SWEP.Primary.Damage = 5
 SWEP.Primary.NumberOfShots = 8
 SWEP.Primary.ClipSize = 5
 SWEP.Primary.Ammo = "Buckshot"
-SWEP.Primary.Sound =
-    "vj_cofr/cof/weapons/shotgun/shoot.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/sbarrel1_distant2.wav"
-
+SWEP.Primary.Sound = "VJ.CoFR_Shotgun.Single"
 SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -48,9 +43,7 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.Primary.Sound =
-            "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
-
+        self.Primary.Sound = "VJ.CoFR_Shotgun_Old.Single"
         self.NPC_ExtraFireSound =
             "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
     end

@@ -24,12 +24,7 @@ SWEP.Primary.Damage = 40
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 7
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound =
-    "vj_cofr/aom/weapons/deagle/deagle_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/desert_eagle_fire_distant_final.wav"
-
+SWEP.Primary.Sound = "VJ.CoFRAoM_Deagle.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

@@ -24,12 +24,7 @@ SWEP.Primary.Damage = 40
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 5
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound =
-    "vj_cofr/cof/weapons/revolver/revolver_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/357_shot_distant_final.wav"
-
+SWEP.Primary.Sound = "VJ.CoFR_Revolver.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
@@ -43,20 +38,20 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.Primary.Sound =
-            "vj_cofr/cof/weapons/revolver/old/revolver_fire.wav"
+        self.Primary.Sound = "VJ.CoFR_Revolver_Old.Single"
     end
     local owner = self:GetOwner()
+    local ownerClass = owner:GetClass()
     if IsValid(owner) then
-        if owner:GetClass() == "npc_vj_cofr_police" then
+        if ownerClass == "npc_vj_cofr_police" then
             self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
-        elseif owner:GetClass() == "npc_vj_cofr_simon_beta" then
+        elseif ownerClass == "npc_vj_cofr_simon_beta" then
             self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
-        elseif owner:GetClass() == "npc_vj_cofr_purnell" then
+        elseif ownerClass == "npc_vj_cofr_purnell" then
             self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
             self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
         end
-        if owner:GetClass() == "npc_vj_cofr_purnell" then
+        if ownerClass == "npc_vj_cofr_purnell" then
             if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
                 self.Primary.Damage = 5
             elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium

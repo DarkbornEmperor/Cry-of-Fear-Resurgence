@@ -23,15 +23,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 8
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound =
-    "vj_cofr/cof/weapons/mp5/mp5_shoot_loop.wav"
-
-SWEP.Primary.EndSound =
-    "vj_cofr/cof/weapons/mp5/mp5_shoot_end.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/hks_distant_new.wav"
-
+SWEP.Primary.Sound = "VJ.CoFR_MP5.Loop"
+SWEP.Primary.EndSound = "VJ.CoFR_MP5.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -45,18 +38,16 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.Primary.Sound =
-            "vj_cofr/cof/weapons/mp5/old/mp5_shoot_loop.wav"
-
-        self.Primary.EndSound =
-            "vj_cofr/cof/weapons/mp5/old/mp5_shoot_end.wav"
+        self.Primary.Sound = "VJ.CoFR_MP5_Old.Loop"
+        self.Primary.EndSound = "VJ.CoFR_MP5_Old.Single"
     end
     self:SetModelScale(0.70)
     local owner = self:GetOwner()
+    local ownerClass = owner:GetClass()
     if IsValid(owner) then
-        if owner:GetClass() == "npc_vj_cofr_simon_beta" then
+        if ownerClass == "npc_vj_cofr_simon_beta" then
             self.WorldModel_CustomPositionOrigin = Vector(6, -2.4, -0.5)
-        elseif owner:GetClass() == "npc_vj_cofr_police" then
+        elseif ownerClass == "npc_vj_cofr_police" then
             self.WorldModel_CustomPositionOrigin = Vector(7, -2.1, -0.5)
         end
     end
@@ -64,7 +55,7 @@ function SWEP:Init()
         self.PrimarySound = self.Primary.Sound
         self.Primary.Sound = nil
         self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
-        self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
+        self.PrimaryLoop:SetSoundLevel(140)
     end
     self.PrimaryLoopSoundT = 0
 end
@@ -130,7 +121,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
             if /*math_random(1,7) == 1 &&*/ self.PrimaryLoop:IsPlaying() && #self.PrimarySound > 1 then
                 self.PrimaryLoop:Stop()
                 self.PrimaryLoop = CreateSound(self, VJ.PICK(self.PrimarySound), VJ_RecipientFilter)
-                self.PrimaryLoop:SetSoundLevel(self.Primary.SoundLevel or 75)
+                self.PrimaryLoop:SetSoundLevel(140)
                 self.PrimaryLoop:Play()
             end
         end
@@ -164,7 +155,7 @@ function SWEP:OnThink()
             if IsValid(owner) then
                 local fireSd = VJ.PICK(self.Primary.EndSound)
                 if fireSd != false then
-                    sound.Play(fireSd, owner:GetPos(), self.Primary.SoundLevel, math_random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
+                    sound.Play(fireSd, owner:GetPos(), 140, math_random(self.Primary.SoundPitch.a, self.Primary.SoundPitch.b), self.Primary.SoundVolume)
                 end
             end
         elseif self.PrimaryLoopSoundT > CurTime() && !self.PrimaryLoop:IsPlaying() then

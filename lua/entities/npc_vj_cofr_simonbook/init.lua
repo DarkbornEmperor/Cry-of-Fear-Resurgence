@@ -38,7 +38,6 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
 ENT.BreathSoundLevel = 75
-ENT.RangeAttackSoundLevel = 90
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -56,24 +55,14 @@ ENT.SoundTbl_MeleeAttackExtra =
 ENT.SoundTbl_MeleeAttackMiss =
     "vj_cofr/cof/weapons/sledgehammer/sledgehammer_swing.wav"
 
-ENT.SoundTbl_Glock =
-    "vj_cofr/cof/suicider/suicider_glock_fire.wav"
-
-ENT.SoundTbl_Shotgun =
-    "vj_cofr/cof/weapons/shotgun/shoot.wav"
-
+ENT.SoundTbl_Glock = "VJ.CoFR_Glock_Suicider.Single"
+ENT.SoundTbl_Shotgun = "VJ.CoFR_Shotgun.Single"
 ENT.SoundTbl_ShotgunPump =
     "vj_cofr/cof/weapons/shotgun/pump_seq.wav"
 
-ENT.SoundTbl_TMP =
-    "vj_cofr/cof/weapons/tmp/tmp_shoot_loop.wav"
-
-ENT.SoundTbl_TMPEnd =
-    "vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
-
-ENT.SoundTbl_M16 =
-    "vj_cofr/cof/weapons/m16/m16_fire.wav"
-
+ENT.SoundTbl_TMP = "VJ.CoFR_TMP.Loop"
+ENT.SoundTbl_TMPEnd = "VJ.CoFR_TMP.Single"
+ENT.SoundTbl_M16 = "VJ.CoFR_M16.Single"
 ENT.SoundTbl_SoundTrack = {
     "vj_cofr/cof/booksimon/ending5.mp3",
     "vj_cofr/cof/booksimon/fucked.mp3"
@@ -154,34 +143,25 @@ local colorBlack = Color(0, 0, 0, 255)
 --
 function ENT:Init()
     if GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 1 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 0 then
-        self.SoundTbl_Glock =
-            "vj_cofr/cof/weapons/glock/glock_fire.wav"
-
+        self.SoundTbl_Glock = "VJ.CoFR_Glock.Single"
     elseif GetConVar("VJ_COFR_Suicider_NewSound"):GetInt() == 0 && GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.SoundTbl_Glock =
-            "vj_cofr/cof/weapons/glock/old/glock_fire.wav"
+        self.SoundTbl_Glock = "VJ.CoFR_Glock_Old.Single"
     end
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.SoundTbl_Shotgun =
-            "vj_cofr/cof/weapons/shotgun/old/shoot.wav"
+        self.SoundTbl_Shotgun = "VJ.CoFR_Shotgun_Old.Single"
 
         self.SoundTbl_ShotgunPump =
             "vj_cofr/cof/weapons/shotgun/old/pump_seq.wav"
 
-        self.SoundTbl_TMP =
-            "vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
-
-        self.SoundTbl_TMPEnd =
-            "vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
-
-        self.SoundTbl_M16 =
-            "vj_cofr/cof/weapons/m16/old/m16_fire.wav"
+        self.SoundTbl_TMP = "VJ.CoFR_TMP_Old.Loop"
+        self.SoundTbl_TMPEnd = "VJ.CoFR_TMP_Old.Single"
+        self.SoundTbl_M16 ="VJ.CoFR_M16_Old.Single"
     end
     if self.BookSimon_TMP then
         self.TMPSound = self.SoundTbl_TMP
         self.SoundTbl_TMP = nil
         self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
-        self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
+        self.TMPLoop:SetSoundLevel(140)
     end
     -- Screen flash effect for all the players
     for _, v in ipairs(player.GetHumans()) do
@@ -392,7 +372,7 @@ function ENT:OnThink()
             if IsValid(self) then
                 local fireSd = VJ.PICK(self.SoundTbl_TMPEnd)
                 if fireSd != false then
-                    sound.Play(fireSd, self:GetPos(), self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1)
+                    sound.Play(fireSd, self:GetPos(), 140, self:GetSoundPitch(self.RangeAttackPitch), 1)
                 end
             end
         elseif self.BookSimon_NextTMPSoundT > CurTime() && !self.TMPLoop:IsPlaying() then
@@ -410,9 +390,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment(self.BookSimon_MuzzleAttach)).Pos
         if self.BookSimon_Shotgun then
-            VJ.EmitSound(self, self.SoundTbl_Shotgun, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-            VJ.EmitSound(self, "vj_cofr/fx/distant/sbarrel1_distant2.wav", 140, self:GetSoundPitch(100,110))
-            timer.Simple(0.5, function() if IsValid(self) then self.Shotgun_Pump = VJ.CreateSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
+            VJ.EmitSound(self, self.SoundTbl_Shotgun)
+            timer.Simple(0.5, function() if IsValid(self) then self.Shotgun_Pump = VJ.EmitSound(self, self.SoundTbl_ShotgunPump, 75, 100) end end)
             self:FireBullets({
                 Attacker = self,
                 Num = 6,
@@ -428,8 +407,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 HullSize = 1
             })
         elseif self.BookSimon_Glock then
-            VJ.EmitSound(self, self.SoundTbl_Glock, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-            VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
+            VJ.EmitSound(self, self.SoundTbl_Glock)
             self:FireBullets({
                 Attacker = self,
                 Num = 1,
@@ -449,10 +427,9 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             if /*math_random(1,7) == 1 &&*/ self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
                 self.TMPLoop:Stop()
                 self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)
-                self.TMPLoop:SetSoundLevel(self.RangeAttackSoundLevel)
+                self.TMPLoop:SetSoundLevel(140)
                 self.TMPLoop:Play()
             end
-            VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100,110))
             self:FireBullets({
                 Attacker = self,
                 Num = 1,
@@ -468,8 +445,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 HullSize = 1
             })
         elseif self.BookSimon_M16 then
-            VJ.EmitSound(self, self.SoundTbl_M16, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-            VJ.EmitSound(self, "vj_cofr/fx/distant/hks_distant_new.wav", 140, self:GetSoundPitch(100,110))
+            VJ.EmitSound(self, self.SoundTbl_M16)
             self:FireBullets({
                 Attacker = self,
                 Num = 1,

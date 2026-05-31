@@ -241,6 +241,432 @@ VJ.AddParticle("particles/vj_cofr_weaponparticles.pcf", {
     "vj_cofr_muzzle"
 })
 
+-- Add to paint tool
+list.Add("PaintMaterials", "VJ_COFR_Blood_Red")
+list.Add("PaintMaterials", "VJ_COFR_Blood_Red_Large")
+list.Add("PaintMaterials", "VJ_COFR_Spit")
+list.Add("PaintMaterials", "VJ_COFR_Scorch_Small")
+list.Add("PaintMaterials", "VJ_COFR_Scorch")
+list.Add("PaintMaterials", "VJ_COFR_Impact")
+
+-- Weapon Sounds
+local SNDLVL_GUNFIRE = 140
+local PITCH_RANDOM = {90,110}
+
+-- Cry of Fear --
+sound.Add({
+    name = "VJ.CoFR_Browning.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/browning/browning_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Browning_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/browning/old/browning_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_FAMAS.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/famas/famas_shoot.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_FAMAS.Loop",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/famas/famas_shoot_loop.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_FAMAS_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/famas/old/famas_shoot.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_FAMAS_Old.Loop",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/famas/old/famas_shoot_loop.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_G43.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/g43/g43_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Glock.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/glock/glock_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Glock_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/glock/old/glock_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Glock_Suicider.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/suicider/suicider_glock_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_M16.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/m16/m16_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_M16_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/m16/old/m16_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_M76.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/m76/m76_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_MP5.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/mp5/mp5_shoot_end.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_MP5.Loop",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/mp5/mp5_shoot_loop.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_MP5_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/mp5/old/mp5_shoot_end.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_MP5_Old.Loop",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/mp5/old/mp5_shoot_loop.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_P345.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/p345/p345_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_P345_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/p345/old/p345_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_PT92.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/pt92/shoot.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Revolver.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/revolver/revolver_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Revolver_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/revolver/old/revolver_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Rifle.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/rifle/rifle_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Rifle_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/rifle/old/rifle_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Shotgun.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/shotgun/shoot.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_Shotgun_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/shotgun/old/shoot.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_TMP.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/tmp/tmp_shoot_end.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_TMP.Loop",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/tmp/tmp_shoot_loop.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_TMP_Old.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/tmp/old/tmp_shoot_end.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_TMP_Old.Loop",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/tmp/old/tmp_shoot_loop.wav"
+})
+sound.Add({
+    name = "VJ.CoFR_VP70.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cof/weapons/vp70/vp70_fire.wav"
+})
+-- Cry of Fear Custom Campaigns --
+sound.Add({
+    name = "VJ.CoFRCC_AK47.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/cofcc/weapons/ak47/shoot.wav"
+})
+-- Afraid of Monsters --
+sound.Add({
+    name = "VJ.CoFRAoM_AK47.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound = {
+        "^vj_cofr/aom/weapons/ak47/hks1.wav",
+        "^vj_cofr/aom/weapons/ak47/hks2.wav",
+        "^vj_cofr/aom/weapons/ak47/hks3.wav"
+    }
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Beretta.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/beretta/ber_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Beretta_Classic.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/beretta/classic/pl_gun3.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Deagle.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/deagle/deagle_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Deagle_Classic.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound = {
+        "^vj_cofr/aom/weapons/deagle/classic/357_shot1.wav",
+        "^vj_cofr/aom/weapons/deagle/classic/357_shot2.wav"
+    }
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Glock.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/glock/glock_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_L85A1.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/l85/gm_expell.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_MP5K.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/mp5k/mp5k_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_P228.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/p228/p228_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Revolver.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/revolver/revolver_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Shotgun.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/shotgun/shotgun_fire.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Shotgun_Classic.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/shotgun/classic/sbarrel1.wav"
+})
+sound.Add({
+    name = "VJ.CoFRAoM_Uzi.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_cofr/aom/weapons/uzi/uzi_fire.wav"
+})
+
 -- ConVars --
 VJ.AddConVar("VJ_COFR_Difficulty", 2, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Boss_Music", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))

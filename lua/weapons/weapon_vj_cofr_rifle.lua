@@ -34,12 +34,7 @@ SWEP.Primary.Damage = 70
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 5
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound =
-    "vj_cofr/cof/weapons/rifle/rifle_fire.wav"
-
-SWEP.Primary.DistantSound =
-    "vj_cofr/fx/distant/sniper_fire_distant2.wav"
-
+SWEP.Primary.Sound = "VJ.CoFR_Rifle.Single"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.Primary.TracerType = "VJ_COFR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -52,8 +47,7 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.Primary.Sound =
-            "vj_cofr/cof/weapons/rifle/old/rifle_fire.wav"
+        self.Primary.Sound = "VJ.CoFR_Rifle_Old.Single"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

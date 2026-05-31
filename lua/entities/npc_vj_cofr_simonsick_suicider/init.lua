@@ -32,7 +32,6 @@ ENT.AnimTbl_Death = {ACT_DIE_HEADSHOT, ACT_DIE_GUTSHOT}
 ENT.HasSoundTrack = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
-ENT.RangeAttackSoundLevel = 90
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -46,8 +45,7 @@ ENT.SoundTbl_FootStep = {
     "vj_cofr/cof/sicksimon/wheelchair_move2.wav",
     "vj_cofr/cof/sicksimon/wheelchair_move3.wav"
 }
-ENT.SoundTbl_Browning =
-    "vj_cofr/cof/weapons/browning/browning_fire.wav"
+ENT.SoundTbl_Browning = "VJ.CoFR_Browning.Single"
 
 ENT.SoundTbl_SoundTrack =
     "vj_cofr/cof/booksimon/ending5.mp3"
@@ -73,8 +71,7 @@ function ENT:SickSimon_Init() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-        self.SoundTbl_Browning =
-            "vj_cofr/cof/weapons/browning/old/browning_fire.wav"
+        self.SoundTbl_Browning = "VJ.CoFR_Browning_Old.Single"
     end
     self:SickSimon_Init()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
@@ -88,8 +85,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "suicide" then
         local att = self:GetAttachment(self:LookupAttachment("head"))
         ParticleEffect("vj_cofr_blood_red_large", att.Pos, att.Ang)
-        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
+        VJ.EmitSound(self, self.SoundTbl_Browning)
         VJ.EmitSound(self, "vj_cofr/cof/baby/b_attack" .. math_random(1,2) .. ".wav", 75, 100)
         self:FireFX()
         self:SetBodygroup(0,1)
@@ -162,8 +158,7 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
-        VJ.EmitSound(self, self.SoundTbl_Browning, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch), 1, CHAN_WEAPON)
-        VJ.EmitSound(self, "vj_cofr/fx/distant/glock_distant2.wav", 140, self:GetSoundPitch(100,110))
+        VJ.EmitSound(self, self.SoundTbl_Browning)
         self:FireBullets({
             Attacker = self,
             Num = 1,
