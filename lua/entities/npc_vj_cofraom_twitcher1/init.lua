@@ -370,7 +370,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Remove decals for Transparent & Invisible Twitchers
     if status == "Init" && (self.Twitcher_Invisible or self.Twitcher_Transparent) then
-        timer.Simple(0, function() self:RemoveAllDecals() end) -- Otherwise a decal will still spawn
+        timer.Simple(0, function() if IsValid(self) then self:RemoveAllDecals() end end) -- Otherwise a decal will still spawn
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

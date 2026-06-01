@@ -75,8 +75,10 @@ end
 function ENT:Init()
     /*if VJ_CVAR_AI_ENABLED then
         timer.Simple(0, function()
-            self:PlayAnim(ACT_COWER, true, false)
-            self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            if IsValid(self) then
+                self:PlayAnim(ACT_COWER, true, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            end
         end)
         timer.Simple(VJ.AnimDuration(self, ACT_COWER), function()
             if IsValid(self) then

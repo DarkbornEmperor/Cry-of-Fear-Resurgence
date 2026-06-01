@@ -155,7 +155,9 @@ function ENT:CheckVisibility(pos, ent, mdl)
     check:SetNoDraw(true)
     self:DeleteOnRemove(check)
     timer.Simple(0, function()
-        SafeRemoveEntity(check)
+        if IsValid(check) then
+            SafeRemoveEntity(check)
+        end
     end)
     return ent:Visible(check)
 end

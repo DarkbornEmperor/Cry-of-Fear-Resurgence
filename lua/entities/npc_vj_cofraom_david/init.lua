@@ -734,12 +734,14 @@ function ENT:OnWeaponAttack()
     if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
     if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeAcquired) > 2 then
         timer.Simple(0, function()
-            local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,250), true, false, 8, true))
-            if moveCheck then
-                self:StopMoving()
-                self.NextWeaponStrafeT = CurTime() + math_rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
-                self:SetLastPosition(moveCheck)
-                self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
+            if IsValid(self) then
+                local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,250), true, false, 8, true))
+                if moveCheck then
+                    self:StopMoving()
+                    self.NextWeaponStrafeT = CurTime() + math_rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
+                    self:SetLastPosition(moveCheck)
+                    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
+                end
             end
         end)
     end
@@ -757,11 +759,13 @@ end
 function ENT:OnWeaponReload()
     if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) then return end
     timer.Simple(0, function()
-    local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,400), true, false, 8, true))
-        if moveCheck then
-            self:StopMoving()
-            self:SetLastPosition(moveCheck)
-            self:SCHEDULE_GOTO_POSITION(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
+        if IsValid(self) then
+            local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,400), true, false, 8, true))
+            if moveCheck then
+                self:StopMoving()
+                self:SetLastPosition(moveCheck)
+                self:SCHEDULE_GOTO_POSITION(VJ.PICK({"TASK_RUN_PATH", "TASK_WALK_PATH"}), function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
+            end
         end
     end)
 end
