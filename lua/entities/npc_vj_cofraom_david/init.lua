@@ -554,17 +554,25 @@ function ENT:Controller_Initialize(ply, controlEnt)
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 1 then ply:ChatPrint("WALK: Switch weapon") end
     if self.Human_CanHeal then ply:ChatPrint("USE: Heal") end
     //ply:ChatPrint("DUCK: Crouch")
+    local npc = self
+    npc.JumpParams.Enabled = false
     controlEnt.VJC_Player_DrawHUD = false
     function controlEnt:OnThink()
         self.VJCE_NPC:SetArrivalSpeed(9999)
-        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
-        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+        self.VJC_BullseyeTracking = (self.VJCE_NPC:IsMoving() && self.VJC_Camera_Mode == 1) or self.VJC_Camera_Mode == 2
+    end
+    function controlEnt:OnStopControlling()
+        if IsValid(npc) then
+            npc.JumpParams.Enabled = true
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.Human_Crouching && self.Weapon_CanMoveFire && IsValid(self.EnemyData.Target) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
-        if (self.EnemyData.Visible or (self.EnemyData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
+    local eneData = self.EnemyData
+    if self.Human_Crouching && self.Weapon_CanMoveFire && IsValid(eneData.Target) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
+        if (eneData.Visible or (eneData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
                 self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
             if act == ACT_WALK then
                 return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
