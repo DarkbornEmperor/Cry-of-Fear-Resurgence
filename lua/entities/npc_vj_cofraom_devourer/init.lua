@@ -206,7 +206,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-        local entHP = self:Health()
+        local entHP = ent:Health()
         if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
             self.MeleeAttackDamage = entHP + 10
         elseif ent:IsPlayer() then
@@ -232,6 +232,7 @@ end
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:SetPoseParameter("tongue_height", 1)
     VJ_COFR_ApplyCorpse(self, corpse)
+    corpse:SetMoveType(MOVETYPE_NONE)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
