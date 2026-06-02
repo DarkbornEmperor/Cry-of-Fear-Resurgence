@@ -212,6 +212,7 @@ VJ_COFR_MELEEWEAPONS_AOMDC = {
 VJ_COFR_MELEEWEAPONS_AOMC =
     "weapon_vj_cofraomc_knife"
 
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 local math_round = math.Round
@@ -509,8 +510,9 @@ function ENT:Init()
         end
     end)
 
-    self.Human_NextSelfHealT = CurTime() + math_rand(10,15)
-    self.NextWeaponSwitchT = CurTime() + math_rand(2,4)
+    local curTime = CurTime()
+    self.Human_NextSelfHealT = curTime + math_rand(10,15)
+    self.NextWeaponSwitchT = curTime + math_rand(2,4)
     self:FlashlightSetup()
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 
@@ -570,9 +572,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
+    local curTime = CurTime()
     local eneData = self.EnemyData
     if self.Human_Crouching && self.Weapon_CanMoveFire && IsValid(eneData.Target) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
-        if (eneData.Visible or (eneData.VisibleTime + 5) > CurTime()) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
+        if (eneData.Visible or (eneData.VisibleTime + 5) > curTime) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
                 self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
             if act == ACT_WALK then
                 return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
@@ -595,11 +598,12 @@ function ENT:OnThink()
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 then return end
     local controller = self.VJ_TheController
     if IsValid(controller) then
-        if controller:KeyDown(IN_WALK) && CurTime() > self.Human_NextWepSwitchT && self.WeaponInventory_MeleeList then
+        local curTime = CurTime()
+        if controller:KeyDown(IN_WALK) && curTime > self.Human_NextWepSwitchT && self.WeaponInventory_MeleeList then
             if self.Human_Type == 1 or self.Human_Type == 2 or self.Human_Type == 4 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]), true) end
             if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]), true) end
             if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]), true) end
-            self.Human_NextWepSwitchT = CurTime() + 1
+            self.Human_NextWepSwitchT = curTime + 1
         end
         /*if controller:KeyDown(IN_DUCK) && !self.Human_Crouching then
             self.Human_Crouching = true
@@ -610,7 +614,9 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    if self.Human_CanHeal && !self:IsBusy() && self.MedicData.Status != "Healing" && self.AttackType != VJ.ATTACK_TYPE_MELEE && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && CurTime() > self.Human_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+    local curTime = CurTime()
+    local controlled = self.VJ_IsBeingControlled
+    if self.Human_CanHeal && !self:IsBusy() && self.MedicData.Status != "Healing" && self.AttackType != VJ.ATTACK_TYPE_MELEE && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && curTime > self.Human_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_USE))) then
         self:OnMedicBehavior("BeforeHeal")
         self:PlayAnim(self.AnimTbl_Medic_GiveHealth, true, false, false)
         self.IsAbleToMeleeAttack = false
@@ -626,20 +632,21 @@ function ENT:OnThinkActive()
                 self:RemoveAllDecals()
             end
         end)
-        if IsValid(self:GetEnemy()) && !self.IsGuard then
+        if IsValid(self.EnemyData.Target) && !self.IsGuard then
             self:SCHEDULE_COVER_ORIGIN("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
         end
-        self.Human_NextSelfHealT = CurTime() + math_rand(10,15)
+        self.Human_NextSelfHealT = curTime + math_rand(10,15)
     end
     if self.HasSounds && !self.Dead then
-        if math_random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.Human_NextLowHPSoundT < CurTime() then
+        if math_random(1,2) == 1 && self:Health() <= (self:GetMaxHealth() / 4) && self.Human_NextLowHPSoundT < curTime then
             self:PlaySoundSystem("Speech", self.SoundTbl_LowHealth)
-            self.Human_NextLowHPSoundT = CurTime() + math_random(10,20)
+            self.Human_NextLowHPSoundT = curTime + math_random(10,20)
         end
     end
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 or !self.WeaponInventory_MeleeList or self.Weapon_Disabled or !IsValid(self:GetActiveWeapon()) then return end
-    local ent = self:GetEnemy()
-    local dist = self.EnemyData.DistanceNearest
+    local eneData = self.EnemyData
+    local ene = eneData.Target
+    local dist = eneData.DistanceNearest
     if IsValid(ent) && !self.VJ_IsBeingControlled then
         local wep = self:GetActiveWeapon()
         if self.WeaponInventoryStatus == VJ.WEP_INVENTORY_MELEE then return end
@@ -651,12 +658,12 @@ function ENT:OnThinkActive()
         else
             selectType = "Close"
         end
-        if selectType && !self:IsBusy() && CurTime() > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math_random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() * 0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
+        if selectType && !self:IsBusy() && curTime > self.NextWeaponSwitchT && (!IsValid(wep) or (IsValid(wep) && math_random(1, wep:Clip1() > 0 && (wep:Clip1() <= wep:GetMaxClip1() * 0.35) && 1 or (selectType == "Close" && 20 or 150)))) == 1 then
             if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC[selectType]), true) end
             if self.Human_Type == 1 or self.Human_Type == 2 or self.Human_Type == 4 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF[selectType]), true) end
             if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC[selectType]), true) end
             wep = self:GetActiveWeapon()
-            self.NextWeaponSwitchT = CurTime() + math_rand(6, math_round(math_clamp(wep:Clip1() * 0.5, 1, wep:Clip1())))
+            self.NextWeaponSwitchT = curTime + math_rand(6, math_round(math_clamp(wep:Clip1() * 0.5, 1, wep:Clip1())))
         end
     end
 end
@@ -717,28 +724,29 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
+    local curTime = CurTime()
     local wep = self.WeaponEntity
     local finalAnim = self:TranslateActivity(VJ.PICK(self.AnimTbl_WeaponAttackGesture))
-    if wep.IsMeleeWeapon && CurTime() > self.Human_NextMeleeAnimT && VJ.AnimExists(self, finalAnim) then
+    if wep.IsMeleeWeapon && curTime > self.Human_NextMeleeAnimT && VJ.AnimExists(self, finalAnim) then
         local animDur = VJ.AnimDuration(self, finalAnim)
         self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
         wep.NPC_NextPrimaryFire = animDur
         wep:NPCShoot_Primary()
         VJ.EmitSound(self, wep.NPC_BeforeFireSound, wep.NPC_BeforeFireSoundLevel, math_rand(wep.NPC_BeforeFireSoundPitch.a, wep.NPC_BeforeFireSoundPitch.b))
-        self.Human_NextMeleeAnimT = CurTime() + animDur
+        self.Human_NextMeleeAnimT = curTime + animDur
         self.WeaponAttackAnim = finalAnim
         self:PlayAnim(finalAnim, "LetAttacks", false, true)
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     end
     if self.VJ_IsBeingControlled then return end
     if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
-    if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && CurTime() > self.NextWeaponStrafeT && (CurTime() - self.EnemyData.TimeAcquired) > 2 then
+    if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && curTime > self.NextWeaponStrafeT && (curTime - self.EnemyData.TimeAcquired) > 2 then
         timer.Simple(0, function()
             if IsValid(self) then
                 local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,250), true, false, 8, true))
                 if moveCheck then
                     self:StopMoving()
-                    self.NextWeaponStrafeT = CurTime() + math_rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
+                    self.NextWeaponStrafeT = curTime + math_rand(self.Weapon_StrafeCooldown.a, self.Weapon_StrafeCooldown.b)
                     self:SetLastPosition(moveCheck)
                     self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x:EngTask("TASK_FACE_ENEMY", 0) x.CanShootWhenMoving = true x.TurnData = {Type = VJ.FACE_ENEMY} end)
                 end
@@ -757,7 +765,8 @@ function ENT:OnWeaponStrafe()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponReload()
-    if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(self:GetEnemy()) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), false, {SetLastHiddenTime=true}) then return end
+    local ene = self.EnemyData.Target
+    if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(ene) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), ene:EyePos(), false, {SetLastHiddenTime = true }) then return end
     timer.Simple(0, function()
         if IsValid(self) then
             local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,400), true, false, 8, true))

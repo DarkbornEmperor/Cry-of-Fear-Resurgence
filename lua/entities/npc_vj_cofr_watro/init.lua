@@ -98,7 +98,8 @@ end
 function ENT:OnThinkActive()
     local eneData = self.EnemyData
     local ene = eneData.Target
-    if self.Watro_Burrowed && IsValid(ene) && eneData.Visible && eneData.Distance < 130 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local controlled = self.VJ_IsBeingControlled
+    if self.Watro_Burrowed && IsValid(ene) && eneData.Visible && eneData.Distance < 130 && !controlled or (controlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         local watLevel = self:WaterLevel()
         if watLevel > 0 && watLevel < 3 then
             VJ.EmitSound(self, "vj_cofr/fx/out_water.wav", 75, 100)

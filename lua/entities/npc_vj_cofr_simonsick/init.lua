@@ -61,6 +61,7 @@ local sdProps = {
     "vj_cofr/cof/sicksimon/proprise1.wav",
     "vj_cofr/cof/sicksimon/proprise2.wav"
 }
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,9 +100,11 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
+    if self.Dead then return end
+    local curTime = CurTime()
     local ene = self.EnemyData.Target
-    if !IsValid(ene) or self.Dead then return end
-    if IsValid(ene) && CurTime() > self.SickSimon_NextTwisterSpawnT && !IsValid(self.twister1) && !IsValid(self.twister2) && !IsValid(self.twister3) && !IsValid(self.twister4) && !IsValid(self.twister5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    local controlled = self.VJ_IsBeingControlled
+    if IsValid(ene) && curTime > self.SickSimon_NextTwisterSpawnT && !IsValid(self.twister1) && !IsValid(self.twister2) && !IsValid(self.twister3) && !IsValid(self.twister4) && !IsValid(self.twister5) && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         local twister1 = ents.Create("npc_vj_cofr_faceless_twister")
         twister1:SetPos(self:GetPos() + self:GetRight() * 40 + self:GetUp() * 10)
         twister1:SetAngles(self:GetAngles())
@@ -142,15 +145,16 @@ function ENT:OnThinkActive()
         self.Twisters[#self.Twisters + 1] = twister5 -- Register the Twisters
         self.twister5 = twister5
 
-        self.SickSimon_NextTwisterSpawnT = CurTime() + 20
+        self.SickSimon_NextTwisterSpawnT = curTime + 20
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ResetPsionicAttack()
+    local curTime = CurTime()
     self.AttackType = VJ.ATTACK_TYPE_NONE
     self.GodMode = false
     self.SickSimon_PsionicAttacking = false
-    self.SickSimon_NextPsionicAttackT = CurTime() + math_rand(8,12)
+    self.SickSimon_NextPsionicAttackT = curTime + math_rand(8,12)
     timer.Simple(1, function()
         if IsValid(self) && !self.GodMode then
             self:SetPhysicsDamageScale(0.01)
@@ -164,8 +168,11 @@ function ENT:ResetPsionicAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkAttack(isAttacking, enemy)
+    local curTime = CurTime()
     local eneData = self.EnemyData
-    if !self.SickSimon_PsionicAttacking && CurTime() > self.SickSimon_NextPsionicAttackT && ((!self.VJ_IsBeingControlled && eneData.Visible && eneData.Distance <= 1000) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && self.VJ_TheController:KeyDown(IN_DUCK))) && !self:IsBusy() then
+    local controlled = self.VJ_IsBeingControlled
+    local ply = self.VJ_TheController
+    if !self.SickSimon_PsionicAttacking && curTime > self.SickSimon_NextPsionicAttackT && ((!controlled && eneData.Visible && eneData.Distance <= 1000) or (controlled && ply:KeyDown(IN_ATTACK2) && ply:KeyDown(IN_DUCK))) && !self:IsBusy() then
         local prop = ents.Create("prop_physics")
         prop:SetModel(VJ.PICK(propList))
         prop:SetPos(self:GetPos() + self:GetForward() * 50 + self:GetRight() * -150 + self:GetUp() * 10)

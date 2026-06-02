@@ -45,6 +45,8 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.FaceHead_NextFacelessSpawnT = 0
+
+local CurTime = CurTime
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Boss_Music"):GetInt() == 0 then
@@ -79,7 +81,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
-    if IsValid(self.EnemyData.Target) && CurTime() > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    local curTime = CurTime()
+    local controlled = self.VJ_IsBeingControlled
+    if IsValid(self.EnemyData.Target) && curTime > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         local faceless1 = ents.Create("npc_vj_cofr_faceless")
         faceless1:SetPos(self:GetPos() + self:GetRight() * 60 + self:GetUp() * 10)
         faceless1:SetAngles(self:GetAngles())
@@ -128,7 +132,7 @@ function ENT:OnThinkActive()
         self.faceless6 = faceless6
         self:DeleteOnRemove(self.faceless6)
 
-        self.FaceHead_NextFacelessSpawnT = CurTime() + 20
+        self.FaceHead_NextFacelessSpawnT = curTime + 20
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

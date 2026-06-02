@@ -33,6 +33,8 @@ ENT.SoundTbl_Impact = {
 }
 -- Custom
 ENT.FaceHead_Jumpscare = false
+
+local CurTime = CurTime
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FaceHead_Init()
     self.SoundTbl_FaceHeadScream =
@@ -68,13 +70,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local eneData = self.EnemyData
-    if !self.FaceHead_Jumpscare && IsValid(eneData.Target) && eneData.Visible && eneData.Distance < 60 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local controlled = self.VJ_IsBeingControlled
+    if !self.FaceHead_Jumpscare && IsValid(eneData.Target) && eneData.Visible && eneData.Distance < 60 && !controlled or (controlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.FaceHead_Jumpscare = true
         local animPick, animDur = self:PlayAnim(ACT_SIGNAL1, false, 0, false)
         if animPick != ACT_INVALID then
+            local curTime = CurTime()
             self.AttackAnim = animPick
             self.AttackAnimDuration = animDur
-            self.AttackAnimTime = CurTime() + self.AttackAnimDuration
+            self.AttackAnimTime = curTime + self.AttackAnimDuration
         end
         sound.EmitHint(SOUND_DANGER, self:GetPos(), 100, 1, self)
         self.FaceHead_Scream = VJ.EmitSound(self, self.SoundTbl_FaceHeadScream, 75, 100)

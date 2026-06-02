@@ -132,8 +132,8 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "barbedwire_break" then
         VJ.EmitSound(self, "vj_cofr/cof/sewmo/break_free.wav", 75, 100)
         self:RemoveAllDecals()
-        if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1) end
-        if self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end
+        if self.Sewmo_Skin == 0 then self:SetBodygroup(0,1)
+        elseif self.Sewmo_Skin == 1 then self:SetBodygroup(0,3) end
     elseif key == "death" then
         VJ.EmitSound(self, "vj_cofr/fx/bodydrop" .. math_random(3,4) .. ".wav", 75, 100)
         local watLevel = self:WaterLevel()
@@ -158,8 +158,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:OnThinkActive()
-    if !IsValid(self:GetEnemy()) or !self:Visible(self:GetEnemy()) or self.Dead or !self.Sewmo_Sleep then return end
-    if self.Sewmo_Sleep && self:GetPos():Distance(self:GetEnemy():GetPos()) <= 100 && !self.VJ_IsBeingControlled or self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+    local eneData = self.EnemyData
+    local ene = eneData.Target
+    if !IsValid(ene) or !eneData.Visible or self.Dead then return end
+    if self.Sewmo_Sleep && eneData.Distance < 100 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Sewmo_Sleep = false
         self:PlayAnim(ACT_SIGNAL2, true, false, false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)

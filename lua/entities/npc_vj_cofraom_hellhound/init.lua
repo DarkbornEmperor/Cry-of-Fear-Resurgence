@@ -59,6 +59,7 @@ ENT.Hellhound_Type = 0
     -- 1 = Classic
     -- 2 = Remod
 
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,8 +117,9 @@ function ENT:Init()
     else
         self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
     end
+    local curTime = CurTime()
     self:Hellhound_Init()
-    self.Hellhound_NextSleepT = CurTime() + math_rand(0,15)
+    self.Hellhound_NextSleepT = curTime + math_rand(0,15)
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,7 +174,8 @@ end
 function ENT:OnThinkActive()
     if self.VJ_IsBeingControlled then return end
     -- Sleep system
-    if !self.Alerted && !IsValid(self.EnemyData.Target) && !self:IsMoving() && CurTime() > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
+    local curTime = CurTime()
+    if !self.Alerted && !IsValid(self.EnemyData.Target) && !self:IsMoving() && curTime > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then
         local sleepTime = math_rand(15,30) -- How long it should sleep
         self.Hellhound_Sleeping = true
         self:PlayAnim(ACT_CROUCH, true, false, false)
@@ -182,7 +185,7 @@ function ENT:OnThinkActive()
             if IsValid(self) && self.Hellhound_Sleeping then
                 self.Hellhound_Sleeping = false
                 self:PlayAnim(ACT_STAND, true, false, false)
-                self.Hellhound_NextSleepT = CurTime() + math_rand(15,45)
+                self.Hellhound_NextSleepT = curTime + math_rand(15,45)
             end
         end)
     end
@@ -192,18 +195,20 @@ local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
 --
 function ENT:OnAlert(ent)
     if self.Hellhound_Sleeping then -- Wake up if sleeping and play a special alert animation
+        local curTime = CurTime()
         if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
         self.Hellhound_Sleeping = false
         if self.Hellhound_Type == 0 then self:PlayAnim(ACT_STAND, true, false, false) end
         if self.Hellhound_Type == 1 then self:PlayAnim(ACT_HOP, true, false, false) end
-        self.Hellhound_NextSleepT = CurTime() + 20
+        self.Hellhound_NextSleepT = curTime + 20
     elseif self.Hellhound_Type == 1 && math_random(1,2) == 1 then -- Random alert animation
         self:PlayAnim(alertAnims, true, false, true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnResetEnemy()
-    self.Hellhound_NextSleepT = CurTime() + math_rand(15,45)
+    local curTime = CurTime()
+    self.Hellhound_NextSleepT = curTime + math_rand(15,45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local hellhoundClasses = {npc_vj_cofraom_hellhound = true, npc_vj_cofraomc_hellhound = true}
@@ -242,7 +247,8 @@ end
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Hellhound shouldn't have its sonic attack interrupted by a flinch animation!
-        return self.AttackAnimTime > CurTime()
+        local curTime = CurTime()
+        return self.AttackAnimTime > curTime
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

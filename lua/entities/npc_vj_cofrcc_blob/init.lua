@@ -51,9 +51,6 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh6.wav",
     "vj_cofr/fx/flesh7.wav"
 }
--- Custom
-ENT.Blob_NextAttackT = 0
-
 ENT.Tentacles = {}
 
 local math_random = math.random

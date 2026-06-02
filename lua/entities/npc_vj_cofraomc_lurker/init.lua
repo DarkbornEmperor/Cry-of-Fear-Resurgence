@@ -57,6 +57,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Icky_BlinkingT = 0
 
+local CurTime = CurTime
 local math_rand = math.Rand
 local math_clamp = math.Clamp
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +117,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     -- Blinking system
-    if !self.Dead && CurTime() > self.Icky_BlinkingT then
+    local curTime = CurTime()
+    if !self.Dead && curTime > self.Icky_BlinkingT then
         self:SetSkin(4)
         timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(3) end end)
         timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
@@ -130,7 +132,7 @@ function ENT:OnThink()
                 end
             end
         end)
-        self.Icky_BlinkingT = CurTime() + math_rand(2,3.5)
+        self.Icky_BlinkingT = curTime + math_rand(2,3.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

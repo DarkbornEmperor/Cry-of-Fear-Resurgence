@@ -27,7 +27,7 @@ function SWEP:PrimaryAttack() -- Heavily modified PrimaryAttack function to have
 
     if isNPC && !owner.VJ_IsBeingControlled && !IsValid(owner:GetEnemy()) then return end -- If the NPC owner isn't being controlled and doesn't have an enemy, then return end
     if (!self:CanPrimaryAttack()) then return end
-    if self:OnPrimaryAttack("Init") == true then return end
+    if self:OnPrimaryAttack("Init") then return end
 
     self:OnPrimaryAttack("PostFire")
 end

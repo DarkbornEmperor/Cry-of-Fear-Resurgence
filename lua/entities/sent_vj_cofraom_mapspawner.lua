@@ -8,6 +8,7 @@ ENT.Author = "Darkborn"
 
 if !SERVER then return end
 
+local CurTime = CurTime
 local table_insert = table.insert
 local table_remove = table.remove
 local math_random = math.random
@@ -122,6 +123,7 @@ function ENT:Initialize()
     self:SetPos(Vector(0, 0, 0))
     self:SetNoDraw(true)
 
+    local curTime = CurTime()
     self.IsActivated = tobool(GetConVar("VJ_COFR_MapSpawner_Enabled"):GetInt())
     self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetInt()
     self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetInt()
@@ -133,16 +135,16 @@ function ENT:Initialize()
     self.tbl_SpawnedNPCs = {}
     self.tbl_NPCsWithEnemies = {}
     self.tbl_SpawnedBossMonster = {}
-    self.NextAICheckTime = CurTime() + 5
-    self.NextMonsterSpawnTime = CurTime() + 1
-    self.NextBossMonsterSpawnTime = CurTime() + math_random(10,20)
-    self.NextHordeSpawnTime = CurTime() + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
+    self.NextAICheckTime = curTime + 5
+    self.NextMonsterSpawnTime = curTime + 1
+    self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
+    self.NextHordeSpawnTime = curTime + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
     self.DidStartMusic = false
-    self.NextMusicSwitchT = CurTime() + 1
-    self.NextAIBossCheckTime = CurTime() + 5
+    self.NextMusicSwitchT = curTime + 1
+    self.NextAIBossCheckTime = curTime + 5
     self.HordeSpawnRate = 0.19
     self.MaxBossMonster = 2
-    self.NextAmbientSoundT = CurTime() + math_rand(1,30)
+    self.NextAmbientSoundT = curTime + math_rand(1,30)
     self.CanSpawnBossMonster = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -267,7 +269,8 @@ function ENT:GetNodePosition(i)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:IsNodeUsable(i)
-    return self.nodePositions[i].Time < CurTime()
+    local curTime = CurTime()
+    return self.nodePositions[i].Time < curTime
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FindEnemy()
@@ -320,6 +323,7 @@ end
 function ENT:Think()
     self.IsActivated = GetConVar("VJ_COFR_MapSpawner_Enabled"):GetInt()
     if self.IsActivated then
+        local curTime = CurTime()
         -- Manage ConVar data
         self.COFR_SpawnDistance = GetConVar("VJ_COFR_MapSpawner_SpawnMax"):GetInt()
         self.COFR_SpawnDistanceClose = GetConVar("VJ_COFR_MapSpawner_SpawnMin"):GetInt()
@@ -332,15 +336,15 @@ function ENT:Think()
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
             for _, v in ipairs(player.GetAll()) do
-                if math_random(1,2) == 1 && self.NextAmbientSoundT < CurTime() then
+                if math_random(1,2) == 1 && self.NextAmbientSoundT < curTime then
                     self.CoFR_PickAmbient = VJ.PICK(ambient)
                     self.COFR_Ambient = VJ.CreateSound(v, self.CoFR_PickAmbient, GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(), 100)
-                    self.NextAmbientSoundT = CurTime() + ((((SoundDuration(self.CoFR_PickAmbient) > 0) and SoundDuration(self.CoFR_PickAmbient)) or 2) + 1) + math_rand(20,40)
+                    self.NextAmbientSoundT = curTime + ((((SoundDuration(self.CoFR_PickAmbient) > 0) and SoundDuration(self.CoFR_PickAmbient)) or 2) + 1) + math_rand(20,40)
                 end
             end
         end
             -- Checks for inactive AI, this code is quite bulky and might be able to be optimized better
-        if CurTime() > self.NextAICheckTime then
+        if curTime > self.NextAICheckTime then
             if #self.tbl_SpawnedNPCs > 0 then
                 for i, v in ipairs(self.tbl_SpawnedNPCs) do
                     if IsValid(v) then
@@ -375,29 +379,29 @@ function ENT:Think()
                         end
                     end
                 end
-                self.NextAICheckTime = CurTime() + 5
+                self.NextAICheckTime = curTime + 5
             end
 
             -- Manages Music
             self:DoMusic(false)
 
             -- Spawns AI
-            if CurTime() > self.NextMonsterSpawnTime then
+            if curTime > self.NextMonsterSpawnTime then
                 if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster -self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
                 self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
-                self.NextMonsterSpawnTime = CurTime() + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
+                self.NextMonsterSpawnTime = curTime + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
             end
 
             if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
                 self.CanSpawnBossMonster = true
-                if CurTime() > self.NextBossMonsterSpawnTime then
+                if curTime > self.NextBossMonsterSpawnTime then
                     self:SpawnBossMonster(self:PickMonster(self.BossMonster), self:FindSpawnPosition(true))
-                    self.NextBossMonsterSpawnTime = CurTime() + math_random(10,20)
+                    self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
                 end
             end
 
                 -- Spawns Hordes
-            if CurTime() > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 then
+            if curTime > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 then
                 for i = 1,self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
@@ -405,22 +409,23 @@ function ENT:Think()
                     end
                 end)
             end
-            self.NextHordeSpawnTime = CurTime() + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
+            self.NextHordeSpawnTime = curTime + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoMusic(stop)
     for _, v in ipairs(player.GetAll()) do
+        local curTime = CurTime()
         if !stop && !self.DidStartMusic then
                 self.DidStartMusic = true
-                self.NextMusicSwitchT = CurTime() + 1
+                self.NextMusicSwitchT = curTime + 1
             if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then
                 self.NextAoMMusicT = self.NextAoMMusicT or 0
-                if CurTime() > self.NextAoMMusicT then
+                if curTime > self.NextAoMMusicT then
                     self.CoFR_PickTrack = VJ.PICK(music)
                     self.CoFR_Track = VJ.CreateSound(v, self.CoFR_PickTrack,GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(), 100)
-                    self.NextAoMMusicT = CurTime() + ((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1)
+                    self.NextAoMMusicT = curTime + ((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1)
 
                     timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1), function() if IsValid(self) then self.DidStartMusic = false VJ.STOPSOUND(self.CoFR_Track) end end)
                 end
@@ -428,7 +433,7 @@ function ENT:DoMusic(stop)
         end
         if stop && self.DidStartMusic then
             self.DidStartMusic = false
-            self.NextMusicSwitchT = CurTime() + 1
+            self.NextMusicSwitchT = curTime + 1
             VJ.STOPSOUND(self.CoFR_Track)
         end
     end

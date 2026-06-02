@@ -86,6 +86,7 @@ local sdThunder = {
     "vj_cofr/aom/addiction/thunder_attack2.wav",
     "vj_cofr/aom/addiction/thunder_attack3.wav"
 }
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -169,7 +170,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.VJ_IsBeingControlled then return end
-    self.Addiction_NextChangeMeleeT = CurTime() + math_rand(15,20)
+    local curTime = CurTime()
+    self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -192,10 +194,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if self.Dead then return end
+    local curTime = CurTime()
     local ene = self.EnemyData.Target
-    if !self:IsBusy() && IsValid(ene) && CurTime() > self.Addiction_NextChangeMeleeT && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    local controlled = self.VJ_IsBeingControlled
+    if !self:IsBusy() && IsValid(ene) && curTime > self.Addiction_NextChangeMeleeT && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
         self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
-        self.Addiction_NextChangeMeleeT = CurTime() + math_rand(15,20)
+        self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
     end
     if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
     if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then

@@ -62,6 +62,7 @@ ENT.Sawer_NextDownT = 0
 ENT.Sawer_NextEyeMoveT = 0
 ENT.Sawer_NextFlinchT = 0
 
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -142,7 +143,8 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-    if self.Sawer_EyeOpen && CurTime() > self.Sawer_NextEyeMoveT then
+    local curTime = CurTime()
+    if self.Sawer_EyeOpen && curTime > self.Sawer_NextEyeMoveT then
         local speed = FrameTime() * 10
         local eyeDir = math_random(1,2)
         local getPoseParem = self:GetPoseParameter("eye_move")
@@ -151,7 +153,7 @@ function ENT:OnThink()
         elseif eyeDir == 2 then
             self:SetPoseParameter("eye_move", Lerp(speed, getPoseParem, 90))
         end
-        self.Sawer_NextEyeMoveT = CurTime() + math_rand(0,0.5)
+        self.Sawer_NextEyeMoveT = curTime + math_rand(0,0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -174,9 +176,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
-        if CurTime() > self.Sawer_NextFlinchT && math_random(1,14) == 1 && !self.Sawer_EyeOpen then
+        local curTime = CurTime()
+        if curTime > self.Sawer_NextFlinchT && math_random(1,14) == 1 && !self.Sawer_EyeOpen then
             self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
-            self.Sawer_NextFlinchT = CurTime() + self.FlinchCooldown
+            self.Sawer_NextFlinchT = curTime + self.FlinchCooldown
         end
         if hitgroup == 9 && self.Sawer_EyeOpen then
             dmginfo:ScaleDamage(0.2)
@@ -188,7 +191,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             self:SpawnBloodDecals(dmginfo, hitgroup)
             self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
         end
-        if CurTime() > self.Sawer_NextDownT && math_random(1,20) == 1 && !self.Sawer_EyeOpen then
+        if curTime > self.Sawer_NextDownT && math_random(1,20) == 1 && !self.Sawer_EyeOpen then
             local animTime = VJ.AnimDuration(self, ACT_COWER)
             self:PlayAnim(ACT_COWER, true, false, false)
             VJ.EmitSound(self, "vj_cofr/cof/sawer/eye_open.wav", 75, 100)
@@ -213,7 +216,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                     self:RemoveFlags(FL_NOTARGET)
                     self:SetState()
                     self.Sawer_Eye:Remove()
-                    self.Sawer_NextDownT = CurTime() + math_rand(5,10)
+                    self.Sawer_NextDownT = curTime + math_rand(5,10)
                 end
             end)
         end

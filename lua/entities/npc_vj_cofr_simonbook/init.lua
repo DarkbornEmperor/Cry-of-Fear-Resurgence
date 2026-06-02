@@ -84,6 +84,7 @@ ENT.BookSimon_Sledgehammer = false
 ENT.BookSimon_SledgehammerFlare = false
 ENT.BookSimon_NextTMPSoundT = 0
 
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -366,7 +367,8 @@ end
 function ENT:OnThink()
     if !self.BookSimon_TMP then return end
     if self.TMPLoop then
-        if CurTime() > self.BookSimon_NextTMPSoundT && self.BookSimon_NextTMPSoundT > 0 then
+        local curTime = CurTime()
+        if curTime > self.BookSimon_NextTMPSoundT && self.BookSimon_NextTMPSoundT > 0 then
             self.TMPLoop:Stop()
             self.BookSimon_NextTMPSoundT = 0
             if IsValid(self) then
@@ -375,10 +377,10 @@ function ENT:OnThink()
                     sound.Play(fireSd, self:GetPos(), 140, self:GetSoundPitch(self.RangeAttackPitch), 1)
                 end
             end
-        elseif self.BookSimon_NextTMPSoundT > CurTime() && !self.TMPLoop:IsPlaying() then
+        elseif self.BookSimon_NextTMPSoundT > curTime && !self.TMPLoop:IsPlaying() then
             self.TMPLoop:Play()
         end
-        self:NextThink(CurTime())
+        self:NextThink(curTime)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -423,7 +425,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                 HullSize = 1
             })
         elseif self.BookSimon_TMP then
-            self.BookSimon_NextTMPSoundT = CurTime() + 0.1
+            local curTime = CurTime()
+            self.BookSimon_NextTMPSoundT = curTime + 0.1
             if /*math_random(1,7) == 1 &&*/ self.TMPLoop:IsPlaying() && #self.TMPSound > 1 then
                 self.TMPLoop:Stop()
                 self.TMPLoop = CreateSound(self, VJ.PICK(self.TMPSound), VJ_RecipientFilter)

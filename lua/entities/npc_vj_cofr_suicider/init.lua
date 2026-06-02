@@ -233,7 +233,8 @@ function ENT:OnThinkActive()
     local eneData = self.EnemyData
     local ene = eneData.Target
     if self.Suicider_Ammo < 1 or self.Dead then return end
-    if IsValid(ene) && eneData.Distance < 100 && eneData.Visible && !self.Suicider_Suicide && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local controlled = self.VJ_IsBeingControlled
+    if IsValid(ene) && eneData.Distance < 100 && eneData.Visible && !self.Suicider_Suicide && !controlled or (controlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self:Suicide()
     end
 end

@@ -56,6 +56,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Doctor_NextRunT = 0
 
+local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -102,7 +103,8 @@ function ENT:Init()
     elseif wep == 2 then
         self:Give("weapon_vj_cofr_p345")
     end
-    self.Doctor_NextRunT = CurTime() + math_rand(8,12)
+    local curTime = CurTime()
+    self.Doctor_NextRunT = curTime + math_rand(8,12)
     self:Doctor_Init()
     self:SetCollisionBounds(Vector(13, 13, 75), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
@@ -136,13 +138,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
     if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
-    if CurTime() > self.Doctor_NextRunT then
+    local curTime = CurTime()
+    if curTime > self.Doctor_NextRunT then
         timer.Simple(0.5, function()
             if IsValid(self) && !self:IsMoving() && !self.Dead && !self.Flinching then
                 self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.CanShootWhenMoving = false end)
             end
         end)
-        self.Doctor_NextRunT = CurTime() + math_rand(12,18)
+        self.Doctor_NextRunT = curTime + math_rand(12,18)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -244,7 +244,8 @@ end
 function ENT:OnThinkActive()
     if self.Dead or self.Drowned_Baby then return end
     local eneData = self.EnemyData
-    if !self.Drowned_Baby && IsValid(eneData.Target) && eneData.Distance < 70 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local controlled = self.VJ_IsBeingControlled
+    if !self.Drowned_Baby && IsValid(eneData.Target) && eneData.Distance < 70 && !controlled or (controlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
         self.Drowned_Baby = true
         self.HasMeleeAttack = true
         self:PlayAnim(ACT_SIGNAL2, true, false, false)

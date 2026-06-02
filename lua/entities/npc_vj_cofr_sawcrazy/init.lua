@@ -53,6 +53,7 @@ ENT.SoundTbl_Impact = {
 -- Custom
 ENT.Sawcrazy_NextRadiusDamageT = 0
 
+local CurTime = CurTime
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sawcrazy_Init()
@@ -108,7 +109,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if self.Dead or GetConVar("VJ_COFR_Sawcrazy_RadiusDamage"):GetInt() == 0 then return end
-    if self.Sawcrazy_NextRadiusDamageT < CurTime() then
+    local curTime = CurTime()
+    if self.Sawcrazy_NextRadiusDamageT < curTime then
         for _, v in ipairs(ents.FindInSphere(self:GetPos(), 60)) do
             if v != self && IsValid(v) && self:Visible(v) && (v.VJ_ID_Living or v.VJ_ID_Destructible or v.VJ_ID_Attackable) then
                 if v.IsVJBaseSNPC_Human then
@@ -118,7 +120,7 @@ function ENT:OnThinkActive()
                 else
                     v:TakeDamage(200, self, self)
                 end
-                self.Sawcrazy_NextRadiusDamageT = CurTime() + 0.5
+                self.Sawcrazy_NextRadiusDamageT = curTime + 0.5
             end
         end
     end

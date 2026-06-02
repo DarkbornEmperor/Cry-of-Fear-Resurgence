@@ -71,6 +71,7 @@ ENT.Devourer_Type = 0
     -- 1 = Classic
     -- 2 = Remod
 
+local CurTime = CurTime
 local math_clamp = math.Clamp
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -163,14 +164,15 @@ function ENT:Devourer_CalculateTongue()
         trHitEnt:SetGroundEntity(NULL)
         -- Make it pull the enemy up
         if height >= 50 then
-                trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
-            if CurTime() > self.Devourer_NextPullSoundT then -- Play the pulling sound
+            local curTime = CurTime()
+            trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
+            if curTime > self.Devourer_NextPullSoundT then -- Play the pulling sound
                 if self:GetClass() == "npc_vj_cofraomc_devourer" then
                     VJ.EmitSound(self, "vj_cofr/aom/devourer/classic/bcl_alert2.wav")
                 else
                     VJ.EmitSound(self, "vj_cofr/aom/devourer/bcl_alert2.wav")
                 end
-                self.Devourer_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
+                self.Devourer_NextPullSoundT = curTime + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
             end
         end
         self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offsetPulling)

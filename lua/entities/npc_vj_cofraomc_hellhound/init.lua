@@ -9,15 +9,17 @@ include("shared.lua")
 ENT.Model = "models/vj_cofr/aom/classic/hellhound.mdl"
 ENT.AnimTbl_MeleeAttack = "vjseq_attack"
 
+local curTime = CurTime()
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     -- Blinking
-    if !self.Dead && CurTime() > self.Hellhound_BlinkingT && !self.Hellhound_Sleeping then
+    local curTime = CurTime()
+    if !self.Dead && curTime > self.Hellhound_BlinkingT && !self.Hellhound_Sleeping then
         self:SetSkin(1)
         timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
         timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
         timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
-        self.Hellhound_BlinkingT = CurTime() + math_rand(2,3.5)
+        self.Hellhound_BlinkingT = curTime + math_rand(2,3.5)
     end
 end
