@@ -25,6 +25,7 @@ ENT.FlinchHitGroupMap = {
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+ENT.CanGib = false
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
 ENT.MainSoundPitch = 100
@@ -390,6 +391,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
+        if math_random(1,3) == 1 then self.CanGib = true end
         VJ_COFR_DeathCode(self)
     elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD then
@@ -398,6 +400,30 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE, ACT_DIE_GUTSHOT}
         end
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+--
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
+    self.HasDeathSounds = false
+    if self.HasGibOnDeathEffects then
+        local effectData = EffectData()
+        effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+        effectData:SetColor(colorRed)
+        effectData:SetScale(120)
+        util.Effect("VJ_Blood1", effectData)
+        effectData:SetScale(8)
+        effectData:SetFlags(3)
+        effectData:SetColor(0)
+        util.Effect("bloodspray", effectData)
+        util.Effect("bloodspray", effectData)
+    end
+    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
+    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
+    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
+    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(1, 1, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
+    self:PlaySoundSystem("Gib", "vj_cofr/fx/bodysplat.wav")
+    return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
