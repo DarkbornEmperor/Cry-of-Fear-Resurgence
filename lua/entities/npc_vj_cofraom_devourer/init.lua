@@ -232,7 +232,6 @@ end
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:SetPoseParameter("tongue_height", 1)
     VJ_COFR_ApplyCorpse(self, corpse)
-    corpse:SetMoveType(MOVETYPE_NONE)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

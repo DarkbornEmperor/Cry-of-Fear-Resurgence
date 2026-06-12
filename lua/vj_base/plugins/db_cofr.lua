@@ -991,13 +991,14 @@ function VJ_COFR_DeathCode(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_ApplyCorpse(ent, corpse)
-    if !VJ_CVAR_AI_ENABLED then corpse:Remove() end
-    local minBounds, maxBounds = ent:GetCollisionBounds()
+    if !VJ_CVAR_AI_ENABLED then corpse:Remove() return end
     corpse.VJ_COFR_Corpse = true
+    corpse.PhysgunDisabled = true
     corpse:ResetSequence(ent:GetSequence())
     corpse:SetCycle(1)
-    corpse:SetMoveType(MOVETYPE_STEP)
-    corpse:SetSolid(SOLID_NONE)
+    corpse:SetMoveType(ent:GetMoveType())
+    corpse:SetCollisionGroup(ent.DeathCorpseCollisionType)
+    local minBounds, maxBounds = ent:GetCollisionBounds()
     corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
-    corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+    corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
 end
