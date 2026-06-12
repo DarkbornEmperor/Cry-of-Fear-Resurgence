@@ -572,19 +572,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    local curTime = CurTime()
-    local eneData = self.EnemyData
-    if self.Human_Crouching && self.Weapon_CanMoveFire && IsValid(eneData.Target) && IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
-        if (eneData.Visible or (eneData.VisibleTime + 5) > curTime) && self.CurrentSchedule != nil && self.CurrentSchedule.CanShootWhenMoving && self:CanFireWeapon(true, false) then
-                self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
-            if act == ACT_WALK then
-                return self:TranslateActivity(act == ACT_WALK and ACT_WALK_CROUCH_AIM)
-            elseif act == ACT_RUN then
-                return self:TranslateActivity(act == ACT_RUN and ACT_RUN_CROUCH_AIM)
-            end
+    if self.Human_Crouching then
+        if act == ACT_WALK_AIM then
+            return self:TranslateActivity(act == ACT_WALK_AIM and ACT_WALK_CROUCH_AIM)
+        elseif act == ACT_RUN_AIM then
+            return self:TranslateActivity(act == ACT_RUN_AIM and ACT_RUN_CROUCH_AIM)
         end
-    end
-    if act == ACT_IDLE && !self.AnimationTranslations[ACT_IDLE] then
+    elseif act == ACT_IDLE && !self.AnimationTranslations[ACT_IDLE] then
         return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
     elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
         return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
