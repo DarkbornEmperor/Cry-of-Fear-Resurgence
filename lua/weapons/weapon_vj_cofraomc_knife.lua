@@ -37,16 +37,3 @@ function SWEP:OnDeploy()
             "vj_cofr/aom/weapons/knife/classic/cbar_miss1.wav"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnRemove()
-    local owner = self:GetOwner()
-    if IsValid(owner) then
-        owner.MeleeAttackDamage = 5
-        owner.MeleeAttackDamageType = DMG_CLUB
-        owner.SoundTbl_MeleeAttackExtra =
-            "vj_cofr/cof/weapons/melee_hit.wav"
-
-        owner.SoundTbl_MeleeAttackMiss =
-            "vj_cofr/cof/weapons/melee_swing.wav"
-    end
-end

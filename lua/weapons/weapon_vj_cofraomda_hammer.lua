@@ -1,4 +1,4 @@
-SWEP.Base = "weapon_vj_cofr_melee_base"
+SWEP.Base = "weapon_vj_cofraom_hammer"
 SWEP.PrintName = "Hammer (Dark Assistance)"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
@@ -7,29 +7,8 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Category = "Cry of Fear Resurgence"
 -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/da/w_hammer.mdl"
--- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 25
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-3.1, 8.5, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:Init()
-    self:SetModelScale(0.75)
-    /*local owner = self:GetOwner()
-    if IsValid(owner) && owner:GetClass() == "npc_vj_cofraomda_david" then
-        self.WorldModel_CustomPositionOrigin = Vector(-4.5, 8, -0.5)
-    end*/
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnEquip(newOwner)
-    local owner = self:GetOwner()
-    owner.MeleeAttackDamage = self.Primary.Damage
-    owner.MeleeAttackDamageType = DMG_CLUB
-    owner.SoundTbl_MeleeAttackExtra =
-        "vj_cofr/aom/weapons/hammer/Hammer_hitbody.wav"
-
-    owner.SoundTbl_MeleeAttackMiss =
-        "vj_cofr/aom/weapons/hammer/Hammer_swing.wav"
-end
