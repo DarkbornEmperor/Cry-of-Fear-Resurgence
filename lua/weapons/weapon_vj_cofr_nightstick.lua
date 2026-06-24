@@ -19,14 +19,29 @@ function SWEP:Init()
     self:SetModelScale(0.90)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnEquip(newOwner)
+function SWEP:OnDeploy()
     local owner = self:GetOwner()
-    owner.MeleeAttackDamage = self.Primary.Damage
-    owner.MeleeAttackDamageType = DMG_CLUB
-    owner.SoundTbl_MeleeAttackExtra = {
-        "vj_cofr/cof/weapons/nightstick/nightstick_hitbody1.wav",
-        "vj_cofr/cof/weapons/nightstick/nightstick_hitbody2.wav"
-    }
-    owner.SoundTbl_MeleeAttackMiss =
-        "vj_cofr/cof/weapons/nightstick/nightstick_swing.wav"
+    if IsValid(owner) then
+        owner.MeleeAttackDamage = self.Primary.Damage
+        owner.MeleeAttackDamageType = DMG_CLUB
+        owner.SoundTbl_MeleeAttackExtra = {
+            "vj_cofr/cof/weapons/nightstick/nightstick_hitbody1.wav",
+            "vj_cofr/cof/weapons/nightstick/nightstick_hitbody2.wav"
+        }
+        owner.SoundTbl_MeleeAttackMiss =
+            "vj_cofr/cof/weapons/nightstick/nightstick_swing.wav"
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnRemove()
+    local owner = self:GetOwner()
+    if IsValid(owner) then
+        owner.MeleeAttackDamage = 5
+        owner.MeleeAttackDamageType = DMG_CLUB
+        owner.SoundTbl_MeleeAttackExtra =
+            "vj_cofr/cof/weapons/melee_hit.wav"
+
+        owner.SoundTbl_MeleeAttackMiss =
+            "vj_cofr/cof/weapons/melee_swing.wav"
+    end
 end

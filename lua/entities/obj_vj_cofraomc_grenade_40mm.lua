@@ -80,5 +80,5 @@ function ENT:OnDestroy(data, phys)
     expLight:Spawn()
     expLight:Activate()
     expLight:Fire("TurnOn", "", 0)
-    expLight:Fire("Kill", "", 0.08)
+    expLight:Fire("Kill", "", 0.1)
 end

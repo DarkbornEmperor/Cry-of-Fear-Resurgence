@@ -84,7 +84,7 @@ function ENT:OnDestroy()
     expLight:Spawn()
     expLight:Activate()
     expLight:Fire("TurnOn", "", 0)
-    expLight:Fire("Kill", "", 0.08)
+    expLight:Fire("Kill", "", 0.1)
 
     self:SetLocalPos(myPos + vecZ4) -- Because the entity is too close to the ground
     local tr = util.TraceLine({

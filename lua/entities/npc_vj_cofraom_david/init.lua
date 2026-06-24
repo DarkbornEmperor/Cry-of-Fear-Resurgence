@@ -22,7 +22,7 @@ ENT.PoseParameterLooking_InvertPitch = true
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjges_shoot_crowbar"
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDamage = 10
+ENT.MeleeAttackDamage = 5
 ENT.Weapon_FindCoverOnReload = false
 ENT.Weapon_OcclusionDelayTime = VJ.SET(0,0.2)
 ENT.Weapon_OcclusionDelay = false
@@ -33,7 +33,7 @@ ENT.Medic_SpawnPropOnHeal = false
 ENT.AnimTbl_Medic_GiveHealth = "vjges_shoot_wrench"
 ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/w_pills.mdl"
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
-//ENT.AnimTbl_WeaponAttackSecondary = "shoot_m203"
+ENT.AnimTbl_WeaponAttackSecondary = "vjges_shoot_m203"
 ENT.Weapon_SecondaryFireTime = 0.05
 ENT.HasExtraMeleeAttackSounds = true
 ENT.DamageResponse = "OnlySearch"
@@ -699,10 +699,10 @@ function ENT:OnAlert(ent)
     end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttack(status, enemy)
+/*function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
         if IsValid(self:GetActiveWeapon()) && !self.WeaponEntity.IsMeleeWeapon then
-            self.MeleeAttackDamage = 15
+            self.MeleeAttackDamage = 5
             self.MeleeAttackDamageType = DMG_CLUB
             self.SoundTbl_MeleeAttackExtra =
                 "vj_cofr/cof/weapons/melee_hit.wav"
@@ -711,7 +711,7 @@ function ENT:OnMeleeAttack(status, enemy)
                 "vj_cofr/cof/weapons/melee_swing.wav"
         end
     end
-end
+end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()

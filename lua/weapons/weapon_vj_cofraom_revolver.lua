@@ -12,7 +12,7 @@ SWEP.NPC_CanBePickedUp = false
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_revolver.mdl"
 SWEP.HoldType = "revolver"
-SWEP.Spawnable= false
+SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
