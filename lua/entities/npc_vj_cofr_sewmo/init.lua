@@ -68,6 +68,7 @@ local sdAttFistMiss = {
     "vj_cofr/cof/sewmo/claw_miss2.wav",
     "vj_cofr/cof/sewmo/claw_miss3.wav"
 }
+local math_abs = math.abs
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -173,6 +174,7 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
+        local collisionMax = self:GetCollisionBounds()
         if self:GetBodygroup(0) == 0 then
             self.AnimTbl_MeleeAttack = "vjseq_attack1"
             self.MeleeAttackDamage = self.MeleeAttackDamage_Tongue
@@ -184,9 +186,9 @@ function ENT:OnMeleeAttack(status, enemy)
 
         elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
             self.AnimTbl_MeleeAttack = "vjseq_attack2"
-            self.MeleeAttackDistance = false
-            self.MeleeAttackDamageDistance = false
             self.MeleeAttackDamage = self.MeleeAttackDamage_Fists
+            self.MeleeAttackDistance = math_abs(collisionMax.x) + 30
+            self.MeleeAttackDamageDistance = math_abs(collisionMax.x) + 60
             self.SoundTbl_MeleeAttackExtra = sdAttFist
             self.SoundTbl_MeleeAttackMiss = sdAttFistMiss
         end
