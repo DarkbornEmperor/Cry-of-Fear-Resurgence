@@ -21,7 +21,7 @@ ENT.NextRangeAttackTime = 3
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
-ENT.RangeAttackPitch = VJ.SET(130, 160)
+ENT.RangeAttackSoundPitch = VJ.SET(130, 160)
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 1,
@@ -130,7 +130,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 
         VJ.ApplyRadiusDamage(self, self, hitPos, 30, self.GhostDamage, DMG_SHOCK, true, false, {Force = 90})
 
-        VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch))
+        VJ.EmitSound(self, "vj_cofr/aom/ghost/classic/electro4.wav", self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackSoundPitch))
         return true
     end
 end

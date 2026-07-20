@@ -211,7 +211,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                     end
                 end
             end)
-            if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(enemy, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackPitch)) end
+            if self.HasSounds then self.Drowned_Suicide = VJ.CreateSound(enemy, self.SoundTbl_Drowned_Suicide, self.RangeAttackSoundLevel, self:GetSoundPitch(self.RangeAttackSoundPitch)) end
             if enemy.Human_Type == 1 then enemy:PlaySoundSystem("Pain", enemy.SoundTbl_SuicidePanic) end
             if enemy:IsPlayer() then
                 net.Start("VJ_COFR_Drowned_ScreenEffect")

@@ -198,7 +198,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 
         local pTbl = {}
         for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
-            if VJ.IsProp(v) && self:Visible(v) && enemy:Visible(v) then
+            if ent.VJ_ID_Prop && self:Visible(v) && enemy:Visible(v) then
                 local phys = v:GetPhysicsObject()
                 if IsValid(phys) && phys:GetMass() <= 2000 && v.BeingControlledBySickSimon != true then
                     pTbl[#pTbl + 1] = v

@@ -374,7 +374,7 @@ function ENT:OnThink()
             if IsValid(self) then
                 local fireSd = VJ.PICK(self.SoundTbl_TMPEnd)
                 if fireSd != false then
-                    sound.Play(fireSd, self:GetPos(), 140, self:GetSoundPitch(self.RangeAttackPitch), 1)
+                    sound.Play(fireSd, self:GetPos(), 140, self:GetSoundPitch(self.RangeAttackSoundPitch), 1)
                 end
             end
         elseif self.BookSimon_NextTMPSoundT > curTime && !self.TMPLoop:IsPlaying() then
