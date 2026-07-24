@@ -214,8 +214,8 @@ VJ.AddNPC("Random Monster Spawner", "sent_vj_cofraom_mon_sp", spawnCategory)
 VJ.AddNPC("Random Monster Spawner (Single)", "sent_vj_cofraom_mon_sinsp", spawnCategory)
 
 -- AoM:DC Entities
-VJ.AddEntity("Pills", "sent_vj_cofraom_pills", "Darkborn", false, 0, true, spawnCategory)
-VJ.AddEntity("Pills (Dark Assistance)", "sent_vj_cofraom_pills_da", "Darkborn", false, 0, true, spawnCategory)
+VJ.AddEntity("Pills", "sent_vj_cofraom_pills", spawnCategory)
+VJ.AddEntity("Pills (Dark Assistance)", "sent_vj_cofraom_pills_da", spawnCategory)
 
 -- Decals --
 game.AddDecal("VJ_COFR_Blood_Red", {"vj_cofr/decals/cof_blood01", "vj_cofr/decals/cof_blood02", "vj_cofr/decals/cof_blood03", "vj_cofr/decals/cof_blood04", "vj_cofr/decals/cof_blood05", "vj_cofr/decals/cof_blood06", "vj_cofr/decals/cof_blood07"})
@@ -955,19 +955,18 @@ local excludedMats = {
     [MAT_FLESH] = true
 }
 function VJ.COFR_Effect_Impact(tr)
-    if !excludedMats[tr.MatType] then
-        local effectData = EffectData()
-        effectData:SetEntity(tr.Entity)
-        effectData:SetStart(tr.StartPos)
-        effectData:SetOrigin(tr.HitPos)
-        effectData:SetNormal(tr.HitNormal)
-        effectData:SetHitBox(tr.HitBox)
-        effectData:SetSurfaceProp(tr.SurfaceProps)
-        effectData:SetFlags(1)
-        util.Effect("Impact_GMOD", effectData)
-        util.Decal("VJ_COFR_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
-        return true
-    end
+    if excludedMats[tr.MatType] then return end
+    local effectData = EffectData()
+    effectData:SetEntity(tr.Entity)
+    effectData:SetStart(tr.StartPos)
+    effectData:SetOrigin(tr.HitPos)
+    effectData:SetNormal(tr.HitNormal)
+    effectData:SetHitBox(tr.HitBox)
+    effectData:SetSurfaceProp(tr.SurfaceProps)
+    effectData:SetFlags(1)
+    util.Effect("Impact_GMOD", effectData)
+    util.Decal("VJ_COFR_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+    return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_DeathCode(ent)
