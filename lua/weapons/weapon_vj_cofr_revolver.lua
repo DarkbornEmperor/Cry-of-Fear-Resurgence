@@ -41,8 +41,8 @@ function SWEP:Init()
         self.Primary.Sound = "VJ.CoFR_Revolver_Old.Single"
     end
     local owner = self:GetOwner()
-    local ownerClass = owner:GetClass()
     if IsValid(owner) then
+        local ownerClass = owner:GetClass()
         if ownerClass == "npc_vj_cofr_police" then
             self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
         elseif ownerClass == "npc_vj_cofr_simon_beta" then

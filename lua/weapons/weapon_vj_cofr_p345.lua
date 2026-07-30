@@ -39,8 +39,8 @@ function SWEP:Init()
         self.Primary.Sound = "VJ.CoFR_P345_Old.Single"
     end
     local owner = self:GetOwner()
-    local ownerClass = owner:GetClass()
     if IsValid(owner) then
+        local ownerClass = owner:GetClass()
         if ownerClass == "npc_vj_cofr_purnell" then
             self.WorldModel_CustomPositionAngle = Vector(80, -20, 10)
             self.WorldModel_CustomPositionOrigin = Vector(-3.2, 4, -1)

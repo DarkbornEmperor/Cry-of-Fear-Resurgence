@@ -44,8 +44,8 @@ function SWEP:Init()
     end
     self:SetModelScale(0.60)
     local owner = self:GetOwner()
-    local ownerClass = owner:GetClass()
     if IsValid(owner) then
+        local ownerClass = owner:GetClass()
         if ownerClass == "npc_vj_cofr_simon_beta" then
             self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
         elseif ownerClass == "npc_vj_cofr_police" then
