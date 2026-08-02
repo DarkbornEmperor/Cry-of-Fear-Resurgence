@@ -6,214 +6,233 @@
 VJ.AddPlugin("Cry of Fear Resurgence", "NPC")
 
 -- Cry of Fear --
-local spawnCategory = "CoF Resurgence: CoF"
+local spawnCategory = "CoF Resurgence"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofr.png"})
+
+-- Random & Spawners --
+VJ.AddNPC("Monster Map Spawner", "sent_vj_cofr_mapspawner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Random Monster", "sent_vj_cofr_mon", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Random Monster Spawner", "sent_vj_cofr_mon_sp", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Random Monster Spawner (Single)", "sent_vj_cofr_mon_sinsp", spawnCategory, {SubCategory = subCategory})
 
 -- Enemies
-VJ.AddNPC("Baby", "npc_vj_cofr_baby", spawnCategory)
-VJ.AddNPC("Children", "npc_vj_cofr_children", spawnCategory)
-VJ.AddNPC("Children (Beta)", "npc_vj_cofr_children_beta", spawnCategory)
-VJ.AddNPC("Children (Early)", "npc_vj_cofr_children_early", spawnCategory)
-VJ.AddNPC("Citalopram", "npc_vj_cofr_citalopram", spawnCategory)
-VJ.AddNPC("Crawler", "npc_vj_cofr_crawler", spawnCategory)
-VJ.AddNPC("Crazyrunner", "npc_vj_cofr_crazyrunner", spawnCategory)
-VJ.AddNPC("Croucher", "npc_vj_cofr_croucher", spawnCategory)
-VJ.AddNPC("Dreamer (Runner)", "npc_vj_cofr_dreamer_runner", spawnCategory)
-VJ.AddNPC("Drowned", "npc_vj_cofr_drowned", spawnCategory)
-VJ.AddNPC("Faceless", "npc_vj_cofr_faceless", spawnCategory)
-VJ.AddNPC("Faceless (Crawler)", "npc_vj_cofr_faceless_crawler", spawnCategory)
-VJ.AddNPC("Faceless (Crawler) (Beta)", "npc_vj_cofr_faceless_crawler_beta", spawnCategory)
-VJ.AddNPC("Faceless (Beta)", "npc_vj_cofr_faceless_beta", spawnCategory)
-VJ.AddNPC("Faceless (Faced)", "npc_vj_cofr_faceless_faced", spawnCategory)
-VJ.AddNPC("Faceless (Twister)", "npc_vj_cofr_faceless_twister", spawnCategory)
-VJ.AddNPC("Faceless (Twister Valve)", "npc_vj_cofr_faceless_twistervalve", spawnCategory)
-VJ.AddNPC("Faster", "npc_vj_cofr_faster", spawnCategory)
-VJ.AddNPC("Faster (Male)", "npc_vj_cofr_faster_male", spawnCategory)
-VJ.AddNPC("Flygare", "npc_vj_cofr_flygare", spawnCategory)
-VJ.AddNPC("Krypandenej", "npc_vj_cofr_krypandenej", spawnCategory)
-VJ.AddNPC("Psycho", "npc_vj_cofr_psycho", spawnCategory)
-VJ.AddNPC("Sewmo", "npc_vj_cofr_sewmo", spawnCategory)
-VJ.AddNPC("Slower 1", "npc_vj_cofr_slower1", spawnCategory)
-VJ.AddNPC("Slower 1 (Beta)", "npc_vj_cofr_slower1_beta", spawnCategory)
-VJ.AddNPC("Slower 3", "npc_vj_cofr_slower3", spawnCategory)
-VJ.AddNPC("Slower 3 (Beta)", "npc_vj_cofr_slower3_beta", spawnCategory)
-VJ.AddNPC("Slower No", "npc_vj_cofr_slowerno", spawnCategory)
-VJ.AddNPC("Slower Ten", "npc_vj_cofr_slowerten", spawnCategory)
-VJ.AddNPC("Slower Ten-2", "npc_vj_cofr_slowerten2", spawnCategory)
-VJ.AddNPC("Spitter", "npc_vj_cofr_spitter", spawnCategory)
-VJ.AddNPC("Stranger", "npc_vj_cofr_stranger", spawnCategory)
-VJ.AddNPC("Suicider", "npc_vj_cofr_suicider", spawnCategory)
-VJ.AddNPC("Taller", "npc_vj_cofr_taller", spawnCategory)
-VJ.AddNPC("Upper", "npc_vj_cofr_upper", spawnCategory)
+local subCategory = "Cry of Fear"
+VJ.AddNPC("Baby", "npc_vj_cofr_baby", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Children", "npc_vj_cofr_children", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Children (Beta)", "npc_vj_cofr_children_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Children (Early)", "npc_vj_cofr_children_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Citalopram", "npc_vj_cofr_citalopram", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Crawler", "npc_vj_cofr_crawler", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Crazyrunner", "npc_vj_cofr_crazyrunner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Croucher", "npc_vj_cofr_croucher", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Dreamer (Runner)", "npc_vj_cofr_dreamer_runner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Drowned", "npc_vj_cofr_drowned", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless", "npc_vj_cofr_faceless", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Crawler)", "npc_vj_cofr_faceless_crawler", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Crawler) (Beta)", "npc_vj_cofr_faceless_crawler_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Beta)", "npc_vj_cofr_faceless_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Faced)", "npc_vj_cofr_faceless_faced", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Twister)", "npc_vj_cofr_faceless_twister", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Twister Valve)", "npc_vj_cofr_faceless_twistervalve", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faster", "npc_vj_cofr_faster", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faster (Male)", "npc_vj_cofr_faster_male", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Flygare", "npc_vj_cofr_flygare", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Krypandenej", "npc_vj_cofr_krypandenej", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Psycho", "npc_vj_cofr_psycho", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sewmo", "npc_vj_cofr_sewmo", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower 1", "npc_vj_cofr_slower1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower 1 (Beta)", "npc_vj_cofr_slower1_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower 3", "npc_vj_cofr_slower3", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower 3 (Beta)", "npc_vj_cofr_slower3_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower No", "npc_vj_cofr_slowerno", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower Ten", "npc_vj_cofr_slowerten", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower Ten-2", "npc_vj_cofr_slowerten2", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Spitter", "npc_vj_cofr_spitter", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Stranger", "npc_vj_cofr_stranger", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Suicider", "npc_vj_cofr_suicider", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Taller", "npc_vj_cofr_taller", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Upper", "npc_vj_cofr_upper", spawnCategory, {SubCategory = subCategory})
 
 -- Bosses --
-VJ.AddNPC("Book Simon", "npc_vj_cofr_simonbook", spawnCategory)
-VJ.AddNPC("Book Simon (Beta)", "npc_vj_cofr_simonbook_beta", spawnCategory)
-VJ.AddNPC("Book Simon (Manhunt)", "npc_vj_cofr_simonbook_mh", spawnCategory)
-VJ.AddNPC("Book Simon (Manhunt) (Beta)", "npc_vj_cofr_simonbook_mh_beta", spawnCategory)
-VJ.AddNPC("Carcass", "npc_vj_cofr_carcass", spawnCategory)
-VJ.AddNPC("Craig", "npc_vj_cofr_craig", spawnCategory)
-VJ.AddNPC("Doctor Purnell", "npc_vj_cofr_purnell", spawnCategory)
-VJ.AddNPC("Mace", "npc_vj_cofr_mace", spawnCategory)
-VJ.AddNPC("Sawcrazy", "npc_vj_cofr_sawcrazy", spawnCategory)
-VJ.AddNPC("Sawer", "npc_vj_cofr_sawer", spawnCategory)
-VJ.AddNPC("Sawrunner", "npc_vj_cofr_sawrunner", spawnCategory)
-VJ.AddNPC("Sick Simon", "npc_vj_cofr_simonsick", spawnCategory)
-VJ.AddNPC("Sick Simon (Suicider)", "npc_vj_cofr_simonsick_suicider", spawnCategory)
+VJ.AddNPC("Book Simon", "npc_vj_cofr_simonbook", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Book Simon (Beta)", "npc_vj_cofr_simonbook_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Book Simon (Manhunt)", "npc_vj_cofr_simonbook_mh", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Book Simon (Manhunt) (Beta)", "npc_vj_cofr_simonbook_mh_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Carcass", "npc_vj_cofr_carcass", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Craig", "npc_vj_cofr_craig", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Doctor Purnell", "npc_vj_cofr_purnell", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Mace", "npc_vj_cofr_mace", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sawcrazy", "npc_vj_cofr_sawcrazy", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sawer", "npc_vj_cofr_sawer", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sawrunner", "npc_vj_cofr_sawrunner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sick Simon", "npc_vj_cofr_simonsick", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sick Simon (Suicider)", "npc_vj_cofr_simonsick_suicider", spawnCategory, {SubCategory = subCategory})
 
 -- Friendlies --
-VJ.AddNPC("Doctor Purnell (Friendly)", "npc_vj_cofr_purnell_fri", spawnCategory)
-VJ.AddNPC("Simon Henriksson", "npc_vj_cofr_simon", spawnCategory)
-VJ.AddNPC("Simon Henriksson (Early)", "npc_vj_cofr_simon_early", spawnCategory)
-VJ.AddNPC("Simon Henriksson (Beta)", "npc_vj_cofr_simon_beta", spawnCategory)
-VJ.AddNPC("Simon Henriksson (Hoodless)", "npc_vj_cofr_simon_hoodless", spawnCategory)
-//VJ.AddNPC("Simon Henriksson (Source)", "npc_vj_cofr_simonsource", spawnCategory)
-VJ.AddNPC("Police Officer", "npc_vj_cofr_police", spawnCategory)
-VJ.AddNPC("Sawrunner (Friendly)", "npc_vj_cofr_sawrunner_fri", spawnCategory)
+VJ.AddNPC("Doctor Purnell (Friendly)", "npc_vj_cofr_purnell_fri", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Simon Henriksson", "npc_vj_cofr_simon", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Simon Henriksson (Early)", "npc_vj_cofr_simon_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Simon Henriksson (Beta)", "npc_vj_cofr_simon_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Simon Henriksson (Hoodless)", "npc_vj_cofr_simon_hoodless", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Police Officer", "npc_vj_cofr_police", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sawrunner (Friendly)", "npc_vj_cofr_sawrunner_fri", spawnCategory, {SubCategory = subCategory})
 
 -- Screamers/Hazards --
-VJ.AddNPC("Dreamer", "npc_vj_cofr_dreamer", spawnCategory)
-VJ.AddNPC("Hanger", "npc_vj_cofr_hanger", spawnCategory)
-VJ.AddNPC("Hanger (Beta)", "npc_vj_cofr_hanger_beta", spawnCategory)
-VJ.AddNPC("Hangman", "npc_vj_cofr_hangman", spawnCategory)
-VJ.AddNPC("Human Flower", "npc_vj_cofr_humanflower", spawnCategory)
-VJ.AddNPC("The Face", "npc_vj_cofr_facehead", spawnCategory)
-VJ.AddNPC("The Face (Jumpscare)", "npc_vj_cofr_facehead_jumpscare", spawnCategory)
-VJ.AddNPC("Watro", "npc_vj_cofr_watro", spawnCategory)
+VJ.AddNPC("Dreamer", "npc_vj_cofr_dreamer", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Hanger", "npc_vj_cofr_hanger", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Hanger (Beta)", "npc_vj_cofr_hanger_beta", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Hangman", "npc_vj_cofr_hangman", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Human Flower", "npc_vj_cofr_humanflower", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("The Face", "npc_vj_cofr_facehead", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("The Face (Jumpscare)", "npc_vj_cofr_facehead_jumpscare", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Watro", "npc_vj_cofr_watro", spawnCategory, {SubCategory = subCategory})
 
 -- Apparitions/Scenery --
-VJ.AddNPC("Blacker", "sent_vj_cofr_blacker", spawnCategory)
-VJ.AddNPC("Corpse", "sent_vj_cofr_corpse", spawnCategory)
-VJ.AddNPC("Corpse (Hanging)", "sent_vj_cofr_corpse_hanging", spawnCategory)
-VJ.AddNPC("Cutter", "sent_vj_cofr_cutter", spawnCategory)
-VJ.AddNPC("Dead Victim", "sent_vj_cofr_deadvictim", spawnCategory)
-VJ.AddNPC("Dead Victim (Headless)", "sent_vj_cofr_deadvictim_headless", spawnCategory)
-VJ.AddNPC("Ghost", "sent_vj_cofr_ghost", spawnCategory)
-VJ.AddNPC("Drowned (Apparition)", "sent_vj_cofr_drowned_apparition", spawnCategory)
-VJ.AddNPC("Hanger (Dead)", "sent_vj_cofr_hanger_dead", spawnCategory)
-VJ.AddNPC("Police Officer (Dead)", "sent_vj_cofr_police_dead", spawnCategory)
-VJ.AddNPC("Slower (Dead)", "sent_vj_cofr_slower_dead", spawnCategory)
-
--- CoF Random & Spawners --
-VJ.AddNPC("Monster Map Spawner", "sent_vj_cofr_mapspawner", spawnCategory)
-VJ.AddNPC("Random Monster", "sent_vj_cofr_mon", spawnCategory)
-VJ.AddNPC("Random Monster Spawner", "sent_vj_cofr_mon_sp", spawnCategory)
-VJ.AddNPC("Random Monster Spawner (Single)", "sent_vj_cofr_mon_sinsp", spawnCategory)
+VJ.AddNPC("Blacker", "sent_vj_cofr_blacker", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Corpse", "sent_vj_cofr_corpse", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Corpse (Hanging)", "sent_vj_cofr_corpse_hanging", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Cutter", "sent_vj_cofr_cutter", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Dead Victim", "sent_vj_cofr_deadvictim", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Dead Victim (Headless)", "sent_vj_cofr_deadvictim_headless", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Ghost", "sent_vj_cofr_ghost", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Drowned (Apparition)", "sent_vj_cofr_drowned_apparition", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Hanger (Dead)", "sent_vj_cofr_hanger_dead", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Police Officer (Dead)", "sent_vj_cofr_police_dead", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower (Dead)", "sent_vj_cofr_slower_dead", spawnCategory, {SubCategory = subCategory})
 
 -- Cry of Fear Custom Campaigns -- All assets come from their respective Custom Campaigns: Halloween Collab, Lost Echo, Memories, Out of It, Recidivist & The Scrolls of Shaimoon
-local spawnCategory = "CoF Resurgence: Custom Campaigns"
-VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofr.png"})
-
 -- Enemies --
-VJ.AddNPC("Baby (Out of It)", "npc_vj_cofrcc_baby_ooi", spawnCategory)
-VJ.AddNPC("CrazyruMpel", "npc_vj_cofrcc_crazyrumpel", spawnCategory)
-VJ.AddNPC("Crazyrunner (Mummy)", "npc_vj_cofrcc_crazyrunner_mummy", spawnCategory)
-VJ.AddNPC("Cutter", "npc_vj_cofrcc_cutter", spawnCategory)
-VJ.AddNPC("Faceless (Mummy)", "npc_vj_cofrcc_faceless_mummy", spawnCategory)
-VJ.AddNPC("Faceless (Mummy Crawler)", "npc_vj_cofrcc_faceless_mummycrawl", spawnCategory)
-VJ.AddNPC("Faceless (Statue)", "npc_vj_cofrcc_faceless_statue", spawnCategory)
-VJ.AddNPC("Faceless (Mummy Twister)", "npc_vj_cofrcc_faceless_mummytwister", spawnCategory)
-VJ.AddNPC("Faster (Clown)", "npc_vj_cofrcc_faster_clown", spawnCategory)
-VJ.AddNPC("Faster (Out of It)", "npc_vj_cofrcc_faster_ooi", spawnCategory)
-VJ.AddNPC("Genome Giant", "npc_vj_cofrcc_genome_giant", spawnCategory)
-VJ.AddNPC("Genome Soldier", "npc_vj_cofrcc_genome_soldier", spawnCategory)
-VJ.AddNPC("Mother", "npc_vj_cofrcc_mother", spawnCategory)
-VJ.AddNPC("Mother (Real)", "npc_vj_cofrcc_mother_real", spawnCategory)
-VJ.AddNPC("Patrick Bateman", "npc_vj_cofrcc_patrick", spawnCategory)
-VJ.AddNPC("Pedoslow", "npc_vj_cofrcc_pedoslow", spawnCategory)
-VJ.AddNPC("Psycho (Lost Echo)", "npc_vj_cofrcc_psycho_le", spawnCategory)
-VJ.AddNPC("Shaimoon (Statue)", "npc_vj_cofrcc_shaimoon_statue", spawnCategory)
-VJ.AddNPC("Sick Sophie", "npc_vj_cofrcc_sicksophie", spawnCategory)
-VJ.AddNPC("Skeleton", "npc_vj_cofrcc_skeleton", spawnCategory)
-VJ.AddNPC("Slower 3 (Out of It)", "npc_vj_cofrcc_slower3_ooi", spawnCategory)
-VJ.AddNPC("Slower 1 (Mummy)", "npc_vj_cofrcc_slower1_mummy", spawnCategory)
+subCategory = "Cry of Fear: Custom Campaigns"
+VJ.AddNPC("Baby (Out of It)", "npc_vj_cofrcc_baby_ooi", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("CrazyruMpel", "npc_vj_cofrcc_crazyrumpel", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Crazyrunner (Mummy)", "npc_vj_cofrcc_crazyrunner_mummy", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Cutter", "npc_vj_cofrcc_cutter", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Mummy)", "npc_vj_cofrcc_faceless_mummy", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Mummy Crawler)", "npc_vj_cofrcc_faceless_mummycrawl", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Statue)", "npc_vj_cofrcc_faceless_statue", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Mummy Twister)", "npc_vj_cofrcc_faceless_mummytwister", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faster (Clown)", "npc_vj_cofrcc_faster_clown", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faster (Out of It)", "npc_vj_cofrcc_faster_ooi", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Genome Giant", "npc_vj_cofrcc_genome_giant", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Genome Soldier", "npc_vj_cofrcc_genome_soldier", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Mother", "npc_vj_cofrcc_mother", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Mother (Real)", "npc_vj_cofrcc_mother_real", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Patrick Bateman", "npc_vj_cofrcc_patrick", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Pedoslow", "npc_vj_cofrcc_pedoslow", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Psycho (Lost Echo)", "npc_vj_cofrcc_psycho_le", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Shaimoon (Statue)", "npc_vj_cofrcc_shaimoon_statue", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sick Sophie", "npc_vj_cofrcc_sicksophie", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Skeleton", "npc_vj_cofrcc_skeleton", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower 3 (Out of It)", "npc_vj_cofrcc_slower3_ooi", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Slower 1 (Mummy)", "npc_vj_cofrcc_slower1_mummy", spawnCategory, {SubCategory = subCategory})
 
 -- Bosses --
-VJ.AddNPC("Blob", "npc_vj_cofrcc_blob", spawnCategory)
-VJ.AddNPC("Craigrunner", "npc_vj_cofrcc_craigrunner", spawnCategory)
-VJ.AddNPC("Crocodile", "npc_vj_cofrcc_crocodile", spawnCategory)
-VJ.AddNPC("Duorunner", "npc_vj_cofrcc_duorunner", spawnCategory)
-VJ.AddNPC("Faceless (Boss)", "npc_vj_cofrcc_faceless_boss", spawnCategory)
-VJ.AddNPC("Jeffrunner", "npc_vj_cofrcc_jeffrunner", spawnCategory)
-VJ.AddNPC("Mace (Out of It)", "npc_vj_cofrcc_mace_ooi", spawnCategory)
-VJ.AddNPC("Patrick Bateman (Boss)", "npc_vj_cofrcc_patrick_boss", spawnCategory)
-VJ.AddNPC("Pumpa", "npc_vj_cofrcc_pumpa", spawnCategory)
-VJ.AddNPC("Shaimoon", "npc_vj_cofrcc_shaimoon", spawnCategory)
-VJ.AddNPC("Sick Simon (Book)", "npc_vj_cofrcc_simonsick_book", spawnCategory)
-VJ.AddNPC("Abomination", "npc_vj_cofrcc_abomination", spawnCategory)
-VJ.AddNPC("The Mummy", "npc_vj_cofrcc_mummy", spawnCategory)
+VJ.AddNPC("Blob", "npc_vj_cofrcc_blob", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Craigrunner", "npc_vj_cofrcc_craigrunner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Crocodile", "npc_vj_cofrcc_crocodile", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Duorunner", "npc_vj_cofrcc_duorunner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Faceless (Boss)", "npc_vj_cofrcc_faceless_boss", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Jeffrunner", "npc_vj_cofrcc_jeffrunner", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Mace (Out of It)", "npc_vj_cofrcc_mace_ooi", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Patrick Bateman (Boss)", "npc_vj_cofrcc_patrick_boss", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Pumpa", "npc_vj_cofrcc_pumpa", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Shaimoon", "npc_vj_cofrcc_shaimoon", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sick Simon (Book)", "npc_vj_cofrcc_simonsick_book", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Abomination", "npc_vj_cofrcc_abomination", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("The Mummy", "npc_vj_cofrcc_mummy", spawnCategory, {SubCategory = subCategory})
 
 -- Friendlies --
-VJ.AddNPC("Robert", "npc_vj_cofrcc_robert", spawnCategory)
-VJ.AddNPC("Roderick Henriksson", "npc_vj_cofrcc_roderick", spawnCategory)
+VJ.AddNPC("Robert", "npc_vj_cofrcc_robert", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Roderick Henriksson", "npc_vj_cofrcc_roderick", spawnCategory, {SubCategory = subCategory})
 
 -- Misc/Hazards --
-VJ.AddNPC("Meatman", "npc_vj_cofrcc_meatman", spawnCategory)
-VJ.AddNPC("The Face (Out of It)", "npc_vj_cofrcc_facehead_ooi", spawnCategory)
+VJ.AddNPC("Meatman", "npc_vj_cofrcc_meatman", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("The Face (Out of It)", "npc_vj_cofrcc_facehead_ooi", spawnCategory, {SubCategory = subCategory})
 
 -- Apparitions --
-VJ.AddNPC("Corpse", "sent_vj_cofrcc_corpse", spawnCategory)
-VJ.AddNPC("Meatman (Dead)", "sent_vj_cofrcc_meatman_dead", spawnCategory)
+VJ.AddNPC("Corpse", "sent_vj_cofrcc_corpse", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Meatman (Dead)", "sent_vj_cofrcc_meatman_dead", spawnCategory, {SubCategory = subCategory})
 
--- Afraid of Monsters: Classic/Director's Cut/Dark Assistance --
+-- Afraid of Monsters --
 spawnCategory = "CoF Resurgence: AoM"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofraom.png"})
 
--- Enemies --
-VJ.AddNPC("Face", "npc_vj_cofraom_face", spawnCategory)
-VJ.AddNPC("Face (Classic)", "npc_vj_cofraomc_face", spawnCategory)
-VJ.AddNPC("Ghost", "npc_vj_cofraom_ghost", spawnCategory)
-VJ.AddNPC("Ghost (Classic)", "npc_vj_cofraomc_ghost", spawnCategory)
-VJ.AddNPC("Handcrab", "npc_vj_cofraom_handcrab", spawnCategory)
-VJ.AddNPC("Headcrab", "npc_vj_cofraomc_headcrab", spawnCategory)
-VJ.AddNPC("Hellhound", "npc_vj_cofraom_hellhound", spawnCategory)
-VJ.AddNPC("Hellhound (Classic)", "npc_vj_cofraomc_hellhound", spawnCategory)
-VJ.AddNPC("Lurker", "npc_vj_cofraomc_lurker", spawnCategory)
-VJ.AddNPC("Spitter", "npc_vj_cofraom_spitter", spawnCategory)
-VJ.AddNPC("Spitter (Classic)", "npc_vj_cofraomc_spitter", spawnCategory)
-VJ.AddNPC("Screamer", "npc_vj_cofraom_screamer", spawnCategory)
-VJ.AddNPC("Screamer (Classic)", "npc_vj_cofraomc_screamer", spawnCategory)
-VJ.AddNPC("Twitcher (Classic)", "npc_vj_cofraomc_twitcher", spawnCategory)
-VJ.AddNPC("Twitcher 1", "npc_vj_cofraom_twitcher1", spawnCategory)
-VJ.AddNPC("Twitcher 2", "npc_vj_cofraom_twitcher2", spawnCategory)
-VJ.AddNPC("Twitcher 3", "npc_vj_cofraom_twitcher3", spawnCategory)
-VJ.AddNPC("Twitcher 4", "npc_vj_cofraom_twitcher4", spawnCategory)
-VJ.AddNPC("Twitcher (Dark Assistance)", "npc_vj_cofraomda_twitcher", spawnCategory)
-VJ.AddNPC("Wheelchair Twitcher", "npc_vj_cofraom_wheelchair", spawnCategory)
-
--- Bosses --
-VJ.AddNPC("The Addiction", "npc_vj_cofraom_addiction", spawnCategory)
-VJ.AddNPC("The Addiction (Dark Assistance)", "npc_vj_cofraomda_addiction", spawnCategory)
-
--- Friendlies --
-VJ.AddNPC("Assistor", "npc_vj_cofraomda_assistor", spawnCategory)
-VJ.AddNPC("David Leatherhoff", "npc_vj_cofraom_david", spawnCategory)
-VJ.AddNPC("David Leatherhoff (Classic)", "npc_vj_cofraomc_david", spawnCategory)
-VJ.AddNPC("David Leatherhoff (Dead)", "npc_vj_cofraom_david_dead", spawnCategory)
-VJ.AddNPC("David Leatherhoff (Dead) (Classic)", "npc_vj_cofraomc_david_dead", spawnCategory)
-VJ.AddNPC("David Leatherhoff (Dark Assistance)", "npc_vj_cofraomda_david", spawnCategory)
-VJ.AddNPC("David Leatherhoff (Dead) (Dark Assistance)", "npc_vj_cofraomda_david_dead", spawnCategory)
-VJ.AddNPC("David Leatherhoff (Early)", "npc_vj_cofraomc_david_early", spawnCategory)
-//VJ.AddNPC("David Leatherhoff (Source)", "npc_vj_cofraom_davidsource", spawnCategory)
-
--- Misc/Hazards --
-VJ.AddNPC("Devourer", "npc_vj_cofraom_devourer", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
-VJ.AddNPC("Devourer (Classic)", "npc_vj_cofraomc_devourer", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
-
 -- Apparitions --
-VJ.AddNPC("David (Corpse) (Classic)", "sent_vj_cofraomc_david_corpse", spawnCategory)
 VJ.AddNPC("David (Corpse) (Grey)", "sent_vj_cofraom_david_corpse_grey", spawnCategory)
-VJ.AddNPC("David (Hanging)", "sent_vj_cofraom_david_hanging", spawnCategory)
-VJ.AddNPC("David (Hanging) (Dark Assistance)", "sent_vj_cofraomda_david_hanging", spawnCategory)
-VJ.AddNPC("Sick Corpse", "sent_vj_cofraom_sickcorpse", spawnCategory)
 
--- AoM:DC Random & Spawners --
+-- Random & Spawners --
 VJ.AddNPC("Monster Map Spawner", "sent_vj_cofraom_mapspawner", spawnCategory)
 VJ.AddNPC("Random Monster", "sent_vj_cofraom_mon", spawnCategory)
 VJ.AddNPC("Random Monster Spawner", "sent_vj_cofraom_mon_sp", spawnCategory)
 VJ.AddNPC("Random Monster Spawner (Single)", "sent_vj_cofraom_mon_sinsp", spawnCategory)
 
--- AoM:DC Entities
+-- Enemies --
+subCategory = "Afraid of Monsters: Director's Cut"
+VJ.AddNPC("Face", "npc_vj_cofraom_face", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Ghost", "npc_vj_cofraom_ghost", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Handcrab", "npc_vj_cofraom_handcrab", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Headcrab", "npc_vj_cofraomc_headcrab", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Hellhound", "npc_vj_cofraom_hellhound", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Spitter", "npc_vj_cofraom_spitter", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Screamer", "npc_vj_cofraom_screamer", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Twitcher 1", "npc_vj_cofraom_twitcher1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Twitcher 2", "npc_vj_cofraom_twitcher2", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Twitcher 3", "npc_vj_cofraom_twitcher3", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Twitcher 4", "npc_vj_cofraom_twitcher4", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Wheelchair Twitcher", "npc_vj_cofraom_wheelchair", spawnCategory, {SubCategory = subCategory})
+
+-- Bosses --
+VJ.AddNPC("The Addiction", "npc_vj_cofraom_addiction", spawnCategory, {SubCategory = subCategory})
+
+-- Misc/Hazards --
+VJ.AddNPC("Devourer", "npc_vj_cofraom_devourer", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+
+-- Friendlies --
+VJ.AddNPC("David Leatherhoff", "npc_vj_cofraom_david", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("David Leatherhoff (Dead)", "npc_vj_cofraom_david_dead", spawnCategory, {SubCategory = subCategory})
+
+-- Apparitions --
+VJ.AddNPC("David (Hanging)", "sent_vj_cofraom_david_hanging", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sick Corpse", "sent_vj_cofraom_sickcorpse", spawnCategory, {SubCategory = subCategory})
+
+-- Enemies --
+subCategory = "Afraid of Monsters: Classic"
+VJ.AddNPC("Face (Classic)", "npc_vj_cofraomc_face", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Ghost (Classic)", "npc_vj_cofraomc_ghost", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Headcrab", "npc_vj_cofraomc_headcrab", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Hellhound (Classic)", "npc_vj_cofraomc_hellhound", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Lurker", "npc_vj_cofraomc_lurker", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Spitter (Classic)", "npc_vj_cofraomc_spitter", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Screamer (Classic)", "npc_vj_cofraomc_screamer", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Twitcher (Classic)", "npc_vj_cofraomc_twitcher", spawnCategory, {SubCategory = subCategory})
+
+-- Misc/Hazards --
+VJ.AddNPC("Devourer (Classic)", "npc_vj_cofraomc_devourer", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+
+-- Friendlies --
+VJ.AddNPC("David Leatherhoff (Classic)", "npc_vj_cofraomc_david", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("David Leatherhoff (Dead) (Classic)", "npc_vj_cofraomc_david_dead", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("David Leatherhoff (Early)", "npc_vj_cofraomc_david_early", spawnCategory, {SubCategory = subCategory})
+
+-- Apparitions --
+VJ.AddNPC("David (Corpse) (Classic)", "sent_vj_cofraomc_david_corpse", spawnCategory, {SubCategory = subCategory})
+
+-- Enemies --
+subCategory = "Afraid of Monsters: Dark Assistance"
+VJ.AddNPC("Twitcher (Dark Assistance)", "npc_vj_cofraomda_twitcher", spawnCategory, {SubCategory = subCategory})
+
+-- Bosses --
+VJ.AddNPC("The Addiction (Dark Assistance)", "npc_vj_cofraomda_addiction", spawnCategory, {SubCategory = subCategory})
+
+-- Friendlies --
+VJ.AddNPC("Assistor", "npc_vj_cofraomda_assistor", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("David Leatherhoff (Dark Assistance)", "npc_vj_cofraomda_david", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("David Leatherhoff (Dead) (Dark Assistance)", "npc_vj_cofraomda_david_dead", spawnCategory, {SubCategory = subCategory})
+
+-- Apparitions --
+VJ.AddNPC("David (Hanging) (Dark Assistance)", "sent_vj_cofraomda_david_hanging", spawnCategory, {SubCategory = subCategory})
+
+-- Entities --
 VJ.AddEntity("Pills", "sent_vj_cofraom_pills", spawnCategory)
 VJ.AddEntity("Pills (Dark Assistance)", "sent_vj_cofraom_pills_da", spawnCategory)
 
