@@ -138,7 +138,7 @@ function ENT:RangeAttackProjVel(projectile)
     return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Line", projectile:GetPos(), 1, 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect

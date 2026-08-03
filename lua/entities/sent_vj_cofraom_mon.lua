@@ -37,35 +37,35 @@ local entsList = {
     "npc_vj_cofraomc_screamer:25"
 }
 ENT.EntitiesToSpawn = {
-    {SpawnPosition = Vector(0, 0, 0), Entities = entsList},
+    {SpawnPosition = Vector(), Entities = entsList},
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- if GetConVar("VJ_COFR_Boss_Spawner"):GetInt() == 0 then return end
+    if GetConVar("VJ_COFR_Boss_Spawner"):GetInt() == 0 then return end
     entsList = {
-    "npc_vj_cofraom_twitcher1",
-    "npc_vj_cofraom_twitcher2",
-    "npc_vj_cofraom_twitcher3",
-    "npc_vj_cofraom_twitcher4",
-    "npc_vj_cofraomda_twitcher",
-    "npc_vj_cofraom_handcrab:5",
-    "npc_vj_cofraom_wheelchair:10",
-    "npc_vj_cofraom_spitter:15",
-    "npc_vj_cofraom_face:25",
-    "npc_vj_cofraom_hellhound:10",
-    "npc_vj_cofraom_ghost:20",
-    "npc_vj_cofraom_screamer:25",
-    "npc_vj_cofraomc_twitcher",
-    "npc_vj_cofraomc_headcrab:5",
-    "npc_vj_cofraomc_hellhound:10",
-    "npc_vj_cofraomc_spitter:15",
-    "npc_vj_cofraomc_ghost:20",
-    "npc_vj_cofraomc_face:25",
-    "npc_vj_cofraomc_screamer:25",
-    "npc_vj_cofraom_addiction:60",
-    "npc_vj_cofraomda_addiction:60"
-}
-self.EntitiesToSpawn = {
-    {SpawnPosition = Vector(0, 0, 0), Entities = entsList},
-}
+        "npc_vj_cofraom_twitcher1",
+        "npc_vj_cofraom_twitcher2",
+        "npc_vj_cofraom_twitcher3",
+        "npc_vj_cofraom_twitcher4",
+        "npc_vj_cofraomda_twitcher",
+        "npc_vj_cofraom_handcrab:5",
+        "npc_vj_cofraom_wheelchair:10",
+        "npc_vj_cofraom_spitter:15",
+        "npc_vj_cofraom_face:25",
+        "npc_vj_cofraom_hellhound:10",
+        "npc_vj_cofraom_ghost:20",
+        "npc_vj_cofraom_screamer:25",
+        "npc_vj_cofraomc_twitcher",
+        "npc_vj_cofraomc_headcrab:5",
+        "npc_vj_cofraomc_hellhound:10",
+        "npc_vj_cofraomc_spitter:15",
+        "npc_vj_cofraomc_ghost:20",
+        "npc_vj_cofraomc_face:25",
+        "npc_vj_cofraomc_screamer:25",
+        "npc_vj_cofraom_addiction:60",
+        "npc_vj_cofraomda_addiction:60"
+    }
+    self.EntitiesToSpawn = {
+        {SpawnPosition = Vector(), Entities = entsList},
+    }
 end

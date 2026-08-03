@@ -256,7 +256,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" && hitgroup != 8 then

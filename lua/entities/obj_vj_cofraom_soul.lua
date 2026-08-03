@@ -25,7 +25,7 @@ ENT.DoesDirectDamage = true
 ENT.DirectDamageType = DMG_SHOCK
 ENT.HasOnCollideSounds = false
 -- Custom
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 
 ENT.Track_Ent = NULL
 ENT.Track_Position = defVec

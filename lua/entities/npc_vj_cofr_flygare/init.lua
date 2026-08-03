@@ -183,7 +183,7 @@ function ENT:RangeAttackProjPos(projectile)
     return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     -- Make a metal ricochet effect

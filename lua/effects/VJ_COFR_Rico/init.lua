@@ -38,7 +38,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
     /*end*/
 
     local fx = Emitter:Add("vj_cofr/rico1", self.Pos)
-    fx:SetVelocity(Vector(0, 0, 0))
+    fx:SetVelocity(Vector())
     fx:SetAirResistance(160)
     fx:SetDieTime(0.15)
     fx:SetStartAlpha(255)

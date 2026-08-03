@@ -1003,7 +1003,7 @@ function VJ_COFR_DeathCode(ent)
         local phys = ammoDrop:GetPhysicsObject()
         if IsValid(phys) then
             phys:SetMass(1)
-            phys:ApplyForceCenter(Vector(0, 0, 0))
+            phys:ApplyForceCenter(Vector())
         end
     end
 end

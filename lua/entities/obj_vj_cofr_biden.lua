@@ -31,7 +31,7 @@ ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Head_ChaseSpeed = 500
 
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy

@@ -36,7 +36,7 @@ ENT.SoundTbl_OnCollide = {
 }
 ENT.IdleSoundPitch = VJ.SET(100,100)
 -- Custom
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 
 ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
