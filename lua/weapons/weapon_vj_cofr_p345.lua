@@ -15,10 +15,12 @@ SWEP.HoldType = "pistol"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-14, -1, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-2.5, 3.5, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(4.017, 0.939, 1.575),
+    Ang = Angle(13.998, -1.031, 89.751)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 20
 SWEP.Primary.ClipSize = 8
@@ -38,35 +40,37 @@ function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
         self.Primary.Sound = "VJ.CoFR_P345_Old.Single"
     end
-    local owner = self:GetOwner()
-    if IsValid(owner) then
-        local ownerClass = owner:GetClass()
-        if ownerClass == "npc_vj_cofr_purnell" then
-            self.WorldModel_CustomPositionAngle = Vector(80, -20, 10)
-            self.WorldModel_CustomPositionOrigin = Vector(-3.2, 4, -1)
-        elseif ownerClass == "npc_vj_cofr_simon_beta" then
-            self.WorldModel_CustomPositionOrigin = Vector(-2, 3.2, -1)
-        elseif ownerClass == "npc_vj_cofr_police" then
-            self.WorldModel_CustomPositionOrigin = Vector(-2, 3.5, -1)
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) then
+            local owner = self:GetOwner()
+            local ownerClass = owner:GetClass()
+            if ownerClass == "npc_vj_cofr_purnell" then
+                self.WorldModelOffsetParams.Ang = Angle(-67.731, -64.494, 72.727)
+                self.WorldModelOffsetParams.Pos = Vector(1.273, 1.756, 4.747)
+            elseif ownerClass == "npc_vj_cofr_simon_beta" then
+                self.WorldModelOffsetParams.Pos = Vector(3.605, 0.944, 1.162)
+            elseif ownerClass == "npc_vj_cofr_police" then
+                self.WorldModelOffsetParams.Pos = Vector(3.896, 0.939, 1.09)
+            end
         end
-        if ownerClass == "npc_vj_cofr_purnell" then
-            self.NPC_NextPrimaryFire = 1
-            if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
-                self.Primary.Damage = 8
-            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
-                self.Primary.Damage = 10
-            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
-                self.Primary.Damage = 15
-            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
-                self.Primary.Damage = 30
-            end
-            if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-                self.NPC_ReloadSound =
-                    "vj_cofr/cof/doctorboss/old/p345_reload.wav"
-            else
-                self.NPC_ReloadSound =
-                    "vj_cofr/cof/doctorboss/p345_reload.wav"
-            end
+    end)
+    if IsValid(self:GetOwner()) && self:GetOwner():GetClass() == "npc_vj_cofr_purnell" then
+        self.NPC_NextPrimaryFire = 1
+        if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+            self.Primary.Damage = 8
+        elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+            self.Primary.Damage = 10
+        elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+            self.Primary.Damage = 15
+        elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+            self.Primary.Damage = 30
+        end
+        if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+            self.NPC_ReloadSound =
+                "vj_cofr/cof/doctorboss/old/p345_reload.wav"
+        else
+            self.NPC_ReloadSound =
+                "vj_cofr/cof/doctorboss/p345_reload.wav"
         end
     end
 end

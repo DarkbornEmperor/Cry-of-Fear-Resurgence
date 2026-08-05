@@ -21,10 +21,12 @@ SWEP.HoldType = "shotgun"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(55, 181, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-8, -8.5, -1.5)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(11.413, 1.648, 2.352),
+    Ang = Angle(54.988, -178.257, -88.572)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 8
@@ -43,10 +45,6 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.90)
-    /*local owner = self:GetOwner()
-    if IsValid(owner) && owner:GetClass() == "npc_vj_cofraomda_david" then
-        self.WorldModel_CustomPositionOrigin = Vector(-9, -8, -0.8)
-    end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)

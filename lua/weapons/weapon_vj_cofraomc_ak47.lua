@@ -22,10 +22,12 @@ SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-2.5, 175, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-0.5, -9, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(8.979, -0.784, 0.108),
+    Ang = Angle(-2.49, 174.995, 90.218)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 16
 SWEP.Primary.ClipSize = 50

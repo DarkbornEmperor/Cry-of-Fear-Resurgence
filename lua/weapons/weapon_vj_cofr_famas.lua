@@ -16,10 +16,12 @@ SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-32, 5, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(4, 1.171, 2.807),
+    Ang = Angle(31.864, 5.89, 93.117)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 16
 SWEP.Primary.ClipSize = 30
@@ -43,15 +45,6 @@ function SWEP:Init()
         self.Primary.EndSound = "VJ.CoFR_FAMAS_Old.Single"
     end
     self:SetModelScale(0.60)
-    local owner = self:GetOwner()
-    if IsValid(owner) then
-        local ownerClass = owner:GetClass()
-        if ownerClass == "npc_vj_cofr_simon_beta" then
-            self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
-        elseif ownerClass == "npc_vj_cofr_police" then
-            self.WorldModel_CustomPositionOrigin = Vector(-4.5, 2, -1)
-        end
-    end
     if self.Primary.UsesLoopedSound then
         self.PrimarySound = self.Primary.Sound
         self.Primary.Sound = nil

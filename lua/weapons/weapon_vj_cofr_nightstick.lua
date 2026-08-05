@@ -10,10 +10,12 @@ SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_nightstick.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 11
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-350, -180, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1.5, 0, -1.8)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(0.26, 1.8, -1.477),
+    Ang = Angle(10, -180, -90)
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.90)

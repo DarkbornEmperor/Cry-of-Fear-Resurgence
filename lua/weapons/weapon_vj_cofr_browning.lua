@@ -15,10 +15,12 @@ SWEP.HoldType = "pistol"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(7, 4, 95)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1.8, 4.5, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(4.168, 1.151, 2.406),
+    Ang = Angle(-6.983, 4.03, 94.509)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 13
@@ -42,9 +44,9 @@ function SWEP:Init()
     if IsValid(owner) then
         local ownerClass = owner:GetClass()
         if ownerClass == "npc_vj_cofr_simon_beta" then
-            self.WorldModel_CustomPositionOrigin = Vector(-1.5, 4, -1)
+            self.WorldModelOffsetParams.Pos = Vector(3.708, 1.142, 2.049)
         elseif ownerClass == "npc_vj_cofr_police" then
-            self.WorldModel_CustomPositionOrigin = Vector(-1.3, 4.5, -1)
+            self.WorldModelOffsetParams.Pos = Vector(4.226, 1.195, 1.911)
         end
     end
 end

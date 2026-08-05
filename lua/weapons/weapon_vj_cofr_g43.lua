@@ -16,10 +16,12 @@ SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-94, 8, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(11, -2.8, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(11.167, -0.39, 1.999),
+    Ang = Angle(81.062, 116.397, 26.677)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 50
 SWEP.Primary.ClipSize = 10
@@ -37,15 +39,17 @@ SWEP.DryFireSound =
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.80)
-    local owner = self:GetOwner()
-    if IsValid(owner) then
-        local ownerClass = owner:GetClass()
-        if ownerClass == "npc_vj_cofr_simon_beta" then
-            self.WorldModel_CustomPositionOrigin = Vector(10, -2.8, -0.2)
-        elseif ownerClass == "npc_vj_cofr_police" then
-            self.WorldModel_CustomPositionOrigin = Vector(11, -2.8, -0.2)
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) then
+            local owner = self:GetOwner()
+            local ownerClass = owner:GetClass()
+            if ownerClass == "npc_vj_cofr_simon_beta" then
+                self.WorldModel_CustomPositionOrigin = Vector(10.167, -0.588, 2.041)
+            elseif ownerClass == "npc_vj_cofr_police" then
+                self.WorldModel_CustomPositionOrigin = Vector(11.165, -0.588, 1.971)
+            end
         end
-    end
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)

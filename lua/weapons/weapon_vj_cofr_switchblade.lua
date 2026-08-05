@@ -10,19 +10,24 @@ SWEP.WorldModel = "models/vj_cofr/cof/weapons/w_switchblade.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 6
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, -180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-2, -3.5, 0.45)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
-
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(3.5, 0.45, 2),
+    Ang = Angle(0, -180, 90)
+}
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.65)
     if math_random(1,2) == 1 then
         self.Primary.Damage = 9
-        self.WorldModel_CustomPositionAngle = Vector(0, -180, -90)
-        self.WorldModel_CustomPositionOrigin = Vector(-2, -3.2, -1.2)
+        timer.Simple(0.1, function()
+            if IsValid(self) then
+                self.WorldModelOffsetParams.Ang = Angle(0, -180, -90)
+                self.WorldModelOffsetParams.Pos = Vector(3.2, 1.2, -2)
+            end
+        end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

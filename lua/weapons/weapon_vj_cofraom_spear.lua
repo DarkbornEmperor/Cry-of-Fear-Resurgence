@@ -10,17 +10,15 @@ SWEP.WorldModel = "models/vj_cofr/aom/weapons/w_spear.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 50
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-100, -180, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(2.5, 15, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(5.067, 1, 14.338),
+    Ang = Angle(-80, 0, 90)
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.90)
-    /*local owner = self:GetOwner()
-    if IsValid(owner) && owner:GetClass() == "npc_vj_cofraomda_david" then
-        self.WorldModel_CustomPositionOrigin = Vector(4, 15, -1)
-    end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnDeploy()

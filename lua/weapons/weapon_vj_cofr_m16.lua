@@ -16,10 +16,12 @@ SWEP.CoFR_HoldType = "m16"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-92, 15, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(9, -2.5, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(9.079, -0.647, 2.099),
+    Ang = Angle(74.87, 97.421, 7.684)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 16
 SWEP.Primary.ClipSize = 20
@@ -40,15 +42,17 @@ function SWEP:Init()
         self.Primary.Sound = "VJ.CoFR_M16_Old.Single"
     end
     self:SetModelScale(0.85)
-    local owner = self:GetOwner()
-    if IsValid(owner) then
-        local ownerClass = owner:GetClass()
-        if ownerClass == "npc_vj_cofr_simon_beta" then
-            self.WorldModel_CustomPositionOrigin = Vector(8, -2.5, -0.3)
-        elseif ownerClass == "npc_vj_cofr_police" then
-            self.WorldModel_CustomPositionOrigin = Vector(9, -2, -0.3)
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) then
+            local owner = self:GetOwner()
+            local ownerClass = owner:GetClass()
+            if ownerClass == "npc_vj_cofr_simon_beta" then
+                self.WorldModelOffsetParams.Pos = Vector(8.077, -0.937, 2.057)
+            elseif ownerClass == "npc_vj_cofr_police" then
+                self.WorldModelOffsetParams.Pos = Vector(9.059, -0.807, 1.539)
+            end
         end
-    end
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)

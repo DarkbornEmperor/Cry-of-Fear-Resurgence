@@ -15,10 +15,12 @@ SWEP.HoldType = "revolver"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(7, -1, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1.5, 4.2, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(4.003, 0.927, 2.003),
+    Ang = Angle(-6.999, -1.008, 90.123)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 40
 SWEP.Primary.Force = 1.6
@@ -40,34 +42,36 @@ function SWEP:Init()
     if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
         self.Primary.Sound = "VJ.CoFR_Revolver_Old.Single"
     end
-    local owner = self:GetOwner()
-    if IsValid(owner) then
-        local ownerClass = owner:GetClass()
-        if ownerClass == "npc_vj_cofr_police" then
-            self.WorldModel_CustomPositionOrigin = Vector(-1, 4, -0.8)
-        elseif ownerClass == "npc_vj_cofr_simon_beta" then
-            self.WorldModel_CustomPositionOrigin = Vector(-1.5, 3.8, -0.8)
-        elseif ownerClass == "npc_vj_cofr_purnell" then
-            self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
-            self.WorldModel_CustomPositionOrigin = Vector(-2.4, 5, -1)
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) then
+            local owner = self:GetOwner()
+            local ownerClass = owner:GetClass()
+            if ownerClass == "npc_vj_cofr_police" then
+                self.WorldModelOffsetParams.Pos = Vector(3.862, 0.73, 1.482)
+            elseif ownerClass == "npc_vj_cofr_simon_beta" then
+                self.WorldModelOffsetParams.Pos = Vector(3.602, 0.734, 1.954)
+            elseif ownerClass == "npc_vj_cofr_purnell" then
+                self.WorldModelOffsetParams.Ang = Angle(-80, 0, 10)
+                self.WorldModelOffsetParams.Pos = Vector(1.428, 2.537, 4.825)
+            end
         end
-        if ownerClass == "npc_vj_cofr_purnell" then
-            if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
-                self.Primary.Damage = 5
-            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
-                self.Primary.Damage = 8
-            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
-                self.Primary.Damage = 13
-            elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
-                self.Primary.Damage = 20
-            end
-            if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
-                self.NPC_ReloadSound =
-                    "vj_cofr/cof/doctorboss/old/revolver_reload.wav"
-            else
-                self.NPC_ReloadSound =
-                    "vj_cofr/cof/doctorboss/revolver_reload.wav"
-            end
+    end)
+    if IsValid(self:GetOwner()) && self:GetOwner():GetClass() == "npc_vj_cofr_purnell" then
+        if GetConVar("VJ_COFR_Difficulty"):GetInt() == 1 then // Easy
+            self.Primary.Damage = 5
+        elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 2 then // Medium
+            self.Primary.Damage = 8
+        elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 3 then // Difficult
+            self.Primary.Damage = 13
+        elseif GetConVar("VJ_COFR_Difficulty"):GetInt() == 4 then // Nightmare
+            self.Primary.Damage = 20
+        end
+        if GetConVar("VJ_COFR_OldWepSounds"):GetInt() == 1 then
+            self.NPC_ReloadSound =
+                "vj_cofr/cof/doctorboss/old/revolver_reload.wav"
+        else
+            self.NPC_ReloadSound =
+                "vj_cofr/cof/doctorboss/revolver_reload.wav"
         end
     end
 end

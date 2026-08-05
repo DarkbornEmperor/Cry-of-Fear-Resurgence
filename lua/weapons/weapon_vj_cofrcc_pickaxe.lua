@@ -10,10 +10,12 @@ SWEP.WorldModel = "models/vj_cofr/cofcc/weapons/w_sledgehammer_pickaxe_hc.mdl"
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 45
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(160, -180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(4, -1, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(0.428, 0, 4.101),
+    Ang = Angle(20, 0, -90)
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     self:SetModelScale(0.80)

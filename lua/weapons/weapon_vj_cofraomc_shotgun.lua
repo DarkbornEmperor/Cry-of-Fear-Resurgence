@@ -18,10 +18,12 @@ SWEP.HoldType = "shotgun"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1.4, -10, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(10, 0, 1.4),
+    Ang = Angle(0, 180, 90)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 6

@@ -502,8 +502,8 @@ function ENT:Init()
     end
 
     timer.Simple(0.1, function()
-        local wep = self:GetActiveWeapon()
-        if self.Human_Type == 1 && IsValid(self) && IsValid(wep) then
+        if self.Human_Type == 1 && IsValid(self) && IsValid(self:GetActiveWeapon()) then
+            local wep = self:GetActiveWeapon()
             local wepClass = wep:GetClass()
             if !self.Simon_French && wepClass == "weapon_vj_cofr_famas" then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/famas/french4.wav") self.Simon_French = true
             elseif !self.Simon_Branch && (wepClass == "weapon_vj_cofr_branch" or wepClass == "weapon_vj_cofr_stone") then self:PlaySoundSystem("Speech", "vj_cofr/cof/weapons/branch/branch_first_get.wav") self.Simon_Branch = true end

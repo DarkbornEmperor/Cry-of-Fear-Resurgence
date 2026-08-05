@@ -15,10 +15,12 @@ SWEP.HoldType = "revolver"
 SWEP.Spawnable = false
 SWEP.AdminSpawnable = false
 -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-192, -185, -85)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-3, 4.5, -0.8)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(4.975, 0.926, 2.069),
+    Ang = Angle(11.954, 5.111, 96.061)
+}
 -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 60
 SWEP.Primary.Force = 1.6
@@ -41,10 +43,6 @@ function SWEP:Init()
     if GetConVar("VJ_COFR_Human_OriginalWepDamage"):GetInt() == 1 then
         self.Primary.Damage = 200
     end
-    /*local owner = self:GetOwner()
-    if IsValid(owner) && owner:GetClass() == "npc_vj_cofraomda_david" then
-        self.WorldModel_CustomPositionOrigin = Vector(-3, 5.5, -0.8)
-    end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)
