@@ -1011,7 +1011,7 @@ end
 function VJ_COFR_ApplyCorpse(ent, corpse)
     if !VJ_CVAR_AI_ENABLED then corpse:Remove() return end
     corpse.VJ_COFR_Corpse = true
-    corpse.PhysgunDisabled = true
+    //corpse.PhysgunDisabled = true
     corpse:ResetSequence(ent:GetSequence())
     corpse:SetCycle(1)
     corpse:SetMoveType(ent:GetMoveType())

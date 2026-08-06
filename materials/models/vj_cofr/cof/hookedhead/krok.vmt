@@ -3,4 +3,5 @@
     "$basetexture" "models/vj_cofr/cof/hookedhead/krok"
     "$alphatest" "1"
     "$nodecal" "1"
+    "$nocull" "1"
 }
