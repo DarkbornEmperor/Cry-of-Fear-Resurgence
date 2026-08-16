@@ -88,7 +88,7 @@ local music = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
     local i = 0
-    for k, v in ipairs(ents.GetAll()) do
+    for _, v in ipairs(ents.GetAll()) do
         if (v:GetClass() == "sent_vj_cofr_mapspawner" or v:GetClass() == "sent_vj_cofraom_mapspawner") then
             i = i + 1
             if i > 1 then PrintMessage(HUD_PRINTTALK, "WARNING: Only one Map Spawner is allowed on the map!") self.SkipOnRemove = true self:Remove() end
@@ -303,7 +303,7 @@ function ENT:GetClosestEnemy(pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckEnemyDistance(ent, remove)
-    local remove = remove or true
+    remove = remove or true
     local closestDist = 999999999
     local visible = false
     for _, v in pairs(self:FindEnemy()) do
@@ -520,16 +520,12 @@ function ENT:SpawnBossMonster(ent, pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-        self:DoMusic(true)
-        VJ.STOPSOUND(self.COFR_Ambient)
-        for index,object in ipairs(self.tbl_SpawnedNPCs) do
-        if IsValid(object) then
-            object:Remove()
-        end
+    self:DoMusic(true)
+    VJ.STOPSOUND(self.COFR_Ambient)
+    for _, object in ipairs(self.tbl_SpawnedNPCs) do
+        if IsValid(object) then object:Remove() end
     end
-    for index,object in ipairs(self.tbl_SpawnedBossMonster) do
-        if IsValid(object) then
-            object:Remove()
-        end
+    for _, object in ipairs(self.tbl_SpawnedBossMonster) do
+        if IsValid(object) then object:Remove() end
     end
 end
