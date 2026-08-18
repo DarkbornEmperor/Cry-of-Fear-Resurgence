@@ -368,6 +368,33 @@ function ENT:Police_Init()
             self:Give(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]))
         end
     end
+    self.SoundTbl_Alert = {
+        "vj_cofr/cof/police/something_1.wav",
+        "vj_cofr/cof/police/something_2.wav",
+        "vj_cofr/cof/police/something_3.wav",
+        "vj_cofr/cof/police/something_4.wav",
+        "vj_cofr/cof/police/something_5.wav",
+        "vj_cofr/cof/police/something_6.wav",
+        "vj_cofr/cof/police/something_7.wav",
+        "vj_cofr/cof/police/something_8.wav",
+        "vj_cofr/cof/police/something_9.wav"
+    }
+    self.SoundTbl_CallForHelp = {
+        "vj_cofr/cof/police/help_1.wav",
+        "vj_cofr/cof/police/help_2.wav",
+        "vj_cofr/cof/police/help_3.wav",
+        "vj_cofr/cof/police/help_4.wav",
+        "vj_cofr/cof/police/help_5.wav"
+    }
+    self.SoundTbl_FollowPlayer = {
+        "vj_cofr/cof/police/follow_1.wav",
+        "vj_cofr/cof/police/follow_2.wav",
+        "vj_cofr/cof/police/follow_3.wav",
+        "vj_cofr/cof/police/follow_4.wav",
+        "vj_cofr/cof/police/follow_5.wav",
+        "vj_cofr/cof/police/follow_6.wav",
+        "vj_cofr/cof/police/follow_7.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
         "vj_cofr/cof/police/Swing1.wav",
         "vj_cofr/cof/police/Swing2.wav",
@@ -578,14 +605,16 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_RUN_AIM then
             return self:TranslateActivity(act == ACT_RUN_AIM and ACT_RUN_CROUCH_AIM)
         end
-    elseif act == ACT_IDLE && !self.AnimationTranslations[ACT_IDLE] then
-        return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
-    elseif act == ACT_IDLE && !self:OnGround() && !self:IsMoving() then
-        return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
-    elseif act == ACT_IDLE && self.Alerted then
-        return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
+    elseif act == ACT_IDLE then
+        if !self.AnimationTranslations[ACT_IDLE] then
+            return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
+        elseif !self:OnGround() && !self:IsMoving() then
+            return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
+        elseif self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
+            return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
+        end
     end
-    return self.BaseClass.TranslateActivity(self,act)
+    return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
