@@ -253,7 +253,7 @@ function ENT:FireSprite()
     fireLight:Spawn()
     fireLight:Activate()
     fireLight:Fire("SetParentAttachment", "fire")
-    fireLight:Fire("TurnOn", "", 0)
+    fireLight:Fire("TurnOn")
     self:DeleteOnRemove(fireLight)
     self.fireLight = fireLight
 end
@@ -320,7 +320,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
                     lightningFX:SetPos(enePos + enemy:GetUp() * 60)
                     lightningFX:Spawn()
                     lightningFX:Activate()
-                    lightningFX:Fire("Kill", "", 0.2)
+                    lightningFX:Fire("Kill", nil, 0.2)
                     self:DeleteOnRemove(lightningFX)
                     self.lightningFX = lightningFX
 

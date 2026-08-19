@@ -142,8 +142,8 @@ function ENT:OnInput(key, activator, caller, data)
         if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
         elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
         elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
-        local selfPos = self:GetPos() + self:OBBCenter()
-        local tr = util.TraceLine({start = selfPos, endpos = selfPos + vecZ50, filter = self})
+        local myPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({start = myPos, endpos = myPos + vecZ50, filter = self})
         util.Decal("VJ_COFR_Blood_Red", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
         if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
             local effectData = EffectData()
@@ -205,7 +205,7 @@ function ENT:FireFX()
     muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
-    muz:Fire("Kill", "", 0.08)
+    muz:Fire("Kill", nil, 0.08)
 
     local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
@@ -217,7 +217,7 @@ function ENT:FireFX()
     muzLight:Spawn()
     muzLight:Activate()
     muzLight:Fire("TurnOn", "" ,0)
-    muzLight:Fire("Kill", "", 0.07)
+    muzLight:Fire("Kill", nil, 0.07)
     //self:DeleteOnRemove(muzLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

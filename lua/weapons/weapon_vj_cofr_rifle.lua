@@ -74,7 +74,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetAngles(Angle(math_random(-100,100), math_random(-100,100), math_random(-100,100)))
     muz:Spawn()
     muz:Activate()
-    muz:Fire("Kill", "", 0.08)
+    muz:Fire("Kill", nil, 0.08)
     timer.Simple(0.85, function()
         if IsValid(self) && IsValid(owner) then
             VJ.EmitSound(owner, "vj_cofr/cof/weapons/rifle/rifle_cock_forward.wav", self.NPC_ExtraFireSoundLevel, math_rand(self.NPC_ExtraFireSoundPitch.a, self.NPC_ExtraFireSoundPitch.b))
