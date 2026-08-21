@@ -605,12 +605,13 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_RUN_AIM then
             return self:TranslateActivity(act == ACT_RUN_AIM and ACT_RUN_CROUCH_AIM)
         end
+        local npcState = self:GetNPCState()
     elseif act == ACT_IDLE then
         if !self.AnimationTranslations[ACT_IDLE] then
             return self:TranslateActivity(act == ACT_IDLE and ACT_HL2MP_IDLE)
         elseif !self:OnGround() && !self:IsMoving() then
             return self:TranslateActivity(act == ACT_IDLE and ACT_GLIDE)
-        elseif self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
+        elseif (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
             return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
         end
     end
