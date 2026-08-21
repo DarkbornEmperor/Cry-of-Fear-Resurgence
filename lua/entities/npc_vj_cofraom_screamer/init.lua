@@ -271,11 +271,15 @@ function ENT:RangeAttackProjVel(projectile)
     return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Line", projectile:GetPos(), 1, projectile.Soul_Speed)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFlinch(dmginfo, hitgroup)
-    if dmginfo:GetDamage() > 30 then
-        self.AnimTbl_Flinch = ACT_BIG_FLINCH
-    else
-        self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if dmginfo:GetDamage() > 30 then
+            self.FlinchChance = 6
+            self.AnimTbl_Flinch = ACT_BIG_FLINCH
+        else
+            self.FlinchChance = 14
+            self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

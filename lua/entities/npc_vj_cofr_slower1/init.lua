@@ -207,8 +207,10 @@ end
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         if dmginfo:GetDamage() > 30 && VJ.AnimExists(self, ACT_BIG_FLINCH) then
+            self.FlinchChance = 6
             self.AnimTbl_Flinch = ACT_BIG_FLINCH
         else
+            self.FlinchChance = 14
             self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
     end
