@@ -65,13 +65,13 @@ function ENT:OnThink()
         end
         if IsValid(phys) then
             phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50,50), self.Head_ChaseSpeed))
-            self:SetAngles(self:GetVelocity():GetNormal():Angle())
+            self:SetAngles(self:GetVelocity():GetNormalized():Angle())
         end
         -- Not tracking, go in straight line
     else
         if IsValid(phys) then
             phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80,80), self.Head_ChaseSpeed / 2))
-            self:SetAngles(self:GetVelocity():GetNormal():Angle())
+            self:SetAngles(self:GetVelocity():GetNormalized():Angle())
         end
     end
 end
