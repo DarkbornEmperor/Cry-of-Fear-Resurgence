@@ -1,15 +1,7 @@
 "VertexLitGeneric"
 {
-    "$envmap" "models/vj_cofr/aom/twitcher/BX_Chrome1"
-    "$color2" "[0 0.08 0.12]"
+    "$envmap" "models/vj_cofr/aom/twitcher/classic/BX_Chrome1"
+    "$envmapsphere" "1"
     "$envmapmode" "1"
     "$multipass" "1"
-    "$nodecal" "1"
-
-    "VertexLitGeneric_HDR_DX9"
-    {
-        "$envmaptint" "[.15 .15 .15]"
-        "$envmapcontrast" ".8"
-        "$envmapsaturation" "1.5"
-    }
 }
