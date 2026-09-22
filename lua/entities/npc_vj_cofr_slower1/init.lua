@@ -221,6 +221,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     elseif status == "DeathAnim" then
         if (self.Slower_Type == 0 or self.Slower_Type == 2 or self.Slower_Type == 3 or self.Slower_Type == 4 or self.Slower_Type == 5 or self.Slower_Type == 7 or self.Slower_Type == 8 or self.Slower_Type == 9 or self.Slower_Type == 10) then
             if hitgroup == HITGROUP_HEAD then

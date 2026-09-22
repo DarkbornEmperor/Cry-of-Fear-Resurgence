@@ -119,6 +119,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         self:DrawShadow(false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

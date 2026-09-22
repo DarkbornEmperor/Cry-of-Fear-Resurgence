@@ -121,6 +121,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if math_random(1,3) == 1 then self.CanGib = true end
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

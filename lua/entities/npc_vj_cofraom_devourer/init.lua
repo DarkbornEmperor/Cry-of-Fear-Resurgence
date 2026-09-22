@@ -226,6 +226,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         self:SetPos(self:GetPos() + self:GetUp() * -4)
         self:Devourer_ResetEnt()
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

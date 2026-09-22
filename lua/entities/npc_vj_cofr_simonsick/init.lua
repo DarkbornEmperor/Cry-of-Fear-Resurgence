@@ -280,6 +280,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

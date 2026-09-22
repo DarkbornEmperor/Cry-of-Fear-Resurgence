@@ -122,6 +122,7 @@ local colorBlack = Color(0, 0, 0, 255)
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     elseif status == "Finish" then
         -- Screen flash effect for all the players
         for _, v in ipairs(player.GetHumans()) do

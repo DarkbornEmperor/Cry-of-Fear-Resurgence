@@ -1008,6 +1008,19 @@ function VJ_COFR_DeathCode(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function VJ_COFR_StaticCorpseCheck(ent)
+    -- Failsafe if ai_disabled is set to 1, so make corpse despawn instead
+    local hookAICheck = "VJ_COFR_AICheck" .. ent:EntIndex()
+    hook.Add("Think", hookAICheck, function()
+        if !VJ_CVAR_AI_ENABLED then
+            ent.HasDeathCorpse = false
+            ent.DeathAnimationDecreaseLengthAmount = 0
+            ent.DeathCorpseEntityClass = false
+            hook.Remove("Think", hookAICheck)
+        end
+    end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_COFR_ApplyCorpse(ent, corpse)
     if !VJ_CVAR_AI_ENABLED then corpse:Remove() return end
     corpse.VJ_COFR_Corpse = true

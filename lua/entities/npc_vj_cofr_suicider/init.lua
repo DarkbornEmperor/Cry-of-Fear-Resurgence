@@ -292,6 +292,7 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     elseif status == "DeathAnim" then
         if self:IsMoving() then
             self.AnimTbl_Death = ACT_DIESIMPLE

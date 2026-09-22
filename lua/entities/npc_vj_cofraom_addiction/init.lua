@@ -374,6 +374,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             timer.Remove("VJ_COFR_Addiction_Fire")
         end
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

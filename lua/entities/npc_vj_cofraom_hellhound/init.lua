@@ -254,8 +254,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        VJ_COFR_DeathCode(self)
         if self:GetModel() == "models/vj_cofr/aom/classic/hellhound.mdl" then self:SetSkin(math_random(1,2)) end
+        VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

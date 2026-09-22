@@ -169,6 +169,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     local ene = eneData.Target
     if status == "Init" then
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     elseif status == "DeathAnim" then
         self.DeathAnimationTime = math_rand(0.75,1.25)
     elseif status == "Finish" && IsValid(ene) && ene:IsPlayer() && eneData.Distance < self.RangeAttackMaxDistance && eneData.Visible then

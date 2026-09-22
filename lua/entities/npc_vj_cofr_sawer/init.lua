@@ -233,6 +233,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
         end
         VJ_COFR_DeathCode(self)
+        VJ_COFR_StaticCorpseCheck(self)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
