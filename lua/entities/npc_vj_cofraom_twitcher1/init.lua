@@ -406,6 +406,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+local gibsCollideSd = {"vj_cofr/fx/flesh1.wav", "vj_cofr/fx/flesh2.wav", "vj_cofr/fx/flesh3.wav", "vj_cofr/fx/flesh5.wav", "vj_cofr/fx/flesh6.wav", "vj_cofr/fx/flesh7.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
     self.HasDeathSounds = false
@@ -421,10 +422,17 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
         util.Effect("bloodspray", effectData)
         util.Effect("bloodspray", effectData)
     end
-    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
-    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
-    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
-    self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/agibs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", Pos = self:LocalToWorld(Vector(1, 1, 40))}, function(gib) gib:SetBodygroup(0, math_random(9,13)) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib1.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib2.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib3.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_hand.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 15, 30))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_bone.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 50))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_kidney.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 41))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_guts1.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 42))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_heart.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 45))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_ribs.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 45))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_skull.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 60))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_cofr/aom/gibs/agib_leg.mdl", {CollisionDecal = "VJ_COFR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 15))})
     self:PlaySoundSystem("Gib", "vj_cofr/fx/bodysplat.wav")
     return true, {AllowSound = false}
 end
