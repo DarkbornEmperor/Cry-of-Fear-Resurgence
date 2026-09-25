@@ -133,6 +133,7 @@ function ENT:OnInput(key, activator, caller, data)
         elseif self.Suicider_P345 then
             VJ.EmitSound(self, self.SoundTbl_P345)
         end
+        self.HasBloodDecal = true
         self:RemoveAllDecals()
         self:FireFX()
         self:DropGlock()
@@ -142,8 +143,8 @@ function ENT:OnInput(key, activator, caller, data)
         if self.Suicider_Skin == 0 then self:SetBodygroup(0,1)
         elseif self.Suicider_Skin == 1 then self:SetBodygroup(0,3)
         elseif self.Suicider_Skin == 2 then self:SetBodygroup(0,5) end
-        local myPos = self:GetPos() + self:OBBCenter()
-        local tr = util.TraceLine({start = myPos, endpos = myPos + vecZ50, filter = self})
+        local myCenterPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({start = myCenterPos, endpos = myCenterPos + vecZ50, filter = self})
         util.Decal("VJ_COFR_Blood_Red", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
         if self.HasGibOnDeathEffects && self.Suicider_Skin != 3 && self.Suicider_Skin != 4 then
             local effectData = EffectData()
@@ -284,7 +285,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Suicide()
     self.Suicider_Suicide = true
-    self.Bleeds = false
+    self.HasBloodDecal = false
     self.HasDeathSounds = false
     self:TakeDamage(self:Health(), self, self)
 end
