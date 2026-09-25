@@ -5,11 +5,11 @@
 -----------------------------------------------*/
 VJ.AddPlugin("Cry of Fear Resurgence", "NPC")
 
--- Cry of Fear --
+-- Cry of Fear
 local spawnCategory = "CoF Resurgence"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofr.png"})
 
--- Random & Spawners --
+-- Random & Spawners
 VJ.AddNPC("Monster Map Spawner", "sent_vj_cofr_mapspawner", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Random Monster", "sent_vj_cofr_mon", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Random Monster Spawner", "sent_vj_cofr_mon_sp", spawnCategory, {SubCategory = subCategory})
@@ -47,13 +47,13 @@ VJ.AddNPC("Slower 3 (Beta)", "npc_vj_cofr_slower3_beta", spawnCategory, {SubCate
 VJ.AddNPC("Slower No", "npc_vj_cofr_slowerno", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Slower Ten", "npc_vj_cofr_slowerten", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Slower Ten-2", "npc_vj_cofr_slowerten2", spawnCategory, {SubCategory = subCategory})
-VJ.AddNPC("Spitter", "npc_vj_cofr_spitter", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Spitter", "npc_vj_cofr_spitter", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 VJ.AddNPC("Stranger", "npc_vj_cofr_stranger", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Suicider", "npc_vj_cofr_suicider", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Taller", "npc_vj_cofr_taller", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Upper", "npc_vj_cofr_upper", spawnCategory, {SubCategory = subCategory})
 
--- Bosses --
+-- Bosses
 VJ.AddNPC("Book Simon", "npc_vj_cofr_simonbook", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Book Simon (Beta)", "npc_vj_cofr_simonbook_beta", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Book Simon (Manhunt)", "npc_vj_cofr_simonbook_mh", spawnCategory, {SubCategory = subCategory})
@@ -68,7 +68,7 @@ VJ.AddNPC("Sawrunner", "npc_vj_cofr_sawrunner", spawnCategory, {SubCategory = su
 VJ.AddNPC("Sick Simon", "npc_vj_cofr_simonsick", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Sick Simon (Suicider)", "npc_vj_cofr_simonsick_suicider", spawnCategory, {SubCategory = subCategory})
 
--- Friendlies --
+-- Friendlies
 VJ.AddNPC("Doctor Purnell (Friendly)", "npc_vj_cofr_purnell_fri", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Simon Henriksson", "npc_vj_cofr_simon", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Simon Henriksson (Early)", "npc_vj_cofr_simon_early", spawnCategory, {SubCategory = subCategory})
@@ -77,7 +77,7 @@ VJ.AddNPC("Simon Henriksson (Hoodless)", "npc_vj_cofr_simon_hoodless", spawnCate
 VJ.AddNPC("Police Officer", "npc_vj_cofr_police", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Sawrunner (Friendly)", "npc_vj_cofr_sawrunner_fri", spawnCategory, {SubCategory = subCategory})
 
--- Screamers/Hazards --
+-- Screamers/Hazards
 VJ.AddNPC("Dreamer", "npc_vj_cofr_dreamer", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Hanger", "npc_vj_cofr_hanger", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Hanger (Beta)", "npc_vj_cofr_hanger_beta", spawnCategory, {SubCategory = subCategory})
@@ -87,7 +87,7 @@ VJ.AddNPC("The Face", "npc_vj_cofr_facehead", spawnCategory, {SubCategory = subC
 VJ.AddNPC("The Face (Jumpscare)", "npc_vj_cofr_facehead_jumpscare", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Watro", "npc_vj_cofr_watro", spawnCategory, {SubCategory = subCategory})
 
--- Apparitions/Scenery --
+-- Apparitions/Scenery
 VJ.AddNPC("Blacker", "sent_vj_cofr_blacker", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Corpse", "sent_vj_cofr_corpse", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Corpse (Hanging)", "sent_vj_cofr_corpse_hanging", spawnCategory, {SubCategory = subCategory})
@@ -101,7 +101,7 @@ VJ.AddNPC("Police Officer (Dead)", "sent_vj_cofr_police_dead", spawnCategory, {S
 VJ.AddNPC("Slower (Dead)", "sent_vj_cofr_slower_dead", spawnCategory, {SubCategory = subCategory})
 
 -- Cry of Fear Custom Campaigns -- All assets come from their respective Custom Campaigns: Halloween Collab, Lost Echo, Memories, Out of It, Recidivist & The Scrolls of Shaimoon
--- Enemies --
+-- Enemies
 subCategory = "Cry of Fear: Custom Campaigns"
 VJ.AddNPC("Baby (Out of It)", "npc_vj_cofrcc_baby_ooi", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("CrazyruMpel", "npc_vj_cofrcc_crazyrumpel", spawnCategory, {SubCategory = subCategory})
@@ -126,7 +126,7 @@ VJ.AddNPC("Skeleton", "npc_vj_cofrcc_skeleton", spawnCategory, {SubCategory = su
 VJ.AddNPC("Slower 3 (Out of It)", "npc_vj_cofrcc_slower3_ooi", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Slower 1 (Mummy)", "npc_vj_cofrcc_slower1_mummy", spawnCategory, {SubCategory = subCategory})
 
--- Bosses --
+-- Bosses
 VJ.AddNPC("Blob", "npc_vj_cofrcc_blob", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Craigrunner", "npc_vj_cofrcc_craigrunner", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Crocodile", "npc_vj_cofrcc_crocodile", spawnCategory, {SubCategory = subCategory})
@@ -141,32 +141,32 @@ VJ.AddNPC("Sick Simon (Book)", "npc_vj_cofrcc_simonsick_book", spawnCategory, {S
 VJ.AddNPC("Abomination", "npc_vj_cofrcc_abomination", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("The Mummy", "npc_vj_cofrcc_mummy", spawnCategory, {SubCategory = subCategory})
 
--- Friendlies --
+-- Friendlies
 VJ.AddNPC("Robert", "npc_vj_cofrcc_robert", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Roderick Henriksson", "npc_vj_cofrcc_roderick", spawnCategory, {SubCategory = subCategory})
 
--- Misc/Hazards --
+-- Misc/Hazards
 VJ.AddNPC("Meatman", "npc_vj_cofrcc_meatman", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("The Face (Out of It)", "npc_vj_cofrcc_facehead_ooi", spawnCategory, {SubCategory = subCategory})
 
--- Apparitions --
+-- Apparitions
 VJ.AddNPC("Corpse", "sent_vj_cofrcc_corpse", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Meatman (Dead)", "sent_vj_cofrcc_meatman_dead", spawnCategory, {SubCategory = subCategory})
 
--- Afraid of Monsters --
+-- Afraid of Monsters
 spawnCategory = "CoF Resurgence: AoM"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_cofr/icons/cofraom.png"})
 
--- Apparitions --
+-- Apparitions
 VJ.AddNPC("David (Corpse) (Grey)", "sent_vj_cofraom_david_corpse_grey", spawnCategory)
 
--- Random & Spawners --
+-- Random & Spawners
 VJ.AddNPC("Monster Map Spawner", "sent_vj_cofraom_mapspawner", spawnCategory)
 VJ.AddNPC("Random Monster", "sent_vj_cofraom_mon", spawnCategory)
 VJ.AddNPC("Random Monster Spawner", "sent_vj_cofraom_mon_sp", spawnCategory)
 VJ.AddNPC("Random Monster Spawner (Single)", "sent_vj_cofraom_mon_sinsp", spawnCategory)
 
--- Enemies --
+-- Enemies
 subCategory = "Afraid of Monsters: Director's Cut"
 VJ.AddNPC("Face", "npc_vj_cofraom_face", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Ghost", "npc_vj_cofraom_ghost", spawnCategory, {SubCategory = subCategory})
@@ -181,21 +181,21 @@ VJ.AddNPC("Twitcher 3", "npc_vj_cofraom_twitcher3", spawnCategory, {SubCategory 
 VJ.AddNPC("Twitcher 4", "npc_vj_cofraom_twitcher4", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Wheelchair Twitcher", "npc_vj_cofraom_wheelchair", spawnCategory, {SubCategory = subCategory})
 
--- Bosses --
+-- Bosses
 VJ.AddNPC("The Addiction", "npc_vj_cofraom_addiction", spawnCategory, {SubCategory = subCategory})
 
--- Misc/Hazards --
+-- Misc/Hazards
 VJ.AddNPC("Devourer", "npc_vj_cofraom_devourer", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 
--- Friendlies --
+-- Friendlies
 VJ.AddNPC("David Leatherhoff", "npc_vj_cofraom_david", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("David Leatherhoff (Dead)", "npc_vj_cofraom_david_dead", spawnCategory, {SubCategory = subCategory})
 
--- Apparitions --
+-- Apparitions
 VJ.AddNPC("David (Hanging)", "sent_vj_cofraom_david_hanging", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Sick Corpse", "sent_vj_cofraom_sickcorpse", spawnCategory, {SubCategory = subCategory})
 
--- Enemies --
+-- Enemies
 subCategory = "Afraid of Monsters: Classic"
 VJ.AddNPC("Face (Classic)", "npc_vj_cofraomc_face", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Ghost (Classic)", "npc_vj_cofraomc_ghost", spawnCategory, {SubCategory = subCategory})
@@ -206,37 +206,37 @@ VJ.AddNPC("Spitter (Classic)", "npc_vj_cofraomc_spitter", spawnCategory, {SubCat
 VJ.AddNPC("Screamer (Classic)", "npc_vj_cofraomc_screamer", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Twitcher (Classic)", "npc_vj_cofraomc_twitcher", spawnCategory, {SubCategory = subCategory})
 
--- Misc/Hazards --
+-- Misc/Hazards
 VJ.AddNPC("Devourer (Classic)", "npc_vj_cofraomc_devourer", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 
--- Friendlies --
+-- Friendlies
 VJ.AddNPC("David Leatherhoff (Classic)", "npc_vj_cofraomc_david", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("David Leatherhoff (Dead) (Classic)", "npc_vj_cofraomc_david_dead", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("David Leatherhoff (Early)", "npc_vj_cofraomc_david_early", spawnCategory, {SubCategory = subCategory})
 
--- Apparitions --
+-- Apparitions
 VJ.AddNPC("David (Corpse) (Classic)", "sent_vj_cofraomc_david_corpse", spawnCategory, {SubCategory = subCategory})
 
--- Enemies --
+-- Enemies
 subCategory = "Afraid of Monsters: Dark Assistance"
 VJ.AddNPC("Twitcher (Dark Assistance)", "npc_vj_cofraomda_twitcher", spawnCategory, {SubCategory = subCategory})
 
--- Bosses --
+-- Bosses
 VJ.AddNPC("The Addiction (Dark Assistance)", "npc_vj_cofraomda_addiction", spawnCategory, {SubCategory = subCategory})
 
--- Friendlies --
+-- Friendlies
 VJ.AddNPC("Assistor", "npc_vj_cofraomda_assistor", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("David Leatherhoff (Dark Assistance)", "npc_vj_cofraomda_david", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("David Leatherhoff (Dead) (Dark Assistance)", "npc_vj_cofraomda_david_dead", spawnCategory, {SubCategory = subCategory})
 
--- Apparitions --
+-- Apparitions
 VJ.AddNPC("David (Hanging) (Dark Assistance)", "sent_vj_cofraomda_david_hanging", spawnCategory, {SubCategory = subCategory})
 
--- Entities --
+-- Entities
 VJ.AddEntity("Pills", "sent_vj_cofraom_pills", spawnCategory)
 VJ.AddEntity("Pills (Dark Assistance)", "sent_vj_cofraom_pills_da", spawnCategory)
 
--- Decals --
+-- Decals
 game.AddDecal("VJ_COFR_Blood_Red", {"vj_cofr/decals/cof_blood01", "vj_cofr/decals/cof_blood02", "vj_cofr/decals/cof_blood03", "vj_cofr/decals/cof_blood04", "vj_cofr/decals/cof_blood05", "vj_cofr/decals/cof_blood06", "vj_cofr/decals/cof_blood07"})
 game.AddDecal("VJ_COFR_Blood_Red_Large", {"vj_cofr/decals/cof_bigblood01", "vj_cofr/decals/cof_bigblood02"})
 game.AddDecal("VJ_COFR_Spit", {"vj_cofr/decals/cof_spit01", "vj_cofr/decals/cof_spit02"})
@@ -244,7 +244,7 @@ game.AddDecal("VJ_COFR_Scorch_Small", {"vj_cofr/decals/smscorch1", "vj_cofr/deca
 game.AddDecal("VJ_COFR_Scorch", {"vj_cofr/decals/scorch1", "vj_cofr/decals/scorch2", "vj_cofr/decals/scorch3"})
 game.AddDecal("VJ_COFR_Impact", {"vj_cofr/decals/shot1", "vj_cofr/decals/shot2", "vj_cofr/decals/shot3", "vj_cofr/decals/shot4", "vj_cofr/decals/shot5"})
 
--- Particles --
+-- Particles
 VJ.AddParticle("particles/vj_cofr_blood.pcf", {
     "vj_cofr_blood_red",
     "vj_cofr_blood_red_large",
@@ -267,6 +267,22 @@ list.Add("PaintMaterials", "VJ_COFR_Spit")
 list.Add("PaintMaterials", "VJ_COFR_Scorch_Small")
 list.Add("PaintMaterials", "VJ_COFR_Scorch")
 list.Add("PaintMaterials", "VJ_COFR_Impact")
+
+-- Precache
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib1.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib2.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib3.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_bone.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_colon.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_eye.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_guts1.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_guts2.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_hand.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_heart.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_kidney.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_leg.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_ribs.mdl")
+util.PrecacheModel("models/vj_cofr/aom/gibs/agib_skull.mdl")
 
 -- Weapon Sounds
 local SNDLVL_GUNFIRE = 140
