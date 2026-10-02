@@ -627,11 +627,3 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound(moveType, sdFile)
-    if !self:OnGround() then return end
-    local watLevel = self:WaterLevel()
-    if watLevel > 0 && watLevel < 3 then
-        VJ.EmitSound(self, "vj_cofr/fx/wade" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
-    end
-end

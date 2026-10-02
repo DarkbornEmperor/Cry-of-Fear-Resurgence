@@ -133,7 +133,7 @@ function ENT:OnInput(key, activator, caller, data)
         elseif self.Suicider_P345 then
             VJ.EmitSound(self, self.SoundTbl_P345)
         end
-        self.HasBloodDecal = true
+        self.Bleeds = true
         self:RemoveAllDecals()
         self:FireFX()
         self:DropGlock()
@@ -285,7 +285,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Suicide()
     self.Suicider_Suicide = true
-    self.HasBloodDecal = false
+    self.Bleeds = false
     self.HasDeathSounds = false
     self:TakeDamage(self:Health(), self, self)
 end
