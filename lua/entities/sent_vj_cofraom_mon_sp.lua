@@ -70,5 +70,9 @@ function ENT:Init()
     }
     self.EntitiesToSpawn = {
         {SpawnPosition = Vector(), Entities = entsList},
+        {SpawnPosition = Vector(50, 50, 0), Entities = entsList},
+        {SpawnPosition = Vector(50, -50, 0), Entities = entsList},
+        {SpawnPosition = Vector(-50, 50, 0), Entities = entsList},
+        {SpawnPosition = Vector(-50, -50, 0), Entities = entsList},
     }
 end
