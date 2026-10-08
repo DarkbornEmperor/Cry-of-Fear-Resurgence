@@ -31,7 +31,7 @@ ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Medic_TimeUntilHeal = 0.4
 ENT.Medic_SpawnPropOnHeal = false
 ENT.AnimTbl_Medic_GiveHealth = "vjges_shoot_wrench"
-ENT.Medic_SpawnPropOnHealModel = "models/vj_cofr/aom/weapons/w_pills.mdl"
+ENT.Medic_SpawnPropOnHeal = "models/vj_cofr/aom/weapons/w_pills.mdl"
 ENT.Medic_SpawnPropOnHealAttachment = "rhand"
 ENT.AnimTbl_WeaponAttackSecondary = "vjges_shoot_m203"
 ENT.Weapon_SecondaryFireTime = 0.05
@@ -698,7 +698,7 @@ function ENT:OnMedicBehavior(status, statusData)
         if IsValid(wep) then wep:SetNoDraw(true) end
         local att = self:GetAttachment(self:LookupAttachment("rhand"))
         local healItem = ents.Create("prop_vj_animatable")
-        healItem:SetModel(self.Medic_SpawnPropOnHealModel)
+        healItem:SetModel(self.Medic_SpawnPropOnHeal)
         healItem:SetPos(att.Pos)
         healItem:SetAngles(att.Ang)
         healItem:SetParent(self)
