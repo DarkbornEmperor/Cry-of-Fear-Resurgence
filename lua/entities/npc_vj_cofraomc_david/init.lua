@@ -12,16 +12,20 @@ ENT.Human_Type = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
     [MAT_ANTLION] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_BLOODYFLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_CONCRETE] = {
         "vj_cofr/aom/david/footsteps_classic/pl_step1.wav",
@@ -36,10 +40,12 @@ ENT.FootSteps = {
         "vj_cofr/aom/david/footsteps_classic/pl_dirt4.wav"
     },
     [MAT_FLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_GRATE] = {
         "vj_cofr/aom/david/footsteps_classic/pl_metal1.wav",
@@ -48,10 +54,12 @@ ENT.FootSteps = {
         "vj_cofr/aom/david/footsteps_classic/pl_metal4.wav"
     },
     [MAT_ALIENFLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_SNOW] = {
         "vj_cofr/aom/david/footsteps_classic/pl_dirt1.wav",
@@ -103,6 +111,12 @@ ENT.FootSteps = {
         "vj_cofr/aom/david/footsteps_classic/pl_tile3.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_tile4.wav",
         "vj_cofr/aom/david/footsteps_classic/pl_tile5.wav"
+    },
+    [MAT_GRASS] = {
+        "vj_cofr/aom/david/footsteps_classic/pl_dirt1.wav",
+        "vj_cofr/aom/david/footsteps_classic/pl_dirt2.wav",
+        "vj_cofr/aom/david/footsteps_classic/pl_dirt3.wav",
+        "vj_cofr/aom/david/footsteps_classic/pl_dirt4.wav"
     },
     [MAT_SNOW] = {
         "vj_cofr/aom/david/footsteps_classic/pl_dirt1.wav",

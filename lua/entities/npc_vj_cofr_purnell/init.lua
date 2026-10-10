@@ -194,16 +194,20 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
     [MAT_ANTLION] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_BLOODYFLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_CONCRETE] = {
         "vj_cofr/cof/simon/footsteps/concrete1.wav",
@@ -218,10 +222,12 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/dirt4.wav"
     },
     [MAT_FLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_GRATE] = {
         "vj_cofr/cof/simon/footsteps/metal1.wav",
@@ -230,10 +236,12 @@ ENT.FootSteps = {
         "vj_cofr/cof/simon/footsteps/metal4.wav"
     },
     [MAT_ALIENFLESH] = {
-        "vj_cofr/cof/simon/footsteps/mud1.wav",
-        "vj_cofr/cof/simon/footsteps/mud2.wav",
-        "vj_cofr/cof/simon/footsteps/mud3.wav",
-        "vj_cofr/cof/simon/footsteps/mud4.wav"
+        "vj_cofr/fx/flesh1.wav",
+        "vj_cofr/fx/flesh2.wav",
+        "vj_cofr/fx/flesh3.wav",
+        "vj_cofr/fx/flesh5.wav",
+        "vj_cofr/fx/flesh6.wav",
+        "vj_cofr/fx/flesh7.wav"
     },
     [MAT_SNOW] = {
         "vj_cofr/cof/simon/footsteps/snow1.wav",
