@@ -738,7 +738,7 @@ VJ.AddClientConVar("VJ_COFR_SparkFX", 0, "Create GoldSrc-Style Sparks On Metal S
 VJ.AddClientConVar("VJ_COFR_MapSpawner_Music", 1, "Music For Map Spawner")
 VJ.AddClientConVar("VJ_COFR_MapSpawner_Ambience", 1, "Ambience For Map Spawner")
 VJ.AddClientConVar("VJ_COFR_MapSpawner_MusicVolume", 50, "Adjust Music Volume For Map Spawner")
-VJ.AddClientConVar("VJ_COFR_MapSpawner_AmbienceVolume", 30, "Adjust Ambience Volume For Map Spawner")
+VJ.AddClientConVar("VJ_COFR_MapSpawner_AmbienceVolume", 100, "Adjust Ambience Volume For Map Spawner")
 VJ.AddConVar("VJ_COFR_MapSpawner_Enabled", 1, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_MapSpawner_Boss", 0, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_MapSpawner_MaxMon", 80, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
@@ -755,7 +755,7 @@ VJ.AddConVar("VJ_COFR_MapSpawner_DelayMax", 3, bit.bor(FCVAR_ARCHIVE, FCVAR_NOTI
 if CLIENT then
     hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_COFR", function()
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - General", "CoFR - General", "", "", function(panel)
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_SparkFX 0"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_SparkFX 0\nVJ_COFR_MapSpawner_Music 1\nVJ_COFR_MapSpawner_Ambience 1\nVJ_COFR_MapSpawner_MusicVolume 50\nVJ_COFR_MapSpawner_AmbienceVolume 100"})
             panel:Help("Client-Side Options:")
             panel:CheckBox("Enable GoldSrc-Style Sparks On Metal Surfaces?", "VJ_COFR_SparkFX")
             panel:ControlHelp("Applies ONLY to CoFR weapons!")
@@ -822,8 +822,8 @@ if CLIENT then
             panel:Help("Client-Side Options:")
             panel:CheckBox("Enable Music?", "VJ_COFR_MapSpawner_Music")
             panel:CheckBox("Enable Ambience?", "VJ_COFR_MapSpawner_Ambience")
-            panel:NumSlider("Music Volume", "VJ_COFR_MapSpawner_MusicVolume", 10, 100, 2)
-            panel:NumSlider("Ambience Volume", "VJ_COFR_MapSpawner_AmbienceVolume", 10, 100, 2)
+            panel:NumSlider("Music Volume", "VJ_COFR_MapSpawner_MusicVolume", 1, 150, 2)
+            panel:NumSlider("Ambience Volume", "VJ_COFR_MapSpawner_AmbienceVolume", 1, 150, 2)
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
                 panel:Help("#vjbase.menu.general.admin.not")
                 panel:Help("#vjbase.menu.general.admin.only")

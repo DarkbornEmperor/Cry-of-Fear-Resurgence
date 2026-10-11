@@ -35,12 +35,10 @@ ENT.Monster = {
     {class="npc_vj_cofraomc_ghost", chance = 20},
     {class="npc_vj_cofraomc_screamer", chance = 20}
 }
-
 ENT.BossMonster = {
     {class="npc_vj_cofraom_addiction", max = 1},
     {class="npc_vj_cofraomda_addiction", max = 1}
 }
-
 local ambient = {
     "vj_cofr/aom/mapspawner/4motherbr.wav",
     "vj_cofr/aom/mapspawner/babylaugh12.wav",
@@ -66,7 +64,6 @@ local ambient = {
     "vj_cofr/aom/mapspawner/child_cryin.wav",
     "vj_cofr/aom/mapspawner/is_scream.wav"
 }
-
 local music = {
     "vj_cofr/aom/mapspawner/afterforest1.wav",
     "vj_cofr/aom/mapspawner/angforest1.wav",
@@ -140,11 +137,10 @@ function ENT:Initialize()
     self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
     self.NextHordeSpawnTime = curTime + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
     self.DidStartMusic = false
-    self.NextMusicSwitchT = curTime + 1
     self.NextAIBossCheckTime = curTime + 5
     self.HordeSpawnRate = 0.19
     self.MaxBossMonster = 2
-    self.NextAmbientSoundT = curTime + math_rand(1,30)
+    self.NextAmbientSoundT = curTime + math_rand(1,60)
     self.CanSpawnBossMonster = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -335,15 +331,52 @@ function ENT:Think()
         //self.AI_RefreshTime = GetConVar("VJ_COFR_MapSpawner_RefreshRate"):GetInt()
 
         if GetConVar("VJ_COFR_MapSpawner_Ambience"):GetInt() == 1 then
-            for _, v in ipairs(player.GetAll()) do
-                if math_random(1,2) == 1 && self.NextAmbientSoundT < curTime then
-                    self.CoFR_PickAmbient = VJ.PICK(ambient)
-                    self.COFR_Ambient = VJ.CreateSound(v, self.CoFR_PickAmbient, GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt(), 100)
-                    self.NextAmbientSoundT = curTime + ((((SoundDuration(self.CoFR_PickAmbient) > 0) and SoundDuration(self.CoFR_PickAmbient)) or 2) + 1) + math_rand(20,40)
+            if self.NextAmbientSoundT < curTime && math_random(1,30) == 1 then
+                local pickAmbient = VJ.PICK(ambient)
+                -- Ensure the map has a valid navmesh loaded
+                if navmesh && navmesh.IsLoaded() then
+                    local navAreas = navmesh.GetAllNavAreas()
+                    if #navAreas > 0 then
+                        -- Pick a random walkable area on the map
+                        local randomArea = navAreas[math_random(#navAreas)]
+                        local randomPos = randomArea:GetRandomPoint()
+
+                        -- Play the sound at that specific position
+                        local sdTarg = ents.Create("info_target")
+                        sdTarg:SetPos(randomPos)
+                        sdTarg:Spawn()
+                        local ambientSd = CreateSound(sdTarg, pickAmbient)
+                        if ambientSd then
+                            ambientSd:SetSoundLevel(GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt())
+                            ambientSd:Play()
+                            self.COFR_Ambient = ambientSd
+                            timer.Simple(SoundDuration(pickAmbient), function() if IsValid(sdTarg) then sdTarg:Remove() end end)
+                        end
+                    end
+                else
+                    -- Fallback: If no navmesh exists, pick a random player and play it near them
+                    local players = player.GetAll()
+                    if #players > 0 then
+                        local randomPlayer = players[math_random(#players)]
+                        local randomPos = randomPlayer:GetPos() + Vector(math_random(-1500,1500), math_random(-1500,1500), math_random(0,200))
+                        local sdTarg = ents.Create("info_target")
+                        sdTarg:SetPos(randomPos)
+                        sdTarg:Spawn()
+                        local ambientSd = CreateSound(sdTarg, pickAmbient)
+                        if ambientSd then
+                            ambientSd:SetSoundLevel(GetConVar("VJ_COFR_MapSpawner_AmbienceVolume"):GetInt())
+                            ambientSd:Play()
+                            self.COFR_Ambient = ambientSd
+                            timer.Simple(SoundDuration(pickAmbient), function() if IsValid(sdTarg) then sdTarg:Remove() end end)
+                        end
+                    end
                 end
+                -- Queue the next sound
+                self.NextAmbientSoundT = curTime + SoundDuration(pickAmbient) + math_rand(1,60)
             end
         end
-            -- Checks for inactive AI, this code is quite bulky and might be able to be optimized better
+
+        -- Checks for inactive AI, this code is quite bulky and might be able to be optimized better
         if curTime > self.NextAICheckTime then
             if #self.tbl_SpawnedNPCs > 0 then
                 for i, v in ipairs(self.tbl_SpawnedNPCs) do
@@ -383,11 +416,11 @@ function ENT:Think()
             end
 
             -- Manages Music
-            self:DoMusic(false)
+            if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then self:DoMusic(false) end
 
             -- Spawns AI
             if curTime > self.NextMonsterSpawnTime then
-                if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster -self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
+                if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster - self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
                 self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
                 self.NextMonsterSpawnTime = curTime + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
             end
@@ -402,7 +435,7 @@ function ENT:Think()
 
                 -- Spawns Hordes
             if curTime > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 then
-                for i = 1,self.COFR_MaxHordeSpawn do
+                for i = 1, self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
                         self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(true, true), true)
@@ -418,23 +451,23 @@ function ENT:DoMusic(stop)
     for _, v in ipairs(player.GetAll()) do
         local curTime = CurTime()
         if !stop && !self.DidStartMusic then
-                self.DidStartMusic = true
-                self.NextMusicSwitchT = curTime + 1
-            if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then
-                self.NextAoMMusicT = self.NextAoMMusicT or 0
-                if curTime > self.NextAoMMusicT then
-                    self.CoFR_PickTrack = VJ.PICK(music)
-                    self.CoFR_Track = VJ.CreateSound(v, self.CoFR_PickTrack,GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt(), 100)
-                    self.NextAoMMusicT = curTime + ((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1)
-
-                    timer.Simple(((((SoundDuration(self.CoFR_PickTrack) > 0) and SoundDuration(self.CoFR_PickTrack)) or 2) + 1), function() if IsValid(self) then self.DidStartMusic = false VJ.STOPSOUND(self.CoFR_Track) end end)
+            self.DidStartMusic = true
+            self.NextMusicT = self.NextMusicT or 0
+            if curTime > self.NextMusicT then
+                local pickMusic = VJ.PICK(music)
+                local musicSd = CreateSound(v, pickMusic)
+                if musicSd then
+                    musicSd:SetSoundLevel(GetConVar("VJ_COFR_MapSpawner_MusicVolume"):GetInt())
+                    musicSd:Play()
+                    self.COFR_Music = musicSd
+                    timer.Simple(SoundDuration(pickMusic), function() if IsValid(self) && self.DidStartMusic then self.DidStartMusic = false end end)
                 end
+                self.NextMusicT = curTime + SoundDuration(pickMusic)
             end
         end
         if stop && self.DidStartMusic then
             self.DidStartMusic = false
-            self.NextMusicSwitchT = curTime + 1
-            VJ.STOPSOUND(self.CoFR_Track)
+            self.COFR_Music:Stop()
         end
     end
 end
