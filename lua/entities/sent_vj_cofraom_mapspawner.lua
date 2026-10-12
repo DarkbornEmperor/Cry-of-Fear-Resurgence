@@ -137,7 +137,6 @@ function ENT:Initialize()
     self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
     self.NextHordeSpawnTime = curTime + math_rand(self.COFR_HordeCooldownMin, self.COFR_HordeCooldownMax)
     self.DidStartMusic = false
-    self.NextAIBossCheckTime = curTime + 5
     self.HordeSpawnRate = 0.19
     self.MaxBossMonster = 2
     self.NextAmbientSoundT = curTime + math_rand(1,60)
@@ -381,7 +380,7 @@ function ENT:Think()
             if #self.tbl_SpawnedNPCs > 0 then
                 for i, v in ipairs(self.tbl_SpawnedNPCs) do
                     if IsValid(v) then
-                        local enemy = v:GetEnemy()
+                        local enemy = v.EnemyData.Target
                         self:CheckEnemyDistance(v)
                         if IsValid(enemy) && !VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
                                 table_insert(self.tbl_NPCsWithEnemies, v)
@@ -393,49 +392,81 @@ function ENT:Think()
                     else
                         table_remove(self.tbl_SpawnedNPCs, i)
                     end
-                end
-            end
-                if #self.tbl_SpawnedBossMonster > 0 then
-                    for i, v in ipairs(self.tbl_SpawnedBossMonster) do
-                        if IsValid(v) then
-                            local enemy = v:GetEnemy()
-                            self:CheckEnemyDistance(v)
-                            if IsValid(enemy) && !VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
-                                table_insert(self.tbl_NPCsWithEnemies, v)
-                                elseif !IsValid(enemy) then
-                                if VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
-                                    table_remove(self.tbl_NPCsWithEnemies, i)
-                                end
-                            end
-                        else
-                            table_remove(self.tbl_SpawnedBossMonster, i)
+                    -- Handle stuck AI and remove them
+                    if IsValid(v) then
+                        local ene = v.EnemyData.Target
+                        local vPos = v:GetPos()
+                        local tr = util.TraceHull({
+                            start = vPos,
+                            endpos = vPos,
+                            mins = v:OBBMins(),
+                            maxs = v:OBBMaxs(),
+                            filter = v
+                        })
+                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene)) then
+                            //PrintMessage(HUD_PRINTCENTER, "Removing " .. VJ.GetName(v) .. ".")
+                            SafeRemoveEntity(v)
                         end
                     end
                 end
-                self.NextAICheckTime = curTime + 5
             end
-
-            -- Manages Music
-            if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then self:DoMusic(false) end
-
-            -- Spawns AI
-            if curTime > self.NextMonsterSpawnTime then
-                if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster - self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
-                self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
-                self.NextMonsterSpawnTime = curTime + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
-            end
-
-            if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
-                self.CanSpawnBossMonster = true
-                if curTime > self.NextBossMonsterSpawnTime then
-                    self:SpawnBossMonster(self:PickMonster(self.BossMonster), self:FindSpawnPosition(true))
-                    self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
+            if #self.tbl_SpawnedBossMonster > 0 then
+                for i, v in ipairs(self.tbl_SpawnedBossMonster) do
+                    if IsValid(v) then
+                        local enemy = v.EnemyData.Target
+                        self:CheckEnemyDistance(v)
+                        if IsValid(enemy) && !VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
+                            table_insert(self.tbl_NPCsWithEnemies, v)
+                            elseif !IsValid(enemy) then
+                            if VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
+                                table_remove(self.tbl_NPCsWithEnemies, i)
+                            end
+                        end
+                    else
+                        table_remove(self.tbl_SpawnedBossMonster, i)
+                    end
+                    -- Handle stuck AI and remove them
+                    if IsValid(v) then
+                        local ene = v.EnemyData.Target
+                        local vPos = v:GetPos()
+                        local tr = util.TraceHull({
+                            start = vPos,
+                            endpos = vPos,
+                            mins = v:OBBMins(),
+                            maxs = v:OBBMaxs(),
+                            filter = v
+                        })
+                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene)) then
+                            //PrintMessage(HUD_PRINTCENTER, "Removing " .. VJ.GetName(v) .. ".")
+                            SafeRemoveEntity(v)
+                        end
+                    end
                 end
             end
+            self.NextAICheckTime = curTime + 5
+        end
 
-                -- Spawns Hordes
-            if curTime > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 then
-                for i = 1, self.COFR_MaxHordeSpawn do
+        -- Manages Music
+        if GetConVar("VJ_COFR_MapSpawner_Music"):GetInt() == 1 then self:DoMusic(false) end
+
+        -- Spawns AI
+        if curTime > self.NextMonsterSpawnTime then
+            if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster - self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
+            self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
+            self.NextMonsterSpawnTime = curTime + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
+        end
+
+        if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
+            self.CanSpawnBossMonster = true
+            if curTime > self.NextBossMonsterSpawnTime then
+                self:SpawnBossMonster(self:PickMonster(self.BossMonster), self:FindSpawnPosition(true))
+                self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
+            end
+        end
+
+        -- Spawns Hordes
+        if curTime > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 && self.COFR_MaxHordeSpawn > 0 then
+            for i = 1, self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
                         self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(true, true), true)
@@ -502,53 +533,54 @@ function ENT:PickMonster(tbl)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SpawnMonster(ent, pos, isMob)
-    if ent == false then return end
-    if pos == nil or pos == false then return end
+    if !ent then return end
+    if pos == nil or !pos then return end
     if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster then return end
-    local Monster = ents.Create(ent)
-    Monster:SetPos(pos)
-    Monster:SetAngles(Angle(0, math_random(0,360), 0))
-    Monster:Spawn()
-    table_insert(self.tbl_SpawnedNPCs, Monster)
+
+    local monEnt = ents.Create(ent)
+    monEnt:SetPos(pos + Vector(0, 0, 10))
+    monEnt:SetAngles(Angle(0, math_random(0,360), 0))
+    monEnt:Spawn()
+    table_insert(self.tbl_SpawnedNPCs, monEnt)
     if isMob then
-        Monster.SightAngle = 360
-        Monster.EnemyXRayDetection = true
-        Monster:DrawShadow(false)
+        monEnt.SightAngle = 360
+        monEnt.EnemyXRayDetection = true
+        monEnt:DrawShadow(false)
         timer.Simple(0, function()
-            if IsValid(Monster) then
-                Monster:DrawShadow(false)
+            if IsValid(monEnt) then
+                monEnt:DrawShadow(false)
             end
         end)
     end
-    Monster.MapSpawner = self
-    Monster.EntitiesToNoCollide = {}
-    Monster.CallForHelp = false
+    monEnt.MapSpawner = self
+    monEnt.EntitiesToNoCollide = {}
+    monEnt.CallForHelpDistance = 250
     for _, v in pairs(self.Monster) do
-        table_insert(Monster.EntitiesToNoCollide, v.class)
+        table_insert(monEnt.EntitiesToNoCollide, v.class)
     end
     for _, v in pairs(self.BossMonster) do
-        table_insert(Monster.EntitiesToNoCollide, v.class)
+        table_insert(monEnt.EntitiesToNoCollide, v.class)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SpawnBossMonster(ent, pos)
-    if ent == false then return end
-    if pos == nil or pos == false then return end
+    if !ent then return end
+    if pos == nil or !pos then return end
     if #self.tbl_SpawnedBossMonster >= self.MaxBossMonster then return end
 
-    local Boss = ents.Create(ent)
-    Boss:SetPos(pos)
-    Boss:SetAngles(Angle(0, math_random(0,360), 0))
-    Boss:Spawn()
-    Boss.SightAngle = 360
-    Boss.EnemyXRayDetection = true
-    Boss.CallForHelp = false
-    Boss.HasSoundTrack = false
-    table_insert(self.tbl_SpawnedBossMonster, Boss)
-    Boss.MapSpawner = self
-    Boss.EntitiesToNoCollide = {}
+    local monBoss = ents.Create(ent)
+    monBoss:SetPos(pos + Vector(0, 0, 10))
+    monBoss:SetAngles(Angle(0, math_random(0,360), 0))
+    monBoss:Spawn()
+    monBoss.SightAngle = 360
+    monBoss.EnemyXRayDetection = true
+    monBoss.CallForHelpDistance = 250
+    monBoss.HasSoundTrack = false
+    table_insert(self.tbl_SpawnedBossMonster, monBoss)
+    monBoss.MapSpawner = self
+    monBoss.EntitiesToNoCollide = {}
     for _, v in pairs(self.BossMonster) do
-        table_insert(Boss.EntitiesToNoCollide, v.class)
+        table_insert(monBoss.EntitiesToNoCollide, v.class)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

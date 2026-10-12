@@ -71,7 +71,7 @@ local entsList = {
     "npc_vj_cofrcc_crazyrunner_mummy:60"
 }
 ENT.EntitiesToSpawn = {
-    {SpawnPosition = Vector(), Entities = entsList},
+    {SpawnPosition = Vector(0, 0, 10), Entities = entsList}
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -150,6 +150,6 @@ function ENT:Init()
         "npc_vj_cofrcc_mummy:60"
     }
     self.EntitiesToSpawn = {
-        {SpawnPosition = Vector(), Entities = entsList},
+        {SpawnPosition = Vector(0, 0, 10), Entities = entsList}
     }
 end
