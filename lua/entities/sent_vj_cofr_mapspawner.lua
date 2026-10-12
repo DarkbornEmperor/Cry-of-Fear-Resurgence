@@ -155,10 +155,10 @@ function ENT:Initialize()
 
     local count = #self.nodePositions + #self.navAreas
     if count <= 50 then
-    local msg = "WARNING: Low node/nav-area count detected! The Map Spawner may find it difficult to process with such low nodes/nav-areas. The Map Spawner will now remove itself."
-    if count <= 0 then
-        msg = "WARNING: No nodes or nav-mesh detected! The Map Spawner relies on nodes/nav-areas for many things. Without any, the Map Spawner will not work! The Map Spawner will now remove itself."
-    end
+        local msg = "WARNING: Low node/nav-area count detected! The Map Spawner may find it difficult to process with such low nodes/nav-areas. The Map Spawner will now remove itself."
+        if count <= 0 then
+            msg = "WARNING: No nodes or nav-mesh detected! The Map Spawner relies on nodes/nav-areas for many things. Without any, the Map Spawner will not work! The Map Spawner will now remove itself."
+        end
         MsgN(msg)
         PrintMessage(HUD_PRINTTALK, msg)
         SafeRemoveEntity(self)
@@ -513,7 +513,8 @@ function ENT:Think()
         end
 
         -- Spawns Hordes
-        if curTime > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 && self.COFR_MaxHordeSpawn > 0 then
+        if self.COFR_MaxHordeSpawn <= 0 then return end
+        if curTime > self.NextHordeSpawnTime && math_random(1, self.COFR_HordeChance) == 1 then
             for i = 1, self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
