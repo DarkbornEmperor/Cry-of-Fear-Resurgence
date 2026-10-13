@@ -252,8 +252,8 @@ function ENT:Twitcher_Init()
     elseif self.Twitcher_Type == 5 then
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
     end
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/twitcher2_girl.mdl" or myMdl == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/twitcher2_girl.mdl" or myMDL == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
         self:DrawShadow(false)
     end
     if GetConVar("VJ_COFR_Twitcher_Invisible"):GetInt() == 1 then
@@ -438,8 +438,8 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/twitcher2_girl.mdl" or myMdl == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/twitcher2_girl.mdl" or myMDL == "models/vj_cofr/aomr/twitcher2_girl.mdl" then
         corpse:DrawShadow(false)
     elseif self.Twitcher_Invisible then
         corpse:SetNoDraw(true)

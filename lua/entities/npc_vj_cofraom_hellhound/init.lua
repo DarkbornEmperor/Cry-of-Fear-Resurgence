@@ -104,12 +104,12 @@ function ENT:Hellhound_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/hellhound.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/hellhound.mdl" then // Already the default
         self.Hellhound_Type = 0
-    elseif myMdl == "models/vj_cofr/aom/classic/hellhound.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/classic/hellhound.mdl" then
         self.Hellhound_Type = 1
-    elseif myMdl == "models/vj_cofr/aomr/hellhound.mdl" then
+    elseif myMDL == "models/vj_cofr/aomr/hellhound.mdl" then
         self.Hellhound_Type = 2
     end
     if self.Hellhound_Type == 1 then

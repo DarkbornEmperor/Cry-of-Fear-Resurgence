@@ -100,12 +100,12 @@ function ENT:Handcrab_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/handcrab.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/handcrab.mdl" then // Already the default
         self.Handcrab_Type = 0
-    elseif myMdl == "models/vj_cofr/aom/classic/headcrab.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/classic/headcrab.mdl" then
         self.Handcrab_Type = 1
-    elseif myMdl == "models/vj_cofr/aomr/handcrab.mdl" then
+    elseif myMDL == "models/vj_cofr/aomr/handcrab.mdl" then
         self.Handcrab_Type = 2
     end
     self:Handcrab_Init()

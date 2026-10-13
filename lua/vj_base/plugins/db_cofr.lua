@@ -290,7 +290,7 @@ util.PrecacheModel("models/vj_cofr/aom/gibs/agib_skull.mdl")
 local SNDLVL_GUNFIRE = 140
 local PITCH_RANDOM = {90,110}
 
--- Cry of Fear --
+-- Cry of Fear
 sound.Add({
     name = "VJ.CoFR_Browning.Single",
     channel = CHAN_WEAPON,
@@ -570,7 +570,7 @@ sound.Add({
     sound =
         "^vj_cofr/cof/weapons/vp70/vp70_fire.wav"
 })
--- Cry of Fear Custom Campaigns --
+-- Cry of Fear Custom Campaigns
 sound.Add({
     name = "VJ.CoFRCC_AK47.Single",
     channel = CHAN_WEAPON,
@@ -580,7 +580,7 @@ sound.Add({
     sound =
         "^vj_cofr/cofcc/weapons/ak47/shoot.wav"
 })
--- Afraid of Monsters --
+-- Afraid of Monsters
 sound.Add({
     name = "VJ.CoFRAoM_AK47.Single",
     channel = CHAN_WEAPON,
@@ -704,7 +704,7 @@ sound.Add({
         "^vj_cofr/aom/weapons/uzi/uzi_fire.wav"
 })
 
--- ConVars --
+-- ConVars
 VJ.AddConVar("VJ_COFR_Difficulty", 2, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Boss_Music", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_CoFvsAoM", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
@@ -713,6 +713,7 @@ VJ.AddConVar("VJ_COFR_BookSimon_Normal", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY)
 VJ.AddConVar("VJ_COFR_Twitcher_Invisible", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Twitcher_RandomSounds", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Addiction_SelfDamage", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_COFR_Addiction_SwitchMelee", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Mace_Damage", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Sawcrazy_RadiusDamage", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_FaceHead_SummonFaceless", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
@@ -736,7 +737,7 @@ VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_JoeBiden", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddClientConVar("VJ_COFR_SparkFX", 0, "Create GoldSrc-Style Sparks On Metal Surfaces")
 
--- Map Spawner ConVars --
+-- Map Spawner ConVars
 VJ.AddClientConVar("VJ_COFR_MapSpawner_Music", 1, "Music For Map Spawner")
 VJ.AddClientConVar("VJ_COFR_MapSpawner_Ambience", 1, "Ambience For Map Spawner")
 VJ.AddClientConVar("VJ_COFR_MapSpawner_MusicVolume", 50, "Adjust Music Volume For Map Spawner")
@@ -753,7 +754,7 @@ VJ.AddConVar("VJ_COFR_MapSpawner_HordeCooldownMax", 180, bit_bor(FCVAR_ARCHIVE, 
 VJ.AddConVar("VJ_COFR_MapSpawner_DelayMin", 0.85, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_MapSpawner_DelayMax", 3, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 
--- Main Configure Menu --
+-- Main Configure Menu
 if CLIENT then
     hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_COFR", function()
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - General", "CoFR - General", "", "", function(panel)
@@ -768,7 +769,7 @@ if CLIENT then
             end
             panel:Help("#vjbase.menu.general.admin.only")
             panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_Difficulty 2\nVJ_COFR_Boss_Music 1\nVJ_COFR_CoFvsAoM 0\nVJ_COFR_Simon_Costumes 0\nVJ_COFR_BookSimon_Normal 1\nVJ_COFR_Twitcher_Invisible 1\nVJ_COFR_Twitcher_RandomSounds 0\nVJ_COFR_Addiction_SelfDamage 1\nVJ_COFR_Mace_Damage 1\nVJ_COFR_Sawcrazy_RadiusDamage 1\nVJ_COFR_FaceHead_SummonFaceless 1\nVJ_COFR_Slower_HeadGib 1\nVJ_COFR_Suicider_Ammo 1\nVJ_COFR_Suicider_DropGlock 0\nVJ_COFR_DropAmmo 0\nVJ_COFR_Suicider_Headshot 1\nVJ_COFR_Ghost_SlowSound 1\nVJ_COFR_Flashlight 0\nVJ_COFR_Suicider_ExtraPistol 0\nVJ_COFR_Suicider_NewSound 1\nVJ_COFR_OldWepSounds 0\nVJ_COFR_Human_MeleeWep 1\nVJ_COFR_Human_WepSwitch 1\nVJ_COFR_Human_Regen 0\nVJ_COFR_Human_ReloadCover 0\nVJ_COFR_Human_ReloadRun 1\nVJ_COFR_Human_OriginalWepDamage 1\nVJ_COFR_Boss_Spawner 0\nVJ_COFR_JoeBiden 0"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_Difficulty 2\nVJ_COFR_Boss_Music 1\nVJ_COFR_CoFvsAoM 0\nVJ_COFR_Simon_Costumes 0\nVJ_COFR_BookSimon_Normal 1\nVJ_COFR_Twitcher_Invisible 1\nVJ_COFR_Twitcher_RandomSounds 0\nVJ_COFR_Addiction_SelfDamage 1\nVJ_COFR_Addiction_SwitchMelee 1\nVJ_COFR_Mace_Damage 1\nVJ_COFR_Sawcrazy_RadiusDamage 1\nVJ_COFR_FaceHead_SummonFaceless 1\nVJ_COFR_Slower_HeadGib 1\nVJ_COFR_Suicider_Ammo 1\nVJ_COFR_Suicider_DropGlock 0\nVJ_COFR_DropAmmo 0\nVJ_COFR_Suicider_Headshot 1\nVJ_COFR_Ghost_SlowSound 1\nVJ_COFR_Flashlight 0\nVJ_COFR_Suicider_ExtraPistol 0\nVJ_COFR_Suicider_NewSound 1\nVJ_COFR_OldWepSounds 0\nVJ_COFR_Human_MeleeWep 1\nVJ_COFR_Human_WepSwitch 1\nVJ_COFR_Human_Regen 0\nVJ_COFR_Human_ReloadCover 0\nVJ_COFR_Human_ReloadRun 1\nVJ_COFR_Human_OriginalWepDamage 1\nVJ_COFR_Boss_Spawner 0\nVJ_COFR_JoeBiden 0"})
 
             local difList_Text = vgui.Create("DLabel", panel)
             difList_Text:SetText("#vjbase.menu.npc.settings.gen.difficulty.header")
@@ -791,6 +792,7 @@ if CLIENT then
             panel:CheckBox("Enable Transparent/Invisible Twitchers?", "VJ_COFR_Twitcher_Invisible")
             panel:CheckBox("Enable Random Sounds For Twitchers?", "VJ_COFR_Twitcher_RandomSounds")
             panel:CheckBox("Enable Original Damage Method For The Addiction?", "VJ_COFR_Addiction_SelfDamage")
+            panel:CheckBox("Enable Melee Switching For The Addiction Randomly?", "VJ_COFR_Addiction_SwitchMelee")
             panel:CheckBox("Enable Original Damage Method For Mace?", "VJ_COFR_Mace_Damage")
             panel:CheckBox("Enable Radius Damage For Sawcrazy?", "VJ_COFR_Sawcrazy_RadiusDamage")
             panel:CheckBox("Enable The Face Summoning Faceless?", "VJ_COFR_FaceHead_SummonFaceless")
@@ -818,7 +820,7 @@ if CLIENT then
             panel:CheckBox("Enable Bosses Spawning From Spawners?", "VJ_COFR_Boss_Spawner")
             panel:CheckBox("Enable Joe Biden Mode For Carcass?", "VJ_COFR_JoeBiden")
         end)
-        -- Map Spawner Configure Menu --
+        -- Map Spawner Configure Menu
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "CoFR - Map Spawner", "CoFR - Map Spawner", "", "", function(panel)
             panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_MapSpawner_Music 1\nVJ_COFR_MapSpawner_Ambience 1\nVJ_COFR_MapSpawner_MusicVolume 50\nVJ_COFR_MapSpawner_AmbienceVolume 100"})
             panel:Help("Client-Side Options:")

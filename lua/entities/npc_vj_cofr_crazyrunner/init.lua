@@ -82,14 +82,14 @@ function ENT:CrazyRunner_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/cof/crazyrunner.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_memo.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_real_memo.mdl" or myMdl == "models/vj_cofr/cofcc/crazyrunner_tsos.mdl" or myMdl == "models/vj_cofr/cofce/crazyrunner.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/cof/crazyrunner.mdl" or myMDL == "models/vj_cofr/cofcc/crazyrunner_memo.mdl" or myMDL == "models/vj_cofr/cofcc/crazyrunner_real_memo.mdl" or myMDL == "models/vj_cofr/cofcc/crazyrunner_tsos.mdl" or myMDL == "models/vj_cofr/cofce/crazyrunner.mdl" then // Already the default
         self.CrazyRunner_Type = 0
-    elseif myMdl == "models/vj_cofr/cof/citalopram.mdl" or myMdl == "models/vj_cofr/cofce/citalopram.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/citalopram.mdl" or myMDL == "models/vj_cofr/cofce/citalopram.mdl" then
         self.CrazyRunner_Type = 1
-    elseif myMdl == "models/vj_cofr/cof/dreamerrunner.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/dreamerrunner.mdl" then
         self.CrazyRunner_Type = 2
-    elseif myMdl == "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl" then
+    elseif myMDL == "models/vj_cofr/cofcc/crazyrunner_rumpel_memo.mdl" then
         self.CrazyRunner_Type = 3
     end
     self:CrazyRunner_Init()

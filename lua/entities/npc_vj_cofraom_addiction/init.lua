@@ -25,6 +25,8 @@ ENT.RangeAttackAngleRadius = 180
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = VJ.PICK(10,15)
 ENT.DamageResponse = "OnlySearch"
+ENT.CanFlinch = true
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -129,12 +131,12 @@ function ENT:Addiction_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/addiction.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/addiction.mdl" then // Already the default
         self.Addiction_Type = 0
-    elseif myMdl == "models/vj_cofr/aom/da/addiction.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/da/addiction.mdl" then
         self.Addiction_Type = 1
-    elseif myMdl == "models/vj_cofr/aomr/addiction.mdl" then
+    elseif myMDL == "models/vj_cofr/aomr/addiction.mdl" then
         self.Addiction_Type = 2
     end
     self:Addiction_Init()
@@ -175,8 +177,10 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    ply:ChatPrint("JUMP: Switch melee")
-    ply:ChatPrint("NOTE: Switching melee will cause a 15/20 second delay until able to switch again.")
+    if GetConVar("VJ_COFR_Addiction_SwitchMelee"):GetInt() == 1 then
+        ply:ChatPrint("JUMP: Switch melee")
+        ply:ChatPrint("NOTE: Switching melee will cause a 15/20 second delay until able to switch again.")
+    end
     controlEnt.VJC_Player_DrawHUD = false
     function controlEnt:OnThink()
         self.VJCE_NPC:SetArrivalSpeed(9999)
@@ -194,19 +198,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if self.Dead then return end
-    local curTime = CurTime()
-    local ene = self.EnemyData.Target
-    local controlled = self.VJ_IsBeingControlled
-    if !self:IsBusy() && IsValid(ene) && curTime > self.Addiction_NextChangeMeleeT && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-        self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
-        self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
+    if GetConVar("VJ_COFR_Addiction_SwitchMelee"):GetInt() == 1 then
+        local curTime = CurTime()
+        local ene = self.EnemyData.Target
+        local controlled = self.VJ_IsBeingControlled
+        if !self:IsBusy() && IsValid(ene) && curTime > self.Addiction_NextChangeMeleeT && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+            self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
+            self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
+        end
     end
-    if self.Addiction_FinishedIgnited then self.Addiction_OnFire = false return end
+    if self.Addiction_FinishedIgnited && self.Addiction_OnFire then self.Addiction_OnFire = false return end
     if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then
         self.Addiction_OnFire = true
         self:FireSprite()
-        self.Addiction_FireIgnite = VJ.CreateSound(self,self.SoundTbl_FireIgnite,75,100)
-        self.Addiction_FireLoop = VJ.CreateSound(self,self.SoundTbl_FireLoop,75,100)
+        self.Addiction_FireIgnite = VJ.CreateSound(self, self.SoundTbl_FireIgnite, 75, 100)
+        self.Addiction_FireLoop = VJ.CreateSound(self, self.SoundTbl_FireLoop, 75, 100)
         timer.Create("VJ_COFR_Addiction_Fire" .. self:EntIndex(), 1, 15, function()
             if IsValid(self) && self.Addiction_OnFire then
                 /*if IsValid(ene) && ene:WaterLevel() != 3 then*/
@@ -361,6 +367,13 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         if GetConVar("VJ_COFR_Addiction_SelfDamage"):GetInt() == 0 then
             dmginfo:ScaleDamage(0.5)
         end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Execute" && GetConVar("VJ_COFR_Addiction_SwitchMelee"):GetInt() == 1 then
+        local curTime = CurTime()
+        self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

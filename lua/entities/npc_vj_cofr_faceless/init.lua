@@ -106,18 +106,18 @@ function ENT:Faceless_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/cof/faceless.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_tsos.mdl" or myMdl == "models/vj_cofr/cofcc/faceless3_tsos.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/cof/faceless.mdl" or myMDL == "models/vj_cofr/cofcc/faceless_tsos.mdl" or myMDL == "models/vj_cofr/cofcc/faceless3_tsos.mdl" then // Already the default
         self.Faceless_Type = 0
-    elseif myMdl == "models/vj_cofr/cof/faceless_crawler.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_crawler_tsos.mdl" or myMdl == "models/vj_cofr/cofce/faceless_crawler.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/faceless_crawler.mdl" or myMDL == "models/vj_cofr/cofcc/faceless_crawler_tsos.mdl" or myMDL == "models/vj_cofr/cofce/faceless_crawler.mdl" then
         self.Faceless_Type = 1
-    elseif myMdl == "models/vj_cofr/cof/faceless_faced.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_faced_tsos.mdl" or myMdl == "models/vj_cofr/cofce/faceless_faced.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/faceless_faced.mdl" or myMDL == "models/vj_cofr/cofcc/faceless_faced_tsos.mdl" or myMDL == "models/vj_cofr/cofce/faceless_faced.mdl" then
         self.Faceless_Type = 2
-    elseif myMdl == "models/vj_cofr/cof/faceless_twister.mdl" or myMdl == "models/vj_cofr/cofcc/faceless_twister_tsos.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/faceless_twister.mdl" or myMDL == "models/vj_cofr/cofcc/faceless_twister_tsos.mdl" then
         self.Faceless_Type = 3
-    elseif myMdl == "models/vj_cofr/cof/faceless_twister_valve.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/faceless_twister_valve.mdl" then
         self.Faceless_Type = 4
-    elseif myMdl == "models/vj_cofr/cofcc/faceless_reci.mdl" or myMdl == "models/vj_cofr/cofce/faceless_claw.mdl" then
+    elseif myMDL == "models/vj_cofr/cofcc/faceless_reci.mdl" or myMDL == "models/vj_cofr/cofce/faceless_claw.mdl" then
         self.Faceless_Type = 5
         self.AnimTbl_MeleeAttack = "vjseq_attack2"
     end

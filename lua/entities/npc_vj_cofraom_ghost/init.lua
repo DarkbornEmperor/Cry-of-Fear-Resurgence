@@ -109,12 +109,12 @@ function ENT:Ghost_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/ghost.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/ghost.mdl" then // Already the default
         self.Ghost_Type = 0
-    elseif myMdl == "models/vj_cofr/aom/classic/ghost.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/classic/ghost.mdl" then
         self.Ghost_Type = 1
-    elseif myMdl == "models/vj_cofr/aomr/ghost.mdl" then
+    elseif myMDL == "models/vj_cofr/aomr/ghost.mdl" then
         self.Ghost_Type = 2
     end
     self:Ghost_Init()

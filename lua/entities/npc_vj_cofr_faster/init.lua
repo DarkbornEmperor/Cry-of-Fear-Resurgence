@@ -97,13 +97,13 @@ function ENT:Faster_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/cof/faster.mdl" or myMdl == "models/vj_cofr/cofcc/faster_memo.mdl" or myMdl == "models/vj_cofr/cofce/hh/faster.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/cof/faster.mdl" or myMDL == "models/vj_cofr/cofcc/faster_memo.mdl" or myMDL == "models/vj_cofr/cofce/hh/faster.mdl" then // Already the default
         self.Faster_Type = 0
-    elseif myMdl == "models/vj_cofr/cof/faster_male.mdl" or myMdl == "models/vj_cofr/cofce/faster.mdl" or myMdl == "models/vj_cofr/cofce/faster2.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/faster_male.mdl" or myMDL == "models/vj_cofr/cofce/faster.mdl" or myMDL == "models/vj_cofr/cofce/faster2.mdl" then
         self.Faster_Type = 1
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif myMdl == "models/vj_cofr/cofcc/faster_ooi.mdl" then
+    elseif myMDL == "models/vj_cofr/cofcc/faster_ooi.mdl" then
         self.Faster_Type = 2
     end
     self:Faster_Init()

@@ -88,12 +88,12 @@ function ENT:Devourer_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/devourer.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/devourer.mdl" then // Already the default
         self.Devourer_Type = 0
-    elseif myMdl == "models/vj_cofr/aom/classic/devourer.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/classic/devourer.mdl" then
         self.Devourer_Type = 1
-    elseif myMdl == "models/vj_cofr/aomr/devourer.mdl" then
+    elseif myMDL == "models/vj_cofr/aomr/devourer.mdl" then
         self.Devourer_Type = 2
     end
     if self.Devourer_Type == 1 or self.Devourer_Type == 2 then

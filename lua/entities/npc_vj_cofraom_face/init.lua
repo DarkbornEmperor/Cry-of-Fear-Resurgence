@@ -123,12 +123,12 @@ function ENT:Face_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/face.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/face.mdl" then // Already the default
         self.Face_Type = 0
-    elseif myMdl == "models/vj_cofr/aom/classic/face.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/classic/face.mdl" then
         self.Face_Type = 1
-    elseif myMdl == "models/vj_cofr/aomr/face.mdl" then
+    elseif myMDL == "models/vj_cofr/aomr/face.mdl" then
         self.Face_Type = 2
     end
 

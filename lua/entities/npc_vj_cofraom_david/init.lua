@@ -352,8 +352,8 @@ function ENT:Simon_Init()
     if GetConVar("VJ_COFR_Simon_Costumes"):GetInt() == 1 then
         self:SetSkin(math_random(0,13))
     end
-    local myMdl = self:GetModel()
-    if self:GetSkin() == 8 && math_random(1,10) == 1 && (myMdl == "models/vj_cofr/cof/simon.mdl" or myMdl == "models/vj_cofr/cof/simon_hoodless.mdl" or myMdl == "models/vj_cofr/cof/simon_early.mdl") then
+    local myMDL = self:GetModel()
+    if self:GetSkin() == 8 && math_random(1,10) == 1 && (myMDL == "models/vj_cofr/cof/simon.mdl" or myMDL == "models/vj_cofr/cof/simon_hoodless.mdl" or myMDL == "models/vj_cofr/cof/simon_early.mdl") then
         self:PlaySoundSystem("Speech", "vj_cofr/cof/simon/hellokitty.wav")
     end
 end
@@ -515,16 +515,16 @@ function ENT:Init()
     if GetConVar("VJ_COFR_Human_Regen"):GetInt() == 1 then
         self.HealthRegenParams.Enabled = true
     end
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/aom/david.mdl" or myMdl == "models/vj_cofr/aom/da/david_custom.mdl" or myMdl == "models/vj_cofr/aom/david_dead.mdl" or myMdl == "models/vj_cofr/aom/da/david_dead.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_cross.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_question.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_scream.mdl" or myMdl == "models/vj_cofr/aom/da/assistor_two.mdl" or myMdl == "models/vj_cofr/aomr/david_dead.mdl" or myMdl == "models/vj_cofr/aomr/david.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/aom/david.mdl" or myMDL == "models/vj_cofr/aom/da/david_custom.mdl" or myMDL == "models/vj_cofr/aom/david_dead.mdl" or myMDL == "models/vj_cofr/aom/da/david_dead.mdl" or myMDL == "models/vj_cofr/aom/da/assistor_cross.mdl" or myMDL == "models/vj_cofr/aom/da/assistor_question.mdl" or myMDL == "models/vj_cofr/aom/da/assistor_scream.mdl" or myMDL == "models/vj_cofr/aom/da/assistor_two.mdl" or myMDL == "models/vj_cofr/aomr/david_dead.mdl" or myMDL == "models/vj_cofr/aomr/david.mdl" then // Already the default
         self:David_Init()
-    elseif myMdl == "models/vj_cofr/cof/simon.mdl" or myMdl == "models/vj_cofr/cof/simon_beta.mdl" or myMdl == "models/vj_cofr/cof/simon_early.mdl" or myMdl == "models/vj_cofr/cof/simon_hoodless.mdl" or myMdl == "models/vj_cofr/cofcc/roderick.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/simon.mdl" or myMDL == "models/vj_cofr/cof/simon_beta.mdl" or myMDL == "models/vj_cofr/cof/simon_early.mdl" or myMDL == "models/vj_cofr/cof/simon_hoodless.mdl" or myMDL == "models/vj_cofr/cofcc/roderick.mdl" then
         self:Simon_Init()
-    elseif myMdl == "models/vj_cofr/cof/police1.mdl" or myMdl == "models/vj_cofr/cof/police2.mdl" or myMdl == "models/vj_cofr/cof/police3.mdl" or myMdl == "models/vj_cofr/cof/police4.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/police1.mdl" or myMDL == "models/vj_cofr/cof/police2.mdl" or myMDL == "models/vj_cofr/cof/police3.mdl" or myMDL == "models/vj_cofr/cof/police4.mdl" then
         self:Police_Init()
-    elseif myMdl == "models/vj_cofr/aom/classic/david.mdl" or myMdl == "models/vj_cofr/aom/classic/david_dead.mdl" or myMdl == "models/vj_cofr/aom/classic/david_early.mdl" then
+    elseif myMDL == "models/vj_cofr/aom/classic/david.mdl" or myMDL == "models/vj_cofr/aom/classic/david_dead.mdl" or myMDL == "models/vj_cofr/aom/classic/david_early.mdl" then
         self:DavidClassic_Init()
-    elseif myMdl == "models/vj_cofr/cof/doctor_friendly.mdl" or myMdl == "models/vj_cofr/cofcc/robert.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/doctor_friendly.mdl" or myMDL == "models/vj_cofr/cofcc/robert.mdl" then
         self:Doctor_Init()
     end
 

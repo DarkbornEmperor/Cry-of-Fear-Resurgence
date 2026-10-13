@@ -123,41 +123,41 @@ function ENT:Slower_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    local myMdl = self:GetModel()
-    if myMdl == "models/vj_cofr/cof/slower1.mdl" or myMdl == "models/vj_cofr/cof/slower1_beta.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_cofr/cof/slower1.mdl" or myMDL == "models/vj_cofr/cof/slower1_beta.mdl" or myMDL == "models/vj_cofr/cofcc/slower1_pedo_hc.mdl" then // Already the default
         self.Slower_Type = 0
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif myMdl == "models/vj_cofr/cof/crawler.mdl" or myMdl == "models/vj_cofr/cof/krypandenej.mdl" or myMdl == "models/vj_cofr/cofce/crawler.mdl" or myMdl == "models/vj_cofr/cofce/crawler2.mdl" or myMdl == "models/vj_cofr/cofce/krypandenej.mdl" or myMdl == "models/vj_cofr/cofce/hh/krypandenej.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/crawler.mdl" or myMDL == "models/vj_cofr/cof/krypandenej.mdl" or myMDL == "models/vj_cofr/cofce/crawler.mdl" or myMDL == "models/vj_cofr/cofce/crawler2.mdl" or myMDL == "models/vj_cofr/cofce/krypandenej.mdl" or myMDL == "models/vj_cofr/cofce/hh/krypandenej.mdl" then
         self.Slower_Type = 1
         self.AnimTbl_MeleeAttack = "vjseq_attack"
-    elseif myMdl == "models/vj_cofr/cof/croucher.mdl" or myMdl == "models/vj_cofr/cofce/croucher.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/croucher.mdl" or myMDL == "models/vj_cofr/cofce/croucher.mdl" then
         self.Slower_Type = 2
         self.AnimTbl_MeleeAttack = "vjseq_attack1"
-    elseif myMdl == "models/vj_cofr/cof/slower3.mdl" or myMdl == "models/vj_cofr/cof/slower3_beta.mdl" or myMdl == "models/vj_cofr/cofcc/slower3_ooi.mdl" or myMdl == "models/vj_cofr/cofce/slower3.mdl" or myMdl == "models/vj_cofr/cofce/blacker.mdl" or myMdl == "models/vj_cofr/cofce/hh/slower3.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/slower3.mdl" or myMDL == "models/vj_cofr/cof/slower3_beta.mdl" or myMDL == "models/vj_cofr/cofcc/slower3_ooi.mdl" or myMDL == "models/vj_cofr/cofce/slower3.mdl" or myMDL == "models/vj_cofr/cofce/blacker.mdl" or myMDL == "models/vj_cofr/cofce/hh/slower3.mdl" then
         self.Slower_Type = 3
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack5"}
-    elseif myMdl == "models/vj_cofr/cof/slowerno.mdl" or myMdl == "models/vj_cofr/cofcc/slowerno_th.mdl" or myMdl == "models/vj_cofr/cofce/slowerno.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/slowerno.mdl" or myMDL == "models/vj_cofr/cofcc/slowerno_th.mdl" or myMDL == "models/vj_cofr/cofce/slowerno.mdl" then
         self.Slower_Type = 4
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack5"}
-    elseif myMdl == "models/vj_cofr/cof/slowerten.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/slowerten.mdl" then
         self.Slower_Type = 5
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
-    elseif myMdl == "models/vj_cofr/cof/slowerten2.mdl" or myMdl == "models/vj_cofr/cofce/slowerten2.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/slowerten2.mdl" or myMDL == "models/vj_cofr/cofce/slowerten2.mdl" then
         self.Slower_Type = 6
         self.AnimTbl_MeleeAttack = "vjseq_attack"
-    elseif myMdl == "models/vj_cofr/cof/upper.mdl" then
+    elseif myMDL == "models/vj_cofr/cof/upper.mdl" then
         self.Slower_Type = 7
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif myMdl == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_tsos.mdl" or myMdl == "models/vj_cofr/cofcc/slower1_memo.mdl" or myMdl == "models/vj_cofr/cofce/slower1.mdl" then
+    elseif myMDL == "models/vj_cofr/cofcc/slower1_cutter_hc.mdl" or myMDL == "models/vj_cofr/cofcc/slower1_tsos.mdl" or myMDL == "models/vj_cofr/cofcc/slower1_memo.mdl" or myMDL == "models/vj_cofr/cofce/slower1.mdl" then
         self.Slower_Type = 8
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3", "vjseq_attack4", "vjseq_attack5"}
-    elseif myMdl == "models/vj_cofr/cofce/slowerten.mdl" then
+    elseif myMDL == "models/vj_cofr/cofce/slowerten.mdl" then
         self.Slower_Type = 9
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2", "vjseq_attack3"}
-    elseif myMdl == "models/vj_cofr/cofcc/sicksophie.mdl" then
+    elseif myMDL == "models/vj_cofr/cofcc/sicksophie.mdl" then
         self.Slower_Type = 10
         self.AnimTbl_MeleeAttack = "vjseq_attack"
-    elseif myMdl == "models/vj_cofr/cofcc/skeleton.mdl" then
+    elseif myMDL == "models/vj_cofr/cofcc/skeleton.mdl" then
         self.Slower_Type = 10
         self.AnimTbl_MeleeAttack = {"vjseq_attack1", "vjseq_attack2"}
     end
