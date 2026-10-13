@@ -161,8 +161,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
+        local curSeq = self:GetSequence()
         local entHP = ent:Health()
-        if self:GetSequence() == self:LookupSequence("stamp") then
+        if curSeq == self:LookupSequence("stamp") then
             if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
                 self.MeleeAttackDamage = entHP + 10
             elseif ent:IsPlayer() then
@@ -171,10 +172,10 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
                 self.MeleeAttackDamage = 200
             end
         end
-        if self:GetSequence() == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
+        if curSeq == self:LookupSequence("attack") && (ent.IsVJBaseSNPC && ent.MovementType == VJ_MOVETYPE_GROUND && !ent.VJ_ID_Boss && !ent.IsVJBaseSNPC_Tank) then
             ent:StopMoving()
             ent:SetState(VJ_STATE_ONLY_ANIMATION)
-            timer.Simple(5, function()
+            timer.Create("VJ_COFR_Incap" .. ent:EntIndex(), 5, 1, function()
                 if IsValid(ent) then
                     ent:SetState()
                 end
