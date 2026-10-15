@@ -47,7 +47,7 @@ if CLIENT then
                     hook.Remove("RenderScreenspaceEffects", hookName)
                     return
                 end
-                if !ply:Alive() or (ply.VJ_IsControllingNPC && ply.VJCE_NPC == stranger) then return end
+                if !ply:Alive() or (ply.VJ_IsControllingNPC && ply:GetNPC() == stranger) then return end
                 local tab = {
                     ["$pp_colour_addr"] = 0,
                     ["$pp_colour_addg"] = 0,

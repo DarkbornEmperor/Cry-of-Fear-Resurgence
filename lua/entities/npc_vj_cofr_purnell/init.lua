@@ -130,9 +130,9 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
     controlEnt.VJC_Player_DrawHUD = false
     function controlEnt:OnThink()
-        self.VJCE_NPC:SetArrivalSpeed(9999)
-        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
-        self.VJC_BullseyeTracking = (self.VJCE_NPC:IsMoving() && self.VJC_Camera_Mode == 1) or self.VJC_Camera_Mode == 2
+        self:GetNPC():SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self:GetCameraMode() == 2
+        self.VJC_BullseyeTracking = (self:GetNPC():IsMoving() && self:GetCameraMode() == 1) or self:GetCameraMode() == 2
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
