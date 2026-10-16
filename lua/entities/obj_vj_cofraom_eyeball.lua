@@ -42,6 +42,7 @@ ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Eyeball_ChaseSpeed = 600
 ENT.Eyeball_Classic = false
+ENT.Eyeball_NextThink = 0
 
 local math_max = math.max
 local math_random = math.random
@@ -105,6 +106,8 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	local curTime = CurTime()
+	if curTime < self.Eyeball_NextThink then return end
     local phys = self:GetPhysicsObject()
     local trackedEnt = self.Track_Ent
     -- Homing Behavior
@@ -124,6 +127,7 @@ function ENT:OnThink()
             self:SetAngles(self:GetVelocity():Angle())
         end
     end
+	self.Eyeball_NextThink = curTime + 0.1
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCollision(data, phys)
