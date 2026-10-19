@@ -137,7 +137,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
-    if self.VJ_IsBeingControlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
+    if self.VJ_Controlled or self.IsGuard or self:IsBusy() or self.Flinching then return end
     local curTime = CurTime()
     if curTime > self.Doctor_NextRunT then
         timer.Simple(0.5, function()

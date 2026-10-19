@@ -123,7 +123,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled then return end
+    if self.VJ_Controlled then return end
     if math.random(1,2) == 1 then
         self:PlayAnim("angry", true, false, true)
     end

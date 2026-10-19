@@ -162,7 +162,7 @@ end
     local eneData = self.EnemyData
     local ene = eneData.Target
     if !IsValid(ene) or !eneData.Visible or self.Dead then return end
-    if self.Sewmo_Sleep && eneData.Distance < 100 && !self.VJ_IsBeingControlled or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    if self.Sewmo_Sleep && eneData.Distance < 100 && !self.VJ_Controlled or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP)) then
         self.Sewmo_Sleep = false
         self:PlayAnim(ACT_SIGNAL2, true, false, false)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)

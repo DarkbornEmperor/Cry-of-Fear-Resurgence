@@ -238,7 +238,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
-        if (math_random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
+        if (math_random(1,2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) then
             self.AnimTbl_RangeAttack = "vjseq_shoot"
             self.Screamer_HomingAttack = true
         else

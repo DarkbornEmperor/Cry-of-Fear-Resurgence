@@ -103,8 +103,8 @@ function ENT:OnThinkActive()
     if self.Dead then return end
     local curTime = CurTime()
     local ene = self.EnemyData.Target
-    local controlled = self.VJ_IsBeingControlled
-    if IsValid(ene) && curTime > self.SickSimon_NextTwisterSpawnT && !IsValid(self.twister1) && !IsValid(self.twister2) && !IsValid(self.twister3) && !IsValid(self.twister4) && !IsValid(self.twister5) && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    local controlled = self.VJ_Controlled
+    if IsValid(ene) && curTime > self.SickSimon_NextTwisterSpawnT && !IsValid(self.twister1) && !IsValid(self.twister2) && !IsValid(self.twister3) && !IsValid(self.twister4) && !IsValid(self.twister5) && ((!controlled) or (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
         local twister1 = ents.Create("npc_vj_cofr_faceless_twister")
         twister1:SetPos(self:GetPos() + self:GetRight() * 40 + self:GetUp() * 10)
         twister1:SetAngles(self:GetAngles())
@@ -170,8 +170,8 @@ end
 function ENT:OnThinkAttack(isAttacking, enemy)
     local curTime = CurTime()
     local eneData = self.EnemyData
-    local controlled = self.VJ_IsBeingControlled
-    local ply = self.VJ_TheController
+    local controlled = self.VJ_Controlled
+    local ply = self.VJ_Controller:GetPlayer()
     if !self.SickSimon_PsionicAttacking && curTime > self.SickSimon_NextPsionicAttackT && ((!controlled && eneData.Visible && eneData.Distance <= 1000) or (controlled && ply:KeyDown(IN_ATTACK2) && ply:KeyDown(IN_DUCK))) && !self:IsBusy() then
         local prop = ents.Create("prop_physics")
         prop:SetModel(VJ.PICK(propList))

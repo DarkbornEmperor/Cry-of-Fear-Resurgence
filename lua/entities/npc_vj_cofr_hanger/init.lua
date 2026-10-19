@@ -79,8 +79,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local eneData = self.EnemyData
-    local controlled = self.VJ_IsBeingControlled
-    if !self.Hanger_Jumpscare && IsValid(eneData.Target) && eneData.Visible && eneData.Distance < 60 && !controlled or (controlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local controlled = self.VJ_Controlled
+    if !self.Hanger_Jumpscare && IsValid(eneData.Target) && eneData.Visible && eneData.Distance < 60 && !controlled or (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP)) then
         self.Hanger_Jumpscare = true
         local animPick, animDur = self:PlayAnim(ACT_SIGNAL1, false, 0, false)
         if animPick != ACT_INVALID then

@@ -171,7 +171,7 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled then return end
+    if self.VJ_Controlled then return end
     local curTime = CurTime()
     self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
 end
@@ -201,8 +201,8 @@ function ENT:OnThinkActive()
     if GetConVar("VJ_COFR_Addiction_SwitchMelee"):GetInt() == 1 then
         local curTime = CurTime()
         local ene = self.EnemyData.Target
-        local controlled = self.VJ_IsBeingControlled
-        if !self:IsBusy() && IsValid(ene) && curTime > self.Addiction_NextChangeMeleeT && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+        local controlled = self.VJ_Controlled
+        if !self:IsBusy() && IsValid(ene) && curTime > self.Addiction_NextChangeMeleeT && ((!controlled) or (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
             self:PlayAnim(ACT_SMALL_FLINCH, true, false, false)
             self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
         end

@@ -82,8 +82,8 @@ end
 function ENT:OnThinkActive()
     if GetConVar("VJ_COFR_FaceHead_SummonFaceless"):GetInt() == 0 then return end
     local curTime = CurTime()
-    local controlled = self.VJ_IsBeingControlled
-    if IsValid(self.EnemyData.Target) && curTime > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    local controlled = self.VJ_Controlled
+    if IsValid(self.EnemyData.Target) && curTime > self.FaceHead_NextFacelessSpawnT && !IsValid(self.faceless1) && !IsValid(self.faceless2) && !IsValid(self.faceless3) && !IsValid(self.faceless4) && !IsValid(self.faceless5) && ((!controlled) or (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
         local faceless1 = ents.Create("npc_vj_cofr_faceless")
         faceless1:SetPos(self:GetPos() + self:GetRight() * 60 + self:GetUp() * 10)
         faceless1:SetAngles(self:GetAngles())

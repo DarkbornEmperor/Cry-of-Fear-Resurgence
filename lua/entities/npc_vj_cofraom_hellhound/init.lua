@@ -159,7 +159,7 @@ function ENT:TranslateActivity(act)
         if self.Hellhound_Sleeping then
             return ACT_CROUCHIDLE
         -- Barking
-        elseif self.Hellhound_Type == 1 && IsValid(self.EnemyData.Target) && !self.VJ_IsBeingControlled then
+        elseif self.Hellhound_Type == 1 && IsValid(self.EnemyData.Target) && !self.VJ_Controlled then
             return ACT_IDLE_ANGRY
         end
         -- Default idle
@@ -172,7 +172,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    if self.VJ_IsBeingControlled then return end
+    if self.VJ_Controlled then return end
     -- Sleep system
     local curTime = CurTime()
     if !self.Alerted && !IsValid(self.EnemyData.Target) && !self:IsMoving() && curTime > self.Hellhound_NextSleepT && !self.Hellhound_Sleeping && !self:IsBusy() then

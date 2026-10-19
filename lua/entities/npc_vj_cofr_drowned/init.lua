@@ -156,7 +156,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJC_NPC_CanTurn = self:GetCameraMode() == 2
         self.VJC_BullseyeTracking = (self:GetNPC():IsMoving() && self:GetCameraMode() == 1) or self:GetCameraMode() == 2
     end
-    local ent, class, contEnt = self, self:GetClass(), self.VJ_TheControllerEntity
+    local ent, class, contEnt = self, self:GetClass(), self.VJ_Controller
     net.Start(nwName)
         net.WriteBool(false)
         net.WriteEntity(ent)
@@ -164,7 +164,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
         net.WriteEntity(ply)
         net.WriteEntity(contEnt)
     net.Send(ply)
-    function self.VJ_TheControllerEntity:OnStopControlling()
+    function self.VJ_Controller:OnStopControlling()
         net.Start(nwName)
             net.WriteBool(true)
             net.WriteEntity(ent)
@@ -188,7 +188,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        local cont = self.VJ_TheController
+        local cont = self.VJ_Controller:GetPlayer()
         if IsValid(cont) then
             for _, v in pairs(ents.FindInSphere(enemy:GetPos(), 10)) do
                 if v != self && v != enemy && v.VJ_ID_Living then
@@ -244,8 +244,8 @@ end
 function ENT:OnThinkActive()
     if self.Dead or self.Drowned_Baby then return end
     local eneData = self.EnemyData
-    local controlled = self.VJ_IsBeingControlled
-    if !self.Drowned_Baby && IsValid(eneData.Target) && eneData.Distance < 70 && !controlled or (controlled && self.VJ_TheController:KeyDown(IN_JUMP)) then
+    local controlled = self.VJ_Controlled
+    if !self.Drowned_Baby && IsValid(eneData.Target) && eneData.Distance < 70 && !controlled or (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP)) then
         self.Drowned_Baby = true
         self.HasMeleeAttack = true
         self:PlayAnim(ACT_SIGNAL2, true, false, false)

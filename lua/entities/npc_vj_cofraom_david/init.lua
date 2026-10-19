@@ -620,7 +620,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 then return end
-    local controller = self.VJ_TheController
+    local controller = self.VJ_Controller:GetPlayer()
     if IsValid(controller) then
         local curTime = CurTime()
         if controller:KeyDown(IN_WALK) && curTime > self.Human_NextWepSwitchT && self.WeaponInventory_MeleeList then
@@ -639,8 +639,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     local curTime = CurTime()
-    local controlled = self.VJ_IsBeingControlled
-    if self.Human_CanHeal && !self:IsBusy() && self.MedicData.Status != "Healing" && self.AttackType != VJ.ATTACK_TYPE_MELEE && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && curTime > self.Human_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!controlled) or (controlled && self.VJ_TheController:KeyDown(IN_USE))) then
+    local controlled = self.VJ_Controlled
+    if self.Human_CanHeal && !self:IsBusy() && self.MedicData.Status != "Healing" && self.AttackType != VJ.ATTACK_TYPE_MELEE && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && curTime > self.Human_NextSelfHealT && (self:Health() < self:GetMaxHealth() * 0.75) && ((!controlled) or (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_USE))) then
         self:OnMedicBehavior("BeforeHeal")
         self:PlayAnim(self.AnimTbl_Medic_GiveHealth, true, false, false)
         self.IsAbleToMeleeAttack = false
@@ -671,7 +671,7 @@ function ENT:OnThinkActive()
     local eneData = self.EnemyData
     local ene = eneData.Target
     local dist = eneData.DistanceNearest
-    if IsValid(ent) && !self.VJ_IsBeingControlled then
+    if IsValid(ent) && !self.VJ_Controlled then
         local wep = self:GetActiveWeapon()
         if self.WeaponInventoryStatus == VJ.WEP_INVENTORY_MELEE then return end
         local selectType = false
@@ -762,7 +762,7 @@ function ENT:OnWeaponAttack()
         self:PlayAnim(finalAnim, "LetAttacks", false, true)
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     end
-    if self.VJ_IsBeingControlled then return end
+    if self.VJ_Controlled then return end
     if wep.IsMeleeWeapon then self.MeleeAttackAnimationFaceEnemy = false else self.MeleeAttackAnimationFaceEnemy = true end
     if self.Weapon_Strafe && !self.IsGuard && !self.IsFollowing && (wep.IsMeleeWeapon) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE && curTime > self.NextWeaponStrafeT && (curTime - self.EnemyData.TimeAcquired) > 2 then
         timer.Simple(0, function()
@@ -780,7 +780,7 @@ function ENT:OnWeaponAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponStrafe()
-    if self.VJ_IsBeingControlled then self.Human_Crouching = false return end
+    if self.VJ_Controlled then self.Human_Crouching = false return end
     if math_random(1,2) == 1 && !self.Human_Crouching then
         self.Human_Crouching = true
     else
@@ -790,7 +790,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponReload()
     local ene = self.EnemyData.Target
-    if self.IsGuard or self.VJ_IsBeingControlled or !IsValid(ene) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), ene:EyePos(), false, {SetLastHiddenTime = true }) then return end
+    if self.IsGuard or self.VJ_Controlled or !IsValid(ene) or self.Weapon_FindCoverOnReload or GetConVar("VJ_COFR_Human_ReloadRun"):GetInt() == 0 or self:DoCoverTrace(self:GetPos() + self:OBBCenter(), ene:EyePos(), false, {SetLastHiddenTime = true }) then return end
     timer.Simple(0, function()
         if IsValid(self) then
             local moveCheck = VJ.PICK(VJ.TraceDirections(self, "Quick", math_random(150,400), true, false, 8, true))

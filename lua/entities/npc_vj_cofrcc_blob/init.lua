@@ -80,7 +80,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        if enemy:OnGround() or self.VJ_IsBeingControlled then
+        if enemy:OnGround() or self.VJ_Controlled then
             local tentacle = ents.Create("sent_vj_cofrcc_tentacle")
             tentacle:SetPos(enemy:GetPos() + self:GetForward() * -35 + self:GetUp() * -40 + self:GetRight() * math_random(35,-35))
             tentacle:SetAngles(self:GetAngles())
