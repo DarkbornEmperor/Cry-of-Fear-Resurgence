@@ -51,6 +51,9 @@ ENT.SoundTbl_Impact = {
 ENT.SoundTbl_Stranger_HeartBeat =
     "vj_cofr/cof/stranger/st_hearbeat.wav"
 
+-- Custom
+ENT.Stranger_StartedScreen = false
+
 util.AddNetworkString("VJ_COFR_Stranger_Damage")
 
 local nwName = "VJ_COFR_Stranger_Controller"
@@ -139,10 +142,29 @@ function ENT:Stranger_Damage()
     net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorFlash = Color(0, 0, 0, 155)
+--
+function ENT:OnThinkActive()
+    local eneData = self.EnemyData
+    local ene = eneData.Target
+    if IsValid(ene) && ene:IsPlayer() then
+        if eneData.Distance < 500 && eneData.Visible then
+            net.Start("VJ_COFR_StrangerScreen")
+                net.WriteEntity(ene)
+            net.Send(ene)
+            if !self.Stranger_StartedScreen then
+                self.Stranger_StartedScreen = true
+                ene:ScreenFade(SCREENFADE.OUT, colorFlash, 0.35, 0.25)
+            end
+        elseif (eneData.Distance > 500 or !eneData.Visible) && self.Stranger_StartedScreen then
+            self.Stranger_StartedScreen = false
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        local cont = self.VJ_Controller:GetPlayer()
-        if IsValid(cont) then
+        if self.VJ_Controlled then
             for _, v in pairs(ents.FindInSphere(enemy:GetPos(), 10)) do
                 if v != self && v != enemy && v.VJ_ID_Living then
                         enemy = v
@@ -160,10 +182,6 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnThink()
-    self:SetNW2Entity("Enemy", self.EnemyData.Target)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     local eneData = self.EnemyData
     local ene = eneData.Target
@@ -172,10 +190,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         VJ_COFR_StaticCorpseCheck(self)
     elseif status == "DeathAnim" then
         self.DeathAnimationTime = math_rand(0.75,1.25)
-    elseif status == "Finish" && IsValid(ene) && ene:IsPlayer() && eneData.Distance < self.RangeAttackMaxDistance && eneData.Visible then
-        net.Start("VJ_COFR_Stranger_ScreenEffect")
-            net.WriteEntity(ene)
-        net.Send(ene)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

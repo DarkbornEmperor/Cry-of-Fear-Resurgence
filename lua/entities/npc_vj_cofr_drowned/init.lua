@@ -188,8 +188,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
-        local cont = self.VJ_Controller:GetPlayer()
-        if IsValid(cont) then
+        if self.VJ_Controlled then
             for _, v in pairs(ents.FindInSphere(enemy:GetPos(), 10)) do
                 if v != self && v != enemy && v.VJ_ID_Living then
                     enemy = v

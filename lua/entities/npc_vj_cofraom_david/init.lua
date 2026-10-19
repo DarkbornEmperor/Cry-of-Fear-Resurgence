@@ -620,16 +620,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     if GetConVar("VJ_COFR_Human_WepSwitch"):GetInt() == 0 then return end
-    local controller = self.VJ_Controller:GetPlayer()
-    if IsValid(controller) then
+    if self.VJ_Controlled then
         local curTime = CurTime()
-        if controller:KeyDown(IN_WALK) && curTime > self.Human_NextWepSwitchT && self.WeaponInventory_MeleeList then
+        local cont = self.VJ_Controller:GetPlayer()
+        if cont:KeyDown(IN_WALK) && curTime > self.Human_NextWepSwitchT && self.WeaponInventory_MeleeList then
             if self.Human_Type == 1 or self.Human_Type == 2 or self.Human_Type == 4 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_CoF_Cont["ContWeapons"]), true) end
             if self.Human_Type == 0 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMDC_Cont["ContWeapons"]), true) end
             if self.Human_Type == 3 then self:DoChangeWeapon(VJ.PICK(self.WeaponsList_AoMC_Cont["ContWeapons"]), true) end
             self.Human_NextWepSwitchT = curTime + 1
         end
-        /*if controller:KeyDown(IN_DUCK) && !self.Human_Crouching then
+        /*if cont:KeyDown(IN_DUCK) && !self.Human_Crouching then
             self.Human_Crouching = true
         else
             self.Human_Crouching = false

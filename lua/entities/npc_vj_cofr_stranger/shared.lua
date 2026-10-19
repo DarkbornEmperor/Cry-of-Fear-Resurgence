@@ -7,60 +7,42 @@ ENT.Category = "Cry of Fear Resurgence"
 
 ENT.VJ_COFR_NPC = true
 
-local table_insert = table.insert
----------------------------------------------------------------------------------------------------------------------------------------------
+local CurTime = CurTime
+local colorFlash = Color(0, 0, 0, 155)
+
 if CLIENT then
-    function ENT:Initialize()
-        local function GetStrangers()
-            local strangers = {}
-            for _, v in pairs(ents.FindByClass("npc_vj_cofr_stranger")) do
-                if IsValid(v) then
-                    table_insert(strangers, v)
-                end
-            end
-            return strangers
-        end
-        local hookName = "VJ_COFR_Stranger_ScreenEffect"
-        hook.Add("Think", hookName, function()
-            local strangers = GetStrangers()
-            local ply = LocalPlayer()
-            if #strangers <= 0 then
-                hook.Remove("Think", hookName)
+    net.Receive("VJ_COFR_StrangerScreen", function()
+        local ply = net.ReadEntity()
+
+        ply.VJ_COFR_StrangerScreenT = ply.VJ_COFR_StrangerScreenT or 0
+
+        local curTime = CurTime()
+        local time = 1
+        ply.VJ_COFR_StrangerScreenT = curTime + time
+
+        local hookName = "VJ_COFR_StrangerScreen_" .. ply:EntIndex()
+        hook.Add("RenderScreenspaceEffects", hookName, function()
+            curTime = CurTime()
+            if !IsValid(ply) or (IsValid(ply) && (ply:Health() <= 0 or ply.VJ_COFR_StrangerScreenT < curTime)) then
+                hook.Remove("RenderScreenspaceEffects", hookName)
+                ply:ScreenFade(SCREENFADE.IN, colorFlash, 0.35, 0.25)
                 return
             end
-            local stranger = NULL
-            local closestDist = 500
-            for _, v in pairs(strangers) do
-                local dist = v:GetPos():Distance(ply:GetPos())
-                if dist < closestDist then
-                    stranger = v
-                    closestDist = dist
-                end
-            end
-            if ply.VJ_Controlling then return end
-            if !IsValid(stranger) then return end
-            local dist = ply:GetPos():Distance(stranger:GetPos())
-            local enemy = stranger:GetNW2Entity("Enemy")
-
-            hook.Add("RenderScreenspaceEffects", hookName, function()
-                if !IsValid(ply) or (IsValid(ply) && (ply:Health() <= 0)) or GetConVar("ai_ignoreplayers"):GetInt() == 1 or GetConVar("ai_disabled"):GetInt() == 1 or !stranger:IsLineOfSightClear(ply) or !IsValid(stranger) or ply:GetPos():Distance(stranger:GetPos()) > 500 then
-                    hook.Remove("RenderScreenspaceEffects", hookName)
-                    return
-                end
-                if !ply:Alive() or (ply.VJ_Controlling && ply:GetNPC() == stranger) then return end
-                local tab = {
-                    ["$pp_colour_addr"] = 0,
-                    ["$pp_colour_addg"] = 0,
-                    ["$pp_colour_addb"] = 0,
-                    ["$pp_colour_brightness"] = -0.10,
-                    ["$pp_colour_contrast"] = 0.50,
-                    ["$pp_colour_colour"] = 0,
-                    ["$pp_colour_mulr"] = 0,
-                    ["$pp_colour_mulg"] = 0,
-                    ["$pp_colour_mulb"] = 0
-                }
-                DrawColorModify(tab)
-            end)
+            //DrawMotionBlur(0.4, 0.8, 0.01)
+            local tab = {
+                ["$pp_colour_addr"] = 0,
+                ["$pp_colour_addg"] = 0,
+                ["$pp_colour_addb"] = 0,
+                ["$pp_colour_brightness"] = -0.10,
+                ["$pp_colour_contrast"] = 0.50,
+                ["$pp_colour_colour"] = 0,
+                ["$pp_colour_mulr"] = 0,
+                ["$pp_colour_mulg"] = 0,
+                ["$pp_colour_mulb"] = 0
+            }
+            DrawColorModify(tab)
         end)
-    end
+    end)
+else
+    util.AddNetworkString("VJ_COFR_StrangerScreen")
 end
