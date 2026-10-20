@@ -175,7 +175,8 @@ end*/
 function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
         local collisionMax = self:GetCollisionBounds()
-        if self:GetBodygroup(0) == 0 then
+        local myBG = self:GetBodygroup(0)
+        if myBG == 0 then
             self.AnimTbl_MeleeAttack = "vjseq_attack1"
             self.MeleeAttackDamage = self.MeleeAttackDamage_Tongue
             self.MeleeAttackDistance = 50
@@ -184,7 +185,7 @@ function ENT:OnMeleeAttack(status, enemy)
             self.SoundTbl_MeleeAttackMiss =
                 "vj_cofr/cof/sewmo/tunga_miss.wav"
 
-        elseif self:GetBodygroup(0) == 1 or self:GetBodygroup(0) == 3 then
+        elseif myBG == 1 or myBG == 3 then
             self.AnimTbl_MeleeAttack = "vjseq_attack2"
             self.MeleeAttackDamage = self.MeleeAttackDamage_Fists
             self.MeleeAttackDistance = math_abs(collisionMax.x) + 30

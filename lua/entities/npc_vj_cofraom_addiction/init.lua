@@ -68,7 +68,7 @@ ENT.SoundTbl_Impact = {
     "vj_cofr/fx/flesh7.wav"
 }
 -- Custom
-ENT.Addiction_FinishedIgnited = false
+ENT.Addiction_FinishedIgnite = false
 ENT.Addiction_OnFire = false
 ENT.Addiction_NextChangeMeleeT = 0
 ENT.Addiction_Type = 0
@@ -207,8 +207,8 @@ function ENT:OnThinkActive()
             self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
         end
     end
-    if self.Addiction_FinishedIgnited && self.Addiction_OnFire then self.Addiction_OnFire = false return end
-    if !self.Addiction_OnFire && !self.Addiction_FinishedIgnited && self:Health() <= (self:GetMaxHealth() / 2) then
+    if self.Addiction_FinishedIgnite && self.Addiction_OnFire then self.Addiction_OnFire = false return end
+    if !self.Addiction_OnFire && !self.Addiction_FinishedIgnite && self:Health() <= (self:GetMaxHealth() / 2) then
         self.Addiction_OnFire = true
         self:FireSprite()
         self.Addiction_FireIgnite = VJ.CreateSound(self, self.SoundTbl_FireIgnite, 75, 100)
@@ -218,7 +218,7 @@ function ENT:OnThinkActive()
                 /*if IsValid(ene) && ene:WaterLevel() != 3 then*/
                     VJ.ApplyRadiusDamage(self, self, self:GetPos(), 150, 1, DMG_BURN, true, true)
                 /*end*/
-                timer.Simple(15, function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnited = true self.Addiction_FireOff = VJ.CreateSound(self,self.SoundTbl_FireOff,75,100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end)
+                timer.Simple(15, function() if IsValid(self) && self.Addiction_OnFire then self.Addiction_FinishedIgnite = true self.Addiction_FireOff = VJ.CreateSound(self, self.SoundTbl_FireOff, 75, 100) if IsValid(self.fireFX) && IsValid(self.fireLight) then self.fireFX:Remove() self.fireLight:Remove() end VJ.STOPSOUND(self.Addiction_FireLoop) end end)
             end
         end)
     end
@@ -266,12 +266,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
-        if self:GetBodygroup(0) == 0 then
+        local myBG = self:GetBodygroup(0)
+        if myBG == 0 then
             self.AnimTbl_MeleeAttack = "vjseq_attack"
             self.MeleeAttackDamage = self.MeleeAttackDamage_Hands
             self.HasMeleeAttackMissSounds = false
             self.SoundTbl_MeleeAttackExtra = sdFistsAtt
-        elseif self:GetBodygroup(0) == 1 then
+        elseif myBG == 1 then
             self.AnimTbl_MeleeAttack = "vjseq_attack_axe"
             self.MeleeAttackDamage = self.MeleeAttackDamage_Axe
             self.HasMeleeAttackMissSounds = true
@@ -350,7 +351,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                 self:PlaySoundSystem("Impact", self.SoundTbl_Impact)
 
                 local eneVictim = dmginfo:GetAttacker()
-                if IsValid(eneVictim) && eneVictim.VJ_ID_Living && eneVictim:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage.
+                if IsValid(eneVictim) && eneVictim.VJ_ID_Living && eneVictim:GetClass() != "npc_stalker" then -- For some reason GMod crashes if killing a HL2 Stalker via reflecting damage
                     eneVictim:TakeDamage(math_random(5,10), self, self)
                     VJ.DamageSpecialEnts(self, eneVictim, dmginfo)
                     self:Addiction_Damage(dmginfo)
@@ -371,7 +372,10 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
-    if status == "Execute" && GetConVar("VJ_COFR_Addiction_SwitchMelee"):GetInt() == 1 then
+    if status == "Init" then
+        -- Prevent flinching if already switching melee
+        return self:GetSequenceActivity(self:GetIdealSequence()) == ACT_BIG_FLINCH
+    elseif status == "Execute" && GetConVar("VJ_COFR_Addiction_SwitchMelee"):GetInt() == 1 then
         local curTime = CurTime()
         self.Addiction_NextChangeMeleeT = curTime + math_rand(15,20)
     end
