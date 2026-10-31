@@ -77,10 +77,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Faster_Init()
     if self.Faster_Type == 1 then
-        //self.AlertSoundPitch = 85
-        self.BeforeMeleeAttackSoundPitch = 85
-        self.PainSoundPitch = 85
-        self.DeathSoundPitch = 85
+        self.MainSoundPitch = 85
     end
     self.SoundTbl_Alert = {
         "vj_cofr/cof/faster/faster_alert1.wav",

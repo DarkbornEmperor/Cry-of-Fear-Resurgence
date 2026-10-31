@@ -290,7 +290,6 @@ function ENT:SetSledgehammerFlare()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
-    local attMuz = self:GetAttachment(self:LookupAttachment(self.BookSimon_MuzzleAttach))
     local attShell = self:GetAttachment(self:LookupAttachment(self.BookSimon_ShellAttach))
 
     local effectData = EffectData()
@@ -320,9 +319,9 @@ function ENT:FireFX()
     local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
     muzLight:SetKeyValue("distance", "120")
-    muzLight:SetPos(attMuz.Pos)
     muzLight:Fire("Color", "255 150 60")
     muzLight:SetParent(self)
+    muzLight:Fire("SetParentAttachment", self.BookSimon_MuzzleAttach)
     muzLight:Spawn()
     muzLight:Activate()
     muzLight:Fire("TurnOn")
