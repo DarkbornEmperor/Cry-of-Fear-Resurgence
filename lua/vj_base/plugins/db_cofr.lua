@@ -734,6 +734,7 @@ VJ.AddConVar("VJ_COFR_Human_ReloadCover", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY
 VJ.AddConVar("VJ_COFR_Human_ReloadRun", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Human_OriginalWepDamage", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_Boss_Spawner", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_COFR_CustomCampaign_Spawner", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_COFR_JoeBiden", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddClientConVar("VJ_COFR_SparkFX", 0, "Create GoldSrc-Style Sparks On Metal Surfaces")
 
@@ -770,7 +771,7 @@ if CLIENT then
             end
             panel:Help("#vjbase.menu.general.admin.only")
             panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_Difficulty 2\nVJ_COFR_Boss_Music 1\nVJ_COFR_CoFvsAoM 0\nVJ_COFR_Simon_Costumes 0\nVJ_COFR_BookSimon_Normal 1\nVJ_COFR_Twitcher_Invisible 1\nVJ_COFR_Twitcher_RandomSounds 0\nVJ_COFR_Addiction_SelfDamage 1\nVJ_COFR_Addiction_SwitchMelee 1\nVJ_COFR_Mace_Damage 1\nVJ_COFR_Sawcrazy_RadiusDamage 1\nVJ_COFR_FaceHead_SummonFaceless 1\nVJ_COFR_Slower_HeadGib 1\nVJ_COFR_Suicider_Ammo 1\nVJ_COFR_Suicider_DropGlock 0\nVJ_COFR_DropAmmo 0\nVJ_COFR_Suicider_Headshot 1\nVJ_COFR_Ghost_SlowSound 1\nVJ_COFR_Flashlight 0\nVJ_COFR_Suicider_ExtraPistol 0\nVJ_COFR_Suicider_NewSound 1\nVJ_COFR_OldWepSounds 0\nVJ_COFR_Human_MeleeWep 1\nVJ_COFR_Human_WepSwitch 1\nVJ_COFR_Human_Regen 0\nVJ_COFR_Human_ReloadCover 0\nVJ_COFR_Human_ReloadRun 1\nVJ_COFR_Human_OriginalWepDamage 1\nVJ_COFR_Boss_Spawner 0\nVJ_COFR_JoeBiden 0"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_COFR_Difficulty 2\nVJ_COFR_Boss_Music 1\nVJ_COFR_CoFvsAoM 0\nVJ_COFR_Simon_Costumes 0\nVJ_COFR_BookSimon_Normal 1\nVJ_COFR_Twitcher_Invisible 1\nVJ_COFR_Twitcher_RandomSounds 0\nVJ_COFR_Addiction_SelfDamage 1\nVJ_COFR_Addiction_SwitchMelee 1\nVJ_COFR_Mace_Damage 1\nVJ_COFR_Sawcrazy_RadiusDamage 1\nVJ_COFR_FaceHead_SummonFaceless 1\nVJ_COFR_Slower_HeadGib 1\nVJ_COFR_Suicider_Ammo 1\nVJ_COFR_Suicider_DropGlock 0\nVJ_COFR_DropAmmo 0\nVJ_COFR_Suicider_Headshot 1\nVJ_COFR_Ghost_SlowSound 1\nVJ_COFR_Flashlight 0\nVJ_COFR_Suicider_ExtraPistol 0\nVJ_COFR_Suicider_NewSound 1\nVJ_COFR_OldWepSounds 0\nVJ_COFR_Human_MeleeWep 1\nVJ_COFR_Human_WepSwitch 1\nVJ_COFR_Human_Regen 0\nVJ_COFR_Human_ReloadCover 0\nVJ_COFR_Human_ReloadRun 1\nVJ_COFR_Human_OriginalWepDamage 1\nVJ_COFR_Boss_Spawner 0\nVJ_COFR_CustomCampaign_Spawner 0\nVJ_COFR_JoeBiden 0"})
 
             local difList_Text = vgui.Create("DLabel", panel)
             difList_Text:SetText("#vjbase.menu.npc.settings.gen.difficulty.header")
@@ -819,6 +820,7 @@ if CLIENT then
             panel:CheckBox("Enable Original Weapon Damage For Certain Weapons?", "VJ_COFR_Human_OriginalWepDamage")
             panel:ControlHelp("Ex: AoM Deagle & Revolver")
             panel:CheckBox("Enable Bosses Spawning From Spawners?", "VJ_COFR_Boss_Spawner")
+            panel:CheckBox("Enable Custom Campaign NPCs Spawning From Spawners?", "VJ_COFR_CustomCampaign_Spawner")
             panel:CheckBox("Enable Joe Biden Mode For Carcass?", "VJ_COFR_JoeBiden")
         end)
         -- Map Spawner Configure Menu

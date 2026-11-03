@@ -515,13 +515,14 @@ function ENT:Think()
         -- Spawns AI
         if curTime > self.NextMonsterSpawnTime then
             if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster - self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
-            self:SpawnMonster(self:PickMonster((math_random(2) == 1 && GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && self.MonsterCustom) or self.Monster), self:FindSpawnPosition(false))
+            self:SpawnMonster(self:PickMonster((GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && VJ.PICK({self.MonsterCustom, self.Monster})) or self.Monster), self:FindSpawnPosition(false))
             self.NextMonsterSpawnTime = curTime + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
         end
 
         if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
             if curTime > self.NextBossMonsterSpawnTime then
-                self:SpawnBossMonster(self:PickMonster((math_random(2) == 1 && GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && self.BossCustom) or self.Boss)), self:FindSpawnPosition(true))
+                self:SpawnBossMonster(self:PickMonster((GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && VJ.PICK({self.BossCustom, self.Boss})) or self.Boss), self:FindSpawnPosition(true))
+                PrintMessage(HUD_PRINTCENTER, "Spawning Boss.")
                 self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
             end
         end
@@ -532,7 +533,7 @@ function ENT:Think()
             for i = 1, self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
-                        self:SpawnMonster(self:PickMonster((math_random(2) == 1 && GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && self.MonsterCustom) or self.Monster)), self:FindSpawnPosition(true, true), true)
+                        self:SpawnMonster(self:PickMonster((GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && VJ.PICK({self.MonsterCustom, self.Monster})) or self.Monster), self:FindSpawnPosition(true, true), true)
                     end
                 end)
             end
@@ -577,7 +578,7 @@ function ENT:GetBossCount(class)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PickMonster(tbl)
-    local useMax = tbl == self.Boss
+    local useMax = tbl == self.Boss or tbl == self.BossCustom
     local ent = false
     for _, v in RandomPairs(tbl) do
         if !useMax then
