@@ -35,7 +35,7 @@ ENT.Monster = {
     {class="npc_vj_cofraomc_ghost", chance = 20},
     {class="npc_vj_cofraomc_screamer", chance = 20}
 }
-ENT.BossMonster = {
+ENT.Boss = {
     {class="npc_vj_cofraom_addiction", max = 1},
     {class="npc_vj_cofraomda_addiction", max = 1}
 }
@@ -140,7 +140,6 @@ function ENT:Initialize()
     self.HordeSpawnRate = 0.19
     self.MaxBossMonster = 2
     self.NextAmbientSoundT = curTime + math_rand(1,60)
-    self.CanSpawnBossMonster = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckVisibility(pos, ent, mdl)
@@ -271,7 +270,7 @@ end
 function ENT:FindEnemy()
     local tbl = {}
     for _, v in pairs(ents.GetAll()) do
-        if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) then
+        if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(FL_NOTARGET) then
             if GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 0 && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_CRY_OF_FEAR") or true) or GetConVar("VJ_COFR_CoFvsAoM"):GetInt() == 1 && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_AFRAID_OF_MONSTERS") or true) then
                 table_insert(tbl, v)
             end
@@ -457,9 +456,8 @@ function ENT:Think()
         end
 
         if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
-            self.CanSpawnBossMonster = true
             if curTime > self.NextBossMonsterSpawnTime then
-                self:SpawnBossMonster(self:PickMonster(self.BossMonster), self:FindSpawnPosition(true))
+                self:SpawnBossMonster(self:PickMonster(self.Boss), self:FindSpawnPosition(true))
                 self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
             end
         end
@@ -505,8 +503,8 @@ function ENT:DoMusic(stop)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetBossCount(class)
-        local count = 0
-        for _, v in pairs(self.tbl_SpawnedBossMonster) do
+    local count = 0
+    for _, v in pairs(self.tbl_SpawnedBossMonster) do
         if IsValid(v) && v:GetClass() == class then
             count = count +1
         end
@@ -515,7 +513,7 @@ function ENT:GetBossCount(class)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PickMonster(tbl)
-    local useMax = tbl == self.BossMonster
+    local useMax = tbl == self.Boss
     local ent = false
     for _, v in RandomPairs(tbl) do
         if !useMax then
@@ -559,7 +557,7 @@ function ENT:SpawnMonster(ent, pos, isMob)
     for _, v in pairs(self.Monster) do
         table_insert(monEnt.EntitiesToNoCollide, v.class)
     end
-    for _, v in pairs(self.BossMonster) do
+    for _, v in pairs(self.Boss) do
         table_insert(monEnt.EntitiesToNoCollide, v.class)
     end
 end
@@ -580,7 +578,7 @@ function ENT:SpawnBossMonster(ent, pos)
     table_insert(self.tbl_SpawnedBossMonster, monBoss)
     monBoss.MapSpawner = self
     monBoss.EntitiesToNoCollide = {}
-    for _, v in pairs(self.BossMonster) do
+    for _, v in pairs(self.Boss) do
         table_insert(monBoss.EntitiesToNoCollide, v.class)
     end
 end

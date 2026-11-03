@@ -47,29 +47,31 @@ ENT.Monster = {
     {class = "npc_vj_cofr_faceless_twistervalve", chance = 30},
     {class = "npc_vj_cofr_taller", chance = 50},
     {class = "npc_vj_cofr_upper", chance = 60},
-    {class = "npc_vj_cofr_slowerno", chance = 60},
-    {class = "npc_vj_cofrcc_faster_clown", chance = 70},
-    {class = "npc_vj_cofrcc_crazyrumpel", chance = 70},
-    {class = "npc_vj_cofrcc_baby_ooi", chance = 70},
-    {class = "npc_vj_cofrcc_faster_ooi", chance = 70},
-    {class = "npc_vj_cofrcc_slower3_ooi", chance = 70},
-    {class = "npc_vj_cofrcc_patrick", chance = 70},
-    {class = "npc_vj_cofrcc_genome_soldier", chance = 70},
-    {class = "npc_vj_cofrcc_genome_giant", chance = 70},
-    {class = "npc_vj_cofrcc_pedoslow", chance = 70},
-    {class = "npc_vj_cofrcc_slower1_mummy", chance = 70},
-    {class = "npc_vj_cofrcc_cutter", chance = 70},
-    {class = "npc_vj_cofrcc_psycho_le", chance = 70},
-    {class = "npc_vj_cofrcc_faceless_mummy", chance = 70},
-    {class = "npc_vj_cofrcc_faceless_mummycrawl", chance = 70},
-    {class = "npc_vj_cofrcc_faceless_statue", chance = 70},
-    {class = "npc_vj_cofrcc_faceless_mummytwister", chance = 70},
-    {class = "npc_vj_cofrcc_shaimoon_statue", chance = 70},
-    {class = "npc_vj_cofrcc_sicksophie", chance = 70},
-    {class = "npc_vj_cofrcc_skeleton", chance = 70},
-    {class = "npc_vj_cofrcc_crazyrunner_mummy", chance = 70}
+    {class = "npc_vj_cofr_slowerno", chance = 60}
 }
-ENT.BossMonster = {
+ENT.MonsterCustom = {
+    {class = "npc_vj_cofrcc_faster_clown", chance = 4},
+    {class = "npc_vj_cofrcc_crazyrumpel", chance = 5},
+    {class = "npc_vj_cofrcc_baby_ooi", chance = 3},
+    {class = "npc_vj_cofrcc_faster_ooi", chance = 4},
+    {class = "npc_vj_cofrcc_slower3_ooi", chance = 4},
+    {class = "npc_vj_cofrcc_patrick", chance = 20},
+    {class = "npc_vj_cofrcc_genome_soldier", chance = 4},
+    {class = "npc_vj_cofrcc_genome_giant", chance = 50},
+    {class = "npc_vj_cofrcc_pedoslow", chance = 1},
+    {class = "npc_vj_cofrcc_slower1_mummy", chance = 1},
+    {class = "npc_vj_cofrcc_cutter", chance = 1},
+    {class = "npc_vj_cofrcc_psycho_le", chance = 20},
+    {class = "npc_vj_cofrcc_faceless_mummy", chance = 8},
+    {class = "npc_vj_cofrcc_faceless_mummycrawl", chance = 15},
+    {class = "npc_vj_cofrcc_faceless_statue", chance = 30},
+    {class = "npc_vj_cofrcc_faceless_mummytwister", chance = 30},
+    {class = "npc_vj_cofrcc_shaimoon_statue", chance = 30},
+    {class = "npc_vj_cofrcc_sicksophie", chance = 60},
+    {class = "npc_vj_cofrcc_skeleton", chance = 15},
+    {class = "npc_vj_cofrcc_crazyrunner_mummy", chance = 5}
+}
+ENT.Boss = {
     {class = "npc_vj_cofr_sawer", max = 1},
     {class = "npc_vj_cofr_sawrunner", max = 1},
     {class = "npc_vj_cofr_mace", max = 1},
@@ -81,6 +83,20 @@ ENT.BossMonster = {
     {class = "npc_vj_cofr_simonbook_mh", max = 1},
     {class = "npc_vj_cofr_purnell", max = 1},
     {class = "npc_vj_cofr_simonsick_suicider", max = 1},
+    {class = "npc_vj_cofrcc_duorunner", max = 1},
+    {class = "npc_vj_cofrcc_abomination", max = 1},
+    {class = "npc_vj_cofrcc_faceless_boss", max = 1},
+    {class = "npc_vj_cofrcc_mace_ooi", max = 1},
+    {class = "npc_vj_cofrcc_patrick_boss", max = 1},
+    {class = "npc_vj_cofrcc_craigrunner", max = 1},
+    {class = "npc_vj_cofrcc_jeffrunner", max = 1},
+    {class = "npc_vj_cofrcc_pumpa", max = 1},
+    {class = "npc_vj_cofrcc_mother", max = 1},
+    {class = "npc_vj_cofrcc_mummy", max = 1},
+    {class = "npc_vj_cofrcc_shaimoon", max = 1},
+    {class = "npc_vj_cofrcc_crocodile", max = 1}
+}
+ENT.BossCustom = {
     {class = "npc_vj_cofrcc_duorunner", max = 1},
     {class = "npc_vj_cofrcc_abomination", max = 1},
     {class = "npc_vj_cofrcc_faceless_boss", max = 1},
@@ -190,7 +206,6 @@ function ENT:Initialize()
     self.HordeSpawnRate = 0.19
     self.MaxBossMonster = 2
     self.NextAmbientSoundT = curTime + math_rand(1,60)
-    self.CanSpawnBossMonster = false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckVisibility(pos, ent, mdl)
@@ -321,7 +336,7 @@ end
 function ENT:FindEnemy()
     local tbl = {}
     for _, v in pairs(ents.GetAll()) do
-        if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_CRY_OF_FEAR") or true) then
+        if v.VJ_ID_Living && v:Health() > 0 && !v:IsFlagSet(FL_NOTARGET) && (v.VJ_NPC_Class && !VJ.HasValue(v.VJ_NPC_Class, "CLASS_CRY_OF_FEAR") or true) then
             table_insert(tbl, v)
         end
     end
@@ -500,14 +515,13 @@ function ENT:Think()
         -- Spawns AI
         if curTime > self.NextMonsterSpawnTime then
             if #self.tbl_SpawnedNPCs >= self.COFR_MaxMonster - self.COFR_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
-            self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(false))
+            self:SpawnMonster(self:PickMonster((math_random(2) == 1 && GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && self.MonsterCustom) or self.Monster), self:FindSpawnPosition(false))
             self.NextMonsterSpawnTime = curTime + math_rand(GetConVar("VJ_COFR_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_COFR_MapSpawner_DelayMax"):GetInt())
         end
 
         if GetConVar("VJ_COFR_MapSpawner_Boss"):GetInt() == 1 then
-            self.CanSpawnBossMonster = true
             if curTime > self.NextBossMonsterSpawnTime then
-                self:SpawnBossMonster(self:PickMonster(self.BossMonster), self:FindSpawnPosition(true))
+                self:SpawnBossMonster(self:PickMonster((math_random(2) == 1 && GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && self.BossCustom) or self.Boss)), self:FindSpawnPosition(true))
                 self.NextBossMonsterSpawnTime = curTime + math_random(10,20)
             end
         end
@@ -518,7 +532,7 @@ function ENT:Think()
             for i = 1, self.COFR_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
-                        self:SpawnMonster(self:PickMonster(self.Monster), self:FindSpawnPosition(true, true), true)
+                        self:SpawnMonster(self:PickMonster((math_random(2) == 1 && GetConVar("VJ_COFR_MapSpawner_CustomCampaign"):GetInt() == 1 && self.MonsterCustom) or self.Monster)), self:FindSpawnPosition(true, true), true)
                     end
                 end)
             end
@@ -553,8 +567,8 @@ function ENT:DoMusic(stop)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetBossCount(class)
-        local count = 0
-        for _, v in pairs(self.tbl_SpawnedBossMonster) do
+    local count = 0
+    for _, v in pairs(self.tbl_SpawnedBossMonster) do
         if IsValid(v) && v:GetClass() == class then
             count = count +1
         end
@@ -563,7 +577,7 @@ function ENT:GetBossCount(class)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PickMonster(tbl)
-    local useMax = tbl == self.BossMonster
+    local useMax = tbl == self.Boss
     local ent = false
     for _, v in RandomPairs(tbl) do
         if !useMax then
@@ -604,11 +618,18 @@ function ENT:SpawnMonster(ent, pos, isMob)
     monEnt.MapSpawner = self
     monEnt.EntitiesToNoCollide = {}
     monEnt.CallForHelpDistance = 250
+    local noCollide = monEnt.EntitiesToNoCollide
     for _, v in pairs(self.Monster) do
-        table_insert(monEnt.EntitiesToNoCollide, v.class)
+        table_insert(noCollide, v.class)
     end
-    for _, v in pairs(self.BossMonster) do
-        table_insert(monEnt.EntitiesToNoCollide, v.class)
+    for _, v in pairs(self.Boss) do
+        table_insert(noCollide, v.class)
+    end
+    for _, v in pairs(self.MonsterCustom) do
+        table_insert(noCollide, v.class)
+    end
+    for _, v in pairs(self.BossCustom) do
+        table_insert(noCollide, v.class)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -628,8 +649,12 @@ function ENT:SpawnBossMonster(ent, pos)
     table_insert(self.tbl_SpawnedBossMonster, monBoss)
     monBoss.MapSpawner = self
     monBoss.EntitiesToNoCollide = {}
-    for _, v in pairs(self.BossMonster) do
-        table_insert(monBoss.EntitiesToNoCollide, v.class)
+    local noCollide = monBoss.EntitiesToNoCollide
+    for _, v in pairs(self.Boss) do
+        table_insert(noCollide, v.class)
+    end
+    for _, v in pairs(self.BossCustom) do
+        table_insert(noCollide, v.class)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
